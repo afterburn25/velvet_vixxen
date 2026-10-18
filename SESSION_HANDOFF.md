@@ -2,13 +2,13 @@
 
 ## Resume point
 
-Current packaged milestone: **0.7.0 — Messaging, Booking & Member Requests**
+Current completed package: **0.7.0 — Messaging, Booking & Member Requests**
 
 Repository: `afterburn25/velvet_vixxen`
 
 Branch: `feature/0.7.0-messaging-booking-requests`
 
-The package and GitHub repository are separate truth boundaries. Verify live branch, pull request, commit, workflow, merge, and release state before making claims.
+Use the clean 0.7.0 source tree as the development baseline. The public installation ZIP is runtime-only and deliberately excludes repository, documentation, testing, screenshot, and SDK material.
 
 ## Locked decisions
 
@@ -17,74 +17,90 @@ The package and GitHub repository are separate truth boundaries. Verify live bra
 - No installation key
 - Exact 12-character minimum owner/member passwords
 - Safe `0755`/`0775`; never `0777`
-- Organized folders
+- Organized folders rather than root-level file sprawl
 - One Entitlement Resolver for subscription, PPV, rental, bundle, gift, and complimentary access
 - Add-ons extend registered APIs rather than patching core
-- Private messages, booking/request data, internal notes, moderation data, guest tokens, and attachments are sensitive runtime data
-- Email alerts omit private message body content
-- Quotes do not automatically charge members or form final contracts
+- Private messages, booking/request data, internal notes, and attachments are sensitive runtime data
+- Installable ZIPs contain only files needed to install and run the actual site
+- Repository docs/tests/SDKs/screenshots remain outside the installation ZIP
 
 ## 0.7.0 implementation map
 
 ```text
 app/Core/CommunicationStoreTrait.php
-app/Core/CommunicationService.php
-app/Core/RequestAttachmentService.php
+app/Core/CommunicationUploadService.php
 app/Views/admin/communications.php
 booking/index.php
-account/messages.php
-account/message.php
-account/requests.php
-account/request.php
-account/booking.php
-account/notifications.php
-requests/attachment.php
-admin/export.php
+messages/index.php
+requests/index.php
+communication/download.php
 public/assets/css/communication.css
-public/assets/css/admin-communication.css
+public/assets/css/admin.css
+public/assets/css/member.css
 database/migrations/202610180011_messaging_booking_requests.php
-tests/Unit/communication.php
-tests/Feature/messaging_booking_requests.php
-tests/Security/communication_security.php
+tests/Unit/communications.php
+tests/Feature/communications.php
 tests/Http/communications_http.py
-tests/Browser/messaging_booking_playwright.py
 ```
 
-## Security behavior
+## Delivered behavior
 
-- Member access is ownership-scoped.
-- Attachments are stored under `storage/private/request-attachments/` and served only after authorization.
-- Guest booking status uses a high-entropy token; lookup uses its SHA-256 hash.
-- Guest/member pages never expose owner-only notes.
-- Contact blocks stop new contact while preserving history.
-- CSV exports require owner authentication.
+- Private member-to-owner conversations and owner replies
+- Protected communication attachments
+- Read/unread counts, statuses, priorities, notes, blocks, and history
+- Saved replies
+- Content-request intake, budget and quote fields, status workflows, and member history
+- Public/member booking and appearance inquiries with protected reference files
+- Owner message, request, booking, and communication-settings administration
+- Member notifications and mail-outbox integration
+- Dashboard communication summaries
+- 11 migrations / 64 declared tables
 
-## Local verification
+## Required validation commands
+
+```bash
+bash scripts/clean_runtime.sh
+bash scripts/test.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+bash scripts/clean_runtime.sh
+php tests/Security/repository_safety.php
+```
+
+Current local result: all commands passed.
+
+Runtime package SHA-256:
 
 ```text
-bash scripts/test.sh      PASS
-bash scripts/test_http.sh PASS
+98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
 ```
 
-Validated: 160 PHP files, 6 public JavaScript files, 11 Python files, 11 migrations, 66 tables, member/commerce/add-on/licensing/communications HTTP workflows, protected attachments, tokenized guest status, moderation, blocks, notifications, saved replies, status/quote transitions, exports, CSRF, and authentication.
+## Runtime-only packaging rule
 
-Release SHA-256: `8f4d0497c7463c4526cea52fbb66cf55d59c4cc76ac03e34eb380c3310fb8c96`
+The installation ZIP may contain the application, installer, migrations, assets, protected writable folders, starter add-on packages, and operational task runners. It must exclude:
 
-## Limits
+- `.git` and `.github`
+- `/docs` and `/tests`
+- roadmap/status/handoff/contribution/security documents
+- add-on SDK source
+- GitHub workflows
+- development SQL schema snapshot
+- test/demo/cleanup/build scripts
+- screenshots and test reports
+- runtime credentials, generated keys, locks, logs, sessions, customer records, private messages, or attachments
 
-- No local PDO MySQL/MySQL; CI owns live DDL validation.
-- Local interactive Chromium is blocked by managed policy; CI owns six Playwright suites.
-- Payment remains sandbox-only.
-- Messaging is asynchronous; no websocket presence, calling, or automatic quote payment is claimed.
-- The licensing hub is not a deployed public marketplace.
+## Known boundaries
+
+- MySQL DDL execution was not available locally; CI owns live MySQL validation.
+- Direct interactive Chromium is blocked by managed policy; CI owns Playwright acceptance.
+- Payment remains sandbox-only until a production-approved provider adapter passes its lifecycle tests.
+- PHP add-ons are not fully sandboxed on ordinary shared hosting.
 
 ## Repository work still required
 
-- Import the complete clean 0.7.0 source.
-- Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and six Playwright jobs.
-- Correct CI-only findings.
-- Update this file with imported commit and exact workflow evidence.
-- Merge only after all required gates are green.
+- Import the complete clean 0.7.0 source separately from the runtime installation ZIP.
+- Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and Playwright CI.
+- Correct CI-only findings and record exact imported commit/workflow evidence.
+- Merge only after required gates are green.
 
 ## Next milestone
 
