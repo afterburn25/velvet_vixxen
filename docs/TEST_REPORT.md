@@ -1,112 +1,88 @@
-# Test Report — 0.7.3 Installer Verification & Simplified Setup
+# Test Report — 0.7.4 Visual Composer Direct Manipulation & Asset Repair
 
-## Reported failure reproduced at the verification boundary
+## Release
 
-The affected shared-hosting installation reached the last setup stage and returned:
+Runtime package: `Nikki-Wilder-Velvet-Vixxen-0.7.4.zip`
+
+SHA-256:
 
 ```text
-Installation stopped and attempted to roll back safely:
-Final configuration verification failed.
+860447db31eba4dfb6ee7acd686021cb63eac17d3fd161b1881160e4676c77e3
 ```
 
-The final verifier previously rewrote `config/app.php` and immediately loaded the same fixed path. A stale PHP OPcache/realpath entry could return the earlier uninstalled configuration during the same request, especially after ownership-safe replacement of the parent `/config` directory.
+## Visual Composer browser verification
 
-## Implemented correction
-
-- Atomic configuration activation now invalidates PHP stat and OPcache entries.
-- The exact on-disk file bytes are read back and SHA-256 checked.
-- The activated bytes are loaded through a unique protected temporary verification path and removed immediately.
-- The loaded settings array must exactly equal the requested settings.
-- Final verification independently checks installed state, release version, installation ID, base URL, generated security keys, database reconnection, seeded site settings, and install lock.
-- Failure messages identify the mismatched component.
-
-## Simplified installer acceptance
-
-The visible installer now contains only:
-
-1. Database
-2. Owner and Website
-3. Install
-
-Technical server and directory diagnostics remain available in a collapsed section. Successful low-level probes are summarized; warnings and failures remain visible. Email delivery defaults to Configure Later, while support and sender email default to the owner email.
-
-## Runtime syntax and package checks
-
-Results:
-
-- PHP syntax: **113 runtime files passed**
-- Public JavaScript syntax: **6 files passed**
-- Database migrations: **11**
-- Declared application tables: **64**
-- Runtime package files: **186**
-- ZIP integrity: **passed**
-- Runtime-only exclusion rules: **passed**
-- Clean/uninstalled configuration: **passed**
-- No generated credentials, keys, install lock, logs, sessions, customer records, or private communications: **passed**
-- No mode `0777`: **passed**
-
-## Installer HTTP checks
-
-A clean extracted runtime package was served through PHP.
+The Visual Composer was exercised in headless Chromium using the actual rendered administration shell, the release CSS/JavaScript, and bundled site imagery.
 
 Verified:
 
-- Installer returned HTTP 200.
-- Simplified quick-setup page rendered.
-- Database, Owner and Website, and Install sections were present.
-- Technical details were collapsed.
-- The former visible Email Delivery section was absent.
-- AJAX requirement recheck returned valid JSON.
-- Owner/support/sender default handling accepted `red.pixie93@gmail.com`.
+- Media Tray images loaded successfully.
+- Non-image media records were excluded from the layer tray.
+- A photo was added from the tray and dragged directly on the canvas.
+- A corner resize handle enlarged the photo directly.
+- Numeric widths of `0.5%` and `300%` were applied successfully.
+- The live text-and-buttons box was dragged and resized directly.
+- Background Pan mode changed the room focal point.
+- No console or page-script errors occurred.
 
-## OPcache and parent-directory replacement regression
-
-The final-config test ran with CLI OPcache enabled and timestamp validation disabled. It preloaded an old configuration, replaced the parent `/config` directory to model shared-hosting ownership repair, wrote the final installed configuration, and immediately loaded it through the new verifier.
-
-Result:
+Recorded interaction values:
 
 ```text
-CONFIG_DIRECTORY_SWAP_OK
+Media cards rendered: 9
+Broken Media Tray images: 0
+Photo moved: x 72.0 → 90.0, y 50.0 → 82.7
+Direct-handle resize: width 20.0% → 102.7%
+Smallest tested width: 0.5%
+Largest tested width: 300.0%
+Content box moved: x 6.0 → 21.1, y 17.0 → 37.0
+Content box resized: 28 × 28 → 47.3 × 63
+Background focal X moved: 50 → 29
+Browser errors: 0
 ```
 
-Verified values included:
+## Asset-path verification
 
-- `installed=true`
-- `version=0.7.3`
-- expected installation ID
-- expected base URL
-- non-empty generated security keys
+Verified path behavior:
 
-## Shared-hosting ownership simulation
+- Bundled `images/defaults/...` files resolve from the site root.
+- Uploaded `images/demo/...` files resolve under `/uploads/images/demo/`.
+- Model, media, thumbnail, export, audio, video, and caption paths resolve beneath `/uploads/`.
+- HTTP, data, and blob URLs remain supported.
+- Missing assets receive a safe placeholder/status rather than a permanent broken-image icon.
 
-The existing runtime folders were owned by one user with mode `0755`. PHP was executed as another user and allowed to write only in the site root.
-
-The installer automatically replaced affected panel-owned runtime folders with PHP-owned copies, preserved contents, recreated missing subdirectories, and reran real write/rename/read/delete probes.
-
-Result:
+Live-site test result:
 
 ```text
-Runtime directories checked: 75
-Required file failures: 0
-Installer ready: true
+Hero content box: left 20%, top 10%, width 55%, height 60%
+Uploaded image URL: /uploads/images/demo/gallery-1.jpg
+Bundled background URL: /images/defaults/hero-pink-room.jpg
+JavaScript errors: 0
 ```
 
-No `0777` permissions were used.
+## Runtime package verification
 
-## Database boundary
+The final ZIP was extracted into a separate clean directory and retested.
 
-Local PDO MySQL and a MySQL/MariaDB server were unavailable. Live DDL execution is therefore not claimed locally. GitHub CI remains responsible for applying all 11 migrations, verifying 64 tables, rolling back, and confirming that the disposable database is empty.
+Passed:
 
-## Browser boundary
+- ZIP integrity
+- SHA-256 verification
+- 186 runtime files
+- 113 PHP runtime syntax checks
+- 6 public JavaScript syntax checks
+- Clean uninstalled configuration
+- Runtime-only exclusion policy
+- No world-writable files or directories
+- No residual `0.7.3` version references
+- Extracted-package Visual Composer interaction suite
+- Extracted-package live content-box and asset-resolution suite
 
-Interactive Playwright remains CI-owned. The simplified installer’s server-rendered HTML and AJAX behavior passed local HTTP checks.
+## Environmental boundary
 
-## Release checksum
+Direct localhost navigation is restricted by a managed Chromium policy in the packaging environment. The interaction suite used Chromium with the actual fetched administration HTML and exact extracted release assets injected into the page. Pointer movement, resize handles, layout controls, image loading, content placement, and JavaScript errors were still exercised in a real browser engine.
 
-```text
-202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0
-```
+Local PDO MySQL/MySQL remains unavailable; live migration execution remains CI-owned. Database migrations and declared table count are unchanged from 0.7.3.
 
 ## Result
 
-**PASS — the 0.7.3 runtime package passed all available local installer, cache-regression, shared-hosting ownership, syntax, integrity, exclusion, and security checks.**
+**PASS — 0.7.4 resolves the reported broken-image problem and provides direct photo drag, very small/large resize, movable button-area layout, and background positioning in the Visual Composer.**
