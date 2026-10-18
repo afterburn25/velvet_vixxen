@@ -1,61 +1,100 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
-## Current application build
+## Current packaged release
 
-**0.3.0 — Media Center** has been implemented, packaged, and locally verified in the active development session.
+**0.5.0 — Subscriptions & PPV Commerce**
 
-The executable 0.3.0 source has **not yet been imported into this GitHub repository**. That remaining repository task is tracked by issue #1. Until the import commit lands and its full CI matrix passes, do not describe the GitHub branch itself as the complete 0.3.0 source release.
+A clean, installable 0.5.0 package has been built and locally verified. It combines the approved design, Visual Composer, Canva workflow, Media Center, member accounts, unified entitlements, subscriptions, PPV photo galleries, PPV videos, rentals, bundles, coupons, receipts, refunds, signed webhooks, and commerce administration.
 
-## Implemented in the packaged 0.3.0 build
+## Repository truth boundary
 
-- Approved responsive neon-pink public design
-- Hero and Footer Visual Composer with desktop/tablet/mobile arrangements
-- Canva template and import workflow
-- Owner authentication and administration foundation
-- Single-page browser installer
-- No installation key and exact 12-character minimum owner password
-- Real filesystem probes, safe permission handling, versioned migrations, installation lock, and `/install` cleanup
-- Organized folders including `/admin`, `/app`, `/database`, `/docs`, `/images`, `/includes`, `/install`, `/public`, `/storage`, `/templates`, `/tests`, and `/uploads`
-- Public Music, Photos, Gallery, Videos, and Video Watch routes
-- Persistent audio player with queue, seek, volume, shuffle, repeat, remembered state, and Media Session metadata
-- Photo-gallery administration, ordering, previews, scheduling, and full-screen keyboard/zoom/mobile-swipe viewer
-- Video poster, trailer, protected full media, captions, scheduling, player, and Continue Watching state
-- Signed expiring protected-media delivery
-- Homepage featured tracks, galleries, and video
-- Six migrations declaring 34 application tables
+The GitHub repository is the communication and testing hub, but the complete executable 0.5.0 source tree is **not yet imported**. Therefore:
 
-## Verified local testing
+- `main` remains the last-known-good documentation branch, not the 0.5.0 executable release.
+- `feature/0.5.0-subscriptions-ppv-commerce` is the prepared delivery branch.
+- Issue #1 tracks complete source import and full CI activation.
+- Issue #5 tracks the 0.5.0 delivery and release gates.
+- Do not claim GitHub CI, MySQL integration, Playwright acceptance, a pull-request merge, or a live payment processor without direct evidence.
 
-- 60 PHP files pass syntax validation
+## Completed in the tested package
+
+### Design, media, and editing
+
+- Approved responsive neon-pink visual direction
+- Hero and visual Footer layered composer with desktop/tablet/mobile arrangements
+- Canva-compatible template/import workflow
+- Music, photo-gallery, and video Media Center
+- Persistent audio player, gallery viewer, video player, scheduling, protected delivery, and media administration
+
+### One-page installer
+
+- All setup on one responsive browser page
+- No installation key
+- Exact 12-character owner-password minimum
+- Real write/read/rename/delete filesystem probes
+- Safe `0755`/`0775` permission attempts; no `chmod 0777`
+- Eight migrations declaring 44 application tables
+- Installation lock, boot verification, and `/install` cleanup or secure retirement
+- Organized application folders rather than root-level file sprawl
+
+### Members and entitlements
+
+- Registration, verification, login, recovery, reset, lockout, and device sessions
+- Member dashboard, My Library, Favorites, playback history, profile/security settings, and device management
+- Membership plans and plan-content rules
+- Unified resolver for public, registered, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access
+- Server-backed favorites, progress, completion, recently viewed state, and view count
+
+### 0.5.0 commerce
+
+- Store, cart, checkout, success, receipt, and member billing pages
+- Versioned payment-provider contract and working sandbox adapter
+- Monthly/annual subscription checkout
+- PPV photo galleries and PPV videos
+- Time-limited rentals
+- Subscriber prices and plan PPV discounts
+- Photo/video bundles
+- Coupons with scope, dates, thresholds, total-use, and per-member limits
+- Configurable currency, tax percentage, store state, and receipt footer
+- Orders, line items, transactions, idempotency, receipt mail queue, and billing history
+- Automatic subscription and entitlement fulfillment
+- Full refunds with order-created access revocation
+- Signed replay-safe paid/refund/chargeback webhooks
+- Cancel-at-period-end and resume-renewal controls
+- Sandbox renewal processing and safe non-sandbox deferral to provider webhooks
+- Commerce, Orders, Coupons, Bundles, Payment Settings, and Refund administration
+
+## Verified local evidence
+
+- 101 PHP files pass syntax validation
 - 6 public JavaScript files pass syntax validation
-- Smoke, installer, single-page installer, migration manifest, Media Center, protected-media, organized-folder, and repository-safety tests pass
-- Real Chromium acceptance passes desktop/mobile Home, Music, Photos, Gallery, Videos, owner login, and actual Track/Gallery/Video save flows
-- The clean release package contains no installed lock, database credentials, signing keys, sessions, logs, or runtime customer data
+- 5 Python test files pass syntax validation
+- Clean non-database source suite passes
+- Installed-demo member and commerce HTTP acceptance passes
+- Migration manifest passes with 8 migrations and 44 declared tables
+- Media, member, entitlement, commerce, protected-media, member-security, payment-webhook, structure, and repository-safety tests pass
+- Release ZIP was extracted to a separate directory and retested successfully
+- Packaged configuration is uninstalled and contains no generated keys, install lock, database credentials, sessions, logs, or runtime customer data
 
-The local packaging environment does not provide PDO MySQL or a MySQL/MariaDB server, so live DDL execution was not claimed there. The source contains a disposable MySQL 8 apply/verify/rollback test for CI once source import is complete.
+## Environmental limits
 
-## Repository communication hub
+- Local MySQL/MariaDB and PDO MySQL were unavailable, so live DDL execution is not claimed. The repository contains a disposable MySQL 8 apply/verify/rollback test for CI after source import.
+- Local interactive Chromium navigation returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Playwright suites are configured for CI.
+- 0.5.0 screenshots are static render snapshots fetched from the running local application and rendered with Chromium `page.set_content()`; they document real visual output but do not replace interactive browser acceptance.
 
-- Repository: `afterburn25/velvet_vixxen`
-- Last-known-good documentation branch: `main`
-- Prepared implementation branch: `feature/0.3.0-media-center`
-- Source import task: issue #1
-- Media Center tracking: issue #2
-- Release test-gate tracking: issue #3
-- Repository contract CI: passing on `main`
+## Payment boundary
 
-## Features still planned after source import
+The included gateway is sandbox-only. No live processor connection, merchant approval, production credentials, hosted checkout, or live payment pass is claimed. A live adapter must use hosted/tokenized collection and pass processor-specific lifecycle tests.
 
-- Member registration, verification, recovery, and customer dashboard
-- Membership tiers and unified entitlements
-- Recurring subscriptions
-- PPV photo-gallery and PPV-video checkout and rentals
-- Payment-provider adapters, webhooks, refunds, and chargebacks
-- Add-on ZIP manager, commercial licensing, and marketplace
-- Messaging, booking workflow, marketing automation, and compliance vault
+## Current next actions
 
-## Next release target
+1. Import the complete clean 0.5.0 source into the prepared feature branch.
+2. Run PHP 8.2/8.3, MySQL 8, HTTP, and Playwright CI.
+3. Review and merge only after all required checks are green.
+4. Begin `0.6.0 — Add-on Framework` after the source-of-truth import is complete.
 
-**0.4.0 — Members & Entitlements**, after issue #1 is completed and the imported 0.3.0 source passes GitHub CI.
+## Next milestone
 
-This repository is public. Production credentials, identity documents, private customer information, payment secrets, private messages, runtime logs, and private or paid media must never be committed.
+**0.6.0 — Add-on Framework**
+
+Planned scope: validated ZIP packages, manifests, permissions, dependencies, hooks/events, routes, migrations, install/activate/deactivate/update/uninstall, pre-change backups, safe mode, rollback, and developer SDK foundations.
