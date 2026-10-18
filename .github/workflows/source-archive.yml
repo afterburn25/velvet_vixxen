@@ -1,0 +1,34 @@
+name: Source Archive CI
+
+on:
+  push:
+    branches: [main, 'feature/**']
+    paths:
+      - 'source/**'
+      - 'scripts/test-source-archive.sh'
+      - '.github/workflows/source-archive.yml'
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-source-archive:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Extract and test source archive
+        run: bash scripts/test-source-archive.sh
