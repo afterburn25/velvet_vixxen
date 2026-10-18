@@ -1,109 +1,76 @@
-# Session Handoff — Velvet Vixxen 0.7.0
+# Session Handoff — Velvet Vixxen 0.7.3
 
 ## Resume point
 
-Current completed package: **0.7.0 — Messaging, Booking & Member Requests**
+Current runtime package: **0.7.3 — Installer Verification & Simplified Setup Hotfix**
 
 Repository: `afterburn25/velvet_vixxen`
 
-Branch: `feature/0.7.0-messaging-booking-requests`
-
-Use the clean 0.7.0 source tree as the development baseline. The public installation ZIP is runtime-only and deliberately excludes repository, documentation, testing, screenshot, and SDK material.
-
-## Locked decisions
-
-- Approved neon-pink design; no new mockups unless explicitly requested
-- Single responsive browser installer page
-- No installation key
-- Exact 12-character minimum owner/member passwords
-- Safe `0755`/`0775`; never `0777`
-- Organized folders rather than root-level file sprawl
-- One Entitlement Resolver for subscription, PPV, rental, bundle, gift, and complimentary access
-- Add-ons extend registered APIs rather than patching core
-- Private messages, booking/request data, internal notes, and attachments are sensitive runtime data
-- Installable ZIPs contain only files needed to install and run the actual site
-- Repository docs/tests/SDKs/screenshots remain outside the installation ZIP
-
-## 0.7.0 implementation map
-
-```text
-app/Core/CommunicationStoreTrait.php
-app/Core/CommunicationUploadService.php
-app/Views/admin/communications.php
-booking/index.php
-messages/index.php
-requests/index.php
-communication/download.php
-public/assets/css/communication.css
-public/assets/css/admin.css
-public/assets/css/member.css
-database/migrations/202610180011_messaging_booking_requests.php
-tests/Unit/communications.php
-tests/Feature/communications.php
-tests/Http/communications_http.py
-```
-
-## Delivered behavior
-
-- Private member-to-owner conversations and owner replies
-- Protected communication attachments
-- Read/unread counts, statuses, priorities, notes, blocks, and history
-- Saved replies
-- Content-request intake, budget and quote fields, status workflows, and member history
-- Public/member booking and appearance inquiries with protected reference files
-- Owner message, request, booking, and communication-settings administration
-- Member notifications and mail-outbox integration
-- Dashboard communication summaries
-- 11 migrations / 64 declared tables
-
-## Required validation commands
-
-```bash
-bash scripts/clean_runtime.sh
-bash scripts/test.sh
-VELVET_TEST_PORT=8766 bash scripts/test_http.sh
-bash scripts/clean_runtime.sh
-php tests/Security/repository_safety.php
-```
-
-Current local result: all commands passed.
+Branch: `fix/0.7.3-installer-verification`
 
 Runtime package SHA-256:
 
 ```text
-98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
+202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0
 ```
 
-## Runtime-only packaging rule
+The customer ZIP remains runtime-only. Engineering documents, tests, SDK source, screenshots, and GitHub files are not included in it.
 
-The installation ZIP may contain the application, installer, migrations, assets, protected writable folders, starter add-on packages, and operational task runners. It must exclude:
+## Reported production failure
 
-- `.git` and `.github`
-- `/docs` and `/tests`
-- roadmap/status/handoff/contribution/security documents
-- add-on SDK source
-- GitHub workflows
-- development SQL schema snapshot
-- test/demo/cleanup/build scripts
-- screenshots and test reports
-- runtime credentials, generated keys, locks, logs, sessions, customer records, private messages, or attachments
+The shared-hosting installation reached the last stage and returned:
 
-## Known boundaries
+```text
+Installation stopped and attempted to roll back safely:
+Final configuration verification failed.
+```
 
-- MySQL DDL execution was not available locally; CI owns live MySQL validation.
-- Direct interactive Chromium is blocked by managed policy; CI owns Playwright acceptance.
-- Payment remains sandbox-only until a production-approved provider adapter passes its lifecycle tests.
-- PHP add-ons are not fully sandboxed on ordinary shared hosting.
+The prior verifier rewrote `config/app.php` and immediately required the same fixed path. Shared-hosting OPcache/realpath state can return the earlier uninstalled configuration during the same request, especially after the ownership-safe `/config` directory replacement.
 
-## Repository work still required
+## 0.7.3 implementation
 
-- Import the complete clean 0.7.0 source separately from the runtime installation ZIP.
-- Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and Playwright CI.
-- Correct CI-only findings and record exact imported commit/workflow evidence.
-- Merge only after required gates are green.
+- `App\Core\Config::write()` now checks the exact on-disk payload digest.
+- PHP stat and OPcache entries are invalidated after atomic activation.
+- `Config::loadFresh()` loads the exact bytes through a unique protected temporary path and deletes it immediately.
+- The loaded settings array must exactly match the requested values.
+- Final verification independently checks installed state, version, installation ID, base URL, generated security keys, database connection, seeded site settings, and install lock.
+- Error messages identify the failed component.
+- The installer UI is reduced to three visible sections: Database, Owner and Website, and Install.
+- Technical server/folder details are collapsed and display only issues.
+- Support/sender email defaults to owner email; outgoing mail is Configure Later.
+- Currency/time-zone/age-gate defaults remain editable after installation.
 
-## Next milestone
+## Preserved locked decisions
 
-**0.8.0 — Marketing, Publishing & Analytics**
+- No installation key.
+- 12-character minimum owner/member passwords.
+- Safe `0755`/`0775`; never `0777`.
+- Automatic ownership-safe runtime-folder repair.
+- Organized runtime-only ZIP.
+- Versioned migrations and rollback attempts.
+- Installation lock and `/install` retirement.
 
-Do not merge documentation-only work as though it contains the executable source.
+## Local verification
+
+- 113 PHP runtime files: syntax passed
+- 6 public JavaScript files: syntax passed
+- 11 migrations / 64 tables: manifest unchanged
+- Simplified installer HTTP render: passed
+- AJAX requirement recheck: passed
+- Config write/read under OPcache with timestamp validation disabled: passed
+- Config parent-directory replacement simulation: passed
+- Ownership mismatch simulation: 75 directories, 0 failures, ready
+- ZIP integrity, clean state, runtime exclusions, and checksum: passed
+
+## Limits
+
+- PDO MySQL/MySQL unavailable locally; live DDL execution remains CI-owned.
+- Interactive Playwright remains CI-owned.
+- Payment remains sandbox-only.
+
+## Next work
+
+1. Confirm 0.7.3 on the affected host.
+2. Import complete engineering source separately from the runtime ZIP.
+3. Run full PHP/MySQL/HTTP/Playwright CI.
+4. Continue **0.8.0 — Marketing, Publishing & Analytics**.
