@@ -43,13 +43,17 @@ Status is based on verified implementation and test evidence, not intention.
 ### 0.7.0 — Messaging, Booking & Member Requests
 
 - Private member-to-owner conversations
-- Read/unread state, priorities, close/reopen/archive, attachments, and history
-- Content requests with categories, custom questions, budgets, due dates, quotes, statuses, acceptance/cancellation, and owner notes
-- Public/member booking inquiries with guest status links, dates, locations, quotes, confirmation/cancellation, and history
-- Protected request attachments and authorization-aware delivery
-- Saved replies, notifications, unread badges, contact blocks, moderation reports, and internal notes
-- Admin queues, filters, category/reply management, and CSV exports
-- Eleventh migration / 66 declared tables
+- Protected message and request attachments
+- Read/unread state, priority, status, internal notes, and activity history
+- Saved owner reply templates
+- Content requests with category, details, budget range, requested due date, quote, status, and owner/member replies
+- Public and member booking/appearance inquiries with requested dates, city, venue/platform, budget, details, and protected reference files
+- In-app member notifications and mail-outbox integration
+- Communication blocking and configurable intake/attachment controls
+- Member dashboard communication summaries and history
+- Owner queues for messages, content requests, booking requests, and communication settings
+- Eleventh migration / 64 declared tables
+- Runtime-only public installation ZIP
 
 ## Next
 
@@ -86,6 +90,8 @@ Status is based on verified implementation and test evidence, not intention.
 
 - Public add-on marketplace or multi-tenant licensing SaaS
 - Live payment certification and automatic taxes
-- Websocket chat, voice/video calling, paid-message workflows
+- Websocket chat, voice/video calling, or paid-message workflows
 - Automatic booking contracts, deposits, or quote payments
+- Guest self-service booking-status links
+- Moderation-report queues and CSV exports for communication records
 - Production two-factor authentication and compliance vault
