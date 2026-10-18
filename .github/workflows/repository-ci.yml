@@ -1,0 +1,75 @@
+name: Repository and Source CI
+
+on:
+  push:
+    branches: [main, 'feature/**', 'fix/**']
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: velvet-vixxen-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repository-contract:
+    name: Repository contract
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate communication hub
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(
+            README.md
+            AGENTS.md
+            PROJECT_STATUS.md
+            SESSION_HANDOFF.md
+            SECURITY.md
+            CONTRIBUTING.md
+            docs/ROADMAP.md
+            docs/DECISIONS.md
+            docs/TESTING.md
+            docs/SESSION_PROTOCOL.md
+          )
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Missing required file: $file"; exit 1; }
+          done
+          grep -q 'afterburn25/velvet_vixxen' PROJECT_STATUS.md
+          grep -q '12-character' docs/DECISIONS.md
+          grep -q 'single responsive browser page' docs/DECISIONS.md
+
+  source-tests:
+    name: Source tests when application is present
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Detect application source
+        id: source
+        shell: bash
+        run: |
+          if [[ -f scripts/test.sh ]]; then
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+            echo 'Application source import is tracked in issue #1.'
+          fi
+      - uses: shivammathur/setup-php@v2
+        if: steps.source.outputs.present == 'true'
+        with:
+          php-version: '8.2'
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd
+          coverage: none
+      - uses: actions/setup-node@v4
+        if: steps.source.outputs.present == 'true'
+        with:
+          node-version: '20'
+      - name: Run application test suite
+        if: steps.source.outputs.present == 'true'
+        run: bash scripts/test.sh
+      - name: Source import pending
+        if: steps.source.outputs.present != 'true'
+        run: echo 'Repository contract passed; executable source import remains open in issue #1.'
