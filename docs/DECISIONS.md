@@ -1,50 +1,57 @@
 # Architecture and Product Decisions
 
-## Visual direction
+## Product identity and design
 
-The approved direction remains the neon-pink, magenta, black, and white Velvet Vixxen design. Hero and visual-footer scenes use a layered, non-destructive composer with separate desktop/tablet/mobile arrangements. Canva is optional for artwork; live navigation, text, forms, paywalls, commerce, members, and media players remain HTML/JavaScript.
+- Product: Nikki Wilder — The Velvet Vixxen
+- The approved neon-pink/magenta/black direction is the design source of truth.
+- No additional mockups are created unless explicitly requested.
+- User/model photographs remain replaceable layers; default public artwork stays people-free.
+- Navigation, forms, paywalls, players, pricing, and accessibility remain live HTML/JavaScript.
 
-## Installer and organization
+## Installer and hosting
 
-Installation remains a **single responsive browser page**. It requires no installation key, accepts owner passwords with a **12-character** minimum, creates and migrates database tables, performs real filesystem probes, attempts safe permissions, never relies on `chmod 0777`, creates an install lock, and removes or securely disables `/install` after success.
+- Installation occurs on one responsive browser page.
+- No installation key is required.
+- Owner and member passwords have a 12-character minimum.
+- File checks use real write/read/rename/delete probes.
+- Safe permission attempts are `0755`/`0775`; `0777` is never accepted.
+- Installation runs versioned migrations, verifies boot, creates a lock, and deletes or securely retires `/install`.
+- Files remain organized by responsibility.
 
-Application files remain organized. Runtime state, private media, credentials, logs, sessions, add-on staging/quarantine contents, and generated secrets are excluded from source control.
+## Media, access, and commerce
 
-## Members, entitlements, and payments
+- Music, photos, and video are first-class content types.
+- One Entitlement Resolver handles public, member, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access.
+- Protected originals remain outside public paths and use signed/authorized delivery.
+- Raw card numbers are never stored.
+- Payment providers use adapters; the bundled provider is sandbox-only.
 
-One resolver controls public, registered, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access. Payment providers are replaceable adapters. The bundled provider remains sandbox-only. Production collection must be approved for the business category, hosted/tokenized, signed-webhook driven, and tested through purchases, renewals, declines, retries, cancellations, refunds, and chargebacks.
+## Add-ons and licensing
 
-## Add-on package model
+- Add-ons never patch core files and are not described as fully sandboxed.
+- Every package declares identity, compatibility, permissions, dependencies, conflicts, and integrity data.
+- Unsafe paths, symlinks, package bombs, checksum failures, and invalid signatures are blocked.
+- Remote updates enter the ordinary permission/compatibility review and backup/rollback lifecycle.
+- Update/support expiration or a temporary service outage does not intentionally disable installed local functionality.
+- Private signing keys, raw license keys, and protected releases never enter public source control.
 
-Optional functions install through ZIP packages without editing core files. Every package has a permanent reverse-domain-style ID, semantic version, compatibility range, entrypoint, permissions, dependencies/conflicts, license metadata, and integrity metadata.
+## Messaging, requests, and booking
 
-Add-ons are executable PHP. Typical shared hosting cannot securely sandbox arbitrary PHP, so the platform uses layered controls rather than claiming isolation:
+- Private messaging is asynchronous and account-scoped; it is not represented as real-time websocket chat.
+- Conversations, requests, bookings, notifications, reports, and attachments have explicit owner/member relationships.
+- Email alerts announce activity and link to the site; they do not include private message bodies.
+- Communication attachments live outside public asset paths and are delivered only through authorization checks.
+- Guest booking status uses a high-entropy token. Lookup uses a hash; a protected encrypted copy exists only for controlled recovery/notification flows.
+- Guest/member pages never expose owner-internal notes or unrelated records.
+- Contact blocks stop new activity while preserving prior evidence and history.
+- Content-request and booking quotes are workflow records, not automatic charges or final legal agreements.
+- Saved replies are owner conveniences; sending remains an explicit owner action.
+- CSV exports are sensitive owner-only data.
 
-- canonical path and ZIP-entry validation;
-- size and file-count limits;
-- checksum verification;
-- optional Ed25519 signatures against configured trusted public keys;
-- owner acknowledgement for unsigned/untrusted packages;
-- declared permissions enforced by extension APIs;
-- dependency/conflict and compatibility checks;
-- pre-change backups and migration rollback;
-- boot-failure quarantine and global safe mode;
-- lifecycle logs and diagnostics.
+## Repository and evidence
 
-Invalid signatures and blocking findings are non-bypassable. Private signing keys never belong in customer packages or the public repository.
-
-## Add-on lifecycle
-
-Install validates/stages the package, applies owned migrations, moves files into protected storage, and records it. Activation is separate. Deactivation preserves data. Normal uninstall preserves registered data; purge uninstall removes settings/license state and rolls back owned migrations. Updates create backups and remain inactive for review. Rollback restores a backup and also leaves the add-on inactive.
-
-## Extension API
-
-The 0.6.x API exposes admin pages/navigation, public routes, frontend widgets, events, filters, services, namespaced settings, and scheduled tasks. New privileged APIs require a declared permission and documented compatibility behavior. Add-ons should not directly depend on undocumented core internals.
-
-## Licensing boundary
-
-0.6.0 supports free, trial, and signed offline commercial-license records. A license-server outage must never take down the website or destroy installed data. Online activation, site limits, customer downloads, and remote update entitlement belong to 0.6.1. Marketplace sales belong to 0.7.0.
-
-## Repository truth
-
-`afterburn25/velvet_vixxen` is the communication and source repository. `main` is last-known-good. A package is not represented as merged or CI-green until its complete source is pushed, tested, reviewed, and actually merged.
+- Repository: `afterburn25/velvet_vixxen`.
+- GitHub documents, issues, pull requests, tests, and handoff files are the continuity hub.
+- A local/package milestone and a GitHub branch are separate truth boundaries.
+- Do not claim source import, CI success, MySQL, Playwright, merge, tag, live payments, or deployed licensing without direct evidence.
+- Public source never contains credentials, generated keys, raw license keys, signing private keys, customer/member data, private conversations, booking/request records, owner notes, guest tokens, attachments, identity documents, runtime state, or private/paid media.
