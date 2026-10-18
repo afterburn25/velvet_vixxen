@@ -1,57 +1,55 @@
 # Nikki Wilder — The Velvet Vixxen
 
-**Current packaged milestone: 0.6.0 — Add-on Framework**
+**Current packaged release: 0.7.0 — Messaging, Booking & Member Requests**
 
-Velvet Vixxen is a PHP/MySQL creator platform with the approved neon-pink design, Hero/Footer Visual Composer, Canva workflow, music/photo/video Media Center, member accounts, unified entitlements, subscriptions, PPV galleries/videos, rentals, bundles, coupons, receipts, and sandbox commerce.
+Velvet Vixxen is a full-stack PHP/MySQL creator platform using the approved neon-pink Nikki Wilder design. It combines a visual site composer, Canva-ready templates, music, photo galleries, video, member accounts, subscriptions, PPV commerce, installable commercial add-ons, and a private communication/request center.
 
-## 0.6.0 additions
+## 0.7.0 additions
 
-- Add-on ZIP upload with inspect-before-install review
-- Versioned `addon.json` manifest and semantic versions
-- Core/PHP compatibility, dependencies, conflicts, and explicit permissions
-- SHA-256 checksums and optional Ed25519 package signatures
-- Rejection of unsafe paths, duplicate entries, private keys, environment files, and blocking package findings
-- Install, activate, deactivate, update, rollback, preserve-data uninstall, and purge uninstall
-- Add-on-owned database migrations and tracked rollback
-- Pre-change backups, failed-change restoration, boot-failure quarantine, and global safe mode
-- Extension APIs for admin pages/navigation, public routes, widgets, events, filters, services, namespaced settings, and scheduled tasks
-- Free, trial, and signed offline commercial-license foundations
-- Admin lifecycle logs, diagnostics, starter source/ZIP, developer guide, and package schema
-- Nine migrations declaring 48 application tables
+- Private member-to-owner conversation threads
+- Read/unread state, priorities, statuses, attachments, and history
+- Content requests with categories, custom intake questions, budgets, due dates, quotes, acceptance/cancellation, and owner notes
+- Public or member booking inquiries with guest status links, dates, locations, quotes, confirmation/cancellation, and history
+- Protected request attachments outside public asset folders
+- Member notifications and unread badges
+- Saved owner replies, contact blocks, moderation reports, and internal notes
+- Owner queues and authenticated CSV exports
+- Eleventh migration / 66 declared application tables
 
-## Installer rules retained
+## Locked installation requirements
 
-- One complete responsive browser page
+- One-page browser installer
 - No installation key
-- 12-character minimum owner and member passwords
-- Real filesystem probes
-- Safe `0755`/`0775` handling; never `0777`
-- Installation lock, boot verification, and `/install` cleanup or secure retirement
-- Organized application folders
+- Exact 12-character minimum owner/member passwords
+- Safe `0755`/`0775` permissions; never `0777`
+- Versioned database migrations
+- Installation lock and `/install` deletion or secure retirement
+- Organized folders rather than root-level file sprawl
 
-## Security boundary
+## Test commands
 
-Add-ons execute server-side PHP and are not claimed to be fully sandboxed. Checksums, signatures, permissions, package validation, backups, quarantine, safe mode, and rollback reduce risk but do not make an unknown package trustworthy. Install only packages from trusted sources. Never commit private signing keys, production credentials, customer data, runtime state, or private/paid media.
+```bash
+bash scripts/clean_runtime.sh
+bash scripts/test.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+bash scripts/clean_runtime.sh
+php tests/Security/repository_safety.php
+```
 
-The payment adapter remains sandbox-only. No live processor or merchant approval is claimed. Online license activation, customer downloads, remote update feeds, and the marketplace remain future milestones.
+Current local package evidence: 160 PHP files, 6 public JavaScript files, 11 Python HTTP/Playwright files, 11 migrations, 66 tables, source suite passed, and all five installed-demo HTTP suites passed.
 
-## Local package evidence
-
-- `bash scripts/test.sh` — passed
-- `bash scripts/test_http.sh` — passed
-- 121 PHP files, 6 public JavaScript files, and 7 Python HTTP/Playwright files passed syntax validation
-- Migration manifest passed: 9 migrations / 48 tables
-- Extracted release package passed source tests, HTTP acceptance, cleanup, repository safety, and SHA-256 verification
-- Package SHA-256: `8462746ee90ec0ec054e756e92afc63a9fc90e9f47f6bea39e7b0a6a156f065c`
-
-Local PDO MySQL/MySQL was unavailable, so live DDL execution is assigned to CI. Local Chromium navigation was blocked by managed policy, so four Playwright suites are assigned to CI. These limitations are not represented as passed local checks.
+Local MySQL execution is not claimed because PDO MySQL/MySQL was unavailable. A direct local Chromium run returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`; six Playwright suites remain CI-owned.
 
 ## Repository truth boundary
 
-`afterburn25/velvet_vixxen` is the communication and testing hub. The complete executable 0.6.0 source is not yet in this documentation branch. Issue #1 tracks source import; issue #7 tracks 0.6.0 delivery and release gates. Do not claim `main` contains this release until source import, full CI, review, and merge actually occur.
+Repository: `afterburn25/velvet_vixxen`
 
-Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, and `docs/TEST_REPORT.md` before continuing.
+Branch target: `feature/0.7.0-messaging-booking-requests`
+
+The clean packaged 0.7.0 build and this documentation branch are separate truth boundaries. Do not describe `main` as the complete executable 0.7.0 source until the clean source import, full CI, review, and merge are directly verified.
+
+Never commit production credentials, customer/member records, private conversations, booking/request records, internal notes, guest tokens, request attachments, identity documents, payment secrets, raw license keys, signing private keys, runtime state, or private/paid media.
 
 ## Next milestone
 
-**0.6.1 — Commercial Licensing & Remote Updates**: online activation/deactivation, site limits, trials and grace periods, update entitlement, customer downloads, signed remote update feeds, release channels, outage-tolerant caching, and lifecycle/security tests.
+**0.8.0 — Marketing, Publishing & Analytics**
