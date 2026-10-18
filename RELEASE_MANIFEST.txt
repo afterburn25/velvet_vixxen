@@ -1,45 +1,74 @@
-VELVET VIXXEN 0.7.0 — RELEASE MANIFEST
+VELVET VIXXEN 0.8.0 — RELEASE MANIFEST
 
 Runtime package:
-  Nikki-Wilder-Velvet-Vixxen-0.7.0.zip
+  Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
 
 SHA-256:
-  98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
+  ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
 
 Milestone:
-  Messaging, Booking & Member Requests
-
-Database:
-  11 migrations
-  64 declared application tables
+  Marketing, Publishing & Analytics
 
 Runtime package profile:
-  185 files
-  112 PHP runtime files
-  6 public JavaScript files
+  203 files
+  128 PHP runtime files
+  7 public JavaScript files
+  12 database migrations
+  75 declared application tables
   Runtime-only installation contents
 
-Intentionally excluded from the public ZIP:
-  .git and .github
-  docs and tests
-  GitHub workflows
-  source roadmaps/status/handoff files
-  add-on SDK source
-  screenshots and test reports
-  test/demo/cleanup/build scripts
-  development-only database/schema.sql
+New public features:
+  Blog and update publishing
+  Public/member/subscriber post visibility
+  Scheduled editorial publishing
+  Newsletter signup, confirmation, unsubscribe, tags, segmentation, and campaigns
+  Timed promotional banners and landing pages
+  Link-in-bio page and click tracking
+  Referral codes and attribution
+  Privacy-conscious first-party analytics
 
-Operational scripts retained:
+New administration features:
+  Marketing & Publishing center
+  Editorial post editor
+  Subscriber and newsletter campaign management
+  Promotional campaign management
+  Hero/Footer scene scheduling
+  Link page manager
+  Referral manager
+  Analytics dashboard
+  CSV exports
+  Analytics and consent retention controls
+
+Operational script retained:
+  scripts/run_marketing.php
+
+Existing operational scripts retained:
   scripts/run_billing.php
   scripts/run_addon_tasks.php
 
+Intentionally excluded from public ZIP:
+  .git and .github
+  docs and tests
+  GitHub workflows
+  roadmap/status/handoff files
+  screenshots and test reports
+  add-on SDK source
+  development/test/build tooling
+  runtime credentials, generated keys, logs, sessions, customer data, private messages, and paid/private media
+
 Validation:
-  scripts/test.sh — PASS
-  scripts/test_http.sh — PASS
-  extracted runtime ZIP integrity/SHA/syntax/exclusion checks — PASS
-  clean-state repository safety after testing — PASS
+  ZIP integrity — PASS
+  SHA-256 verification — PASS
+  128 PHP syntax checks — PASS
+  7 JavaScript syntax checks — PASS
+  Migration manifest: 12 migrations / 75 tables — PASS
+  Marketing file-store suite — PASS
+  Marketing HTTP acceptance — PASS
+  Full-site HTTP smoke — PASS
+  Installer smoke — PASS
+  Runtime exclusion/clean-config/security scan — PASS
 
 Environmental boundaries:
-  Live local MySQL DDL execution unavailable; CI required.
-  Direct local Chromium blocked by managed policy; CI Playwright required.
+  Live local MySQL DDL execution unavailable; CI or representative hosting required.
+  Direct local interactive Playwright navigation remains CI-owned.
   Payment provider remains sandbox-only.
