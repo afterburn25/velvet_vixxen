@@ -1,59 +1,59 @@
 # Changelog
 
-## 0.5.0 — Subscriptions & PPV Commerce
+## 0.6.0 — Add-on Framework
 
 ### Added
 
-- Public Store for membership plans, PPV photo galleries, PPV videos, rentals, and bundles
-- Session cart, coupon form, member-only checkout, success page, receipts, and billing history
-- Versioned payment-provider interface, provider registry, and working sandbox adapter
-- Sandbox approved, declined, and processing payment states
-- Monthly/annual subscription checkout and fulfillment
-- Permanent PPV gallery/video entitlements and time-limited rentals
-- Subscriber-specific prices and plan PPV discounts
-- Commerce bundles containing galleries and videos
-- Coupon scope, percentage/fixed amount, dates, minimum subtotal, maximum discount, total-use limit, and per-member limit
-- Configurable currency, tax percentage, store availability, and receipt footer
-- Orders, line items, payment transactions, last-four/brand metadata, and idempotency keys
-- Signed webhook endpoint with replay protection and paid/refund/chargeback handling
-- Refund flow with entitlement revocation and related subscription cancellation
-- Self-service cancel-at-period-end and resume-renewal controls
-- Sandbox recurring-renewal runner with live-provider deferral rather than fabricated payments
-- Owner Commerce, Orders, Coupons, Bundles, and Payment Settings administration pages
-- Commerce unit, feature, HTTP, webhook-security, MySQL-schema, and Playwright browser tests
-- Eighth migration adding payment providers, coupons, bundles, redemptions, webhook events, order commerce fields, fulfillment state, and payment metadata
+- Add-on ZIP upload and inspect-before-install workflow
+- Versioned manifest schema, semantic versions, compatibility ranges, permissions, dependencies, conflicts, license metadata, and update channels
+- SHA-256 checksums and optional Ed25519 package signatures
+- Explicit acknowledgement for unsigned or valid-but-untrusted packages
+- Path, duplicate-entry, symlink, file-count, size, private-key, environment-file, and blocked-content checks
+- Install, activate, deactivate, update, rollback, preserve-data uninstall, and purge uninstall
+- Add-on-owned migrations and migration registry
+- Pre-update/pre-uninstall backups and failed-change restoration
+- Boot-failure quarantine and global safe mode
+- Admin pages/navigation, public routes, widgets, events, filters, services, namespaced settings, and scheduled tasks
+- Core member/commerce events and `commerce.quote` filter
+- Homepage widget slots and protected add-on route dispatcher
+- Free, trial, and signed offline commercial-license foundations
+- Add-on Manager UI, lifecycle logs, diagnostics, task runner, starter source/ZIP, developer guide, and schema guide
+- Ninth migration, bringing the declared schema to 48 tables
 
-### Security and integrity
+### Security and recovery
 
-- Raw card numbers are not persisted in orders, transactions, logs, receipts, or member profiles
-- Webhook signatures require a configured secret; provider event IDs are idempotent
-- Checkout requires an active, verified member and a unique checkout idempotency key
-- Failed and processing payments do not unlock content
-- Full refunds and chargebacks revoke order-created access
-- Live-provider recurring renewals must be confirmed through provider webhooks
+- Invalid signatures and blocking package findings cannot be bypassed
+- Extension APIs enforce declared permissions
+- Failed boot removes registrations before quarantine
+- Safe mode bypasses optional add-ons
+- Failed updates restore prior files and roll back applicable migrations
+- Private signing keys and environment files are blocked from distributable packages
 
-### Important limitation
+### Limitations
 
-- The included gateway is sandbox-only. No live payment processor is represented as connected, approved, or production-ready.
+- PHP add-ons are executable code and are not fully sandboxed on shared hosting
+- Online license activation, customer downloads, remote update feeds, and marketplace sales remain future milestones
+- The payment provider remains sandbox-only
+
+## 0.5.0 — Subscriptions & PPV Commerce
+
+- Added Store, cart, checkout, subscriptions, PPV galleries/videos, rentals, bundles, coupons, receipts, billing, refunds, signed webhooks, and commerce administration
+- Added eighth migration / 44 declared tables
+- Kept the bundled gateway sandbox-only
 
 ## 0.4.0 — Members & Entitlements
 
-- Added registration, verified email activation, login/logout, recovery, password reset, lockout, device sessions, member dashboard, My Library, membership plans, subscription assignment, direct entitlements, Entitlement Resolver, and synchronized media state
+- Added registration, verification, login/recovery, device sessions, dashboard, My Library, plans, subscriptions, direct entitlements, unified access resolution, and synchronized media state
 - Added seventh migration / 38 declared tables
 
 ## 0.3.0 — Media Center
 
-- Added persistent music player, albums/playlists, photo galleries and lightbox, video library/player, protected media delivery, scheduling, and Media Center administration
+- Added persistent music player, albums/playlists, photo galleries/lightbox, video library/player, protected media, scheduling, and media administration
 
 ## 0.2.2 — One-Page Browser Installer
 
-- Replaced the multi-screen wizard with one responsive installer page
-- Preserved no install key, exact 12-character password minimum, safe permissions, migrations, rollback, lock, and installer cleanup
+- Replaced the wizard with one responsive installer page while preserving no install key, 12-character minimum, safe permissions, migrations, rollback, lock, and cleanup
 
-## 0.2.1 — Installer & Structure Hardening
+## 0.2.0–0.2.1 — Design, Composer, Canva & Installer Foundation
 
-- Added branded browser installer foundation, real server/filesystem diagnostics, organized protected folders, migration registry, and cleanup/recovery behavior
-
-## 0.2.0 — Homepage, Visual Composer & Canva Templates
-
-- Added approved responsive pink homepage, layered Hero/Footer composer, media library, Canva starter templates/import workflow, owner login, age gate, and audit foundation
+- Added the approved homepage, Hero/Footer composer, Canva templates/import, owner login, age gate, browser installer, organized folders, and migration foundation
