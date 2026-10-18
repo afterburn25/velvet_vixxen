@@ -1,71 +1,93 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
-## Current packaged release
+## Current completed runtime release
 
-**0.7.0 — Messaging, Booking & Member Requests**
+**0.7.1 — Ownership-Safe Installer Hotfix**
 
-A clean runtime-only package has been built and verified. It contains only the files required to install and run Velvet Vixxen; repository, documentation, tests, screenshots, SDK source, and development scripts are distributed separately rather than inside the installation ZIP.
+0.7.1 supersedes 0.7.0 as the runtime baseline. It retains Messaging, Booking & Member Requests and fixes shared-hosting installations where panel-owned `0755` directories are readable by PHP but not writable.
 
-## Completed and locally verified
+The installer now repairs ownership mismatches for required runtime paths without using `0777`, preserves existing contents, creates missing upload/add-on/storage directories, and securely retires `/install` even when foreign ownership prevents ordinary deletion.
 
-### Foundation, design, media, and commerce
+Runtime package SHA-256:
 
-- One-page browser installer with no install key and exact 12-character minimum owner/member passwords
-- Safe `0755`/`0775` permission handling; no `0777`
-- Approved responsive neon-pink design, Visual Composer, and Canva-compatible workflow
-- Music, photo galleries, videos, protected media, members, plans, entitlements, subscriptions, PPV, rentals, bundles, coupons, receipts, refunds, and sandbox webhooks
-- Validated add-on lifecycle plus commercial licensing and signed remote-update foundations
+```text
+a5c311e2462b422246eb8282142e33c4157d91dab74bfdf029d42fb476a72d06
+```
 
-### 0.7.0 communication center
+## 0.8.0 development status
 
-- Member-to-owner private message threads
-- Protected communication attachments stored outside public delivery paths
-- Read/unread state, status, priority, internal notes, and activity history
-- Saved owner reply templates
-- Member content-request intake with category, details, budget range, quote, status, and owner replies
-- Public and signed-in booking/appearance inquiry workflow
-- Booking dates, location, venue/platform, budget, protected reference files, status, priority, and internal notes
-- In-app member notifications and optional mail-outbox updates
-- Communication blocking and configuration controls
-- Member dashboard communication summaries and history
-- Owner queues for messages, content requests, and booking requests
-- Responsive public and administration interfaces
+**0.8.0 — Marketing, Publishing & Analytics is in progress.**
 
-## Database and release evidence
+- Working branch: `feature/0.8.0-marketing-publishing-analytics`
+- Tracking issue: `#9`
+- Implementation plan: `docs/0.8.0_IMPLEMENTATION_PLAN.md`
 
-- 11 versioned migrations
-- 64 declared application tables
-- 149 PHP source/test files passed syntax validation
-- 6 public JavaScript files passed syntax validation
-- 10 Python HTTP/Playwright files passed syntax validation
-- `bash scripts/test.sh`: passed
-- `bash scripts/test_http.sh`: passed
-- Runtime-only ZIP contains 185 files, including 112 PHP runtime files
-- Package SHA-256: `98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b`
+The architecture and acceptance requirements are now documented. The executable 0.8.0 implementation and tested runtime ZIP are not yet complete and must not be represented as released.
+
+## Verified completed platform through 0.7.1
+
+### Foundation and installer
+
+- Approved responsive neon-pink design
+- Hero/Footer Visual Composer and Canva-compatible workflow
+- One-page browser installer
+- No installation key
+- Exact 12-character minimum owner/member passwords
+- Safe permission handling; no `0777`
+- Ownership-safe replacement of foreign-owned writable runtime folders
+- Versioned migrations, installation lock, boot verification, and `/install` cleanup/retirement
+- Runtime-only customer installation ZIP policy
+
+### Media, members, and commerce
+
+- Music, photo galleries, video, and protected media
+- Member registration, verification, recovery, device sessions, and dashboard
+- Membership plans and unified entitlements
+- Sandbox subscriptions, PPV galleries/videos, rentals, bundles, coupons, receipts, refunds, and signed webhooks
+
+### Add-ons and licensing
+
+- Add-on install/activate/deactivate/update/rollback/uninstall lifecycle
+- Manifest, compatibility, permissions, dependencies, checksums, signatures, backups, migrations, Safe Mode, and tasks
+- Commercial licensing, site activation, signed update feeds, release channels, and protected downloads
+
+### Messaging, requests, and booking
+
+- Private member-to-owner conversations
+- Protected attachments
+- Content requests with quotes and status workflow
+- Public/member booking and appearance inquiries
+- Member notifications, saved replies, blocks, owner queues, and communication settings
+
+## 0.8.0 planned implementation
+
+- Blog, personal updates, announcements, revisions, SEO metadata, scheduling, expiration, and tier visibility
+- Unified editorial calendar for posts, media, campaigns, banners, coupons, and Visual Composer scenes
+- Campaign landing pages and timed promotional banners
+- Newsletter lists, consent, segmentation, templates, campaigns, batching, unsubscribe, suppression, and delivery logs
+- Automated content, renewal, payment-failure, booking, request, and private-message notification emails
+- Link-in-bio page
+- Referral and affiliate attribution foundations
+- Privacy-conscious first-party analytics, funnels, rollups, retention controls, and CSV reports
 
 ## Runtime-only ZIP policy
 
-The installable ZIP intentionally excludes `.git`, `.github`, `/docs`, `/tests`, add-on SDK source, GitHub Actions, roadmap/status/handoff files, screenshots, release reports, test/demo/cleanup scripts, and the development SQL schema snapshot. Operational billing and add-on task runners remain included because the live site requires them.
+Customer installation ZIPs contain only files required to install and operate the live site. They exclude repository metadata, GitHub workflows, docs, tests, SDK source, roadmap/handoff files, screenshots, test reports, development schema snapshots, and build/test/cleanup scripts.
 
-## Environmental limits
-
-- Local PDO MySQL/MySQL is unavailable. Live DDL execution is not claimed locally. CI must apply all 11 migrations, verify 64 tables, roll back, and require an empty disposable database afterward.
-- Direct local interactive Chromium is blocked by a managed browser policy. The policy was not bypassed. HTTP acceptance passed; full Playwright acceptance remains CI-owned.
-- The payment provider remains sandbox-only.
-- The licensing hub remains a self-hosted foundation rather than a separately deployed marketplace SaaS.
+Operational runners required by the live site remain included.
 
 ## Repository truth boundary
 
-- Repository: `afterburn25/velvet_vixxen`
-- Documentation/delivery branch: `feature/0.7.0-messaging-booking-requests`
-- The complete executable 0.7.0 source is not yet claimed as imported into GitHub.
-- Do not call `main` the 0.7.0 executable release until source import, CI, review, and merge are directly verified.
-- Never commit production credentials, customer records, identity documents, payment secrets, raw license keys, signing private keys, private messages/attachments, runtime state, or private/paid media.
+Repository: `afterburn25/velvet_vixxen`
 
-## Next actions
+The repository is the engineering, roadmap, test-evidence, decision, and session-handoff hub. A packaged runtime release and a repository branch are separate truth boundaries.
 
-1. Import the complete clean 0.7.0 source outside the public installation ZIP.
-2. Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and Playwright CI.
-3. Correct CI-only findings and record exact evidence.
-4. Merge only after required checks are green.
-5. Begin **0.8.0 — Marketing, Publishing & Analytics**.
+Never commit production credentials, customer/member records, identity documents, payment secrets, raw license keys, signing private keys, private messages/attachments, runtime state, or private/paid media.
+
+## Current next actions
+
+1. Implement the 0.8.0 migration and publishing/marketing services against the clean 0.7.1 source baseline.
+2. Add public/admin routes, scheduled-task runner, email/consent controls, and analytics reporting.
+3. Add source, HTTP, security, MySQL, and Playwright tests.
+4. Build and verify a runtime-only 0.8.0 installation ZIP.
+5. Record exact evidence and limitations before claiming release completion.
