@@ -1,6 +1,6 @@
 # Test Report — 0.7.0 Messaging, Booking & Member Requests
 
-## Local source suite
+## Source suite
 
 ```bash
 bash scripts/clean_runtime.sh
@@ -11,60 +11,54 @@ Result: **passed**
 
 Verified:
 
-- PHP syntax: 160 source files
-- Public JavaScript syntax: 6 files
-- Python HTTP/Playwright syntax: 11 files
-- Smoke and one-page installer regression
-- Migration manifest: 11 migrations / 66 application tables
-- Media, member, entitlement, commerce, add-on, licensing, and communication unit/feature tests
-- Protected media, member security, payment webhook, add-on package, licensing, communication, organized-folder, and repository-safety tests
-
-Communication coverage includes ownership, blocks, thread statuses, read/unread state, saved replies, category questions, request/booking quotes and acceptance, notifications, history, private notes, moderation, attachment allowlists/size limits, protected paths, guest-token lookup and rejection, member/owner attachment authorization, export authentication, and CSRF.
+- PHP syntax: 149 source/test files
+- public JavaScript syntax: 6 files
+- Python HTTP/Playwright syntax: 10 files
+- smoke and one-page installer regression
+- migration manifest: 11 migrations / 64 application tables
+- media, members, entitlements, subscriptions/PPV, add-ons, licensing/updates, and communications unit/feature tests
+- protected media, member security, signed webhooks, add-on security, organized folders, and repository safety
 
 ## Installed-demo HTTP acceptance
 
 ```bash
-VELVET_TEST_PORT=8789 bash scripts/test_http.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
 ```
 
 Result: **passed**
 
-Passed suites:
+Verified real HTTP flows for members, subscriptions/PPV commerce, add-ons, add-on licensing/updates, private messaging, protected attachments, owner replies, saved replies, content requests, quotes/statuses, booking inquiries, booking administration, notifications, and communication controls.
 
-- Members & Entitlements
-- Subscriptions & PPV Commerce
-- Add-on Framework
-- Commercial Add-on Licensing & Remote Updates
-- Messaging, Booking & Member Requests
+## Runtime-only package verification
 
-The communications suite verified public booking, member dashboard/inbox/new conversation/reply, content-request quote acceptance, booking confirmation, notifications, owner queues and saved replies, request/booking updates, moderation, authenticated CSV exports, and private guest-token status.
+The 0.7.0 install ZIP contains only runtime files. It excludes GitHub/repository files, documentation, tests, SDK source, screenshots, reports, and development scripts. The ZIP contains 185 files, including 112 runtime PHP files and 11 database migrations.
 
-## Clean package verification
+A separate extraction passed:
 
-The final ZIP was extracted into a separate clean directory. The extracted copy started uninstalled, passed the complete source suite, passed all five HTTP suites, was cleaned back to an uninstalled state, passed repository safety, and passed checksum verification.
+- ZIP integrity
+- SHA-256 verification
+- runtime exclusion checks
+- uninstalled/secret-free configuration checks
+- 112 runtime PHP syntax checks
+- no `0777` permissions
+- full external source/security suite after overlaying the test harness
+- all installed-demo HTTP acceptance suites
+- clean-state repository safety after test cleanup
 
-Release SHA-256: `8f4d0497c7463c4526cea52fbb66cf55d59c4cc76ac03e34eb380c3310fb8c96`
+Release SHA-256:
+
+```text
+98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
+```
 
 ## Browser status
 
-Six Playwright suites exist and pass Python syntax validation. **Local interactive Chromium is not claimed.** A direct local run using `/usr/bin/chromium` returned `net::ERR_BLOCKED_BY_ADMINISTRATOR` at first navigation. The managed policy was not bypassed. Static captures document real server-rendered output but do not replace interactive acceptance.
+Direct interactive Chromium navigation is blocked by a managed policy with `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Browser suites remain configured for CI. Rendered screenshots document application output but do not replace interactive Playwright evidence.
 
 ## MySQL status
 
-**Local live DDL execution is not claimed.** PDO MySQL and a MySQL/MariaDB server were unavailable. CI must apply all eleven migrations, verify 66 tables and communication columns, exercise an add-on-owned migration, roll back everything, remove the registry, and leave the disposable database empty.
+Local PDO MySQL and a MySQL/MariaDB server are unavailable. Live DDL execution is not claimed locally. The CI database test must apply all 11 migrations, verify 64 tables, roll back, and leave the disposable database empty.
 
-## Security boundaries
+## Result
 
-- Private attachments are outside public asset folders and require authorization.
-- Member access follows the linked conversation/request/booking ownership.
-- Guest booking access requires the matching private token.
-- Guest/member pages omit internal notes and unrelated account data.
-- Public guest tokens use high entropy; lookup uses a SHA-256 hash.
-- Email alerts omit private body text.
-- Blocks prevent new contact without destroying history.
-- CSV exports require owner authentication.
-- Payment remains sandbox-only.
-
-## Repository gates still required
-
-The complete executable source must be imported before GitHub can run PHP 8.2/8.3, MySQL 8, HTTP, repository safety, and six Playwright jobs against this milestone. Project status and session handoff must record the exact imported commit and workflow evidence before merge.
+**PASS — the 0.7.0 source and runtime-only installation package passed all available local non-database and HTTP acceptance gates.**
