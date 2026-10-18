@@ -1,57 +1,59 @@
-# Agent and Session Operating Guide
+# Agent Instructions — Velvet Vixxen
 
-This repository is the intended authoritative source of truth for **Nikki Wilder — The Velvet Vixxen** once the current release source has been imported, tested, and merged.
+## Start every session with live repository evidence
 
-## Start every session here
+Repository: `afterburn25/velvet_vixxen`
 
-1. Read `PROJECT_STATUS.md`.
-2. Read `SESSION_HANDOFF.md`.
-3. Read `docs/ROADMAP.md`, `docs/DECISIONS.md`, and `docs/TEST_REPORT.md`.
-4. Inspect latest commits, open issues, pull requests, and CI status before changing code.
-5. Run the complete test command documented in `docs/TESTING.md`.
-6. Confirm whether the working source is actually present in the repository or only in a release artifact; never assume.
+Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, and `docs/TEST_REPORT.md`, then inspect open issues, the active pull request, current branch head, and GitHub Actions. Do not infer repository state from chat history.
 
-## Working rules
+## Current packaged milestone
 
-- Treat `main` as the last known good merged release, not as the latest chat claim.
-- Build active milestones on `feature/<version>-<topic>` branches.
-- Do not claim a feature is complete unless it is implemented, tested, documented, and—when discussing repository state—merged after CI.
-- Update `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `CHANGELOG.md`, and `docs/TEST_REPORT.md` with every completed milestone.
-- Keep the release number synchronized in `VERSION`, `includes/version.php`, installer/config defaults, asset cache strings, migrations, and documentation.
-- Keep application modules in established folders; do not scatter unrelated PHP files in root.
-- Never commit credentials, production configuration, payment secrets, identity documents, customer records, private messages, runtime logs, or private/paid media.
-- Add database changes through versioned migrations with reversible `down` statements where safely possible.
-- Add or update automated tests whenever behavior changes.
-- Never weaken the 12-character owner/member password minimum or add an installation key.
-- Preserve the single-page installer, safe permission handling, and `/install` cleanup requirements.
-- Public/member/admin content access must use the shared Entitlement Resolver.
-- Payment adapters must never persist raw card data or fabricate live-provider renewals; production renewals are confirmed by provider webhooks.
-- The bundled `sandbox` gateway is test-only and must never be described as a live provider.
-- Do not represent live payment processing, browser testing, MySQL execution, email delivery, GitHub CI, or merge status as complete without direct evidence.
+**0.6.0 — Add-on Framework**
 
-## Current work references
+The complete executable source is still tracked for import by issue #1. Issue #7 tracks 0.6.0 delivery. Documentation on a branch is not proof that executable source, MySQL, Playwright, merge, tag, or release gates are complete.
 
-- Source-import issue: #1
-- 0.5.0 delivery/test-gate issue: #5
-- Delivery branch: `feature/0.5.0-subscriptions-ppv-commerce`
-- Next planned milestone after import/CI: `0.6.0 — Add-on Framework`
+## Locked requirements
 
-## Handoff format
+- Preserve the approved neon-pink design.
+- Do not create new design mockups unless explicitly requested.
+- Keep the installer on a single responsive browser page.
+- No installation key.
+- Keep 12-character minimum owner/member passwords.
+- Never use `chmod 0777`.
+- Keep files organized in proper folders.
+- Preserve the unified entitlement model.
+- Keep live forms, navigation, commerce, paywalls, and players as HTML/JavaScript.
+- Add-ons must extend the platform without modifying core files.
+- Add-ons are executable PHP, not a secure sandbox.
+- Invalid signatures and blocking package findings are non-bypassable.
+- Keep sandbox payment behavior separate from live processors.
 
-Before ending a development session, update `SESSION_HANDOFF.md` with:
+## Add-on implementation rules
 
-- branch and latest commit, or explicitly state when no commit/push occurred;
-- current version;
-- completed features;
-- tests run and exact outcomes;
-- known failures or environmental limitations;
-- exact next implementation task;
-- files requiring special review;
-- whether runtime/demo state was removed before packaging.
+- Permanent reverse-domain-style ID and semantic version
+- Explicit compatibility range, entrypoint, permissions, dependencies, and conflicts
+- Checksums for package files; Ed25519 signatures for trusted commercial distribution
+- No private keys, `.env`, credentials, customer data, or private media in packages
+- Add-on-specific table names and reversible migrations
+- Separate install and activation
+- Deactivation preserves data
+- Normal uninstall preserves data; purge is explicit
+- Update creates a backup and remains inactive for review
+- Boot failures quarantine the add-on
+- Safe mode must bypass all optional add-ons
 
-## Issue and pull-request use
+## Testing and evidence
 
-- Use issues for scoped work, defects, decisions, and acceptance criteria.
-- Link code changes to their issue.
-- Pull requests list implementation details, migrations, security impact, backward compatibility, and exact test results.
-- Keep unfinished work clearly labeled; plans or schemas alone do not complete roadmap items.
+Before claiming completion, run applicable source, HTTP, MySQL, browser, installer, migration, task, package-security, and repository-safety tests. Record exact commands and limitations.
+
+A configured CI job is not a passed test. A static-render screenshot is not interactive Playwright acceptance. Never overstate unavailable environmental checks.
+
+## Repository safety
+
+Never commit production credentials, generated secrets, signing private keys, customer/identity/payment records, private messages, installed configuration, locks, sessions, logs, caches, add-on staging/quarantine runtime data, or private/paid media.
+
+Run `bash scripts/clean_runtime.sh` before packaging/committing and `php tests/Security/repository_safety.php` afterward.
+
+## Release documentation
+
+Update `VERSION`, `CHANGELOG.md`, `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md` when architecture changes, `docs/TEST_REPORT.md`, and `RELEASE_MANIFEST.txt`. A milestone is not complete without implementation, tests, documentation, and evidence.
