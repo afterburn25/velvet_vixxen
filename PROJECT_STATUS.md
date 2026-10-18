@@ -2,54 +2,62 @@
 
 ## Current packaged release
 
-**0.6.0 — Add-on Framework**
+**0.7.0 — Messaging, Booking & Member Requests**
 
-The clean packaged working tree contains the approved site, Visual Composer, Canva workflow, Media Center, members and entitlements, sandbox subscriptions/PPV commerce, and a complete local add-on lifecycle.
+The clean 0.7.0 package contains the approved public design, Visual Composer, Canva workflow, Media Center, members and entitlements, sandbox subscriptions/PPV commerce, the commercial Add-on Framework, and a private communications/request center.
 
-Repository: `afterburn25/velvet_vixxen`
+## Completed in the tested package
 
-## 0.6.0 completed in the tested package
+### Communications
 
-- ZIP upload and permission/compatibility review before code executes
-- Manifest schema, semantic versions, core/PHP ranges, dependencies, and conflicts
-- File checksums and optional Ed25519 signatures
-- Package path, duplicate-entry, private-key, environment-file, file-count, size, and blocked-content checks
-- Install, activate, deactivate, update, rollback, preserve-data uninstall, and purge uninstall
-- Add-on-owned migrations and migration registry
-- Pre-change backups and failed-change restoration
-- Boot-failure quarantine and global safe mode
-- Admin pages/navigation, public routes, widgets, events, filters, services, namespaced settings, and scheduled tasks
-- Core member/commerce events and `commerce.quote` filter
-- Homepage widget locations and protected public route dispatcher
-- Free, trial, and signed offline-license foundations
-- Add-on Manager, lifecycle logs, diagnostics, developer guide, schema guide, and starter add-on
-- Ninth migration; 48 declared application tables
+- Private member-to-owner conversations
+- Read/unread tracking, priority, status, close/reopen/archive behavior, protected attachments, and history
+- Content requests with categories, custom questions, budgets, due dates, quotes, owner workflow, member acceptance/cancellation, and linked conversations
+- Public and member booking inquiries with requested dates, locations, venues, budgets, quotes, confirmation/cancellation, and history
+- Hashed and encrypted guest booking-status tokens
+- Member notification center and unread counters
+- Saved replies, contact blocks, moderation reports, and owner-only notes
+- Owner queues for messages, content requests, bookings, reports, categories, and saved replies
+- Authenticated CSV exports
 
-## Final local package evidence
+### Foundation retained
 
-- 122 PHP files passed syntax validation
-- 6 public JavaScript files passed syntax validation
-- 7 Python HTTP/Playwright files passed syntax validation
-- `bash scripts/test.sh` passed
-- Configurable-port installed-demo HTTP acceptance passed members, commerce, and add-on workflows
-- Extracted release package passed source tests, HTTP acceptance, cleanup, repository safety, and checksum verification
-- Final package SHA-256: `862e9538a5b3c4efc8f8616fbbdc079b9fe252871252f5e2b275ab971394a01c`
+- Single-page browser installer, no key, exact 12-character minimum passwords, safe permissions, install lock, and `/install` cleanup
+- Music, galleries, video, protected media, member accounts, subscriptions, PPV galleries/videos, rentals, bundles, coupons, receipts, and refunds
+- Add-on install/update/rollback lifecycle, Safe Mode, commercial licensing, signed remote updates, and release channels
+- Eleven migrations declaring 66 application tables
+
+## Local evidence
+
+- `bash scripts/test.sh`: passed
+- `bash scripts/test_http.sh`: passed
+- PHP syntax: 160 files
+- Public JavaScript syntax: 6 files
+- Python HTTP/Playwright syntax: 11 files
+- Migration manifest: 11 migrations / 66 tables
+- Members, Commerce, Add-on, Add-on Licensing, and Communications HTTP suites passed
+- Clean extracted package passed source tests, HTTP acceptance, cleanup, repository safety, and checksum verification
+- Package SHA-256: `8f4d0497c7463c4526cea52fbb66cf55d59c4cc76ac03e34eb380c3310fb8c96`
 
 ## Environmental limits
 
-- Local PDO MySQL/MySQL was unavailable. Live DDL execution is not claimed; MySQL 8 CI must apply all nine migrations, verify 48 tables, exercise an add-on-owned migration, roll everything back, and leave the test database empty.
-- Interactive Playwright is not claimed locally in the packaging environment. Four Playwright suites remain CI-owned.
-- The payment adapter is sandbox-only.
-- A hosted license service, online activation, customer downloads, remote update feed, and marketplace are not part of 0.6.0.
+- Local PDO MySQL/MySQL was unavailable; live DDL execution is not claimed. CI must apply all eleven migrations, verify 66 tables, roll back, and leave the disposable database empty.
+- Local Chromium navigation returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`; six Playwright suites are configured for CI.
+- Payment remains sandbox-only.
+- Messaging is asynchronous; websocket chat, calling, and automatic quote payment are not claimed.
 
 ## Repository truth boundary
 
-The packaged 0.6.0 source is complete locally, but the complete executable tree is not yet imported into this GitHub branch. Issue #1 tracks source import. Issue #7 tracks 0.6.0 delivery and required release gates. This branch may document the package without claiming full source CI, MySQL, Playwright, merge, tag, or release evidence that has not happened.
+- Repository: `afterburn25/velvet_vixxen`
+- Documentation/delivery branch: `feature/0.7.0-messaging-booking-requests`
+- The complete executable 0.7.0 source is not yet claimed as imported into GitHub.
+- Do not call `main` the 0.7.0 executable release until source import, CI, review, and merge are directly verified.
+- Never commit private conversations, request/booking data, internal notes, guest tokens, attachments, customer records, credentials, raw license keys, signing private keys, runtime state, or private/paid media.
 
 ## Next actions
 
-1. Import the clean 0.6.0 source into `feature/0.6.0-addon-framework`.
-2. Run PHP 8.2/8.3, MySQL 8, HTTP, task, repository-safety, and four Playwright jobs.
-3. Correct CI-only findings and record exact commit/workflow evidence.
+1. Import the complete clean 0.7.0 source.
+2. Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and six Playwright jobs.
+3. Correct CI-only findings and record exact evidence.
 4. Merge only after required checks are green.
-5. Begin `0.6.1 — Commercial Licensing & Remote Updates`.
+5. Begin **0.8.0 — Marketing, Publishing & Analytics**.
