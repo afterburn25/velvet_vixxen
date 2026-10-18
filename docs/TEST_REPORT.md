@@ -1,8 +1,6 @@
-# Test Report — 0.5.0 Subscriptions & PPV Commerce
+# Test Report — 0.6.0 Add-on Framework
 
-## Clean local source suite
-
-Commands:
+## Local source suite
 
 ```bash
 bash scripts/clean_runtime.sh
@@ -13,28 +11,18 @@ Result: **passed**
 
 Verified:
 
-- PHP syntax validation across 101 files
-- JavaScript syntax validation across 6 public files
-- Python syntax validation across 5 HTTP/Playwright files
-- package smoke test
-- installer foundation test
-- one-page installer regression test
-- migration manifest: 8 migrations / 44 declared tables
-- media access and file-backed Media Store tests
-- member authentication and Entitlement Resolver tests
-- Subscriptions & PPV Commerce unit test
-- Media Center, Members & Entitlements, and Commerce feature tests
-- signed protected-media security test
-- member-security test
-- signed/replay-safe payment-webhook security test
-- organized-folder test
-- repository secret, runtime-state, and unsafe-permission scan
+- PHP syntax: 121 files
+- public JavaScript syntax: 6 files
+- Python HTTP/Playwright syntax: 7 files
+- smoke and one-page installer regression
+- migration manifest: 9 migrations / 48 tables
+- media, member, entitlement, commerce, add-on manifest, and add-on license unit tests
+- Media Center, Members & Entitlements, Commerce, and Add-on Framework feature tests
+- protected media, member security, signed webhook, add-on package, folder, and repository safety tests
 
-The commerce suite exercises quote totals, coupon allocation and limits, idempotent checkout, successful/declined/processing payments, PPV, rentals, subscriptions, subscriber pricing, bundles, full refunds, signed webhooks, duplicate webhooks, chargebacks, cancellation/resume, receipt mail, sandbox renewal, and safe deferral of non-sandbox renewals.
+Add-on coverage includes compatibility, permissions, dependencies/conflicts, checksums, unsigned acknowledgement, trusted/untrusted/invalid Ed25519 signatures, install/activate/deactivate, runtime registrations, settings, tasks, safe mode, boot-failure quarantine, update, backup, rollback, preserve-data uninstall, purge uninstall, migrations, logs, free/trial/commercial license states, domain binding, expiration, and signature rejection.
 
 ## Installed-demo HTTP acceptance
-
-Command:
 
 ```bash
 bash scripts/test_http.sh
@@ -42,81 +30,40 @@ bash scripts/test_http.sh
 
 Result: **passed**
 
-Verified through real HTTP requests and forms:
+Verified real HTTP forms and responses for member/account flows, subscriptions/PPV, billing controls, coupons, bundles, rentals, receipts, refunds/access revocation, owner Add-on Manager, active starter package, registered add-on admin page, homepage widget, public add-on route, setting persistence, task execution, and safe mode.
 
-- existing member login, dashboard, library, devices, and member-state API
-- fresh member registration and email verification
-- subscription purchase through sandbox checkout
-- paid subscription in member billing
-- cancel-at-period-end and resume-renewal controls
-- subscriber-priced bundle
-- coupon application and discounted total
-- bundle purchase and library fulfillment
-- receipt order number, line items, total, and footer
-- time-limited gallery rental
-- declined video checkout without entitlement fulfillment
-- owner Commerce, Orders, Coupons, Bundles, and Payment Settings pages
-- paid-order detail and full refund
-- refunded order state in member billing
-- revoked bundle access after refund
+## Clean package verification
 
-The passing server run produced no PHP warning or fatal-error output.
+The release ZIP was extracted into a separate clean directory. The extracted copy started uninstalled, passed the complete non-database source suite, passed member/commerce/add-on HTTP acceptance, cleaned back to an uninstalled state, passed repository safety, and passed SHA-256 verification.
 
-## Archive verification
+Release SHA-256: `8462746ee90ec0ec054e756e92afc63a9fc90e9f47f6bea39e7b0a6a156f065c`
 
-The release ZIP was extracted into a separate clean directory. The complete non-database source suite and installed-demo HTTP suite both passed against that extracted archive. Runtime installation state was removed afterward. The packaged configuration remained uninstalled and contained no generated keys, credentials, sessions, logs, or customer data.
+## Browser status
 
-## Browser acceptance
+Four Playwright suites exist for Media Center, Members & Entitlements, Commerce, and Add-on Framework. All pass Python syntax validation and are configured for CI.
 
-Configured suites:
+**Local interactive Chromium is not claimed.** Navigation to the local server returned `net::ERR_BLOCKED_BY_ADMINISTRATOR` under a managed URL policy. The policy was not bypassed.
 
-- `tests/Browser/media_center_playwright.py`
-- `tests/Browser/members_entitlements_playwright.py`
-- `tests/Browser/commerce_playwright.py`
+Release screenshots are static captures from HTML fetched from the running application and rendered with `page.set_content()`. They show actual page output but do not replace interactive acceptance.
 
-All pass Python syntax validation and are configured for GitHub Actions with an automation-installed Chromium browser.
+## MySQL status
 
-**Local interactive Chromium execution is not claimed.** Managed Chromium returned `net::ERR_BLOCKED_BY_ADMINISTRATOR` when navigating to the local server. The policy was not bypassed.
+**Local live DDL execution is not claimed.** PDO MySQL and a MySQL/MariaDB server were unavailable.
 
-The release package includes static running-build render snapshots. Those images were generated from HTML fetched from the running application and rendered with Chromium `page.set_content()`. They document visual output but do not replace the interactive Playwright suites.
+The MySQL 8 CI test is configured to refuse an unsafe/non-empty database, apply all nine core migrations, verify 48 tables, apply and roll back an add-on-owned migration, roll back all core migrations, and require an empty database afterward.
 
-## MySQL integration
+## Security boundaries
 
-**Local live DDL execution is not claimed.** The packaging environment did not expose PDO MySQL or a MySQL/MariaDB server.
+- Add-ons execute PHP and are not claimed to be fully sandboxed.
+- Invalid signatures and blocking package findings are rejected.
+- Extension APIs enforce declared permissions.
+- Private keys/environment files are blocked from distributable packages.
+- Boot failures quarantine add-ons; safe mode bypasses optional code.
+- Updates/uninstalls use backups and rollback paths.
+- Repository safety rejects credentials, generated secrets, private signing keys, runtime state, customer data patterns, and mode `0777`.
+- Payment remains sandbox-only.
+- Online licensing, remote update feeds, customer downloads, and marketplace services are not complete in 0.6.0.
 
-The configured MySQL 8 CI test must:
+## Repository release gates still required
 
-1. refuse a non-test or non-empty database;
-2. apply all eight migrations;
-3. verify 44 declared tables and required commerce/member/media schema;
-4. roll back every migration;
-5. require the disposable database to be empty afterward.
-
-## Commerce security checks
-
-- Checkout requires an active, verified member
-- Checkout idempotency prevents duplicate orders
-- Raw card numbers are not stored in orders, transactions, receipts, member records, or logs
-- Declined and processing states do not unlock content
-- Webhooks require a configured HMAC secret and valid signature
-- Provider event IDs are unique/idempotent
-- Unknown order events are recorded as ignored rather than fulfilled
-- Webhook refunds do not invoke the provider refund endpoint a second time
-- Full refunds and chargebacks revoke order-created entitlements
-- Non-sandbox renewals defer to provider webhooks instead of being fabricated as paid
-- Coupon usage and per-member limits are enforced
-- Repository safety rejects runtime data, install locks, generated secrets, credential patterns, and mode `0777`
-
-## CI gates after source import
-
-- PHP 8.2 source tests
-- PHP 8.3 source tests
-- MySQL 8 migration/rollback integration
-- installed-demo member and commerce HTTP acceptance
-- Chromium Media Center acceptance
-- Chromium Members & Entitlements acceptance
-- Chromium Subscriptions & PPV Commerce acceptance
-
-## Payment boundary
-
-The included provider is the `sandbox` test gateway. No live processor connection, approval, production credential set, hosted checkout, or production payment pass is claimed. A live adapter requires provider-specific sandbox evidence before production use.
+The complete executable source must be imported before GitHub can run PHP 8.2/8.3, MySQL 8, HTTP, task, repository-safety, and four Playwright jobs against this milestone. Issue #1 tracks source import; issue #7 tracks 0.6.0 delivery.
