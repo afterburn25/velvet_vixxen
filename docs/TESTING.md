@@ -1,27 +1,60 @@
-# Testing Guide
+# Testing Policy and Commands
 
-Testing is part of every milestone, not a final cleanup step.
+## Release gate
 
-## Complete local source suite
+No release is complete until the applicable source, installer, security, database, HTTP, and browser tests pass. Documentation must distinguish tests actually run locally from tests merely configured for CI.
+
+## Clean runtime state
+
+Demo and HTTP tests create installed configuration, secrets, sessions, and a file-backed data store. Before source testing, packaging, or committing:
+
+```bash
+bash scripts/clean_runtime.sh
+```
+
+## Source suite
 
 ```bash
 bash scripts/test.sh
 ```
 
-The suite must cover:
+This performs:
 
 - PHP syntax validation
-- JavaScript syntax validation when Node.js is available
-- Application smoke tests
-- Installer foundation tests
-- Single-page installer tests
-- Migration-manifest tests
-- Repository structure tests
-- Secret and unsafe-permission scans
+- public JavaScript syntax validation
+- Python HTTP/Playwright test syntax validation
+- package smoke tests
+- installer foundation and one-page regression tests
+- migration-manifest validation
+- media, member, entitlement, and commerce unit tests
+- Media Center, Members & Entitlements, and Commerce feature tests
+- protected-media, member-security, and payment-webhook security tests
+- organized-folder and repository-safety tests
 
-## MySQL migration test
+## Installed-demo HTTP acceptance
 
-Use a disposable, empty test database only:
+```bash
+bash scripts/test_http.sh
+```
+
+This creates a disposable file-backed demo and verifies real HTTP/form workflows for:
+
+- registration, verification, login, dashboard, library, devices, and member state
+- subscription plan checkout
+- cancel-at-period-end and resume
+- subscriber bundle pricing
+- coupon application
+- PPV and rental fulfillment
+- successful and declined sandbox payments
+- receipts and billing history
+- owner commerce dashboards and order detail
+- full refund and access revocation
+
+Run `bash scripts/clean_runtime.sh` afterward.
+
+## MySQL migration integration
+
+Use a disposable, empty database whose name clearly indicates testing:
 
 ```bash
 VELVET_TEST_DB_HOST=127.0.0.1 \
@@ -32,44 +65,50 @@ VELVET_TEST_DB_PASSWORD=secret \
 php tests/Database/migrations_mysql.php
 ```
 
-The integration test must:
+The test refuses a non-test or non-empty database, applies all migrations, verifies required commerce/member/media tables and columns, rolls everything back, and requires the database to be empty afterward.
 
-1. Refuse to run unless the database is clearly named as a test database.
-2. Refuse to run against a non-empty database.
-3. Run every versioned migration.
-4. Verify all required foundation tables.
-5. Roll back the migrations it applied.
-6. Verify the application tables were removed.
+## Browser acceptance
 
-## Browser acceptance testing
+Start the demo server and run all suites:
 
-Before every release, test at minimum:
+```bash
+php scripts/create_demo.php
+php -S 127.0.0.1:8765 -t .
 
-- Installer at desktop and mobile widths
-- Existing-install protection
-- Owner login and logout
-- Hero and footer draft, preview, publish, and restore
-- Media upload validation
-- Public homepage at desktop, tablet, and mobile widths
-- Direct access denial for private folders
+python -m pip install playwright requests beautifulsoup4
+python -m playwright install chromium
 
-Media Center releases additionally require:
+VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/media_center_playwright.py
+VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/members_entitlements_playwright.py
+VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/commerce_playwright.py
+```
 
-- Persistent audio playback across page navigation
-- Playlist, queue, shuffle, repeat, seek, and volume controls
-- Bulk gallery upload, sorting, preview boundaries, full-screen navigation, and mobile swipe
-- Trailer/full-video separation, poster images, captions, playback resume, and protected URLs
-- Administration create/edit/schedule/archive flows
+The commerce suite covers desktop/mobile Store rendering, browser registration/verification, subscription checkout, billing cancel/resume, subscriber bundle pricing, coupons, receipts, failed checkout, owner commerce pages, refund, and access revocation. `VELVET_SCREENSHOT_DIR` may be set to capture full-page screenshots. `VELVET_CHROMIUM` may point to an allowed browser executable. Do not bypass managed browser security policy merely to force a local pass.
 
-Commerce releases additionally require:
+## Provider sandbox acceptance
 
-- Subscription creation, renewal, cancellation, grace period, and failed-payment behavior
-- PPV gallery and video purchases
-- Rental expiration
-- Subscriber discounts
-- Refund and chargeback entitlement revocation
-- Bundle and coupon calculations
+Before enabling any live payment adapter, test against that provider's official sandbox or test environment:
 
-## Test evidence
+- hosted/tokenized checkout
+- recurring subscription creation and renewal
+- decline and processing states
+- webhook signature verification and replay handling
+- cancellation, retry, grace period, refund, partial refund, and chargeback
+- purchase-to-entitlement creation and refund/chargeback revocation
+- no raw card data in application storage or logs
 
-Record exact commands, environment, passing checks, failures, screenshots from the running build, and known limitations in `docs/TEST_REPORT.md`. Do not use the word “tested” without evidence.
+## CI after source import
+
+GitHub Actions must run:
+
+- PHP 8.2 source suite
+- PHP 8.3 source suite
+- MySQL 8 migration/rollback integration
+- installed-demo member and commerce HTTP acceptance
+- Chromium Media Center acceptance
+- Chromium Members & Entitlements acceptance
+- Chromium Subscriptions & PPV Commerce acceptance
+
+## Evidence rule
+
+Record exact commands, environment, passing checks, failures, and known limitations in `docs/TEST_REPORT.md`. Never state that MySQL, browser, live payment, email, or production-host testing passed without direct evidence.
