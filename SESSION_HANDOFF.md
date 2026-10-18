@@ -38,21 +38,22 @@ The package and GitHub repository are separate truth boundaries. Verify the live
 - Admin Add-on Manager, logs, diagnostics, task runner, starter source/ZIP, and developer documentation
 - Ninth migration / 48 declared tables
 
-## Local verification
+## Final local verification
 
 ```text
-bash scripts/test.sh      PASS
-bash scripts/test_http.sh PASS
+bash scripts/test.sh                         PASS
+VELVET_TEST_PORT=8774 bash scripts/test_http.sh PASS
+Extracted release checksum verification      PASS
 ```
 
-Validated: 121 PHP files, 6 public JavaScript files, 7 Python files, 9 migrations, 48 tables, package integrity/signature cases, lifecycle actions, update/rollback, quarantine, safe mode, licenses, task execution, and real HTTP add-on pages/widgets/routes/settings.
+Validated: 122 PHP files, 6 public JavaScript files, 7 Python files, 9 migrations, 48 tables, package integrity/signature cases, lifecycle actions, repair/rollback, safe mode, task execution, and real HTTP add-on pages/widgets/routes/settings.
 
-Release SHA-256: `8462746ee90ec0ec054e756e92afc63a9fc90e9f47f6bea39e7b0a6a156f065c`
+Final release SHA-256: `862e9538a5b3c4efc8f8616fbbdc079b9fe252871252f5e2b275ab971394a01c`
 
 ## Limits
 
 - No local PDO MySQL/MySQL; CI owns live DDL validation.
-- Local interactive Chromium is blocked by managed policy; CI owns four Playwright suites.
+- Interactive Playwright is not claimed locally in the packaging environment; CI owns four Playwright suites.
 - Payment remains sandbox-only.
 - Remote licensing, customer downloads, remote update feeds, and marketplace sales are not complete.
 
@@ -82,7 +83,7 @@ Before packaging or committing:
 ```bash
 bash scripts/clean_runtime.sh
 bash scripts/test.sh
-bash scripts/test_http.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
 bash scripts/clean_runtime.sh
 php tests/Security/repository_safety.php
 ```
