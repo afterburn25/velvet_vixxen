@@ -2,70 +2,62 @@
 
 ## Current packaged release
 
-**0.7.0 — Messaging, Booking & Member Requests**
+**0.7.3 — Installer Verification & Simplified Setup Hotfix**
 
-A clean runtime-only package has been built and verified. It contains only the files required to install and run Velvet Vixxen; repository, documentation, tests, screenshots, SDK source, and development scripts are distributed separately rather than inside the installation ZIP.
+The public installation package remains runtime-only: it contains only the files required to install and run the website. Repository documents, tests, SDK source, screenshots, and development tooling stay outside the customer ZIP.
 
-## Completed and locally verified
+## 0.7.3 corrections
 
-### Foundation, design, media, and commerce
+- Fixed the reported final setup failure: `Final configuration verification failed`.
+- Configuration writes now invalidate PHP stat/OPcache entries.
+- The activated `config/app.php` bytes are read back and SHA-256 checked.
+- Exact settings are loaded through a unique one-time verification path, avoiding a stale fixed-path cache after atomic replacement or ownership repair.
+- Final verification checks installed state, version, installation ID, URL, security keys, database reconnection, seeded site settings, and install lock independently.
+- Verification failures now identify the exact mismatched component instead of returning only a generic message.
+- The one-page installer has been simplified to Database, Owner and Website, and Install.
+- Server/folder details are collapsed and show only failures or warnings.
+- Support/sender email defaults to the owner email, outgoing email defaults to Configure Later, currency defaults to USD, time zone defaults to America/Chicago, and the 18+ gate starts enabled.
 
-- One-page browser installer with no install key and exact 12-character minimum owner/member passwords
-- Safe `0755`/`0775` permission handling; no `0777`
-- Approved responsive neon-pink design, Visual Composer, and Canva-compatible workflow
-- Music, photo galleries, videos, protected media, members, plans, entitlements, subscriptions, PPV, rentals, bundles, coupons, receipts, refunds, and sandbox webhooks
-- Validated add-on lifecycle plus commercial licensing and signed remote-update foundations
+## Preserved behavior
 
-### 0.7.0 communication center
+- No installation key.
+- Exact 12-character minimum owner/member passwords.
+- Safe `0755`/`0775` permissions; never `0777`.
+- Automatic ownership-safe repair of panel-owned runtime folders.
+- Versioned migrations, rollback attempts, installation lock, boot verification, and `/install` cleanup.
+- Approved responsive design, Visual Composer, Canva workflow, Media Center, members/entitlements, subscriptions, PPV, add-ons, licensing/updates, messaging, booking, and member requests.
 
-- Member-to-owner private message threads
-- Protected communication attachments stored outside public delivery paths
-- Read/unread state, status, priority, internal notes, and activity history
-- Saved owner reply templates
-- Member content-request intake with category, details, budget range, quote, status, and owner replies
-- Public and signed-in booking/appearance inquiry workflow
-- Booking dates, location, venue/platform, budget, protected reference files, status, priority, and internal notes
-- In-app member notifications and optional mail-outbox updates
-- Communication blocking and configuration controls
-- Member dashboard communication summaries and history
-- Owner queues for messages, content requests, and booking requests
-- Responsive public and administration interfaces
+## Package evidence
 
-## Database and release evidence
-
-- 11 versioned migrations
-- 64 declared application tables
-- 149 PHP source/test files passed syntax validation
-- 6 public JavaScript files passed syntax validation
-- 10 Python HTTP/Playwright files passed syntax validation
-- `bash scripts/test.sh`: passed
-- `bash scripts/test_http.sh`: passed
-- Runtime-only ZIP contains 185 files, including 112 PHP runtime files
-- Package SHA-256: `98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b`
-
-## Runtime-only ZIP policy
-
-The installable ZIP intentionally excludes `.git`, `.github`, `/docs`, `/tests`, add-on SDK source, GitHub Actions, roadmap/status/handoff files, screenshots, release reports, test/demo/cleanup scripts, and the development SQL schema snapshot. Operational billing and add-on task runners remain included because the live site requires them.
+- Runtime files: 186
+- Runtime PHP files: 113
+- Public JavaScript files: 6
+- Database migrations: 11
+- Declared tables: 64
+- ZIP integrity: passed
+- PHP/JavaScript syntax: passed
+- Simplified installer HTTP rendering and AJAX recheck: passed
+- Stale-cache and replaced-config-directory verification test: passed
+- Shared-hosting ownership mismatch simulation: 75 directories, 0 failures, ready
+- Runtime-only exclusions and clean uninstalled state: passed
+- Package SHA-256: `202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0`
 
 ## Environmental limits
 
-- Local PDO MySQL/MySQL is unavailable. Live DDL execution is not claimed locally. CI must apply all 11 migrations, verify 64 tables, roll back, and require an empty disposable database afterward.
-- Direct local interactive Chromium is blocked by a managed browser policy. The policy was not bypassed. HTTP acceptance passed; full Playwright acceptance remains CI-owned.
+- Local PDO MySQL/MySQL remains unavailable, so live DDL execution is not claimed locally.
+- Full interactive Playwright acceptance remains CI-owned.
 - The payment provider remains sandbox-only.
-- The licensing hub remains a self-hosted foundation rather than a separately deployed marketplace SaaS.
 
 ## Repository truth boundary
 
 - Repository: `afterburn25/velvet_vixxen`
-- Documentation/delivery branch: `feature/0.7.0-messaging-booking-requests`
-- The complete executable 0.7.0 source is not yet claimed as imported into GitHub.
-- Do not call `main` the 0.7.0 executable release until source import, CI, review, and merge are directly verified.
-- Never commit production credentials, customer records, identity documents, payment secrets, raw license keys, signing private keys, private messages/attachments, runtime state, or private/paid media.
+- Hotfix branch: `fix/0.7.3-installer-verification`
+- The complete executable source import and full MySQL/Playwright CI matrix remain separate tracked work.
+- Never commit credentials, generated keys, customer records, private communications/attachments, signing keys, runtime state, or private/paid media.
 
 ## Next actions
 
-1. Import the complete clean 0.7.0 source outside the public installation ZIP.
-2. Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and Playwright CI.
-3. Correct CI-only findings and record exact evidence.
-4. Merge only after required checks are green.
-5. Begin **0.8.0 — Marketing, Publishing & Analytics**.
+1. Deploy and validate 0.7.3 on the affected shared-hosting account.
+2. Import the complete clean engineering source separately from the runtime ZIP.
+3. Run PHP 8.2/8.3, MySQL 8, HTTP, repository-safety, and Playwright CI.
+4. Resume **0.8.0 — Marketing, Publishing & Analytics** after the installer hotfix is confirmed.
