@@ -6,23 +6,24 @@
 - The approved neon-pink/magenta/black direction is the design source of truth.
 - No additional mockups are created unless explicitly requested.
 - User/model photographs remain replaceable layers; default public artwork stays people-free.
-- Navigation, forms, paywalls, players, pricing, and accessibility remain live HTML/JavaScript.
+- Navigation, forms, paywalls, players, pricing, publishing controls, and accessibility remain live HTML/JavaScript.
 
 ## Installer and hosting
 
-- Installation occurs on a single responsive browser page.
+- Installation occurs on a single simplified responsive browser page.
 - No installation key is required.
 - Owner and member passwords have a 12-character minimum.
 - File checks use real write/read/rename/delete probes.
 - Safe permission attempts are `0755`/`0775`; `0777` is never accepted.
-- Installation runs versioned migrations, verifies boot, creates a lock, and deletes or securely retires `/install`.
+- Ownership mismatches on writable runtime folders are repaired without requiring world-writable permissions.
+- Installation runs versioned migrations, verifies final configuration and boot, creates a lock, and deletes or securely retires `/install`.
 - Files remain organized by responsibility.
 
 ## Distribution packaging
 
 - The public installation ZIP contains only files required to install and run the actual site.
-- Repository metadata, GitHub workflows, docs, tests, SDK source, screenshots, reports, and development-only scripts do not ship in the customer installation ZIP.
-- Operational billing and add-on task runners remain included because the installed site requires them.
+- Repository metadata, GitHub workflows, docs, tests, SDK source, screenshots, reports, and development-only tooling do not ship in the customer installation ZIP.
+- Operational billing, add-on-task, and marketing runners remain included because the installed site requires them.
 - The complete engineering source, tests, documentation, and SDK remain in the repository source-import workflow, not in the public runtime package.
 
 ## Media, access, and commerce
@@ -52,12 +53,34 @@
 - Contact blocks stop new activity while preserving prior history.
 - Content-request and booking quotes are workflow records, not automatic charges or final legal agreements.
 - Saved replies are owner conveniences; sending remains an explicit owner action.
-- Guest self-service status tokens, communication report queues, and CSV communication exports are future work and are not claimed in 0.7.0.
+
+## Publishing and marketing
+
+- Editorial content uses explicit draft, scheduled, published, archived, and expiration states.
+- Public visibility is resolved by publication timing and audience rules rather than by obscured URLs alone.
+- Newsletter consent, confirmation, unsubscribe, and suppression are distinct records and must be respected by every campaign send.
+- Unsubscribe remains available even when newsletter signup is disabled.
+- Email delivery uses the configured PHP-mail/SMTP abstraction; no production email provider is assumed.
+- Private message bodies and protected content never appear in campaign or transactional email payloads.
+- Promotional banners and campaign pages use live HTML around optional artwork rather than flattening functional content into images.
+- Scheduled Visual Composer scenes use snapshots, a claim state, and idempotent task processing.
+- File-store scene processing must re-read saved scene state after publication to avoid stale overwrite.
+- Link-in-bio clicks and referral events are recorded without exposing private member data publicly.
+
+## Analytics and privacy
+
+- Analytics are first-party and same-origin by default.
+- Foreign-origin collection requests are rejected.
+- Analytics payloads exclude raw card data, payment credentials, protected-media contents, private-message bodies, attachments, identity records, and exact sensitive documents.
+- Collection can be disabled independently from other marketing features.
+- Analytics and consent data have configurable retention controls.
+- CSV exports protect against spreadsheet formula injection.
+- Screenshots support visual review but do not replace interactive browser acceptance.
 
 ## Repository and evidence
 
 - Repository: `afterburn25/velvet_vixxen`.
 - GitHub documents, issues, pull requests, tests, and handoff files are the continuity hub.
 - A local/package milestone and a GitHub branch are separate truth boundaries.
-- Do not claim source import, CI success, MySQL, Playwright, merge, tag, live payments, or deployed licensing without direct evidence.
-- Public source never contains credentials, generated keys, raw license keys, signing private keys, customer/member data, private conversations, booking/request records, owner notes, attachments, identity documents, runtime state, or private/paid media.
+- Do not claim source import, CI success, MySQL, Playwright, merge, tag, live payments, production email delivery, or deployed licensing without direct evidence.
+- Public source never contains credentials, generated keys, raw license keys, signing private keys, customer/member/subscriber data, private conversations, booking/request records, owner notes, attachments, identity documents, runtime state, or private/paid media.
