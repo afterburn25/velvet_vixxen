@@ -1,59 +1,58 @@
 # Agent Instructions — Velvet Vixxen
 
-## Start every session with live repository evidence
+## Source of truth
 
 Repository: `afterburn25/velvet_vixxen`
 
-Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, and `docs/TEST_REPORT.md`, then inspect open issues, the active pull request, current branch head, and GitHub Actions. Do not infer repository state from chat history.
+Packaged target: **0.7.0 — Messaging, Booking & Member Requests**
 
-## Current packaged milestone
+Branch target: `feature/0.7.0-messaging-booking-requests`
 
-**0.6.0 — Add-on Framework**
-
-The complete executable source is still tracked for import by issue #1. Issue #7 tracks 0.6.0 delivery. Documentation on a branch is not proof that executable source, MySQL, Playwright, merge, tag, or release gates are complete.
+Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, and `SECURITY.md` before changing code.
 
 ## Locked requirements
 
-- Preserve the approved neon-pink design.
-- Do not create new design mockups unless explicitly requested.
-- Keep the installer on a single responsive browser page.
-- No installation key.
-- Keep 12-character minimum owner/member passwords.
+- Preserve the approved neon-pink/magenta/black design.
+- Do not create more mockups unless explicitly requested.
+- Keep the installer on one responsive page.
+- Require no installation key.
+- Use a 12-character minimum password, not 14.
 - Never use `chmod 0777`.
-- Keep files organized in proper folders.
-- Preserve the unified entitlement model.
-- Keep live forms, navigation, commerce, paywalls, and players as HTML/JavaScript.
-- Add-ons must extend the platform without modifying core files.
-- Add-ons are executable PHP, not a secure sandbox.
-- Invalid signatures and blocking package findings are non-bypassable.
-- Keep sandbox payment behavior separate from live processors.
+- Keep application files organized.
+- Preserve Visual Composer, Canva workflow, Media Center, members, entitlements, PPV/subscriptions, add-ons, licensing, and communications.
+- Treat private messages, booking/request records, owner notes, moderation records, guest tokens, and attachments as sensitive runtime data.
+- Do not include private body content in email alerts.
+- Do not treat quotes as automatic charges or final contracts.
 
-## Add-on implementation rules
+## 0.7.0 invariants
 
-- Permanent reverse-domain-style ID and semantic version
-- Explicit compatibility range, entrypoint, permissions, dependencies, and conflicts
-- Checksums for package files; Ed25519 signatures for trusted commercial distribution
-- No private keys, `.env`, credentials, customer data, or private media in packages
-- Add-on-specific table names and reversible migrations
-- Separate install and activation
-- Deactivation preserves data
-- Normal uninstall preserves data; purge is explicit
-- Update creates a backup and remains inactive for review
-- Boot failures quarantine the add-on
-- Safe mode must bypass all optional add-ons
+- Communication access is owner/member scoped.
+- Owner-only notes never appear in member or guest output.
+- Guest booking status requires the matching high-entropy token.
+- Attachments live in protected storage and are streamed only after authorization.
+- Blocks stop new contact but preserve historical evidence.
+- Status, quote, acceptance/cancellation, and moderation changes are recorded.
+- CSV exports require owner authentication.
+- State-changing requests require CSRF protection.
 
-## Testing and evidence
+## Required release gate
 
-Before claiming completion, run applicable source, HTTP, MySQL, browser, installer, migration, task, package-security, and repository-safety tests. Record exact commands and limitations.
+```bash
+bash scripts/clean_runtime.sh
+bash scripts/test.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+bash scripts/clean_runtime.sh
+php tests/Security/repository_safety.php
+```
 
-A configured CI job is not a passed test. A static-render screenshot is not interactive Playwright acceptance. Never overstate unavailable environmental checks.
+Current package evidence: 160 PHP files, 6 public JavaScript files, 11 Python files, 11 migrations, 66 tables, source suite passed, and all five HTTP suites passed.
 
-## Repository safety
+CI must additionally run disposable MySQL apply/verify/rollback and all six Playwright suites. Record exact evidence in status, handoff, roadmap, testing, and test-report documents.
 
-Never commit production credentials, generated secrets, signing private keys, customer/identity/payment records, private messages, installed configuration, locks, sessions, logs, caches, add-on staging/quarantine runtime data, or private/paid media.
+## Public repository safety
 
-Run `bash scripts/clean_runtime.sh` before packaging/committing and `php tests/Security/repository_safety.php` afterward.
+Never commit production credentials, generated secrets, payment tokens, raw license keys, signing private keys, private conversations, request/booking data, owner notes, notifications, moderation data, guest tokens, attachments, customer/member records, identity documents, runtime logs/sessions/backups, installed add-ons, or private/paid media.
 
-## Release documentation
+## Truthfulness
 
-Update `VERSION`, `CHANGELOG.md`, `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md` when architecture changes, `docs/TEST_REPORT.md`, and `RELEASE_MANIFEST.txt`. A milestone is not complete without implementation, tests, documentation, and evidence.
+Distinguish among locally tested package behavior, CI-prepared behavior, planned work, and real production-service integration. Do not claim source import, MySQL, Playwright, live payments, production email, public licensing SaaS, merge, tag, or release without direct evidence.
