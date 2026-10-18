@@ -1,77 +1,91 @@
-# Velvet Vixxen Development Roadmap
+# Velvet Vixxen Roadmap
 
-## Complete milestones
+Status is based on verified implementation and test evidence, not intention.
 
-### 0.2.2 — One-Page Browser Installer
+## Completed
 
-- One responsive installer page
-- No installation key
-- 12-character owner-password minimum
-- Safe permissions, migrations, lock, boot verification, `/install` cleanup, and organized folders
+### 0.1.0–0.2.2 — Foundation, Design, Composer, Installer
+
+- PHP/MySQL foundation and organized folders
+- Approved responsive design
+- Hero/Footer Visual Composer and Canva-ready templates
+- Single-page browser installer, no key, 12-character minimum, safe permissions, migrations, install lock, and `/install` cleanup
 
 ### 0.3.0 — Media Center
 
-- Persistent music player, albums/playlists, photo galleries/viewer, video library/player, protected media, scheduling, and administration
+- Music, persistent audio, albums, and playlists
+- Photo galleries and full-screen viewer
+- Video library/player, trailers, captions, and Continue Watching
+- Protected previews/originals and signed delivery
 
 ### 0.4.0 — Members & Entitlements
 
-- Registration, verification, login/recovery, device sessions, dashboard, My Library, plans, synchronized media state, and unified access resolution
+- Registration, verification, authentication, recovery, and device sessions
+- Plans, subscriptions, My Library, Favorites, and playback state
+- Unified public/member/subscription/PPV/rental/bundle/gift access resolver
 
 ### 0.5.0 — Subscriptions & PPV Commerce
 
-- Sandbox payment-provider contract
-- Store, cart, checkout, subscriptions, PPV photo/video, rentals, bundles, coupons, receipts, billing, refunds, webhooks, and administration
+- Store, cart, sandbox checkout, receipts, and billing history
+- Monthly/annual plans, PPV photo/video, rentals, bundles, and coupons
+- Signed webhooks, refunds, chargebacks, and entitlement fulfillment/revocation
 
 ### 0.6.0 — Add-on Framework
 
-- ZIP package inspection and validated manifest schema
-- Core/PHP compatibility, permissions, dependencies, conflicts, checksums, and optional Ed25519 signatures
-- Safe package-path/content rules and explicit unsigned-package acknowledgement
-- Install, activate, deactivate, update, rollback, preserve-data uninstall, and purge uninstall
-- Add-on-owned migrations and migration registry
-- Admin pages/navigation, public routes, widgets, events, filters, services, settings, and scheduled tasks
-- Pre-change backups, failed-change restoration, safe mode, boot-failure quarantine, and lifecycle logs
-- Free, trial, and signed offline commercial-license foundations
-- Starter source/ZIP, developer documentation, and lifecycle/security tests
+- Protected ZIP staging, manifests, compatibility, permissions, dependencies, conflicts, checksums, and signatures
+- Install/activate/deactivate/update/rollback/uninstall/purge
+- Backups, migrations, failure rollback, Safe Mode, routes, widgets, events, filters, services, settings, and tasks
 
-## 0.6.1 — Commercial Licensing & Remote Updates
+### 0.6.1 — Commercial Licensing & Remote Updates
 
-- Separate license/update service API
-- Online activation/deactivation and installation/domain limits
-- Trials, grace periods, renewal/update entitlement, and transfer/revocation workflows
-- Customer download records and release history
-- Signed remote update manifests/packages
-- Stable, beta, and development channels
-- Update caching and outage-tolerant behavior that does not break installed sites
-- Security, privacy, lifecycle, and rollback tests
+- Commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, outage grace, signed feeds, release channels, protected downloads, review, backup, and rollback
 
-## 0.7.0 — Add-on Store
+### 0.7.0 — Messaging, Booking & Member Requests
 
-- Integrated catalog and product pages
-- Customer purchase/download library
-- One-time, recurring, annual, lifetime, multi-site, and agency licenses
-- One-click installation after purchase
-- Bundles, coupons, reviews, release notes, support links, and vendor/revenue reports
+- Private member-to-owner conversations
+- Read/unread state, priorities, close/reopen/archive, attachments, and history
+- Content requests with categories, custom questions, budgets, due dates, quotes, statuses, acceptance/cancellation, and owner notes
+- Public/member booking inquiries with guest status links, dates, locations, quotes, confirmation/cancellation, and history
+- Protected request attachments and authorization-aware delivery
+- Saved replies, notifications, unread badges, contact blocks, moderation reports, and internal notes
+- Admin queues, filters, category/reply management, and CSV exports
+- Eleventh migration / 66 declared tables
 
-## 0.8.0 — Messaging, Booking, Marketing & Analytics
+## Next
 
-- Member messaging, content requests, blocking/reporting
-- Booking and appearance inquiries
-- Newsletter campaigns, referrals, promotions, landing pages, and conversion analytics
+### 0.8.0 — Marketing, Publishing & Analytics
 
-## 0.9.0 — Compliance, Protection & Operations
+- Blog/updates and editorial content calendar
+- Newsletter segmentation and branded transactional/campaign templates
+- New-content, renewal, payment-failure, request, and booking notifications
+- Promotional banners, campaign pages, timed offers, and scheduled Visual Composer scenes
+- Referral and affiliate foundations
+- Link-in-bio page
+- Privacy-conscious traffic, conversion, media, subscription, PPV, coupon, booking, request, and communication reporting
+- CSV exports, consent records, and retention controls
 
-- Rights/release vault, ownership records, reporting/takedowns, geographic controls, age-assurance adapter
-- Buyer-specific watermarks, suspicious-access monitoring, backups, restore, diagnostics, and upgrade rollback
+### 0.9.0 — Compliance, Privacy & Operational Hardening
 
-## 1.0.0 — Production Release
+- Performer/collaborator release vault and content linkage
+- Complaint, copyright, report, and takedown workflows
+- Age-assurance adapters and geographic controls
+- Two-factor authentication
+- Enhanced audit logs and privileged-action confirmation
+- Backup scheduling, restore validation, health dashboard, recovery mode, rate limiting, suspicious-access alerts, accessibility, and privacy review
 
-- Cross-browser/device and accessibility testing
-- Approved live payment-provider lifecycle validation
-- Shared-host clean install/upgrade/rollback/backup/restore tests
-- Commercial licensing/update-service production validation
-- Production documentation and actual-build screenshots
+### 1.0.0 — Production Release
 
-## Completion rule
+- Approved live payment-provider adapter and merchant sandbox certification
+- Shared-hosting installation/upgrade validation
+- Full PHP/MySQL/MariaDB/HTTP/Playwright/security matrix
+- Backup/restore and failed-upgrade drills
+- Accessibility/browser review and complete operating documentation
+- Signed package, checksum, changelog, test evidence, and running-build screenshots
 
-A roadmap item is complete only when implementation, migrations, tests, documentation, and evidence exist. A packaged milestone is not described as merged to `main` until its complete source is pushed, CI-tested, reviewed, and actually merged.
+## Not complete in 0.7.0
+
+- Public add-on marketplace or multi-tenant licensing SaaS
+- Live payment certification and automatic taxes
+- Websocket chat, voice/video calling, paid-message workflows
+- Automatic booking contracts, deposits, or quote payments
+- Production two-factor authentication and compliance vault
