@@ -1,64 +1,112 @@
-# Test Report — 0.7.0 Messaging, Booking & Member Requests
+# Test Report — 0.7.3 Installer Verification & Simplified Setup
 
-## Source suite
+## Reported failure reproduced at the verification boundary
 
-```bash
-bash scripts/clean_runtime.sh
-bash scripts/test.sh
+The affected shared-hosting installation reached the last setup stage and returned:
+
+```text
+Installation stopped and attempted to roll back safely:
+Final configuration verification failed.
 ```
 
-Result: **passed**
+The final verifier previously rewrote `config/app.php` and immediately loaded the same fixed path. A stale PHP OPcache/realpath entry could return the earlier uninstalled configuration during the same request, especially after ownership-safe replacement of the parent `/config` directory.
+
+## Implemented correction
+
+- Atomic configuration activation now invalidates PHP stat and OPcache entries.
+- The exact on-disk file bytes are read back and SHA-256 checked.
+- The activated bytes are loaded through a unique protected temporary verification path and removed immediately.
+- The loaded settings array must exactly equal the requested settings.
+- Final verification independently checks installed state, release version, installation ID, base URL, generated security keys, database reconnection, seeded site settings, and install lock.
+- Failure messages identify the mismatched component.
+
+## Simplified installer acceptance
+
+The visible installer now contains only:
+
+1. Database
+2. Owner and Website
+3. Install
+
+Technical server and directory diagnostics remain available in a collapsed section. Successful low-level probes are summarized; warnings and failures remain visible. Email delivery defaults to Configure Later, while support and sender email default to the owner email.
+
+## Runtime syntax and package checks
+
+Results:
+
+- PHP syntax: **113 runtime files passed**
+- Public JavaScript syntax: **6 files passed**
+- Database migrations: **11**
+- Declared application tables: **64**
+- Runtime package files: **186**
+- ZIP integrity: **passed**
+- Runtime-only exclusion rules: **passed**
+- Clean/uninstalled configuration: **passed**
+- No generated credentials, keys, install lock, logs, sessions, customer records, or private communications: **passed**
+- No mode `0777`: **passed**
+
+## Installer HTTP checks
+
+A clean extracted runtime package was served through PHP.
 
 Verified:
 
-- PHP syntax: 149 source/test files
-- public JavaScript syntax: 6 files
-- Python HTTP/Playwright syntax: 10 files
-- smoke and one-page installer regression
-- migration manifest: 11 migrations / 64 application tables
-- media, members, entitlements, subscriptions/PPV, add-ons, licensing/updates, and communications unit/feature tests
-- protected media, member security, signed webhooks, add-on security, organized folders, and repository safety
+- Installer returned HTTP 200.
+- Simplified quick-setup page rendered.
+- Database, Owner and Website, and Install sections were present.
+- Technical details were collapsed.
+- The former visible Email Delivery section was absent.
+- AJAX requirement recheck returned valid JSON.
+- Owner/support/sender default handling accepted `red.pixie93@gmail.com`.
 
-## Installed-demo HTTP acceptance
+## OPcache and parent-directory replacement regression
 
-```bash
-VELVET_TEST_PORT=8766 bash scripts/test_http.sh
-```
+The final-config test ran with CLI OPcache enabled and timestamp validation disabled. It preloaded an old configuration, replaced the parent `/config` directory to model shared-hosting ownership repair, wrote the final installed configuration, and immediately loaded it through the new verifier.
 
-Result: **passed**
-
-Verified real HTTP flows for members, subscriptions/PPV commerce, add-ons, add-on licensing/updates, private messaging, protected attachments, owner replies, saved replies, content requests, quotes/statuses, booking inquiries, booking administration, notifications, and communication controls.
-
-## Runtime-only package verification
-
-The 0.7.0 install ZIP contains only runtime files. It excludes GitHub/repository files, documentation, tests, SDK source, screenshots, reports, and development scripts. The ZIP contains 185 files, including 112 runtime PHP files and 11 database migrations.
-
-A separate extraction passed:
-
-- ZIP integrity
-- SHA-256 verification
-- runtime exclusion checks
-- uninstalled/secret-free configuration checks
-- 112 runtime PHP syntax checks
-- no `0777` permissions
-- full external source/security suite after overlaying the test harness
-- all installed-demo HTTP acceptance suites
-- clean-state repository safety after test cleanup
-
-Release SHA-256:
+Result:
 
 ```text
-98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
+CONFIG_DIRECTORY_SWAP_OK
 ```
 
-## Browser status
+Verified values included:
 
-Direct interactive Chromium navigation is blocked by a managed policy with `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Browser suites remain configured for CI. Rendered screenshots document application output but do not replace interactive Playwright evidence.
+- `installed=true`
+- `version=0.7.3`
+- expected installation ID
+- expected base URL
+- non-empty generated security keys
 
-## MySQL status
+## Shared-hosting ownership simulation
 
-Local PDO MySQL and a MySQL/MariaDB server are unavailable. Live DDL execution is not claimed locally. The CI database test must apply all 11 migrations, verify 64 tables, roll back, and leave the disposable database empty.
+The existing runtime folders were owned by one user with mode `0755`. PHP was executed as another user and allowed to write only in the site root.
+
+The installer automatically replaced affected panel-owned runtime folders with PHP-owned copies, preserved contents, recreated missing subdirectories, and reran real write/rename/read/delete probes.
+
+Result:
+
+```text
+Runtime directories checked: 75
+Required file failures: 0
+Installer ready: true
+```
+
+No `0777` permissions were used.
+
+## Database boundary
+
+Local PDO MySQL and a MySQL/MariaDB server were unavailable. Live DDL execution is therefore not claimed locally. GitHub CI remains responsible for applying all 11 migrations, verifying 64 tables, rolling back, and confirming that the disposable database is empty.
+
+## Browser boundary
+
+Interactive Playwright remains CI-owned. The simplified installer’s server-rendered HTML and AJAX behavior passed local HTTP checks.
+
+## Release checksum
+
+```text
+202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0
+```
 
 ## Result
 
-**PASS — the 0.7.0 source and runtime-only installation package passed all available local non-database and HTTP acceptance gates.**
+**PASS — the 0.7.3 runtime package passed all available local installer, cache-regression, shared-hosting ownership, syntax, integrity, exclusion, and security checks.**
