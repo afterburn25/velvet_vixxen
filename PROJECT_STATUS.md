@@ -8,12 +8,15 @@ A clean, installable 0.5.0 package has been built and locally verified. It combi
 
 ## Repository truth boundary
 
+Repository: `afterburn25/velvet_vixxen`
+
 The GitHub repository is the communication and testing hub, but the complete executable 0.5.0 source tree is **not yet imported**. Therefore:
 
 - `main` remains the last-known-good documentation branch, not the 0.5.0 executable release.
 - `feature/0.5.0-subscriptions-ppv-commerce` is the prepared delivery branch.
 - Issue #1 tracks complete source import and full CI activation.
 - Issue #5 tracks the 0.5.0 delivery and release gates.
+- Draft pull request #6 carries the current documentation handoff.
 - Do not claim GitHub CI, MySQL integration, Playwright acceptance, a pull-request merge, or a live payment processor without direct evidence.
 
 ## Completed in the tested package
