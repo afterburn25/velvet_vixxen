@@ -1,25 +1,52 @@
 # Nikki Wilder — The Velvet Vixxen
 
-**Current packaged release: 0.7.0 — Messaging, Booking & Member Requests**
+**Current completed runtime release: 0.7.1 — Ownership-Safe Installer Hotfix**
 
-Velvet Vixxen is a full-stack PHP/MySQL creator platform using the approved neon-pink Nikki Wilder design. It combines a visual site composer, Canva-ready templates, music, photo galleries, video, member accounts, subscriptions, PPV commerce, installable commercial add-ons, and private communication/request workflows.
+**Current development milestone: 0.8.0 — Marketing, Publishing & Analytics**
 
-## 0.7.0 additions
+Velvet Vixxen is a full-stack PHP/MySQL creator platform using the approved neon-pink Nikki Wilder design. It combines a visual site composer, Canva-ready templates, music, photo galleries, video, member accounts, subscriptions, PPV commerce, commercial add-ons, licensing/updates, private messaging, content requests, and booking workflows.
 
-- Private member-to-owner conversation threads
-- Protected message and request attachments
-- Read/unread state, statuses, priorities, owner replies, internal notes, and activity history
-- Saved reply templates
-- Content requests with category, budget range, requested date, quote, status, and member history
-- Public and signed-in booking/appearance inquiries with dates, city, venue/platform, budget, details, and reference files
-- Member notifications and mail-outbox integration
-- Communication blocks and configurable attachment/intake controls
-- Owner queues for messages, content requests, booking requests, and communication settings
-- Eleventh migration / 64 declared application tables
+## 0.7.1 baseline
+
+0.7.1 preserves the complete 0.7.0 communication platform and fixes shared-hosting ownership mismatches where panel-created `0755` folders could not be written by PHP.
+
+The installer can safely replace affected runtime directories with PHP-owned equivalents, preserve existing contents, create missing upload/storage/add-on paths, rerun real write tests, and retire `/install` without using `0777`.
+
+Runtime package SHA-256:
+
+```text
+a5c311e2462b422246eb8282142e33c4157d91dab74bfdf029d42fb476a72d06
+```
+
+## 0.8.0 work
+
+The working branch is:
+
+```text
+feature/0.8.0-marketing-publishing-analytics
+```
+
+Tracking issue: `#9`
+
+Detailed plan: `docs/0.8.0_IMPLEMENTATION_PLAN.md`
+
+Planned implementation includes:
+
+- Blog posts, personal updates, announcements, categories, tags, revisions, previews, scheduling, expiration, SEO, and member/tier visibility
+- Editorial calendar spanning posts, media, campaigns, banners, email, coupons, and Visual Composer scenes
+- Campaign landing pages and timed promotional banners
+- Newsletter lists, consent, segmentation, branded templates, scheduled campaigns, batching, unsubscribe, suppression, and delivery records
+- Automated content, renewal, payment-failure, request, booking, and message-notification emails
+- Link-in-bio page
+- Referral and affiliate-attribution foundations
+- Privacy-conscious traffic, conversion, subscription, PPV, media, booking, request, communication, and campaign analytics
+- CSV reports and retention controls
+
+The 0.8.0 executable build is not yet represented as complete merely because its specification and branch exist.
 
 ## Runtime-only installation ZIP
 
-The public release ZIP contains only files required to install and run the website. It intentionally excludes:
+Customer-facing installation ZIPs contain only files required to install and operate the website. They intentionally exclude:
 
 - `.git` and `.github`
 - repository roadmaps, handoff documents, and GitHub Actions workflows
@@ -27,9 +54,9 @@ The public release ZIP contains only files required to install and run the websi
 - add-on SDK source
 - screenshots and release reports
 - test, demo, cleanup, and build scripts
-- the development-only SQL schema snapshot
+- development-only SQL schema snapshots
 
-Operational scripts required by the live site remain included: `scripts/run_billing.php` and `scripts/run_addon_tasks.php`.
+Operational task runners required by the live site remain included.
 
 ## Locked installation requirements
 
@@ -37,43 +64,15 @@ Operational scripts required by the live site remain included: `scripts/run_bill
 - No installation key
 - Exact 12-character minimum owner/member passwords
 - Safe `0755`/`0775` permissions; never `0777`
+- Ownership-safe writable-directory repair
 - Versioned database migrations
 - Installation lock and `/install` deletion or secure retirement
 - Organized folders rather than root-level file sprawl
-
-## Test commands
-
-```bash
-bash scripts/clean_runtime.sh
-bash scripts/test.sh
-VELVET_TEST_PORT=8766 bash scripts/test_http.sh
-bash scripts/clean_runtime.sh
-php tests/Security/repository_safety.php
-```
-
-Verified local evidence:
-
-- 149 PHP source/test files passed syntax validation
-- 6 public JavaScript files passed syntax validation
-- 10 Python HTTP/Playwright files passed syntax validation
-- 11 migrations / 64 declared application tables
-- complete non-database source/security suite passed
-- Members, Commerce, Add-on, Licensing/Updates, and Communications HTTP suites passed
-- runtime-only ZIP contains 185 files, including 112 PHP runtime files
-- package SHA-256: `98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b`
-
-Local MySQL execution is not claimed because PDO MySQL/MySQL was unavailable. Direct local Chromium navigation is blocked by a managed policy; Playwright remains CI-owned. Payment remains sandbox-only.
 
 ## Repository truth boundary
 
 Repository: `afterburn25/velvet_vixxen`
 
-Branch target: `feature/0.7.0-messaging-booking-requests`
+A clean runtime package and a GitHub branch are separate truth boundaries. Do not describe `main` or the 0.8.0 branch as a released executable milestone until source import, required tests, review, and release evidence are directly verified.
 
-The clean packaged 0.7.0 build and this documentation branch are separate truth boundaries. Do not describe `main` as the complete executable 0.7.0 source until clean source import, full CI, review, and merge are directly verified.
-
-Never commit production credentials, customer/member records, private conversations, booking/request records, internal notes, attachments, identity documents, payment secrets, raw license keys, signing private keys, runtime state, or private/paid media.
-
-## Next milestone
-
-**0.8.0 — Marketing, Publishing & Analytics**
+Never commit production credentials, customer/member records, private conversations, booking/request records, attachments, identity documents, payment secrets, raw license keys, signing private keys, runtime state, or private/paid media.
