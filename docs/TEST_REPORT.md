@@ -1,64 +1,152 @@
-# Test Report — 0.7.0 Messaging, Booking & Member Requests
+# Velvet Vixxen 0.8.0 Test Report
 
-## Source suite
+## Release
 
-```bash
-bash scripts/clean_runtime.sh
-bash scripts/test.sh
+**Nikki Wilder — The Velvet Vixxen 0.8.0**  
+Milestone: **Marketing, Publishing & Analytics**
+
+Runtime package:
+
+```text
+Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
+SHA-256: ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
 ```
 
-Result: **passed**
+The public ZIP contains only files needed to install and operate the site. Repository files, GitHub workflows, development documentation, tests, test reports, screenshots, and SDK source are not included.
+
+## Source and package validation
+
+The completed runtime tree and a separate clean extraction of the final ZIP were validated.
+
+- 203 runtime files
+- 128 PHP files passed `php -l`
+- 7 public JavaScript files passed `node --check`
+- 12 ordered database migrations loaded successfully
+- 75 unique application tables were declared
+- ZIP integrity check passed
+- Published SHA-256 check passed
+- Configuration began uninstalled
+- No installation lock or runtime data store was packaged
+- No database password or generated application/security key was packaged
+- No world-writable entries were present
+- No `chmod(..., 0777)` call was present
+- No obvious private signing key or production payment-key pattern was present
+- No `.git`, `.github`, `/docs`, `/tests`, Python test files, project handoff files, or development reports were packaged
+
+## Marketing file-store suite
+
+Result: **PASS**
 
 Verified:
 
-- PHP syntax: 149 source/test files
-- public JavaScript syntax: 6 files
-- Python HTTP/Playwright syntax: 10 files
-- smoke and one-page installer regression
-- migration manifest: 11 migrations / 64 application tables
-- media, members, entitlements, subscriptions/PPV, add-ons, licensing/updates, and communications unit/feature tests
-- protected media, member security, signed webhooks, add-on security, organized folders, and repository safety
+- Marketing default settings
+- Feature and retention setting updates
+- Public and scheduled editorial posts
+- Public visibility timing
+- Newsletter single and double opt-in behavior
+- Signed confirmation and unsubscribe tokens
+- Subscriber tags and segmentation
+- Campaign queue creation and delivery-state updates
+- Timed promotional campaigns and banners
+- Link-in-bio click accounting
+- Referral clicks, orders, and attributed revenue
+- Anonymous first-party analytics summaries
+- Scheduled Hero composition snapshots
+- Due-scene publishing
+- Concurrent-safe scene claim status
+- Published-scene persistence without stale file-store overwrite
+- Scheduled-scene cancellation
+- Analytics and consent-record retention cleanup
+- Marketing dashboard statistics
+- Marketing task-runner result structure
 
-## Installed-demo HTTP acceptance
+## Marketing HTTP acceptance
 
-```bash
-VELVET_TEST_PORT=8766 bash scripts/test_http.sh
-```
+Result: **PASS**
 
-Result: **passed**
+Verified through real PHP HTTP requests:
 
-Verified real HTTP flows for members, subscriptions/PPV commerce, add-ons, add-on licensing/updates, private messaging, protected attachments, owner replies, saved replies, content requests, quotes/statuses, booking inquiries, booking administration, notifications, and communication controls.
+- Homepage news and newsletter sections
+- Blog index and post page
+- Link-in-bio page
+- Timed campaign landing page
+- Newsletter subscription form and CSRF validation
+- Same-origin analytics collection
+- Foreign-origin analytics rejection
+- Owner login
+- Marketing administration
+- Real editorial post creation and save
+- Scheduled Hero/Footer scene administration
+- Real scheduled Hero publication through the marketing task runner
+- Analytics administration
+- Posts, newsletter, referrals, and analytics CSV exports
+- Referral-code capture
 
-## Runtime-only package verification
+## Full-site HTTP smoke test
 
-The 0.7.0 install ZIP contains only runtime files. It excludes GitHub/repository files, documentation, tests, SDK source, screenshots, reports, and development scripts. The ZIP contains 185 files, including 112 runtime PHP files and 11 database migrations.
+Result: **PASS**
 
-A separate extraction passed:
+The final runtime tree successfully rendered:
 
-- ZIP integrity
-- SHA-256 verification
-- runtime exclusion checks
-- uninstalled/secret-free configuration checks
-- 112 runtime PHP syntax checks
-- no `0777` permissions
-- full external source/security suite after overlaying the test harness
-- all installed-demo HTTP acceptance suites
-- clean-state repository safety after test cleanup
+- Home
+- Music
+- Photo galleries
+- Videos
+- Membership
+- Store
+- Booking
+- Blog
+- Newsletter
+- Link-in-bio
+- Campaign landing page
+- Account login and registration
+- Cart
+- Owner login
 
-Release SHA-256:
+Feature-disable behavior was also verified. Blog, newsletter signup, link page, post detail, and redirect routes returned 404 when their corresponding modules were disabled, while the unsubscribe endpoint remained available for safety and compliance.
 
-```text
-98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
-```
+## Installer smoke test
 
-## Browser status
+Result: **PASS**
 
-Direct interactive Chromium navigation is blocked by a managed policy with `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Browser suites remain configured for CI. Rendered screenshots document application output but do not replace interactive Playwright evidence.
+Verified:
 
-## MySQL status
+- An uninstalled homepage redirects to `/install/`
+- The simplified one-page installer renders
+- Database, Owner and Website, and Server/Folder readiness sections render
+- AJAX readiness recheck succeeds
+- Readiness diagnostics contain system and file results
+- Existing 0.7.3 installer hardening remains intact, including no install key, 12-character minimum passwords, safe permission handling, ownership-safe folder repair, migrations, configuration verification, installation lock, and installer cleanup
 
-Local PDO MySQL and a MySQL/MariaDB server are unavailable. Live DDL execution is not claimed locally. The CI database test must apply all 11 migrations, verify 64 tables, roll back, and leave the disposable database empty.
+A complete MySQL installation was not executed locally because this environment provides PDO but not PDO MySQL or a MySQL/MariaDB server.
 
-## Result
+## Screenshot evidence
 
-**PASS — the 0.7.0 source and runtime-only installation package passed all available local non-database and HTTP acceptance gates.**
+Eight screenshots were created from HTML fetched from the running local PHP application with its actual CSS and image assets:
+
+- Desktop homepage
+- Mobile homepage
+- Blog
+- Desktop link-in-bio page
+- Mobile link-in-bio page
+- Marketing administration
+- Analytics administration
+- Scheduled-scene administration
+
+The browser environment is managed and direct local navigation may be blocked. The screenshots were rendered from fetched application output with local assets fulfilled inside Chromium; they are visual evidence, not a substitute for interactive Playwright acceptance.
+
+## Environmental boundaries
+
+- PHP available locally: 8.4.24
+- Node available locally: 22.16.0
+- Python available locally: 3.13.5
+- PDO MySQL/MySQL/MariaDB unavailable locally
+- Live migration apply/rollback remains a GitHub CI or hosting-environment gate
+- Full interactive Chromium/Playwright navigation remains a CI gate
+- The bundled payment adapter remains sandbox-only
+
+## Final result
+
+**PASS for all locally available source, runtime-package, file-mode, HTTP, installer, integrity, and security gates.**
+
+The release remains subject to MySQL migration apply/verify/rollback and interactive browser acceptance in CI or a representative hosting environment.
