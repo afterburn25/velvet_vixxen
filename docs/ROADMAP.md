@@ -40,58 +40,75 @@ Status is based on verified implementation and test evidence, not intention.
 
 - Commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, outage grace, signed feeds, release channels, protected downloads, review, backup, and rollback
 
-### 0.7.0 — Messaging, Booking & Member Requests
+### 0.7.0–0.7.3 — Communications & Installer Hardening
 
-- Private member-to-owner conversations
-- Protected message and request attachments
-- Read/unread state, priority, status, internal notes, and activity history
-- Saved owner reply templates
-- Content requests with category, details, budget range, requested due date, quote, status, and owner/member replies
-- Public and member booking/appearance inquiries with requested dates, city, venue/platform, budget, details, and protected reference files
-- In-app member notifications and mail-outbox integration
-- Communication blocking and configurable intake/attachment controls
-- Member dashboard communication summaries and history
-- Owner queues for messages, content requests, booking requests, and communication settings
-- Eleventh migration / 64 declared tables
+- Private member-to-owner conversations and protected attachments
+- Content requests with budgets, quotes, statuses, and replies
+- Public/member booking and appearance inquiries
+- Notifications, saved replies, communication blocks, owner queues, and settings
 - Runtime-only public installation ZIP
-
-## Next
+- Ownership-safe writable-directory repair
+- Normalized installer email validation
+- Simplified installer and hardened final configuration verification
+- Eleven migrations / 64 declared tables through the 0.7 line
 
 ### 0.8.0 — Marketing, Publishing & Analytics
 
-- Blog/updates and editorial content calendar
-- Newsletter segmentation and branded transactional/campaign templates
-- New-content, renewal, payment-failure, request, and booking notifications
-- Promotional banners, campaign pages, timed offers, and scheduled Visual Composer scenes
-- Referral and affiliate foundations
-- Link-in-bio page
-- Privacy-conscious traffic, conversion, media, subscription, PPV, coupon, booking, request, and communication reporting
-- CSV exports, consent records, and retention controls
+- Blog, personal update, and announcement publishing
+- Draft, scheduled, published, archived, and expiring states
+- Public, registered-member, and subscriber visibility
+- Categories, tags, SEO metadata, featured images, and featured placement
+- Newsletter single/double opt-in, confirmation, unsubscribe, consent, suppression, tags, segments, campaigns, and delivery-state tracking
+- Timed promotional banners and campaign landing pages
+- Scheduled Hero/Footer Visual Composer scenes with lock-aware, idempotent processing
+- Link-in-bio page and click tracking
+- Referral codes, order attribution, and attributed-revenue foundations
+- Privacy-conscious same-origin first-party analytics and foreign-origin rejection
+- Marketing/Analytics administration, CSV exports, and retention controls
+- Operational marketing runner
+- Twelfth migration / 75 declared tables
+- Runtime-only package with 203 files, 128 PHP files, and 7 public JavaScript files
+
+## Next
 
 ### 0.9.0 — Compliance, Privacy & Operational Hardening
 
-- Performer/collaborator release vault and content linkage
-- Complaint, copyright, report, and takedown workflows
-- Age-assurance adapters and geographic controls
-- Two-factor authentication
-- Enhanced audit logs and privileged-action confirmation
-- Backup scheduling, restore validation, health dashboard, recovery mode, rate limiting, suspicious-access alerts, accessibility, and privacy review
+- Performer and collaborator records
+- Identity/age-verification status and encrypted document references
+- Model releases, content ownership, permitted uses, shoot dates, photographers, and media linkage
+- Complaint, copyright, report, takedown, response, and appeal workflows
+- Configurable age-assurance provider adapters
+- Geographic restriction controls
+- Administrator two-factor authentication
+- Privileged-action confirmation and expanded audit logging
+- Backup scheduling and retention
+- Database/file backup verification and restore drills
+- Health dashboard for database, mail, payment webhooks, scheduled tasks, media processing, storage, backups, and add-ons
+- Recovery mode and failed-upgrade/add-on diagnostics
+- Rate limiting, suspicious-access detection, device/session alerts, and security notifications
+- Accessibility review and keyboard alternatives for drag-only actions
+- Privacy review, data export/deletion, consent retention, and documented retention policies
 
 ### 1.0.0 — Production Release
 
 - Approved live payment-provider adapter and merchant sandbox certification
-- Shared-hosting installation/upgrade validation
-- Full PHP/MySQL/MariaDB/HTTP/Playwright/security matrix
+- Production email-delivery validation
+- Representative shared-hosting install and upgrade validation
+- Full PHP 8.2/8.3, MySQL/MariaDB, HTTP, Playwright, security, accessibility, and performance matrix
 - Backup/restore and failed-upgrade drills
-- Accessibility/browser review and complete operating documentation
-- Signed package, checksum, changelog, test evidence, and running-build screenshots
+- Browser/device review and complete operating documentation
+- Signed runtime package, checksum, changelog, test evidence, and running-build screenshots
 
-## Not complete in 0.7.0
+## Not complete in 0.8.0
 
+- Complete engineering-source import and full GitHub CI matrix
+- Live payment certification and automatic tax service
+- Production email-delivery account or deliverability certification
 - Public add-on marketplace or multi-tenant licensing SaaS
-- Live payment certification and automatic taxes
 - Websocket chat, voice/video calling, or paid-message workflows
 - Automatic booking contracts, deposits, or quote payments
-- Guest self-service booking-status links
-- Moderation-report queues and CSV exports for communication records
-- Production two-factor authentication and compliance vault
+- Production two-factor authentication
+- Performer/collaborator compliance vault
+- Complaint/takedown case management
+- Age-assurance integration and geographic enforcement
+- Scheduled backup/restore validation and full operational health dashboard
