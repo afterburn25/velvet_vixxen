@@ -52,15 +52,25 @@ Status is based on verified implementation and test evidence, not intention.
 ### 0.7.1–0.7.3 — Shared-Hosting Installer Hardening
 
 - Ownership-safe replacement of panel-owned runtime folders without `0777`
-- Automatic creation and verification of storage, upload, add-on, backup, session, cache, and temporary directories
-- Email normalization and hidden-mail-field validation fixes
+- Automatic writable runtime-directory creation and verification
+- Email normalization and hidden-mail-field fixes
 - Cache-safe final configuration activation and verification
-- Exact file-byte digest and settings verification
-- OPcache/stat invalidation and one-time fresh-load verification path
 - Component-specific final verification diagnostics
-- Simplified installer with only Database, Owner and Website, and Install visible
-- Technical details collapsed and limited to warnings/failures
-- Support/sender email defaults to owner email; outgoing email defaults to Configure Later
+- Simplified installer with only necessary fields visible
+
+### 0.7.4 — Visual Composer Direct Manipulation & Asset Repair
+
+- Smooth direct photo dragging on the canvas
+- Four-corner direct resizing from `0.5%` through `400%`
+- Tiny, Small, Medium, Large, and Huge presets
+- Movable/resizable live text-and-buttons box
+- Separate desktop/tablet/mobile content-box arrangements
+- Background pan mode
+- Reachable handles and canvas-bound movement
+- Correct bundled-versus-uploaded asset resolution
+- Image-only Media Tray filtering
+- Missing-image placeholders and clear status feedback
+- Live Hero/Footer application of saved content-box geometry
 
 ## Next
 
@@ -93,10 +103,11 @@ Status is based on verified implementation and test evidence, not intention.
 - Accessibility/browser review and complete operating documentation
 - Signed package, checksum, changelog, test evidence, and running-build screenshots
 
-## Not complete in 0.7.3
+## Not complete in 0.7.4
 
 - Public add-on marketplace or multi-tenant licensing SaaS
 - Live payment certification and automatic taxes
 - Websocket chat, voice/video calling, or paid-message workflows
 - Automatic booking contracts, deposits, or quote payments
 - Production two-factor authentication and compliance vault
+- Separate free-positioning of each individual live button; the current live text-and-buttons box moves as one responsive unit
