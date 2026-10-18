@@ -39,7 +39,7 @@ jobs:
             test -s "$file" || { echo "Missing required file: $file"; exit 1; }
           done
           grep -q 'afterburn25/velvet_vixxen' PROJECT_STATUS.md
-          grep -q '12-character' docs/DECISIONS.md
+          grep -Eq '12(-character| or more characters)' docs/DECISIONS.md
           grep -q 'single responsive browser page' docs/DECISIONS.md
 
   source-tests:
@@ -55,7 +55,7 @@ jobs:
             echo 'present=true' >> "$GITHUB_OUTPUT"
           else
             echo 'present=false' >> "$GITHUB_OUTPUT"
-            echo 'Application source import is tracked in issue #1.'
+            echo 'Application source import is tracked in issue 1.'
           fi
       - uses: shivammathur/setup-php@v2
         if: steps.source.outputs.present == 'true'
@@ -72,4 +72,5 @@ jobs:
         run: bash scripts/test.sh
       - name: Source import pending
         if: steps.source.outputs.present != 'true'
-        run: echo 'Repository contract passed; executable source import remains open in issue #1.'
+        run: |
+          echo 'Repository contract passed; executable source import remains open in issue 1.'
