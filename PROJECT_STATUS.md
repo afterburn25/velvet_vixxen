@@ -2,102 +2,54 @@
 
 ## Current packaged release
 
-**0.5.0 — Subscriptions & PPV Commerce**
+**0.6.0 — Add-on Framework**
 
-A clean, installable 0.5.0 package has been built and locally verified. It combines the approved design, Visual Composer, Canva workflow, Media Center, member accounts, unified entitlements, subscriptions, PPV photo galleries, PPV videos, rentals, bundles, coupons, receipts, refunds, signed webhooks, and commerce administration.
-
-## Repository truth boundary
+The clean packaged working tree contains the approved site, Visual Composer, Canva workflow, Media Center, members and entitlements, sandbox subscriptions/PPV commerce, and a complete local add-on lifecycle.
 
 Repository: `afterburn25/velvet_vixxen`
 
-The GitHub repository is the communication and testing hub, but the complete executable 0.5.0 source tree is **not yet imported**. Therefore:
+## 0.6.0 completed in the tested package
 
-- `main` remains the last-known-good documentation branch, not the 0.5.0 executable release.
-- `feature/0.5.0-subscriptions-ppv-commerce` is the prepared delivery branch.
-- Issue #1 tracks complete source import and full CI activation.
-- Issue #5 tracks the 0.5.0 delivery and release gates.
-- Draft pull request #6 carries the current documentation handoff.
-- Do not claim GitHub CI, MySQL integration, Playwright acceptance, a pull-request merge, or a live payment processor without direct evidence.
+- ZIP upload and permission/compatibility review before code executes
+- Manifest schema, semantic versions, core/PHP ranges, dependencies, and conflicts
+- File checksums and optional Ed25519 signatures
+- Package path, duplicate-entry, private-key, environment-file, file-count, size, and blocked-content checks
+- Install, activate, deactivate, update, rollback, preserve-data uninstall, and purge uninstall
+- Add-on-owned migrations and migration registry
+- Pre-change backups and failed-change restoration
+- Boot-failure quarantine and global safe mode
+- Admin pages/navigation, public routes, widgets, events, filters, services, namespaced settings, and scheduled tasks
+- Core member/commerce events and `commerce.quote` filter
+- Homepage widget locations and protected public route dispatcher
+- Free, trial, and signed offline-license foundations
+- Add-on Manager, lifecycle logs, diagnostics, developer guide, schema guide, and starter add-on
+- Ninth migration; 48 declared application tables
 
-## Completed in the tested package
+## Local evidence
 
-### Design, media, and editing
-
-- Approved responsive neon-pink visual direction
-- Hero and visual Footer layered composer with desktop/tablet/mobile arrangements
-- Canva-compatible template/import workflow
-- Music, photo-gallery, and video Media Center
-- Persistent audio player, gallery viewer, video player, scheduling, protected delivery, and media administration
-
-### One-page installer
-
-- All setup on one responsive browser page
-- No installation key
-- Exact 12-character owner-password minimum
-- Real write/read/rename/delete filesystem probes
-- Safe `0755`/`0775` permission attempts; no `chmod 0777`
-- Eight migrations declaring 44 application tables
-- Installation lock, boot verification, and `/install` cleanup or secure retirement
-- Organized application folders rather than root-level file sprawl
-
-### Members and entitlements
-
-- Registration, verification, login, recovery, reset, lockout, and device sessions
-- Member dashboard, My Library, Favorites, playback history, profile/security settings, and device management
-- Membership plans and plan-content rules
-- Unified resolver for public, registered, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access
-- Server-backed favorites, progress, completion, recently viewed state, and view count
-
-### 0.5.0 commerce
-
-- Store, cart, checkout, success, receipt, and member billing pages
-- Versioned payment-provider contract and working sandbox adapter
-- Monthly/annual subscription checkout
-- PPV photo galleries and PPV videos
-- Time-limited rentals
-- Subscriber prices and plan PPV discounts
-- Photo/video bundles
-- Coupons with scope, dates, thresholds, total-use, and per-member limits
-- Configurable currency, tax percentage, store state, and receipt footer
-- Orders, line items, transactions, idempotency, receipt mail queue, and billing history
-- Automatic subscription and entitlement fulfillment
-- Full refunds with order-created access revocation
-- Signed replay-safe paid/refund/chargeback webhooks
-- Cancel-at-period-end and resume-renewal controls
-- Sandbox renewal processing and safe non-sandbox deferral to provider webhooks
-- Commerce, Orders, Coupons, Bundles, Payment Settings, and Refund administration
-
-## Verified local evidence
-
-- 101 PHP files pass syntax validation
-- 6 public JavaScript files pass syntax validation
-- 5 Python test files pass syntax validation
-- Clean non-database source suite passes
-- Installed-demo member and commerce HTTP acceptance passes
-- Migration manifest passes with 8 migrations and 44 declared tables
-- Media, member, entitlement, commerce, protected-media, member-security, payment-webhook, structure, and repository-safety tests pass
-- Release ZIP was extracted to a separate directory and retested successfully
-- Packaged configuration is uninstalled and contains no generated keys, install lock, database credentials, sessions, logs, or runtime customer data
+- 121 PHP files passed syntax validation
+- 6 public JavaScript files passed syntax validation
+- 7 Python HTTP/Playwright files passed syntax validation
+- `bash scripts/test.sh` passed
+- `bash scripts/test_http.sh` passed member, commerce, and add-on acceptance
+- Extracted release package passed source tests, HTTP acceptance, cleanup, repository safety, and checksum verification
+- Package SHA-256: `8462746ee90ec0ec054e756e92afc63a9fc90e9f47f6bea39e7b0a6a156f065c`
 
 ## Environmental limits
 
-- Local MySQL/MariaDB and PDO MySQL were unavailable, so live DDL execution is not claimed. The repository contains a disposable MySQL 8 apply/verify/rollback test for CI after source import.
-- Local interactive Chromium navigation returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Playwright suites are configured for CI.
-- 0.5.0 screenshots are static render snapshots fetched from the running local application and rendered with Chromium `page.set_content()`; they document real visual output but do not replace interactive browser acceptance.
+- Local PDO MySQL/MySQL was unavailable. Live DDL execution is not claimed; MySQL 8 CI must apply all nine migrations, verify 48 tables, exercise an add-on-owned migration, roll everything back, and leave the test database empty.
+- Local Chromium navigation returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Four Playwright suites remain CI-owned.
+- The payment adapter is sandbox-only.
+- A hosted license service, online activation, customer downloads, remote update feed, and marketplace are not part of 0.6.0.
 
-## Payment boundary
+## Repository truth boundary
 
-The included gateway is sandbox-only. No live processor connection, merchant approval, production credentials, hosted checkout, or live payment pass is claimed. A live adapter must use hosted/tokenized collection and pass processor-specific lifecycle tests.
+The packaged 0.6.0 source is complete locally, but the complete executable tree is not yet imported into this GitHub branch. Issue #1 tracks source import. Issue #7 tracks 0.6.0 delivery and required release gates. This branch may document the package without claiming full source CI, MySQL, Playwright, merge, tag, or release evidence that has not happened.
 
-## Current next actions
+## Next actions
 
-1. Import the complete clean 0.5.0 source into the prepared feature branch.
-2. Run PHP 8.2/8.3, MySQL 8, HTTP, and Playwright CI.
-3. Review and merge only after all required checks are green.
-4. Begin `0.6.0 — Add-on Framework` after the source-of-truth import is complete.
-
-## Next milestone
-
-**0.6.0 — Add-on Framework**
-
-Planned scope: validated ZIP packages, manifests, permissions, dependencies, hooks/events, routes, migrations, install/activate/deactivate/update/uninstall, pre-change backups, safe mode, rollback, and developer SDK foundations.
+1. Import the clean 0.6.0 source into `feature/0.6.0-addon-framework`.
+2. Run PHP 8.2/8.3, MySQL 8, HTTP, task, repository-safety, and four Playwright jobs.
+3. Correct CI-only findings and record exact commit/workflow evidence.
+4. Merge only after required checks are green.
+5. Begin `0.6.1 — Commercial Licensing & Remote Updates`.
