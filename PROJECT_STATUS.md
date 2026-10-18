@@ -25,20 +25,20 @@ Repository: `afterburn25/velvet_vixxen`
 - Add-on Manager, lifecycle logs, diagnostics, developer guide, schema guide, and starter add-on
 - Ninth migration; 48 declared application tables
 
-## Local evidence
+## Final local package evidence
 
-- 121 PHP files passed syntax validation
+- 122 PHP files passed syntax validation
 - 6 public JavaScript files passed syntax validation
 - 7 Python HTTP/Playwright files passed syntax validation
 - `bash scripts/test.sh` passed
-- `bash scripts/test_http.sh` passed member, commerce, and add-on acceptance
+- Configurable-port installed-demo HTTP acceptance passed members, commerce, and add-on workflows
 - Extracted release package passed source tests, HTTP acceptance, cleanup, repository safety, and checksum verification
-- Package SHA-256: `8462746ee90ec0ec054e756e92afc63a9fc90e9f47f6bea39e7b0a6a156f065c`
+- Final package SHA-256: `862e9538a5b3c4efc8f8616fbbdc079b9fe252871252f5e2b275ab971394a01c`
 
 ## Environmental limits
 
 - Local PDO MySQL/MySQL was unavailable. Live DDL execution is not claimed; MySQL 8 CI must apply all nine migrations, verify 48 tables, exercise an add-on-owned migration, roll everything back, and leave the test database empty.
-- Local Chromium navigation returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`. The policy was not bypassed. Four Playwright suites remain CI-owned.
+- Interactive Playwright is not claimed locally in the packaging environment. Four Playwright suites remain CI-owned.
 - The payment adapter is sandbox-only.
 - A hosted license service, online activation, customer downloads, remote update feed, and marketplace are not part of 0.6.0.
 
