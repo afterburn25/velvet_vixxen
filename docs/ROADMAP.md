@@ -42,18 +42,25 @@ Status is based on verified implementation and test evidence, not intention.
 
 ### 0.7.0 — Messaging, Booking & Member Requests
 
-- Private member-to-owner conversations
-- Protected message and request attachments
-- Read/unread state, priority, status, internal notes, and activity history
-- Saved owner reply templates
-- Content requests with category, details, budget range, requested due date, quote, status, and owner/member replies
-- Public and member booking/appearance inquiries with requested dates, city, venue/platform, budget, details, and protected reference files
-- In-app member notifications and mail-outbox integration
-- Communication blocking and configurable intake/attachment controls
-- Member dashboard communication summaries and history
-- Owner queues for messages, content requests, booking requests, and communication settings
+- Private member-to-owner conversations and protected attachments
+- Content requests, quotes, statuses, and owner/member replies
+- Public and member booking/appearance inquiries
+- Notifications, saved replies, blocks, owner queues, and communication settings
 - Eleventh migration / 64 declared tables
-- Runtime-only public installation ZIP
+- Runtime-only customer installation ZIP
+
+### 0.7.1–0.7.3 — Shared-Hosting Installer Hardening
+
+- Ownership-safe replacement of panel-owned runtime folders without `0777`
+- Automatic creation and verification of storage, upload, add-on, backup, session, cache, and temporary directories
+- Email normalization and hidden-mail-field validation fixes
+- Cache-safe final configuration activation and verification
+- Exact file-byte digest and settings verification
+- OPcache/stat invalidation and one-time fresh-load verification path
+- Component-specific final verification diagnostics
+- Simplified installer with only Database, Owner and Website, and Install visible
+- Technical details collapsed and limited to warnings/failures
+- Support/sender email defaults to owner email; outgoing email defaults to Configure Later
 
 ## Next
 
@@ -86,12 +93,10 @@ Status is based on verified implementation and test evidence, not intention.
 - Accessibility/browser review and complete operating documentation
 - Signed package, checksum, changelog, test evidence, and running-build screenshots
 
-## Not complete in 0.7.0
+## Not complete in 0.7.3
 
 - Public add-on marketplace or multi-tenant licensing SaaS
 - Live payment certification and automatic taxes
 - Websocket chat, voice/video calling, or paid-message workflows
 - Automatic booking contracts, deposits, or quote payments
-- Guest self-service booking-status links
-- Moderation-report queues and CSV exports for communication records
 - Production two-factor authentication and compliance vault
