@@ -1,25 +1,46 @@
-VELVET VIXXEN 0.7.0 — RELEASE MANIFEST
+VELVET VIXXEN 0.7.3 — RELEASE MANIFEST
 
 Runtime package:
-  Nikki-Wilder-Velvet-Vixxen-0.7.0.zip
+  Nikki-Wilder-Velvet-Vixxen-0.7.3.zip
 
 SHA-256:
-  98247f13d7a36f77f65100f0e86ba3dfc2741e84e75b40b02a9b93a4e12c7b2b
+  202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0
 
 Milestone:
-  Messaging, Booking & Member Requests
+  Installer Verification & Simplified Setup Hotfix
+
+Primary correction:
+  Cache-safe final configuration verification after atomic config activation,
+  including shared-hosting ownership repair and stale OPcache/realpath scenarios.
+
+Installer interface:
+  One responsive page
+  Database
+  Owner and Website
+  Install
+  Technical details collapsed
+  Only warnings/failures shown
+  Outgoing email defaults to Configure Later
 
 Database:
   11 migrations
   64 declared application tables
 
 Runtime package profile:
-  185 files
-  112 PHP runtime files
+  186 files
+  113 PHP runtime files
   6 public JavaScript files
   Runtime-only installation contents
 
-Intentionally excluded from the public ZIP:
+Preserved requirements:
+  No installation key
+  Exact 12-character password minimum
+  Safe 0755/0775 permissions; never 0777
+  Ownership-safe runtime-folder repair
+  Versioned migrations and rollback attempts
+  Installation lock and /install retirement
+
+Intentionally excluded from public ZIP:
   .git and .github
   docs and tests
   GitHub workflows
@@ -34,12 +55,18 @@ Operational scripts retained:
   scripts/run_addon_tasks.php
 
 Validation:
-  scripts/test.sh — PASS
-  scripts/test_http.sh — PASS
-  extracted runtime ZIP integrity/SHA/syntax/exclusion checks — PASS
-  clean-state repository safety after testing — PASS
+  ZIP integrity — PASS
+  SHA-256 verification — PASS
+  113 PHP runtime syntax checks — PASS
+  6 public JavaScript syntax checks — PASS
+  simplified installer HTTP render — PASS
+  AJAX requirement recheck — PASS
+  OPcache stale-config simulation — PASS
+  replaced-config-directory simulation — PASS
+  shared-hosting ownership mismatch simulation — PASS
+  runtime exclusions and clean uninstalled state — PASS
 
 Environmental boundaries:
   Live local MySQL DDL execution unavailable; CI required.
-  Direct local Chromium blocked by managed policy; CI Playwright required.
+  Interactive Playwright remains CI-owned.
   Payment provider remains sandbox-only.
