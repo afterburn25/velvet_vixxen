@@ -1,36 +1,41 @@
-# Testing Policy and Commands
+# Testing — Velvet Vixxen 0.7.0
 
-## Release gate
+Testing is a release gate. A milestone is not complete merely because pages render or code exists.
 
-No release is complete until applicable source, installer, security, database, HTTP, browser, and add-on lifecycle tests pass. Documentation must distinguish checks actually run from checks merely configured for CI.
-
-## Clean runtime
+## Clean source suite
 
 ```bash
 bash scripts/clean_runtime.sh
-```
-
-Run before source tests, packaging, or committing. It must remove installed configuration, secrets, sessions, logs, demo data, safe-mode locks, staged packages, backups, quarantine contents, and installed demo add-ons while preserving audited distributable packages.
-
-## Source suite
-
-```bash
 bash scripts/test.sh
 ```
 
-Covers PHP/JavaScript/Python syntax, smoke tests, installer regression, migration manifest, media/member/entitlement/commerce unit and feature tests, add-on manifest/license/lifecycle tests, protected-media/member/webhook/add-on-package security, organized folders, and repository safety.
+Current clean-tree evidence:
+
+- PHP syntax: 160 files
+- Public JavaScript syntax: 6 files
+- Python HTTP/Playwright syntax: 11 files
+- 11 migrations / 66 declared application tables
+- Installer, media, member, entitlement, commerce, add-on, licensing, communication, structure, and repository-safety tests
 
 ## Installed-demo HTTP acceptance
 
 ```bash
-bash scripts/test_http.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
 ```
 
-Covers member/account flows, subscription and PPV commerce, refunds/access revocation, owner Add-on Manager, starter package state, add-on admin page, homepage widget, public route, setting persistence, scheduled task execution, and safe mode. Run cleanup afterward.
+Five suites run:
+
+```text
+tests/Http/members_http.py
+tests/Http/commerce_http.py
+tests/Http/addon_http.py
+tests/Http/addon_licensing_http.py
+tests/Http/communications_http.py
+```
+
+The communications suite covers public booking, member inbox/thread reply, new conversations, content-request quote acceptance, booking confirmation, notifications, owner queues/replies/status/quote changes, moderation, authenticated CSV exports, and guest-token status.
 
 ## MySQL integration
-
-Use only an empty disposable test database:
 
 ```bash
 VELVET_TEST_DB_HOST=127.0.0.1 \
@@ -41,45 +46,42 @@ VELVET_TEST_DB_PASSWORD=secret \
 php tests/Database/migrations_mysql.php
 ```
 
-The test applies nine core migrations, verifies 48 tables, applies/verifies/rolls back a sample add-on migration, rolls back core migrations, and requires the database to be empty afterward.
+The test must refuse unsafe/non-empty databases, apply all eleven migrations, verify 66 tables and required columns, exercise an add-on-owned migration, roll everything back, remove the migration registry, and leave the database empty.
 
 ## Browser acceptance
 
+Run after starting a fresh demo server:
+
 ```bash
-VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/media_center_playwright.py
-VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/members_entitlements_playwright.py
-VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/commerce_playwright.py
-VELVET_BASE_URL=http://127.0.0.1:8765 python tests/Browser/addons_playwright.py
+python tests/Browser/media_center_playwright.py
+python tests/Browser/members_entitlements_playwright.py
+python tests/Browser/commerce_playwright.py
+python tests/Browser/addon_framework_playwright.py
+python tests/Browser/addon_licensing_playwright.py
+python tests/Browser/messaging_booking_playwright.py
 ```
 
-The add-on suite verifies manager presentation, package/permission review, active starter add-on, registered admin page, homepage widget, public route, safe mode, and responsive behavior.
+Set `VELVET_BASE_URL` to the local demo URL. The communications suite covers responsive booking, member messaging/requests/bookings/notifications, and owner queues.
 
-Static captures rendered with `page.set_content()` are useful visual evidence but do not count as interactive Playwright acceptance.
+Local Chromium navigation in the packaging environment returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`; GitHub CI owns interactive evidence unless a later environment produces a direct successful run.
 
-## Required add-on lifecycle coverage
+## Packaging verification
 
-- manifest/semantic-version validation
-- core/PHP compatibility
-- permissions, dependencies, and conflicts
-- checksums and trusted/untrusted/invalid signatures
-- blocked paths/content and unsigned acknowledgement
-- install/activate/deactivate/reactivate
-- update, backup, failed-update restoration, and rollback
-- preserve-data and purge uninstall
-- owned migration apply/rollback
-- boot-failure quarantine and global safe mode
-- free, trial, signed offline license, domain, expiration, and signature checks
-- scheduled tasks and lifecycle log
+Before release:
 
-## CI expectation
+```bash
+bash scripts/clean_runtime.sh
+bash scripts/test.sh
+bash scripts/test_http.sh
+bash scripts/clean_runtime.sh
+php tests/Security/repository_safety.php
+```
 
-- PHP 8.2 and 8.3 source suites
-- MySQL 8 migration/add-on-migration/rollback
-- installed-demo member, commerce, and add-on HTTP acceptance
-- four Chromium Playwright suites
-- add-on task checks
-- secret, private-signing-key, runtime-state, and unsafe-permission scans
+Then extract the ZIP to a separate directory and rerun source tests, HTTP tests, cleanup, repository safety, and checksum verification. Confirm no generated config, install lock, sessions, logs, private attachments, conversations, request/booking records, guest tokens, signing keys, protected releases, installed add-ons, or customer data remain.
 
-## Evidence rule
+## Evidence rules
 
-Never state that MySQL, browser, live payment, email, remote licensing, update-server, or production-host testing passed without direct evidence. Record exact commands, results, failures, and environmental limits in `docs/TEST_REPORT.md`.
+- Record exact commands/results in `docs/TEST_REPORT.md`.
+- Screenshots support visual review but do not replace interactive acceptance.
+- Unavailable environmental checks are documented rather than marked passed.
+- Package and repository truth boundaries remain explicit until source import and CI are green.
