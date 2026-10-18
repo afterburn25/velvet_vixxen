@@ -1,26 +1,32 @@
-VELVET VIXXEN 0.7.3 — RELEASE MANIFEST
+VELVET VIXXEN 0.7.4 — RELEASE MANIFEST
 
 Runtime package:
-  Nikki-Wilder-Velvet-Vixxen-0.7.3.zip
+  Nikki-Wilder-Velvet-Vixxen-0.7.4.zip
 
 SHA-256:
-  202cb028ff7b61918d718a69604fa0a82db51ada0a0152379af8ba3b401a9eb0
+  860447db31eba4dfb6ee7acd686021cb63eac17d3fd161b1881160e4676c77e3
 
 Milestone:
-  Installer Verification & Simplified Setup Hotfix
+  Visual Composer Direct Manipulation & Asset Repair
 
-Primary correction:
-  Cache-safe final configuration verification after atomic config activation,
-  including shared-hosting ownership repair and stale OPcache/realpath scenarios.
+Visual Composer:
+  Direct photo dragging
+  Four-corner direct resizing
+  Image width range 0.5% through 400%
+  Tiny/Small/Medium/Large/Huge presets
+  Movable and resizable live text-and-buttons box
+  Separate desktop/tablet/mobile content-box arrangements
+  Background pan mode
+  Undo/redo integration
+  Reachable resize handles
 
-Installer interface:
-  One responsive page
-  Database
-  Owner and Website
-  Install
-  Technical details collapsed
-  Only warnings/failures shown
-  Outgoing email defaults to Configure Later
+Asset corrections:
+  Bundled root images resolve from /images
+  Uploaded images resolve from /uploads/images
+  Model/media/thumbnail/export paths resolve from /uploads
+  Image-only Media Tray filtering
+  Safe missing-image placeholders and status feedback
+  Live pages honor saved content-box layout
 
 Database:
   11 migrations
@@ -33,10 +39,12 @@ Runtime package profile:
   Runtime-only installation contents
 
 Preserved requirements:
+  Simplified one-page installer
   No installation key
   Exact 12-character password minimum
   Safe 0755/0775 permissions; never 0777
   Ownership-safe runtime-folder repair
+  Cache-safe final configuration verification
   Versioned migrations and rollback attempts
   Installation lock and /install retirement
 
@@ -46,27 +54,26 @@ Intentionally excluded from public ZIP:
   GitHub workflows
   source roadmaps/status/handoff files
   add-on SDK source
-  screenshots and test reports
-  test/demo/cleanup/build scripts
-  development-only database/schema.sql
-
-Operational scripts retained:
-  scripts/run_billing.php
-  scripts/run_addon_tasks.php
+  screenshots and external test reports
+  development tooling
 
 Validation:
   ZIP integrity — PASS
   SHA-256 verification — PASS
   113 PHP runtime syntax checks — PASS
   6 public JavaScript syntax checks — PASS
-  simplified installer HTTP render — PASS
-  AJAX requirement recheck — PASS
-  OPcache stale-config simulation — PASS
-  replaced-config-directory simulation — PASS
-  shared-hosting ownership mismatch simulation — PASS
+  extracted-package Chromium interaction suite — PASS
+  Media Tray cards: 9; broken images: 0
+  direct photo drag — PASS
+  direct handle resize — PASS
+  0.5% and 300% image sizes — PASS
+  content-box drag and resize — PASS
+  background pan — PASS
+  public content-box placement — PASS
+  uploaded/bundled asset resolution — PASS
   runtime exclusions and clean uninstalled state — PASS
 
 Environmental boundaries:
-  Live local MySQL DDL execution unavailable; CI required.
-  Interactive Playwright remains CI-owned.
+  Local live MySQL DDL execution unavailable; CI required.
+  Direct localhost Chromium navigation restricted by managed policy.
   Payment provider remains sandbox-only.
