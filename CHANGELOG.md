@@ -1,5 +1,46 @@
 # Changelog
 
+## 0.7.0 — Messaging, Booking & Member Requests
+
+### Added
+
+- Private member-to-owner message threads with protected attachments
+- Read/unread counts, statuses, priorities, internal notes, and communication activity history
+- Saved owner reply templates
+- Content-request intake with category, details, budget range, requested date, quote, status, and owner/member replies
+- Public and signed-in booking/appearance inquiry workflow
+- Booking dates, city, venue/platform, budget, protected reference files, owner statuses, and internal notes
+- In-app member notifications and mail-outbox integration
+- Communication blocking and site-level communication settings
+- Member dashboard communication summaries and request history
+- Owner message, content-request, booking-request, and communication-settings administration
+- Eleventh migration adding nine communication tables for a total of 64 declared tables
+- Communication unit, feature, HTTP, security, and responsive interface coverage
+
+### Packaging
+
+- Public install ZIP is runtime-only and excludes GitHub files, docs, tests, SDK source, screenshots, reports, and development-only scripts
+- Operational billing and add-on task runners remain included
+- Runtime package contains 185 files and 112 PHP runtime files
+
+### Testing
+
+- Source/security suite passed
+- Members, Commerce, Add-ons, Licensing/Updates, and Communications HTTP acceptance passed
+- Extracted runtime-only ZIP passed integrity, SHA-256, syntax, clean-config, exclusion, and external acceptance verification
+
+### Limitations
+
+- Live local MySQL DDL execution remains CI-owned because PDO MySQL/MySQL is unavailable locally
+- Direct interactive Chromium remains blocked by managed policy; Playwright remains CI-owned
+- Payment processing remains sandbox-only
+
+## 0.6.1 — Commercial Add-on Licensing & Remote Updates
+
+- Added commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, offline grace, Ed25519-signed API responses, stable/beta/development channels, protected releases, short-lived download tokens, remote update review, and rollback
+- Added tenth migration / 55 declared tables
+- Kept the licensing hub self-hosted and the payment gateway sandbox-only
+
 ## 0.6.0 — Add-on Framework
 
 ### Added
@@ -32,7 +73,6 @@
 ### Limitations
 
 - PHP add-ons are executable code and are not fully sandboxed on shared hosting
-- Online license activation, customer downloads, remote update feeds, and marketplace sales remain future milestones
 - The payment provider remains sandbox-only
 
 ## 0.5.0 — Subscriptions & PPV Commerce
