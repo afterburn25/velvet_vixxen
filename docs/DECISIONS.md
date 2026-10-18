@@ -1,55 +1,50 @@
 # Architecture and Product Decisions
 
-## Locked decisions
+## Visual direction
 
-### Visual direction and editing
+The approved direction remains the neon-pink, magenta, black, and white Velvet Vixxen design. Hero and visual-footer scenes use a layered, non-destructive composer with separate desktop/tablet/mobile arrangements. Canva is optional for artwork; live navigation, text, forms, paywalls, commerce, members, and media players remain HTML/JavaScript.
 
-The approved direction is the full-width neon-pink, magenta, black, and white Velvet Vixxen design with rendered bedroom/studio backgrounds and open composition space for transparent Nikki cutouts. Hero and visual-footer scenes use a layered, non-destructive composer with independent desktop, tablet, and mobile arrangements. Canva is an optional template workflow; live navigation, text, forms, paywalls, commerce, member controls, and media players remain HTML and JavaScript.
+## Installer and organization
 
-### Installer
+Installation remains a **single responsive browser page**. It requires no installation key, accepts owner passwords with a **12-character** minimum, creates and migrates database tables, performs real filesystem probes, attempts safe permissions, never relies on `chmod 0777`, creates an install lock, and removes or securely disables `/install` after success.
 
-Installation is a single responsive browser page. It requires no installation key, accepts owner passwords of 12 or more characters, creates and migrates database tables, performs real filesystem probes, attempts only safe permissions, never relies on `chmod 0777`, creates an install lock, and removes or securely disables `/install` after success.
+Application files remain organized. Runtime state, private media, credentials, logs, sessions, add-on staging/quarantine contents, and generated secrets are excluded from source control.
 
-### Project organization
+## Members, entitlements, and payments
 
-Application files remain in organized folders. The root contains only necessary entry and project files. Runtime state, private storage, logs, sessions, credentials, and private media are excluded from source control.
+One resolver controls public, registered, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access. Payment providers are replaceable adapters. The bundled provider remains sandbox-only. Production collection must be approved for the business category, hosted/tokenized, signed-webhook driven, and tested through purchases, renewals, declines, retries, cancellations, refunds, and chargebacks.
 
-### Member security
+## Add-on package model
 
-Member and owner passwords have a 12-character minimum. Verification, reset, and device-session tokens are stored only as hashes. Password resets revoke active sessions. Repeated failed logins trigger temporary lockout. CSRF protection is required for authenticated writes.
+Optional functions install through ZIP packages without editing core files. Every package has a permanent reverse-domain-style ID, semantic version, compatibility range, entrypoint, permissions, dependencies/conflicts, license metadata, and integrity metadata.
 
-### Entitlements
+Add-ons are executable PHP. Typical shared hosting cannot securely sandbox arbitrary PHP, so the platform uses layered controls rather than claiming isolation:
 
-A single resolver determines access for public, registered, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted content. Public pages, protected-media delivery, member libraries, and commerce fulfillment use the same model. Ending a subscription does not remove separately purchased PPV content, active rentals before expiry, gifts, or complimentary access.
+- canonical path and ZIP-entry validation;
+- size and file-count limits;
+- checksum verification;
+- optional Ed25519 signatures against configured trusted public keys;
+- owner acknowledgement for unsigned/untrusted packages;
+- declared permissions enforced by extension APIs;
+- dependency/conflict and compatibility checks;
+- pre-change backups and migration rollback;
+- boot-failure quarantine and global safe mode;
+- lifecycle logs and diagnostics.
 
-### Commerce and payments
+Invalid signatures and blocking findings are non-bypassable. Private signing keys never belong in customer packages or the public repository.
 
-Payment providers are replaceable adapters. The core stores orders, transactions, subscriptions, and entitlements but does not hard-code a production processor. The included sandbox adapter proves the lifecycle without representing a live connection.
+## Add-on lifecycle
 
-A production adapter must:
+Install validates/stages the package, applies owned migrations, moves files into protected storage, and records it. Activation is separate. Deactivation preserves data. Normal uninstall preserves registered data; purge uninstall removes settings/license state and rolls back owned migrations. Updates create backups and remain inactive for review. Rollback restores a backup and also leaves the add-on inactive.
 
-- be approved for the site's business category;
-- use hosted or tokenized payment collection rather than storing raw card data;
-- keep credentials outside the public repository;
-- verify signed, replay-safe webhooks;
-- map successful purchases and renewals to explicit subscriptions/entitlements;
-- map refunds and chargebacks to access revocation;
-- pass purchase, recurring renewal, decline, retry, cancellation, refund, and chargeback tests.
+## Extension API
 
-The local billing runner may simulate sandbox renewals only. It must never fabricate a successful renewal for a non-sandbox provider; those renewals wait for provider webhooks.
+The 0.6.x API exposes admin pages/navigation, public routes, frontend widgets, events, filters, services, namespaced settings, and scheduled tasks. New privileged APIs require a declared permission and documented compatibility behavior. Add-ons should not directly depend on undocumented core internals.
 
-### Tax and legal configuration
+## Licensing boundary
 
-The platform provides configurable tax percentage and currency fields, but it does not claim to calculate every jurisdiction's tax obligations. The site owner must configure lawful settings and obtain appropriate accounting/legal review.
+0.6.0 supports free, trial, and signed offline commercial-license records. A license-server outage must never take down the website or destroy installed data. Online activation, site limits, customer downloads, and remote update entitlement belong to 0.6.1. Marketplace sales belong to 0.7.0.
 
-### Add-ons
+## Repository truth
 
-New functions install through validated add-on ZIP packages without editing core files. Add-ons use versioned extension points, declared permissions, dependencies, migrations, safe updates, backup, rollback, and recovery. Arbitrary untrusted PHP cannot be fully sandboxed on typical shared hosting, so package signatures, permissions, trusted sources, safe mode, and rollback are mandatory.
-
-### Repository and release truth
-
-`afterburn25/velvet_vixxen` is the communication and source-of-truth repository. `main` is last-known-good; active work uses feature branches. Tests, roadmap, status, decisions, and handoffs remain current.
-
-A release package is not described as merged or authoritative on `main` until it has actually been pushed, CI-tested, reviewed, and merged. Packaged/local test evidence and GitHub branch/CI evidence must be reported separately.
-
-Large generated ZIPs, Canva binaries, and screenshot images are release artifacts rather than repeated source-history commits. The repository retains lightweight source, manifests, exact checksums, test evidence, and links/tracking issues.
+`afterburn25/velvet_vixxen` is the communication and source repository. `main` is last-known-good. A package is not represented as merged or CI-green until its complete source is pushed, tested, reviewed, and actually merged.
