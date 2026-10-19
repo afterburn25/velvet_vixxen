@@ -1,12 +1,14 @@
 # Velvet Vixxen 0.8.1 — Current Test Evidence
 
-## Installer folder correction in progress — 2026-10-19
+## Installer folder correction delivered — 2026-10-19
 
 The owner reported fresh-install readiness failures for nine missing image, font/icon and template folders after downloading the earlier 0.8.1 package. The manifest required unused empty scaffolding that the runtime-only ZIP intentionally does not contain. On panel-owned read-only asset trees, PHP cannot create those folders. The earlier same-owner installer fixtures did not cover this extracted-package ownership case; the prior green runs below do not certify it.
 
-The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. A one-file installer repair ZIP will let an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The complete fresh package will also contain the correction.
+The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. The delivered 6,400-byte one-file installer repair ZIP lets an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The corrected complete fresh package contains the same service. Both corrected downloads and the separate package manifest have been saved; the ordinary upgrade package is unchanged because it excludes the installer.
 
-Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Fresh PHP 8.2/8.3, MySQL 8 and HTTP/browser CI is pending on the corrective commit; do not claim that new run has passed until its results are observed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Corrective source, tests and progress documents are uploaded at [`776450964e5a1e9d26719d886d114ce3eef4037e`](https://github.com/afterburn25/velvet_vixxen/commit/776450964e5a1e9d26719d886d114ce3eef4037e) on `feature/0.8.1-site-ux-hero-library`. Fresh full CI [39278836707](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707) and [39278828940](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940) remained queued as observed at 15:43 UTC; PHP 8.2/8.3, MySQL 8 and HTTP/browser success for this corrective commit is not yet claimed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+
+Current correction evidence and all three package hashes are in `docs/releases/0.8.1-installer-folder-repair.json` and `RELEASE_MANIFEST.txt` (use paths relative to the repository root). Follow `docs/INSTALLER_FOLDER_REPAIR.md` to apply the one-file repair to the existing unfinished installation and click **Run Checks**. The earlier feature checkpoints below retain their original source, run and package hashes; their prior fresh-install ZIP is superseded.
 
 Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1, #3; PR #15.
 
@@ -21,13 +23,13 @@ Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13
 
 The direct failure reproduction closes the test gap in the earlier green checkpoints below. It does not claim access to or deployment on the owner's actual host. See `INSTALLER_FOLDER_REPAIR.md` for the small repair overlay and new-install instructions.
 
-## Truth boundary
+## Earlier feature verification truth boundary
 
 **The 0.8.1 user-facing features and required engineering release gates are implemented and verified.** This report records observed execution, not inferred success from suite filenames or workflow configuration. Historical recovery evidence and feature evidence remain distinct.
 
 Recovered source commit: [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23). Input archive SHA-256: `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`. See `SOURCE_RECOVERY.md`.
 
-## Complete final GitHub verification
+## Earlier complete GitHub verification — before the installer correction
 
 Exact runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c). Source tree: `f9ad6dd825def2b525ce0992c1fb9a010344c8b9`. Asset build identity: `0.8.1-20261019.3`. GitHub run [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477) completed successfully; all six required jobs passed.
 
@@ -134,7 +136,7 @@ For a focused browser scenario, set `VELVET_TEST_SUITE=tests/Browser/site_ux_pla
 
 Local tooling: PHP 8.3.6 with PDO MySQL, MariaDB 10.11.14, Python Playwright and Chrome for Testing 155.0.8059.84. Source/HTTP tests create marked disposable runtime copies; SQL tests require a disposable database. No demo is installed in the authoritative checkout. Fixture credentials and private runtime state are not release contents.
 
-## Completion boundary
+## Earlier continuation completion boundary
 
 The required combined gates, final committed-source package hashes, artifacts and repository evidence are complete. Intermediate failures remain above so the audit trail distinguishes what was fixed from what originally passed. Source, tests and these progress records are uploaded on the implementation branch; inspect PR #15 for its separate merge state.
 

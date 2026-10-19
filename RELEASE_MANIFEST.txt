@@ -1,6 +1,10 @@
 VELVET VIXXEN 0.8.1 — INSTALLER FOLDER CORRECTION
 
-Status: local PHP 8.3.6/source/package and real foreign-ownership regression passed; new full GitHub CI pending.
+Status: corrective source and downloads uploaded; local PHP 8.3.6/source/package and real foreign-ownership regression passed; fresh full GitHub CI queued as observed at 2026-10-19 15:43 UTC.
+Corrective source commit: 776450964e5a1e9d26719d886d114ce3eef4037e
+Corrective source tree: 77715dcb8b0d8a4fac48ebb4778963659c409a4b
+Fresh PR CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707
+Fresh push CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940
 Branch: feature/0.8.1-site-ux-hero-library
 Starting source: 349fd1a5128c9963e535f77b75890feaac5981b1
 Corrected FileSystemService.php SHA-256: bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b

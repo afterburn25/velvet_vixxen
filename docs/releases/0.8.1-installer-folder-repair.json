@@ -9,7 +9,19 @@
     "real_foreign_ownership_packaged_preflight": "passed",
     "original_nine_path_failure_reproduced": "passed; original ZIP rebuilt byte-for-byte",
     "runtime_package_tests": "passed",
-    "new_github_ci": "pending"
+    "new_github_ci": {
+      "status": "queued",
+      "observed_at": "2026-10-19T15:43:00Z",
+      "pull_request_run": {
+        "id": 39278836707,
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707"
+      },
+      "push_run": {
+        "id": 39278828940,
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940"
+      },
+      "full_ci_success_claimed": false
+    }
   },
   "packages": [
     {
@@ -43,5 +55,8 @@
       ],
       "installation_state": "incomplete"
     }
-  ]
+  ],
+  "source_commit": "776450964e5a1e9d26719d886d114ce3eef4037e",
+  "source_tree": "77715dcb8b0d8a4fac48ebb4778963659c409a4b",
+  "delivery": "Corrective source/tests/docs uploaded; one-file repair ZIP, corrected fresh ZIP and separate manifest saved."
 }

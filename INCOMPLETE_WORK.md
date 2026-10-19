@@ -1,12 +1,14 @@
 # Acceptance Record — Velvet Vixxen 0.8.1 Continuation
 
-## Installer folder correction in progress — 2026-10-19
+## Installer folder correction delivered — 2026-10-19
 
 The owner reported fresh-install readiness failures for nine missing image, font/icon and template folders after downloading the earlier 0.8.1 package. The manifest required unused empty scaffolding that the runtime-only ZIP intentionally does not contain. On panel-owned read-only asset trees, PHP cannot create those folders. The earlier same-owner installer fixtures did not cover this extracted-package ownership case; the prior green runs below do not certify it.
 
-The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. A one-file installer repair ZIP will let an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The complete fresh package will also contain the correction.
+The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. The delivered 6,400-byte one-file installer repair ZIP lets an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The corrected complete fresh package contains the same service. Both corrected downloads and the separate package manifest have been saved; the ordinary upgrade package is unchanged because it excludes the installer.
 
-Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Fresh PHP 8.2/8.3, MySQL 8 and HTTP/browser CI is pending on the corrective commit; do not claim that new run has passed until its results are observed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Corrective source, tests and progress documents are uploaded at [`776450964e5a1e9d26719d886d114ce3eef4037e`](https://github.com/afterburn25/velvet_vixxen/commit/776450964e5a1e9d26719d886d114ce3eef4037e) on `feature/0.8.1-site-ux-hero-library`. Fresh full CI [39278836707](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707) and [39278828940](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940) remained queued as observed at 15:43 UTC; PHP 8.2/8.3, MySQL 8 and HTTP/browser success for this corrective commit is not yet claimed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+
+Current correction evidence and all three package hashes are in `docs/releases/0.8.1-installer-folder-repair.json` and `RELEASE_MANIFEST.txt` (use paths relative to the repository root). Follow `docs/INSTALLER_FOLDER_REPAIR.md` to apply the one-file repair to the existing unfinished installation and click **Run Checks**. The earlier feature checkpoints below retain their original source, run and package hashes; their prior fresh-install ZIP is superseded.
 
 **Captured:** 2026-10-19  
 **Repository:** `afterburn25/velvet_vixxen`  
@@ -16,7 +18,7 @@ Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new
 
 This file is the authoritative handoff for the user-facing work that was being discussed after the documented 0.8.0 Marketing, Publishing & Analytics milestone. Do not mark any item complete merely because an earlier chat response said it was built. Verify the executable source, running behavior, tests, and packaged artifact first.
 
-## Verified checkpoint — 2026-10-19
+## Earlier verified checkpoint — before the installer correction
 
 The **0.8.1 user-facing engineering continuation is implemented and verified** on `feature/0.8.1-site-ux-hero-library`. Runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c); complete GitHub CI: [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), **all six jobs passed**. PHP 8.2.34/8.3.35, JavaScript syntax, MySQL 8.0.46, installer/ownership/security, seven HTTP suites, twelve real Chromium suites and gated runtime packaging all passed. The library has 30 individual scenes and 30 thumbnails, with 90 successful published renders across desktop/tablet/mobile.
 
@@ -207,6 +209,6 @@ feature/0.8.1-site-ux-hero-library
 Do not start 0.9.0 compliance work until the user-facing 0.8.1 continuation above is either implemented and verified or explicitly deferred by the user.
 
 
-## Final verification
+## Earlier continuation final verification
 
 The full checklist above is verified by [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477) on [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c). Failed intermediate runs and their corrections are retained in `docs/TEST_REPORT.md`. Current schema: 14 migrations / 82 tables. The owner supplies real photographs and personal/catalog content; those inputs and live production-service certification are not fabricated completion claims.

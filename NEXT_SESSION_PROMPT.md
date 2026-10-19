@@ -48,7 +48,7 @@ Preserve all of these decisions:
 
 ## Current priority — installer folder correction
 
-The latest user report concerns nine missing static image/font/icon/template folders that the earlier installer incorrectly required. Read the new corrective checkpoint in `PROJECT_STATUS.md` and `docs/TEST_REPORT.md` before treating the earlier all-green CI as coverage of this case. Preserve the static-readability/writable-runtime distinction and extracted-package foreign-ownership regression. Finish verification, upload the corrected runtime and one-file installer repair ZIPs, and record exact evidence. Do not delete configuration, storage, uploads or any installed identity/data to recover a stopped fresh install.
+The nine reported missing static-folder failures are reproduced and fixed in uploaded source/tests/docs commit `776450964e5a1e9d26719d886d114ce3eef4037e`. The corrected fresh ZIP, 6,400-byte one-file installer repair ZIP and separate manifest have been saved. Read the current checkpoint in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-folder-repair.json`; the older green runs did not exercise genuine foreign ownership. Full fresh CI [39278836707](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707) and [39278828940](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940) remained queued as last observed at 15:43 UTC. Inspect those live runs before claiming the correction passed PHP 8.2/8.3, MySQL 8 or HTTP/browser CI, then record their actual result. Preserve the extracted-package ownership regression and current source. Follow `docs/INSTALLER_FOLDER_REPAIR.md` for an unfinished installation; do not delete configuration, storage, uploads or installed identity/data. Source and corrected downloads are already uploaded; continue from the owner's next instruction rather than repeating this delivery.
 
 ## Earlier verified continuation checkpoint
 
@@ -72,7 +72,7 @@ The following scope is implemented and verified in `INCOMPLETE_WORK.md`; preserv
 8. Clarify the Canva workflow as a manual export/import bridge unless a real tested Canva API integration exists. Keep model cutouts as separate Visual Composer layers.
 
 
-## Final source and artifact evidence
+## Earlier feature source and artifact evidence
 
 Both packages were built from the exact verified runtime commit. Their byte hashes match the gated GitHub CI build. The fresh package starts uninstalled; the upgrade omits config, storage, uploads and install. Neither contains repository docs, tests, SDK source, workflows, screenshots, artwork provenance/masters, installed records, credentials or private media. Exact package counts/hashes and artifact URLs are recorded in `RELEASE_MANIFEST.txt`, `docs/releases/0.8.1-site-ux.json` and `docs/TEST_REPORT.md`.
 

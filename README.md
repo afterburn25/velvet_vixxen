@@ -2,7 +2,7 @@
 
 ## 0.8.1 installer folder correction
 
-If an unfinished installation reports missing image/font/icon/template folders, use the focused one-file repair described in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The fresh package also includes the corrected manifest and static-readability checks. The new real foreign-owner package regression and current verification state are recorded in [Test Report](docs/TEST_REPORT.md); earlier same-owner tests did not cover this defect.
+If an unfinished installation reports missing image/font/icon/template folders, use the focused one-file repair described in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The fresh package also includes the corrected manifest and static-readability checks. The new real foreign-owner package regression and current verification state are recorded in [Test Report](docs/TEST_REPORT.md); earlier same-owner tests did not cover this defect. Corrective source is uploaded at [`776450964e5a1e9d26719d886d114ce3eef4037e`](https://github.com/afterburn25/velvet_vixxen/commit/776450964e5a1e9d26719d886d114ce3eef4037e); the corrected downloads are saved. Current package hashes are in [the installer repair record](docs/releases/0.8.1-installer-folder-repair.json). Fresh CI was still queued at 15:43 UTC; the earlier feature verification below is historical evidence before this correction.
 
 The authoritative application and engineering repository is `afterburn25/velvet_vixxen`. The website is a PHP/MySQL application for shared hosting, with the approved neon-pink design and a single-page browser installer.
 
