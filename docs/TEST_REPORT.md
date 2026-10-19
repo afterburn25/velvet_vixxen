@@ -1,152 +1,45 @@
-# Velvet Vixxen 0.8.0 Test Report
+# Velvet Vixxen 0.8.1 — Current Test Evidence
 
-## Release
+Date: 2026-10-19. Active branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1 and #3.
 
-**Nikki Wilder — The Velvet Vixxen 0.8.0**  
-Milestone: **Marketing, Publishing & Analytics**
+## Release boundary
 
-Runtime package:
+**0.8.1 is in development, not complete.** This report replaces historical pass claims that could not be reproduced from GitHub source. The first checkpoint imports the checksum-verified 0.8.1 executable baseline, selectively restores 0.7.4 Composer fixes, corrects recovery/backup safety, restores engineering tests and enables mandatory CI.
 
-```text
-Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
-SHA-256: ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
+Baseline archive SHA-256: `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`. Provenance and mismatched historical claims: `SOURCE_RECOVERY.md`.
+
+## Observed local evidence
+
+| Gate | Actual result |
+| --- | --- |
+| PHP 8.3.6 source suite | PASS: PHP/JavaScript/Python syntax, smoke, installer, media, members, entitlements, sandbox commerce, add-ons, licensing, communication and basic marketing regressions. |
+| Recovery fixtures | PASS: 72 assertions for matching identities, preservation, ambiguity, linked paths and executing installer behavior. |
+| Repair-backup fixtures | PASS: 71 assertions for verified duplicates, unique/unknown data preservation, path boundaries and archive handling. |
+| Runtime packaging | PASS: fresh/upgrade ZIPs, exact exclusions, deterministic output, unchanged existing config/lock/private data/uploads after overlay, symlink rejection. |
+| MariaDB 10.11.14 migrations | PASS: all 12 migrations create 78 tables; repeated apply is idempotent; rollback leaves the disposable database empty. This is not MySQL 8 evidence. |
+| Installed HTTP | PASS: member/entitlement, sandbox commerce, add-on lifecycle, communication ownership and CSRF, newsletter pending-state/token privacy, same-origin analytics with foreign/malformed/missing origin rejection. |
+| Recovered Composer real Chromium | PASS twice: continuous drag, corner resize, 0.5–400% save/reload, live text/button box movement, distinct desktop/tablet/mobile arrangements, background pan/undo/redo, draft isolation, Hero/Footer publication and bundled/uploaded image loading. |
+| Complete baseline browser regression | In progress; favicon 404 discovered and corrected. |
+| PHP 8.2 source suite | Pending actual GitHub CI execution. |
+| MySQL 8 apply/verify/rollback | Pending actual GitHub CI execution. |
+| New 0.8.1 feature acceptance | Pending implementation and testing; see INCOMPLETE_WORK.md. |
+
+The source and HTTP harnesses create marked disposable copies. They do not seed or retire the installer inside the engineering checkout or a real site. Chrome for Testing 155.0.8059.84 ran actual local pages; screenshot-only reconstructions are not counted as interaction tests.
+
+## Commands used
+
+```bash
+bash scripts/test.sh
+VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+php tests/Database/migrations_mysql.php
+VELVET_TEST_SUITE=tests/Browser/composer_recovery_playwright.py \
+VELVET_TEST_PORT=8770 bash scripts/test_http.sh
 ```
 
-The public ZIP contains only files needed to install and operate the site. Repository files, GitHub workflows, development documentation, tests, test reports, screenshots, and SDK source are not included.
+Local tools were isolated PHP 8.3.6, MariaDB 10.11.14, Python/Playwright and Chrome. Database credentials and installed fixture state are outside source control. CI declares separate PHP 8.2/8.3, MySQL 8, HTTP/browser and runtime-package jobs; configuration is not a claim those jobs have passed.
 
-## Source and package validation
+## Remaining completion requirements
 
-The completed runtime tree and a separate clean extraction of the final ZIP were validated.
+All Composer/off-canvas/background-image acceptance, 30 standalone scene selection, Booking Builder fields and validation/history, sticky public navigation, centered auth pages, About Me/editor, admin persistence, merchandise/direct PPV purchase and regressions in `INCOMPLETE_WORK.md` must pass. Zero broken Composer/Hero/Footer images, repository secret/safety checks and runtime-only package exclusions remain required.
 
-- 203 runtime files
-- 128 PHP files passed `php -l`
-- 7 public JavaScript files passed `node --check`
-- 12 ordered database migrations loaded successfully
-- 75 unique application tables were declared
-- ZIP integrity check passed
-- Published SHA-256 check passed
-- Configuration began uninstalled
-- No installation lock or runtime data store was packaged
-- No database password or generated application/security key was packaged
-- No world-writable entries were present
-- No `chmod(..., 0777)` call was present
-- No obvious private signing key or production payment-key pattern was present
-- No `.git`, `.github`, `/docs`, `/tests`, Python test files, project handoff files, or development reports were packaged
-
-## Marketing file-store suite
-
-Result: **PASS**
-
-Verified:
-
-- Marketing default settings
-- Feature and retention setting updates
-- Public and scheduled editorial posts
-- Public visibility timing
-- Newsletter single and double opt-in behavior
-- Signed confirmation and unsubscribe tokens
-- Subscriber tags and segmentation
-- Campaign queue creation and delivery-state updates
-- Timed promotional campaigns and banners
-- Link-in-bio click accounting
-- Referral clicks, orders, and attributed revenue
-- Anonymous first-party analytics summaries
-- Scheduled Hero composition snapshots
-- Due-scene publishing
-- Concurrent-safe scene claim status
-- Published-scene persistence without stale file-store overwrite
-- Scheduled-scene cancellation
-- Analytics and consent-record retention cleanup
-- Marketing dashboard statistics
-- Marketing task-runner result structure
-
-## Marketing HTTP acceptance
-
-Result: **PASS**
-
-Verified through real PHP HTTP requests:
-
-- Homepage news and newsletter sections
-- Blog index and post page
-- Link-in-bio page
-- Timed campaign landing page
-- Newsletter subscription form and CSRF validation
-- Same-origin analytics collection
-- Foreign-origin analytics rejection
-- Owner login
-- Marketing administration
-- Real editorial post creation and save
-- Scheduled Hero/Footer scene administration
-- Real scheduled Hero publication through the marketing task runner
-- Analytics administration
-- Posts, newsletter, referrals, and analytics CSV exports
-- Referral-code capture
-
-## Full-site HTTP smoke test
-
-Result: **PASS**
-
-The final runtime tree successfully rendered:
-
-- Home
-- Music
-- Photo galleries
-- Videos
-- Membership
-- Store
-- Booking
-- Blog
-- Newsletter
-- Link-in-bio
-- Campaign landing page
-- Account login and registration
-- Cart
-- Owner login
-
-Feature-disable behavior was also verified. Blog, newsletter signup, link page, post detail, and redirect routes returned 404 when their corresponding modules were disabled, while the unsubscribe endpoint remained available for safety and compliance.
-
-## Installer smoke test
-
-Result: **PASS**
-
-Verified:
-
-- An uninstalled homepage redirects to `/install/`
-- The simplified one-page installer renders
-- Database, Owner and Website, and Server/Folder readiness sections render
-- AJAX readiness recheck succeeds
-- Readiness diagnostics contain system and file results
-- Existing 0.7.3 installer hardening remains intact, including no install key, 12-character minimum passwords, safe permission handling, ownership-safe folder repair, migrations, configuration verification, installation lock, and installer cleanup
-
-A complete MySQL installation was not executed locally because this environment provides PDO but not PDO MySQL or a MySQL/MariaDB server.
-
-## Screenshot evidence
-
-Eight screenshots were created from HTML fetched from the running local PHP application with its actual CSS and image assets:
-
-- Desktop homepage
-- Mobile homepage
-- Blog
-- Desktop link-in-bio page
-- Mobile link-in-bio page
-- Marketing administration
-- Analytics administration
-- Scheduled-scene administration
-
-The browser environment is managed and direct local navigation may be blocked. The screenshots were rendered from fetched application output with local assets fulfilled inside Chromium; they are visual evidence, not a substitute for interactive Playwright acceptance.
-
-## Environmental boundaries
-
-- PHP available locally: 8.4.24
-- Node available locally: 22.16.0
-- Python available locally: 3.13.5
-- PDO MySQL/MySQL/MariaDB unavailable locally
-- Live migration apply/rollback remains a GitHub CI or hosting-environment gate
-- Full interactive Chromium/Playwright navigation remains a CI gate
-- The bundled payment adapter remains sandbox-only
-
-## Final result
-
-**PASS for all locally available source, runtime-package, file-mode, HTTP, installer, integrity, and security gates.**
-
-The release remains subject to MySQL migration apply/verify/rollback and interactive browser acceptance in CI or a representative hosting environment.
+Payments remain sandbox-only. Production mail delivery and representative shared-hosting certification are not claimed.

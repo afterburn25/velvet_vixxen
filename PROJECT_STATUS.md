@@ -1,92 +1,45 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
-## Current repository state
+Repository: `afterburn25/velvet_vixxen`
 
-The repository documents a packaged **0.8.0 — Marketing, Publishing & Analytics** runtime milestone on `feature/0.8.0-marketing-publishing-analytics`.
+## Current work
 
-Recorded runtime artifact metadata:
+**0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise** on `feature/0.8.1-site-ux-hero-library`.
 
-```text
-Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
-SHA-256: ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
-203 runtime files
-128 PHP runtime files
-7 public JavaScript files
-12 migrations
-75 declared tables
-```
+The executable source was recovered from the original checksum-verified 0.8.1 fresh-install ZIP. The separate 0.7.4 Visual Composer fixes are being reconciled into that source. This corrects the earlier state where `main` described 0.3.0 and newer branches held delivery documents without the corresponding application.
 
-The complete executable 0.8.0 engineering source and full GitHub PHP/MySQL/Playwright matrix were **not imported and verified** at the time of this handoff. The package metadata and documentation branch are not substitutes for executable source evidence.
+## Implemented in this integration
 
-## Active continuation
+- Complete recovered runtime in organized source folders, including consolidated public routes and operational console commands.
+- Recovered member, entitlement, commerce, media, installer, and add-on tests, adapted to the actual current source layout.
+- Required source-presence CI; a missing application can no longer result in a passing skipped application suite.
+- Installation state based on matching configuration/JSON-lock identity rather than mere lock-file existence.
+- Reinstallation guard before any new database work when configuration, keys, or a prior installation identity remain.
+- Recovery and backup preservation fixes, with disposable regression fixtures.
+- 0.7.4 Visual Composer direct manipulation, expanded scaling, live-content positioning, and corrected asset resolution.
+- Reproducible fresh-install and upgrade package builder.
+- Upgrade overlay test that verifies existing configuration, lock, private data, and unique uploads remain byte-for-byte intact.
+- Source-control exclusions for installed state, generated secrets, runtime records, and local test/build outputs.
 
-**0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise** is incomplete and tracked on:
+## Actual recovered capabilities
 
-```text
-handoff/0.8.1-incomplete-site-ux
-```
+The source contains owner administration, single-page installation, Hero/Footer composition, music/photo/video pages, signed media access, member accounts, entitlement resolution, sandbox commerce, add-on lifecycle/licensing, private messaging, professional booking inquiries, and a basic file-backed marketing module. Their verified checks are listed in the test report; presence alone is not production certification.
 
-Tracking issue:
+There are **12 versioned migrations declaring 78 tables**. The earlier 75-table claim and a test parser that missed quoted table names were incorrect. Marketing schema tables exist, but the current MarketingStore implementation persists to protected files, not those MySQL tables.
 
-```text
-#13 — Continue 0.8.1 Site UX, Hero Library, Booking Builder, Admin IA & Merch Store
-```
+## Unfinished or unsupported prior completion claims
 
-Authoritative continuation documents:
+- About Me public page and owner editor.
+- Owner-editable booking field/type builder and expanded live email/phone formatting.
+- Merchandise product/inventory/order fulfilment and the requested revised storefront.
+- PPV direct Buy Now flow separate from the cart.
+- Later navigation/admin-layout changes and the expanded background collection.
+- Advanced publishing audiences/expiration, scheduled scene claims, production campaign delivery, referral-to-order attribution, configurable marketing retention, and MySQL-backed marketing persistence.
 
-```text
-INCOMPLETE_WORK.md
-NEXT_SESSION_PROMPT.md
-SESSION_HANDOFF.md
-```
+These remain unfinished unless a later commit implements them and adds evidence. They must not be counted complete from historical chat or handoff prose.
 
-## Incomplete or unverified work
+## Validation and release state
 
-- Recover/import the newest real executable source and establish a tested baseline.
-- Finish Visual Composer direct drag, extreme resize, off-canvas placement/clipping, movable live text/button group, device-specific arrangements, background pan, and broken-media repair.
-- Integrate at least 30 standalone people-free luxury Hero backgrounds across indoor/outdoor settings.
-- Build the admin-configurable Booking Form Builder with required/optional text, textarea, email, phone, dropdown, radio, and checkbox fields plus client/server validation and live phone formatting.
-- Make navigation sticky on every public page, remove Contact, add About Me after Booking, create the About Me stats/bio editor, and center auth forms in full-page layouts.
-- Reorganize admin into persistent collapsible categories that preserve active page and expanded state after refresh.
-- Build a real merchandise store and cart while keeping subscriptions on membership checkout and PPV galleries/videos on direct Buy Now/rental flows.
-- Clarify Canva as a manual export/import bridge unless a real tested API integration exists.
-- Run the complete PHP 8.2/8.3, MySQL 8, HTTP, Playwright, security, and runtime-only packaging gates.
+See `docs/TEST_REPORT.md` for exact current local results and GitHub run evidence. At the beginning of this repair, existing GitHub checks validated documentation and skipped source tests; those historical green runs did not verify the application.
 
-## Completed 0.8.0 package scope documented in GitHub
-
-- Blog, personal update, and announcement publishing
-- Draft, scheduled, published, archived, and expiring states
-- Public/member/subscriber visibility
-- Categories, tags, SEO fields, featured media, and featured placement
-- Newsletter confirmation, unsubscribe, consent, suppression, tags, segments, campaigns, and delivery states
-- Timed promotional banners and campaign landing pages
-- Scheduled Hero/Footer scene snapshots
-- Link-in-bio and referral attribution
-- Privacy-conscious same-origin first-party analytics
-- Analytics dashboards, CSV exports, and retention controls
-- Operational marketing runner
-
-Treat those items as documented package evidence until the executable source and tests are present in GitHub.
-
-## Locked requirements
-
-- Approved neon-pink Velvet Vixxen design; no new mockups unless explicitly requested.
-- Transparent model photos remain separate movable layers.
-- One simplified browser installer page.
-- No installation key.
-- Exact 12-character minimum passwords.
-- Safe `0755`/`0775`; never `0777`.
-- Organized folders and ownership-safe writable-directory repair.
-- Runtime-only customer ZIPs.
-- Payment remains sandbox-only until a live adult-compatible provider is approved and certified.
-- Never commit production credentials, private/customer data, identity documents, payment/license secrets, private messages/attachments, logs, sessions, runtime state, or private/paid media.
-
-## Next action
-
-A future session must read `INCOMPLETE_WORK.md` and `NEXT_SESSION_PROMPT.md`, identify the newest executable source, create or use:
-
-```text
-feature/0.8.1-site-ux-hero-library
-```
-
-and continue concrete implementation and testing. Do not begin 0.9.0 until the 0.8.1 continuation is verified or explicitly deferred by the user.
+Live payments, production email delivery, representative shared hosting, and the 0.9/1.0 hardening milestones remain unverified or unfinished.

@@ -6,10 +6,10 @@ Use the following prompt in a new ChatGPT session:
 
 Continue development of **Nikki Wilder / The Velvet Vixxen** using GitHub repository **`afterburn25/velvet_vixxen`**.
 
-Before answering or coding, inspect the live repository. Start with branch:
+Before answering or coding, inspect the live repository. Start with implementation branch:
 
 ```text
-handoff/0.8.1-incomplete-site-ux
+feature/0.8.1-site-ux-hero-library
 ```
 
 Read these files in full:
@@ -27,7 +27,7 @@ Also inspect open GitHub issues, especially the issue titled **“Continue 0.8.1
 
 ## Critical truth boundary
 
-Do not rely on prior chat claims that something was built. Verify the actual executable source, current branches, files, tests, and artifacts. The repository documents a packaged 0.8.0 Marketing/Publishing/Analytics milestone, but complete executable 0.8.0 engineering source and full CI were still not imported/verified in GitHub at handoff time.
+Do not rely on prior chat claims that something was built. Verify the actual executable source, current branches, files, tests, and artifacts. The original handoff documents a packaged 0.8.0 Marketing/Publishing/Analytics milestone, but complete executable 0.8.0 engineering source and full CI were still not imported/verified in GitHub at handoff time.
 
 First determine the newest branch or artifact that actually contains runnable application source. If the newest branch is documentation-only, locate/import the latest clean engineering source before implementing more features. Keep the public customer ZIP runtime-only and keep repository docs/tests/SDK/workflows outside that ZIP.
 

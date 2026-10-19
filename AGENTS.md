@@ -4,13 +4,13 @@
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current packaged target: **0.8.0 — Marketing, Publishing & Analytics**
+Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
 
-Delivery branch: `feature/0.8.0-marketing-publishing-analytics`
+Active branch: `feature/0.8.1-site-ux-hero-library`; `main` is the authoritative integration destination.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 
-The runtime package and repository source-import state are separate truth boundaries. Verify the live branch, issue, pull request, workflow, merge, tag, and release state before making claims.
+The user requires the latest source and progress documents to be uploaded to GitHub. Commit and upload executable changes, tests, and progress/handoff documentation before a completed-session handoff. Never defer source import while claiming a release is complete. Customer runtime packages and engineering source have different contents, but must be built from the same committed implementation. A missing source tree must fail CI, not produce a passing skipped test job. Verify the actual commit, workflow, merge, and deployment state before making claims.
 
 ## Locked requirements
 
@@ -41,26 +41,11 @@ The runtime package and repository source-import state are separate truth bounda
 - CSV exports must escape spreadsheet formula prefixes.
 - Retention cleanup must not remove active consent/suppression records needed for compliance.
 
-## Implementation map
+## Active continuation
 
-```text
-app/Core/MarketingStoreTrait.php
-app/Core/MarketingService.php
-app/Views/admin/marketing.php
-api/analytics.php
-blog/index.php
-blog/post.php
-campaign/index.php
-links/index.php
-links/go.php
-newsletter/index.php
-newsletter/confirm.php
-newsletter/unsubscribe.php
-public/assets/css/marketing.css
-public/assets/js/marketing.js
-scripts/run_marketing.php
-database/migrations/202610180012_marketing_publishing_analytics.php
-```
+Read `INCOMPLETE_WORK.md` in full. Issue #13 is the active implementation scope. Complete source recovery, Composer, 30 standalone Hero scenes, Booking Builder, public navigation/About/auth, persistent admin categories, merchandise/direct PPV separation, and Canva clarity. Preserve all locked requirements and update progress documents and issue #13 as implementation lands. Do not advance to 0.9.0 until verified or explicitly deferred by the user.
+
+Actual recovered marketing source is `app/Core/MarketingStore.php`; runtime public routes are under `public/routes`, and operational commands are under `app/Console`. Do not assume historical paths or advanced marketing descriptions exist in executable source.
 
 ## Required release gates
 
@@ -88,6 +73,6 @@ Never commit production credentials, generated secrets, payment tokens, raw lice
 
 Distinguish among locally tested package behavior, CI-prepared behavior, planned work, and real production-service integration. Do not claim source import, MySQL, Playwright, live payments, production email delivery, public licensing SaaS, merge, tag, or release without direct evidence.
 
-## Next milestone
+## Current priority
 
-After 0.8.0 source import and CI, proceed to **0.9.0 — Compliance, Privacy & Operational Hardening**.
+Finish the 0.8.1 continuation in `INCOMPLETE_WORK.md`; the recovery checkpoint is its first step, not completion of the user-facing continuation. Read `docs/SOURCE_RECOVERY.md` and report test failures and unavailable gates truthfully.

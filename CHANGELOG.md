@@ -1,3 +1,13 @@
+## 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise (2026-10-19)
+
+- Recover the checksum-verified 0.8.1 executable runtime into the repository and restore engineering tests/SDK.
+- Reconcile the separate 0.7.4 Visual Composer fixes with the newer router/recovery source.
+- Validate matching installation identities and prevent reinstall over retained configuration or keys.
+- Preserve active configuration and unique repair-backup data; add focused recovery regressions.
+- Build reproducible runtime-only fresh-install and state-preserving upgrade packages.
+- Require real source, database, HTTP, and browser checks instead of a passing missing-source skip.
+- Reconcile status/roadmap/handoff claims with the code actually recovered; record remaining UI/marketing work.
+
 # Changelog
 
 ## 0.8.0 — Marketing, Publishing & Analytics

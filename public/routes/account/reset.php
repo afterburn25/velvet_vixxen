@@ -1,0 +1,9 @@
+<?php
+declare(strict_types=1);
+if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }require ROOT_PATH.'/app/bootstrap.php';if(!is_installed())redirect(base_url('install/'));
+$pageTitle='Choose New Password';$activeNav='membership';$token=(string)($_GET['token']??$_POST['token']??'');$error='';
+if($_SERVER['REQUEST_METHOD']==='POST'){try{if(!verify_csrf())throw new RuntimeException('Your form session expired.');$password=(string)($_POST['password']??'');if($password!==(string)($_POST['password_confirmation']??''))throw new RuntimeException('The password confirmation does not match.');if(!member_auth()->resetPassword($token,$password))throw new RuntimeException('This reset link is invalid or expired.');redirect(base_url('account/?password=reset'));}catch(Throwable $e){$error=$e->getMessage();}}
+require root_path('app/Views/public/partials/header.php');
+?>
+<div class="member-main"><section class="member-auth-shell"><div class="member-auth-card"><span class="eyebrow pink">New password</span><h1>Choose a secure passphrase.</h1><?php if($error):?><div class="member-alert error"><?=e($error)?></div><?php endif;?><form method="post" class="member-form"><?=csrf_field()?><input type="hidden" name="token" value="<?=e($token)?>"><label>New password<input type="password" name="password" minlength="12" maxlength="255" autocomplete="new-password" required></label><label>Confirm new password<input type="password" name="password_confirmation" minlength="12" maxlength="255" autocomplete="new-password" required></label><button class="button button--primary">Save New Password</button></form></div><div class="member-auth-art"><div><h2>Twelve characters minimum.</h2><p>A long, memorable passphrase is accepted. You are not forced into arbitrary symbol or capitalization rules.</p></div></div></section></div>
+<?php require root_path('app/Views/public/partials/footer.php'); ?>

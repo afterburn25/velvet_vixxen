@@ -1,0 +1,8 @@
+<?php
+declare(strict_types=1);
+if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }require ROOT_PATH.'/app/bootstrap.php';if(!is_installed())redirect(base_url('install/'));
+$member=require_member();$order=app_store()->order((string)($_GET['order']??''));if(!$order||(string)$order['memberId']!==(string)$member['id']){http_response_code(404);$order=null;}
+$pageTitle='Order Complete';$activeNav='shop';require root_path('app/Views/public/partials/header.php');
+?>
+<div class="commerce-main"><?php if(!$order):?><section class="commerce-empty"><h1>Order not found.</h1><a class="button button--primary" href="<?=e(base_url('account/billing.php'))?>">Billing History</a></section><?php else:?><section class="success-receipt"><span class="success-check">✓</span><span class="eyebrow pink">Payment complete</span><h1>Your content is ready.</h1><p>Order <strong><?=e((string)$order['orderNumber'])?></strong> was completed. Purchased galleries and videos are now available in My Library.</p><div class="success-actions"><a class="button button--primary" href="<?=e(base_url('account/library.php'))?>">Open My Library</a><a class="button button--ghost" href="<?=e(base_url('receipt/?order='.rawurlencode((string)$order['orderNumber'])))?>">View Receipt</a></div><div class="receipt-mini"><?php foreach((array)$order['items'] as $item):?><div><span><?=e((string)$item['title'])?></span><strong><?=e(money((float)$item['lineTotal'],(string)$order['currency']))?></strong></div><?php endforeach;?><div class="total"><span>Total</span><strong><?=e(money((float)$order['grandTotal'],(string)$order['currency']))?></strong></div></div></section><?php endif;?></div>
+<?php require root_path('app/Views/public/partials/footer.php'); ?>

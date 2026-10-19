@@ -1,87 +1,35 @@
-# Testing — Velvet Vixxen 0.7.0
+# Testing — Velvet Vixxen 0.8.1
 
-Testing is a release gate. A milestone is not complete merely because pages render or code exists.
+Tests are mandatory release gates. Use PHP 8.2 or 8.3 with PDO MySQL, mbstring, fileinfo, OpenSSL, GD, Zip and sodium; Node for JavaScript syntax; Python with requests, BeautifulSoup and Playwright for HTTP/browser suites.
 
-## Clean source suite
+## Source and packaging
 
 ```bash
-bash scripts/clean_runtime.sh
 bash scripts/test.sh
+python3 scripts/package.py --output artifacts/runtime
 ```
 
-Current clean-tree evidence:
+The source harness checks repository safety, copies clean runtime to a marked disposable directory, and runs source/installer/unit/feature/package regressions there. Never seed an installed demo in the working source tree or a real site. `scripts/clean_runtime.sh` is guarded and must not be used as a general site cleanup command.
 
-- PHP syntax: 160 files
-- Public JavaScript syntax: 6 files
-- Python HTTP/Playwright syntax: 11 files
-- 11 migrations / 66 declared application tables
-- Installer, media, member, entitlement, commerce, add-on, licensing, communication, structure, and repository-safety tests
-
-## Installed-demo HTTP acceptance
+## HTTP and browser
 
 ```bash
 VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+VELVET_BROWSER_TESTS=1 VELVET_TEST_PORT=8767 bash scripts/test_http.sh
 ```
 
-Five suites run:
+The harness starts and stops a real PHP server in a disposable copy and resets fixtures between suites. `VELVET_TEST_SUITE` selects one exact test path. `VELVET_SCREENSHOT_DIR` stores actual browser evidence outside customer ZIPs. Set `VELVET_CHROMIUM` only when selecting an existing compatible browser. Browser interaction tests must run, not just compile.
 
-```text
-tests/Http/members_http.py
-tests/Http/commerce_http.py
-tests/Http/addon_http.py
-tests/Http/addon_licensing_http.py
-tests/Http/communications_http.py
-```
+## MySQL 8 migration gate
 
-The communications suite covers public booking, member inbox/thread reply, new conversations, content-request quote acceptance, booking confirmation, notifications, owner queues/replies/status/quote changes, moderation, authenticated CSV exports, and guest-token status.
-
-## MySQL integration
+Provide `VELVET_TEST_DB_HOST`, `VELVET_TEST_DB_PORT`, `VELVET_TEST_DB_NAME`, `VELVET_TEST_DB_USER` and `VELVET_TEST_DB_PASSWORD` through environment configuration for a disposable test database, then run:
 
 ```bash
-VELVET_TEST_DB_HOST=127.0.0.1 \
-VELVET_TEST_DB_PORT=3306 \
-VELVET_TEST_DB_NAME=velvet_vixxen_test \
-VELVET_TEST_DB_USER=root \
-VELVET_TEST_DB_PASSWORD=secret \
 php tests/Database/migrations_mysql.php
 ```
 
-The test must refuse unsafe/non-empty databases, apply all eleven migrations, verify 66 tables and required columns, exercise an add-on-owned migration, roll everything back, remove the migration registry, and leave the database empty.
+The test rejects unsafe/non-empty databases, applies all migrations, checks actual declared tables, repeats apply to verify idempotency, rolls back, and verifies no tables remain. MariaDB results must be labelled MariaDB; they do not substitute for the MySQL 8 CI gate.
 
-## Browser acceptance
+## Required final evidence
 
-Run after starting a fresh demo server:
-
-```bash
-python tests/Browser/media_center_playwright.py
-python tests/Browser/members_entitlements_playwright.py
-python tests/Browser/commerce_playwright.py
-python tests/Browser/addon_framework_playwright.py
-python tests/Browser/addon_licensing_playwright.py
-python tests/Browser/messaging_booking_playwright.py
-```
-
-Set `VELVET_BASE_URL` to the local demo URL. The communications suite covers responsive booking, member messaging/requests/bookings/notifications, and owner queues.
-
-Local Chromium navigation in the packaging environment returned `net::ERR_BLOCKED_BY_ADMINISTRATOR`; GitHub CI owns interactive evidence unless a later environment produces a direct successful run.
-
-## Packaging verification
-
-Before release:
-
-```bash
-bash scripts/clean_runtime.sh
-bash scripts/test.sh
-bash scripts/test_http.sh
-bash scripts/clean_runtime.sh
-php tests/Security/repository_safety.php
-```
-
-Then extract the ZIP to a separate directory and rerun source tests, HTTP tests, cleanup, repository safety, and checksum verification. Confirm no generated config, install lock, sessions, logs, private attachments, conversations, request/booking records, guest tokens, signing keys, protected releases, installed add-ons, or customer data remain.
-
-## Evidence rules
-
-- Record exact commands/results in `docs/TEST_REPORT.md`.
-- Screenshots support visual review but do not replace interactive acceptance.
-- Unavailable environmental checks are documented rather than marked passed.
-- Package and repository truth boundaries remain explicit until source import and CI are green.
+Record actual commands, versions, results, feature coverage and GitHub run URLs in `TEST_REPORT.md`. New user-facing 0.8.1 behavior has the explicit checklist in `../INCOMPLETE_WORK.md`. A configured but unexecuted CI job is pending. Customer ZIPs contain runtime only and start uninstalled; source, docs, workflows, SDK, tests, screenshots and all real site data stay outside them.

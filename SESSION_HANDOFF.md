@@ -1,113 +1,34 @@
-# Session Handoff — Velvet Vixxen 0.8.1 Continuation
+# Session Handoff — Velvet Vixxen
 
-## Resume here
+## Current integration
 
-Project: **Nikki Wilder / The Velvet Vixxen**  
-Repository: `afterburn25/velvet_vixxen`  
-Authoritative continuation branch: `handoff/0.8.1-incomplete-site-ux`  
-Tracking issue: `#13`  
-Recommended implementation branch: `feature/0.8.1-site-ux-hero-library`
+- Repository: `afterburn25/velvet_vixxen`.
+- Branch: `feature/0.8.1-site-ux-hero-library`.
+- Target version: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**.
+- Recovered runtime baseline: checksum-verified 0.8.1 fresh-install package.
+- Separate composer baseline: 0.7.4 fix, merged selectively.
+- Active issues: #13 full 0.8.1 continuation, #1 source import, #3 release gates, #11 composer, #12 recovery/upgrade/root organization.
 
-Read these files before making implementation claims:
+## Work to preserve
 
-```text
-INCOMPLETE_WORK.md
-NEXT_SESSION_PROMPT.md
-PROJECT_STATUS.md
-SESSION_HANDOFF.md
-docs/ROADMAP.md
-docs/TEST_REPORT.md
-```
+The repository now includes real application source and recovered engineering tests. Keep that source in GitHub after every completed session; never return to documentation-only delivery branches.
 
-`INCOMPLETE_WORK.md` is the authoritative scope for the user-facing work that remained unfinished or unverified after the documented 0.8.0 Marketing, Publishing & Analytics milestone.
+Preserve matching config/lock identities, active configuration and keys, protected backup verification, non-destructive upgrade packaging, the consolidated public router, the restored composer behavior, and the approved neon-pink design.
 
-## Critical truth boundary
+Customer ZIPs remain runtime-only. Engineering docs, tests, workflows, and SDK stay in GitHub. Never package installed configuration, installation locks, generated keys, storage records, uploads from a real site, private messages/media, or credentials.
 
-The repository documents a packaged `0.8.0 — Marketing, Publishing & Analytics` runtime release with recorded SHA-256:
+## Current verification
 
-```text
-ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
-```
+Exact commands, results, and CI evidence are maintained in `docs/TEST_REPORT.md`. Tests use disposable copies because installed bootstrap may retire `/install`; do not seed or run a demonstration installation inside the working source tree or a real site.
 
-However, the complete executable 0.8.0 engineering source and full PHP/MySQL/Playwright CI were not imported and verified in GitHub at handoff time. Do not rely on earlier chat statements that later UI features were “built.” Inspect the actual live branches, files, artifacts, and test evidence first.
+Local test tooling was provided in a disposable environment with PHP 8.3 and MariaDB 10.11. CI must also run PHP 8.2 and MySQL 8. Browser checks must actually execute, not merely compile scripts. Package tests overlay a real upgrade ZIP on fixture configuration/lock/private-data/uploads and compare bytes.
 
-The next session must identify the newest branch or artifact that genuinely contains runnable source. If the latest branch is documentation-only, locate/import the latest clean engineering source before adding more features. Do not reconstruct missing implementation by guessing from status prose.
+## Evidence reconciliation
 
-## Locked product decisions
+Read `docs/SOURCE_RECOVERY.md`. Historical handoff claims overstate the recovered marketing implementation and several later requested UI/store changes. The actual MarketingStore is file-backed and its runner prepares an outbox. Do not claim advanced publishing audiences, scene scheduling, production sending, merchandise, an editable booking builder, or an About Me editor until corresponding code and tests are committed.
 
-- Approved neon-pink, magenta, black, and white Velvet Vixxen design.
-- No new mockups unless the user explicitly reopens design exploration.
-- Final public scenes contain no placeholder models. Nikki’s transparent cutout photos remain separately movable layers.
-- One simplified responsive browser installer page.
-- No installation key.
-- Exact 12-character minimum owner/member passwords.
-- Safe `0755`/`0775`; never `0777`.
-- Ownership-safe writable-directory repair.
-- Organized application folders; no root-file sprawl.
-- Customer installation ZIPs contain only files required to install and run the site.
-- Repository docs, tests, SDK source, CI workflows, screenshots, and build tooling stay outside customer ZIPs.
-- One Entitlement Resolver continues to control subscription, PPV, rental, bundle, gift, and complimentary access.
-- PPV photos/videos are direct content purchases, not ordinary merchandise-cart items.
-- Payment remains sandbox-only until a live adult-compatible provider is approved and certified.
-- Canva remains a manual design/export/import bridge unless a real OAuth/API integration is implemented and tested.
-- Never commit production credentials, customer/member/subscriber data, identity records, private messages or attachments, booking/request data, payment secrets, raw license keys, private signing keys, runtime state, logs, sessions, or private/paid media.
+## Next concrete work
 
-## Incomplete 0.8.1 work
+Continue the complete user-requested 0.8.1 scope in `INCOMPLETE_WORK.md`. Source recovery is the first checkpoint. Composer/background library, Booking Builder, About Me/public navigation/auth layouts, persistent admin categories, merchandise/direct PPV, and Canva clarity must be implemented and tested before claiming completion. Do not start 0.9.0.
 
-The detailed requirements and acceptance tests are in `INCOMPLETE_WORK.md`. The main work groups are:
-
-1. Recover/import and verify the real executable baseline.
-2. Finish Visual Composer direct manipulation, extreme resizing, off-canvas clipping, movable live text/buttons, device-specific layouts, background pan, and broken-media repair.
-3. Integrate at least 30 individual, people-free, luxury Hero scenes covering indoor and outdoor settings.
-4. Build the admin-configurable Booking Form Builder with required/optional text, textarea, email, phone, dropdown, radio, and checkbox fields plus live phone formatting.
-5. Make public navigation sticky, remove Contact, add About Me after Booking, build the About Me stats/bio editor, and center all auth forms in full-page layouts.
-6. Reorganize admin navigation into persistent collapsible categories.
-7. Build a real merchandise store while preserving direct Buy Now/rental flows for PPV galleries and videos.
-8. Clarify Canva behavior and keep model cutouts as separate Visual Composer layers.
-
-## Hero asset recovery note
-
-Several standalone luxury backgrounds were generated in the prior workspace but were not committed to GitHub or verified as integrated. Their filenames are listed in `INCOMPLETE_WORK.md`. Additional Adobe-generated scene URLs were temporary and were not persisted. Recover the files if accessible; otherwise regenerate equivalent scenes and commit only appropriately optimized, non-sensitive runtime assets.
-
-## Existing 0.8.0 documented scope
-
-The `feature/0.8.0-marketing-publishing-analytics` branch records the following packaged functionality:
-
-- Blog, personal updates, and announcements
-- Scheduled/expiring content and audience visibility
-- Newsletter consent, confirmation, unsubscribe, suppression, tags, and segments
-- Campaign queues and timed promotional banners
-- Campaign landing pages
-- Scheduled Hero/Footer scene snapshots
-- Link-in-bio and referral attribution
-- Same-origin first-party analytics, summaries, CSV exports, and retention controls
-- Operational marketing task runner
-- Twelve migrations and 75 declared tables
-
-Treat that scope as documented package evidence, not proof that the complete executable source is present in GitHub.
-
-## Required validation before completion
-
-- PHP 8.2 and 8.3 source suite
-- JavaScript syntax validation
-- Disposable MySQL 8 migration apply/verify/rollback
-- Installer and shared-hosting ownership/write regression tests
-- HTTP acceptance
-- Desktop/mobile Playwright covering Visual Composer, background library, booking builder, sticky navigation, auth pages, About Me, admin state persistence, merchandise, and direct PPV purchase
-- Zero broken images in Visual Composer and public Hero/Footer
-- At least 30 selectable individual luxury backgrounds
-- Repository safety and secret scans
-- Runtime-only customer ZIP exclusions and clean uninstalled state
-
-## Next session behavior
-
-At the start of the next session:
-
-1. Inspect live GitHub instead of relying on this chat.
-2. Report which branch actually contains executable source.
-3. State what is implemented versus documentation-only.
-4. Create or switch to `feature/0.8.1-site-ux-hero-library`.
-5. Begin concrete implementation and tests rather than returning another roadmap-only answer.
-6. Update issue #13 and all handoff/status/test documents as work lands.
-
-Do not begin 0.9.0 Compliance, Privacy & Operational Hardening until the 0.8.1 user-facing continuation is verified or the user explicitly defers it.
+Before ending any session, update status, roadmap, incomplete-work checklist, changelog, test report, this handoff, next-session prompt, and issue #13; commit and upload source and tests; include actual commit and CI links in the handoff.

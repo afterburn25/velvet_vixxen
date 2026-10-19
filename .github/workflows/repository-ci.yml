@@ -5,6 +5,7 @@ on:
     branches: [main, 'feature/**', 'fix/**']
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -15,62 +16,132 @@ concurrency:
 
 jobs:
   repository-contract:
-    name: Repository contract
+    name: Repository and executable source contract
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate communication hub
+      - name: Require documentation and executable source
         shell: bash
         run: |
           set -euo pipefail
-          required=(
-            README.md
-            AGENTS.md
-            PROJECT_STATUS.md
-            SESSION_HANDOFF.md
-            SECURITY.md
-            CONTRIBUTING.md
-            docs/ROADMAP.md
-            docs/DECISIONS.md
-            docs/TESTING.md
-            docs/SESSION_PROTOCOL.md
-          )
+          required=(README.md AGENTS.md PROJECT_STATUS.md SESSION_HANDOFF.md CHANGELOG.md
+            docs/ROADMAP.md docs/DECISIONS.md docs/TESTING.md docs/TEST_REPORT.md
+            docs/SESSION_PROTOCOL.md SECURITY.md CONTRIBUTING.md VERSION
+            app/bootstrap.php public/router.php install/index.php
+            scripts/test.sh scripts/test_http.sh scripts/package.py
+            tests/Database/migrations_mysql.php tests/Browser/composer_recovery_playwright.py)
           for file in "${required[@]}"; do
-            test -s "$file" || { echo "Missing required file: $file"; exit 1; }
+            test -s "$file" || { echo "Missing required source or handoff file: $file"; exit 1; }
           done
           grep -q 'afterburn25/velvet_vixxen' PROJECT_STATUS.md
           grep -Eq '12(-character| or more characters)' docs/DECISIONS.md
-          grep -q 'single responsive browser page' docs/DECISIONS.md
+          grep -Eq 'single (simplified )?responsive browser page' docs/DECISIONS.md
 
   source-tests:
-    name: Source tests when application is present
+    name: PHP ${{ matrix.php }} source and package regressions
+    needs: repository-contract
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium
+          coverage: none
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run mandatory source and packaging suites in disposable copies
+        run: bash scripts/test.sh
+
+  mysql-migrations:
+    name: MySQL 8 migration apply, reapply and rollback
+    needs: repository-contract
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        # These credentials are disposable CI fixtures, never production secrets.
+        env:
+          MYSQL_DATABASE: velvet_vixxen_test
+          MYSQL_USER: velvet_test
+          MYSQL_PASSWORD: velvet_test_fixture
+          MYSQL_ROOT_PASSWORD: velvet_root_fixture
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql
+          coverage: none
+      - name: Verify every declared table and roll back the disposable database
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: php tests/Database/migrations_mysql.php
+
+  http-browser:
+    name: Installed HTTP and Chromium desktop/mobile acceptance
+    needs: repository-contract
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Detect application source
-        id: source
-        shell: bash
-        run: |
-          if [[ -f scripts/test.sh ]]; then
-            echo 'present=true' >> "$GITHUB_OUTPUT"
-          else
-            echo 'present=false' >> "$GITHUB_OUTPUT"
-            echo 'Application source import is tracked in issue 1.'
-          fi
       - uses: shivammathur/setup-php@v2
-        if: steps.source.outputs.present == 'true'
         with:
-          php-version: '8.2'
-          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd
+          php-version: '8.3'
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium
           coverage: none
-      - uses: actions/setup-node@v4
-        if: steps.source.outputs.present == 'true'
+      - uses: actions/setup-python@v5
         with:
-          node-version: '20'
-      - name: Run application test suite
-        if: steps.source.outputs.present == 'true'
-        run: bash scripts/test.sh
-      - name: Source import pending
-        if: steps.source.outputs.present != 'true'
+          python-version: '3.12'
+      - name: Install browser acceptance dependencies
         run: |
-          echo 'Repository contract passed; executable source import remains open in issue 1.'
+          python -m pip install requests beautifulsoup4 playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Run installed HTTP suites in a disposable copy
+        run: bash scripts/test_http.sh
+      - name: Run real desktop and mobile browser suites in a disposable copy
+        env:
+          VELVET_BROWSER_TESTS: '1'
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: bash scripts/test_http.sh
+      - name: Upload real browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chromium-browser-evidence
+          path: artifacts/browser/
+          if-no-files-found: error
+          retention-days: 14
+
+  runtime-packages:
+    name: Build verified fresh-install and upgrade ZIPs
+    needs: [source-tests, mysql-migrations, http-browser]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build separate runtime packages
+        run: python scripts/package.py --output artifacts/runtime
+      - uses: actions/upload-artifact@v4
+        with:
+          name: velvet-vixxen-runtime-packages
+          path: artifacts/runtime/
+          if-no-files-found: error
+          retention-days: 30

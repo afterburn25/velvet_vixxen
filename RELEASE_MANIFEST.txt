@@ -1,74 +1,17 @@
-VELVET VIXXEN 0.8.0 — RELEASE MANIFEST
+VELVET VIXXEN 0.8.1 — DEVELOPMENT CHECKPOINT
 
-Runtime package:
-  Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
+Status: source recovery and user-facing continuation in progress; not a completed release.
+Branch: feature/0.8.1-site-ux-hero-library
+Issue: #13
+Recovered clean baseline: Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+Baseline SHA-256: a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87
+Baseline runtime: 211 files / 132 PHP files; 12 migrations / 78 declared tables.
 
-SHA-256:
-  ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
+Current evidence: docs/TEST_REPORT.md
+Recovery provenance: docs/SOURCE_RECOVERY.md
+Required remaining work: INCOMPLETE_WORK.md
 
-Milestone:
-  Marketing, Publishing & Analytics
+Build fresh-install and upgrade distributions with scripts/package.py. Generated manifests identify each final runtime file and hash outside the customer ZIP. No final 0.8.1 continuation artifact is claimed by this checkpoint.
 
-Runtime package profile:
-  203 files
-  128 PHP runtime files
-  7 public JavaScript files
-  12 database migrations
-  75 declared application tables
-  Runtime-only installation contents
-
-New public features:
-  Blog and update publishing
-  Public/member/subscriber post visibility
-  Scheduled editorial publishing
-  Newsletter signup, confirmation, unsubscribe, tags, segmentation, and campaigns
-  Timed promotional banners and landing pages
-  Link-in-bio page and click tracking
-  Referral codes and attribution
-  Privacy-conscious first-party analytics
-
-New administration features:
-  Marketing & Publishing center
-  Editorial post editor
-  Subscriber and newsletter campaign management
-  Promotional campaign management
-  Hero/Footer scene scheduling
-  Link page manager
-  Referral manager
-  Analytics dashboard
-  CSV exports
-  Analytics and consent retention controls
-
-Operational script retained:
-  scripts/run_marketing.php
-
-Existing operational scripts retained:
-  scripts/run_billing.php
-  scripts/run_addon_tasks.php
-
-Intentionally excluded from public ZIP:
-  .git and .github
-  docs and tests
-  GitHub workflows
-  roadmap/status/handoff files
-  screenshots and test reports
-  add-on SDK source
-  development/test/build tooling
-  runtime credentials, generated keys, logs, sessions, customer data, private messages, and paid/private media
-
-Validation:
-  ZIP integrity — PASS
-  SHA-256 verification — PASS
-  128 PHP syntax checks — PASS
-  7 JavaScript syntax checks — PASS
-  Migration manifest: 12 migrations / 75 tables — PASS
-  Marketing file-store suite — PASS
-  Marketing HTTP acceptance — PASS
-  Full-site HTTP smoke — PASS
-  Installer smoke — PASS
-  Runtime exclusion/clean-config/security scan — PASS
-
-Environmental boundaries:
-  Live local MySQL DDL execution unavailable; CI or representative hosting required.
-  Direct local interactive Playwright navigation remains CI-owned.
-  Payment provider remains sandbox-only.
+Runtime ZIP exclusions: repository documents, workflows, tests, SDK, screenshots, build tools, active configuration, generated secrets, installation state, member/customer/booking records, private messages/attachments, logs/sessions, private/paid media.
+Payment remains sandbox-only.

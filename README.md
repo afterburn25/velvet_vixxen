@@ -1,101 +1,45 @@
 # Nikki Wilder — The Velvet Vixxen
 
-**Current completed runtime release: 0.8.0 — Marketing, Publishing & Analytics**
+The authoritative application and engineering repository is `afterburn25/velvet_vixxen`. The website is a PHP/MySQL application for shared hosting, with the approved neon-pink design and a single-page browser installer.
 
-Velvet Vixxen is a full-stack PHP/MySQL creator platform using the approved neon-pink Nikki Wilder design. It combines a visual site composer, Canva-ready templates, music, photo galleries, video, member accounts, subscriptions, PPV commerce, commercial add-ons, licensing and updates, private communications, content requests, booking, publishing, email marketing, promotions, referrals, and privacy-conscious analytics.
+## Current integration: 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
 
-## 0.8.0 additions
+This tree now contains the executable application, database migrations, public assets, recovered engineering tests, package builder, and required GitHub Actions checks. It was recovered from the checksum-verified **0.8.1** fresh-install package, then reconciled with the separate **0.7.4** Visual Composer fixes. Application source is no longer deferred to a future import.
 
-- Blog, personal update, and announcement publishing
-- Draft, scheduled, published, archived, and expiring editorial states
-- Public, registered-member, and subscriber visibility
-- Categories, tags, SEO metadata, featured images, and featured placement
-- Newsletter signup, signed confirmation, unsubscribe, consent, suppression, tags, and audience segmentation
-- Newsletter campaign queues and delivery-state tracking
-- Timed promotional banners and campaign landing pages
-- Scheduled Hero and Footer Visual Composer scenes
-- Link-in-bio page and click tracking
-- Referral-code and attributed-revenue foundations
-- Same-origin first-party analytics and foreign-origin rejection
-- Marketing and Analytics administration with CSV exports and retention controls
-- Twelfth migration, bringing the declared schema to 75 tables
+The repair addresses installation identity checks, recovery without replacing valid active configuration, preservation of repair backups, and reproducible fresh-install/upgrade distributions. Current validation and remaining gates are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md).
 
-## Runtime package
+Historical package/handoff claims were not treated as proof of implementation. [`docs/SOURCE_RECOVERY.md`](docs/SOURCE_RECOVERY.md) records provenance and features that remain unfinished in the recovered code.
 
-```text
-Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
-SHA-256: ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
+## Start here
+
+- [`PROJECT_STATUS.md`](PROJECT_STATUS.md): implemented work and remaining limitations.
+- [`SESSION_HANDOFF.md`](SESSION_HANDOFF.md): continuation point, branch, commands, and outstanding work.
+- [`docs/ROADMAP.md`](docs/ROADMAP.md): evidence-based roadmap.
+- [`docs/DECISIONS.md`](docs/DECISIONS.md): product and architecture requirements.
+- [`docs/TESTING.md`](docs/TESTING.md): executable validation commands.
+- [`AGENTS.md`](AGENTS.md): source-control and handoff requirements.
+
+## Develop and verify
+
+```bash
+bash scripts/test.sh
+bash scripts/test_http.sh
 ```
 
-Package profile:
+Tests run in disposable copies. Never generate a demonstration installation in a real site or the working source tree. Database and browser commands are described in the testing guide.
 
-- 203 runtime files
-- 128 PHP runtime files
-- 7 public JavaScript files
-- 12 versioned migrations
-- 75 declared application tables
+Build customer packages from the same source:
 
-## Runtime-only installation ZIP
-
-The customer-facing ZIP contains only files required to install and operate the website. It intentionally excludes:
-
-- `.git` and `.github`
-- repository roadmaps, handoff documents, and GitHub Actions workflows
-- `/docs` and `/tests`
-- add-on SDK source
-- screenshots and test reports
-- test, demo, cleanup, and build tooling
-- development-only SQL schema snapshots
-
-Operational scripts required by the installed site remain included:
-
-```text
-scripts/run_billing.php
-scripts/run_addon_tasks.php
-scripts/run_marketing.php
+```bash
+python3 scripts/package.py --output artifacts/runtime
 ```
 
-## Locked installation requirements
+Fresh-install ZIPs include the installer and blank example configuration. They never contain an installed `config/app.php`. Upgrade ZIPs preserve configuration, installation locks, storage, uploads, sessions, private media, and keys, and exclude `/install`. Use the package named for the intended operation.
 
-- One simplified responsive browser installer page
-- No installation key
-- Exact 12-character minimum owner/member passwords
-- Safe `0755`/`0775` permissions; never `0777`
-- Ownership-safe writable-directory repair
-- Versioned database migrations
-- Final configuration verification
-- Installation lock and `/install` deletion or secure retirement
-- Organized folders rather than root-level file sprawl
+Customer ZIPs contain runtime files only. Development documentation, tests, SDK source, and GitHub workflows remain in this repository.
 
-## Local release evidence
+## Operating limits
 
-- 128 runtime PHP files passed syntax validation
-- 7 public JavaScript files passed syntax validation
-- Migration manifest passed: 12 migrations / 75 tables
-- Marketing file-store suite passed
-- Marketing HTTP acceptance passed
-- Full-site HTTP smoke passed
-- Installer smoke passed
-- Final extracted ZIP passed integrity, checksum, runtime exclusions, clean-configuration, and security checks
+The payment adapter is sandbox-only. Marketing uses a protected file store and prepares an outbox; production campaign delivery and the previously proposed advanced automation are unfinished. Representative shared-hosting installation/upgrade verification remains a release gate. The application is not labelled a production-certified 1.0 release.
 
-Live local MySQL execution is not claimed because PDO MySQL/MySQL/MariaDB was unavailable. Full interactive Playwright acceptance remains a CI or representative-hosting gate. The bundled payment provider remains sandbox-only.
-
-## Repository truth boundary
-
-Repository: `afterburn25/velvet_vixxen`
-
-Delivery branch:
-
-```text
-feature/0.8.0-marketing-publishing-analytics
-```
-
-Tracking issue: `#9`
-
-A clean runtime package and a GitHub branch are separate truth boundaries. Do not describe `main` or the delivery branch as the complete executable source release until the clean engineering-source import, required CI, review, and merge are directly verified.
-
-Never commit production credentials, customer/member/subscriber records, private communications, booking/request records, attachments, identity documents, payment secrets, raw license keys, signing private keys, runtime state, or private/paid media.
-
-## Next milestone
-
-**0.9.0 — Compliance, Privacy & Operational Hardening**
+Never commit installed configuration, credentials, private customer/member/booking data, private messages, identity documents, generated keys, or private/paid media.

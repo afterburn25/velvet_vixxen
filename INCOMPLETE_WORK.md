@@ -2,10 +2,15 @@
 
 **Captured:** 2026-10-19  
 **Repository:** `afterburn25/velvet_vixxen`  
-**Continuation branch:** `handoff/0.8.1-incomplete-site-ux`  
+**Handoff branch:** `handoff/0.8.1-incomplete-site-ux`
+**Implementation branch:** `feature/0.8.1-site-ux-hero-library`  
 **Baseline documentation branch:** `feature/0.8.0-marketing-publishing-analytics`
 
 This file is the authoritative handoff for the user-facing work that was being discussed after the documented 0.8.0 Marketing, Publishing & Analytics milestone. Do not mark any item complete merely because an earlier chat response said it was built. Verify the executable source, running behavior, tests, and packaged artifact first.
+
+## Current checkpoint — 2026-10-19
+
+The checksum-verified 0.8.1 Fresh Install artifact was recovered, and its complete executable source and engineering tests are being imported on the implementation branch. Baseline PHP 8.3 source, recovery, packaging and HTTP checks pass; MariaDB applies/reapplies/rolls back 12 migrations and verifies 78 tables. Restored Composer direct interactions pass actual desktop/mobile browser tests. PHP 8.2, MySQL 8 and the complete feature acceptance matrix remain required gates. See `docs/TEST_REPORT.md` for the exact boundary. All unchecked feature items below remain active work; historical completion claims are not reused.
 
 ## Truth boundary
 

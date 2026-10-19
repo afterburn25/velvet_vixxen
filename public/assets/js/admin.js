@@ -1,0 +1,30 @@
+(() => {
+  'use strict';
+  const body = document.body;
+  document.querySelector('.sidebar-toggle')?.addEventListener('click', () => body.classList.toggle('sidebar-open'));
+  document.addEventListener('click', (event) => {
+    if (body.classList.contains('sidebar-open') && !event.target.closest('.admin-sidebar') && !event.target.closest('.sidebar-toggle')) body.classList.remove('sidebar-open');
+  });
+  const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
+
+  async function uploadForm(form, messageNode) {
+    const button = form.querySelector('button[type="submit"],button:not([type])');
+    const original = button?.textContent;
+    if (button) { button.disabled = true; button.textContent = 'Uploading…'; }
+    try {
+      const response = await fetch('../api/upload.php', { method:'POST', body:new FormData(form), headers:{'X-CSRF-Token':csrf} });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.message || 'Upload failed.');
+      if (messageNode) { messageNode.className='admin-alert success'; messageNode.textContent='Image uploaded. Refreshing…'; }
+      setTimeout(() => location.reload(), 600);
+    } catch (error) {
+      if (messageNode) { messageNode.className='admin-alert error'; messageNode.textContent=error.message; }
+      else alert(error.message);
+    } finally {
+      if (button) { button.disabled = false; button.textContent = original; }
+    }
+  }
+
+  const libraryUpload = document.getElementById('libraryUpload');
+  libraryUpload?.addEventListener('submit', (event) => { event.preventDefault(); uploadForm(libraryUpload, libraryUpload.querySelector('[data-upload-message]')); });
+})();

@@ -1,127 +1,56 @@
-# Velvet Vixxen Roadmap
+# Velvet Vixxen Development Roadmap
 
-Status is based on verified implementation and test evidence, not intention.
+Repository: `afterburn25/velvet_vixxen`. Status follows executable source and recorded tests. Historical package claims are reconciled in `SOURCE_RECOVERY.md`.
 
-## Documented completed package milestones
+| Area | Current status | Remaining work |
+| --- | --- | --- |
+| 0.1–0.2 foundation, approved design, installer | Recovered source; regression checks required | Representative shared-hosting installation and ownership behavior. |
+| 0.3 media center | Recovered music, gallery, video, and signed-delivery source | Cross-device and production media validation. |
+| 0.4 members and entitlements | Recovered source and behavioral tests | Broader production account/security validation. |
+| 0.5 subscriptions and PPV | Recovered sandbox commerce and entitlement lifecycle | Approved live provider, recurring lifecycle certification, direct PPV Buy Now UX. |
+| 0.6 add-on framework | Recovered source, SDK, and tests | Broader upgrade/rollback compatibility. |
+| 0.6.1 licensing and updates | Recovered source | Production remote-service certification; public marketplace remains unfinished. |
+| 0.7 messaging and booking | Recovered fixed-field professional inquiries, messaging, attachments, owner queues | Editable booking builder, field/type management, client validation improvements. |
+| 0.7.4 composer | Targeted restoration into 0.8.1 | Restored controls pass real browser tests; expanded off-canvas/library acceptance remains active. |
+| 0.8 publishing and marketing | Basic protected file-backed implementation | Advanced audiences/expiration, scheduled scenes, production sending, attribution, retention, MySQL persistence. |
+| 0.8.1 installation recovery and route consolidation | Recovered runtime; concrete defects found | Correct identity matching, active-config preservation, protected backup lifecycle. |
+| 0.8.1 user-facing continuation | Active, incomplete | Source recovery; Composer/library; Booking Builder; public/admin UX; merchandise/direct PPV; full evidence. |
+| 0.9 privacy, protection, operations | Planned | Scope below. |
+| 1.0 production release | Planned | Representative hosting, live services, complete release matrix. |
 
-### 0.1.0–0.2.2 — Foundation, Design, Composer, Installer
+## Active 0.8.1 continuation — issue #13
 
-- PHP/MySQL foundation and organized folders
-- Approved responsive design
-- Hero/Footer Visual Composer and Canva-ready templates
-- Single-page browser installer, no key, 12-character minimum, safe permissions, migrations, install lock, and `/install` cleanup
+The detailed acceptance checklist is `../INCOMPLETE_WORK.md`. Complete this sequence before moving to 0.9.0:
 
-### 0.3.0 — Media Center
+1. Import and upload the checksum-verified executable baseline, recovered tests, safe recovery/package fixes, and accurate evidence. This is a development checkpoint, not a completed 0.8.1 release.
+2. Finish Composer direct manipulation, extreme resize, all-edge off-canvas clipping/lower-leg hiding, text/button movement, per-device layouts, background controls and zero broken media.
+3. Integrate at least 30 individual people-free luxury Hero scenes, with thumbnails, searchable categories, placement metadata and draft/publish/history behavior.
+4. Build and verify Booking Builder field management, validation, live phone formatting and preserved submission history.
+5. Finish sticky public navigation, About Me/editor and centered standalone auth pages.
+6. Reorganize admin into persistent collapsible categories with preserved active page.
+7. Build merchandise catalog/variants/stock/shipping/cart/checkout; keep subscriptions and direct PPV purchase in their respective flows.
+8. Clarify Canva as a saved-link/manual export/import bridge, preserving separate cutout layers and live UI.
+9. Pass PHP 8.2/8.3, MySQL 8, HTTP, actual desktop/mobile browser, safety and runtime-only package gates; upload source, tests, evidence and updated issue #13.
 
-- Music, persistent audio, albums, and playlists
-- Photo galleries and full-screen viewer
-- Video library/player, trailers, captions, and Continue Watching
-- Protected previews/originals and signed delivery
+Advanced marketing gaps are recorded separately in SOURCE_RECOVERY.md. They are not silently counted as implemented and do not authorize skipping this requested 0.8.1 continuation. Do not start 0.9.0 until the user-facing continuation is verified or explicitly deferred.
 
-### 0.4.0 — Members & Entitlements
+## 0.9 — Privacy, Protection & Operations
 
-- Registration, verification, authentication, recovery, and device sessions
-- Plans, subscriptions, My Library, Favorites, and playback state
-- Unified public/member/subscription/PPV/rental/bundle/gift access resolver
+- Performer/collaborator records and encrypted document references.
+- Rights/release records and linked-media ownership metadata.
+- Complaint, copyright, report, takedown, response, and appeal workflow.
+- Age-assurance provider adapter and geographic controls.
+- Administrator two-factor authentication and privileged-action checks.
+- Audit logging, rate limiting, suspicious-session alerts, privacy export/deletion.
+- Backup scheduling, retention, restore drills, diagnostics, and recovery mode.
+- Accessibility and keyboard interaction review.
 
-### 0.5.0 — Subscriptions & PPV Commerce
+## 1.0 — Production Release
 
-- Store, cart, sandbox checkout, receipts, and billing history
-- Monthly/annual plans, PPV photo/video, rentals, bundles, and coupons
-- Signed webhooks, refunds, chargebacks, and entitlement fulfillment/revocation
+- Approved live payment-provider adapter and merchant testing.
+- Production mail delivery and unsubscribe/suppression validation.
+- Shared-hosting fresh install, upgrade, rollback, backup, and restore verification.
+- PHP 8.2/8.3, MySQL/MariaDB, HTTP, browser, security, accessibility, and performance gates.
+- Customer packages built from the committed source; operating documentation and actual running-build evidence.
 
-### 0.6.0 — Add-on Framework
-
-- Protected ZIP staging, manifests, compatibility, permissions, dependencies, conflicts, checksums, and signatures
-- Install/activate/deactivate/update/rollback/uninstall/purge
-- Backups, migrations, failure rollback, Safe Mode, routes, widgets, events, filters, services, settings, and tasks
-
-### 0.6.1 — Commercial Licensing & Remote Updates
-
-- Commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, outage grace, signed feeds, release channels, protected downloads, review, backup, and rollback
-
-### 0.7.0–0.7.4 — Communications, Installer, and Visual Composer Hardening
-
-- Private conversations and protected attachments
-- Content requests, booking and appearance inquiries, notifications, saved replies, owner queues, and settings
-- Runtime-only public installation ZIP
-- Ownership-safe writable-directory repair
-- Normalized installer email validation
-- Simplified installer and hardened final configuration verification
-- Direct Visual Composer layer drag/resize foundations and media-path repairs
-
-### 0.8.0 — Marketing, Publishing & Analytics
-
-Documented packaged scope:
-
-- Blog, personal update, and announcement publishing
-- Draft, scheduled, published, archived, and expiring states
-- Audience visibility, categories, tags, SEO metadata, featured images, and featured placement
-- Newsletter consent, confirmation, unsubscribe, suppression, tags, segments, campaigns, and delivery-state tracking
-- Timed promotional banners and campaign landing pages
-- Scheduled Hero/Footer scene snapshots
-- Link-in-bio and referral attribution
-- Privacy-conscious same-origin first-party analytics
-- Analytics/marketing administration, CSV exports, retention controls, and operational runner
-- Twelve migrations / 75 declared tables
-
-The complete executable 0.8.0 engineering-source import and full GitHub CI matrix remain unverified.
-
-## Active continuation — incomplete
-
-### 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
-
-Authoritative scope: `INCOMPLETE_WORK.md`  
-Tracking issue: `#13`
-
-- Recover/import and test the real executable baseline
-- Complete Visual Composer off-canvas placement/clipping, extreme resize, movable live text/buttons, device-specific layouts, background pan, and broken-media repair
-- Integrate at least 30 standalone people-free luxury Hero backgrounds
-- Admin-configurable Booking Form Builder with required/optional text, textarea, email, phone, dropdown, radio, and checkbox fields
-- Client/server validation and live `(337) 450-8598` phone formatting
-- Sticky public navigation, Contact removal, dedicated About Me page/editor, and centered auth-page layouts
-- Persistent collapsible admin categories and active-page state
-- Real merchandise catalog/cart/checkout while subscriptions use membership checkout and PPV uses direct Buy Now/rental flows
-- Clear Canva manual export/import workflow
-- Full PHP/MySQL/HTTP/Playwright/security/runtime-package evidence
-
-Do not begin 0.9.0 until 0.8.1 is verified or explicitly deferred.
-
-## Later milestones
-
-### 0.9.0 — Compliance, Privacy & Operational Hardening
-
-- Performer and collaborator records
-- Identity/age-verification status and encrypted document references
-- Model releases, ownership, permitted uses, shoot dates, photographers, and media linkage
-- Complaint, copyright, report, takedown, response, and appeal workflows
-- Age-assurance provider adapters and geographic controls
-- Administrator two-factor authentication
-- Privileged-action confirmation and expanded audit logging
-- Backup scheduling, retention, restore validation, and recovery mode
-- Health dashboard for database, mail, webhooks, scheduled tasks, media, storage, backups, and add-ons
-- Rate limiting, suspicious-access detection, device/session alerts, and security notifications
-- Accessibility and privacy review, data export/deletion, and retention policies
-
-### 1.0.0 — Production Release
-
-- Approved live payment-provider adapter and merchant sandbox certification
-- Production email-delivery validation
-- Representative shared-hosting install and upgrade validation
-- Full PHP 8.2/8.3, MySQL/MariaDB, HTTP, Playwright, security, accessibility, and performance matrix
-- Backup/restore and failed-upgrade drills
-- Browser/device review and complete operating documentation
-- Signed runtime package, checksum, changelog, test evidence, and running-build screenshots
-
-## Not complete at this handoff
-
-- Complete executable engineering-source import for the latest package
-- Full GitHub PHP/MySQL/Playwright CI matrix
-- 0.8.1 user-facing continuation
-- Live payment certification and automatic tax service
-- Production email-delivery certification
-- Public add-on marketplace or multi-tenant licensing SaaS
-- Websocket chat, voice/video calling, or paid-message workflows
-- Automatic booking contracts, deposits, or quote payments
-- Production two-factor authentication
-- Compliance vault, complaint/takedown case management, age assurance, geographic enforcement, backup/restore validation, and full operational health dashboard
+A feature is complete only when implemented, tested, documented, and uploaded. No percentage is inferred from version numbers or table counts.

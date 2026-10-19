@@ -1,0 +1,41 @@
+Options -Indexes
+DirectoryIndex index.php
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Never expose private application/runtime trees.
+  RewriteRule ^(?:app|config|database|docs|includes|storage|vendor)(?:/|$) - [F,L,NC]
+  RewriteRule ^addons/(?:installed|packages|staging)(?:/|$) - [F,L,NC]
+  RewriteRule ^public/routes(?:/|$) - [F,L,NC]
+  # Velvet Vixxen private installer repair residues
+  RewriteRule ^\.vvx- - [F,L,NC]
+  RewriteRule ^(?:README|CHANGELOG|PROJECT_STATUS|SESSION_HANDOFF|VERSION)(?:\.|$) - [F,L,NC]
+
+  # Legacy public paths are always dispatched from /public/routes. This rule
+  # intentionally runs before the real-directory check so old route folders
+  # left by an upgrade cannot shadow the consolidated router.
+  RewriteRule ^(?:account|api|blog|booking|campaign|cart|checkout|communication|extension|links|membership|messages|music|newsletter|photos|receipt|requests|shop|videos)(?:/.*)?$ route.php [QSA,L,NC]
+  RewriteRule ^media\.php$ route.php [QSA,L,NC]
+
+  # Keep real public files and essential retained directories working normally.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  RewriteRule ^$ index.php [L]
+</IfModule>
+
+<FilesMatch "\.(?:sql|log|ini|env|md)$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^\.vvx-">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>

@@ -10,7 +10,7 @@
 
 ## Installer and hosting
 
-- Installation occurs on a single simplified responsive browser page.
+- Installation occurs on a single responsive browser page with simplified, collapsible sections.
 - No installation key is required.
 - Owner and member passwords have a 12-character minimum.
 - File checks use real write/read/rename/delete probes.
@@ -24,7 +24,7 @@
 - The public installation ZIP contains only files required to install and run the actual site.
 - Repository metadata, GitHub workflows, docs, tests, SDK source, screenshots, reports, and development-only tooling do not ship in the customer installation ZIP.
 - Operational billing, add-on-task, and marketing runners remain included because the installed site requires them.
-- The complete engineering source, tests, documentation, and SDK remain in the repository source-import workflow, not in the public runtime package.
+- The complete engineering source, tests, documentation, and SDK are committed to this repository. Runtime packages are generated from that same source; they exclude development files and installed data.
 
 ## Media, access, and commerce
 
@@ -84,3 +84,14 @@
 - A local/package milestone and a GitHub branch are separate truth boundaries.
 - Do not claim source import, CI success, MySQL, Playwright, merge, tag, live payments, production email delivery, or deployed licensing without direct evidence.
 - Public source never contains credentials, generated keys, raw license keys, signing private keys, customer/member/subscriber data, private conversations, booking/request records, owner notes, attachments, identity documents, runtime state, or private/paid media.
+
+## Source recovery and progress discipline (2026-10-19)
+
+- The latest runtime baseline was recovered from a checksum-verified 0.8.1 package; separate 0.7.4 composer fixes require a targeted merge.
+- Upload the latest source, tests, and progress documentation at every completed session. Missing application source is a failed CI condition.
+- Historical implementation claims are checked against actual code. The recovery record identifies unimplemented UI/store/marketing work; these remain unfinished until code and tests land.
+- An installed site requires a matching configuration/JSON lock identity. A malformed or unrelated lock never proves installation.
+- Recovery never downgrades a valid active configuration to an older backup. Existing configuration/identity/key evidence blocks a fresh reinstall.
+- Repair backups containing unique, different, unreadable, unknown, or symlink entries cannot be deleted by the cleanup UI. Deletion requires a fully verified duplicate and explicit owner confirmation.
+- Fresh-install distributions exclude active config/app.php. Upgrade distributions exclude config, storage, uploads, and install entirely.
+- Source and installed-demo tests run in disposable copies, never in a real site or the active engineering checkout.
