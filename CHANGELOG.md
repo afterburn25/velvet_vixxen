@@ -1,3 +1,12 @@
+## 0.8.1 — Media, Composer buttons and public route repair (2026-10-19)
+
+- Restore physical public page/API entry points while retaining the protected implementation under `public/routes`, including account aliases and existing signed-media URLs.
+- Repair Library and Composer upload paths, parse non-JSON host errors readably, and preserve authenticated/CSRF-protected handler behavior.
+- Keep Full Page Preview open with an actionable error if saving fails; use the repaired scene API for Save Draft, Publish and Restore.
+- Add independent live button layers with labels, destinations, colors/styles, device-specific geometry and existing layer/history controls. Validate button data before saving.
+- Extend actual-package no-rewrite routing/upload/action acceptance and add server/browser button tests. Build a runtime-only Media/Composer repair alongside fresh/upgrade packages.
+- Current combined execution and delivery state is recorded in `docs/TEST_REPORT.md`; previous successful CI does not certify these new changes.
+
 ## 0.8.1 — Existing-database installer and alignment repair (2026-10-19)
 
 - Continue compatible empty, unrelated, partial, complete and ledgerless databases using selective schema reconciliation without editing historical migration checksums.

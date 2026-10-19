@@ -83,6 +83,7 @@ $composerData = [
     <div class="toolbar-spacer"></div>
     <button class="icon-button" data-action="undo" title="Undo">↶</button>
     <button class="icon-button" data-action="redo" title="Redo">↷</button>
+    <button class="admin-button secondary" type="button" data-action="add-button">+ Add Button</button>
     <button class="admin-button secondary" data-action="preview">Full Page Preview</button>
     <button class="admin-button secondary" data-action="save">Save Draft</button>
     <button class="admin-button primary" data-action="publish">Publish</button>
@@ -92,7 +93,7 @@ $composerData = [
     <aside class="media-tray">
       <div class="tray-head">
         <div><span class="admin-kicker">Scene artwork + photos</span><h2>Image Library</h2></div>
-        <button class="icon-button" data-action="toggle-upload" title="Upload image">＋</button>
+        <button class="icon-button" data-action="toggle-upload" title="Upload image">+</button>
       </div>
       <div class="asset-tabs" role="group" aria-label="Image source">
         <button type="button" data-assets-tab="library">Backgrounds</button>
@@ -155,7 +156,7 @@ $composerData = [
             <span class="content-resize-handle se" data-content-handle="se"></span>
           </div>
           <div class="selection-overlay" data-selection-overlay></div>
-          <div class="canvas-empty" data-canvas-empty>Drag an image thumbnail here to add a layer</div>
+          <div class="canvas-empty" data-canvas-empty>Drag an image here or choose Add Button</div>
         </div>
       </div>
       <div class="canvas-help">Drag photos beyond any edge to crop them. Corner handles stay inside the frame; use the layer stack to recover hidden or off-frame photos. Arrow keys nudge, Shift moves faster, and Alt temporarily disables snapping. Geometry is saved separately for each device.</div>
@@ -165,7 +166,7 @@ $composerData = [
       <div class="property-tabs">
         <button class="active" data-property-tab="background">Background</button>
         <button data-property-tab="content">Text + Buttons</button>
-        <button data-property-tab="layer">Photo Layer</button>
+        <button data-property-tab="layer">Layers</button>
         <button data-property-tab="versions">Versions</button>
       </div>
 
@@ -205,23 +206,39 @@ $composerData = [
       </div>
 
       <div class="property-page" data-property-page="layer">
-        <div class="no-selection" data-no-selection>Select a photo layer on the canvas or click + on an image in the Media Tray.</div>
+        <div class="no-selection" data-no-selection>Select a photo or button on the canvas, or choose Add Button above.</div>
         <div data-layer-controls hidden>
-          <div class="selected-preview"><img data-selected-preview alt=""><div><strong data-selected-name>Layer</strong><small data-selected-size></small></div></div>
+          <div class="selected-preview"><img data-selected-preview alt=""><span class="selected-button-icon" data-button-icon hidden aria-hidden="true">↗</span><div><strong data-selected-name>Layer</strong><small data-selected-size></small></div></div>
+          <div class="control-group button-controls" data-button-controls hidden>
+            <h3>Live button</h3>
+            <label>Button label<input type="text" maxlength="120" data-control="buttonLabel" placeholder="Book with me"></label>
+            <label>Destination<input type="text" maxlength="2048" data-control="buttonUrl" placeholder="booking/ or https://example.com"></label>
+            <p class="property-help">Page paths such as booking/ stay within this website. Complete http:// or https:// links open the address you enter.</p>
+            <label class="composer-check"><input type="checkbox" data-control="buttonNewTab"> Open in a new tab</label>
+            <label>Button style<select data-control="buttonStyle"><option value="solid">Solid</option><option value="outline">Outline</option><option value="pill">Pill</option></select></label>
+            <div class="control-grid">
+              <label>Fill color<input type="color" data-control="buttonColor"></label>
+              <label>Text color<input type="color" data-control="buttonTextColor"></label>
+              <label>Border color<input type="color" data-control="buttonBorderColor"></label>
+              <label>Text size<input type="number" min="8" max="96" step="1" data-control="buttonFontSize"></label>
+              <label>Corner radius<input type="number" min="0" max="100" step="1" data-control="buttonRadius"></label>
+            </div>
+          </div>
           <div class="control-grid">
             <label>X position<input type="number" min="-400" max="500" step=".1" data-control="layerX"></label>
             <label>Y position<input type="number" min="-400" max="500" step=".1" data-control="layerY"></label>
             <label>Width %<input type="number" min=".5" max="400" step=".5" data-control="layerWidth"></label>
+            <label data-button-only hidden>Height %<input type="number" min=".5" max="400" step=".5" data-control="layerHeight"></label>
             <label>Rotation<input type="number" min="-180" max="180" step="1" data-control="layerRotation"></label>
           </div>
           <div class="control-group">
-            <label>Image size <output data-output="layerScale">34%</output><input type="range" min=".5" max="400" step=".5" data-control="layerScale"></label>
+            <label>Layer width <output data-output="layerScale">34%</output><input type="range" min=".5" max="400" step=".5" data-control="layerScale"></label>
             <div class="size-presets"><button type="button" data-layer-size="5">Tiny</button><button type="button" data-layer-size="25">Small</button><button type="button" data-layer-size="60">Medium</button><button type="button" data-layer-size="120">Large</button><button type="button" data-layer-size="250">Huge</button></div>
             <label>Opacity <output data-output="layerOpacity">100%</output><input type="range" min="0" max="100" data-control="layerOpacity"></label>
-            <label>Brightness <output data-output="layerBrightness">100%</output><input type="range" min="25" max="175" data-control="layerBrightness"></label>
-            <label>Contrast <output data-output="layerContrast">100%</output><input type="range" min="50" max="175" data-control="layerContrast"></label>
-            <label>Saturation <output data-output="layerSaturation">100%</output><input type="range" min="0" max="200" data-control="layerSaturation"></label>
-            <label>Edge feather <output data-output="layerFeather">0%</output><input type="range" min="0" max="45" data-control="layerFeather"></label>
+            <label data-photo-only>Brightness <output data-output="layerBrightness">100%</output><input type="range" min="25" max="175" data-control="layerBrightness"></label>
+            <label data-photo-only>Contrast <output data-output="layerContrast">100%</output><input type="range" min="50" max="175" data-control="layerContrast"></label>
+            <label data-photo-only>Saturation <output data-output="layerSaturation">100%</output><input type="range" min="0" max="200" data-control="layerSaturation"></label>
+            <label data-photo-only>Edge feather <output data-output="layerFeather">0%</output><input type="range" min="0" max="45" data-control="layerFeather"></label>
             <label>Shadow strength <output data-output="layerShadow">35%</output><input type="range" min="0" max="100" data-control="layerShadow"></label>
           </div>
           <div class="control-group">
@@ -230,12 +247,12 @@ $composerData = [
               <button type="button" data-action="layer-align-left">Left</button><button type="button" data-action="layer-align-center-x">Center X</button><button type="button" data-action="layer-align-right">Right</button>
               <button type="button" data-action="layer-align-top">Top</button><button type="button" data-action="layer-align-center-y">Center Y</button><button type="button" data-action="layer-align-bottom">Bottom</button>
             </div>
-            <button type="button" class="mini-button full" data-action="layer-crop-bottom">Hide the lower 20% below the scene</button>
-            <button type="button" class="mini-button full" data-action="layer-recover">Bring photo into view</button>
+            <button type="button" class="mini-button full" data-action="layer-crop-bottom" data-photo-only>Hide the lower 20% below the scene</button>
+            <button type="button" class="mini-button full" data-action="layer-recover">Bring layer into view</button>
           </div>
           <div class="layer-actions">
             <button data-action="layer-forward">Move Forward</button><button data-action="layer-back">Move Back</button>
-            <button data-action="layer-flip">Flip Horizontal</button><button data-action="layer-duplicate">Duplicate</button>
+            <button data-action="layer-flip" data-photo-only>Flip Horizontal</button><button data-action="layer-duplicate">Duplicate</button>
             <button data-action="layer-lock">Lock</button><button data-action="layer-hide">Hide</button><button class="danger" data-action="layer-delete">Delete</button>
           </div>
         </div>

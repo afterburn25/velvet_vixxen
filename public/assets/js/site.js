@@ -23,6 +23,46 @@
 
   const device = () => window.innerWidth <= 760 ? 'mobile' : (window.innerWidth <= 1120 ? 'tablet' : 'desktop');
 
+  function buttonDestination(value) {
+    if (typeof value !== 'string' || /[\u0000-\u0020\u007f\\]/.test(value)) return '';
+    const url = value.trim();
+    if (!url || url.length > 2048 || /[\u0000-\u0020\u007f\\]/.test(url)
+      || /%(?:0[0-9a-f]|1[0-9a-f]|7f|5c)/i.test(url) || /%(?![0-9a-f]{2})/i.test(url)) return '';
+    let decoded;
+    try { decoded = decodeURIComponent(url); } catch { return ''; }
+    if (url.startsWith('//') || decoded.startsWith('//') || decoded.includes('\\')) return '';
+    try {
+      if (/^https?:\/\//i.test(url)) {
+        const target = new URL(url);
+        return target.hostname && !target.username && !target.password ? target.href : '';
+      }
+      if (/^[^/?#]*:/.test(url) || /^[^/?#]*:/.test(decoded)
+        || /(?:^|\/)\.\.(?:\/|$)/.test(decoded.split(/[?#]/)[0])) return '';
+      return new URL(url.replace(/^\/+/, ''), `${baseUrl}/`).href;
+    } catch { return ''; }
+  }
+
+  function renderButton(node, layer) {
+    const color = (value, fallback) => /^#[0-9a-f]{6}$/i.test(value || '') ? value : fallback;
+    const number = (value, fallback, min, max) => Number.isFinite(Number(value)) ? Math.max(min, Math.min(max, Number(value))) : fallback;
+    const href = buttonDestination(layer.url);
+    if (!href || typeof layer.label !== 'string' || !layer.label.trim()) return false;
+    node.href = href;
+    if (layer.newTab === true) { node.target = '_blank'; node.rel = 'noopener noreferrer'; }
+    node.classList.add('public-scene-button');
+    node.dataset.layerType = 'button';
+    node.style.height = `${number(layer.height, 8, 0.5, 400)}%`;
+    node.style.backgroundColor = layer.style === 'outline' ? 'transparent' : color(layer.color, '#ff2d8d');
+    node.style.color = color(layer.textColor, '#ffffff');
+    node.style.borderColor = color(layer.borderColor, '#ff2d8d');
+    node.style.borderRadius = layer.style === 'pill' ? '999px' : `${number(layer.radius, 10, 0, 100)}px`;
+    node.style.fontSize = `${number(layer.fontSize, 18, 8, 96)}px`;
+    const label = document.createElement('span');
+    label.textContent = layer.label.slice(0, 120);
+    node.appendChild(label);
+    return true;
+  }
+
   const defaultContentBox = (section, targetDevice) => {
     if (section === 'footer') {
       return {
@@ -98,7 +138,8 @@
         .sort((a, b) => Number(a.z ?? 1) - Number(b.z ?? 1))
         .forEach((layer) => {
           if (layer.visible === false) return;
-          const wrap = document.createElement('div');
+          const isButton = layer.type === 'button';
+          const wrap = document.createElement(isButton ? 'a' : 'div');
           wrap.className = 'public-scene-layer';
           wrap.dataset.layerId = String(layer.id || '');
           wrap.style.left = `${Number(layer.x ?? 50)}%`;
@@ -110,6 +151,10 @@
           const sy = layer.flipY ? -1 : 1;
           wrap.style.transform = `translate(-50%,-50%) rotate(${Number(layer.rotation ?? 0)}deg) scale(${sx},${sy})`;
           wrap.style.filter = `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0)}px ${Number(layer.shadowY ?? 18)}px ${Number(layer.shadowBlur ?? 24)}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
+          if (isButton) {
+            if (renderButton(wrap, layer)) layerRoot.appendChild(wrap);
+            return;
+          }
           const img = document.createElement('img');
           img.src = resolveAsset(layer.src);
           img.alt = '';
@@ -122,6 +167,11 @@
           wrap.appendChild(img);
           layerRoot.appendChild(wrap);
         });
+      const stage = root.querySelector('.scene-stage');
+      if (stage) {
+        if (layerRoot.querySelector('.public-scene-button')) stage.removeAttribute('aria-hidden');
+        else stage.setAttribute('aria-hidden', 'true');
+      }
     }
   }
 

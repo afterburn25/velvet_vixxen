@@ -21,6 +21,7 @@ echo "== PHP syntax =="
 while IFS= read -r -d '' file; do php -l "$file" >/dev/null; done < <(find . -type f -name '*.php' -not -path './vendor/*' -print0)
 echo "== JavaScript syntax =="
 while IFS= read -r -d '' file; do node --check "$file" >/dev/null; done < <(find public -type f -name '*.js' -print0)
+node tests/Unit/api_client.js
 echo "== Python syntax =="
 python - <<'PYCODE'
 import ast
@@ -32,14 +33,14 @@ echo "== Application tests in a disposable copy =="
 php tests/smoke.php
 for test in \
   tests/Installer/foundation.php tests/Installer/single_page.php tests/Installer/recovery.php \
-  tests/Unit/hero_library.php \
+  tests/Unit/hero_library.php tests/Unit/installation_urls.php \
   tests/Unit/migrations.php tests/Unit/addon_manifest.php tests/Unit/addon_package.php \
   tests/Unit/media_access.php tests/Unit/media_store.php tests/Unit/member_auth.php \
   tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
   tests/Feature/media_center.php tests/Feature/members_entitlements.php tests/Feature/commerce.php \
   tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php \
-  tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Security/protected_media.php tests/Security/member_security.php \
-  tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php; do
+  tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Feature/scene_buttons.php tests/Security/protected_media.php tests/Security/member_security.php \
+  tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php tests/Structure/public_routes.php; do
   php "$test"
 done
 php tests/Security/repository_safety.php

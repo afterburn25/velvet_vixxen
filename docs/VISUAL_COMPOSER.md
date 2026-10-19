@@ -1,6 +1,6 @@
 # Visual Composer and Hero Library — 0.8.1
 
-The Visual Composer edits the Homepage Hero and Visual Footer as independent compositions. Background artwork, uploaded photos, and the live text/button region remain separate. The approved pink/magenta/black site design is retained.
+The Visual Composer edits the Homepage Hero and Visual Footer as independent compositions. Background artwork, uploaded photos, separate button layers, and the live text/button region remain separate. The approved pink/magenta/black site design is retained.
 
 ## Choose and preview a scene
 
@@ -36,11 +36,19 @@ Selected-photo corner handles stay inside the editing frame, even when the photo
 
 These settings are stored independently for each device. Hiding a layer in one device layout does not hide the corresponding layer in another layout unless the whole layout is copied.
 
+## Add separate buttons
+
+Choose a section and device, then click **Add Button** in the toolbar. Edit the selected button's label and destination, choose solid, outline or pill styling, and set its fill, text and border colors, text size, corner radius and new-tab behavior. Public buttons are real HTML links. Labels render as text; the server and public renderer reject unsafe URL schemes and malformed destinations.
+
+Use `booking/`, `membership/` or another site-relative destination for this website, or a complete `https://` / `http://` link. Relative destinations resolve from the installation root, including a nested installation. A new-tab button uses `noopener noreferrer`.
+
+Button layers have independent width and height and use the existing drag, resize, keyboard, numeric, snap, ordering, hide/lock, duplicate/delete and undo/redo controls. Positions and dimensions are separate for desktop, tablet and mobile. **Copy to other devices** copies the entire selected layout, including buttons. Hero/Footer clipping applies to buttons as well as photos. The existing live headline/description/button group remains independently movable.
+
 ## Save, preview, publish, and restore
 
 Give the composition a title so published versions are easier to identify.
 
-**Save Draft** saves the current Hero or Footer composition. The public site continues to use its published version. **Full Page Preview** first saves both in-memory Hero and Footer drafts sequentially, then opens the owner preview with those drafts. It does not publish either scene. If the browser blocks the new window, the status explains that the drafts were saved and asks the owner to allow the preview window.
+**Save Draft** saves the current Hero or Footer composition. The public site continues to use its published version. **Full Page Preview** first saves both in-memory Hero and Footer drafts sequentially, then opens the owner preview with those drafts. It does not publish either scene. If the browser blocks the new window, the status explains that the drafts were saved and asks the owner to allow the preview window. If saving fails, the preview tab remains open with a readable explanation and the admin shows the error. Upload, save, publish and restore also handle a host's non-JSON response without showing a raw JSON parsing exception.
 
 **Publish** updates the live composition and adds a persistent version. The **Versions** tab shows titles and publication times. **Restore and publish** returns the selected section to a prior published version and creates a new publication entry. Restoring one section does not restore the other section. File-store history retains the latest 20 published versions.
 
@@ -81,5 +89,7 @@ The runtime needs the optimized assets and manifest. Generation masters, accepta
 - `tests/Browser/composer_recovery_playwright.py`: continuous drag and resize, 0.5–400% save/reload, live content placement, device isolation, background pan, undo/redo, draft isolation, public image paths, and mobile overflow.
 - `tests/Browser/composer_controls_playwright.py`: real upload, per-device backgrounds and appearance, all-edge movement, reachable handles at extreme coordinates, aspect ratio, locking/hiding/ordering, snapping, lower-edge crop, draft preview of both sections, safe metadata embedding, and publication rollback including leading-zero file-store version IDs.
 - `tests/Browser/composer_library_playwright.py`: requires at least 30 actual distinct assets; decodes every runtime image and thumbnail, validates search/category/placement metadata, and publishes and renders every scene at desktop, tablet, and mobile public widths.
+- `tests/Feature/scene_buttons.php` and `tests/Browser/composer_buttons_playwright.py`: validated button persistence, live links and appearance, device geometry, editing/history controls and destination rejection.
+- `tests/Browser/packaged_media_upload_playwright.py` and `tests/Browser/composer_actions_playwright.py`: actual customer ZIPs served without a testing rewrite router, root/subfolder uploads, draft preview lifetime, publication, readable failures and public button destinations.
 
 Run browser acceptance through `scripts/test_http.sh`. It copies the application to a marked disposable runtime, seeds fixtures there, starts the real local PHP router, and cleans up afterward. Do not seed the authoritative checkout or an installed customer site for testing. Current run evidence belongs in `docs/TEST_REPORT.md` and `PROJECT_STATUS.md`; the existence of a suite alone is not a passing result.

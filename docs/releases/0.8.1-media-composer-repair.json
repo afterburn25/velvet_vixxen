@@ -1,0 +1,116 @@
+{
+  "version": "0.8.1",
+  "correction": "Media, Composer buttons and public route repair",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "starting_commit": "195699c12620e4803160b28f023764bebc421bb4",
+  "source_commit": null,
+  "source_tree": null,
+  "source_note": "Source checkpoint awaiting exact GitHub commit/run evidence. Earlier installer CI does not certify these changes.",
+  "asset_version": "0.8.1-20261019.4",
+  "repair_files": 67,
+  "repair_php_files": 60,
+  "repair_javascript_files": 5,
+  "repair_css_files": 2,
+  "physical_entrypoints": 46,
+  "registered_public_urls": 87,
+  "zip_component_timestamp": [
+    2026,
+    10,
+    19,
+    18,
+    0,
+    0
+  ],
+  "verification": {
+    "local_source_suite": {
+      "status": "passed",
+      "php": "8.3.6",
+      "command": "bash scripts/test.sh",
+      "note": "Mandatory real foreign-owner fixture ran outside the single-UID sandbox; no gate was skipped."
+    },
+    "api_response_helper": {
+      "status": "passed",
+      "checks": 15
+    },
+    "scene_buttons": {
+      "status": "passed",
+      "assertions": 127
+    },
+    "installation_urls": {
+      "status": "passed",
+      "assertions": 90
+    },
+    "repair_backups": {
+      "status": "passed",
+      "assertions": 371
+    },
+    "public_route_parity": {
+      "status": "passed",
+      "assertions": 566
+    },
+    "local_http_aggregate": {
+      "status": "passed",
+      "suites": 7
+    },
+    "local_browser_aggregate": {
+      "status": "pending",
+      "suites": 13
+    },
+    "packaged_uploads": {
+      "status": "passed",
+      "php": "8.3.6",
+      "playwright": "1.62.0",
+      "chromium": "155.0.8059.84",
+      "router_script": false,
+      "cases": [
+        "root-desktop",
+        "nested-mobile"
+      ],
+      "fresh_zip_sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f"
+    },
+    "packaged_routes_and_cleanup": {
+      "status": "passed",
+      "router_script": false,
+      "cases": [
+        "root",
+        "nested"
+      ],
+      "registered_routes_per_case": 87,
+      "verified_before_and_after_real_owner_cleanup": true,
+      "forwarders_preserved": 46,
+      "old_cleanup_negative_control_removed_forwarders": 40,
+      "default_requests_and_logout_redirects": "passed"
+    },
+    "packaged_preview_publish_marketing": {
+      "status": "pending",
+      "cases": [
+        "root-desktop",
+        "root-mobile",
+        "nested-desktop",
+        "nested-mobile"
+      ]
+    },
+    "github_ci": {
+      "status": "pending",
+      "runs": []
+    }
+  },
+  "packages": [],
+  "delivery": {
+    "status": "pending",
+    "repair_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+    "fresh_download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
+    "upgrade_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json"
+  },
+  "preserved_installer_repair": {
+    "size_bytes": 51241,
+    "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38"
+  },
+  "boundaries": [
+    "No customer deployment",
+    "Payments sandbox-only",
+    "No production credentials or private data",
+    "No 0.9.0 work"
+  ]
+}

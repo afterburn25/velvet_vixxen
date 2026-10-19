@@ -18,7 +18,7 @@ VELVET_TEST_PORT=8766 bash scripts/test_http.sh
 VELVET_BROWSER_TESTS=1 VELVET_TEST_PORT=8767 bash scripts/test_http.sh
 ```
 
-The harness first execs its own disposable snapshot, starts and stops a real PHP server, and resets fixtures between suites. The aggregate runs 7 HTTP suites or 12 actual browser suites, including 30 library scenes rendered at three viewport widths. `VELVET_TEST_SUITE` selects one exact test path. `VELVET_SCREENSHOT_DIR` stores actual browser evidence outside customer ZIPs. Set `VELVET_CHROMIUM` only when selecting an existing compatible browser. Browser interaction tests must run, not just compile.
+The harness first execs its own disposable snapshot, starts and stops a real PHP server, and resets fixtures between suites. The aggregate runs 7 HTTP suites or 13 actual browser suites, including separate Composer buttons and 30 library scenes rendered at three viewport widths. `VELVET_TEST_SUITE` selects one exact test path. `VELVET_SCREENSHOT_DIR` stores actual browser evidence outside customer ZIPs. Set `VELVET_CHROMIUM` only when selecting an existing compatible browser. Browser interaction tests must run, not just compile.
 
 ## MySQL 8 migration gate
 
@@ -57,4 +57,16 @@ The PHP suite covers empty/unrelated/core-only/full/ledgerless schemas, interrup
 
 The browser suite uses the real installer HTTP page at desktop/mobile widths and an isolated MySQL service. It covers actual AJAX connection/install, CSRF and 11-character rejection, acceptance of a 12-character owner password, wrong-owner refusal, post-final-config failure followed by ordinary HTTP-bootstrap retry, preserved records, cleanup and final owner login. Expanded technical details verify Server/Folders geometry and the missing redundant rule before/after Run Checks; password fields remain aligned and completion clears its spinner/scroll lock. PNGs/logs remain engineering evidence outside every customer ZIP.
 
-The existing seven HTTP and twelve application browser suites remain mandatory. Do not substitute a copied HTML form, a simulated DB response, a same-owner filesystem, a stopped/restarted cache process or a passing skip for these release gates.
+The existing seven HTTP and all application browser suites remain mandatory. Do not substitute a copied HTML form, a simulated DB response, a same-owner filesystem, a stopped/restarted cache process or a passing skip for these release gates.
+
+## Packaged public routes, uploads and Composer actions
+
+```bash
+python3 tests/Browser/packaged_media_upload_playwright.py
+python3 tests/Http/public_routes_packaged.py
+python3 tests/Browser/composer_actions_playwright.py
+```
+
+These suites extract the actual runtime ZIP into disposable sites and start PHP without any router script, at both a domain root and a nested installation path. No synthetic fallback may make a missing public entry point pass. The upload suite removes the physical upload entry point as a negative control, reproduces the host's literal `File not found.` response separately, and checks successful uploads, thumbnails, image decoding, retries, authentication and CSRF. The actions suite clicks the real Full Page Preview and Publish controls and follows real public button destinations.
+
+The source aggregate additionally runs the shared JSON response helper's Node regression, server-side button validation/persistence and public route/handler parity checks. The package gate requires all public compatibility files, checks the exact Media/Composer repair allowlist, and preserves configuration, storage, uploads and existing site state when the overlay is extracted. New changed components receive later deterministic ZIP timestamps and a new browser asset identity. Tests, screenshots, fixture data and logs remain outside every customer ZIP.

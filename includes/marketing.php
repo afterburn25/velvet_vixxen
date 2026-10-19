@@ -17,6 +17,19 @@ function velvet_marketing_escape(string $value): string
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+function velvet_marketing_destination(string $value): string
+{
+    if (!\App\Core\SceneButton::validUrl($value)) return base_url('/');
+    if (preg_match('#^https?://#i', $value)) return $value;
+    $base = rtrim(base_url(), '/');
+    $prefix = rtrim((string) (parse_url($base, PHP_URL_PATH) ?? ''), '/');
+    $path = (string) (parse_url($value, PHP_URL_PATH) ?? '');
+    if ($prefix !== '' && ($path === $prefix || str_starts_with($path, $prefix . '/'))) {
+        return substr($base, 0, strlen($base) - strlen($prefix)) . $value;
+    }
+    return $base . '/' . ltrim($value, '/');
+}
+
 function velvet_marketing_csrf(): string
 {
     if (empty($_SESSION['velvet_marketing_csrf'])) $_SESSION['velvet_marketing_csrf'] = bin2hex(random_bytes(24));
@@ -45,7 +58,7 @@ function velvet_marketing_is_owner(): bool
 function velvet_marketing_require_owner(): void
 {
     if (velvet_marketing_is_owner()) return;
-    $target = '/admin/';
+    $target = base_url('admin/');
     if (!headers_sent()) { header('Location: ' . $target); exit; }
     http_response_code(403);
     exit('Owner authentication is required.');
@@ -75,7 +88,7 @@ function velvet_marketing_render_banner(): void
     if (!$banners) return;
     $banner = $banners[0];
     echo '<aside class="velvet-promo-banner" data-marketing-banner>'; 
-    if (!empty($banner['url'])) echo '<a href="'.velvet_marketing_escape((string)$banner['url']).'">';
+    if (!empty($banner['url'])) echo '<a href="'.velvet_marketing_escape(velvet_marketing_destination((string)$banner['url'])).'">';
     echo velvet_marketing_escape((string)($banner['text'] ?? ''));
     if (!empty($banner['url'])) echo '</a>';
     echo '<button type="button" aria-label="Dismiss promotion" data-banner-dismiss>×</button></aside>';

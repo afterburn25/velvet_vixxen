@@ -12,9 +12,8 @@
     const original = button?.textContent;
     if (button) { button.disabled = true; button.textContent = 'Uploading…'; }
     try {
-      const response = await fetch('../api/upload.php', { method:'POST', body:new FormData(form), headers:{'X-CSRF-Token':csrf} });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || 'Upload failed.');
+      const response = await fetch(form.action, { method:'POST', body:new FormData(form), headers:{'X-CSRF-Token':csrf} });
+      const result = await window.VELVET_API.read(response, 'Upload failed.');
       if (messageNode) { messageNode.className='admin-alert success'; messageNode.textContent='Image uploaded. Refreshing…'; }
       setTimeout(() => location.reload(), 600);
     } catch (error) {

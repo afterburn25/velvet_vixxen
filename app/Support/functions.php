@@ -179,20 +179,27 @@ function require_member(bool $json = false): array
 
 function member_return_path(string $candidate, string $fallback = '/account/'): string
 {
-    $candidate = trim($candidate);
-    if ($candidate === '' || str_contains($candidate, "\r") || str_contains($candidate, "\n")) {
-        return $fallback;
-    }
-    $parts = parse_url($candidate);
-    if ($parts === false || isset($parts['scheme']) || isset($parts['host'])) {
-        return $fallback;
-    }
-    $path = (string) ($parts['path'] ?? '');
-    if ($path === '' || !str_starts_with($path, '/') || str_starts_with($path, '//')) {
-        return $fallback;
-    }
-    $query = isset($parts['query']) && $parts['query'] !== '' ? '?' . $parts['query'] : '';
-    return $path . $query;
+    $prefix = rtrim((string) (parse_url(base_url(), PHP_URL_PATH) ?? ''), '/');
+    $resolve = static function (string $value) use ($prefix): ?string {
+        if ($value === '' || preg_match('/[\x00-\x20\x7f\\\\]/', $value)
+            || preg_match('/%(?:0[0-9a-f]|1[0-9a-f]|7f|5c)/i', $value)
+            || preg_match('/%(?![0-9a-f]{2})/i', $value)) return null;
+        $parts = parse_url($value);
+        if ($parts === false || isset($parts['scheme']) || isset($parts['host'])) return null;
+        $path = (string) ($parts['path'] ?? '');
+        $decoded = rawurldecode($path);
+        if (!str_starts_with($path, '/') || str_starts_with($path, '//')
+            || str_starts_with($decoded, '//') || str_contains($decoded, '\\')
+            || preg_match('#(?:^|/)\.\.(?:/|$)#', $decoded)) return null;
+        // Legacy callers supply /account/ or /requests/. Keep those destinations
+        // inside this installation without prefixing an existing request twice.
+        if ($prefix !== '' && $path !== $prefix && !str_starts_with($path, $prefix . '/')) {
+            $path = $prefix . $path;
+        }
+        $query = isset($parts['query']) && $parts['query'] !== '' ? '?' . $parts['query'] : '';
+        return $path . $query;
+    };
+    return $resolve($candidate) ?? $resolve($fallback) ?? $prefix . '/account/';
 }
 
 function member_content_decision(string $type, array $content, bool $direct = false): array

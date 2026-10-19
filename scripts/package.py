@@ -9,12 +9,31 @@ import re
 from pathlib import Path
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
-ROOT_FILES = {".htaccess", "index.php", "route.php", "VERSION"}
+ROOT_FILES = {".htaccess", "index.php", "route.php", "media.php", "VERSION"}
 RUNTIME_ROOTS = {
-    "admin", "app", "addons", "config", "database", "images", "includes",
+    "admin", "api", "app", "addons", "config", "database", "images", "includes",
     "install", "public", "storage", "templates", "uploads", "vendor",
 }
 PRESERVED_UPGRADE_ROOTS = {"config", "storage", "uploads", "install"}
+# Physical compatibility entry points preserve the existing URLs on hosts that
+# require PHP files to exist before dispatching them. Business logic stays under
+# public/routes; media.php is the retained signed-media URL, not a new root API.
+PUBLIC_ROUTE_FILES = {
+    "about/index.php", "account/billing.php", "account/forgot.php", "account/index.php",
+    "account/library.php", "account/login.php", "account/logout.php", "account/register.php",
+    "account/reset.php", "account/security.php", "account/verify.php",
+    "api/addon-license.php", "api/marketing-event.php", "api/member-state.php",
+    "api/payment-webhook.php", "api/scene.php", "api/upload.php",
+    "blog/index.php", "blog/post.php", "booking/index.php", "campaign/index.php",
+    "cart/index.php", "checkout/index.php", "checkout/success.php", "collections/index.php",
+    "communication/download.php", "create-account/index.php", "extension/index.php",
+    "join/index.php", "links/index.php", "login/index.php", "media.php",
+    "membership/index.php", "messages/index.php", "music/index.php", "newsletter/confirm.php",
+    "newsletter/index.php", "newsletter/unsubscribe.php", "photos/index.php", "photos/view.php",
+    "receipt/index.php", "recover/index.php", "requests/index.php", "shop/index.php",
+    "videos/index.php", "videos/watch.php",
+}
+RUNTIME_ROOTS |= {Path(relative).parts[0] for relative in PUBLIC_ROUTE_FILES if "/" in relative}
 INSTALLER_REPAIR_VERSION = "0.8.1"
 INSTALLER_DATABASE_REPAIR_FILES = {
     "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
@@ -26,10 +45,25 @@ INSTALLER_DATABASE_REPAIR_FILES = {
 INSTALLER_REPAIR_FILES = {
     "install/services/FileSystemService.php", *INSTALLER_DATABASE_REPAIR_FILES,
 }
+COMPOSER_REPAIR_VERSION = "0.8.1"
+# A separate installed-site overlay keeps Media, Composer and route corrections out of the
+# unfinished-installer repair and never ships configuration or uploaded media.
+COMPOSER_REPAIR_FILES = {
+    *PUBLIC_ROUTE_FILES, "admin/index.php", "public/router.php",
+    "app/Core/SceneButton.php", "app/Core/Store.php", "app/Core/RepairBackupService.php",
+    "app/Support/functions.php",
+    "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
+    "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
+    "includes/version.php", "public/routes/links/index.php", "public/routes/campaign/index.php",
+    "public/assets/css/site.css", "public/assets/css/composer.css",
+    "public/assets/js/api-client.js", "public/assets/js/admin.js",
+    "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
+}
 # Keep this deterministic, but advance it for each unfinished-installer service
 # correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
 INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
+COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 19, 18, 0, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -48,6 +82,8 @@ def eligible(relative: str, kind: str) -> bool:
     """An allowlist prevents runtime data from entering any distribution."""
     if kind == "installer-repair":
         return relative in INSTALLER_REPAIR_FILES
+    if kind == "composer-repair":
+        return relative in COMPOSER_REPAIR_FILES
     path = Path(relative)
     parts = path.parts
     if not parts or path.is_absolute() or ".." in parts:
@@ -103,19 +139,23 @@ def validate(files: dict[str, bytes], kind: str, version: str) -> None:
         if version != INSTALLER_REPAIR_VERSION:
             raise ValueError("The installer database repair applies only to unfinished 0.8.1 installations")
         required = INSTALLER_REPAIR_FILES
+    elif kind == "composer-repair":
+        if version != COMPOSER_REPAIR_VERSION:
+            raise ValueError("The Media and Composer repair applies only to installed 0.8.1 sites")
+        required = COMPOSER_REPAIR_FILES
     else:
         required = ROOT_FILES | {
             "app/bootstrap.php", "includes/bootstrap.php", "includes/version.php",
             "includes/installation_recovery.php", "public/router.php", "public/home.php",
             "app/Core/RepairBackupService.php", "public/assets/js/composer.js",
             "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
-        }
+        } | COMPOSER_REPAIR_FILES
         if kind == "fresh":
             required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"} | INSTALLER_REPAIR_FILES
     missing = required - files.keys()
     if missing:
         raise ValueError("Required runtime source is missing: " + ", ".join(sorted(missing)))
-    if kind != "installer-repair":
+    if kind not in {"installer-repair", "composer-repair"}:
         if files["VERSION"].decode().strip() != version:
             raise ValueError("Package version does not match VERSION")
         if version.encode() not in files["includes/version.php"]:
@@ -150,6 +190,8 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
     variants = [("fresh", "Fresh-Install"), ("upgrade", "Upgrade-from-0.8.x")]
     if version == INSTALLER_REPAIR_VERSION:
         variants.append(("installer-repair", "Installer-Database-Repair"))
+    if version == COMPOSER_REPAIR_VERSION:
+        variants.append(("composer-repair", "Media-Composer-Repair"))
     for kind, suffix in variants:
         files = runtime_files(root, kind)
         validate(files, kind, version)
@@ -163,6 +205,11 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
                 "supported_from": [INSTALLER_REPAIR_VERSION],
                 "installation_state": "incomplete",
             }
+        elif kind == "composer-repair":
+            compatibility = {
+                "supported_from": [COMPOSER_REPAIR_VERSION],
+                "installation_state": "installed",
+            }
         with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zipped:
             zipped.comment = json.dumps({
                 "product": "Velvet Vixxen", "version": version, "kind": kind,
@@ -173,6 +220,8 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
                              if relative == "install/services/FileSystemService.php"
                              else INSTALLER_DATABASE_TIMESTAMP
                              if relative in INSTALLER_DATABASE_REPAIR_FILES
+                             else COMPOSER_REPAIR_TIMESTAMP
+                             if relative in COMPOSER_REPAIR_FILES
                              else (2026, 1, 1, 0, 0, 0))
                 entry = ZipInfo(relative, date_time=timestamp)
                 entry.create_system = 3
@@ -190,7 +239,7 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             "files": len(files), "php_files": sum(name.endswith(".php") for name in files),
             "javascript_files": sum(name.endswith(".js") for name in files),
             "entry_sha256": {name: hashlib.sha256(data).hexdigest() for name, data in files.items()},
-            **(compatibility if kind == "installer-repair" else {}),
+            **(compatibility if kind in {"installer-repair", "composer-repair"} else {}),
         })
     (output / f"Velvet-Vixxen-{version}-package-manifest.json").write_text(
         json.dumps(result, indent=2) + "\n"

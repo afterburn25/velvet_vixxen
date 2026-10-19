@@ -1,5 +1,9 @@
 # Nikki Wilder — The Velvet Vixxen
 
+## Current Media/Composer and public-route continuation
+
+The active repair fixes missing public entry points after folder reorganization, image-upload JSON errors, disappearing Full Page Preview tabs and failed publication. It also adds separate editable live button layers in Visual Composer. Read [the repair guide](docs/MEDIA_COMPOSER_REPAIR.md) and [current test/delivery status](docs/TEST_REPORT.md); final combined verification is in progress. The previous installer database/layout repair below remains included in the full distribution.
+
 ## 0.8.1 installer database and layout repair
 
 For the already-uploaded unfinished installer, use [Installer Database Repair](docs/INSTALLER_DATABASE_REPAIR.md). Setup now preserves and continues compatible existing databases, including previous attempts with partial tables or missing migration history. Existing owners authenticate with their current login; missing setup work completes without resetting their data, keys, scenes or settings. Server/Folders checks and the owner password fields are aligned, and completed setup clears its loading state.

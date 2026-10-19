@@ -14,6 +14,6 @@ function velvet_marketing_public_header(string $title, string $description = '')
 
 function velvet_marketing_public_footer(): void
 {
-    echo '<script src="' . velvet_marketing_escape(base_url('public/assets/js/marketing.js')) . '" defer></script>';
+    echo '<script src="' . velvet_marketing_escape(asset_url('js/marketing.js')) . '" defer></script>';
     require root_path('app/Views/public/partials/footer.php');
 }

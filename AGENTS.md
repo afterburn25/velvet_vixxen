@@ -77,6 +77,14 @@ Distinguish among locally tested package behavior, CI-prepared behavior, planned
 
 ## Current priority
 
+Finish the owner's image-upload, Full Page Preview, Publish and folder-reorganization routing repair together with separate Add Button layers in Visual Composer. Current progress and pending verification are at the top of the six handoff files. The earlier installer source/CI above is the verified starting baseline, not proof of this new repair.
+
+Public implementations stay under `public/routes`. Thin physical compatibility files must preserve every existing public destination, including root/subfolder installations and signed-media URLs. `media.php` is the only additional root PHP entry point permitted by this repair; keep its implementation in the organized source directory and retain the strict root allowlist for all other files. Never replace authentication, CSRF, entitlement or method checks with a permissive forwarding handler.
+
+Require extracted-package routing/upload/preview/publication acceptance without a synthetic missing-file fallback, in addition to the existing HTTP/browser suites. Preserve button/photo/content independence, device layouts, safe URL validation and restorable publications. Keep the new installed-site Media/Composer repair separate from the unfinished-installer repair, and upload executable source, tests, progress, issue #13 and exact download evidence.
+
+## Preserved installer baseline
+
 The user requires setup to continue whether the selected database is empty or already contains compatible application tables. Preserve the implemented resume/schema reconciliation, original owner authentication, keys, identity, rows and saved content; never restore a blanket empty-database refusal or destructive automatic rollback. A pending checkpoint must remain resumable across ordinary HTTP bootstrap and process interruption, and must not count as publicly installed before verification. Recovery and installer retirement share the setup guard.
 
 The same continuation fixes Server/Folders alignment, the extra Folders rule and Password/Confirm Password alignment. Preserve real browser geometry and completion-state checks. The runtime-only database repair is an eight-file overlay and includes the earlier folder fix; it must not contain customer configuration or runtime state. Current source, test and download evidence belongs in the database-repair release record.

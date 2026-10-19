@@ -171,6 +171,19 @@
         layer.y = clamp(Number.isFinite(Number(layer.y)) ? layer.y : 50, -400, 500);
         layer.width = clamp(Number.isFinite(Number(layer.width)) ? layer.width : 30, 0.5, 400);
         layer.locked = layer.locked === true;
+        if (layer.type === 'button') {
+          layer.label = typeof layer.label === 'string' ? layer.label.slice(0, 120) : 'Button';
+          layer.url = typeof layer.url === 'string' ? layer.url : 'booking/';
+          layer.name = String(layer.name || layer.label || 'Button');
+          layer.height = clamp(Number.isFinite(Number(layer.height)) ? layer.height : 8, 0.5, 400);
+          layer.fontSize = clamp(Number.isFinite(Number(layer.fontSize)) ? layer.fontSize : 18, 8, 96);
+          layer.radius = clamp(Number.isFinite(Number(layer.radius)) ? layer.radius : 10, 0, 100);
+          layer.style = ['solid', 'outline', 'pill'].includes(layer.style) ? layer.style : 'solid';
+          ['color', 'textColor', 'borderColor'].forEach((key) => {
+            if (!/^#[0-9a-f]{6}$/i.test(layer[key] || '')) layer[key] = key === 'textColor' ? '#ffffff' : '#ff2d8d';
+          });
+          layer.newTab = layer.newTab === true;
+        }
       });
       view.contentBox = {...defaultContentBox(key, targetDevice), ...(view.contentBox || {})};
       const box = view.contentBox;
@@ -194,6 +207,7 @@
     el.status.classList.toggle('error', mode === 'error');
     const label = el.status.querySelector('span:last-child');
     if (label) label.textContent = message;
+    if (mode === 'error') el.status.scrollIntoView({block: 'nearest', behavior: 'auto'});
   }
 
   function snapshot() {
@@ -276,6 +290,16 @@
     node.style.zIndex = String(Number(layer.z ?? 1));
     node.style.transform = layerTransform(layer);
     node.style.filter = layerFilter(layer);
+    if (layer.type === 'button') {
+      const scale = el.canvas.getBoundingClientRect().width / canvasWidthForDevice();
+      node.style.height = `${Number(layer.height ?? 8)}%`;
+      node.style.backgroundColor = layer.style === 'outline' ? 'transparent' : layer.color;
+      node.style.color = layer.textColor;
+      node.style.borderColor = layer.borderColor;
+      node.style.borderWidth = `${2 * scale}px`;
+      node.style.borderRadius = layer.style === 'pill' ? '999px' : `${Number(layer.radius ?? 10) * scale}px`;
+      node.style.fontSize = `${Number(layer.fontSize ?? 18) * scale}px`;
+    }
   }
 
   function render() {
@@ -315,8 +339,16 @@
         const node = document.createElement('div');
         node.className = 'composer-layer' + (layer.id === selectedId && selectedTarget === 'layer' ? ' selected' : '');
         node.dataset.layerId = layer.id;
+        node.dataset.layerType = layer.type === 'button' ? 'button' : 'image';
+        node.classList.toggle('is-button', layer.type === 'button');
         applyLayerNodeStyles(node, layer);
 
+        if (layer.type === 'button') {
+          const label = document.createElement('span');
+          label.className = 'composer-button-label';
+          label.textContent = layer.label || 'Button';
+          node.appendChild(label);
+        } else {
         const img = document.createElement('img');
         setImageSource(img, resolveAsset(layer.src), layer.name || 'Photo layer', () => node.classList.add('has-broken-image'));
         img.alt = '';
@@ -327,11 +359,12 @@
         }
         node.appendChild(img);
 
-        node.classList.toggle('locked', layer.locked === true);
         img.addEventListener('load', () => {
           if (layer.id === selectedId) renderSelectionOverlay();
         });
+        }
 
+        node.classList.toggle('locked', layer.locked === true);
         node.addEventListener('pointerdown', startLayerPointer);
         node.addEventListener('click', (event) => {
           event.stopPropagation();
@@ -375,7 +408,7 @@
         handle.type = 'button';
         handle.className = `resize-handle ${corner}`;
         handle.dataset.handle = corner;
-        handle.setAttribute('aria-label', `Resize photo from ${corner} corner`);
+        handle.setAttribute('aria-label', `Resize layer from ${corner} corner`);
         handle.addEventListener('pointerdown', (event) => startLayerPointer(event, selectedLayer()?.id));
         el.selection.appendChild(handle);
       });
@@ -383,8 +416,8 @@
       move.type = 'button';
       move.className = 'selection-move';
       move.dataset.selectionMove = '';
-      move.title = 'Drag to move this photo, including when it is outside the frame';
-      move.setAttribute('aria-label', 'Move selected photo');
+      move.title = 'Drag to move this layer, including when it is outside the frame';
+      move.setAttribute('aria-label', 'Move selected layer');
       move.addEventListener('pointerdown', (event) => startLayerPointer(event, selectedLayer()?.id));
       el.selection.appendChild(move);
     }
@@ -399,7 +432,7 @@
       handle.style.top = `${y}px`;
     });
     const move = el.selection.querySelector('[data-selection-move]');
-    move.textContent = layer.name || 'Move photo';
+    move.textContent = layer.name || 'Move layer';
     const halfLabel = Math.min(75, (frame.width - 30) / 2);
     const corners = [[left, top], [right, top], [left, bottom], [right, bottom]];
     const candidates = [[(bounds.left + bounds.right) / 2 - frame.left, bounds.top - frame.top - 32]];
@@ -462,14 +495,14 @@
     renderProperties();
     if (layer.locked) {
       renderSelectionOverlay();
-      setStatus('This photo is locked. Unlock it in Photo Layer to move or resize it.');
+      setStatus('This layer is locked. Unlock it in Layers to move or resize it.');
       return;
     }
     const frame = el.canvas.getBoundingClientRect();
     const nodeRect = node.getBoundingClientRect();
     const start = {
       pointerX: event.clientX, pointerY: event.clientY,
-      layerX: Number(layer.x), layerY: Number(layer.y), width: Number(layer.width),
+      layerX: Number(layer.x), layerY: Number(layer.y), width: Number(layer.width), height: Number(layer.height || 8),
       handle: event.target.closest('[data-handle]')?.dataset.handle || '',
       halfWidth: Math.max(1, node.offsetWidth / 2), halfHeight: Math.max(1, node.offsetHeight / 2),
       angle: Number(layer.rotation || 0) * Math.PI / 180
@@ -484,8 +517,13 @@
         const localY = -dx * Math.sin(start.angle) + dy * Math.cos(start.angle);
         const sx = start.handle.includes('e') ? 1 : -1;
         const sy = start.handle.includes('s') ? 1 : -1;
-        const factor = 1 + (sx * start.halfWidth * localX + sy * start.halfHeight * localY) / (start.halfWidth ** 2 + start.halfHeight ** 2);
-        layer.width = clamp(start.width * factor, 0.5, 400);
+        if (layer.type === 'button') {
+          layer.width = clamp(start.width + sx * localX / frame.width * 200, 0.5, 400);
+          layer.height = clamp(start.height + sy * localY / frame.height * 200, 0.5, 400);
+        } else {
+          const factor = 1 + (sx * start.halfWidth * localX + sy * start.halfHeight * localY) / (start.halfWidth ** 2 + start.halfHeight ** 2);
+          layer.width = clamp(start.width * factor, 0.5, 400);
+        }
       } else {
         const next = snapPosition(start.layerX + dx / frame.width * 100, start.layerY + dy / frame.height * 100,
           nodeRect.width / frame.width * 100, nodeRect.height / frame.height * 100, true, layer.id, move.altKey);
@@ -504,7 +542,7 @@
       node.classList.remove('dragging');
       commitHistory();
       render();
-      setStatus(start.handle ? 'Photo resized — save when ready.' : 'Photo moved — the frame crops any part outside its edges.');
+      setStatus(start.handle ? 'Layer resized — save when ready.' : 'Layer moved — the frame crops any part outside its edges.');
     };
     document.addEventListener('pointermove', onMove);
     document.addEventListener('pointerup', onUp, {once: true});
@@ -640,9 +678,10 @@
     setControlValue('layerX', round(layer.x, 1));
     setControlValue('layerY', round(layer.y, 1));
     setControlValue('layerWidth', round(layer.width, 1));
+    setControlValue('layerHeight', round(layer.height ?? 8, 1));
     setControlValue('layerScale', round(layer.width, 1));
     setOutput('layerScale', `${round(layer.width, 1)}%`);
-    if (el.selectedSize) el.selectedSize.textContent = `${round(layer.width, 1)}% of canvas · z${layer.z ?? 1}${layer.visible === false ? ' · hidden' : ''}${layer.locked ? ' · locked' : ''}`;
+    if (el.selectedSize) el.selectedSize.textContent = `${round(layer.width, 1)}%${layer.type === 'button' ? ` × ${round(layer.height, 1)}%` : ''} of canvas · z${layer.z ?? 1}${layer.visible === false ? ' · hidden' : ''}${layer.locked ? ' · locked' : ''}`;
   }
 
   function round(value, digits = 0) {
@@ -690,18 +729,25 @@
     el.noSelection.hidden = !!layer;
     el.layerControls.hidden = !layer;
     if (!layer) return;
-    el.layerControls.querySelectorAll('input, [data-layer-size], [data-action]').forEach((control) => {
+    el.layerControls.querySelectorAll('input, select, [data-layer-size], [data-action]').forEach((control) => {
       const allowed = ['layer-lock', 'layer-hide', 'layer-duplicate'];
       control.disabled = layer.locked && !allowed.includes(control.dataset.action);
     });
     root.querySelector('[data-action="layer-lock"]').textContent = layer.locked ? 'Unlock' : 'Lock';
     root.querySelector('[data-action="layer-hide"]').textContent = layer.visible === false ? 'Show' : 'Hide';
+    const isButton = layer.type === 'button';
+    root.querySelector('[data-button-controls]').hidden = !isButton;
+    root.querySelector('[data-button-icon]').hidden = !isButton;
+    el.selectedPreview.hidden = isButton;
+    root.querySelectorAll('[data-button-only]').forEach((node) => { node.hidden = !isButton; });
+    root.querySelectorAll('[data-photo-only]').forEach((node) => { node.hidden = isButton; });
 
     if (refreshInputs) {
       const map = {
         layerX: layer.x,
         layerY: layer.y,
         layerWidth: layer.width,
+        layerHeight: layer.height ?? 8,
         layerScale: layer.width,
         layerRotation: layer.rotation || 0,
         layerOpacity: layer.opacity ?? 100,
@@ -712,9 +758,15 @@
         layerShadow: layer.shadowOpacity ?? 35
       };
       Object.entries(map).forEach(([key, value]) => setControlValue(key, value));
+      if (isButton) {
+        Object.entries({buttonLabel: layer.label, buttonUrl: layer.url, buttonStyle: layer.style,
+          buttonColor: layer.color, buttonTextColor: layer.textColor, buttonBorderColor: layer.borderColor,
+          buttonFontSize: layer.fontSize, buttonRadius: layer.radius}).forEach(([key, value]) => setControlValue(key, value));
+        root.querySelector('[data-control="buttonNewTab"]').checked = layer.newTab === true;
+      }
     }
 
-    setImageSource(el.selectedPreview, resolveAsset(layer.thumbnail || layer.src), layer.name || 'Photo layer');
+    if (!isButton) setImageSource(el.selectedPreview, resolveAsset(layer.thumbnail || layer.src), layer.name || 'Photo layer');
     el.selectedName.textContent = layer.name || 'Photo layer';
     updateLayerPropertyReadout(layer);
     setOutput('layerOpacity', `${Math.round(layer.opacity ?? 100)}%`);
@@ -727,7 +779,7 @@
 
   function renderLayerStack() {
     const stack = el.layerStack;
-    stack.innerHTML = '<h3>Layer stack · select any photo</h3>';
+    stack.innerHTML = '<h3>Layer stack · photos and buttons</h3>';
     stack.hidden = currentView().layers.length === 0;
     [...currentView().layers]
       .sort((a, b) => Number(b.z ?? 1) - Number(a.z ?? 1))
@@ -736,7 +788,7 @@
         button.type = 'button';
         button.dataset.layerSelect = layer.id;
         button.className = layer.id === selectedId ? 'active' : '';
-        button.innerHTML = `<span>${layer.visible === false ? '○' : '●'}</span><b>${escapeHtml(layer.name || 'Photo layer')}</b><small>${layer.locked ? 'Locked · ' : ''}z${Number(layer.z ?? 1)}</small>`;
+        button.innerHTML = `<span>${layer.visible === false ? '○' : (layer.type === 'button' ? '↗' : '●')}</span><b>${escapeHtml(layer.name || 'Photo layer')}</b><small>${layer.locked ? 'Locked · ' : ''}z${Number(layer.z ?? 1)}</small>`;
         button.addEventListener('click', () => {
           selectedId = layer.id;
           selectedTarget = 'layer';
@@ -979,6 +1031,28 @@
     setStatus(`${layer.name} added. Drag it anywhere or use the corner handles to resize it.`);
   }
 
+  function addButton() {
+    const layer = {
+      id: `button-${Date.now()}-${Math.random().toString(16).slice(2, 7)}`,
+      type: 'button', name: 'Book with me', label: 'Book with me', url: 'booking/',
+      x: device === 'mobile' ? 50 : 70, y: 82,
+      width: device === 'mobile' ? 62 : (device === 'tablet' ? 32 : 22),
+      height: section === 'footer' ? 12 : 8,
+      style: 'solid', color: '#ff2d8d', textColor: '#ffffff', borderColor: '#ff2d8d',
+      fontSize: device === 'mobile' ? 16 : 18, radius: 10, newTab: false,
+      rotation: 0, opacity: 100, shadowX: 0, shadowY: 8, shadowBlur: 18, shadowOpacity: 25,
+      visible: true, locked: false,
+      z: Math.max(0, ...currentView().layers.map((item) => Number(item.z || 0))) + 1
+    };
+    currentView().layers.push(layer);
+    selectedId = layer.id;
+    selectedTarget = 'layer';
+    commitHistory();
+    activatePropertyTab('layer');
+    render();
+    setStatus(`Button added to ${device}. Edit its label and destination in Layers; copy the layout to reuse it on other devices.`);
+  }
+
   el.contentBox.addEventListener('pointerdown', startContentPointer);
   el.contentBox.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -1095,6 +1169,7 @@
     layerX: 'x',
     layerY: 'y',
     layerWidth: 'width',
+    layerHeight: 'height',
     layerScale: 'width',
     layerRotation: 'rotation',
     layerOpacity: 'opacity',
@@ -1112,16 +1187,38 @@
       if (!layer || layer.locked) return;
       let value = Number(input.value);
       if (!Number.isFinite(value)) return;
-      if (property === 'width') value = clamp(value, 0.5, 400);
+      if (property === 'width' || property === 'height') value = clamp(value, 0.5, 400);
       if (property === 'x' || property === 'y') value = clamp(value, -400, 500);
       layer[property] = value;
       renderLayers();
       renderProperties(false);
-      if (property === 'width') updateLayerPropertyReadout(layer);
+      if (property === 'width' || property === 'height') updateLayerPropertyReadout(layer);
     });
     input.addEventListener('change', () => {
       commitHistory();
-      setStatus('Photo layer changed — save when ready.');
+      setStatus('Layer changed — save when ready.');
+    });
+  });
+
+  const buttonControls = {buttonLabel: 'label', buttonUrl: 'url', buttonStyle: 'style',
+    buttonColor: 'color', buttonTextColor: 'textColor', buttonBorderColor: 'borderColor',
+    buttonFontSize: 'fontSize', buttonRadius: 'radius', buttonNewTab: 'newTab'};
+  Object.entries(buttonControls).forEach(([control, property]) => {
+    const input = root.querySelector(`[data-control="${control}"]`);
+    input.addEventListener('input', () => {
+      const layer = selectedLayer();
+      if (!layer || layer.type !== 'button' || layer.locked) return;
+      let value = input.type === 'checkbox' ? input.checked : input.value;
+      if (property === 'fontSize') value = clamp(value, 8, 96);
+      if (property === 'radius') value = clamp(value, 0, 100);
+      layer[property] = value;
+      if (property === 'label') layer.name = value || 'Button';
+      renderLayers();
+      renderProperties(false);
+    });
+    input.addEventListener('change', () => {
+      commitHistory();
+      setStatus('Button changed — save when ready.');
     });
   });
 
@@ -1131,13 +1228,17 @@
     layer.width = clamp(button.dataset.layerSize, 0.5, 400);
     commitHistory();
     render();
-    setStatus(`Photo size set to ${layer.width}%.`);
+    setStatus(`Layer width set to ${layer.width}%.`);
   }));
 
   root.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => handleAction(button.dataset.action)));
 
   function handleAction(action) {
     const layer = selectedLayer();
+    if (action === 'add-button') {
+      addButton();
+      return;
+    }
     if (action === 'toggle-upload') {
       activateAssetsTab('media');
       const panel = root.querySelector('[data-upload-panel]');
@@ -1203,7 +1304,7 @@
     }
     if (!layer) return;
     if (layer.locked && !['layer-lock', 'layer-hide', 'layer-duplicate'].includes(action)) {
-      setStatus('Unlock this photo before changing it.');
+      setStatus('Unlock this layer before changing it.');
       return;
     }
     if (action.startsWith('layer-align-') || action === 'layer-crop-bottom') alignLayer(action, layer);
@@ -1232,7 +1333,7 @@
     }
     commitHistory();
     render();
-    setStatus('Photo layer updated.');
+    setStatus('Layer updated.');
   }
 
   function alignLayer(action, layer) {
@@ -1263,8 +1364,7 @@
       headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
       body: JSON.stringify({action, scene: draft})
     });
-    const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error(result.message || 'Unable to save composition.');
+    const result = await window.VELVET_API.read(response, 'Unable to save composition.');
     versions[targetSection] = result.versions || versions[targetSection];
     return result;
   }
@@ -1306,7 +1406,21 @@
       if (preview && !preview.closed) preview.location.replace(`${baseUrl}/?preview=1`);
       setStatus(preview ? 'Full Page Preview opened with both saved drafts.' : 'Both drafts saved. Allow pop-ups, then open Full Page Preview again.');
     } catch (error) {
-      if (preview && !preview.closed) preview.close();
+      if (preview && !preview.closed) {
+        try {
+          preview.document.title = 'Preview could not be opened';
+          const heading = preview.document.createElement('h1');
+          heading.textContent = 'Preview could not be opened';
+          const message = preview.document.createElement('p');
+          message.textContent = error.message || 'The draft could not be saved. Return to the Composer and try again.';
+          const link = preview.document.createElement('a');
+          link.href = `${baseUrl}/admin/?page=composer`;
+          link.textContent = 'Return to Composer';
+          link.style.color = '#ff78b8';
+          preview.document.body.style.cssText = 'margin:0;padding:clamp(24px,8vw,96px);background:#100810;color:#fff;font:18px/1.6 Arial,sans-serif';
+          preview.document.body.replaceChildren(heading, message, link);
+        } catch { /* The owner may have navigated the preview tab elsewhere. */ }
+      }
       setStatus(error.message, 'error');
     } finally {
       setSaving(false);
@@ -1344,8 +1458,7 @@
         headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
         body: JSON.stringify({action: 'restore', versionId})
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || 'Restore failed.');
+      const result = await window.VELVET_API.read(response, 'Restore failed.');
       scenes[targetSection] = result.scene;
       versions[targetSection] = result.versions || [];
       selectedId = null;
@@ -1375,8 +1488,7 @@
         body: new FormData(quickUpload),
         headers: {'X-CSRF-Token': csrf}
       });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || 'Upload failed.');
+      const result = await window.VELVET_API.read(response, 'Upload failed.');
       media.unshift(result.asset);
       if (result.asset.file && result.asset.url) assetUrls[result.asset.file] = result.asset.url;
       if (result.asset.thumbnail && result.asset.thumbnailUrl) assetUrls[result.asset.thumbnail] = result.asset.thumbnailUrl;
@@ -1404,7 +1516,13 @@
   });
   root.querySelector('[data-control="sceneTitle"]').addEventListener('change', commitHistory);
   if (typeof ResizeObserver === 'function') {
-    new ResizeObserver(() => { renderSelectionOverlay(); renderPlacementGuides(); }).observe(el.canvas);
+    new ResizeObserver(() => {
+      currentView().layers.filter((layer) => layer.type === 'button').forEach((layer) => {
+        const node = layerNode(layer);
+        if (node) applyLayerNodeStyles(node, layer);
+      });
+      renderSelectionOverlay(); renderPlacementGuides();
+    }).observe(el.canvas);
   }
 
   el.mediaSearch?.addEventListener('input', renderMedia);
@@ -1467,7 +1585,7 @@
       event.preventDefault();
       commitHistory();
       render();
-      setStatus(selectedTarget === 'content' ? 'Live content box nudged.' : 'Photo layer adjusted.');
+      setStatus(selectedTarget === 'content' ? 'Live content box nudged.' : 'Layer adjusted.');
     }
   });
 
@@ -1481,5 +1599,5 @@
   renderLibrary();
   activateAssetsTab(assetsTab);
   render();
-  setStatus('Ready — drag images and the live text + button box directly on the canvas.');
+  setStatus('Ready — drag images and live content, or choose Add Button for a separately movable link.');
 })();

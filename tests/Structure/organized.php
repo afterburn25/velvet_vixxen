@@ -9,7 +9,9 @@ foreach ($requiredDirectories as $directory) {
         exit(1);
     }
 }
-$allowedRootPhp = ['index.php','route.php'];
+// media.php is a thin compatibility entrypoint for existing signed media URLs;
+// all delivery and authorization logic stays in public/routes/media.php.
+$allowedRootPhp = ['index.php','media.php','route.php'];
 $rootPhp = array_map('basename', glob($root . '/*.php') ?: []);
 sort($rootPhp); sort($allowedRootPhp);
 if ($rootPhp !== $allowedRootPhp) {

@@ -1,3 +1,14 @@
+Velvet Vixxen 0.8.1 — Media, Composer buttons and public route repair
+Updated: 2026-10-19
+Status: combined implementation and verification in progress; no final new runtime/source hash or customer delivery is claimed yet.
+Branch: feature/0.8.1-site-ux-hero-library
+Starting handoff commit: 195699c12620e4803160b28f023764bebc421bb4
+Starting executable installer baseline: e5b04daa132521be69c943151f8112c7cd2017e8
+New package: Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip, installed 0.8.1 only; runtime files without configuration, storage, uploads, database data or installer state.
+Current guide: docs/MEDIA_COMPOSER_REPAIR.md
+Current execution state: docs/TEST_REPORT.md
+The existing-database installer repair and earlier distributions below are historical evidence; their successful CI does not certify this new routing/button continuation.
+
 VELVET VIXXEN 0.8.1 — INSTALLER DATABASE AND LAYOUT REPAIR
 
 Status: all seven current GitHub jobs completed/success; PHP 8.2.34/8.3.35 source/package suites, 922 actual-package MySQL installer assertions on each version, 134 recovery assertions, real installer desktop/mobile acceptance, seven HTTP and twelve application-browser suites, and gated runtime packaging passed. Downloaded GitHub ZIPs and manifest are byte-identical to the saved repair/fresh/upgrade downloads.

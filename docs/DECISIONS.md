@@ -1,5 +1,14 @@
 # Architecture and Product Decisions
 
+## Public route compatibility and Composer controls (2026-10-19)
+
+- Keep protected implementations under `public/routes` and preserve existing public URLs with thin physical entry points. A host may dispatch nonexistent `.php` paths to FastCGI before rewrite rules can forward them. Every registered public page/API must be present in the runtime ZIP, including nested-installation paths and short account aliases.
+- Keep `media.php` as the single additional root compatibility entry point for already-issued signed-media URLs; its implementation stays under `public/routes`. This is a narrow organized-source exception, not permission to move business logic into the root.
+- Test actual extracted packages without the universal test router as well as the existing rewrite-router acceptance. Missing physical files must cause the negative controls to fail; readable application errors are distinct from a host's missing-file page.
+- Parse upload and scene responses through one shared JSON helper. Preserve server validation messages, translate non-JSON/HTTP failures into useful errors, and re-enable failed controls for retry. A failed Full Page Preview must keep its new tab open with an explanation instead of immediately closing it.
+- Store separate live button layers in the existing per-device scene JSON. Reuse geometry, ordering, history, hide/lock and copy controls; keep photo layers and the existing live text/button group independent. Validate button labels, colors, geometry and destinations before any scene write. Allow site-relative or HTTP(S) destinations, reject unsafe schemes and render labels as text.
+- Ship a separately allowlisted Media/Composer repair for installed 0.8.1 sites, plus current fresh and upgrade distributions. Configuration, storage, uploads and all customer/private data remain outside the repair. No database migration or installer rerun is required for these controls and routing changes.
+
 ## Product identity and design
 
 - Product: Nikki Wilder — The Velvet Vixxen
