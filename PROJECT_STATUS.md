@@ -1,5 +1,13 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
+## Installer folder correction in progress — 2026-10-19
+
+The owner reported fresh-install readiness failures for nine missing image, font/icon and template folders after downloading the earlier 0.8.1 package. The manifest required unused empty scaffolding that the runtime-only ZIP intentionally does not contain. On panel-owned read-only asset trees, PHP cannot create those folders. The earlier same-owner installer fixtures did not cover this extracted-package ownership case; the prior green runs below do not certify it.
+
+The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. A one-file installer repair ZIP will let an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The complete fresh package will also contain the correction.
+
+Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Fresh PHP 8.2/8.3, MySQL 8 and HTTP/browser CI is pending on the corrective commit; do not claim that new run has passed until its results are observed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+
 Repository: `afterburn25/velvet_vixxen`. Updated: 2026-10-19.
 
 ## Verified current implementation

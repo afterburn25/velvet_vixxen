@@ -1,0 +1,47 @@
+{
+  "version": "0.8.1",
+  "correction": "Installer Folder Repair",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "starting_commit": "349fd1a5128c9963e535f77b75890feaac5981b1",
+  "filesystem_service_sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+  "verification": {
+    "local_source_suite": "passed (PHP 8.3.6)",
+    "real_foreign_ownership_packaged_preflight": "passed",
+    "original_nine_path_failure_reproduced": "passed; original ZIP rebuilt byte-for-byte",
+    "runtime_package_tests": "passed",
+    "new_github_ci": "pending"
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+      "size_bytes": 7576393,
+      "sha256": "8b60a3142406471c0ab03ed68a298a806832132f46e9ad01b179b01ccaa1e46f",
+      "files": 313,
+      "php_files": 166,
+      "javascript_files": 10
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7423931,
+      "sha256": "57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715",
+      "files": 272,
+      "php_files": 155,
+      "javascript_files": 10
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip",
+      "size_bytes": 6400,
+      "sha256": "191e498656b70e11dbc85df3fbd10d29c5a5ac58ee400bf4b92fe5088bfeaac9",
+      "files": 1,
+      "php_files": 1,
+      "javascript_files": 0,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete"
+    }
+  ]
+}

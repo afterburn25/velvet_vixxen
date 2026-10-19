@@ -108,3 +108,11 @@ These are design requirements; advanced audience/expiration, scheduled scenes, a
 - Installed database updates apply pending versioned migrations after identity/plan checks and explicit operator backup acknowledgment. Failure records are retained; destructive down SQL never runs automatically on an existing site.
 - Browser asset cache identity is distinct from the 0.8.1 core/add-on compatibility version.
 - Canva is a saved-link/manual export/import bridge. Functional HTML and transparent owner photos remain separate from decorative artwork.
+
+## Installer package ownership correction (2026-10-19)
+
+- Mandatory static directory checks must match actual packaged contents; empty design scaffolding is not a runtime prerequisite.
+- PHP reads application/assets/templates; it does not require write access to those panel-owned trees. Missing required packaged directories remain failures, not empty directories manufactured by preflight.
+- Automatic ownership repair remains restricted to the existing writable runtime roots. Do not copy or rotate public assets merely to create unused folders.
+- Installer regressions must extract the real customer ZIP and execute PHP as a different unprivileged owner; a same-owner temporary directory is insufficient evidence of shared-hosting behavior.
+- An unfinished 0.8.1 installer can be corrected with a runtime-only one-file overlay. It never replaces configuration, storage, uploads, database contents or installed application data.

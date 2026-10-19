@@ -1,3 +1,32 @@
+VELVET VIXXEN 0.8.1 — INSTALLER FOLDER CORRECTION
+
+Status: local PHP 8.3.6/source/package and real foreign-ownership regression passed; new full GitHub CI pending.
+Branch: feature/0.8.1-site-ux-hero-library
+Starting source: 349fd1a5128c9963e535f77b75890feaac5981b1
+Corrected FileSystemService.php SHA-256: bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 8b60a3142406471c0ab03ed68a298a806832132f46e9ad01b179b01ccaa1e46f
+Bytes: 7576393
+Runtime files: 313; PHP: 166; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715
+Bytes: 7423931
+Runtime files: 272; PHP: 155; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip
+SHA-256: 191e498656b70e11dbc85df3fbd10d29c5a5ac58ee400bf4b92fe5088bfeaac9
+Bytes: 6400
+Runtime files: 1; PHP: 1; JavaScript: 0
+
+Use the one-file Installer-Folder-Repair ZIP to resume an existing unfinished 0.8.1 installer. It contains only install/services/FileSystemService.php. The full fresh ZIP includes that correction. The ordinary upgrade is unchanged and does not include install. No configuration, storage, uploads or database data is included in the repair.
+
+Source/usage: docs/INSTALLER_FOLDER_REPAIR.md
+Evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-installer-folder-repair.json
+
+--- PREVIOUS VERIFIED CONTINUATION RECORD (BEFORE THE REPORTED FOLDER DEFECT) ---
+
 VELVET VIXXEN 0.8.1 — VERIFIED SITE UX CONTINUATION
 
 Status: all required engineering gates passed; payments remain sandbox-only.

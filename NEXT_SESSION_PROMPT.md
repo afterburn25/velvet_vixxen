@@ -46,7 +46,11 @@ Preserve all of these decisions:
 - Payment remains sandbox-only until a live adult-compatible provider is separately approved and tested.
 - Do not commit credentials, customer/member data, identity records, private messages/attachments, payment secrets, raw license keys, private signing keys, logs, sessions, runtime state, or private/paid media.
 
-## Verified continuation checkpoint
+## Current priority — installer folder correction
+
+The latest user report concerns nine missing static image/font/icon/template folders that the earlier installer incorrectly required. Read the new corrective checkpoint in `PROJECT_STATUS.md` and `docs/TEST_REPORT.md` before treating the earlier all-green CI as coverage of this case. Preserve the static-readability/writable-runtime distinction and extracted-package foreign-ownership regression. Finish verification, upload the corrected runtime and one-file installer repair ZIPs, and record exact evidence. Do not delete configuration, storage, uploads or any installed identity/data to recover a stopped fresh install.
+
+## Earlier verified continuation checkpoint
 
 The **0.8.1 user-facing engineering continuation is implemented and verified** on `feature/0.8.1-site-ux-hero-library`. Runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c); complete GitHub CI: [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), **all six jobs passed**. PHP 8.2.34/8.3.35, JavaScript syntax, MySQL 8.0.46, installer/ownership/security, seven HTTP suites, twelve real Chromium suites and gated runtime packaging all passed. The library has 30 individual scenes and 30 thumbnails, with 90 successful published renders across desktop/tablet/mobile.
 

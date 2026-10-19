@@ -1,5 +1,11 @@
 ## 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise (2026-10-19)
 
+## 0.8.1 installer folder correction — 2026-10-19
+
+- Remove unused empty image/font/icon/template/seeds scaffolding from mandatory installer readiness.
+- Read-only packaged directories require presence/readability, without PHP write access or permission changes. Real missing application directories still block installation.
+- Add a fresh-ZIP regression under different panel/PHP ownership and a one-file repair distribution for unfinished installs. New verification is recorded in `docs/TEST_REPORT.md`.
+
 - Recover the checksum-verified 0.8.1 executable runtime into the repository and restore engineering tests/SDK.
 - Reconcile the separate 0.7.4 Visual Composer fixes with the newer router/recovery source.
 - Validate matching installation identities and prevent reinstall over retained configuration or keys.

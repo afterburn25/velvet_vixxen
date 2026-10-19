@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build reproducible fresh-install and state-preserving upgrade packages."""
+"""Build reproducible runtime installation, upgrade, and focused repair packages."""
 from __future__ import annotations
 
 import argparse
@@ -15,6 +15,8 @@ RUNTIME_ROOTS = {
     "install", "public", "storage", "templates", "uploads", "vendor",
 }
 PRESERVED_UPGRADE_ROOTS = {"config", "storage", "uploads", "install"}
+INSTALLER_REPAIR_VERSION = "0.8.1"
+INSTALLER_REPAIR_FILES = {"install/services/FileSystemService.php"}
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -30,7 +32,9 @@ FORBIDDEN_SUFFIXES = (".log", ".tmp", ".previous", ".backup", ".bak", ".pem", ".
 
 
 def eligible(relative: str, kind: str) -> bool:
-    """An allowlist prevents runtime data from entering either distribution."""
+    """An allowlist prevents runtime data from entering any distribution."""
+    if kind == "installer-repair":
+        return relative in INSTALLER_REPAIR_FILES
     path = Path(relative)
     parts = path.parts
     if not parts or path.is_absolute() or ".." in parts:
@@ -82,20 +86,26 @@ def runtime_files(root: Path, kind: str) -> dict[str, bytes]:
 
 
 def validate(files: dict[str, bytes], kind: str, version: str) -> None:
-    required = ROOT_FILES | {
-        "app/bootstrap.php", "includes/bootstrap.php", "includes/version.php",
-        "includes/installation_recovery.php", "public/router.php", "public/home.php",
-        "app/Core/RepairBackupService.php", "public/assets/js/composer.js",
-    }
-    if kind == "fresh":
-        required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"}
+    if kind == "installer-repair":
+        if version != INSTALLER_REPAIR_VERSION:
+            raise ValueError("The installer folder repair applies only to unfinished 0.8.1 installations")
+        required = INSTALLER_REPAIR_FILES
+    else:
+        required = ROOT_FILES | {
+            "app/bootstrap.php", "includes/bootstrap.php", "includes/version.php",
+            "includes/installation_recovery.php", "public/router.php", "public/home.php",
+            "app/Core/RepairBackupService.php", "public/assets/js/composer.js",
+        }
+        if kind == "fresh":
+            required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"}
     missing = required - files.keys()
     if missing:
         raise ValueError("Required runtime source is missing: " + ", ".join(sorted(missing)))
-    if files["VERSION"].decode().strip() != version:
-        raise ValueError("Package version does not match VERSION")
-    if version.encode() not in files["includes/version.php"]:
-        raise ValueError("includes/version.php does not match VERSION")
+    if kind != "installer-repair":
+        if files["VERSION"].decode().strip() != version:
+            raise ValueError("Package version does not match VERSION")
+        if version.encode() not in files["includes/version.php"]:
+            raise ValueError("includes/version.php does not match VERSION")
     for name, content in files.items():
         if not eligible(name, kind):
             raise ValueError(f"Disallowed package entry: {name}")
@@ -123,15 +133,26 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
         raise ValueError("Use a numeric major.minor.patch version")
     output.mkdir(parents=True, exist_ok=True)
     result: dict[str, object] = {"version": version, "packages": []}
-    for kind, suffix in [("fresh", "Fresh-Install"), ("upgrade", "Upgrade-from-0.8.x")]:
+    variants = [("fresh", "Fresh-Install"), ("upgrade", "Upgrade-from-0.8.x")]
+    if version == INSTALLER_REPAIR_VERSION:
+        variants.append(("installer-repair", "Installer-Folder-Repair"))
+    for kind, suffix in variants:
         files = runtime_files(root, kind)
         validate(files, kind, version)
         filename = f"Nikki-Wilder-Velvet-Vixxen-{version}-{suffix}.zip"
         archive = output / filename
+        compatibility = {
+            "supported_from": ["0.8.0", "0.8.1"] if kind == "upgrade" else [],
+        }
+        if kind == "installer-repair":
+            compatibility = {
+                "supported_from": [INSTALLER_REPAIR_VERSION],
+                "installation_state": "incomplete",
+            }
         with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zipped:
             zipped.comment = json.dumps({
                 "product": "Velvet Vixxen", "version": version, "kind": kind,
-                "supported_from": ["0.8.0", "0.8.1"] if kind == "upgrade" else [],
+                **compatibility,
             }, separators=(",", ":")).encode()
             for relative, content in files.items():
                 entry = ZipInfo(relative, date_time=(2026, 1, 1, 0, 0, 0))
@@ -150,6 +171,7 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             "files": len(files), "php_files": sum(name.endswith(".php") for name in files),
             "javascript_files": sum(name.endswith(".js") for name in files),
             "entry_sha256": {name: hashlib.sha256(data).hexdigest() for name, data in files.items()},
+            **(compatibility if kind == "installer-repair" else {}),
         })
     (output / f"Velvet-Vixxen-{version}-package-manifest.json").write_text(
         json.dumps(result, indent=2) + "\n"

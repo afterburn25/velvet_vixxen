@@ -31,6 +31,13 @@ file_put_contents($temp . '/install/sub/test.txt', 'test');
 
 $log = new InstallerLog($temp, 'test');
 $fs = new FileSystemService($temp, $log);
+// This unit fixture stands in for a fully extracted package. Static runtime
+// directories must already exist; the installer only creates writable state.
+foreach ($fs->directoryManifest() as $relative => $definition) {
+    if (!$definition['writable'] && !is_dir($temp . '/' . $relative)) {
+        mkdir($temp . '/' . $relative, 0755, true);
+    }
+}
 $rows = $fs->prepareAndProbe();
 $assert($fs->allRequiredWritable($rows), 'Required folder probe did not pass in a writable temporary directory.');
 foreach ($rows as $row) {

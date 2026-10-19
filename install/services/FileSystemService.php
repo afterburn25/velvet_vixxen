@@ -40,6 +40,10 @@ final class FileSystemService
     /**
      * Runtime-only installation manifest.
      *
+     * Only directories used by the packaged application belong here. Empty
+     * design scaffolding is not shipped and must not block a shared-host install.
+     * Read-only entries must already exist in the extracted runtime package;
+     * PHP only creates and repairs the explicitly writable runtime directories.
      * Development-only folders such as /docs and /tests are intentionally absent.
      *
      * @return array<string,array{writable:bool,mode:int,label:string,required:bool}>
@@ -59,13 +63,13 @@ final class FileSystemService
             'addons', 'addons/installed', 'addons/packages', 'addons/staging',
             'app', 'app/Console', 'app/Core', 'app/Payments', 'app/Support', 'app/Views',
             'config',
-            'database', 'database/backups', 'database/migrations', 'database/seeds',
-            'images', 'images/backgrounds', 'images/branding', 'images/defaults', 'images/gallery-covers', 'images/icons', 'images/placeholders',
+            'database', 'database/backups', 'database/migrations',
+            'images', 'images/defaults', 'images/hero', 'images/hero/thumbnails',
             'includes',
             'install', 'install/services', 'install/views',
-            'public', 'public/assets', 'public/assets/css', 'public/assets/fonts', 'public/assets/icons', 'public/assets/js', 'public/routes',
+            'public', 'public/assets', 'public/assets/css', 'public/assets/js', 'public/routes',
             'storage', 'storage/backups', 'storage/cache', 'storage/defaults', 'storage/logs', 'storage/private', 'storage/private/repair-backups', 'storage/sessions', 'storage/temp', 'storage/temporary', 'storage/updates',
-            'templates', 'templates/canva', 'templates/email', 'templates/visual-composer',
+            'templates', 'templates/canva',
             'uploads', 'uploads/audio', 'uploads/captions', 'uploads/exports', 'uploads/images', 'uploads/media', 'uploads/models', 'uploads/originals', 'uploads/previews', 'uploads/thumbnails', 'uploads/videos', 'uploads/watermarked',
             'vendor',
         ];
@@ -90,9 +94,10 @@ final class FileSystemService
     }
 
     /**
-     * Creates required directories, applies safe permissions, performs real
-     * write/rename/read/delete probes, and repairs control-panel ownership
-     * mismatches without ever using mode 0777.
+     * Verifies packaged read-only directories without modifying their ownership
+     * or permissions. Creates required writable directories, applies safe modes,
+     * performs real write/rename/read/delete probes, and repairs control-panel
+     * ownership mismatches without ever using mode 0777.
      *
      * @return list<array{path:string,label:string,status:string,message:string,mode:string,writable:bool,required:bool}>
      */
@@ -103,6 +108,30 @@ final class FileSystemService
 
         foreach ($manifest as $relative => $definition) {
             $absolute = $this->root . '/' . $relative;
+            clearstatcache(true, $absolute);
+
+            // A control panel may own public assets and application templates.
+            // The site only needs to read these trees. Do not try to create empty
+            // source folders or chmod/copy existing ones as a writable-dir repair.
+            if (!$definition['writable']) {
+                $present = is_dir($absolute) && !is_link($absolute);
+                $readable = $present && is_readable($absolute);
+                $results[] = [
+                    'path' => $relative,
+                    'label' => $definition['label'],
+                    'status' => $readable ? 'pass' : 'fail',
+                    'message' => !$present
+                        ? 'Required application directory is missing or is not a regular directory. Re-extract the complete fresh-install ZIP.'
+                        : ($readable
+                            ? 'Present and readable; PHP write access is not required.'
+                            : 'Required application directory is not readable by PHP.'),
+                    'mode' => $present ? $this->mode($absolute) : '----',
+                    'writable' => $present && is_writable($absolute),
+                    'required' => $definition['required'],
+                ];
+                continue;
+            }
+
             $created = false;
 
             if (!is_dir($absolute)) {
@@ -476,6 +505,9 @@ final class FileSystemService
             }
             $absolute = $this->root . '/' . $relative;
             if (!is_dir($absolute)) {
+                if (!$definition['writable']) {
+                    throw new RuntimeException('Required application directory is missing from the package: /' . $relative);
+                }
                 if (!@mkdir($absolute, $definition['mode'], true) && !is_dir($absolute)) {
                     throw new RuntimeException('A required runtime subdirectory could not be created: /' . $relative);
                 }

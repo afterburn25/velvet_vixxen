@@ -1,6 +1,25 @@
 # Velvet Vixxen 0.8.1 — Current Test Evidence
 
+## Installer folder correction in progress — 2026-10-19
+
+The owner reported fresh-install readiness failures for nine missing image, font/icon and template folders after downloading the earlier 0.8.1 package. The manifest required unused empty scaffolding that the runtime-only ZIP intentionally does not contain. On panel-owned read-only asset trees, PHP cannot create those folders. The earlier same-owner installer fixtures did not cover this extracted-package ownership case; the prior green runs below do not certify it.
+
+The current correction removes those nine unused entries and unused `database/seeds`, checks actual packaged application/asset directories for presence/readability without creating or chmodding them, and preserves the existing writable-runtime probes and limited ownership repair. Missing real application folders remain blocking errors. A one-file installer repair ZIP will let an already-uploaded unfinished installation resume without replacing configuration, storage, uploads or database data. The complete fresh package will also contain the correction.
+
+Local PHP 8.3.6 source/JavaScript syntax/security/package suites passed. The new real foreign-owner extracted-ZIP regression reproduced exactly the nine original errors, and the corrected service passed repeated probes, allowed ownership repair, required-write failures, missing real assets and failed-repair preservation. Fresh PHP 8.2/8.3, MySQL 8 and HTTP/browser CI is pending on the corrective commit; do not claim that new run has passed until its results are observed. The 0.8.1 features and locked requirements remain the scope; no 0.9.0 work is authorized by this correction.
+
 Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1, #3; PR #15.
+
+## Installer correction — observed local evidence
+
+- `bash scripts/test.sh`: **PASS**, PHP 8.3.6; complete source/JS/Python syntax, installer/recovery/feature/security and all three runtime-package regressions. Run log: `/tmp/vvx-installer-folder-source.log` in the disposable execution environment.
+- `python3 tests/Installer/packaged_preflight.py`: **PASS**, real packaged source with static trees owned by UID 0 and PHP probes running as UID 65534, using 0755 directories/0644 packaged files. Initial probe plus two rechecks preserve static hashes/modes/owners. All five genuine writable-root failures remain blocking. All five permitted roots can be ownership-repaired while preserving sentinels. Missing `database/migrations` causes repair failure and restores the original database inode, bytes, modes and owner; missing real Hero/CSS/Canva directories remain blocking without empty substitutes.
+- Captured prior `FileSystemService.php` SHA-256 `dce5c92af42aedadb774d6ec2f216e4acb75c1b6976c8352a8ca45aa20750d2c` with `--legacy-filesystem` rebuilds the earlier fresh ZIP SHA-256 `4f2e22ce4eb153a89b42180e15ee55ad7259f39712864e3f79756a47d0e27080` byte-for-byte. It reproduces **exactly all nine customer failures**, including message and `----` mode, for all three requests.
+- Corrected fresh ZIP SHA-256: `8b60a3142406471c0ab03ed68a298a806832132f46e9ad01b179b01ccaa1e46f`; 313 runtime files. Standard upgrade payload is unchanged because it excludes the installer.
+- `python3 tests/Packaging/runtime_packages.py`: **PASS**, reproducible fresh/upgrade/one-file repair ZIPs, exact repair scope and fresh-service byte identity, safe regular-file modes, private/development exclusions, and all other stopped-install/installed-state bytes preserved by overlays.
+- Environment limitation recorded honestly: the default local namespace maps only UID 0, so its first attempted ownership fixture failed. Authorized execution outside that namespace supplied real separate ownership. The test has no ineffective same-owner fallback or passing skip; Ubuntu CI uses passwordless sudo only to orchestrate its disposable fixture and drops privileges for every PHP probe.
+
+The direct failure reproduction closes the test gap in the earlier green checkpoints below. It does not claim access to or deployment on the owner's actual host. See `INSTALLER_FOLDER_REPAIR.md` for the small repair overlay and new-install instructions.
 
 ## Truth boundary
 

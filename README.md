@@ -1,5 +1,9 @@
 # Nikki Wilder — The Velvet Vixxen
 
+## 0.8.1 installer folder correction
+
+If an unfinished installation reports missing image/font/icon/template folders, use the focused one-file repair described in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The fresh package also includes the corrected manifest and static-readability checks. The new real foreign-owner package regression and current verification state are recorded in [Test Report](docs/TEST_REPORT.md); earlier same-owner tests did not cover this defect.
+
 The authoritative application and engineering repository is `afterburn25/velvet_vixxen`. The website is a PHP/MySQL application for shared hosting, with the approved neon-pink design and a single-page browser installer.
 
 ## Current integration: 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
