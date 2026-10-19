@@ -61,7 +61,8 @@ def run() -> None:
         repair = next(entry for entry in built['packages'] if entry['kind'] == 'installer-repair')
         repair_zip = work / 'packages' / repair['filename']
         with ZipFile(repair_zip) as zipped:
-            require(zipped.namelist() == [SERVICE], 'Installer repair must contain exactly the repaired service.')
+            require(set(zipped.namelist()) == package.INSTALLER_REPAIR_FILES and SERVICE in zipped.namelist(),
+                    'Installer repair must contain the reviewed dependencies, including the repaired filesystem service.')
             corrected = zipped.read(SERVICE)
             repair_timestamp = zipped.getinfo(SERVICE).date_time
         require(corrected == (ROOT / SERVICE).read_bytes(), 'Repair ZIP did not contain current executable source.')

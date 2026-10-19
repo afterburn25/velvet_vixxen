@@ -1,5 +1,7 @@
 # 0.8.1 Installer Folder Repair
 
+**Historical folder-only correction.** The newer [Installer Database Repair](INSTALLER_DATABASE_REPAIR.md) includes this folder fix plus existing-database continuation and the requested form alignment changes. Use that newer repair for the current reported installer errors. The one-file archive and hashes below describe the earlier delivery.
+
 This correction applies to an already-uploaded **unfinished 0.8.1 installation** that reports `Directory could not be created` for unused image/font/icon/template folders. It is not an application upgrade or a new installer.
 
 ## Resume the installation already on the server

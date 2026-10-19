@@ -639,6 +639,12 @@
     try {
       const payload = await request('install_now');
       stopProgressPolling();
+      body.classList.remove('installing');
+      if (button) {
+        button.classList.remove('is-loading');
+        button.textContent = 'Installation complete';
+        button.disabled = true;
+      }
       updateProgress({ stage: 'cleanup', label: 'Installation complete', detail: payload.message, percent: 100, status: 'success' });
       setSectionState('install', 'pass', 'Complete');
       const success = $('[data-installation-success]');

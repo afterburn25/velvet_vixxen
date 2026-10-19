@@ -16,6 +16,25 @@ package = importlib.util.module_from_spec(spec)
 assert spec.loader is not None
 spec.loader.exec_module(package)
 
+REPAIR_FILES = {
+    "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
+    "includes/installation_recovery.php",
+    "install/services/FileSystemService.php", "install/services/InstallerService.php",
+    "install/views/single-page.php",
+    "public/assets/css/installer.css",
+    "public/assets/js/installer.js",
+}
+LEGACY_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
+REPAIR_TIMESTAMPS = {
+    relative: ((2026, 10, 19, 0, 0, 0) if relative == "install/services/FileSystemService.php"
+               else (2026, 10, 19, 16, 0, 0))
+    for relative in REPAIR_FILES
+}
+
+
+def metadata(entry) -> tuple:
+    return entry.date_time, entry.external_attr, entry.create_system, entry.compress_type
+
 
 def run() -> None:
     with tempfile.TemporaryDirectory(prefix="vvx-package-test-") as temporary:
@@ -36,6 +55,7 @@ def run() -> None:
             "storage/sessions/session-test": b"PRIVATE SESSION FIXTURE\n",
             "uploads/images/customer-photo.bin": b"UNIQUE UPLOAD FIXTURE\n",
             "config/app.php.previous": b"PREVIOUS CONFIG FIXTURE\n",
+            "database/backups/customer-data.sql": b"PRIVATE DATABASE BACKUP FIXTURE\n",
         }
         for relative, content in protected.items():
             target = source / relative
@@ -45,15 +65,12 @@ def run() -> None:
         version = (source / "VERSION").read_text().strip()
         first = package.build(source, work / "first", version)
         second = package.build(source, work / "second", version)
-        legacy_timestamp = (2026, 1, 1, 0, 0, 0)
-        with patch.object(package, "INSTALLER_FILESYSTEM_TIMESTAMP", legacy_timestamp):
+        with patch.object(package, "INSTALLER_FILESYSTEM_TIMESTAMP", LEGACY_TIMESTAMP), \
+                patch.object(package, "INSTALLER_DATABASE_TIMESTAMP", LEGACY_TIMESTAMP):
             legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
         assert set(releases) == {"fresh", "upgrade", "installer-repair"}, "A required 0.8.1 runtime distribution is missing"
-        legacy_upgrade = next(release for release in legacy_dates["packages"] if release["kind"] == "upgrade")
-        assert releases["upgrade"]["sha256"] == legacy_upgrade["sha256"], "Installer component timestamp changed the ordinary upgrade hash"
-        upgrade_name = releases["upgrade"]["filename"]
-        assert (work / "first" / upgrade_name).read_bytes() == (work / "legacy-dates" / upgrade_name).read_bytes(), "Installer timestamp correction changed ordinary upgrade bytes"
+        assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
         for release in first["packages"]:
             archive = work / "first" / release["filename"]
             assert archive.read_bytes() == (work / "second" / release["filename"]).read_bytes(), "Package is not reproducible"
@@ -70,14 +87,20 @@ def run() -> None:
                         old = previous.getinfo(entry.filename)
                         assert zipped.read(entry) == previous.read(old), "Timestamp correction changed runtime file content"
                         assert (entry.external_attr, entry.create_system, entry.compress_type) == (old.external_attr, old.create_system, old.compress_type), "Timestamp correction changed runtime file permissions or archive format"
-                        if entry.filename == "install/services/FileSystemService.php":
-                            assert entry.date_time > legacy_timestamp, "Corrected PHP service retains the legacy mtime and can remain stale in OPcache"
+                        if entry.filename in REPAIR_TIMESTAMPS:
+                            assert entry.date_time == REPAIR_TIMESTAMPS[entry.filename] > old.date_time == LEGACY_TIMESTAMP, "Corrected runtime dependency lacks its reviewed advanced component timestamp"
                         else:
-                            assert entry.date_time == old.date_time == legacy_timestamp, "Installer correction changed another component's timestamp"
+                            assert entry.date_time == old.date_time == LEGACY_TIMESTAMP, "Installer correction changed another component's timestamp"
                 if release["kind"] == "fresh":
                     assert "config/app.example.php" in entries and "install/index.php" in entries
                 elif release["kind"] == "upgrade":
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries)
+                    with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
+                        for relative in REPAIR_FILES:
+                            if Path(relative).parts[0] not in package.PRESERVED_UPGRADE_ROOTS:
+                                assert relative in entries, "Upgrade is missing a required database resume dependency"
+                                assert zipped.read(relative) == fresh.read(relative), "Upgrade database dependency differs from the complete fresh package"
+                                assert metadata(zipped.getinfo(relative)) == metadata(fresh.getinfo(relative)), "Fresh and upgrade database dependencies have different timestamps, permissions, or format"
                     installed = work / "installed"
                     installed.mkdir()
                     for relative, content in protected.items():
@@ -91,26 +114,26 @@ def run() -> None:
                     lock = json.loads((installed / "storage/install.lock").read_text())
                     assert lock["installed"] and lock["installation_id"] == "test-installation"
                 else:
-                    service_path = "install/services/FileSystemService.php"
-                    assert entries == {service_path}, "Installer repair must contain exactly the corrected filesystem service"
-                    assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip"
-                    assert release["files"] == release["php_files"] == 1 and release["javascript_files"] == 0
-                    metadata = json.loads(zipped.comment)
-                    assert metadata["kind"] == "installer-repair" and metadata["version"] == "0.8.1"
-                    assert metadata["supported_from"] == ["0.8.1"] and metadata["installation_state"] == "incomplete", "Installer repair compatibility must stay limited to an unfinished 0.8.1 installation"
+                    assert entries == REPAIR_FILES, "Installer repair must contain exactly the reviewed database and filesystem dependencies"
+                    assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip"
+                    assert release["files"] == len(REPAIR_FILES) and release["php_files"] == 6 and release["javascript_files"] == 1
+                    compatibility = json.loads(zipped.comment)
+                    assert compatibility["kind"] == "installer-repair" and compatibility["version"] == "0.8.1"
+                    assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "incomplete", "Installer repair compatibility must stay limited to an unfinished 0.8.1 installation"
                     assert release["supported_from"] == ["0.8.1"] and release["installation_state"] == "incomplete"
 
                     # Apply the small repair to an already extracted, unfinished
                     # installation. Every other file must remain byte-identical.
                     incomplete = work / "incomplete"
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
-                        current_service = fresh.read(service_path)
-                        assert zipped.read(service_path) == current_service, "Repair service differs from the complete fresh package"
-                        assert zipped.getinfo(service_path).date_time == fresh.getinfo(service_path).date_time, "Fresh and repair PHP services have different component timestamps"
+                        current_dependencies = {relative: fresh.read(relative) for relative in REPAIR_FILES}
+                        for relative, content in current_dependencies.items():
+                            assert zipped.read(relative) == content, "Repair dependency differs from the complete fresh package"
+                            assert metadata(zipped.getinfo(relative)) == metadata(fresh.getinfo(relative)), "Fresh and repair dependencies have different timestamps, permissions, or format"
                         fresh.extractall(incomplete)
                     unfinished_state = {
                         "config/app.php": b"<?php return ['installed'=>false,'fixture'=>'unfinished setup'];\n",
-                        "storage/temp/installer-fixture.json": b'{"stage":"filesystem","fixture":true}\n',
+                        "storage/temp/installer-fixture.json": b'{"stage":"database","fixture":true}\n',
                         "uploads/images/owner-cutout.bin": b"PRIVATE UNFINISHED-INSTALL UPLOAD FIXTURE\n",
                         "database/backups/preserved-fixture.bin": b"PRE-EXISTING BACKUP FIXTURE\n",
                     }
@@ -118,19 +141,30 @@ def run() -> None:
                         target = incomplete / relative
                         target.parent.mkdir(parents=True, exist_ok=True)
                         target.write_bytes(content)
-                    (incomplete / service_path).write_bytes(b"<?php /* prior installer filesystem service fixture */\n")
+                    for relative in REPAIR_FILES:
+                        target = incomplete / relative
+                        if relative == "app/Core/MigrationResumeSchema.php":
+                            target.unlink()  # Older installations do not contain the new helper.
+                        elif relative.endswith(".css"):
+                            target.write_bytes(b"/* prior installer stylesheet fixture */\n")
+                        elif relative.endswith(".js"):
+                            target.write_bytes(b"// prior installer script fixture\n")
+                        else:
+                            target.write_bytes(b"<?php /* prior installer dependency fixture */\n")
                     before = {path.relative_to(incomplete).as_posix(): path.read_bytes() for path in incomplete.rglob("*") if path.is_file()}
                     assert "install/index.php" in before and "install/services/RequirementChecker.php" in before
                     zipped.extractall(incomplete)
                     after = {path.relative_to(incomplete).as_posix(): path.read_bytes() for path in incomplete.rglob("*") if path.is_file()}
                     expected = dict(before)
-                    expected[service_path] = current_service
+                    expected.update(current_dependencies)
                     assert after == expected, "Installer repair changed existing configuration, storage, uploads, application assets, database files, or other installer files"
                     assert not (incomplete / "storage/install.lock").exists(), "Repair unexpectedly installed or locked the unfinished site"
 
-        repair_files = {"install/services/FileSystemService.php": (source / "install/services/FileSystemService.php").read_bytes()}
+        repair_files = {relative: (source / relative).read_bytes() for relative in REPAIR_FILES}
         for files, repair_version in [
             ({}, version),
+            *[(dict((path, content) for path, content in repair_files.items() if path != omitted), version)
+              for omitted in REPAIR_FILES],
             ({**repair_files, "install/index.php": b"<?php /* extra file */\n"}, version),
             (repair_files, "0.8.0"),
             (repair_files, "0.8.2"),
@@ -153,7 +187,7 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: clean fresh install, protected upgrade overlay, exact one-file unfinished-installer repair, advanced matching PHP component timestamps, unchanged upgrade bytes, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: clean fresh install, protected upgrade overlay, exact eight-file database/folder/layout repair, missing-helper installation, matching fresh/upgrade/repair dependencies and advanced component timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
     for release in first["packages"]:
         print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 

@@ -16,10 +16,20 @@ RUNTIME_ROOTS = {
 }
 PRESERVED_UPGRADE_ROOTS = {"config", "storage", "uploads", "install"}
 INSTALLER_REPAIR_VERSION = "0.8.1"
-INSTALLER_REPAIR_FILES = {"install/services/FileSystemService.php"}
+INSTALLER_DATABASE_REPAIR_FILES = {
+    "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
+    "includes/installation_recovery.php",
+    "install/services/InstallerService.php", "install/views/single-page.php",
+    "public/assets/css/installer.css",
+    "public/assets/js/installer.js",
+}
+INSTALLER_REPAIR_FILES = {
+    "install/services/FileSystemService.php", *INSTALLER_DATABASE_REPAIR_FILES,
+}
 # Keep this deterministic, but advance it for each unfinished-installer service
 # correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
 INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
+INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -91,16 +101,17 @@ def runtime_files(root: Path, kind: str) -> dict[str, bytes]:
 def validate(files: dict[str, bytes], kind: str, version: str) -> None:
     if kind == "installer-repair":
         if version != INSTALLER_REPAIR_VERSION:
-            raise ValueError("The installer folder repair applies only to unfinished 0.8.1 installations")
+            raise ValueError("The installer database repair applies only to unfinished 0.8.1 installations")
         required = INSTALLER_REPAIR_FILES
     else:
         required = ROOT_FILES | {
             "app/bootstrap.php", "includes/bootstrap.php", "includes/version.php",
             "includes/installation_recovery.php", "public/router.php", "public/home.php",
             "app/Core/RepairBackupService.php", "public/assets/js/composer.js",
+            "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
         }
         if kind == "fresh":
-            required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"}
+            required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"} | INSTALLER_REPAIR_FILES
     missing = required - files.keys()
     if missing:
         raise ValueError("Required runtime source is missing: " + ", ".join(sorted(missing)))
@@ -138,7 +149,7 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
     result: dict[str, object] = {"version": version, "packages": []}
     variants = [("fresh", "Fresh-Install"), ("upgrade", "Upgrade-from-0.8.x")]
     if version == INSTALLER_REPAIR_VERSION:
-        variants.append(("installer-repair", "Installer-Folder-Repair"))
+        variants.append(("installer-repair", "Installer-Database-Repair"))
     for kind, suffix in variants:
         files = runtime_files(root, kind)
         validate(files, kind, version)
@@ -160,6 +171,8 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             for relative, content in files.items():
                 timestamp = (INSTALLER_FILESYSTEM_TIMESTAMP
                              if relative == "install/services/FileSystemService.php"
+                             else INSTALLER_DATABASE_TIMESTAMP
+                             if relative in INSTALLER_DATABASE_REPAIR_FILES
                              else (2026, 1, 1, 0, 0, 0))
                 entry = ZipInfo(relative, date_time=timestamp)
                 entry.create_system = 3

@@ -1,3 +1,12 @@
+## 0.8.1 — Existing-database installer and alignment repair (2026-10-19)
+
+- Continue compatible empty, unrelated, partial, complete and ledgerless databases using selective schema reconciliation without editing historical migration checksums.
+- Verify the existing owner login and preserve owner hashes, rows, settings, scenes, installation identity and original security keys; add only missing defaults and permissions.
+- Keep completed DDL/configuration available after failure, serialize setup/recovery/retirement, and activate pending setup only after final verification.
+- Remove the extra Folders rule/inset; align Server/Folders checks and Password/Confirm Password inputs. Refresh installer asset cache identity and clear loading/spinner/scroll-lock state after success.
+- Build an eight-file runtime repair overlay plus updated fresh/upgrade ZIPs. Add mandatory actual-package MySQL tests on PHP 8.2/8.3 and desktop/mobile HTTP/browser installer acceptance; retain ownership/OPcache and all prior feature gates.
+- Exact executed evidence and current delivery status are in `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json`.
+
 ## 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise (2026-10-19)
 
 ## 0.8.1 — Timestamp-aware installer folder repair (2026-10-19)

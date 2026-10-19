@@ -9,6 +9,14 @@ use Throwable;
 
 final class MigrationRunner
 {
+    private const REGISTRY_SQL = "CREATE TABLE IF NOT EXISTS migrations (
+        migration_key VARCHAR(190) PRIMARY KEY,
+        description VARCHAR(255) NOT NULL DEFAULT '',
+        checksum CHAR(64) NOT NULL,
+        batch INT UNSIGNED NOT NULL,
+        executed_at DATETIME NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci";
+
     /** @var callable(string,array):void|null */
     private $logger;
 
@@ -22,15 +30,13 @@ final class MigrationRunner
 
     public function ensureRegistry(): void
     {
-        $this->pdo->exec(
-            "CREATE TABLE IF NOT EXISTS migrations (
-                migration_key VARCHAR(190) PRIMARY KEY,
-                description VARCHAR(255) NOT NULL DEFAULT '',
-                checksum CHAR(64) NOT NULL,
-                batch INT UNSIGNED NOT NULL,
-                executed_at DATETIME NOT NULL
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci"
-        );
+        $this->pdo->exec(self::REGISTRY_SQL);
+    }
+
+    /** Inspect a reused database before authentication or configuration writes. */
+    public function validateForResume(): void
+    {
+        $this->resumeSchema($this->discover());
     }
 
     /** @return list<array{id:string,description:string,file:string,checksum:string}> */
@@ -62,8 +68,9 @@ final class MigrationRunner
     }
 
     /** @return list<string> */
-    public function migrate(bool $rollbackOnFailure = true): array
+    public function migrate(bool $rollbackOnFailure = true, bool $resumeExisting = false): array
     {
+        if ($resumeExisting) return $this->resume();
         $this->ensureRegistry();
         $batch = (int) $this->pdo->query('SELECT COALESCE(MAX(batch), 0) + 1 FROM migrations')->fetchColumn();
         $appliedThisRun = [];
@@ -109,6 +116,60 @@ final class MigrationRunner
         }
 
         return $appliedThisRun;
+    }
+
+    /** Complete only missing supported schema objects; never run down SQL. */
+    private function resume(): array
+    {
+        $migrations = $this->discover();
+        $schema = $this->resumeSchema($migrations);
+        $this->ensureRegistry();
+        $batch = (int) $this->pdo->query('SELECT COALESCE(MAX(batch), 0) + 1 FROM migrations')->fetchColumn();
+        $applied = [];
+        try {
+            foreach ($migrations as $migration) {
+                $query = $this->pdo->prepare('SELECT checksum FROM migrations WHERE migration_key=? LIMIT 1');
+                $query->execute([$migration['id']]);
+                $existing = $query->fetchColumn();
+                if ($existing !== false && !hash_equals((string) $existing, $migration['checksum'])) {
+                    throw new RuntimeException('Migration checksum mismatch for ' . $migration['id'] . '.');
+                }
+                $this->log('migration.start', ['id' => $migration['id'], 'description' => $migration['description'], 'resuming' => true]);
+                foreach ($migration['up'] as $sql) {
+                    if (trim($sql) !== '') $schema->execute($sql);
+                }
+                // A pre-existing ledger row is retained exactly, including its
+                // original batch, description and execution time.
+                if ($existing === false) {
+                    $insert = $this->pdo->prepare('INSERT INTO migrations (migration_key,description,checksum,batch,executed_at) VALUES (?,?,?,?,NOW())');
+                    $insert->execute([$migration['id'], $migration['description'], $migration['checksum'], $batch]);
+                    $applied[] = $migration['id'];
+                }
+                $this->log('migration.complete', ['id' => $migration['id'], 'resuming' => true, 'recorded' => $existing === false]);
+            }
+            $schema->validate();
+        } catch (Throwable $error) {
+            $this->log('migration.failed', ['id' => $migration['id'] ?? 'schema_verification', 'error' => $error->getMessage(), 'resuming' => true]);
+            throw new RuntimeException('Database continuation stopped. Existing records and completed migration steps were preserved; no automatic rollback ran. ' . $error->getMessage(), 0, $error);
+        }
+        return $applied;
+    }
+
+    private function resumeSchema(array $migrations): MigrationResumeSchema
+    {
+        // Some operational/test callers load MigrationRunner without an autoloader.
+        require_once __DIR__ . '/MigrationResumeSchema.php';
+        $schema = new MigrationResumeSchema($this->pdo, $migrations, self::REGISTRY_SQL);
+        $schema->validate();
+        if ($schema->hasTable('migrations')) {
+            $known = array_column($migrations, 'checksum', 'id');
+            foreach ($this->pdo->query('SELECT migration_key,checksum FROM migrations')->fetchAll(PDO::FETCH_ASSOC) as $row) {
+                $key = (string) $row['migration_key'];
+                if (!isset($known[$key])) throw new RuntimeException('The database records an unsupported migration (' . $key . '). Use its matching or newer application source before continuing. Existing records were preserved.');
+                if (!hash_equals($known[$key], (string) $row['checksum'])) throw new RuntimeException('Migration checksum mismatch for ' . $key . '. Restore the matching original migration file before continuing. Existing records were preserved.');
+            }
+        }
+        return $schema;
     }
 
     /** @param list<string> $keys */

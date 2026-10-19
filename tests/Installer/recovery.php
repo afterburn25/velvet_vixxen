@@ -90,6 +90,110 @@ try {
     fclose($guard);
     $assert(vvx_attempt_automatic_installation_recovery($root, true)['status'] === 'recovered', 'Recovery should resume safely after the other request releases its guard.');
 
+    $root = $newRoot('concurrent-installer-recovery');
+    $write($root . '/config/app.php', $activeText);
+    $write($root . '/.vvx-private-repair-storage-current/install.lock', $lock($a['installation_id']));
+    $applyGuard = fopen($root . '/storage/private/.installer-apply.lock', 'c+b');
+    $assert(is_resource($applyGuard) && flock($applyGuard, LOCK_EX | LOCK_NB), 'The installer/recovery fixture must hold a real exclusive apply lock.');
+    $assert(vvx_attempt_automatic_installation_recovery($root)['status'] === 'pending', 'Automatic recovery must wait while an installer holds the shared apply lock.');
+    $assert(!file_exists($root . '/storage/install.lock') && file_get_contents($root . '/config/app.php') === $activeText, 'An active installation must prevent recovery config/lock writes.');
+    $assert(!is_dir($root . '/storage/private/repair-backups'), 'Blocked concurrent recovery must not archive or rotate installation files.');
+    flock($applyGuard, LOCK_UN);
+    fclose($applyGuard);
+    $assert(vvx_attempt_automatic_installation_recovery($root, true)['status'] === 'recovered', 'Ordinary recovery must work after installation releases the shared apply lock.');
+
+    // A late failure leaves a complete installed-looking .previous file. Neither
+    // automatic boot recovery nor installer retirement may activate that backup
+    // while the durable pending checkpoint still requires final verification.
+    foreach ([false, true] as $installedFlag) {
+        foreach ([false, true] as $withLock) {
+            $label = ($installedFlag ? 'finalizing' : 'staged') . ($withLock ? '-locked' : '-unlocked');
+            $root = $newRoot('pending-' . $label);
+            $pending = $a;
+            $pending['installed'] = $installedFlag;
+            $pending['installer_pending'] = true;
+            $pending['db']['host'] = 'localhost';
+            $pendingText = $configText($pending);
+            $oldCompleted = $config($a['installation_id'], 'z');
+            $oldText = $configText($oldCompleted);
+            $write($root . '/config/app.php', $pendingText);
+            $write($root . '/config/app.php.previous', $oldText);
+            $write($root . '/.vvx-private-repair-storage-completed/install.lock', $lock($a['installation_id']));
+            if ($withLock) $write($root . '/storage/install.lock', $lock($a['installation_id']));
+            $write($root . '/install/retained.txt', 'unfinished installer fixture');
+            $assert(!vvx_recovery_valid_config($pending), 'A pending configuration is not a completed recovery candidate: ' . $label);
+            $assert(!vvx_recovery_lock_matches($pending, json_decode($lock($a['installation_id']), true)), 'A matching lock must not publicly activate a pending configuration: ' . $label);
+            $result = vvx_attempt_automatic_installation_recovery($root);
+            $assert(in_array($result['status'], ['pending', 'resumable'], true), 'Boot recovery must recognize the durable pending checkpoint: ' . $label);
+            $assert(file_get_contents($root . '/config/app.php') === $pendingText && file_get_contents($root . '/config/app.php.previous') === $oldText, 'Pending checkpoint and prior security-key bytes must remain unchanged: ' . $label);
+            $assert($withLock ? file_get_contents($root . '/storage/install.lock') === $lock($a['installation_id']) : !file_exists($root . '/storage/install.lock'), 'Recovery must neither create nor remove the pending installation lock: ' . $label);
+            $assert(!is_dir($root . '/storage/private/repair-backups'), 'A pending checkpoint must not be replaced or archived automatically: ' . $label);
+            // The internal pass must recheck the marker after lock acquisition,
+            // not rely only on the wrapper's earlier observation.
+            $applyGuard = fopen($root . '/storage/private/.installer-apply.lock', 'c+b');
+            $recoveryGuard = fopen($root . '/storage/private/.installation-recovery.guard', 'c+b');
+            $assert(flock($applyGuard, LOCK_EX | LOCK_NB) && flock($recoveryGuard, LOCK_EX | LOCK_NB), 'The internal pending fixture must acquire both lifecycle locks.');
+            try {
+                $result = vvx_recovery_restore_verified_state($root);
+                $assert(in_array($result['status'], ['pending', 'resumable'], true) && file_get_contents($root . '/config/app.php') === $pendingText, 'The guarded recovery pass must also preserve pending activation: ' . $label);
+            } finally {
+                flock($recoveryGuard, LOCK_UN); fclose($recoveryGuard);
+                flock($applyGuard, LOCK_UN); fclose($applyGuard);
+            }
+            vvx_retire_reintroduced_installer($root);
+            $assert(is_file($root . '/install/retained.txt') && !file_exists($root . '/install/.disabled'), 'Pending setup must keep its installer usable for retry: ' . $label);
+            $service = new \Velvet\Installer\InstallerService($root, new \Velvet\Installer\InstallerLog($root, 'pending-fixture'));
+            try {
+                $service->install([]);
+                throw new RuntimeException('Missing database payload unexpectedly accepted.');
+            } catch (RuntimeException $error) {
+                $assert(str_contains($error->getMessage(), 'Database host'), 'A valid pending checkpoint and its own matching lock must reach ordinary installer validation: ' . $label);
+            }
+            $assert(file_get_contents($root . '/config/app.php') === $pendingText, 'Validation failure must not alter pending keys: ' . $label);
+        }
+    }
+
+    foreach ([false, true] as $installedFlag) {
+        $root = $newRoot('invalid-pending-' . ($installedFlag ? 'installed' : 'staged'));
+        $invalidPending = $a;
+        $invalidPending['installed'] = $installedFlag;
+        $invalidPending['installer_pending'] = true;
+        unset($invalidPending['security']['signing_key']);
+        $raw = $configText($invalidPending);
+        $write($root . '/config/app.php', $raw);
+        $log = new \Velvet\Installer\InstallerLog($root, 'invalid-pending-fixture');
+        $service = new \Velvet\Installer\InstallerService($root, $log);
+        try {
+            $service->install([]);
+            throw new RuntimeException('An incomplete pending configuration was incorrectly accepted.');
+        } catch (RuntimeException $error) {
+            $assert(str_contains($error->getMessage(), 'Existing installation state'), 'A pending marker must not bypass missing-key safeguards.');
+        }
+        $assert(!vvx_recovery_valid_config($invalidPending) && file_get_contents($root . '/config/app.php') === $raw && !file_exists($log->path()), 'Invalid pending identity must stay protected without installer mutations.');
+        if ($installedFlag) {
+            $write($root . '/config/app.php.previous', $activeText);
+            $write($root . '/storage/install.lock', $lock($a['installation_id']));
+            $result = vvx_attempt_automatic_installation_recovery($root);
+            $assert($result['status'] === 'blocked' && file_get_contents($root . '/config/app.php') === $raw, 'Invalid installed pending state must retain the ordinary corrupt-configuration safeguard.');
+        }
+    }
+
+    $root = $newRoot('pending-unrelated-lock');
+    $pending = $a;
+    $pending['installed'] = true;
+    $pending['installer_pending'] = true;
+    $pending['db']['host'] = 'localhost';
+    $write($root . '/config/app.php', $configText($pending));
+    $write($root . '/storage/install.lock', $lock($b['installation_id']));
+    $service = new \Velvet\Installer\InstallerService($root, new \Velvet\Installer\InstallerLog($root, 'pending-conflict-fixture'));
+    try {
+        $service->install([]);
+        throw new RuntimeException('An unrelated lock was incorrectly accepted for continuation.');
+    } catch (RuntimeException $error) {
+        $assert(str_contains($error->getMessage(), 'Existing installation state'), 'Pending continuation must reject a lock from another installation.');
+    }
+    $assert(file_get_contents($root . '/storage/install.lock') === $lock($b['installation_id']), 'Conflicting lock evidence must be preserved.');
+
     $root = $newRoot('wrong-active-lock');
     $write($root . '/config/app.php', $activeText);
     $write($root . '/storage/install.lock', $lock($b['installation_id']));
@@ -186,6 +290,20 @@ try {
     $assert(file_get_contents($archives[0] . '/nested/unique.txt') === 'unique installer overlay content', 'Installer retirement must preserve unknown unique files.');
     $assert(file_get_contents($root . '/config/app.php') === $activeText, 'Installer retirement must preserve installed config.');
 
+    $root = $newRoot('retirement-during-installer');
+    $write($root . '/config/app.php', $activeText);
+    $write($root . '/storage/install.lock', $lock($a['installation_id']));
+    $write($root . '/install/nested/unique.txt', 'in-progress installer file');
+    $applyGuard = fopen($root . '/storage/private/.installer-apply.lock', 'c+b');
+    $assert(is_resource($applyGuard) && flock($applyGuard, LOCK_EX | LOCK_NB), 'Retirement fixture must acquire the real shared installer guard.');
+    vvx_retire_reintroduced_installer($root);
+    $assert(is_file($root . '/install/nested/unique.txt') && !is_dir($root . '/storage/private/repair-backups'), 'A concurrent application request must not retire installer files while finalization holds the apply guard.');
+    flock($applyGuard, LOCK_UN);
+    fclose($applyGuard);
+    vvx_retire_reintroduced_installer($root);
+    $archives = glob($root . '/storage/private/repair-backups/retired-installer-overlay-*') ?: [];
+    $assert(!is_dir($root . '/install') && count($archives) === 1 && file_get_contents($archives[0] . '/nested/unique.txt') === 'in-progress installer file', 'Retirement must resume normally once finalization releases the guard.');
+
     $root = $newRoot('executing-installer');
     $write($root . '/config/app.php', $activeText);
     $write($root . '/storage/install.lock', $lock($a['installation_id']));
@@ -235,6 +353,17 @@ try {
     app_config()->reload();
     $write($root . '/storage/install.lock', $lock($a['installation_id']));
     $assert(is_installed(), 'Public installed predicate must accept exact matching identity.');
+    foreach ([false, true] as $installedFlag) {
+        $pending = $a;
+        $pending['installed'] = $installedFlag;
+        $pending['installer_pending'] = true;
+        $write($root . '/config/app.php', $configText($pending));
+        app_config()->reload();
+        $assert(!is_installed(), 'The public site must remain uninstalled until a pending checkpoint has completed final verification.');
+    }
+    $write($root . '/config/app.php', $activeText);
+    app_config()->reload();
+    $assert(is_installed(), 'Clearing the pending marker after successful finalization activates the existing matching configuration and lock.');
     $write($root . '/storage/install.lock', $lock($b['installation_id']));
     $assert(!is_installed(), 'Public installed predicate must reject another installation identity.');
     $write($root . '/storage/install.lock', 'not-json');

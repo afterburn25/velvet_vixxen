@@ -1,3 +1,35 @@
+VELVET VIXXEN 0.8.1 — INSTALLER DATABASE AND LAYOUT REPAIR
+
+Status: final local source/JavaScript/security/ownership/OPcache/packages, 922 actual-package MySQL installer assertions, 134 recovery assertions and real desktop/mobile installer/layout acceptance all passed. Current PHP 8.2/8.3 GitHub execution and persistent delivery are pending at this source checkpoint.
+Branch: feature/0.8.1-site-ux-hero-library
+Source: the implementation commit containing this checkpoint; exact SHA/tree will be recorded after upload.
+Starting source: 9ed1c2b899ec542ca05ea9d2b40f701d4c2548c3
+Repair scope: eight runtime files, six PHP + one CSS + one JavaScript. Includes the earlier folder correction.
+Changed component ZIP timestamps: 2026-10-19 16:00:00; unchanged FileSystemService timestamp: 2026-10-19 00:00:00.
+Installer CSS/JavaScript browser revision: installer=20261019.1
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca
+Bytes: 7587279
+Runtime files: 314; PHP: 167; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: e7f6c52d4d7de217b647e41f44827381cfe4a86c58b794947a5a0fd8bfa57028
+Bytes: 7431620
+Runtime files: 273; PHP: 156; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip
+SHA-256: 9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38
+Bytes: 51241
+Runtime files: 8; PHP: 6; JavaScript: 1
+
+Use Installer-Database-Repair.zip in the existing unfinished 0.8.1 site folder. Keep its database/configuration/storage/uploads; setup reuses compatible tables and the existing owner login.
+Fresh ZIP starts uninstalled. Upgrade preserves config/storage/uploads/install exclusions and includes applicable Core/recovery/public asset changes.
+Runtime repair contents and user instructions: docs/INSTALLER_DATABASE_REPAIR.md
+Current evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-installer-database-repair.json
+Source, docs, tests, workflows, screenshots and all real site/private data remain outside customer ZIPs.
+
+--- HISTORICAL FOLDER/CACHE DELIVERY; SUPERSEDED FOR THE CURRENT DATABASE/LAYOUT ISSUE ---
 VELVET VIXXEN 0.8.1 — INSTALLER FOLDER AND PHP CACHE CORRECTION
 
 Status: complete successful archived execution logs for every required gate on PHP 8.2/8.3, MySQL, HTTP/browser and packaging; corrected repair/fresh downloads and separate manifest saved. Official run/job metadata remained queued/null at 2026-10-19 16:21:51 UTC; a successful workflow conclusion is not inferred.

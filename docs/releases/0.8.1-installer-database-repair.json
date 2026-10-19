@@ -1,0 +1,241 @@
+{
+  "version": "0.8.1",
+  "correction": "Installer Database and Layout Repair",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "starting_commit": "9ed1c2b899ec542ca05ea9d2b40f701d4c2548c3",
+  "source_commit": null,
+  "source_tree": null,
+  "source_note": "Implementation in this source checkpoint; exact commit/tree will be pinned after publication. Earlier commits do not include this correction.",
+  "repair_components": {
+    "app/Core/MigrationResumeSchema.php": {
+      "sha256": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "size_bytes": 24827,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "app/Core/MigrationRunner.php": {
+      "sha256": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "size_bytes": 11811,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "includes/installation_recovery.php": {
+      "sha256": "52ce3d42a00b5577d5ee121f7bc990bea124c6ffafa96df42c72f92d4897eea2",
+      "size_bytes": 24401,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "install/services/FileSystemService.php": {
+      "sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+      "size_bytes": 26198,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        0,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "install/services/InstallerService.php": {
+      "sha256": "7496ad96051bf3b4cc3751cd00e8081c42a108d8356ca938f6d50ee4e98f44a2",
+      "size_bytes": 40863,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "install/views/single-page.php": {
+      "sha256": "36fa9f51a030c2b31d432175d838f5ef02ff5fd55da37f32fe243b88ba825c2c",
+      "size_bytes": 18142,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "public/assets/css/installer.css": {
+      "sha256": "7b499c5824aa5445054aa025507b1fe0b373bbc77039902bf503a70a3d6dd81f",
+      "size_bytes": 29541,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    },
+    "public/assets/js/installer.js": {
+      "sha256": "2b12ed66d231102c2451d8d74a297a9e3af408b58a04147627068676e59c598b",
+      "size_bytes": 33265,
+      "zip_timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ],
+      "unix_mode": "0o100644"
+    }
+  },
+  "browser_component_revision": "installer=20261019.1",
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+      "size_bytes": 7587279,
+      "sha256": "0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca",
+      "files": 314,
+      "php_files": 167,
+      "javascript_files": 10
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7431620,
+      "sha256": "e7f6c52d4d7de217b647e41f44827381cfe4a86c58b794947a5a0fd8bfa57028",
+      "files": 273,
+      "php_files": 156,
+      "javascript_files": 10
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8,
+      "php_files": 6,
+      "javascript_files": 1,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete"
+    }
+  ],
+  "verification": {
+    "local_source_suite": {
+      "status": "passed",
+      "php_version": "8.3.6",
+      "command": "bash scripts/test.sh"
+    },
+    "packaged_installer_mysql": {
+      "status": "passed",
+      "php_version": "8.3.6",
+      "mysql_version": "8.0.46",
+      "assertions": 922,
+      "command": "php tests/Installer/existing_database_mysql.php",
+      "retained_partial_alter_cases": "passed; tests/Installer/migration_resume_mysql_scenarios.php is mandatory"
+    },
+    "recovery_source": {
+      "status": "passed",
+      "assertions": 134,
+      "command": "php tests/Installer/recovery.php",
+      "negative_control": "prior runtime failed the new shared installer-lock assertion"
+    },
+    "installer_browser": {
+      "status": "passed",
+      "playwright_version": "1.62.0",
+      "chromium_version": "155.0.8059.84",
+      "command": "python3 tests/Browser/installer_existing_database_playwright.py",
+      "viewports": [
+        {
+          "width": 1440,
+          "height": 1000
+        },
+        {
+          "width": 390,
+          "height": 844
+        }
+      ],
+      "coverage": [
+        "real packaged PHP and MySQL",
+        "partial/full existing tables",
+        "12-character owner login",
+        "11-character and CSRF refusal",
+        "wrong existing owner refusal",
+        "post-final-config failure and real HTTP-bootstrap retry",
+        "preserved rows/keys/uploads",
+        "verified cleanup and final owner login",
+        "initial and AJAX-rechecked Server/Folders geometry",
+        "password/confirmation geometry with live strength meter",
+        "completion spinner and scroll unlock"
+      ],
+      "layout_negative_control": {
+        "status": "failed as expected against prior committed CSS",
+        "folder_wrapper_padding_px": 12,
+        "folder_wrapper_top_border_px": 1,
+        "folder_card_vertical_offset_px": 13,
+        "confirm_password_vertical_offset_px": 18.234
+      },
+      "final_geometry": {
+        "desktop_check_cards": "416 x 84; matching Y",
+        "desktop_password_inputs": "410.5 x 49; matching Y",
+        "mobile_check_cards": "X 43; width 304",
+        "mobile_password_inputs": "X 42; width 306; height 49",
+        "folder_wrapper_padding_border_px": 0
+      },
+      "last_template_only_change": "personal email placeholder replaced by owner@example.com after local screenshot inspection; final GitHub browser gate covers the exact committed template"
+    },
+    "runtime_package_suite": {
+      "status": "PASS",
+      "command": "python3 tests/Packaging/runtime_packages.py",
+      "detail": "Exact eight-file repair: six PHP, one CSS, one JavaScript. Absent new helper overlay; fresh/upgrade/repair byte and metadata identity; protected configuration/storage/uploads/database backups; safe modes; reproducibility; exclusions and symlink checks."
+    },
+    "persistent_http_opcache": {
+      "status": "PASS",
+      "command": "python3 tests/Installer/packaged_opcache.py",
+      "php_version": "8.3.6",
+      "negative_control_requests": 3,
+      "corrected_requests": 2,
+      "repair_sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "detail": "Real persistent PHP, active OPcache, actual timestamp-preserving unzip, three stale same-mtime requests, then the exact repair ZIP executes corrected filesystem source in the same process without reset/restart."
+    },
+    "github_ci": {
+      "status": "pending source publication and current PHP 8.2/8.3/MySQL/HTTP/browser execution",
+      "official_success_conclusion_observed": false,
+      "runs": []
+    }
+  },
+  "delivery": {
+    "status": "final archives built; persistent replacement downloads pending",
+    "repair_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+    "fresh_download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
+    "upgrade_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json"
+  },
+  "historical_note": "Earlier folder-only and intermediate six/seven-file archives are superseded for this issue. Historical migration source files are unchanged. Customer deployment is not claimed."
+}

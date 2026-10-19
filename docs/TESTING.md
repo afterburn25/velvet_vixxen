@@ -40,4 +40,21 @@ Record actual commands, versions, results, feature coverage and GitHub run URLs 
 
 ## Timestamp-preserving installer repair
 
-`tests/Installer/packaged_opcache.py` is a mandatory source-suite gate. It requires PHP OPcache and `unzip`, runs an isolated persistent localhost PHP process, demonstrates a stale same-timestamp negative control, and extracts the actual one-file repair ZIP to verify corrected execution without a PHP restart or explicit cache invalidation. The test fails if OPcache/caching/timestamp preservation is ineffective. `scripts/package.py` keeps the repaired service component timestamp deterministic and later than the prior package; advance it for subsequent unfinished-installer service corrections. Fresh and repair timestamps match, and the standard upgrade remains unchanged.
+`tests/Installer/packaged_opcache.py` is a mandatory source-suite gate. It requires PHP OPcache and `unzip`, runs an isolated persistent localhost PHP process, demonstrates a stale same-timestamp negative control, and extracts the actual allowlisted runtime repair ZIP to verify corrected execution without a PHP restart or explicit cache invalidation. The test fails if OPcache/caching/timestamp preservation is ineffective. `scripts/package.py` keeps the repaired service component timestamp deterministic and later than the prior package; advance it for subsequent unfinished-installer service corrections. Fresh, upgrade and repair timestamps match for each shared dependency. The current database/layout repair includes six PHP files, one stylesheet and one JavaScript file; private/runtime/development exclusions remain mandatory.
+
+## Existing-database installer and real browser continuation
+
+Use an explicitly named disposable test database and the same `VELVET_TEST_DB_*` environment variables as the migration gate:
+
+```bash
+php tests/Installer/existing_database_mysql.php
+python3 tests/Browser/installer_existing_database_playwright.py
+```
+
+Both suites build and extract the actual fresh customer ZIP into isolated marked directories. They reject a nonempty initial fixture database so fixture cleanup cannot target existing user tables. This test-harness safety check is separate from production installer behavior: the suites create partial/full/customized application databases and prove installation continues without deleting their contents.
+
+The PHP suite covers empty/unrelated/core-only/full/ledgerless schemas, interrupted ALTER/default work, retained migration metadata, existing account authentication, row/hash/key/configuration/upload preservation, missing-key/schema/history conflicts, held filesystem/MySQL guards, and retries after interrupted finalization. CI runs it against real MySQL 8 on both PHP 8.2 and PHP 8.3, after the existing migration apply/verify/rollback gate has restored its disposable schema to empty.
+
+The browser suite uses the real installer HTTP page at desktop/mobile widths and an isolated MySQL service. It covers actual AJAX connection/install, CSRF and 11-character rejection, acceptance of a 12-character owner password, wrong-owner refusal, post-final-config failure followed by ordinary HTTP-bootstrap retry, preserved records, cleanup and final owner login. Expanded technical details verify Server/Folders geometry and the missing redundant rule before/after Run Checks; password fields remain aligned and completion clears its spinner/scroll lock. PNGs/logs remain engineering evidence outside every customer ZIP.
+
+The existing seven HTTP and twelve application browser suites remain mandatory. Do not substitute a copied HTML form, a simulated DB response, a same-owner filesystem, a stopped/restarted cache process or a passing skip for these release gates.

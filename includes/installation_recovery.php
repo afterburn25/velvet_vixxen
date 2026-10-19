@@ -82,14 +82,16 @@ function vvx_recovery_lock_matches(array $config, array $lock): bool
 {
     $expected = $config['installation_id'] ?? null;
     $actual = $lock['installation_id'] ?? null;
-    return ($config['installed'] ?? false) === true && ($lock['installed'] ?? false) === true
+    return ($config['installed'] ?? false) === true && ($config['installer_pending'] ?? false) !== true
+        && ($lock['installed'] ?? false) === true
         && is_string($expected) && trim($expected) !== '' && is_string($actual)
         && hash_equals($expected, $actual);
 }
 
 function vvx_recovery_valid_config(array $config): bool
 {
-    if (($config['installed'] ?? false) !== true || !is_string($config['installation_id'] ?? null)
+    if (($config['installed'] ?? false) !== true || ($config['installer_pending'] ?? false) === true
+        || !is_string($config['installation_id'] ?? null)
         || strlen(trim($config['installation_id'])) < 8 || !is_array($config['security'] ?? null)) {
         return false;
     }
@@ -108,6 +110,44 @@ function vvx_recovery_valid_config(array $config): bool
         }
     }
     return true;
+}
+
+/** A saved setup checkpoint is authoritative until the installer verifies and activates it. */
+function vvx_recovery_pending_installation(array $config): bool
+{
+    if (($config['installer_pending'] ?? false) !== true
+        || !in_array($config['installed'] ?? null, [false, true], true)) {
+        return false;
+    }
+    $candidate = $config;
+    $candidate['installed'] = true;
+    unset($candidate['installer_pending']);
+    return vvx_recovery_valid_config($candidate)
+        && preg_match('/^[A-Za-z0-9_-]{8,190}$/', $candidate['installation_id']) === 1
+        && is_string($candidate['base_url'] ?? null)
+        && filter_var($candidate['base_url'], FILTER_VALIDATE_URL)
+        && preg_match('#^https?://#i', $candidate['base_url']) === 1;
+}
+
+/** @return resource|false Shared with InstallerService so recovery and retirement cannot race setup. */
+function vvx_recovery_installer_guard(string $root)
+{
+    $path = $root . '/storage/private/.installer-apply.lock';
+    if (!vvx_recovery_safe_path($root, $path, true)
+        || (file_exists($path) && !is_file($path))
+        || (!is_dir(dirname($path)) && !@mkdir(dirname($path), 0750, true) && !is_dir(dirname($path)))) {
+        return false;
+    }
+    $guard = @fopen($path, 'c+b');
+    if ($guard === false) {
+        return false;
+    }
+    if (is_link($path) || !flock($guard, LOCK_EX | LOCK_NB)) {
+        fclose($guard);
+        return false;
+    }
+    @chmod($path, 0600);
+    return $guard;
 }
 
 /** @return list<string> */
@@ -287,6 +327,9 @@ function vvx_attempt_automatic_installation_recovery(string $root, bool $force =
         return ['status' => 'blocked', 'message' => 'Recovery will not follow linked configuration or storage paths.'];
     }
     $active = vvx_recovery_load_config($activePath);
+    if (vvx_recovery_pending_installation($active)) {
+        return ['status' => 'pending', 'message' => 'An unfinished installation is saved. Continue the installer to complete its verification.'];
+    }
     if (vvx_recovery_valid_config($active) && vvx_recovery_lock_matches($active, vvx_recovery_load_lock($lockPath))) {
         return ['status' => 'installed', 'message' => 'The active configuration and installation lock match.'];
     }
@@ -308,10 +351,19 @@ function vvx_attempt_automatic_installation_recovery(string $root, bool $force =
         fclose($guard);
         return ['status' => 'pending', 'message' => 'Another request is recovering this installation. Refresh to recheck its completed state.'];
     }
+    $installerGuard = false;
     try {
+        $installerGuard = vvx_recovery_installer_guard($root);
+        if ($installerGuard === false) {
+            return ['status' => 'pending', 'message' => 'Setup is still running or its private guard is unavailable. Existing installation state was preserved.'];
+        }
         // Re-read active files after acquiring the guard; concurrent requests may have completed recovery.
         return vvx_recovery_restore_verified_state($root);
     } finally {
+        if (is_resource($installerGuard)) {
+            flock($installerGuard, LOCK_UN);
+            fclose($installerGuard);
+        }
         flock($guard, LOCK_UN);
         fclose($guard);
     }
@@ -329,6 +381,9 @@ function vvx_recovery_restore_verified_state(string $root): array
     $lockFingerprint = is_file($lockPath) ? @hash_file('sha256', $lockPath) : null;
     $active = vvx_recovery_load_config($activePath);
     $activeLock = vvx_recovery_load_lock($lockPath);
+    if (vvx_recovery_pending_installation($active)) {
+        return ['status' => 'pending', 'message' => 'An unfinished installation is saved. Continue the installer to complete its verification.'];
+    }
     if (vvx_recovery_valid_config($active) && vvx_recovery_lock_matches($active, $activeLock)) {
         return ['status' => 'installed', 'message' => 'The active configuration and installation lock match.'];
     }
@@ -439,20 +494,35 @@ function vvx_retire_reintroduced_installer(string $root): void
             return;
         }
     }
-    $done[$root] = true;
-    $archiveRoot = $root . '/storage/private/repair-backups';
-    if (!vvx_recovery_safe_path($root, $archiveRoot, true)
-        || (!is_dir($archiveRoot) && !@mkdir($archiveRoot, 0750, true) && !is_dir($archiveRoot))) {
+    $guard = vvx_recovery_installer_guard($root);
+    if ($guard === false) {
         return;
     }
-    if (!vvx_recovery_atomic_write($archiveRoot . '/.htaccess', "Require all denied\n")) {
-        return;
+    try {
+        // Setup may have paused or completed between the initial check and this guard.
+        $config = vvx_recovery_load_config($root . '/config/app.php');
+        if (!vvx_recovery_valid_config($config)
+            || !vvx_recovery_lock_matches($config, vvx_recovery_load_lock($root . '/storage/install.lock'))) {
+            return;
+        }
+        $done[$root] = true;
+        $archiveRoot = $root . '/storage/private/repair-backups';
+        if (!vvx_recovery_safe_path($root, $archiveRoot, true)
+            || (!is_dir($archiveRoot) && !@mkdir($archiveRoot, 0750, true) && !is_dir($archiveRoot))) {
+            return;
+        }
+        if (!vvx_recovery_atomic_write($archiveRoot . '/.htaccess', "Require all denied\n")) {
+            return;
+        }
+        $target = $archiveRoot . '/retired-installer-overlay-' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
+        if (@rename($source, $target)) {
+            return;
+        }
+        // If ownership blocks moving it, deny public access while the verified installed guard remains active.
+        vvx_recovery_atomic_write($source . '/.disabled', gmdate('c') . PHP_EOL);
+        vvx_recovery_atomic_write($source . '/.htaccess', "Require all denied\n");
+    } finally {
+        flock($guard, LOCK_UN);
+        fclose($guard);
     }
-    $target = $archiveRoot . '/retired-installer-overlay-' . gmdate('Ymd-His') . '-' . bin2hex(random_bytes(5));
-    if (@rename($source, $target)) {
-        return;
-    }
-    // If ownership blocks moving it, deny public access while the verified installed guard remains active.
-    vvx_recovery_atomic_write($source . '/.disabled', gmdate('c') . PHP_EOL);
-    vvx_recovery_atomic_write($source . '/.htaccess', "Require all denied\n");
 }

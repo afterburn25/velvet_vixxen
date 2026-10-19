@@ -1,10 +1,10 @@
 # Nikki Wilder — The Velvet Vixxen
 
-## 0.8.1 installer folder and PHP cache correction
+## 0.8.1 installer database and layout repair
 
-For an unfinished installation that reports missing image/font/icon/template folders, apply the one-file repair in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The corrected fresh/repair packages also advance the service's ZIP timestamp so timestamp-preserving extraction reloads the fix in PHP OPcache. Actual foreign-owner and persistent HTTP/cache regressions are mandatory and pass the integrated local suite. [Current test evidence](docs/TEST_REPORT.md) distinguishes the earlier successful PHP/MySQL/browser execution from the newest cache-aware package gate. [Current hashes](docs/releases/0.8.1-installer-folder-repair.json) supersede the earlier same-timestamp downloads; the upgrade package is unchanged.
+For the already-uploaded unfinished installer, use [Installer Database Repair](docs/INSTALLER_DATABASE_REPAIR.md). Setup now preserves and continues compatible existing databases, including previous attempts with partial tables or missing migration history. Existing owners authenticate with their current login; missing setup work completes without resetting their data, keys, scenes or settings. Server/Folders checks and the owner password fields are aligned, and completed setup clears its loading state.
 
-The authoritative application and engineering repository is `afterburn25/velvet_vixxen`. The website is a PHP/MySQL application for shared hosting, with the approved neon-pink design and a single-page browser installer.
+The runtime-only repair contains eight files, including the prior static-folder correction. Rebuilt fresh and upgrade ZIPs share the applicable corrected runtime bytes. [Current verification](docs/TEST_REPORT.md) and [package evidence](docs/releases/0.8.1-installer-database-repair.json) distinguish completed execution from pending CI or delivery. The older one-file folder repair is historical and does not include these changes.
 
 ## Current integration: 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
 

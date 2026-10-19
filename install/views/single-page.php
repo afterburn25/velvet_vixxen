@@ -40,7 +40,7 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
 <title><?= $installed ? 'Installation Locked' : 'Install Velvet Vixxen' ?> · Nikki Wilder</title>
-<link rel="stylesheet" href="<?= e(asset_url('css/installer.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/installer.css?installer=20261019.1')) ?>">
 </head>
 <body class="single-page-installer simplified-installer" data-requirements-ready="<?= $requirementsReady ? '1' : '0' ?>" data-install-id="<?= e($installId) ?>" data-endpoint="<?= e(base_url('install/')) ?>">
 <main class="installer-shell simplified-shell">
@@ -170,7 +170,7 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
           <section class="simple-section install-section" id="database">
             <header class="simple-section-heading">
               <span class="section-number">1</span>
-              <div><h2>Database</h2><p>Use the empty MySQL or MariaDB database from your hosting panel.</p></div>
+              <div><h2>Database</h2><p>Choose your MySQL or MariaDB database. Existing tables and records are kept while setup completes missing work.</p></div>
               <span class="section-state waiting" data-section-state="database">Not tested</span>
             </header>
             <div class="simple-section-body">
@@ -194,13 +194,13 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
           <section class="simple-section install-section" id="owner-site">
             <header class="simple-section-heading">
               <span class="section-number">2</span>
-              <div><h2>Owner and website</h2><p>Create your private owner login and confirm the website address.</p></div>
+              <div><h2>Owner and website</h2><p>Create your owner login, or enter the existing owner login to resume setup.</p></div>
               <span class="section-state waiting" data-section-state="owner">Incomplete</span>
             </header>
             <div class="simple-section-body">
               <div class="form-grid compact-form-grid">
                 <label class="field"><span>Owner name</span><input name="admin_name" value="<?= $value('admin_name', 'Nikki Wilder') ?>" required data-required><em data-field-error="admin_name"></em></label>
-                <label class="field"><span>Owner email</span><input type="email" name="admin_email" value="<?= $value('admin_email') ?>" required data-required autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="red.pixie93@gmail.com"><em data-field-error="admin_email"></em></label>
+                <label class="field"><span>Owner email</span><input type="email" name="admin_email" value="<?= $value('admin_email') ?>" required data-required autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="owner@example.com"><em data-field-error="admin_email"></em></label>
                 <label class="field"><span>Password</span><span class="password-wrap"><input id="ownerPassword" data-password type="password" name="admin_password" minlength="12" maxlength="4096" required data-required autocomplete="new-password"><button class="password-toggle" type="button" data-toggle-password="ownerPassword">Show</button></span><span class="strength" data-strength-for="ownerPassword"><span></span></span><small data-strength-label="ownerPassword">0/12 characters</small><em data-field-error="admin_password"></em></label>
                 <label class="field"><span>Confirm password</span><span class="password-wrap"><input id="ownerPasswordConfirm" type="password" name="admin_password_confirmation" minlength="12" maxlength="4096" required data-required autocomplete="new-password"><button class="password-toggle" type="button" data-toggle-password="ownerPasswordConfirm">Show</button></span><em data-field-error="admin_password_confirmation"></em></label>
                 <label class="field full"><span>Site name</span><input name="site_name" value="<?= $value('site_name', 'Nikki Wilder — The Velvet Vixxen') ?>" required data-required><em data-field-error="site_name"></em></label>
@@ -213,11 +213,11 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
           <section class="simple-section install-section final-install-section" id="install-review">
             <header class="simple-section-heading">
               <span class="section-number">3</span>
-              <div><h2>Install</h2><p>The installer creates the tables, owner account, secure configuration, and installation lock.</p></div>
+              <div><h2>Install</h2><p>The installer creates missing tables, keeps existing data, and completes the owner login, configuration, and installation lock.</p></div>
               <span class="section-state waiting" data-section-state="install">Waiting</span>
             </header>
             <div class="simple-section-body">
-              <label class="confirmation"><input type="checkbox" name="confirm_install" value="1" required><span><b>I am ready to install the website.</b><small>The selected database must not contain an existing Velvet Vixxen installation.</small></span></label>
+              <label class="confirmation"><input type="checkbox" name="confirm_install" value="1" required><span><b>I am ready to install the website.</b><small>Empty and existing databases are supported. Existing tables and content are preserved; missing setup work is completed.</small></span></label>
               <button class="button primary install-button" type="submit" data-install-button <?= $requirementsReady ? '' : 'disabled' ?>><span>Install Velvet Vixxen</span><b>→</b></button>
               <p class="fine centered-text">No install key is required. Email delivery can be configured later.</p>
             </div>
@@ -235,8 +235,8 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
             <?php foreach ([
               'filesystem' => 'Prepare folders',
               'database' => 'Verify database',
-              'migrations' => 'Create tables',
-              'owner' => 'Create owner',
+              'migrations' => 'Prepare tables',
+              'owner' => 'Verify owner',
               'verification' => 'Verify website',
               'cleanup' => 'Remove installer',
             ] as $stage => $label): ?>
@@ -267,6 +267,6 @@ window.VVX_INSTALLER = <?= json_encode([
     'csrf' => csrf_token(),
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
 </script>
-<script src="<?= e(asset_url('js/installer.js')) ?>" defer></script>
+<script src="<?= e(asset_url('js/installer.js?installer=20261019.1')) ?>" defer></script>
 </body>
 </html>

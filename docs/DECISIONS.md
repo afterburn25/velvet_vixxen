@@ -93,7 +93,7 @@ These are design requirements; advanced audience/expiration, scheduled scenes, a
 - Upload the latest source, tests, and progress documentation at every completed session. Missing application source is a failed CI condition.
 - Historical implementation claims are checked against actual code. The recovery record identifies unimplemented UI/store/marketing work; these remain unfinished until code and tests land.
 - An installed site requires a matching configuration/JSON lock identity. A malformed or unrelated lock never proves installation.
-- Recovery never downgrades a valid active configuration to an older backup. Existing configuration/identity/key evidence blocks a fresh reinstall.
+- Recovery never downgrades a valid active configuration to an older backup. Existing configuration/identity/key evidence blocks destructive fresh reinstallation; a complete pending checkpoint can continue while preserving its original identity and keys.
 - Repair backups containing unique, different, unreadable, unknown, or symlink entries cannot be deleted by the cleanup UI. Deletion requires a fully verified duplicate and explicit owner confirmation.
 - Fresh-install distributions exclude active config/app.php. Upgrade distributions exclude config, storage, uploads, and install entirely.
 - Source and installed-demo tests run in disposable copies, never in a real site or the active engineering checkout.
@@ -115,4 +115,15 @@ These are design requirements; advanced audience/expiration, scheduled scenes, a
 - PHP reads application/assets/templates; it does not require write access to those panel-owned trees. Missing required packaged directories remain failures, not empty directories manufactured by preflight.
 - Automatic ownership repair remains restricted to the existing writable runtime roots. Do not copy or rotate public assets merely to create unused folders.
 - Installer regressions must extract the real customer ZIP and execute PHP as a different unprivileged owner; a same-owner temporary directory is insufficient evidence of shared-hosting behavior.
-- An unfinished 0.8.1 installer can be corrected with a runtime-only one-file overlay. It never replaces configuration, storage, uploads, database contents or installed application data.
+- The historical folder-only correction used a runtime-only one-file overlay. The subsequent database/layout correction uses the explicit eight-file repair allowlist. It never replaces configuration, storage, uploads, database contents or installed application data.
+
+## Existing-database installation and final activation (2026-10-19)
+
+- The user requires installation to continue with empty or nonempty databases. Unrelated tables remain untouched; compatible application tables and migration history are reused. Conflicting known definitions/checksums receive specific preservation errors.
+- Never run automatic destructive down migrations on installer failure. MySQL DDL may already be committed; retain completed schema/ledger work and stable pending configuration so a later browser request can retry.
+- Existing admin records require the current active owner email/password. Do not reset the owner hash or create a replacement owner around failed authentication.
+- Keep original matching security keys and installation identity from staged configuration or verified backups. If existing encrypted/HMAC license records require missing original keys, preserve the data and request restoration of that configuration.
+- Seed missing defaults only. Existing settings, scene versions/drafts, plans, media, templates, provider configuration and saved records are authoritative. Recreating missing primary installation metadata uses the effective preserved URL and original installation time.
+- Pending setup is not publicly installed, including the interval after its completion lock is written. Clear the pending marker only after final configuration/database/lock verification. Setup, automatic recovery and installer retirement cooperate through a per-root lock; concurrent roots also serialize access to the selected MySQL database.
+- Keep the one-page form, no installation key, 12-character minimum passwords and safe permissions. Fix alignment in the actual existing interface without creating mockups or changing the approved design.
+- The runtime repair includes exactly its reviewed PHP/CSS/JavaScript dependencies. Customer configuration, storage, uploads, database records, docs, tests and evidence never enter the overlay. Advance changed component ZIP timestamps and browser asset queries so deployed fixes load after extraction.

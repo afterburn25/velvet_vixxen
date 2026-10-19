@@ -447,7 +447,7 @@ a { color: inherit; }
 .file-check code { color: var(--pink-3); font-size: .68rem; }
 
 .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
-.field { display: grid; gap: 7px; }
+.field { display: grid; align-content: start; gap: 7px; }
 .field.full { grid-column: 1 / -1; }
 .field > span:first-child { color: #f5e7ef; font-size: .76rem; font-weight: 800; letter-spacing: .03em; }
 .field input,
@@ -801,8 +801,30 @@ a { color: inherit; }
 .technical-details > summary span { margin-left: auto; color: var(--muted-2); font-weight: 500; }
 .technical-content { padding: 16px; border-top: 1px solid var(--line); }
 .compact-check-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.issue-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.issue-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.issue-groups > div { min-width: 0; }
 .issue-groups h3 { margin: 0 0 10px; color: var(--pink-3); font-family: Georgia, serif; font-size: 1rem; font-weight: 500; }
+.issue-groups .check-grid,
+.issue-groups .file-check-list {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 9px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-height: none;
+  overflow: visible;
+}
+.issue-groups .check-row,
+.issue-groups .file-check {
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  gap: 10px;
+  min-height: 84px;
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .018);
+}
+.issue-groups .check-row b,
+.issue-groups .file-check b { overflow-wrap: anywhere; }
 .compact-success { grid-column: 1 / -1; }
 
 #installerForm { gap: 15px; }
