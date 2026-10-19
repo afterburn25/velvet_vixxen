@@ -3,9 +3,9 @@
   "correction": "Installer Database and Layout Repair",
   "branch": "feature/0.8.1-site-ux-hero-library",
   "starting_commit": "9ed1c2b899ec542ca05ea9d2b40f701d4c2548c3",
-  "source_commit": null,
-  "source_tree": null,
-  "source_note": "Implementation in this source checkpoint; exact commit/tree will be pinned after publication. Earlier commits do not include this correction.",
+  "source_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+  "source_tree": "3cf10b7ac74f66a59e2a86ddc20a19b567f3f570",
+  "source_note": "Exact uploaded runtime, test and workflow commit used by the current GitHub runs and all three delivered ZIPs. Later documentation-only evidence updates do not change package bytes.",
   "repair_components": {
     "app/Core/MigrationResumeSchema.php": {
       "sha256": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
@@ -208,7 +208,8 @@
         "mobile_password_inputs": "X 42; width 306; height 49",
         "folder_wrapper_padding_border_px": 0
       },
-      "last_template_only_change": "personal email placeholder replaced by owner@example.com after local screenshot inspection; final GitHub browser gate covers the exact committed template"
+      "last_template_only_change": "The personal email placeholder was replaced by owner@example.com after local screenshot inspection; the exact committed template subsequently passed the real GitHub desktop/mobile installer browser gate in run 39294335907.",
+      "github_exact_template_verified": true
     },
     "runtime_package_suite": {
       "status": "PASS",
@@ -225,17 +226,172 @@
       "detail": "Real persistent PHP, active OPcache, actual timestamp-preserving unzip, three stale same-mtime requests, then the exact repair ZIP executes corrected filesystem source in the same process without reset/restart."
     },
     "github_ci": {
-      "status": "pending source publication and current PHP 8.2/8.3/MySQL/HTTP/browser execution",
-      "official_success_conclusion_observed": false,
-      "runs": []
+      "status": "passed",
+      "official_success_conclusion_observed": true,
+      "observed_execution_complete": true,
+      "runs": [
+        {
+          "run_id": 39294335907,
+          "event": "push",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907",
+          "head_sha": "e5b04daa132521be69c943151f8112c7cd2017e8",
+          "tree_sha": "3cf10b7ac74f66a59e2a86ddc20a19b567f3f570",
+          "status": "completed",
+          "conclusion": "success",
+          "updated_at": "2026-10-19T17:40:05Z",
+          "observed_at": "2026-10-19T17:42:13.005Z",
+          "jobs": [
+            {
+              "job_id": 118202824731,
+              "name": "Repository and executable source contract",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118202824731",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {},
+              "assertions": {},
+              "log_sha256": "ba5c9890f59ebc81125066cf2d4e86cb50bf9e053425e4dcdd3352c04fe57bd6"
+            },
+            {
+              "job_id": 118203955909,
+              "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118203955909",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "php": "8.3.35",
+                "mysql": "8.0.46",
+                "playwright": "1.62.0",
+                "chromium": "151.0.7922.34",
+                "chromium_headless_shell": "151.0.7922.34"
+              },
+              "assertions": {},
+              "log_sha256": "e339f597f3775dae780d6e0a410e8cd307ba4f0dd17f167c07af1389aed58dd3"
+            },
+            {
+              "job_id": 118203955975,
+              "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118203955975",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "php": "8.3.35",
+                "mysql": "8.0.46"
+              },
+              "assertions": {
+                "installer_mysql": 922
+              },
+              "log_sha256": "9134941d7611bb1bdbac6cfbd705566a9683721a881d638d11a61a44165417ef"
+            },
+            {
+              "job_id": 118203955998,
+              "name": "PHP 8.2 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118203955998",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "php": "8.2.34"
+              },
+              "assertions": {
+                "recovery": 134
+              },
+              "log_sha256": "bb0fd4c55dd318f93dd2bf13a58572227441794243b395301e59bb0f82f947cb"
+            },
+            {
+              "job_id": 118203956072,
+              "name": "PHP 8.3 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118203956072",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "php": "8.3.35"
+              },
+              "assertions": {
+                "recovery": 134
+              },
+              "log_sha256": "c331b2a9efd198ecde1dcef4efb3d5a5d65fe2d3774ab87b176021bb02509285"
+            },
+            {
+              "job_id": 118203956110,
+              "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118203956110",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "php": "8.2.34",
+                "mysql": "8.0.46"
+              },
+              "assertions": {
+                "installer_mysql": 922
+              },
+              "log_sha256": "ef69d175ea6b78e64b142b8dc55bc77444094d0b2f3defd732a89309ea84490c"
+            },
+            {
+              "job_id": 118208479003,
+              "name": "Build verified fresh-install and upgrade ZIPs",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/job/118208479003",
+              "status": "completed",
+              "conclusion": "success",
+              "execution_verified": true,
+              "checkout_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+              "versions": {
+                "python": "3.12.15"
+              },
+              "assertions": {},
+              "log_sha256": "691a121d2417975af8cc6614fd409d2f02cca73310f1a76a2b9cb05a9da43630"
+            }
+          ]
+        }
+      ],
+      "runtime_artifact": {
+        "artifact_id": 12207601981,
+        "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207601981",
+        "archive_size_bytes": 15045233,
+        "archive_sha256": "6bd025cef2d15482214a9af9dd8384914aeb0998b21112c916fd275146450c35",
+        "outer_digest_matches_github_metadata": true,
+        "all_runtime_packages_and_manifest_match": true
+      },
+      "browser_artifact": {
+        "artifact_id": 12207033000,
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207033000",
+        "size_bytes": 56521037,
+        "sha256": "ad4e4ba50f06867ab6af56ed4ee36022e0ea13a81669f9f5a87f0d39c7521b6a",
+        "verification": "Metadata and successful upload log verified; browser archive bytes were not separately downloaded."
+      },
+      "additional_coverage": {
+        "migrations": 14,
+        "declared_tables": 82,
+        "installed_upgrade_checks": 32,
+        "booking_database_checks": 12,
+        "existing_http_suites": 7,
+        "existing_application_browser_suites": 12,
+        "installer_viewports": 2,
+        "selectable_hero_backgrounds": 30,
+        "published_device_renders": 90
+      }
     }
   },
   "delivery": {
-    "status": "final archives built; persistent replacement downloads pending",
+    "status": "succeeded; repair, full installation, upgrade and separate package manifest saved",
     "repair_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
     "fresh_download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
     "upgrade_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
-    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json"
+    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json",
+    "saved_on": "2026-10-19",
+    "manifest_sha256": "0f5b4695e2e3ebdac2079a716d78efac1b98a2b2c5146b9b2e75a10f95b955a2",
+    "downloaded_github_artifact_byte_identity_verified": true,
+    "runtime_artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207601981"
   },
   "historical_note": "Earlier folder-only and intermediate six/seven-file archives are superseded for this issue. Historical migration source files are unchanged. Customer deployment is not claimed."
 }

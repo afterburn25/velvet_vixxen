@@ -6,7 +6,7 @@ Repository: `afterburn25/velvet_vixxen`
 
 Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
 
-Current implementation priority: the existing-database installer and alignment correction. Exact current source, verification and delivery status is in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json`. Earlier folder-only checkpoint `eed4c5efe1f3be9aa2522f247adcd2a5e84c509a` predates this repair. Inspect live source, CI, PR and package evidence before claiming completion, merge or deployment.
+Current executable installer/database/layout correction: `e5b04daa132521be69c943151f8112c7cd2017e8` on the active feature branch. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) passed and matching customer downloads were saved. Exact current source, verification and delivery status is in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json`. Earlier folder-only checkpoint `eed4c5efe1f3be9aa2522f247adcd2a5e84c509a` predates this repair. Inspect live source, CI, PR and package evidence before claiming completion, merge or deployment.
 
 Active branch: `feature/0.8.1-site-ux-hero-library`; `main` is the authoritative integration destination.
 

@@ -1,8 +1,14 @@
 VELVET VIXXEN 0.8.1 — INSTALLER DATABASE AND LAYOUT REPAIR
 
-Status: final local source/JavaScript/security/ownership/OPcache/packages, 922 actual-package MySQL installer assertions, 134 recovery assertions and real desktop/mobile installer/layout acceptance all passed. Current PHP 8.2/8.3 GitHub execution and persistent delivery are pending at this source checkpoint.
+Status: all seven current GitHub jobs completed/success; PHP 8.2.34/8.3.35 source/package suites, 922 actual-package MySQL installer assertions on each version, 134 recovery assertions, real installer desktop/mobile acceptance, seven HTTP and twelve application-browser suites, and gated runtime packaging passed. Downloaded GitHub ZIPs and manifest are byte-identical to the saved repair/fresh/upgrade downloads.
 Branch: feature/0.8.1-site-ux-hero-library
-Source: the implementation commit containing this checkpoint; exact SHA/tree will be recorded after upload.
+Source: e5b04daa132521be69c943151f8112c7cd2017e8
+Source tree: 3cf10b7ac74f66a59e2a86ddc20a19b567f3f570
+Verified exact-source CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207601981
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207033000
+CI conclusion: completed/success; run updated 2026-10-19T17:40:05Z.
+Customer repair/fresh/upgrade and separate manifest saved: 2026-10-19.
 Starting source: 9ed1c2b899ec542ca05ea9d2b40f701d4c2548c3
 Repair scope: eight runtime files, six PHP + one CSS + one JavaScript. Includes the earlier folder correction.
 Changed component ZIP timestamps: 2026-10-19 16:00:00; unchanged FileSystemService timestamp: 2026-10-19 00:00:00.
