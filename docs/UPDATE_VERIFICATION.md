@@ -1,6 +1,6 @@
 # Restore the organized Velvet Vixxen installation
 
-Build **20261019.5** was rejected because it reintroduced 25 public route folders at the website root. Build **20261019.6** restores the approved layout and supplies a safe repair for a site that already extracted that package. The correction is still in verification until the final release evidence is recorded in `docs/TEST_REPORT.md`.
+Build **20261019.5** was rejected because it reintroduced 25 public route folders at the website root. Build **20261019.6** restores the approved layout and supplies a safe repair for a site that already extracted that package. The corrected source passed all seven required GitHub jobs, and saved downloads match the gated artifact literally. Final evidence is recorded in `docs/TEST_REPORT.md` and the root-layout CI/delivery records; the affected customer host remains unaccessed.
 
 ## Existing 0.8.1 installation
 

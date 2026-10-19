@@ -1,0 +1,956 @@
+{
+  "schema": 1,
+  "repository": "afterburn25/velvet_vixxen",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "build": "20261019.6",
+  "source": {
+    "commit": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+    "tree": "6fb51ba5e39dca476989d4ae73fb61790a2da50d",
+    "url": "https://github.com/afterburn25/velvet_vixxen/commit/e58f9edd708fd42dee0e6c898170e67eb4a01a53"
+  },
+  "pr": {
+    "number": 15,
+    "merged": false,
+    "test_merge_commit": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+    "test_merge_tree": "6fb51ba5e39dca476989d4ae73fb61790a2da50d",
+    "tree_identical_to_source": true,
+    "comparison_source": "GitHub Git data API /git/commits, complete tree object equality",
+    "parents": [
+      "0a4940ec816b0a21459b4ae6e8c2bf4818eba060",
+      "e58f9edd708fd42dee0e6c898170e67eb4a01a53"
+    ],
+    "tree_verification_urls": [
+      "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+      "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/893d61819f387f71e0ebb4de105a9bee3bd33168"
+    ]
+  },
+  "jobs": [
+    {
+      "id": 118318904333,
+      "name": "Repository and executable source contract",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118318904333",
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "errors": [],
+      "required_source_contract_step": "Require documentation and executable source",
+      "log_characters": 14466,
+      "decoded_job_log_utf8_sha256": "e9782952cc133944cc09c85f7ddee032d70e2953110d865e8e0f03a0eeb30918",
+      "decoded_utf8_bytes": 14468,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118320690107,
+      "name": "PHP 8.2 source and package regressions",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118320690107",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T22:10:40Z",
+      "completed_at": "2026-10-19T22:11:18Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory source and packaging suites in disposable copies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": [
+        "✓ PHP Installed PHP 8.2.34",
+        "node: v22.23.3",
+        "npm: 10.9.9",
+        "Successfully set up CPython (3.12.15)"
+      ],
+      "syntax_gates": [
+        "== PHP syntax ==",
+        "== JavaScript syntax ==",
+        "== Python syntax =="
+      ],
+      "pass_evidence": [
+        "Repository security scan passed.",
+        "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+        "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+        "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+        "Smoke test passed.",
+        "Installer foundation test passed.",
+        "Single-page installer test passed.",
+        "PASS installer recovery: 134 assertions (disposable fixtures only)",
+        "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+        "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+        "PASS runtime build verification: 28 assertions",
+        "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+        "Migration manifest test passed (14 migrations, 82 tables).",
+        "Add-on manifest test passed.",
+        "Add-on package test passed.",
+        "Media access test passed.",
+        "Media store test passed.",
+        "Member authentication test passed.",
+        "Entitlement resolver test passed.",
+        "Subscriptions & PPV commerce test passed.",
+        "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+        "Add-on licensing, signature and encrypted-storage regressions passed.",
+        "Media Center feature test passed.",
+        "Members & Entitlements feature test passed.",
+        "Subscriptions & PPV Commerce feature test passed.",
+        "Add-on framework feature test passed.",
+        "Communications, request and booking regressions passed.",
+        "Marketing consent, publishing, campaign and analytics regressions passed.",
+        "PASS repair backups: 87 assertions (disposable fixtures only)",
+        "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+        "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+        "PASS booking form builder: 54 assertions (disposable fixtures only)",
+        "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+        "Protected media test passed.",
+        "Member security test passed.",
+        "Payment webhook security test passed.",
+        "Add-on security test passed.",
+        "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+        "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+        "Repository security scan passed.",
+        "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+        "All non-database tests passed."
+      ],
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "825b70ebc028a83e537c367e122914e51b358f11a98f168ca2f7d4cbcad74569",
+      "decoded_utf8_bytes": 22933,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118320689985,
+      "name": "PHP 8.3 source and package regressions",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118320689985",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T21:48:31Z",
+      "completed_at": "2026-10-19T21:49:03Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory source and packaging suites in disposable copies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": [
+        "✓ PHP Updated to PHP 8.3.35",
+        "node: v22.23.3",
+        "npm: 10.9.9",
+        "Successfully set up CPython (3.12.15)"
+      ],
+      "syntax_gates": [
+        "== PHP syntax ==",
+        "== JavaScript syntax ==",
+        "== Python syntax =="
+      ],
+      "pass_evidence": [
+        "Repository security scan passed.",
+        "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+        "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+        "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+        "Smoke test passed.",
+        "Installer foundation test passed.",
+        "Single-page installer test passed.",
+        "PASS installer recovery: 134 assertions (disposable fixtures only)",
+        "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+        "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+        "PASS runtime build verification: 28 assertions",
+        "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+        "Migration manifest test passed (14 migrations, 82 tables).",
+        "Add-on manifest test passed.",
+        "Add-on package test passed.",
+        "Media access test passed.",
+        "Media store test passed.",
+        "Member authentication test passed.",
+        "Entitlement resolver test passed.",
+        "Subscriptions & PPV commerce test passed.",
+        "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+        "Add-on licensing, signature and encrypted-storage regressions passed.",
+        "Media Center feature test passed.",
+        "Members & Entitlements feature test passed.",
+        "Subscriptions & PPV Commerce feature test passed.",
+        "Add-on framework feature test passed.",
+        "Communications, request and booking regressions passed.",
+        "Marketing consent, publishing, campaign and analytics regressions passed.",
+        "PASS repair backups: 87 assertions (disposable fixtures only)",
+        "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+        "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+        "PASS booking form builder: 54 assertions (disposable fixtures only)",
+        "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+        "Protected media test passed.",
+        "Member security test passed.",
+        "Payment webhook security test passed.",
+        "Add-on security test passed.",
+        "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+        "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+        "Repository security scan passed.",
+        "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+        "All non-database tests passed."
+      ],
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "a1c8efd2b5230ce6f53bbd9566fe8c807ae2b4ec32699ea9d1ecde3c9d8fe87e",
+      "decoded_utf8_bytes": 22926,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118320690029,
+      "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118320690029",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T22:02:58Z",
+      "completed_at": "2026-10-19T22:04:24Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": [
+        "Successfully set up CPython (3.12.15)",
+        "Existing-database installer acceptance passed (922 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package)."
+      ],
+      "pass_evidence": [
+        "Installed database update scenarios passed (32 checks; actual012→014 upgrade, preserved data/keys/uploads, locks, failure/retry and CLI; server 8.0.46).",
+        "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+        "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+        "MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+        "MySQL migration rollback passed.",
+        "PASS installer MySQL: empty database and working owner login",
+        "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+        "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+        "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+        "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+        "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+        "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+        "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+        "PASS installer MySQL: matching prior configuration restores existing keys",
+        "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+        "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+        "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+        "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+        "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+        "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+        "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+        "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+        "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+        "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+        "Existing-database installer acceptance passed (922 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package)."
+      ],
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "38b0d674fae21bdd00107d5f39f26fab3adffaf8c64495a5dff3b579c0e5d2fa",
+      "decoded_utf8_bytes": 35418,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118320690033,
+      "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118320690033",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T21:49:27Z",
+      "completed_at": "2026-10-19T21:50:51Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": [
+        "✓ PHP Updated to PHP 8.3.35",
+        "Successfully set up CPython (3.12.15)",
+        "Existing-database installer acceptance passed (922 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package)."
+      ],
+      "pass_evidence": [
+        "Installed database update scenarios passed (32 checks; actual012→014 upgrade, preserved data/keys/uploads, locks, failure/retry and CLI; server 8.0.46).",
+        "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+        "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+        "MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+        "MySQL migration rollback passed.",
+        "PASS installer MySQL: empty database and working owner login",
+        "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+        "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+        "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+        "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+        "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+        "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+        "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+        "PASS installer MySQL: matching prior configuration restores existing keys",
+        "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+        "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+        "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+        "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+        "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+        "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+        "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+        "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+        "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+        "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+        "Existing-database installer acceptance passed (922 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package)."
+      ],
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "bcd3a7fd3735f250538416d9f44d30d43eb7cade955025a0dba6ec014b90830c",
+      "decoded_utf8_bytes": 35546,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118320690035,
+      "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118320690035",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T22:21:08Z",
+      "completed_at": "2026-10-19T22:29:28Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Initialize containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install browser acceptance dependencies",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run installed HTTP suites in a disposable copy",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run real desktop and mobile browser suites in a disposable copy",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload real browser evidence",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Stop containers",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": {
+        "php": "8.3.35",
+        "python": "3.12.15",
+        "playwright": "1.62.0",
+        "chromium": "151.0.7922.34"
+      },
+      "version_evidence": [
+        "✓ PHP Updated to PHP 8.3.35",
+        "Successfully set up CPython (3.12.15)",
+        "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+        "Successfully installed beautifulsoup4-4.15.0 certifi-2026.10.18 charset_normalizer-3.5.2 greenlet-3.5.6 idna-3.20 playwright-1.62.0 pyee-13.0.1 requests-2.34.2 soupsieve-3.0.3 typing-extensions-4.16.0 urllib3-2.8.0",
+        "Chrome for Testing 151.0.7922.34 (playwright chromium v1234)",
+        "Chrome Headless Shell 151.0.7922.34 (playwright chromium-headless-shell v1234)"
+      ],
+      "broader_browser_suite_count": 13,
+      "broader_browser_suites": [
+        "Media Center browser acceptance test passed.",
+        "Members & Entitlements browser acceptance test passed.",
+        "Subscriptions & PPV Commerce browser acceptance test passed.",
+        "Add-on Playwright acceptance passed.",
+        "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+        "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+        "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+        "Composer recovery acceptance passed: drag, resize, 0.5–400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+        "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+        "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+        "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+        "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+        "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access."
+      ],
+      "pass_evidence": [
+        "PASS real desktop installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+        "PASS real mobile installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+        "Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+        "Packaged media upload root-desktop: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+        "Packaged media upload nested-mobile: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+        "Packaged no-rewrite Media Library and Composer upload acceptance passed at root/desktop and nested/mobile.",
+        "Historical installed update root-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+        "Historical installed update nested-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+        "Historical installed update nested-cache-disabled: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+        "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+        "Packaged public routing root: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+        "Packaged public routing nested: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+        "Members & Entitlements HTTP acceptance test passed.",
+        "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+        "Add-on HTTP acceptance passed.",
+        "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+        "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+        "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+        "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+        "Packaged Composer actions root-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+        "Packaged Composer actions root-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+        "Packaged Composer actions nested-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+        "Packaged Composer actions nested-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+        "Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+        "Media Center browser acceptance test passed.",
+        "Members & Entitlements browser acceptance test passed.",
+        "Subscriptions & PPV Commerce browser acceptance test passed.",
+        "Add-on Playwright acceptance passed.",
+        "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+        "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+        "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+        "Composer recovery acceptance passed: drag, resize, 0.5–400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+        "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+        "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+        "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+        "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+        "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access."
+      ],
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "1464f26663c3e8d0fafcc0fe640c1648e7cfe144e40995d33451cc5b1f503091",
+      "decoded_utf8_bytes": 77119,
+      "run_id": 39328060458
+    },
+    {
+      "id": 118343218406,
+      "run_id": 39328060458,
+      "name": "Build verified fresh-install and upgrade ZIPs",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/job/118343218406",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-10-19T22:34:13Z",
+      "completed_at": "2026-10-19T22:34:21Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build separate runtime packages",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/setup-python@v5",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "checkout_sha": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+      "checkout_evidence": [
+        "[command]/usr/bin/git log -1 --format=%H",
+        "893d61819f387f71e0ebb4de105a9bee3bd33168"
+      ],
+      "versions": [
+        "Successfully set up CPython (3.12.15)"
+      ],
+      "summary": {
+        "version": "0.8.1",
+        "build_id": "20261019.6",
+        "manifest_filename": "Velvet-Vixxen-0.8.1-Build-20261019.6-package-manifest.json",
+        "package_count": 4
+      },
+      "errors": [],
+      "warnings": [
+        "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+      ],
+      "decoded_job_log_utf8_sha256": "c42f2ecddac43549d3a606ce658cf56240c6a046a6fdea96b01becbf64f8cbb1",
+      "decoded_utf8_bytes": 19696
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12226463391,
+      "name": "velvet-vixxen-runtime-packages",
+      "size_in_bytes": 15296944,
+      "digest": "sha256:b591cb927fe7e8b6583faa83ec50b498c4b6193f30e18b5ec5e5460c0d2d4268",
+      "created_at": "2026-10-19T22:34:18Z",
+      "expires_at": "2026-11-18T22:34:17Z",
+      "expired": false,
+      "api_url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12226463391",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/artifacts/12226463391",
+      "workflow_run_id": 39328060458,
+      "source_head_sha": "e58f9edd708fd42dee0e6c898170e67eb4a01a53"
+    },
+    {
+      "id": 12225299611,
+      "name": "chromium-browser-evidence",
+      "size_in_bytes": 90164421,
+      "digest": "sha256:efdcda890bab3fa02e0e5c7efa10481d19ebab8d5afdab0cb3214894af1945ca",
+      "created_at": "2026-10-19T22:29:25Z",
+      "expires_at": "2026-11-02T22:29:22Z",
+      "expired": false,
+      "api_url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12225299611",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/artifacts/12225299611",
+      "workflow_run_id": 39328060458,
+      "source_head_sha": "e58f9edd708fd42dee0e6c898170e67eb4a01a53"
+    }
+  ],
+  "package_hashes": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+      "build_id": "20261019.6",
+      "size_bytes": 7623825,
+      "sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795",
+      "files": 325,
+      "php_files": 176,
+      "javascript_files": 11,
+      "logged_hash_matches_independently_hashed_frozen_local_zip": true
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip",
+      "build_id": "20261019.6",
+      "size_bytes": 7468166,
+      "sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe",
+      "files": 284,
+      "php_files": 165,
+      "javascript_files": 11,
+      "logged_hash_matches_independently_hashed_frozen_local_zip": true
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8,
+      "php_files": 6,
+      "javascript_files": 1,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete",
+      "logged_hash_matches_independently_hashed_frozen_local_zip": true
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Media-Composer-Repair.zip",
+      "build_id": "20261019.6",
+      "size_bytes": 183292,
+      "sha256": "fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d",
+      "files": 79,
+      "php_files": 69,
+      "javascript_files": 6,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "installed",
+      "verified_source_commits": [
+        "e5b04daa132521be69c943151f8112c7cd2017e8",
+        "db759342e401617c9933c13b81a147ad9f8fd515",
+        "2bc178013c9c528f45a5d0447624f3cbaf4395f2"
+      ],
+      "unknown_baseline": "Use the complete Upgrade ZIP when the installed source build is unknown.",
+      "logged_hash_matches_independently_hashed_frozen_local_zip": true
+    }
+  ],
+  "status": "success",
+  "inspected_at_utc": "2026-10-19 22:36:18 UTC",
+  "expected_gates": [
+    "Repository and executable source contract",
+    "PHP 8.2 source and package regressions",
+    "PHP 8.3 source and package regressions",
+    "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+    "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+    "Installed HTTP and Chromium desktop/mobile acceptance",
+    "Build verified fresh-install and upgrade ZIPs"
+  ],
+  "limitations": [
+    "This audit verifies the completed exact-source GitHub CI run and its public artifact metadata. Literal downloaded-artifact and saved-file byte verification is recorded separately by the delivery audit.",
+    "PR #15 remains unmerged; the tested PR merge is a temporary GitHub test commit with a complete tree identical to the uploaded engineering source.",
+    "The affected customer host was not accessed; successful CI is not deployment verification."
+  ],
+  "workflow_sha256": "1a3786dc8c324274f68111772ffc67bfd4b2728143b2690e87550b884ba5854b",
+  "local_worktree_at_audit_start": {
+    "head": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+    "tree": "6fb51ba5e39dca476989d4ae73fb61790a2da50d",
+    "clean": true
+  },
+  "expected_local_artifacts": {
+    "manifest": {
+      "filename": "Velvet-Vixxen-0.8.1-Build-20261019.6-package-manifest.json",
+      "bytes": 80738,
+      "sha256": "491ca44849132a4bbd772940747b1957a82cc3ddd7a35ed76528abb85a8d67d4"
+    },
+    "packages": [
+      {
+        "kind": "fresh",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+        "bytes": 7623825,
+        "sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795"
+      },
+      {
+        "kind": "upgrade",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip",
+        "bytes": 7468166,
+        "sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe"
+      },
+      {
+        "kind": "composer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Media-Composer-Repair.zip",
+        "bytes": 183292,
+        "sha256": "fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d"
+      },
+      {
+        "kind": "installer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+        "bytes": 51241,
+        "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38"
+      }
+    ],
+    "verification": "Read and independently hashed the four local ZIP files and manifest; CI comparison pending."
+  },
+  "completed_primary_job_count": 7,
+  "decoded_log_hash_scope": "SHA-256 of the complete decoded GitHub job log encoded as UTF-8, including any returned BOM; raw logs are excluded from this audit.",
+  "primary_run": {
+    "id": 39328060458,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "head_sha": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458",
+    "created_at": "2026-10-19T21:30:42Z",
+    "updated_at": "2026-10-19T22:34:22Z",
+    "run_started_at": "2026-10-19T21:30:42Z",
+    "run_number": 107,
+    "run_attempt": 1
+  },
+  "duplicate_run_observation": {
+    "id": 39328049518,
+    "event": "push",
+    "status": "queued",
+    "conclusion": null,
+    "head_sha": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328049518",
+    "created_at": "2026-10-19T21:30:37Z",
+    "updated_at": "2026-10-19T22:34:40Z",
+    "run_started_at": "2026-10-19T21:30:37Z",
+    "run_number": 106,
+    "run_attempt": 1,
+    "used_as_release_evidence": false,
+    "waited_for_completion": false
+  },
+  "all_required_jobs_completed_successfully": true,
+  "all_job_checkouts_match_verified_test_merge": true,
+  "artifact_comparison_scope": {
+    "metadata_and_logged_package_hashes": "verified",
+    "four_logged_package_hashes_match_frozen_local_bytes": true,
+    "literal_downloaded_artifact_and_saved_customer_files": "Verified separately by the delivery audit; not claimed from metadata or log hashes alone."
+  }
+}

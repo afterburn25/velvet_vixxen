@@ -1,12 +1,12 @@
-## 0.8.1 — Installed-build verification and PHP cache refresh (Build 20261019.5)
-
 ## 0.8.1 — Build 20261019.6 organized root correction (2026-10-19)
 
 - Reject Build 20261019.5 for reintroducing 25 root folders and 46 forwarding files against the approved layout.
 - Restore the exact original Fresh/Upgrade root allowlists and route generated page/API URLs through the single physical dispatcher with protected implementations under `public/routes`.
 - Add an owner-only repair entry that bypasses cached .5 update code, verifies the current runtime and retires only exact known forwarding files. Preserve custom siblings and all installed data; retain reversible nonexecuting archive records.
 - Disable the former broad root-archive action/API. Existing repair-backup inspection, missing-file recovery and verified duplicate deletion remain available.
-- Add actual rejected-ZIP upgrade/cleanup/browser tests and independent source/package root-directory guards. Local acceptance is recorded; final exact-source CI and corrected saved downloads remain pending.
+- Add actual rejected-ZIP upgrade/cleanup/browser tests and independent source/package root-directory guards. All seven final [CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458) passed against the complete tree of source `e58f9edd708fd42dee0e6c898170e67eb4a01a53`. The downloaded CI artifact, frozen build and all four saved replacement downloads match literally; see the root-layout CI/delivery records.
+
+## 0.8.1 — Installed-build verification and PHP cache refresh (Build 20261019.5, rejected layout)
 
 - Reopen the owner's unchanged-installation report; retain prior CI/download evidence without treating it as hosted deployment proof.
 - Show a distinct build ID in the owner interface and Fresh/Upgrade/Media repair filenames. Keep core compatibility version 0.8.1.

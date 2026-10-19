@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "build": "20261019.6",
+  "source_commit": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+  "source_tree": "6fb51ba5e39dca476989d4ae73fb61790a2da50d",
+  "ci_run_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458",
+  "ci_checkout_commit": "893d61819f387f71e0ebb4de105a9bee3bd33168",
+  "ci_complete_tree_matches_source": true,
+  "all_seven_primary_ci_jobs_passed": true,
+  "all_ci_inner_files_match_frozen_build": true,
+  "all_four_saved_downloads_match_gated_bytes": true,
+  "pinned_saved_versions_retrieved_at_utc": "2026-10-19 22:34:13 UTC",
+  "saved_readback_verified_at_utc": "2026-10-19 22:36:25 UTC",
+  "runtime_artifact": {
+    "id": 12226463391,
+    "name": "velvet-vixxen-runtime-packages",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/artifacts/12226463391",
+    "size_bytes": 15296944,
+    "sha256": "b591cb927fe7e8b6583faa83ec50b498c4b6193f30e18b5ec5e5460c0d2d4268"
+  },
+  "artifact_files": [
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+      "size_bytes": 7623825,
+      "sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795",
+      "literally_equal_to_frozen_build": true,
+      "literally_equal_to_staged_download": true,
+      "redelivered": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Media-Composer-Repair.zip",
+      "size_bytes": 183292,
+      "sha256": "fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d",
+      "literally_equal_to_frozen_build": true,
+      "literally_equal_to_staged_download": true,
+      "redelivered": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7468166,
+      "sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe",
+      "literally_equal_to_frozen_build": true,
+      "literally_equal_to_staged_download": true,
+      "redelivered": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "literally_equal_to_frozen_build": true,
+      "literally_equal_to_staged_download": null,
+      "redelivered": false
+    },
+    {
+      "filename": "Velvet-Vixxen-0.8.1-Build-20261019.6-package-manifest.json",
+      "size_bytes": 80738,
+      "sha256": "491ca44849132a4bbd772940747b1957a82cc3ddd7a35ed76528abb85a8d67d4",
+      "literally_equal_to_frozen_build": true,
+      "literally_equal_to_staged_download": true,
+      "redelivered": true
+    }
+  ],
+  "saved_downloads": [
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7468166,
+      "sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe",
+      "saved_version_number": 3,
+      "literal_saved_readback_matches_staged": true,
+      "literal_saved_readback_matches_gated_artifact": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+      "size_bytes": 7623825,
+      "sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795",
+      "saved_version_number": 6,
+      "literal_saved_readback_matches_staged": true,
+      "literal_saved_readback_matches_gated_artifact": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Media-Composer-Repair.zip",
+      "size_bytes": 183292,
+      "sha256": "fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d",
+      "saved_version_number": 2,
+      "literal_saved_readback_matches_staged": true,
+      "literal_saved_readback_matches_gated_artifact": true
+    },
+    {
+      "filename": "Velvet-Vixxen-0.8.1-Build-20261019.6-package-manifest.json",
+      "size_bytes": 80738,
+      "sha256": "491ca44849132a4bbd772940747b1957a82cc3ddd7a35ed76528abb85a8d67d4",
+      "saved_version_number": 6,
+      "literal_saved_readback_matches_staged": true,
+      "literal_saved_readback_matches_gated_artifact": true
+    }
+  ],
+  "source_ci_audit_sha256": "42032e7350bcfb1eb5c3ae11bbb93a61ee6eb48a6d4a98a9b14e6d16d27dcd87",
+  "runtime_only_customer_zips": true,
+  "unchanged_installer_only_repair_redelivered": false,
+  "literal_comparison_scope": "Downloaded CI artifact against frozen source-built files and all four pinned saved versions; complete byte equality for every inner ZIP and the separate manifest.",
+  "source_and_docs_boundary": "Only documentation and sanitized evidence change after gated executable source e58f9edd. Runtime, tests, workflows and customer archive bytes remain identical.",
+  "limits": {
+    "affected_customer_host_accessed": false,
+    "production_deployment_verified": false,
+    "pr_15_merged": false,
+    "issue_13_closed": false,
+    "payments": "sandbox-only",
+    "work_on_0_9_0": false
+  }
+}

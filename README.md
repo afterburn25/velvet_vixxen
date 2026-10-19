@@ -1,8 +1,12 @@
 # Nikki Wilder — The Velvet Vixxen
 
-## Current Media/Composer and public-route continuation
+## Current organized-root repair — Build 20261019.6
 
-The active repair fixes missing public entry points after folder reorganization, image-upload JSON errors, disappearing Full Page Preview tabs and failed publication. It also adds separate editable live button layers in Visual Composer. Read [the repair guide](docs/MEDIA_COMPOSER_REPAIR.md) and [current test/delivery status](docs/TEST_REPORT.md); all seven jobs in [the exact-source GitHub run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved downloads match its gated artifact byte for byte. The previous installer database/layout repair below remains included in the full distribution.
+**Build 20261019.5 is rejected:** its routing repair reintroduced 25 root folders and 46 forwarding PHP files contrary to the approved layout. Build **20261019.6** restores the exact original 13 Fresh / nine Upgrade root directories and four root files. Generated page/API URLs use the physical `route.php`; protected implementations remain under `public/routes`. The new owner page, `admin/repair.php`, verifies the uploaded runtime, refreshes this site's PHP and retires only exact known old forwarding files and empty folders while preserving custom items and installed data.
+
+The correction is uploaded in [source commit e58f9edd](https://github.com/afterburn25/velvet_vixxen/commit/e58f9edd708fd42dee0e6c898170e67eb4a01a53). All seven jobs in [the final CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458) passed against the identical complete source tree, including PHP 8.2/8.3, MySQL 8, actual rejected-package cleanup and desktop/mobile acceptance. The gated packages and all four saved replacement downloads were compared literally and match; saved readback was verified 2026-10-19 22:36:25 UTC. Read [the update instructions](docs/UPDATE_VERIFICATION.md) and [current test/delivery status](docs/TEST_REPORT.md). Earlier repair-run results are historical and did not enforce the approved folder requirement.
+
+The repair retains working image uploads, Full Page Preview, publication and separately editable live button layers. The previous installer database/layout correction below remains included in the full distribution. The affected customer host has not been accessed or verified.
 
 ## 0.8.1 installer database and layout repair
 
@@ -14,7 +18,7 @@ The runtime-only repair contains eight files, including the prior static-folder 
 
 This tree now contains the executable application, database migrations, public assets, recovered engineering tests, package builder, and required GitHub Actions checks. It was recovered from the checksum-verified **0.8.1** fresh-install package, then reconciled with the separate **0.7.4** Visual Composer fixes. Application source is no longer deferred to a future import.
 
-The continuation adds the expanded Visual Composer, 30 standalone luxury scenes, Booking Form Builder, About Me and owner editor, shared sticky public navigation, centered account pages, persistent admin categories, merchandise/stock/shipping/fulfillment, direct PPV checkout, and safe installed database updates. The repair also preserves installation identity and backups and produces reproducible fresh-install/upgrade distributions. The full engineering gate passed on runtime commit `ca52793` in [GitHub run 39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477). Exact source, artifacts and fresh/upgrade package hashes are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md) and [`RELEASE_MANIFEST.txt`](RELEASE_MANIFEST.txt).
+The continuation adds the expanded Visual Composer, 30 standalone luxury scenes, Booking Form Builder, About Me and owner editor, shared sticky public navigation, centered account pages, persistent admin categories, merchandise/stock/shipping/fulfillment, direct PPV checkout, and safe installed database updates. The repair also preserves installation identity and backups and produces reproducible fresh-install/upgrade distributions. The recovered baseline's engineering gate passed on runtime commit `ca52793` in [GitHub run 39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477); that historical result does not certify later repairs. Current source, execution, artifacts and fresh/upgrade package hashes are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md) and [`RELEASE_MANIFEST.txt`](RELEASE_MANIFEST.txt).
 
 Historical package/handoff claims were not treated as proof of implementation. [`docs/SOURCE_RECOVERY.md`](docs/SOURCE_RECOVERY.md) records provenance and features that remain unfinished in the recovered code.
 
