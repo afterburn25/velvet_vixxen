@@ -93,6 +93,30 @@ def resize_from_corner(page, target, handle_selector: str, dx: float, dy: float)
     assert percent(target, "width") > before, "Corner resize did not increase the object width"
 
 
+def assert_stable_resize_focus(page, layer) -> None:
+    page.locator('[data-canvas]').scroll_into_view_if_needed()
+    handle = page.locator('[data-selection-overlay] [data-handle="se"]')
+    handle.focus()
+    original = handle.element_handle()
+    assert original is not None
+    # Reload the real layer image to reproduce the asynchronous load callback
+    # which previously replaced a resize handle immediately after a drag.
+    layer.locator('img').evaluate('''image => new Promise((resolve, reject) => {
+      image.addEventListener('load', () => resolve(), {once: true});
+      image.addEventListener('error', () => reject(new Error('The selected image failed to reload')), {once: true});
+      image.src = image.src;
+    })''')
+    assert original.evaluate('node => node.isConnected && document.activeElement === node'), 'Image loading detached or unfocused the resize handle'
+    viewport = page.viewport_size
+    page.set_viewport_size({'width': viewport['width'] - 64, 'height': viewport['height']})
+    # Let native layout and ResizeObserver complete without a timed sleep.
+    page.evaluate('() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
+    assert original.evaluate('node => node.isConnected && document.activeElement === node'), 'Canvas resizing detached or unfocused the resize handle'
+    page.set_viewport_size(viewport)
+    page.evaluate('() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))')
+    expect(handle).to_be_focused()
+
+
 def place_content(page, values: dict) -> None:
     page.locator('[data-property-tab="content"]').click()
     # Size first so changing the origin does not clamp against the previous size.
@@ -132,6 +156,7 @@ with sync_playwright() as playwright:
     layer = add_photo(page)
     control(page, "layerWidth", 18)
     move_in_two_steps(page, layer, 24, 8, "left")
+    assert_stable_resize_focus(page, layer)
     resize_from_corner(page, layer, ".resize-handle.se", 12, 8)
 
     # Both size boundaries must survive an actual draft save and reload.

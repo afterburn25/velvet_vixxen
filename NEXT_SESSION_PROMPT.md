@@ -48,7 +48,7 @@ Preserve all of these decisions:
 
 ## Current continuation checkpoint
 
-The implementation branch now contains real source recovered in commit `43945af07c145c67db2f2883a4fa7f607215dc23`, followed by actual 0.8.1 feature work. PR #15 and issue #13 track it. Composer/library, Booking Builder, About/public/admin UX, merchandise/direct PPV, manual Canva and installed database updates are implemented with focused executable tests. The library has 30 actual scenes/30 thumbnails and 90 published device renders. Schema:14 migrations/82 tables.
+The implementation branch now contains real source recovered in commit `43945af07c145c67db2f2883a4fa7f607215dc23`, followed by actual 0.8.1 feature work. PR #15 and issue #13 track it. Composer/library, Booking Builder, About/public/admin UX, merchandise/direct PPV, manual Canva and installed database updates are implemented with focused executable tests. The library has 30 actual scenes/30 thumbnails and 90 published device renders. Schema: 14 migrations/82 tables.
 
 Start by checking whether the final combined feature CI and runtime package evidence in `docs/TEST_REPORT.md` has finished. Do not redo completed recovery or feature implementation, and do not substitute the baseline run for new feature verification. Continue any remaining observed failures, artifact checksum recording and latest-source/docs upload. Preserve the detailed requirements below.
 
@@ -64,6 +64,11 @@ Implement and verify the scope in `INCOMPLETE_WORK.md`, in this order:
 6. Reorganize admin into collapsible logical categories that preserve open/closed state and current page after refresh.
 7. Build a real merchandise store and cart. Keep subscriptions on the membership checkout flow. Keep PPV photos/videos out of the merchandise cart and use direct Buy Now/rental checkout from the content page.
 8. Clarify the Canva workflow as a manual export/import bridge unless a real tested Canva API integration exists. Keep model cutouts as separate Visual Composer layers.
+
+
+## Verification correction checkpoint
+
+The complete feature source was uploaded at [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7). Its GitHub run39210406490 passed PHP 8.2/8.3 and all seven HTTP suites, then identified a MySQL fixture privilege requirement and transient Composer handle replacement. The SQL test now induces a specific missing-table failure without triggers; the Composer now preserves real handle nodes and keyboard focus during image loads and viewport resizing. Focused local regressions pass, and the focus regression demonstrably fails against the prior renderer. About page spacing/empty-sidebar handling also passes its updated three-width layout suite. The next GitHub run must verify these corrections before the final release gates are marked complete.
 
 ## Testing and evidence
 

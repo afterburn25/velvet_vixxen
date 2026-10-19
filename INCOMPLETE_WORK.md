@@ -195,3 +195,7 @@ feature/0.8.1-site-ux-hero-library
 ```
 
 Do not start 0.9.0 compliance work until the user-facing 0.8.1 continuation above is either implemented and verified or explicitly deferred by the user.
+
+## Verification correction checkpoint
+
+The complete feature source was uploaded at [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7). Its GitHub run39210406490 passed PHP 8.2/8.3 and all seven HTTP suites, then identified a MySQL fixture privilege requirement and transient Composer handle replacement. The SQL test now induces a specific missing-table failure without triggers; the Composer now preserves real handle nodes and keyboard focus during image loads and viewport resizing. Focused local regressions pass, and the focus regression demonstrably fails against the prior renderer. About page spacing/empty-sidebar handling also passes its updated three-width layout suite. The next GitHub run must verify these corrections before the final release gates are marked complete.

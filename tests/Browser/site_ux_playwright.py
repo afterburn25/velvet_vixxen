@@ -83,6 +83,8 @@ with sync_playwright() as p:
         public.on('pageerror', lambda error: errors.append(str(error)))
         visit(public, '/about/')
         expect(public.locator('#aboutTitle')).to_have_text('About Nikki — Browser Fixture')
+        about_box = public.locator('.about-page').bounding_box()
+        assert about_box['x'] >= 16 and about_box['x'] + about_box['width'] <= width - 16, ('About content touches the viewport edges', width, about_box)
         expect(public.locator('.about-statistics')).to_contain_text('The music studio')
         expect(public.locator('.about-statistics')).not_to_contain_text('Hidden measurement')
         expect(public.locator('.about-biography')).to_contain_text('<script>window.aboutInjection=true</script>')

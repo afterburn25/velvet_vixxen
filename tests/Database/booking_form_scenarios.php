@@ -54,13 +54,25 @@ try {
         return $counts;
     };
     $bookingTestBeforeFailure = $bookingTestCounts();
-    $pdo->exec("CREATE TRIGGER vvx_booking_test_failure BEFORE INSERT ON messages FOR EACH ROW SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Booking fixture forced message failure'");
+    // The message insert follows the booking, snapshot and thread inserts. Hide its
+    // table to fail at that point without CREATE TRIGGER/SUPER privileges. Keep
+    // fixture DDL outside the application transaction and always restore the table.
+    $bookingTestMessageFailure = null;
+    $pdo->exec('RENAME TABLE messages TO messages_fixture_hidden');
     try {
-        $bookingTestFailed(static fn() => $bookingTestStore->createBookingRequest(['formValues' => $bookingTestGood]),
-            'Injected MySQL message failure did not propagate.');
+        try {
+            $bookingTestStore->createBookingRequest(['formValues' => $bookingTestGood]);
+        } catch (PDOException $error) {
+            $bookingTestMessageFailure = $error;
+        }
     } finally {
-        $pdo->exec('DROP TRIGGER IF EXISTS vvx_booking_test_failure');
+        $pdo->exec('RENAME TABLE messages_fixture_hidden TO messages');
     }
+    $bookingTestAssert($bookingTestMessageFailure instanceof PDOException
+        && $bookingTestMessageFailure->getCode() === '42S02'
+        && (int) ($bookingTestMessageFailure->errorInfo[1] ?? 0) === 1146
+        && str_contains($bookingTestMessageFailure->getMessage(), $name . '.messages'),
+        'The booking did not reach the injected missing-message-table database failure.');
     $bookingTestAssert($bookingTestCounts() === $bookingTestBeforeFailure,
         'Failed MySQL booking left a partial inquiry, snapshot, thread, message or attachment.');
     $bookingTestLong = $bookingTestStore->createBookingRequest(['formValues' => array_replace($bookingTestGood, ['details' => str_repeat('x', 10000)])]);

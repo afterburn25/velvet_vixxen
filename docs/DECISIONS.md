@@ -106,5 +106,5 @@ These are design requirements; advanced audience/expiration, scheduled scenes, a
 - Merchandise carts contain physical catalog lines only. Membership and PPV/rental use separate checkout intents; direct purchases do not clear the merchandise cart. Stock reservations are serialized, terminal payment events are idempotent, and stale owner edits cannot overwrite newer inventory.
 - Shipping uses configured per-item charges and private order addresses. Automatic carrier labels, region-specific taxes and live payments are not implied.
 - Installed database updates apply pending versioned migrations after identity/plan checks and explicit operator backup acknowledgment. Failure records are retained; destructive down SQL never runs automatically on an existing site.
-- Browser asset cache identity is distinct from the0.8.1 core/add-on compatibility version.
+- Browser asset cache identity is distinct from the 0.8.1 core/add-on compatibility version.
 - Canva is a saved-link/manual export/import bridge. Functional HTML and transparent owner photos remain separate from decorative artwork.

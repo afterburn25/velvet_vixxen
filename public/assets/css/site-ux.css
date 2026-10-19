@@ -20,9 +20,10 @@ body.media-page>.media-main{width:100%;flex:1;min-height:0}
 .auth-page .member-auth-art{display:none}
 .auth-page .member-form-row{grid-template-columns:1fr}
 .auth-page .media-footer{width:100%}
-.about-page{padding-top:clamp(38px,6vw,80px);padding-bottom:clamp(45px,7vw,100px);color:#faedf5;width:100%;box-sizing:border-box}
-.about-heading h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2.6rem,6vw,5rem);margin:12px 0 34px}
+.about-page{padding-top:clamp(38px,6vw,80px);padding-bottom:clamp(45px,7vw,100px);color:#faedf5;width:min(1280px,calc(100% - 40px));margin-inline:auto;box-sizing:border-box}
+.about-heading h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2.6rem,6vw,5rem);margin:12px 0 34px;overflow-wrap:anywhere}
 .about-layout{display:grid;grid-template-columns:minmax(220px,310px) minmax(0,1fr);gap:clamp(30px,6vw,90px);align-items:start}
+.about-layout--biography{grid-template-columns:minmax(0,850px)}
 .about-sidebar{min-width:0}
 .about-photo{display:block;max-width:100%;height:auto;border-radius:20px;margin-bottom:25px}
 .about-statistics{margin:0;border-top:1px solid rgba(255,94,169,.22)}

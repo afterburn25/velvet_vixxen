@@ -47,3 +47,7 @@ Advanced marketing gaps remain explicitly documented in `SOURCE_RECOVERY.md`; th
 - Customer packages built from the committed source; operating documentation and actual running-build evidence.
 
 A feature is complete only when implemented, tested, documented, and uploaded. No percentage is inferred from version numbers or table counts.
+
+## Verification correction checkpoint
+
+The complete feature source was uploaded at [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7). Its GitHub run39210406490 passed PHP 8.2/8.3 and all seven HTTP suites, then identified a MySQL fixture privilege requirement and transient Composer handle replacement. The SQL test now induces a specific missing-table failure without triggers; the Composer now preserves real handle nodes and keyboard focus during image loads and viewport resizing. Focused local regressions pass, and the focus regression demonstrably fails against the prior renderer. About page spacing/empty-sidebar handling also passes its updated three-width layout suite. The next GitHub run must verify these corrections before the final release gates are marked complete.

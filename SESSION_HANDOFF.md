@@ -39,3 +39,7 @@ Approved pink/magenta/black design; no new mockups or placeholder people; owner 
 Upgrade payloads exclude config/storage/uploads/install. Recovery preserves valid active identity and unique/unknown backup data. Database updates require a reviewed plan and operator-confirmed backup, use filesystem/database locks, and stop without automatic rollback if DDL partially fails.
 
 Actual owner photographs and real catalog/biography content are not available in source. Do not invent them. Historical advanced marketing claims remain unreconciled implementation gaps in `docs/SOURCE_RECOVERY.md`; production email/live payments/hosting certification remain outside this verified development milestone.
+
+## Verification correction checkpoint
+
+The complete feature source was uploaded at [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7). Its GitHub run39210406490 passed PHP 8.2/8.3 and all seven HTTP suites, then identified a MySQL fixture privilege requirement and transient Composer handle replacement. The SQL test now induces a specific missing-table failure without triggers; the Composer now preserves real handle nodes and keyboard focus during image loads and viewport resizing. Focused local regressions pass, and the focus regression demonstrably fails against the prior renderer. About page spacing/empty-sidebar handling also passes its updated three-width layout suite. The next GitHub run must verify these corrections before the final release gates are marked complete.

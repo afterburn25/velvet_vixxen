@@ -24,11 +24,19 @@ Run [39207173912](https://github.com/afterburn25/velvet_vixxen/actions/runs/3920
 
 This is not an all-green run and does not verify the subsequent feature migrations or browser additions.
 
+## Feature checkpoint CI and corrections
+
+Implementation commit [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7), run [39210406490](https://github.com/afterburn25/velvet_vixxen/actions/runs/39210406490): repository contract, PHP 8.2, PHP 8.3 and all 7 installed HTTP suites passed. MySQL 8.0.46 passed all 32 installed-upgrade checks and merchandise transactions, then failed because the booking rollback fixture used a trigger requiring SUPER under binary logging. The fixture now temporarily renames the disposable messages table, requires the exact missing-table SQL error, restores it and checks all six row counts. No global database privilege or production behavior was changed.
+
+The same CI browser job passed its first seven suites, then exposed Composer handle replacement during a canvas redraw. The correction keeps selected handle nodes stable while updating geometry, preserving keyboard focus as well as the resize interaction. The corrected Composer recovery/focus and expanded controls suites pass locally. The new focus assertion fails against the original d81513 renderer at the expected image-load focus loss, demonstrating a meaningful regression. A subsequent exact-engine/full browser CI run is required; this run's failures are retained as evidence rather than hidden.
+
+Visual screenshot review also corrected About page side spacing and hides an empty details column when no photo or statistics have been supplied. The updated desktop/tablet/mobile About/account/admin layout suite passes. Asset build identity is now `0.8.1-20261019.2`; core VERSION remains 0.8.1.
+
 ## Observed feature implementation evidence
 
 | Area | Actual local execution |
 | --- | --- |
-| PHP 8.3 source and syntax | PASS, clean exit0 on the stable final implementation: PHP/JS/Python syntax and restored feature/security/installer/package suites. Log: final-run/source.log in execution evidence. |
+| PHP 8.3 source and syntax | PASS, clean exit 0 on the stable final implementation: PHP/JS/Python syntax and restored feature/security/installer/package suites. Log: final-run/source.log in execution evidence. |
 | Installer recovery | PASS: 72 focused assertions for matching identity, active configuration/key preservation, ambiguous backups, linked paths and real installer execution. |
 | Repair backups | PASS: 71 assertions covering verified duplicates, unique/unknown/unreadable data preservation, path confinement and safe deletion/archive handling. |
 | Runtime package tests | PASS: reproducibility, runtime-only exclusions, fresh uninstalled state, upgrade overlay preserving config/lock/private data/uploads byte-for-byte and symlink rejection. |
@@ -40,12 +48,12 @@ This is not an all-green run and does not verify the subsequent feature migratio
 | Merchandise | PASS: 45 source assertions; desktop/mobile owner image/variant editing, live pricing, cart quantities, address/shipping validation, sandbox checkout, fulfillment/tracking, stock reservation/restoration, stale-editor rejection, PPV/cart isolation, pending-charge reconciliation and refund/chargeback revocation. |
 | Installed Database Updates | PASS: 13 source checks, owner/CSRF/private-path HTTP coverage, 32 MariaDB integration checks including actual 12→14 upgrade, existing booking/configuration/lock/key/upload preservation, no automatic down migration on injected DDL failure, reviewed retry, stale plan, locks, symlinks/permissions and real CLI. |
 | MariaDB 10.11.14 full schema | PASS: 14 migrations / 82 declared tables; apply, idempotent reapply, merchandise/booking/updater scenarios, rollback to empty disposable schema. This is not MySQL 8 evidence. |
-| Installed HTTP regression | PASS, all seven suites in one stable aggregate (exit0): members, commerce, add-ons, current platform, booking builder, merchandise and database updates. Log: final-run/http.log. Feature GitHub CI remains required. |
-| Browser regression | Twelve real browser suites are wired, including all new feature acceptance. Focused suites passed; stable aggregate and feature CI remain required. |
+| Installed HTTP regression | PASS, all seven suites in one stable aggregate (exit 0): members, commerce, add-ons, current platform, booking builder, merchandise and database updates. Log: final-run/http.log. Feature GitHub CI remains required. |
+| Browser regression | PASS, all 12 real Chromium suites in one stable aggregate (exit 0), including the full 30-scene library/90 public renders, Composer controls, booking/merchandise and desktop/tablet/mobile layouts. Log: final-run/browser.log. A subsequently discovered transient handle replacement has its own correction/regression before the next CI run. |
 
 The long first library run printed full success, then its Bash wrapper exited after a concurrent harness edit. The wrapper now execs its disposable snapshot and deduplicates its suite list. The stable aggregate must finish cleanly; that earlier outer exit is not called a pass.
 
-The final independent asset/installer audit checked55 public/admin pages, found and corrected one caption thumbnail issue, then rechecked7 pages/29 unique local assets with no broken images or resource errors. All loaded CSS/JS have exactly one current asset build version. Repository safety, expanded credential/private-key signatures,82 directory permissions,47 literal asset references and139 default-data asset references passed.
+The final independent asset/installer audit checked 55 public/admin pages, found and corrected one caption thumbnail issue, then rechecked 7 pages/29 unique local assets with no broken images or resource errors. All loaded CSS/JS have exactly one current asset build version. Repository safety, expanded credential/private-key signatures, 82 directory permissions, 47 literal asset references and 139 default-data asset references passed.
 
 ## Commands and isolation
 
@@ -63,7 +71,7 @@ Local tooling: PHP 8.3.6 with PDO MySQL, MariaDB 10.11.14, Python Playwright and
 
 ## Remaining release evidence
 
-- Stable combined twelve-browser suite on the final implementation tree; stable source and all seven HTTP suites have passed.
+- Stable combined source, all 7 HTTP and all 12 browser suites have passed. Verify the subsequent CI-specific SQL fixture and persistent-handle correction with focused local tests and actual GitHub CI.
 - Actual feature GitHub PHP 8.2/8.3, MySQL 8 apply/reapply/rollback with new booking/merchandise/updater scenarios, HTTP/browser, repository/secret and package jobs.
 - Final runtime-only fresh/upgrade ZIP hashes and artifact links tied to the committed source.
 - Updated issue #13, progress documents and source uploaded after final fixes.

@@ -351,37 +351,55 @@
   }
 
   function renderSelectionOverlay() {
-    el.selection.replaceChildren();
     const layer = selectedLayer();
-    if (!layer || selectedTarget !== 'layer' || layer.locked || layer.visible === false) return;
+    if (!layer || selectedTarget !== 'layer' || layer.locked || layer.visible === false) {
+      el.selection.replaceChildren();
+      delete el.selection.dataset.selectionLayerId;
+      return;
+    }
     const node = layerNode(layer);
     if (!node) return;
     const frame = el.canvas.getBoundingClientRect();
     const bounds = node.getBoundingClientRect();
+    // A newly rendered image may still be loading. Keep its existing controls
+    // until geometry is available instead of discarding focus between frames.
     if (!frame.width || !frame.height || !bounds.height) return;
+    // Image loads, pointer updates and ResizeObserver refresh geometry often.
+    // Preserve the actual buttons for the same selection so focus and an
+    // in-flight pointer target survive those asynchronous refreshes.
+    if (el.selection.dataset.selectionLayerId !== String(layer.id)) {
+      el.selection.replaceChildren();
+      el.selection.dataset.selectionLayerId = String(layer.id);
+      ['nw', 'ne', 'sw', 'se'].forEach((corner) => {
+        const handle = document.createElement('button');
+        handle.type = 'button';
+        handle.className = `resize-handle ${corner}`;
+        handle.dataset.handle = corner;
+        handle.setAttribute('aria-label', `Resize photo from ${corner} corner`);
+        handle.addEventListener('pointerdown', (event) => startLayerPointer(event, selectedLayer()?.id));
+        el.selection.appendChild(handle);
+      });
+      const move = document.createElement('button');
+      move.type = 'button';
+      move.className = 'selection-move';
+      move.dataset.selectionMove = '';
+      move.title = 'Drag to move this photo, including when it is outside the frame';
+      move.setAttribute('aria-label', 'Move selected photo');
+      move.addEventListener('pointerdown', (event) => startLayerPointer(event, selectedLayer()?.id));
+      el.selection.appendChild(move);
+    }
     // Dock handles to the frame, expanding very small selections to an accessible hit area.
     const left = clamp(bounds.left - frame.left, 15, Math.max(15, frame.width - 45));
     const top = clamp(bounds.top - frame.top, 15, Math.max(15, frame.height - 45));
     const right = clamp(bounds.right - frame.left, left + 30, Math.max(left + 30, frame.width - 15));
     const bottom = clamp(bounds.bottom - frame.top, top + 30, Math.max(top + 30, frame.height - 15));
     [['nw', left, top], ['ne', right, top], ['sw', left, bottom], ['se', right, bottom]].forEach(([corner, x, y]) => {
-      const handle = document.createElement('button');
-      handle.type = 'button';
-      handle.className = `resize-handle ${corner}`;
-      handle.dataset.handle = corner;
-      handle.setAttribute('aria-label', `Resize photo from ${corner} corner`);
+      const handle = el.selection.querySelector(`[data-handle="${corner}"]`);
       handle.style.left = `${x}px`;
       handle.style.top = `${y}px`;
-      handle.addEventListener('pointerdown', (event) => startLayerPointer(event, layer.id));
-      el.selection.appendChild(handle);
     });
-    const move = document.createElement('button');
-    move.type = 'button';
-    move.className = 'selection-move';
-    move.dataset.selectionMove = '';
+    const move = el.selection.querySelector('[data-selection-move]');
     move.textContent = layer.name || 'Move photo';
-    move.title = 'Drag to move this photo, including when it is outside the frame';
-    move.setAttribute('aria-label', 'Move selected photo');
     const halfLabel = Math.min(75, (frame.width - 30) / 2);
     const corners = [[left, top], [right, top], [left, bottom], [right, bottom]];
     const candidates = [[(bounds.left + bounds.right) / 2 - frame.left, bounds.top - frame.top - 32]];
@@ -390,8 +408,6 @@
     const position = positions.find(([x, y]) => corners.every(([cx, cy]) => Math.abs(cx - x) > halfLabel + 14 || Math.abs(cy - y) > 28)) || positions[0];
     move.style.left = `${position[0]}px`;
     move.style.top = `${position[1]}px`;
-    move.addEventListener('pointerdown', (event) => startLayerPointer(event, layer.id));
-    el.selection.appendChild(move);
   }
 
   function clearSnapGuides() {
