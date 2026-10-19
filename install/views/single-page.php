@@ -40,7 +40,7 @@ $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
 <meta name="robots" content="noindex,nofollow,noarchive">
 <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
 <title><?= $installed ? 'Installation Locked' : 'Install Velvet Vixxen' ?> · Nikki Wilder</title>
-<link rel="stylesheet" href="<?= e(asset_url('css/installer.css')) ?>?v=<?= e($version) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/installer.css')) ?>">
 </head>
 <body class="single-page-installer simplified-installer" data-requirements-ready="<?= $requirementsReady ? '1' : '0' ?>" data-install-id="<?= e($installId) ?>" data-endpoint="<?= e(base_url('install/')) ?>">
 <main class="installer-shell simplified-shell">
@@ -267,6 +267,6 @@ window.VVX_INSTALLER = <?= json_encode([
     'csrf' => csrf_token(),
 ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?>;
 </script>
-<script src="<?= e(asset_url('js/installer.js')) ?>?v=<?= e($version) ?>" defer></script>
+<script src="<?= e(asset_url('js/installer.js')) ?>" defer></script>
 </body>
 </html>

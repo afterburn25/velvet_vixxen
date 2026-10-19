@@ -33,10 +33,11 @@ try {
     $action = (string) ($payload['action'] ?? 'save');
     if ($action === 'restore') {
         $versionId = $payload['versionId'] ?? '';
-        if ($versionId === '') {
+        if ((!is_string($versionId) && !is_int($versionId)) || (string) $versionId === '') {
             throw new RuntimeException('Choose a version to restore.');
         }
-        $scene = app_store()->restoreScene($section, is_numeric($versionId) ? (int) $versionId : (string) $versionId, app_auth()->id());
+        // File-store IDs may contain only digits and leading zeroes; keep their identity.
+        $scene = app_store()->restoreScene($section, (string) $versionId, app_auth()->id());
         app_store()->audit(app_auth()->id(), 'scene.restored', ['section' => $section, 'version' => $versionId]);
         json_response(['ok' => true, 'scene' => $scene, 'versions' => app_store()->sceneVersions($section), 'message' => 'Published version restored.']);
     }

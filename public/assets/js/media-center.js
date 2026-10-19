@@ -155,13 +155,15 @@
   });
 
   document.querySelectorAll('[data-favorite-toggle]').forEach(button => {
+    button.setAttribute('aria-pressed', String(button.classList.contains('active')));
     button.addEventListener('click', async () => {
       const active = !button.classList.contains('active');
       button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
       const original = button.textContent;
       button.textContent = active ? '♥ Saved' : '♡ Save';
       const result = await saveMemberState(button.dataset.contentType, button.dataset.contentId, {isFavorite:active});
-      if (!result || !result.ok) { button.classList.toggle('active', !active); button.textContent = original; }
+      if (!result || !result.ok) { button.classList.toggle('active', !active); button.setAttribute('aria-pressed', String(!active)); button.textContent = original; }
     });
   });
 })();

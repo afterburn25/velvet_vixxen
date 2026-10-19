@@ -15,7 +15,7 @@
     if (/^(?:https?:)?\/\//i.test(path) || String(path).startsWith('data:') || String(path).startsWith('blob:')) return String(path);
     const normalized = normalizePath(path);
     if (normalized.startsWith('uploads/')) return `${baseUrl}/${normalized}`;
-    if (/^images\/(?:defaults|backgrounds|branding|gallery-covers|icons|placeholders)\//.test(normalized)) return `${baseUrl}/${normalized}`;
+    if (/^images\/(?:defaults|hero|backgrounds|branding|gallery-covers|icons|placeholders)\//.test(normalized)) return `${baseUrl}/${normalized}`;
     if (/^(?:media|models|thumbnails|exports|audio|videos|captions)\//.test(normalized)) return uploadBase + normalized;
     if (normalized.startsWith('images/')) return uploadBase + normalized;
     return `${baseUrl}/${normalized}`;
@@ -51,13 +51,15 @@
     const overlay = root.querySelector('.scene-overlay');
     const layerRoot = root.querySelector('.scene-layers');
     const content = root.querySelector(section === 'hero' ? '.hero-content' : '.closing-content');
-    const settings = scene.background || {};
+    const settings = {...(scene.background || {}), ...(view.background || {})};
 
     if (bg) {
       bg.src = resolveAsset(settings.src);
       bg.style.objectFit = settings.fit || 'cover';
       bg.style.objectPosition = `${Number(settings.x ?? 50)}% ${Number(settings.y ?? 50)}%`;
       bg.style.transform = `scale(${Number(settings.zoom ?? 1)})`;
+      bg.style.transformOrigin = `${Number(settings.x ?? 50)}% ${Number(settings.y ?? 50)}%`;
+      Object.assign(bg.style, {inset: '0', width: '100%', height: '100%'});
       bg.style.filter = `brightness(${Number(settings.brightness ?? 100)}%) contrast(${Number(settings.contrast ?? 100)}%) saturate(${Number(settings.saturation ?? 100)}%) blur(${Number(settings.blur ?? 0)}px)`;
       bg.onerror = () => {
         bg.onerror = null;
@@ -88,13 +90,17 @@
     }
 
     if (layerRoot) {
+      // Keep every photo above the artwork, even after repeated Move Back actions.
+      layerRoot.style.zIndex = '1';
+      layerRoot.style.isolation = 'isolate';
       layerRoot.replaceChildren();
       [...(view.layers || [])]
-        .sort((a, b) => Number(a.z || 1) - Number(b.z || 1))
+        .sort((a, b) => Number(a.z ?? 1) - Number(b.z ?? 1))
         .forEach((layer) => {
           if (layer.visible === false) return;
           const wrap = document.createElement('div');
           wrap.className = 'public-scene-layer';
+          wrap.dataset.layerId = String(layer.id || '');
           wrap.style.left = `${Number(layer.x ?? 50)}%`;
           wrap.style.top = `${Number(layer.y ?? 50)}%`;
           wrap.style.width = `${Number(layer.width ?? 30)}%`;

@@ -25,6 +25,8 @@ def observe(page, label: str) -> None:
 def visit(page, path: str, wait_ms: int = 200) -> None:
     page.goto(BASE + path, wait_until="domcontentloaded", timeout=30_000)
     page.wait_for_timeout(wait_ms)
+    if page.locator("#ageGate:not([hidden])").count():
+        page.locator("#ageEnter").click()
 
 
 def launch_browser(playwright):
@@ -70,7 +72,7 @@ with sync_playwright() as playwright:
         assert favorite.first.get_attribute("aria-pressed") in {"true", "false"}
 
     visit(page, "/membership/")
-    assert page.locator(".membership-plan-card").count() >= 3
+    assert page.locator(".plan-card").count() >= 3
     context.close()
 
     mobile = browser.new_context(viewport={"width": 390, "height": 844})

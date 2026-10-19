@@ -1,9 +1,9 @@
 (() => {
   'use strict';
   const body = document.body;
-  document.querySelector('.sidebar-toggle')?.addEventListener('click', () => body.classList.toggle('sidebar-open'));
+  document.querySelector('.sidebar-toggle')?.addEventListener('click', (event) => { const open = body.classList.toggle('sidebar-open'); event.currentTarget.setAttribute('aria-expanded', String(open)); });
   document.addEventListener('click', (event) => {
-    if (body.classList.contains('sidebar-open') && !event.target.closest('.admin-sidebar') && !event.target.closest('.sidebar-toggle')) body.classList.remove('sidebar-open');
+    if (body.classList.contains('sidebar-open') && !event.target.closest('.admin-sidebar') && !event.target.closest('.sidebar-toggle')) { body.classList.remove('sidebar-open'); document.querySelector('.sidebar-toggle')?.setAttribute('aria-expanded','false'); }
   });
   const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
 

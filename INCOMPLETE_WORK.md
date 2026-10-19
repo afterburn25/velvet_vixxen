@@ -10,11 +10,13 @@ This file is the authoritative handoff for the user-facing work that was being d
 
 ## Current checkpoint — 2026-10-19
 
-The checksum-verified 0.8.1 Fresh Install artifact was recovered, and its complete executable source and engineering tests are being imported on the implementation branch. Baseline PHP 8.3 source, recovery, packaging and HTTP checks pass; MariaDB applies/reapplies/rolls back 12 migrations and verifies 78 tables. Restored Composer direct interactions pass actual desktop/mobile browser tests. PHP 8.2, MySQL 8 and the complete feature acceptance matrix remain required gates. See `docs/TEST_REPORT.md` for the exact boundary. All unchecked feature items below remain active work; historical completion claims are not reused.
+Executable recovery source was uploaded in commit [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23). The 0.8.1 continuation now has real Composer/library, Booking Builder, public/admin UX, merchandise/direct PPV, manual Canva and installed database-update code. Checked items below have focused executable evidence; they are not a declaration that the final aggregate release gate passed.
+
+All 30 standalone scene images and all 30 thumbnails decode. Every scene passed publication/rendering at three widths (90 public renders). Booking, merchandise, About/admin/account layouts and updater preservation checks passed. The current schema is 14 migrations / 82 tables. Baseline GitHub PHP 8.2/8.3 and MySQL 8 jobs passed, but its old age-gate browser setup failed and has been fixed. The feature checkpoint still requires its own full green CI, final package hashes and final documentation upload. See `docs/TEST_REPORT.md`.
 
 ## Truth boundary
 
-- GitHub currently documents a packaged `0.8.0 — Marketing, Publishing & Analytics` runtime release, but the complete executable 0.8.0 engineering source has not been imported into the repository.
+- At the original handoff, GitHub documented a packaged `0.8.0 — Marketing, Publishing & Analytics` milestone without its complete engineering source. The implementation branch now contains checksum-verified recovered 0.8.1 source and actual subsequent feature work; the historical claim is not retroactively certified.
 - The 0.8.0 branch records runtime artifact metadata, including SHA-256 `ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993`, but the runtime ZIP itself is not committed to source control.
 - The latest executable source visible in GitHub must be inspected before coding. Do not assume `main` or any documentation-only branch contains the complete application.
 - Customer installation ZIPs must remain runtime-only. Repository docs, tests, SDK source, screenshots, GitHub workflows, development schema snapshots, and build tooling stay outside the customer ZIP.
@@ -22,35 +24,35 @@ The checksum-verified 0.8.1 Fresh Install artifact was recovered, and its comple
 
 ## Priority 0 — Recover and verify the real executable baseline
 
-- [ ] Inspect every live branch and identify the newest branch that actually contains executable application source rather than documentation only.
-- [ ] Locate the latest clean engineering tree or runtime artifact corresponding to 0.8.0.
-- [ ] If the 0.8.0 engineering source is unavailable, start from the last verified executable source/package and reapply later changes deliberately; do not invent missing code from status documents.
-- [ ] Run the existing source, installer, HTTP, security, runtime-package, and browser tests before modifying behavior.
-- [ ] Import the complete clean engineering source into GitHub on a feature branch, while keeping the public installation ZIP runtime-only.
-- [ ] Record the exact source commit, package SHA-256, migration count, table count, and test results in `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, and `docs/TEST_REPORT.md`.
+- [x] Inspect every live branch and identify the newest branch that actually contains executable application source rather than documentation only.
+- [x] Search the 0.8.0 source/artifact inputs; reject the recovered 0.8.0 ZIP as a substitute for its mismatched historical checksum, and select the newer checksum-verified 0.8.1 runtime as documented in `docs/SOURCE_RECOVERY.md`.
+- [x] If the 0.8.0 engineering source is unavailable, start from the last verified executable source/package and reapply later changes deliberately; do not invent missing code from status documents.
+- [x] Recover and execute the existing source, installer, HTTP, security, runtime-package and real browser suites; record discovered failures and baseline fixes separately from new feature tests.
+- [x] Import the complete clean engineering source into GitHub on a feature branch, while keeping the public installation ZIP runtime-only.
+- [x] Record the recovered source commit, baseline package SHA-256, migration/table counts and observed tests in the status/handoff/test report. Final feature package checksums remain a release gate below.
 
 ## Priority 1 — Visual Composer direct manipulation and scene realism
 
 The user wants the Visual Composer to behave like a real canvas editor.
 
-- [ ] Allow direct drag movement of model/photo layers anywhere on the canvas.
-- [ ] Allow layers to move well beyond every canvas edge, including negative X/Y positions and positions below the Hero, so lower legs or other portions can be clipped to create a convincing floor/foreground illusion.
-- [ ] Clip everything outside the live Hero/Footer viewport on the public site.
-- [ ] Allow image resizing from extremely small to extremely large. Preserve aspect ratio by default and provide precise numeric controls.
-- [ ] Keep resize handles reachable even when a layer is partly off-canvas.
-- [ ] Allow direct movement and resizing of the live text/button group as one canvas object.
-- [ ] Preserve separate Desktop, Tablet, and Mobile positions/sizes for backgrounds, model layers, and the live text/button group.
-- [ ] Support background panning, focal point, zoom, brightness, contrast, saturation, overlay, and blur.
-- [ ] Preserve undo/redo, layer ordering, lock/hide, duplicate/delete, snapping, alignment guides, and keyboard/numeric movement.
-- [ ] Verify that model layers remain separately editable and are not flattened into Canva artwork.
-- [ ] Add optional foreground/occlusion layers or masks later if needed so furniture can appear in front of model cutouts; do not fake this by permanently baking the model into the room image.
+- [x] Allow direct drag movement of model/photo layers anywhere on the canvas.
+- [x] Allow layers to move well beyond every canvas edge, including negative X/Y positions and positions below the Hero, so lower legs or other portions can be clipped to create a convincing floor/foreground illusion.
+- [x] Clip everything outside the live Hero/Footer viewport on the public site.
+- [x] Allow image resizing from extremely small to extremely large. Preserve aspect ratio by default and provide precise numeric controls.
+- [x] Keep resize handles reachable even when a layer is partly off-canvas.
+- [x] Allow direct movement and resizing of the live text/button group as one canvas object.
+- [x] Preserve separate Desktop, Tablet, and Mobile positions/sizes for backgrounds, model layers, and the live text/button group.
+- [x] Support background panning, focal point, zoom, brightness, contrast, saturation, overlay, and blur.
+- [x] Preserve undo/redo, layer ordering, lock/hide, duplicate/delete, snapping, alignment guides, and keyboard/numeric movement.
+- [x] Verify that model layers remain separately editable and are not flattened into Canva artwork.
+- Optional future enhancement: dedicated furniture/foreground masks. Current separate photo ordering and all-edge clipping are implemented; no cutout is baked into the room. A specialized mask editor is not claimed as part of this continuation.
 
 ### Broken Visual Composer media
 
-- [ ] Fix all asset URL resolution rules for bundled `/images/...` assets versus uploaded `/uploads/images/...`, `/uploads/models/...`, `/uploads/thumbnails/...`, and related media locations.
-- [ ] Media Tray must show image-compatible assets only.
-- [ ] Missing files must show a controlled placeholder and useful status, never a permanent broken-image icon.
-- [ ] Add automated coverage that loads every Media Tray thumbnail and fails on 404s or invalid image responses.
+- [x] Fix all asset URL resolution rules for bundled `/images/...` assets versus uploaded `/uploads/images/...`, `/uploads/models/...`, `/uploads/thumbnails/...`, and related media locations.
+- [x] Media Tray must show image-compatible assets only.
+- [x] Missing files must show a controlled placeholder and useful status, never a permanent broken-image icon.
+- [x] Add automated coverage that loads every Media Tray thumbnail and fails on 404s or invalid image responses.
 
 ## Priority 2 — Premium Hero Background Library
 
@@ -58,26 +60,26 @@ The user requested many individual, upscale, people-free scene backgrounds that 
 
 ### Required scene categories
 
-- [ ] Multiple luxury bedrooms and romantic suites
-- [ ] Upscale kitchens
-- [ ] Elegant living rooms and penthouses
-- [ ] Game rooms with pool tables
-- [ ] Private home bars and cocktail lounges
-- [ ] Home theaters
-- [ ] Luxury bathrooms, spas, and saunas
-- [ ] Walk-in closets and dressing rooms
-- [ ] Music/recording studio
-- [ ] Wine cellar
-- [ ] Mansion foyer or staircase
-- [ ] Rooftop lounge
-- [ ] Garden patio and fire-pit lounge
-- [ ] Infinity pool and waterfall pool
-- [ ] Beach and private cabana
-- [ ] Outdoor/pool bar
-- [ ] Sunset terrace
-- [ ] Yacht deck
-- [ ] Private jet cabin
-- [ ] Mountain lodge/retreat
+- [x] Multiple luxury bedrooms and romantic suites
+- [x] Upscale kitchens
+- [x] Elegant living rooms and penthouses
+- [x] Game rooms with pool tables
+- [x] Private home bars and cocktail lounges
+- [x] Home theaters
+- [x] Luxury bathrooms, spas, and saunas
+- [x] Walk-in closets and dressing rooms
+- [x] Music/recording studio
+- [x] Wine cellar
+- [x] Mansion foyer or staircase
+- [x] Rooftop lounge
+- [x] Garden patio and fire-pit lounge
+- [x] Infinity pool and waterfall pool
+- [x] Beach and private cabana
+- [x] Outdoor/pool bar
+- [x] Sunset terrace
+- [x] Yacht deck
+- [x] Private jet cabin
+- [x] Mountain lodge/retreat
 
 ### Scene requirements
 
@@ -90,7 +92,7 @@ The user requested many individual, upscale, people-free scene backgrounds that 
 
 ### Generated assets from the prior active workspace
 
-The following standalone scene filenames were generated in the prior working environment but were not committed to GitHub or verified as integrated into the application. Recover them if still available; otherwise regenerate equivalent scenes:
+Historical filenames below were searched for but could not be recovered as usable durable assets. Thirty individual replacement/expanded scenes now exist in `images/hero/` with manifest, thumbnails and `artwork/hero/prompts.json` provenance. These old names are retained for traceability only:
 
 - `glamorous_magenta_penthouse_retreat.png`
 - `midnight_magenta_penthouse_kitchen.png`
@@ -103,90 +105,90 @@ The following standalone scene filenames were generated in the prior working env
 - `luxury_rooftop_lounge_at_night.png`
 - `luxe_pink_and_gold_marble_spa.png`
 
-Additional Adobe-generated scene concepts were created for a bedroom, kitchen, living room, game room, bar, infinity pool, beach cabana, outdoor bar, rooftop, spa bathroom, mansion foyer, theater, walk-in closet, garden fire pit, yacht deck, mountain lodge, music studio, wine cellar, private jet, and waterfall pool. Their temporary generation URLs were not persisted in the repository; regenerate or recover the actual files before claiming the library is complete.
+Prior Adobe concept URLs also lacked durable assets. The current 30 real individual files cover all requested categories, were visually reviewed, and passed Chromium image decoding plus 90 public scene renders. No collage or screenshot is counted as a selectable scene.
 
 ### Library integration
 
-- [ ] Create searchable/filterable background categories in the Visual Composer.
-- [ ] Show a thumbnail, scene title, orientation, and recommended model placement zone.
-- [ ] Clicking a scene should preview it immediately without publishing.
-- [ ] Save Draft, Full Page Preview, Publish, version history, and rollback must work.
-- [ ] Verify every background in desktop, tablet, and mobile modes.
+- [x] Create searchable/filterable background categories in the Visual Composer.
+- [x] Show a thumbnail, scene title, orientation, and recommended model placement zone.
+- [x] Clicking a scene should preview it immediately without publishing.
+- [x] Save Draft, Full Page Preview, Publish, version history, and rollback must work.
+- [x] Verify every background in desktop, tablet, and mobile modes.
 
 ## Priority 3 — Admin-configurable Booking Form Builder
 
-- [ ] Owner can create, edit, delete, enable/disable, and reorder fields.
-- [ ] Every field can be required or optional.
-- [ ] Supported types: short text, paragraph/textarea, email, phone, dropdown/select, single-choice radio group, and multi-choice checkboxes.
-- [ ] Radio options must be linked so only one option can be selected.
-- [ ] Checkboxes must support multiple selections and required minimum-selection rules where configured.
-- [ ] Email fields must validate realistic address format on both client and server and display a clear inline error.
-- [ ] Phone fields must accept digits and format live while typing. Example: `3374508598` becomes `(337) 450-8598` before the user leaves the field.
-- [ ] Phone validation must reject incomplete/invalid numbers on both client and server.
-- [ ] Store submitted values safely and expose them in the existing booking administration workflow.
-- [ ] Preserve existing booking records when the form definition later changes.
-- [ ] Add CSRF, authorization, escaping, upload, and spam/rate-limit coverage.
+- [x] Owner can create, edit, delete, enable/disable, and reorder fields.
+- [x] Every field can be required or optional.
+- [x] Supported types: short text, paragraph/textarea, email, phone, dropdown/select, single-choice radio group, and multi-choice checkboxes.
+- [x] Radio options must be linked so only one option can be selected.
+- [x] Checkboxes must support multiple selections and required minimum-selection rules where configured.
+- [x] Email fields must validate realistic address format on both client and server and display a clear inline error.
+- [x] Phone fields must accept digits and format live while typing. Example: `3374508598` becomes `(337) 450-8598` before the user leaves the field.
+- [x] Phone validation must reject incomplete/invalid numbers on both client and server.
+- [x] Store submitted values safely and expose them in the existing booking administration workflow.
+- [x] Preserve existing booking records when the form definition later changes.
+- [x] Add CSRF, authorization, escaping, upload, and spam/rate-limit coverage.
 
 ## Priority 4 — Public navigation, authentication pages, and About Me
 
-- [ ] Main public navigation is sticky on every public page and does not cover page anchors or mobile controls.
-- [ ] Remove `Contact` from the main navigation; Booking is the public inquiry/contact path.
-- [ ] Add `About Me` immediately after Booking in the navigation.
-- [ ] About Me is a dedicated public page, not a homepage anchor.
-- [ ] About Me left sidebar contains owner-editable label/value statistics such as height, measurements, hair, eyes, location, availability, and any custom rows. Empty values remain hidden.
-- [ ] Main About Me body contains the owner-editable biography and optional CTA/media.
-- [ ] Add a full About Me editor in the appropriate admin category.
-- [ ] Login, Join, Create Account, password recovery, and related auth pages must use a clean standalone page layout with sticky nav, centered form in the body, and footer at the bottom—never a narrow form pinned to the left side.
-- [ ] Verify desktop, tablet, mobile, keyboard, and screen-reader behavior.
+- [x] Main public navigation is sticky on every public page and does not cover page anchors or mobile controls.
+- [x] Remove `Contact` from the main navigation; Booking is the public inquiry/contact path.
+- [x] Add `About Me` immediately after Booking in the navigation.
+- [x] About Me is a dedicated public page, not a homepage anchor.
+- [x] About Me left sidebar contains owner-editable label/value statistics such as height, measurements, hair, eyes, location, availability, and any custom rows. Empty values remain hidden.
+- [x] Main About Me body contains the owner-editable biography and optional CTA/media.
+- [x] Add a full About Me editor in the appropriate admin category.
+- [x] Login, Join, Create Account, password recovery, and related auth pages must use a clean standalone page layout with sticky nav, centered form in the body, and footer at the bottom—never a narrow form pinned to the left side.
+- [x] Verify desktop/tablet/mobile layouts, keyboard controls and accessible roles/names used by real-browser tests. A manual assistive-technology certification is not claimed.
 
 ## Priority 5 — Reorganize administration navigation
 
-- [ ] Group all owner pages into logical collapsible categories, such as Dashboard, Site & Design, Content & Media, Members & Communications, Commerce, Marketing, Extensions, and System.
-- [ ] Persist expanded/collapsed category state across refreshes and returns.
-- [ ] Preserve the active page and active-page highlight after refresh.
-- [ ] Do not reset the user to the dashboard when reloading an admin page.
-- [ ] Automatically expand the category containing the active page.
-- [ ] Ensure mobile admin navigation remains usable.
-- [ ] Place Booking Form Builder under Members & Communications, About Me under Site & Design, and Merchandise under Commerce.
+- [x] Group all owner pages into logical collapsible categories, such as Dashboard, Site & Design, Content & Media, Members & Communications, Commerce, Marketing, Extensions, and System.
+- [x] Persist expanded/collapsed category state across refreshes and returns.
+- [x] Preserve the active page and active-page highlight after refresh.
+- [x] Do not reset the user to the dashboard when reloading an admin page.
+- [x] Automatically expand the category containing the active page.
+- [x] Ensure mobile admin navigation remains usable.
+- [x] Place Booking Form Builder under Members & Communications, About Me under Site & Design, and Merchandise under Commerce.
 
 ## Priority 6 — Merchandise store and PPV purchase separation
 
-- [ ] Build a real merchandise catalog with products, images, descriptions, prices, variants/sizes/options, stock/status, shipping requirement, cart, checkout, and order administration.
-- [ ] Subscription plans may be promoted from the Store but should use the membership/subscription checkout flow rather than behave like physical merchandise.
-- [ ] PPV photo galleries and PPV videos must not appear as normal cart merchandise.
-- [ ] PPV gallery/video pages must use a direct `Buy Now` or rental checkout flow tied to the selected content.
-- [ ] Keep purchased PPV content in My Library and preserve existing entitlement, refund, and chargeback behavior.
-- [ ] Test cart contents so physical merchandise cannot accidentally mix with an incompatible PPV entitlement flow unless a deliberate mixed-order design is implemented later.
-- [ ] The bundled payment provider remains sandbox-only. Do not claim live payment readiness.
+- [x] Build a real merchandise catalog with products, images, descriptions, prices, variants/sizes/options, stock/status, shipping requirement, cart, checkout, and order administration.
+- [x] Subscription plans may be promoted from the Store but should use the membership/subscription checkout flow rather than behave like physical merchandise.
+- [x] PPV photo galleries and PPV videos must not appear as normal cart merchandise.
+- [x] PPV gallery/video pages must use a direct `Buy Now` or rental checkout flow tied to the selected content.
+- [x] Keep purchased PPV content in My Library and preserve existing entitlement, refund, and chargeback behavior.
+- [x] Test cart contents so physical merchandise cannot accidentally mix with an incompatible PPV entitlement flow unless a deliberate mixed-order design is implemented later.
+- [x] The bundled payment provider remains sandbox-only. Do not claim live payment readiness.
 
 ## Priority 7 — Canva workflow clarity
 
 Current Canva behavior should be treated as a manual bridge unless a real OAuth/API integration is verified.
 
-- [ ] Document clearly that `Edit in Canva` is a saved-link shortcut, not live synchronization.
-- [ ] Document the export/import workflow for Hero, Footer, gallery covers, and video posters.
-- [ ] Keep navigation, text, buttons, paywalls, forms, and media players as live HTML/JavaScript.
-- [ ] Prefer Canva for backgrounds/decorative artwork and the Visual Composer for separately movable transparent model layers.
-- [ ] Do not claim Canva OAuth, automatic export, or automatic sync until credentials and end-to-end tests exist.
+- [x] Document clearly that `Edit in Canva` is a saved-link shortcut, not live synchronization.
+- [x] Document the export/import workflow for Hero, Footer, gallery covers, and video posters.
+- [x] Keep navigation, text, buttons, paywalls, forms, and media players as live HTML/JavaScript.
+- [x] Prefer Canva for backgrounds/decorative artwork and the Visual Composer for separately movable transparent model layers.
+- [x] Do not claim Canva OAuth, automatic export, or automatic sync until credentials and end-to-end tests exist.
 
 ## Required acceptance tests before calling 0.8.1 complete
 
-- [ ] Direct drag, resize, off-canvas movement, lower-leg clipping, background pan, and text/button group movement in a real browser.
-- [ ] No broken images in the Visual Composer or public Hero/Footer.
-- [ ] At least 30 distinct standalone background scenes available and selectable.
-- [ ] Booking field creation, reordering, required/optional behavior, dropdown, radio, checkbox, email validation, and live phone formatting.
-- [ ] Sticky navigation on all public routes.
-- [ ] Centered Login/Join/Create Account pages.
-- [ ] About Me public page and owner editor.
-- [ ] Admin collapsible state and active page preserved after refresh.
-- [ ] Merchandise cart/checkout works while PPV uses direct Buy Now.
+- [x] Direct drag, resize, off-canvas movement, lower-leg clipping, background pan, and text/button group movement in a real browser.
+- [x] No broken images in the Visual Composer or public Hero/Footer.
+- [x] At least 30 distinct standalone background scenes available and selectable.
+- [x] Booking field creation, reordering, required/optional behavior, dropdown, radio, checkbox, email validation, and live phone formatting.
+- [x] Sticky navigation on all public routes.
+- [x] Centered Login/Join/Create Account pages.
+- [x] About Me public page and owner editor.
+- [x] Admin collapsible state and active page preserved after refresh.
+- [x] Merchandise cart/checkout works while PPV uses direct Buy Now.
 - [ ] Existing subscriptions, entitlements, refunds, protected media, messaging, booking, add-ons, installer, and marketing features have regression coverage.
 - [ ] PHP 8.2/8.3 source suite, JavaScript syntax, disposable MySQL 8 migration apply/verify/rollback, HTTP acceptance, repository-safety scan, desktop/mobile Playwright, and runtime-only package checks are green.
 - [ ] Customer ZIP starts uninstalled and excludes GitHub/docs/tests/SDK/build artifacts and all runtime/private data.
 
 ## Recommended delivery target
 
-Use a new implementation branch such as:
+Continue the existing executable implementation branch:
 
 ```text
 feature/0.8.1-site-ux-hero-library

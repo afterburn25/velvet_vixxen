@@ -6,7 +6,7 @@ The authoritative application and engineering repository is `afterburn25/velvet_
 
 This tree now contains the executable application, database migrations, public assets, recovered engineering tests, package builder, and required GitHub Actions checks. It was recovered from the checksum-verified **0.8.1** fresh-install package, then reconciled with the separate **0.7.4** Visual Composer fixes. Application source is no longer deferred to a future import.
 
-The repair addresses installation identity checks, recovery without replacing valid active configuration, preservation of repair backups, and reproducible fresh-install/upgrade distributions. Current validation and remaining gates are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md).
+The continuation adds the expanded Visual Composer, 30 standalone luxury scenes, Booking Form Builder, About Me and owner editor, shared sticky public navigation, centered account pages, persistent admin categories, merchandise/stock/shipping/fulfillment, direct PPV checkout, and safe installed database updates. The repair also preserves installation identity and backups and produces reproducible fresh-install/upgrade distributions. Current validation and remaining gates are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md).
 
 Historical package/handoff claims were not treated as proof of implementation. [`docs/SOURCE_RECOVERY.md`](docs/SOURCE_RECOVERY.md) records provenance and features that remain unfinished in the recovered code.
 
@@ -17,6 +17,9 @@ Historical package/handoff claims were not treated as proof of implementation. [
 - [`docs/ROADMAP.md`](docs/ROADMAP.md): evidence-based roadmap.
 - [`docs/DECISIONS.md`](docs/DECISIONS.md): product and architecture requirements.
 - [`docs/TESTING.md`](docs/TESTING.md): executable validation commands.
+- [`docs/VISUAL_COMPOSER.md`](docs/VISUAL_COMPOSER.md), [`docs/BOOKING_BUILDER.md`](docs/BOOKING_BUILDER.md), [`docs/MERCHANDISE.md`](docs/MERCHANDISE.md): owner workflows.
+- [`docs/UPGRADING.md`](docs/UPGRADING.md): update existing installations safely.
+- [`docs/CANVA_WORKFLOW.md`](docs/CANVA_WORKFLOW.md): manual artwork export/import.
 - [`AGENTS.md`](AGENTS.md): source-control and handoff requirements.
 
 ## Develop and verify

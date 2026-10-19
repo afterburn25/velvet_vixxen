@@ -2,37 +2,30 @@
 
 Repository: `afterburn25/velvet_vixxen`. Status follows executable source and recorded tests. Historical package claims are reconciled in `SOURCE_RECOVERY.md`.
 
-| Area | Current status | Remaining work |
+| Area | Current status | Remaining boundary |
 | --- | --- | --- |
-| 0.1–0.2 foundation, approved design, installer | Recovered source; regression checks required | Representative shared-hosting installation and ownership behavior. |
-| 0.3 media center | Recovered music, gallery, video, and signed-delivery source | Cross-device and production media validation. |
-| 0.4 members and entitlements | Recovered source and behavioral tests | Broader production account/security validation. |
-| 0.5 subscriptions and PPV | Recovered sandbox commerce and entitlement lifecycle | Approved live provider, recurring lifecycle certification, direct PPV Buy Now UX. |
-| 0.6 add-on framework | Recovered source, SDK, and tests | Broader upgrade/rollback compatibility. |
-| 0.6.1 licensing and updates | Recovered source | Production remote-service certification; public marketplace remains unfinished. |
-| 0.7 messaging and booking | Recovered fixed-field professional inquiries, messaging, attachments, owner queues | Editable booking builder, field/type management, client validation improvements. |
-| 0.7.4 composer | Targeted restoration into 0.8.1 | Restored controls pass real browser tests; expanded off-canvas/library acceptance remains active. |
-| 0.8 publishing and marketing | Basic protected file-backed implementation | Advanced audiences/expiration, scheduled scenes, production sending, attribution, retention, MySQL persistence. |
-| 0.8.1 installation recovery and route consolidation | Recovered runtime; concrete defects found | Correct identity matching, active-config preservation, protected backup lifecycle. |
-| 0.8.1 user-facing continuation | Active, incomplete | Source recovery; Composer/library; Booking Builder; public/admin UX; merchandise/direct PPV; full evidence. |
-| 0.9 privacy, protection, operations | Planned | Scope below. |
-| 1.0 production release | Planned | Representative hosting, live services, complete release matrix. |
+| Foundation, approved design and installer | Recovered executable source, identity/ownership/backup preservation fixes and regressions | Representative customer-hosting certification. |
+| Media, members and entitlements | Recovered source plus real source/HTTP/browser regression suites | Production account/media hardening remains outside this development milestone. |
+| Commerce and PPV | Sandbox lifecycle plus new merchandise catalog/stock/shipping/fulfillment and direct PPV/rental checkout | Approved live provider and live merchant testing. |
+| Add-ons, licensing and updates | Recovered source, SDK and executable lifecycle/security tests | Production remote-service certification and marketplace work. |
+| Messaging and Booking Builder | Private communications plus editable typed fields, validation and immutable submission snapshots | Production operating review; existing records remain protected. |
+| Visual Composer and Hero Library | Direct editing, all-edge clipping, per-device geometry/backgrounds and 30 real standalone scenes; 90 public render checks passed | Final combined feature CI and artifacts. |
+| Public and admin UX | Sticky shared navigation, About Me/editor, centered auth, persistent grouped admin and mobile controls | Final combined feature CI. |
+| Installed database updates | Owner/CLI reviewed-plan update path with preserved identity/data and no destructive failure rollback; actual 12→14 upgrade tested | Actual MySQL 8 feature CI, representative hosting. |
+| Basic publishing/marketing | Protected file-backed recovered implementation and shared admin shell | Advanced audiences/expiration, scheduled scenes, production sending, attribution, retention and MySQL persistence were not recovered as working code. |
+| 0.8.1 user-facing continuation | Implemented; final release gates in progress | Green PHP 8.2/8.3, MySQL 8, HTTP/browser, safety/package CI, final ZIP checksums and source/docs upload. |
+| 0.9 privacy, protection and operations | Planned; not started | Begin only after 0.8.1 verification or explicit user deferral. |
+| 1.0 production release | Planned | Representative hosting and approved live-service certification. |
 
 ## Active 0.8.1 continuation — issue #13
 
-The detailed acceptance checklist is `../INCOMPLETE_WORK.md`. Complete this sequence before moving to 0.9.0:
+The detailed acceptance checklist is `../INCOMPLETE_WORK.md`. The implementation lives on `feature/0.8.1-site-ux-hero-library`; source recovery checkpoint `43945af07c145c67db2f2883a4fa7f607215dc23` and PR #15 make it reviewable in GitHub.
 
-1. Import and upload the checksum-verified executable baseline, recovered tests, safe recovery/package fixes, and accurate evidence. This is a development checkpoint, not a completed 0.8.1 release.
-2. Finish Composer direct manipulation, extreme resize, all-edge off-canvas clipping/lower-leg hiding, text/button movement, per-device layouts, background controls and zero broken media.
-3. Integrate at least 30 individual people-free luxury Hero scenes, with thumbnails, searchable categories, placement metadata and draft/publish/history behavior.
-4. Build and verify Booking Builder field management, validation, live phone formatting and preserved submission history.
-5. Finish sticky public navigation, About Me/editor and centered standalone auth pages.
-6. Reorganize admin into persistent collapsible categories with preserved active page.
-7. Build merchandise catalog/variants/stock/shipping/cart/checkout; keep subscriptions and direct PPV purchase in their respective flows.
-8. Clarify Canva as a saved-link/manual export/import bridge, preserving separate cutout layers and live UI.
-9. Pass PHP 8.2/8.3, MySQL 8, HTTP, actual desktop/mobile browser, safety and runtime-only package gates; upload source, tests, evidence and updated issue #13.
+The requested implementation sequence is now represented by executable code and focused evidence: source recovery; expanded Composer and 30-image library; Booking Builder; public navigation/About/auth; persistent admin categories; merchandise/direct PPV; manual Canva clarity. An installed update path applies migrations 013/014 safely to existing sites.
 
-Advanced marketing gaps are recorded separately in SOURCE_RECOVERY.md. They are not silently counted as implemented and do not authorize skipping this requested 0.8.1 continuation. Do not start 0.9.0 until the user-facing continuation is verified or explicitly deferred.
+Current concrete work is the stable combined source/HTTP/browser run, actual feature PHP 8.2/8.3 and MySQL 8 CI, repository/private-data scans, and final runtime-only fresh/upgrade distributions from committed source. Record exact results and checksums in `TEST_REPORT.md`, the handoff and issue #13. Do not call 0.8.1 complete merely because focused suites passed.
+
+Advanced marketing gaps remain explicitly documented in `SOURCE_RECOVERY.md`; they are not silently counted as delivered. Actual owner photos, biography/statistics and catalog content must be supplied by the owner. The source supplies working editors without inventing personal details, products or placeholder people.
 
 ## 0.9 — Privacy, Protection & Operations
 

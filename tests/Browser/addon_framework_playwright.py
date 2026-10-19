@@ -35,7 +35,7 @@ with sync_playwright() as playwright:
     page.get_by_text("Velvet Welcome Banner", exact=True).wait_for()
     page.get_by_role("button", name="Inspect Included Starter Add-on").click()
     page.locator(".addon-review-card").get_by_role("heading", name="Velvet Welcome Banner", exact=False).wait_for()
-    page.get_by_text("admin.menu.register", exact=True).wait_for()
+    page.locator('.addon-review-card').get_by_text("admin.menu.register", exact=True).wait_for()
 
     page.goto(url("/admin/?page=welcome-banner"), wait_until="networkidle")
     page.get_by_label("Headline").fill("Playwright Add-on Acceptance")

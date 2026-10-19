@@ -81,6 +81,18 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 require_once $root . '/app/bootstrap.php';
+// Disposable acceptance fixtures only; the shipped catalog starts empty.
+foreach ([
+    ['title' => 'Velvet Signature Tee', 'price' => '29.00', 'shippingPrice' => '4.00', 'variants' => [
+        ['label' => 'Rose / Medium', 'sku' => 'FIXTURE-TEE-M', 'options' => ['Size' => 'M', 'Color' => 'Rose'], 'stock' => 12],
+        ['label' => 'Black / Large', 'sku' => 'FIXTURE-TEE-L', 'options' => ['Size' => 'L', 'Color' => 'Black'], 'stock' => 6, 'price' => '31.00'],
+    ]],
+    ['title' => 'Velvet Studio Mug', 'price' => '18.00', 'shippingPrice' => '3.00', 'variants' => [
+        ['label' => 'Black', 'sku' => 'FIXTURE-MUG', 'options' => ['Color' => 'Black'], 'stock' => 8],
+    ]],
+] as $product) {
+    app_store()->saveMerchandiseProduct(array_merge(['description' => 'Disposable merchandise acceptance fixture.', 'currency' => 'USD', 'status' => 'active', 'requiresShipping' => true, 'imageIds' => ['demo-album-cover']], $product));
+}
 $review = addon_manager()->stageBundledStarter();
 $installedAddon = addon_manager()->install((string) $review['token'], true, true);
 app_store()->setAddonSetting((string) $installedAddon['addonKey'], 'enabled', true);

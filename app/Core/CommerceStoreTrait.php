@@ -8,6 +8,8 @@ use Throwable;
 
 trait CommerceStoreTrait
 {
+    use MerchandiseStoreTrait;
+
     /** @return list<array<string,mixed>> */
     public function paymentProviders(bool $enabledOnly = false): array
     {

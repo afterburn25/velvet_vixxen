@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
         $error=(string)($result['message']??'Sign-in failed.');
     }
 }
+$authLayout = true; $hidePersistentPlayer = true;
 require root_path('app/Views/public/partials/header.php');
 ?>
 <div class="member-main"><section class="member-auth-shell"><div class="member-auth-card"><span class="eyebrow pink">Private member access</span><h1>Welcome back.</h1><p>Sign in to open My Library, continue your media, and manage your account.</p><?php if($error):?><div class="member-alert error"><?=e($error)?></div><?php endif;?><form method="post" class="member-form"><?=csrf_field()?><input type="hidden" name="return" value="<?=e($returnTo)?>"><label>Email address<input type="email" name="email" autocomplete="username" required autofocus></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="button button--primary">Sign In</button></form><div class="member-links"><a href="<?=e(base_url('account/forgot.php'))?>">Forgot password?</a><a href="<?=e(base_url('account/register.php'))?>">Create account</a></div></div><div class="member-auth-art"><div><h2>More than content.</h2><p>Your member account keeps access, favorites, history, subscriptions, rentals, and individually purchased releases together.</p></div></div></section></div>

@@ -1,34 +1,41 @@
 # Session Handoff — Velvet Vixxen
 
-## Current integration
+Updated: 2026-10-19. Repository: `afterburn25/velvet_vixxen`.
 
-- Repository: `afterburn25/velvet_vixxen`.
-- Branch: `feature/0.8.1-site-ux-hero-library`.
-- Target version: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**.
-- Recovered runtime baseline: checksum-verified 0.8.1 fresh-install package.
-- Separate composer baseline: 0.7.4 fix, merged selectively.
-- Active issues: #13 full 0.8.1 continuation, #1 source import, #3 release gates, #11 composer, #12 recovery/upgrade/root organization.
+## Start from executable source
 
-## Work to preserve
+- Active branch: **`feature/0.8.1-site-ux-hero-library`**.
+- Target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**. Do not advance to 0.9.0.
+- Source recovery commit: [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23).
+- Review: [PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15). Completion: [issue #13](https://github.com/afterburn25/velvet_vixxen/issues/13). Related source/release/recovery issues: #1, #3, #11, #12.
+- Input: checksum-verified 0.8.1 fresh package, SHA-256 `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`; separate 0.7.4 Composer restoration, then actual 0.8.1 feature implementation.
 
-The repository now includes real application source and recovered engineering tests. Keep that source in GitHub after every completed session; never return to documentation-only delivery branches.
+Read all six handoff files and inspect the live branch, current commit, open issues, tests and artifacts. The old handoff/marketing branches were documentation-only; this implementation branch contains the application. Preserve executable source in GitHub after every session.
 
-Preserve matching config/lock identities, active configuration and keys, protected backup verification, non-destructive upgrade packaging, the consolidated public router, the restored composer behavior, and the approved neon-pink design.
+## Work now present
 
-Customer ZIPs remain runtime-only. Engineering docs, tests, workflows, and SDK stay in GitHub. Never package installed configuration, installation locks, generated keys, storage records, uploads from a real site, private messages/media, or credentials.
+Composer direct editing, all-edge clipping/extreme resizing, movable live text/button group, independent device backgrounds/layers, 30 standalone luxury images and thumbnails, searchable library, Booking Builder with immutable submission snapshots, shared sticky public navigation, About Me and editor, centered auth/recovery pages, persistent grouped admin navigation, merchandise/variants/stock/shipping/fulfillment, direct PPV/rental and separate membership checkout, manual Canva bridge, and owner/CLI installed database updates.
 
-## Current verification
+Current migrations: **14 / 82 declared tables**. The updater safely applies 013/014 to a prior 12-migration site and never reinstalls or replaces identity/configuration. See `docs/UPGRADING.md`, `docs/VISUAL_COMPOSER.md`, `docs/BOOKING_BUILDER.md`, `docs/MERCHANDISE.md` and `docs/CANVA_WORKFLOW.md`.
 
-Exact commands, results, and CI evidence are maintained in `docs/TEST_REPORT.md`. Tests use disposable copies because installed bootstrap may retire `/install`; do not seed or run a demonstration installation inside the working source tree or a real site.
+## Current evidence and next concrete work
 
-Local test tooling was provided in a disposable environment with PHP 8.3 and MariaDB 10.11. CI must also run PHP 8.2 and MySQL 8. Browser checks must actually execute, not merely compile scripts. Package tests overlay a real upgrade ZIP on fixture configuration/lock/private-data/uploads and compare bytes.
+Focused source/HTTP/browser/SQL tests pass for the new features. The real 30-scene library test decoded all 60 images and published/rendered all scenes at three widths. About/admin/account layouts pass desktop/tablet/mobile. Booking and merchandise acceptance passes, including historical submissions, private addresses, stale stock edits and revoked PPV entitlements. Installed updater preservation/failure/locking checks pass locally.
 
-## Evidence reconciliation
+Baseline GitHub run [39207173912](https://github.com/afterburn25/velvet_vixxen/actions/runs/39207173912) passed PHP 8.2/8.3, MySQL 8 baseline migrations and HTTP, but failed an old age-gate browser setup. That setup is corrected. The feature checkpoint needs the combined stable suite and its own PHP 8.2/8.3, MySQL 8, HTTP/browser and package CI results. Do not present the earlier green individual jobs as a complete feature release.
 
-Read `docs/SOURCE_RECOVERY.md`. Historical handoff claims overstate the recovered marketing implementation and several later requested UI/store changes. The actual MarketingStore is file-backed and its runner prepares an outbox. Do not claim advanced publishing audiences, scene scheduling, production sending, merchandise, an editable booking builder, or an About Me editor until corresponding code and tests are committed.
+Finish the current release gates in `docs/TEST_REPORT.md`, fix observed failures, build/check runtime-only fresh and upgrade ZIPs from committed source, record their checksums, and upload the latest source/tests/docs. Keep issue #13 updated with real commit/run links. Only then mark the verified 0.8.1 scope complete.
 
-## Next concrete work
+## Test discipline
 
-Continue the complete user-requested 0.8.1 scope in `INCOMPLETE_WORK.md`. Source recovery is the first checkpoint. Composer/background library, Booking Builder, About Me/public navigation/auth layouts, persistent admin categories, merchandise/direct PPV, and Canva clarity must be implemented and tested before claiming completion. Do not start 0.9.0.
+Run `bash scripts/test.sh`, `bash scripts/test_http.sh`, `VELVET_BROWSER_TESTS=1 bash scripts/test_http.sh`, and `php tests/Database/migrations_mysql.php` with disposable local database credentials. The HTTP harness snapshots itself and the runtime before running; no active shared-file edit can change a long-running Bash suite. Browser execution must actually launch Chromium.
 
-Before ending any session, update status, roadmap, incomplete-work checklist, changelog, test report, this handoff, next-session prompt, and issue #13; commit and upload source and tests; include actual commit and CI links in the handoff.
+The local environment used PHP 8.3.6, MariaDB 10.11.14 and Chrome for Testing 155.0.8059.84. **MariaDB is not MySQL 8 evidence.** GitHub provides the actual MySQL 8 service. Never seed a demo inside the authoritative checkout or a real site: installed bootstrap may retire `/install`. Never commit test-installed state or credentials.
+
+## Requirements to preserve
+
+Approved pink/magenta/black design; no new mockups or placeholder people; owner transparent photos remain separate; one-page installer; no installation key; 12-character minimum owner/member passwords; safe 0755/0775 only; organized folders; runtime-only customer ZIPs; sandbox payments; no credentials, customer records, private conversations/attachments, identity records, payment secrets, raw licenses, private signing keys, logs, sessions or paid/private media in GitHub.
+
+Upgrade payloads exclude config/storage/uploads/install. Recovery preserves valid active identity and unique/unknown backup data. Database updates require a reviewed plan and operator-confirmed backup, use filesystem/database locks, and stop without automatic rollback if DDL partially fails.
+
+Actual owner photographs and real catalog/biography content are not available in source. Do not invent them. Historical advanced marketing claims remain unreconciled implementation gaps in `docs/SOURCE_RECOVERY.md`; production email/live payments/hosting certification remain outside this verified development milestone.

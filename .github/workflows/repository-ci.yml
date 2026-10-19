@@ -29,7 +29,9 @@ jobs:
             docs/SESSION_PROTOCOL.md SECURITY.md CONTRIBUTING.md VERSION
             app/bootstrap.php public/router.php install/index.php
             scripts/test.sh scripts/test_http.sh scripts/package.py
-            tests/Database/migrations_mysql.php tests/Browser/composer_recovery_playwright.py)
+            tests/Database/migrations_mysql.php tests/Database/database_update_scenarios.php tests/Database/merchandise_scenarios.php
+            tests/Database/booking_form_scenarios.php tests/Browser/composer_recovery_playwright.py
+            tests/Browser/merchandise_playwright.py tests/Browser/booking_form_playwright.py)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing required source or handoff file: $file"; exit 1; }
           done
@@ -62,7 +64,7 @@ jobs:
         run: bash scripts/test.sh
 
   mysql-migrations:
-    name: MySQL 8 migration apply, reapply and rollback
+    name: MySQL 8 installed upgrades, merchandise and booking transactions
     needs: repository-contract
     runs-on: ubuntu-latest
     services:
@@ -83,9 +85,9 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.3'
-          extensions: pdo_mysql
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, sodium
           coverage: none
-      - name: Verify every declared table and roll back the disposable database
+      - name: Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back
         env:
           VELVET_TEST_DB_HOST: 127.0.0.1
           VELVET_TEST_DB_PORT: '3306'

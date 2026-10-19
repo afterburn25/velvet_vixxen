@@ -280,7 +280,8 @@ trait CommunicationStoreTrait
             $this->writeFileStore($data);
         } else {
             $pdo = $this->pdo();
-            $pdo->beginTransaction();
+            $ownsTransaction = !$pdo->inTransaction();
+            if ($ownsTransaction) $pdo->beginTransaction();
             try {
                 $stmt = $pdo->prepare('INSERT INTO messages (thread_id,sender_type,sender_member_id,sender_admin_id,visibility,body,created_at) VALUES (?,?,?,?,?,?,NOW())');
                 $stmt->execute([(int)$thread['id'],$senderType,$message['senderMemberId'] !== null && $message['senderMemberId'] !== '' ? (int)$message['senderMemberId'] : null,$message['senderAdminId'] !== null && $message['senderAdminId'] !== '' ? (int)$message['senderAdminId'] : null,$visibility,$body]);
@@ -301,9 +302,9 @@ trait CommunicationStoreTrait
                 }
                 $update = $pdo->prepare('UPDATE message_threads SET status=?,member_unread_count=?,admin_unread_count=?,last_message_at=NOW(),updated_at=NOW() WHERE id=?');
                 $update->execute([$status,$memberUnread,$adminUnread,(int)$thread['id']]);
-                $pdo->commit();
+                if ($ownsTransaction) $pdo->commit();
             } catch (\Throwable $e) {
-                $pdo->rollBack();
+                if ($ownsTransaction && $pdo->inTransaction()) $pdo->rollBack();
                 throw $e;
             }
         }
@@ -413,19 +414,81 @@ trait CommunicationStoreTrait
     }
 
     /** @param array<string,mixed> $input */
-    public function createBookingRequest(array $input):array
+    public function createBookingRequest(array $input): array
     {
-        $memberId=trim((string)($input['memberId']??''));$name=trim((string)($input['contactName']??''));$email=strtolower(trim((string)($input['contactEmail']??'')));$details=trim((string)($input['details']??''));
-        if($name===''||(function_exists('mb_strlen')?mb_strlen($name):strlen($name))>120)throw new RuntimeException('Enter your name.');if(!filter_var($email,FILTER_VALIDATE_EMAIL))throw new RuntimeException('Enter a valid email address.');if($details===''||(function_exists('mb_strlen')?mb_strlen($details):strlen($details))>10000)throw new RuntimeException('Describe the inquiry in 10,000 characters or fewer.');
-        if($this->isCommunicationBlocked($memberId,$email,'requests'))throw new RuntimeException('Booking inquiries are not available for this account or email address.');
-        $type=(string)($input['inquiryType']??'appearance');if(!in_array($type,['appearance','collaboration','interview','event','media','other'],true))$type='other';
-        $request=['id'=>bin2hex(random_bytes(8)),'memberId'=>$memberId!==''?$memberId:null,'threadId'=>null,'inquiryType'=>$type,'contactName'=>$name,'contactEmail'=>$email,'phone'=>trim((string)($input['phone']??'')),'requestedDate'=>trim((string)($input['requestedDate']??''))?:null,'city'=>trim((string)($input['city']??'')),'venue'=>trim((string)($input['venue']??'')),'budget'=>trim((string)($input['budget']??'')),'details'=>$details,'status'=>'submitted','priority'=>'normal','assignedAdminId'=>null,'internalNotes'=>'','consentAt'=>now_iso(),'createdAt'=>now_iso(),'updatedAt'=>now_iso()];
-        if($this->mode==='file'){$data=$this->readFileStore();$data['bookingRequests'][(string)$request['id']]=$request;$this->writeFileStore($data);}else{$stmt=$this->pdo()->prepare('INSERT INTO booking_requests (member_id,thread_id,inquiry_type,contact_name,contact_email,phone,requested_date,city,venue,budget,details,status,priority,assigned_admin_id,internal_notes,consent_at,created_at,updated_at) VALUES (?,NULL,?,?,?,?,?,?,?,?,?,?,?,NULL,NULL,NOW(),NOW(),NOW())');$stmt->execute([$request['memberId']!==null?(int)$request['memberId']:null,$type,$name,$email,$request['phone']?:null,$request['requestedDate']?:null,$request['city']?:null,$request['venue']?:null,$request['budget']?:null,$details,'submitted','normal']);$request['id']=(string)$this->pdo()->lastInsertId();}
-        $thread=$this->createCommunicationThread(['memberId'=>$request['memberId'],'type'=>'booking','relatedType'=>'booking_request','relatedId'=>$request['id'],'subject'=>'Booking Inquiry: '.ucwords(str_replace('_',' ',$type)),'status'=>'pending_staff']);$request['threadId']=(string)$thread['id'];$this->setBookingRequestThread((string)$request['id'],(string)$thread['id']);
-        $body="Inquiry type: ".ucwords(str_replace('_',' ',$type))."\nRequested date: ".($request['requestedDate']?:'Not specified')."\nCity: ".($request['city']?:'Not specified')."\nVenue/platform: ".($request['venue']?:'Not specified')."\nBudget: ".($request['budget']?:'Not specified')."\n\n".$details;
-        $this->sendCommunicationMessage(['threadId'=>$thread['id'],'senderType'=>'member','senderMemberId'=>$request['memberId'],'body'=>$body,'attachments'=>(array)($input['attachments']??[])]);
-        foreach((array)($input['attachments']??[]) as $attachment)if(is_array($attachment))$this->addRequestAttachment('booking_request',(string)$request['id'],$attachment,$memberId!==''?'member':'guest');
-        return $this->bookingRequest((string)$request['id'])??$request;
+        $submission = null;
+        if (array_key_exists('formValues', $input)) {
+            if (!is_array($input['formValues'])) throw new RuntimeException('The booking answers are invalid.');
+            $validation = (new BookingFormService($this))->validate($input['formValues'], (string) ($input['formRevision'] ?? ''));
+            if ($validation['errors'] !== []) throw new BookingFormValidationException($validation['errors']);
+            $this->assertBookingFormStorageReady();
+            $input = array_merge($input, $validation['mapped']);
+            $submission = $validation['submission'];
+        }
+        $memberId = trim((string) ($input['memberId'] ?? ''));
+        $name = trim((string) ($input['contactName'] ?? ''));
+        $email = strtolower(trim((string) ($input['contactEmail'] ?? '')));
+        $details = trim((string) ($input['details'] ?? ''));
+        if (($submission === null && $name === '') || (function_exists('mb_strlen') ? mb_strlen($name) : strlen($name)) > 120) {
+            throw new RuntimeException('Enter your name.');
+        }
+        if (($submission === null || $email !== '') && !BookingFormService::validEmail($email)) throw new RuntimeException('Enter a valid email address.');
+        if (($submission === null && $details === '') || (function_exists('mb_strlen') ? mb_strlen($details) : strlen($details)) > 10000) {
+            throw new RuntimeException('Describe the inquiry in 10,000 characters or fewer.');
+        }
+        if ($this->isCommunicationBlocked($memberId, $email, 'requests')) throw new RuntimeException('Booking inquiries are not available for this account or email address.');
+        $type = (string) ($input['inquiryType'] ?? 'appearance');
+        if (!in_array($type, ['appearance','collaboration','interview','event','media','other'], true)) $type = 'other';
+        $request = ['id' => bin2hex(random_bytes(8)), 'memberId' => $memberId !== '' ? $memberId : null, 'threadId' => null,
+            'inquiryType' => $type, 'contactName' => $name, 'contactEmail' => $email, 'phone' => trim((string) ($input['phone'] ?? '')),
+            'requestedDate' => trim((string) ($input['requestedDate'] ?? '')) ?: null, 'city' => trim((string) ($input['city'] ?? '')),
+            'venue' => trim((string) ($input['venue'] ?? '')), 'budget' => trim((string) ($input['budget'] ?? '')), 'details' => $details,
+            'status' => 'submitted', 'priority' => 'normal', 'assignedAdminId' => null, 'internalNotes' => '', 'consentAt' => now_iso(),
+            'createdAt' => now_iso(), 'updatedAt' => now_iso()];
+        $transaction = $this->mode !== 'file' && !$this->pdo()->inTransaction();
+        if ($transaction) $this->pdo()->beginTransaction();
+        try {
+            if ($this->mode === 'file') {
+                $data = $this->readFileStore();
+                $data['bookingRequests'][(string) $request['id']] = $request;
+                $this->writeFileStore($data);
+            } else {
+                $stmt = $this->pdo()->prepare('INSERT INTO booking_requests (member_id,thread_id,inquiry_type,contact_name,contact_email,phone,requested_date,city,venue,budget,details,status,priority,assigned_admin_id,internal_notes,consent_at,created_at,updated_at) VALUES (?,NULL,?,?,?,?,?,?,?,?,?,?,?,NULL,NULL,NOW(),NOW(),NOW())');
+                $stmt->execute([$request['memberId'] !== null ? (int) $request['memberId'] : null, $type, $name, $email,
+                    $request['phone'] ?: null, $request['requestedDate'] ?: null, $request['city'] ?: null, $request['venue'] ?: null,
+                    $request['budget'] ?: null, $details, 'submitted', 'normal']);
+                $request['id'] = (string) $this->pdo()->lastInsertId();
+            }
+            if ($submission !== null) $this->saveBookingFormSubmission($request['id'], $submission);
+            $thread = $this->createCommunicationThread(['memberId' => $request['memberId'], 'type' => 'booking',
+                'relatedType' => 'booking_request', 'relatedId' => $request['id'],
+                'subject' => 'Booking Inquiry: ' . ucwords(str_replace('_', ' ', $type)), 'status' => 'pending_staff']);
+            $request['threadId'] = (string) $thread['id'];
+            $this->setBookingRequestThread((string) $request['id'], (string) $thread['id']);
+            $body = "Inquiry type: " . ucwords(str_replace('_', ' ', $type)) . "\nRequested date: " . ($request['requestedDate'] ?: 'Not specified')
+                . "\nCity: " . ($request['city'] ?: 'Not specified') . "\nVenue/platform: " . ($request['venue'] ?: 'Not specified')
+                . "\nBudget: " . ($request['budget'] ?: 'Not specified') . "\n\n" . $details;
+            if ($submission !== null) {
+                $body = "Booking form submitted.\n";
+                foreach ($submission['fields'] as $field) {
+                    $answer = BookingFormService::displayValue($field, $submission['values'][$field['id']] ?? '');
+                    if ($answer !== '') $body .= "\n" . $field['label'] . ': ' . $answer;
+                }
+                // The immutable submission keeps every answer even when the conversation summary is abbreviated.
+                if ((function_exists('mb_strlen') ? mb_strlen($body) : strlen($body)) > 9500) $body = (function_exists('mb_substr') ? mb_substr($body, 0, 9500, 'UTF-8') : substr($body, 0, 9500))
+                    . "\n[Full answers are available in the booking inquiry.]";
+            }
+            $this->sendCommunicationMessage(['threadId' => $thread['id'], 'senderType' => 'member', 'senderMemberId' => $request['memberId'],
+                'body' => $body, 'attachments' => (array) ($input['attachments'] ?? [])]);
+            foreach ((array) ($input['attachments'] ?? []) as $attachment) {
+                if (is_array($attachment)) $this->addRequestAttachment('booking_request', (string) $request['id'], $attachment, $memberId !== '' ? 'member' : 'guest');
+            }
+            if ($transaction) $this->pdo()->commit();
+        } catch (\Throwable $error) {
+            if ($transaction && $this->pdo()->inTransaction()) $this->pdo()->rollBack();
+            throw $error;
+        }
+        return $this->bookingRequest((string) $request['id']) ?? $request;
     }
 
     /** @param array<string,mixed> $filters @return list<array<string,mixed>> */
@@ -436,7 +499,16 @@ trait CommunicationStoreTrait
         $where=['1=1'];$params=[];if($memberId!==''){$where[]='r.member_id=?';$params[]=(int)$memberId;}if($status!==''){$where[]='r.status=?';$params[]=$status;}if($search!==''){$where[]='(LOWER(r.contact_name) LIKE ? OR LOWER(r.contact_email) LIKE ? OR LOWER(r.details) LIKE ? OR LOWER(COALESCE(r.city,\'\')) LIKE ?)';$n='%'.$search.'%';array_push($params,$n,$n,$n,$n);} $stmt=$this->pdo()->prepare('SELECT r.*,m.display_name AS member_display_name,m.email AS member_email FROM booking_requests r LEFT JOIN members m ON m.id=r.member_id WHERE '.implode(' AND ',$where).' ORDER BY r.id DESC');$stmt->execute($params);$rows=array_map(fn(array $r):array=>$this->mapBookingRequestRow($r),$stmt->fetchAll());foreach($rows as &$r)$r['attachments']=$this->requestAttachments('booking_request',(string)$r['id']);unset($r);return $rows;
     }
 
-    public function bookingRequest(string|int $id):?array{foreach($this->bookingRequests([]) as $r)if((string)$r['id']===(string)$id)return $r;return null;}
+    public function bookingRequest(string|int $id): ?array
+    {
+        foreach ($this->bookingRequests([]) as $request) {
+            if ((string) $request['id'] === (string) $id) {
+                $request['formSubmission'] = $this->bookingFormSubmission($id);
+                return $request;
+            }
+        }
+        return null;
+    }
 
     /** @param array<string,mixed> $changes */
     public function updateBookingRequest(string|int $id,array $changes):array

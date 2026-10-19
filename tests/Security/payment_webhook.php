@@ -53,6 +53,12 @@ try {
 
     $stored = $store->webhookEvent('sandbox', 'evt-security-paid');
     $assert(is_array($stored) && (string) ($stored['status'] ?? '') === 'processed', 'Processed webhook was not recorded for audit/idempotency.');
+    $chargebackBody = json_encode(['event_id' => 'evt-security-chargeback', 'type' => 'order.chargeback', 'order_number' => $order['orderNumber']], JSON_UNESCAPED_SLASHES);
+    $commerce->handleWebhook('sandbox', $chargebackBody, hash_hmac('sha256', $chargebackBody, str_repeat('b', 64)));
+    $assert($store->order($order['id'])['status'] === 'chargeback' && $store->activeEntitlement($member['id'], 'gallery', 'demo-gallery-lounge') === null, 'Chargeback did not revoke purchased gallery access.');
+    $latePaid = json_encode(['event_id' => 'evt-security-late-paid', 'type' => 'order.paid', 'order_number' => $order['orderNumber']], JSON_UNESCAPED_SLASHES);
+    $lateEvent = $commerce->handleWebhook('sandbox', $latePaid, hash_hmac('sha256', $latePaid, str_repeat('b', 64)));
+    $assert($lateEvent['event']['status'] === 'ignored' && $store->order($order['id'])['status'] === 'chargeback' && $store->activeEntitlement($member['id'], 'gallery', 'demo-gallery-lounge') === null, 'A late payment event revived access after chargeback.');
 } catch (Throwable $e) {
     $failures[] = $e::class . ': ' . $e->getMessage();
 } finally {

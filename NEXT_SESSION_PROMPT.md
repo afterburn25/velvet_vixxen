@@ -46,7 +46,13 @@ Preserve all of these decisions:
 - Payment remains sandbox-only until a live adult-compatible provider is separately approved and tested.
 - Do not commit credentials, customer/member data, identity records, private messages/attachments, payment secrets, raw license keys, private signing keys, logs, sessions, runtime state, or private/paid media.
 
-## Resume the unfinished 0.8.1 continuation
+## Current continuation checkpoint
+
+The implementation branch now contains real source recovered in commit `43945af07c145c67db2f2883a4fa7f607215dc23`, followed by actual 0.8.1 feature work. PR #15 and issue #13 track it. Composer/library, Booking Builder, About/public/admin UX, merchandise/direct PPV, manual Canva and installed database updates are implemented with focused executable tests. The library has 30 actual scenes/30 thumbnails and 90 published device renders. Schema:14 migrations/82 tables.
+
+Start by checking whether the final combined feature CI and runtime package evidence in `docs/TEST_REPORT.md` has finished. Do not redo completed recovery or feature implementation, and do not substitute the baseline run for new feature verification. Continue any remaining observed failures, artifact checksum recording and latest-source/docs upload. Preserve the detailed requirements below.
+
+## Finish and verify the 0.8.1 continuation
 
 Implement and verify the scope in `INCOMPLETE_WORK.md`, in this order:
 
@@ -74,7 +80,7 @@ Do not claim completion without direct evidence. Required gates include:
 - Repository-safety and secret scans
 - Runtime-only customer ZIP exclusion checks
 
-Use a new implementation branch, preferably:
+Continue the existing implementation branch:
 
 ```text
 feature/0.8.1-site-ux-hero-library

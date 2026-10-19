@@ -106,6 +106,9 @@ try {
         throw new RuntimeException('Expected all twelve baseline migrations, got ' . count($applied));
     }
     if ($runner->migrate() !== []) throw new RuntimeException('Reapplying unchanged migrations was not idempotent.');
+    require $root . '/tests/Database/database_update_scenarios.php';
+    require $root . '/tests/Database/merchandise_scenarios.php';
+    require $root . '/tests/Database/booking_form_scenarios.php';
     echo 'MySQL migrations applied successfully (' . count($applied) . ' migrations, ' . count($required) . " declared tables).\n";
 } finally {
     if ($applied !== []) {

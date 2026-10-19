@@ -1,12 +1,15 @@
 VELVET VIXXEN 0.8.1 — DEVELOPMENT CHECKPOINT
 
-Status: source recovery and user-facing continuation in progress; not a completed release.
+Status: source recovered and0.8.1 features implemented; final combined gates and customer distributions in progress.
 Branch: feature/0.8.1-site-ux-hero-library
 Issue: #13
 Recovered clean baseline: Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
 Baseline SHA-256: a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87
 Baseline runtime: 211 files / 132 PHP files; 12 migrations / 78 declared tables.
 
+Source recovery commit:43945af07c145c67db2f2883a4fa7f607215dc23
+Current schema:14 migrations/82 declared tables.
+Current library:30 individual scene images and30 thumbnails.
 Current evidence: docs/TEST_REPORT.md
 Recovery provenance: docs/SOURCE_RECOVERY.md
 Required remaining work: INCOMPLETE_WORK.md

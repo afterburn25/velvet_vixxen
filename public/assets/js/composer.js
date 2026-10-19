@@ -18,6 +18,9 @@
   let scenes = clone(seed.scenes || {});
   let media = Array.isArray(seed.media) ? clone(seed.media) : Object.values(clone(seed.media || {}));
   let versions = clone(seed.versions || {});
+  const library = seed.library || {scenes: [], categories: [], warnings: [], unavailable: []};
+  let assetsTab = library.scenes?.length ? 'library' : 'media';
+  let saving = false;
   let section = 'hero';
   let device = 'desktop';
   let selectedId = null;
@@ -44,7 +47,17 @@
     selectedPreview: root.querySelector('[data-selected-preview]'),
     selectedName: root.querySelector('[data-selected-name]'),
     selectedSize: root.querySelector('[data-selected-size]'),
-    panButton: root.querySelector('[data-action="pan-background"]')
+    panButton: root.querySelector('[data-action="pan-background"]'),
+    selection: root.querySelector('[data-selection-overlay]'),
+    layerStack: root.querySelector('[data-layer-stack]'),
+    snapGuides: root.querySelector('[data-snap-guides]'),
+    placementGuides: root.querySelector('[data-placement-guides]'),
+    libraryList: root.querySelector('[data-library-list]'),
+    librarySearch: root.querySelector('[data-library-search]'),
+    libraryCategory: root.querySelector('[data-library-category]'),
+    libraryCount: root.querySelector('[data-library-count]'),
+    libraryWarnings: root.querySelector('[data-library-warnings]'),
+    backgroundInfo: root.querySelector('[data-background-info]')
   };
 
   function normalizePath(path) {
@@ -64,7 +77,7 @@
     if (assetUrls[path]) return String(assetUrls[path]);
     if (assetUrls[normalized]) return String(assetUrls[normalized]);
     if (normalized.startsWith('uploads/')) return `${baseUrl}/${normalized}`;
-    if (/^images\/(?:defaults|backgrounds|branding|gallery-covers|icons|placeholders)\//.test(normalized)) {
+    if (/^images\/(?:defaults|hero|backgrounds|branding|gallery-covers|icons|placeholders)\//.test(normalized)) {
       return `${baseUrl}/${normalized}`;
     }
     if (/^(?:media|models|thumbnails|exports|audio|videos|captions)\//.test(normalized)) {
@@ -117,24 +130,32 @@
     }[targetDevice]);
   }
 
+  function normalizeBackground(source, fallback = {}, key = section) {
+    const bg = {...fallback, ...(source && typeof source === 'object' ? source : {})};
+    const number = (value, defaultValue, min, max) => Number.isFinite(Number(value)) ? clamp(value, min, max) : defaultValue;
+    return {
+      ...bg,
+      src: typeof bg.src === 'string' && bg.src ? bg.src : `images/defaults/${key === 'hero' ? 'hero-pink-room.jpg' : 'footer-pink-room.jpg'}`,
+      fit: bg.fit === 'contain' ? 'contain' : 'cover',
+      x: number(bg.x ?? 50, 50, 0, 100),
+      y: number(bg.y ?? 50, 50, 0, 100),
+      zoom: number(bg.zoom ?? 1, 1, 0.25, 4),
+      brightness: number(bg.brightness ?? 100, 100, 25, 175),
+      contrast: number(bg.contrast ?? 100, 100, 50, 175),
+      saturation: number(bg.saturation ?? 100, 100, 0, 200),
+      blur: number(bg.blur ?? 0, 0, 0, 20),
+      overlay: number(bg.overlay ?? (key === 'hero' ? 24 : 48), 25, 0, 90),
+      overlayColor: /^#[0-9a-f]{6}$/i.test(bg.overlayColor || '') ? bg.overlayColor : '#080007'
+    };
+  }
+
   function normalizeScene(key) {
     if (!scenes[key] || typeof scenes[key] !== 'object') scenes[key] = {};
     const scene = scenes[key];
     scene.section = key;
-    scene.background ||= {};
-    Object.assign(scene.background, {
-      src: scene.background.src || `images/defaults/${key === 'hero' ? 'hero-pink-room.jpg' : 'footer-pink-room.jpg'}`,
-      fit: scene.background.fit || 'cover',
-      x: Number(scene.background.x ?? 50),
-      y: Number(scene.background.y ?? 50),
-      zoom: Number(scene.background.zoom ?? 1),
-      brightness: Number(scene.background.brightness ?? 100),
-      contrast: Number(scene.background.contrast ?? 100),
-      saturation: Number(scene.background.saturation ?? 100),
-      blur: Number(scene.background.blur ?? 0),
-      overlay: Number(scene.background.overlay ?? (key === 'hero' ? 24 : 48)),
-      overlayColor: scene.background.overlayColor || '#080007'
-    });
+    scene.title = String(scene.title || (key === 'hero' ? 'Homepage Hero' : 'Visual Footer')).slice(0, 160);
+    // Legacy compositions keep their global background as the migration fallback.
+    scene.background = normalizeBackground(scene.background, {}, key);
     scene.devices ||= {};
     const heights = key === 'hero'
       ? {desktop: 760, tablet: 900, mobile: 860}
@@ -142,13 +163,21 @@
     ['desktop', 'tablet', 'mobile'].forEach((targetDevice) => {
       scene.devices[targetDevice] ||= {};
       const view = scene.devices[targetDevice];
-      view.height = Number(view.height || heights[targetDevice]);
-      view.layers = Array.isArray(view.layers) ? view.layers : [];
+      view.height = clamp(view.height || heights[targetDevice], 280, 1800);
+      view.background = normalizeBackground(view.background, scene.background, key);
+      view.layers = (Array.isArray(view.layers) ? view.layers : []).filter((layer) => layer && typeof layer === 'object');
+      view.layers.forEach((layer) => {
+        layer.x = clamp(Number.isFinite(Number(layer.x)) ? layer.x : 50, -400, 500);
+        layer.y = clamp(Number.isFinite(Number(layer.y)) ? layer.y : 50, -400, 500);
+        layer.width = clamp(Number.isFinite(Number(layer.width)) ? layer.width : 30, 0.5, 400);
+        layer.locked = layer.locked === true;
+      });
       view.contentBox = {...defaultContentBox(key, targetDevice), ...(view.contentBox || {})};
-      view.contentBox.x = Number(view.contentBox.x);
-      view.contentBox.y = Number(view.contentBox.y);
-      view.contentBox.width = Number(view.contentBox.width);
-      view.contentBox.height = Number(view.contentBox.height);
+      const box = view.contentBox;
+      box.width = clamp(box.width, 5, 100);
+      box.height = clamp(box.height, 5, 100);
+      box.x = clamp(box.x, 0, 100 - box.width);
+      box.y = clamp(box.y, 0, 100 - box.height);
     });
   }
 
@@ -157,6 +186,7 @@
 
   const currentScene = () => scenes[section];
   const currentView = () => currentScene().devices[device];
+  const currentBackground = () => currentView().background;
   const selectedLayer = () => currentView().layers.find((layer) => layer.id === selectedId) || null;
 
   function setStatus(message, mode = 'ready') {
@@ -195,7 +225,7 @@
   resetHistory();
 
   function canvasWidthForDevice() {
-    return device === 'desktop' ? 2400 : (device === 'tablet' ? 1600 : 1080);
+    return device === 'desktop' ? 1440 : (device === 'tablet' ? 900 : 390);
   }
 
   function activatePropertyTab(name) {
@@ -208,13 +238,15 @@
   }
 
   function applyBackgroundStyles() {
-    const bg = currentScene().background;
+    const bg = currentBackground();
     el.bg.style.objectFit = bg.fit || 'cover';
     el.bg.style.objectPosition = `${bg.x}% ${bg.y}%`;
     el.bg.style.transform = `scale(${bg.zoom})`;
+    el.bg.style.transformOrigin = `${bg.x}% ${bg.y}%`;
     el.bg.style.filter = `brightness(${bg.brightness}%) contrast(${bg.contrast}%) saturate(${bg.saturation}%) blur(${bg.blur}px)`;
     el.overlay.style.background = bg.overlayColor;
     el.overlay.style.opacity = String(bg.overlay / 100);
+    renderPlacementGuides();
   }
 
   function applyContentBoxStyles(node = el.contentBox) {
@@ -252,13 +284,15 @@
     const view = currentView();
     const canvasWidth = canvasWidthForDevice();
     el.canvas.style.aspectRatio = `${canvasWidth} / ${Math.max(100, view.height)}`;
-    setImageSource(el.bg, resolveAsset(scene.background.src), `${section} background`);
+    el.canvas.style.maxWidth = `${canvasWidth}px`;
+    setImageSource(el.bg, resolveAsset(view.background.src), `${section} background`);
     applyBackgroundStyles();
     applyContentBoxStyles();
     el.label.textContent = `${section === 'hero' ? 'Homepage Hero' : 'Visual Footer'} · ${device[0].toUpperCase() + device.slice(1)}`;
     renderLayers();
     renderProperties();
     renderVersions();
+    renderLibrarySelection();
     root.querySelectorAll('[data-section-tabs] button').forEach((button) => button.classList.toggle('active', button.dataset.section === section));
     root.querySelectorAll('[data-device-tabs] button').forEach((button) => button.classList.toggle('active', button.dataset.device === device));
     el.canvas.classList.toggle('background-pan-mode', backgroundPanMode);
@@ -275,7 +309,7 @@
     el.empty.hidden = visible.length > 0;
 
     [...view.layers]
-      .sort((a, b) => Number(a.z || 1) - Number(b.z || 1))
+      .sort((a, b) => Number(a.z ?? 1) - Number(b.z ?? 1))
       .forEach((layer) => {
         if (layer.visible === false) return;
         const node = document.createElement('div');
@@ -293,18 +327,10 @@
         }
         node.appendChild(img);
 
-        if (layer.id === selectedId && selectedTarget === 'layer') {
-          const tag = document.createElement('span');
-          tag.className = 'layer-tag';
-          tag.textContent = layer.name || 'Photo layer';
-          node.appendChild(tag);
-          ['nw', 'ne', 'sw', 'se'].forEach((position) => {
-            const handle = document.createElement('span');
-            handle.className = `resize-handle ${position}`;
-            handle.dataset.handle = position;
-            node.appendChild(handle);
-          });
-        }
+        node.classList.toggle('locked', layer.locked === true);
+        img.addEventListener('load', () => {
+          if (layer.id === selectedId) renderSelectionOverlay();
+        });
 
         node.addEventListener('pointerdown', startLayerPointer);
         node.addEventListener('click', (event) => {
@@ -317,65 +343,153 @@
         });
         el.layers.appendChild(node);
       });
+    renderSelectionOverlay();
   }
 
-  function startLayerPointer(event) {
-    if (event.button !== 0) return;
-    const node = event.currentTarget;
-    const layer = currentView().layers.find((item) => item.id === node.dataset.layerId);
-    if (!layer) return;
+  function layerNode(layer) {
+    return [...el.layers.children].find((node) => node.dataset.layerId === String(layer.id)) || null;
+  }
 
+  function renderSelectionOverlay() {
+    el.selection.replaceChildren();
+    const layer = selectedLayer();
+    if (!layer || selectedTarget !== 'layer' || layer.locked || layer.visible === false) return;
+    const node = layerNode(layer);
+    if (!node) return;
+    const frame = el.canvas.getBoundingClientRect();
+    const bounds = node.getBoundingClientRect();
+    if (!frame.width || !frame.height || !bounds.height) return;
+    // Dock handles to the frame, expanding very small selections to an accessible hit area.
+    const left = clamp(bounds.left - frame.left, 15, Math.max(15, frame.width - 45));
+    const top = clamp(bounds.top - frame.top, 15, Math.max(15, frame.height - 45));
+    const right = clamp(bounds.right - frame.left, left + 30, Math.max(left + 30, frame.width - 15));
+    const bottom = clamp(bounds.bottom - frame.top, top + 30, Math.max(top + 30, frame.height - 15));
+    [['nw', left, top], ['ne', right, top], ['sw', left, bottom], ['se', right, bottom]].forEach(([corner, x, y]) => {
+      const handle = document.createElement('button');
+      handle.type = 'button';
+      handle.className = `resize-handle ${corner}`;
+      handle.dataset.handle = corner;
+      handle.setAttribute('aria-label', `Resize photo from ${corner} corner`);
+      handle.style.left = `${x}px`;
+      handle.style.top = `${y}px`;
+      handle.addEventListener('pointerdown', (event) => startLayerPointer(event, layer.id));
+      el.selection.appendChild(handle);
+    });
+    const move = document.createElement('button');
+    move.type = 'button';
+    move.className = 'selection-move';
+    move.dataset.selectionMove = '';
+    move.textContent = layer.name || 'Move photo';
+    move.title = 'Drag to move this photo, including when it is outside the frame';
+    move.setAttribute('aria-label', 'Move selected photo');
+    const halfLabel = Math.min(75, (frame.width - 30) / 2);
+    const corners = [[left, top], [right, top], [left, bottom], [right, bottom]];
+    const candidates = [[(bounds.left + bounds.right) / 2 - frame.left, bounds.top - frame.top - 32]];
+    [0.5, 0.25, 0.75].forEach((y) => [0.5, 0.25, 0.75].forEach((x) => candidates.push([frame.width * x, frame.height * y])));
+    const positions = candidates.map(([x, y]) => [clamp(x, halfLabel + 15, Math.max(halfLabel + 15, frame.width - halfLabel - 15)), clamp(y, 28, Math.max(28, frame.height - 28))]);
+    const position = positions.find(([x, y]) => corners.every(([cx, cy]) => Math.abs(cx - x) > halfLabel + 14 || Math.abs(cy - y) > 28)) || positions[0];
+    move.style.left = `${position[0]}px`;
+    move.style.top = `${position[1]}px`;
+    move.addEventListener('pointerdown', (event) => startLayerPointer(event, layer.id));
+    el.selection.appendChild(move);
+  }
+
+  function clearSnapGuides() {
+    el.snapGuides.replaceChildren();
+  }
+
+  function snapAxis(value, offsets, candidates, threshold) {
+    let best = {value, guide: null, distance: threshold};
+    offsets.forEach((offset) => candidates.forEach((candidate) => {
+      const distance = Math.abs(value + offset - candidate);
+      if (distance < best.distance) best = {value: candidate - offset, guide: candidate, distance};
+    }));
+    return best;
+  }
+
+  function snapPosition(x, y, width, height, centered, excludeId, temporarilyDisabled) {
+    clearSnapGuides();
+    if (temporarilyDisabled || !root.querySelector('[data-snap-enabled]').checked) return {x, y};
+    const frame = el.canvas.getBoundingClientRect();
+    const xTargets = [0, 50, 100];
+    const yTargets = [0, 50, 100];
+    currentView().layers.forEach((layer) => {
+      if (layer.id === excludeId || layer.visible === false) return;
+      const node = layerNode(layer);
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      xTargets.push((rect.left - frame.left) / frame.width * 100, Number(layer.x), (rect.right - frame.left) / frame.width * 100);
+      yTargets.push((rect.top - frame.top) / frame.height * 100, Number(layer.y), (rect.bottom - frame.top) / frame.height * 100);
+    });
+    const snappedX = snapAxis(x, centered ? [-width / 2, 0, width / 2] : [0, width / 2, width], xTargets, 5 / frame.width * 100);
+    const snappedY = snapAxis(y, centered ? [-height / 2, 0, height / 2] : [0, height / 2, height], yTargets, 5 / frame.height * 100);
+    [[snappedX.guide, 'vertical'], [snappedY.guide, 'horizontal']].forEach(([position, direction]) => {
+      if (position === null || position < 0 || position > 100) return;
+      const guide = document.createElement('span');
+      guide.className = `snap-guide ${direction}`;
+      guide.style[direction === 'vertical' ? 'left' : 'top'] = `${position}%`;
+      el.snapGuides.appendChild(guide);
+    });
+    return {x: snappedX.value, y: snappedY.value};
+  }
+
+  function startLayerPointer(event, layerId = null) {
+    if (event.button !== 0) return;
+    const layer = currentView().layers.find((item) => item.id === (layerId || event.currentTarget.dataset.layerId));
+    const node = layer && layerNode(layer);
+    if (!node) return;
     selectedId = layer.id;
     selectedTarget = 'layer';
     activatePropertyTab('layer');
     event.preventDefault();
     event.stopPropagation();
-
-    const canvasRect = el.canvas.getBoundingClientRect();
+    renderProperties();
+    if (layer.locked) {
+      renderSelectionOverlay();
+      setStatus('This photo is locked. Unlock it in Photo Layer to move or resize it.');
+      return;
+    }
+    const frame = el.canvas.getBoundingClientRect();
     const nodeRect = node.getBoundingClientRect();
     const start = {
-      pointerX: event.clientX,
-      pointerY: event.clientY,
-      layerX: Number(layer.x),
-      layerY: Number(layer.y),
-      width: Number(layer.width),
-      handle: event.target.dataset.handle || '',
-      centerX: nodeRect.left + nodeRect.width / 2,
-      centerY: nodeRect.top + nodeRect.height / 2
+      pointerX: event.clientX, pointerY: event.clientY,
+      layerX: Number(layer.x), layerY: Number(layer.y), width: Number(layer.width),
+      handle: event.target.closest('[data-handle]')?.dataset.handle || '',
+      halfWidth: Math.max(1, node.offsetWidth / 2), halfHeight: Math.max(1, node.offsetHeight / 2),
+      angle: Number(layer.rotation || 0) * Math.PI / 180
     };
-    start.distance = Math.max(8, Math.hypot(start.pointerX - start.centerX, start.pointerY - start.centerY));
     node.classList.add('selected', 'dragging');
-
     const onMove = (move) => {
       const dx = move.clientX - start.pointerX;
       const dy = move.clientY - start.pointerY;
       if (start.handle) {
-        const distance = Math.max(1, Math.hypot(move.clientX - start.centerX, move.clientY - start.centerY));
-        layer.width = clamp(start.width * (distance / start.distance), 0.5, 400);
+        // Project pointer movement onto the image's original aspect-preserving diagonal.
+        const localX = dx * Math.cos(start.angle) + dy * Math.sin(start.angle);
+        const localY = -dx * Math.sin(start.angle) + dy * Math.cos(start.angle);
+        const sx = start.handle.includes('e') ? 1 : -1;
+        const sy = start.handle.includes('s') ? 1 : -1;
+        const factor = 1 + (sx * start.halfWidth * localX + sy * start.halfHeight * localY) / (start.halfWidth ** 2 + start.halfHeight ** 2);
+        layer.width = clamp(start.width * factor, 0.5, 400);
       } else {
-        const halfWidth = nodeRect.width / canvasRect.width * 50;
-        const halfHeight = nodeRect.height / canvasRect.height * 50;
-        const minX = halfWidth >= 50 ? 50 : halfWidth;
-        const maxX = halfWidth >= 50 ? 50 : 100 - halfWidth;
-        const minY = halfHeight >= 50 ? 50 : halfHeight;
-        const maxY = halfHeight >= 50 ? 50 : 100 - halfHeight;
-        layer.x = clamp(start.layerX + dx / canvasRect.width * 100, minX, maxX);
-        layer.y = clamp(start.layerY + dy / canvasRect.height * 100, minY, maxY);
+        const next = snapPosition(start.layerX + dx / frame.width * 100, start.layerY + dy / frame.height * 100,
+          nodeRect.width / frame.width * 100, nodeRect.height / frame.height * 100, true, layer.id, move.altKey);
+        layer.x = clamp(next.x, -400, 500);
+        layer.y = clamp(next.y, -400, 500);
       }
       applyLayerNodeStyles(node, layer);
       updateLayerPropertyReadout(layer);
+      renderSelectionOverlay();
     };
-
     const onUp = () => {
       document.removeEventListener('pointermove', onMove);
       document.removeEventListener('pointerup', onUp);
       document.removeEventListener('pointercancel', onUp);
+      clearSnapGuides();
       node.classList.remove('dragging');
       commitHistory();
       render();
-      setStatus(start.handle ? 'Photo resized — save when ready.' : 'Photo moved — save when ready.');
+      setStatus(start.handle ? 'Photo resized — save when ready.' : 'Photo moved — the frame crops any part outside its edges.');
     };
-
     document.addEventListener('pointermove', onMove);
     document.addEventListener('pointerup', onUp, {once: true});
     document.addEventListener('pointercancel', onUp, {once: true});
@@ -406,8 +520,9 @@
       const dx = (move.clientX - start.pointerX) / canvasRect.width * 100;
       const dy = (move.clientY - start.pointerY) / canvasRect.height * 100;
       if (!start.handle) {
-        box.x = clamp(start.x + dx, 0, Math.max(0, 100 - box.width));
-        box.y = clamp(start.y + dy, 0, Math.max(0, 100 - box.height));
+        const next = snapPosition(start.x + dx, start.y + dy, box.width, box.height, false, null, move.altKey);
+        box.x = clamp(next.x, 0, Math.max(0, 100 - box.width));
+        box.y = clamp(next.y, 0, Math.max(0, 100 - box.height));
       } else {
         let nextX = start.x;
         let nextY = start.y;
@@ -437,6 +552,7 @@
       document.removeEventListener('pointerup', onUp);
       document.removeEventListener('pointercancel', onUp);
       el.contentBox.classList.remove('dragging');
+      clearSnapGuides();
       commitHistory();
       render();
       setStatus(start.handle ? 'Live content box resized.' : 'Live text and buttons moved.');
@@ -449,10 +565,10 @@
 
   function startBackgroundPan(event) {
     if (!backgroundPanMode || event.button !== 0) return;
-    if (event.target.closest('.composer-layer, [data-content-box]')) return;
+    if (event.target.closest('.composer-layer, [data-content-box], [data-selection-overlay]')) return;
     event.preventDefault();
     const rect = el.canvas.getBoundingClientRect();
-    const bg = currentScene().background;
+    const bg = currentBackground();
     const start = {x: event.clientX, y: event.clientY, bgX: Number(bg.x), bgY: Number(bg.y)};
     el.canvas.classList.add('panning');
 
@@ -489,7 +605,7 @@
   }
 
   function updateBackgroundPropertyReadout() {
-    const bg = currentScene().background;
+    const bg = currentBackground();
     setControlValue('bgX', bg.x);
     setControlValue('bgY', bg.y);
     setOutput('bgX', `${Math.round(bg.x)}%`);
@@ -510,7 +626,7 @@
     setControlValue('layerWidth', round(layer.width, 1));
     setControlValue('layerScale', round(layer.width, 1));
     setOutput('layerScale', `${round(layer.width, 1)}%`);
-    if (el.selectedSize) el.selectedSize.textContent = `${round(layer.width, 1)}% of canvas · z${layer.z || 1}${layer.visible === false ? ' · hidden' : ''}`;
+    if (el.selectedSize) el.selectedSize.textContent = `${round(layer.width, 1)}% of canvas · z${layer.z ?? 1}${layer.visible === false ? ' · hidden' : ''}${layer.locked ? ' · locked' : ''}`;
   }
 
   function round(value, digits = 0) {
@@ -521,7 +637,7 @@
   function renderProperties(refreshInputs = true) {
     const scene = currentScene();
     const view = currentView();
-    const bg = scene.background;
+    const bg = view.background;
     const box = view.contentBox;
 
     if (refreshInputs) {
@@ -538,8 +654,11 @@
         overlayColor: bg.overlayColor
       };
       Object.entries(bgMap).forEach(([key, value]) => setControlValue(key, value));
+      setControlValue('sceneTitle', scene.title);
       updateContentPropertyReadout();
     }
+    renderBackgroundInfo();
+    renderLayerStack();
 
     setOutput('bgX', `${Math.round(bg.x)}%`);
     setOutput('bgY', `${Math.round(bg.y)}%`);
@@ -555,6 +674,12 @@
     el.noSelection.hidden = !!layer;
     el.layerControls.hidden = !layer;
     if (!layer) return;
+    el.layerControls.querySelectorAll('input, [data-layer-size], [data-action]').forEach((control) => {
+      const allowed = ['layer-lock', 'layer-hide', 'layer-duplicate'];
+      control.disabled = layer.locked && !allowed.includes(control.dataset.action);
+    });
+    root.querySelector('[data-action="layer-lock"]').textContent = layer.locked ? 'Unlock' : 'Lock';
+    root.querySelector('[data-action="layer-hide"]').textContent = layer.visible === false ? 'Show' : 'Hide';
 
     if (refreshInputs) {
       const map = {
@@ -582,24 +707,20 @@
     setOutput('layerSaturation', `${Math.round(layer.saturation ?? 100)}%`);
     setOutput('layerFeather', `${Math.round(layer.feather ?? 0)}%`);
     setOutput('layerShadow', `${Math.round(layer.shadowOpacity ?? 35)}%`);
-    renderLayerStack();
   }
 
   function renderLayerStack() {
-    let stack = el.layerControls.querySelector('.layer-stack-list');
-    if (!stack) {
-      stack = document.createElement('div');
-      stack.className = 'layer-stack-list';
-      el.layerControls.appendChild(stack);
-    }
-    stack.innerHTML = '<h3>Layer stack</h3>';
+    const stack = el.layerStack;
+    stack.innerHTML = '<h3>Layer stack · select any photo</h3>';
+    stack.hidden = currentView().layers.length === 0;
     [...currentView().layers]
-      .sort((a, b) => Number(b.z || 1) - Number(a.z || 1))
+      .sort((a, b) => Number(b.z ?? 1) - Number(a.z ?? 1))
       .forEach((layer) => {
         const button = document.createElement('button');
         button.type = 'button';
+        button.dataset.layerSelect = layer.id;
         button.className = layer.id === selectedId ? 'active' : '';
-        button.innerHTML = `<span>${layer.visible === false ? '○' : '●'}</span><b>${escapeHtml(layer.name || 'Photo layer')}</b><small>z${layer.z || 1}</small>`;
+        button.innerHTML = `<span>${layer.visible === false ? '○' : '●'}</span><b>${escapeHtml(layer.name || 'Photo layer')}</b><small>${layer.locked ? 'Locked · ' : ''}z${Number(layer.z ?? 1)}</small>`;
         button.addEventListener('click', () => {
           selectedId = layer.id;
           selectedTarget = 'layer';
@@ -612,6 +733,115 @@
 
   function escapeHtml(value) {
     return String(value).replace(/[&<>'"]/g, (character) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'}[character]));
+  }
+
+  function activateAssetsTab(name) {
+    assetsTab = name;
+    root.querySelectorAll('[data-assets-tab]').forEach((button) => {
+      button.classList.toggle('active', button.dataset.assetsTab === name);
+      button.setAttribute('aria-pressed', String(button.dataset.assetsTab === name));
+    });
+    root.querySelectorAll('[data-assets-pane]').forEach((pane) => { pane.hidden = pane.dataset.assetsPane !== name; });
+  }
+
+  function renderLibrary() {
+    const query = el.librarySearch.value.toLowerCase().trim();
+    const category = el.libraryCategory.value;
+    const available = Array.isArray(library.scenes) ? library.scenes : [];
+    const rows = available.filter((scene) => {
+      const text = [scene.title, scene.categoryTitle, scene.orientation, scene.placement, ...(scene.keywords || [])].join(' ').toLowerCase();
+      return (category === 'all' || scene.category === category) && (!query || text.includes(query));
+    });
+    el.libraryCount.textContent = `${rows.length} of ${available.length} available scenes`;
+    el.libraryList.replaceChildren();
+    if (!rows.length) {
+      el.libraryList.innerHTML = '<p class="media-empty">No matching scenes. Try another category or search.</p>';
+    }
+    rows.forEach((scene) => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'library-item';
+      card.dataset.libraryId = scene.id;
+      card.setAttribute('aria-label', `Preview ${scene.title}`);
+      const img = document.createElement('img');
+      img.alt = '';
+      setImageSource(img, resolveAsset(scene.thumbnail, scene.thumbnailUrl), scene.title, () => {
+        card.disabled = true;
+        card.classList.add('media-broken');
+        card.title = 'This thumbnail could not load. Check the bundled background files.';
+      });
+      const caption = document.createElement('span');
+      caption.className = 'library-caption';
+      caption.innerHTML = `<strong>${escapeHtml(scene.title)}</strong><small>${escapeHtml(scene.categoryTitle)} · ${escapeHtml(scene.orientation)} · ${Number(scene.width)} × ${Number(scene.height)}</small><span>${escapeHtml(scene.placement)}</span>`;
+      card.append(img, caption);
+      card.addEventListener('click', () => setBackground(scene, true));
+      el.libraryList.appendChild(card);
+    });
+    const warnings = [...(library.warnings || [])];
+    el.libraryWarnings.replaceChildren();
+    el.libraryWarnings.hidden = warnings.length === 0;
+    warnings.forEach((warning) => {
+      const line = document.createElement('p');
+      line.textContent = warning;
+      el.libraryWarnings.appendChild(line);
+    });
+    if (library.unavailable?.length) {
+      const details = document.createElement('details');
+      const summary = document.createElement('summary');
+      summary.textContent = 'Unavailable scene details';
+      details.appendChild(summary);
+      library.unavailable.forEach((scene) => {
+        const line = document.createElement('p');
+        line.textContent = `${scene.title}: ${scene.reason}`;
+        details.appendChild(line);
+      });
+      el.libraryWarnings.appendChild(details);
+    }
+    renderLibrarySelection();
+  }
+
+  function renderLibrarySelection() {
+    const bg = currentBackground();
+    el.libraryList.querySelectorAll('[data-library-id]').forEach((card) => {
+      const active = card.dataset.libraryId === bg.libraryId;
+      card.classList.toggle('active', active);
+      card.setAttribute('aria-pressed', String(active));
+    });
+  }
+
+  function renderBackgroundInfo() {
+    const bg = currentBackground();
+    const title = bg.title || 'Custom background';
+    el.backgroundInfo.innerHTML = `<strong>${escapeHtml(title)}</strong><small>${escapeHtml(bg.orientation || '')}${bg.width && bg.height ? ` · ${Number(bg.width)} × ${Number(bg.height)}` : ''}</small><p>${escapeHtml(bg.placement || 'Place a separate photo layer in an open area of the scene.')}</p>`;
+  }
+
+  function renderPlacementGuides() {
+    el.placementGuides.replaceChildren();
+    if (!root.querySelector('[data-placement-enabled]').checked) return;
+    const bg = currentBackground();
+    const frame = el.canvas.getBoundingClientRect();
+    const sourceWidth = Number(bg.width || el.bg.naturalWidth);
+    const sourceHeight = Number(bg.height || el.bg.naturalHeight);
+    if (!sourceWidth || !sourceHeight || !frame.width || !frame.height) return;
+    const fit = bg.fit === 'contain' ? Math.min : Math.max;
+    const scale = fit(frame.width / sourceWidth, frame.height / sourceHeight);
+    const width = sourceWidth * scale;
+    const height = sourceHeight * scale;
+    const offsetX = (frame.width - width) * bg.x / 100;
+    const offsetY = (frame.height - height) * bg.y / 100;
+    const originX = frame.width * bg.x / 100;
+    const originY = frame.height * bg.y / 100;
+    [[bg.modelZone, 'Photo placement', 'photo'], [bg.textZone, 'Suggested live text', 'text']].forEach(([zone, label, kind]) => {
+      if (!zone) return;
+      const guide = document.createElement('div');
+      guide.className = `placement-guide ${kind}`;
+      guide.style.left = `${originX + (offsetX + width * zone.x / 100 - originX) * bg.zoom}px`;
+      guide.style.top = `${originY + (offsetY + height * zone.y / 100 - originY) * bg.zoom}px`;
+      guide.style.width = `${width * zone.width / 100 * bg.zoom}px`;
+      guide.style.height = `${height * zone.height / 100 * bg.zoom}px`;
+      guide.textContent = label;
+      el.placementGuides.appendChild(guide);
+    });
   }
 
   function renderMedia() {
@@ -670,16 +900,25 @@
     return media.find((item) => String(item.id) === String(id));
   }
 
-  function setBackground(asset) {
-    currentScene().background.src = asset.file;
-    currentScene().background.x = 50;
-    currentScene().background.y = 50;
-    currentScene().background.zoom = 1;
+  function setBackground(asset, fromLibrary = false) {
+    const targets = fromLibrary && root.querySelector('[data-library-all-devices]').checked
+      ? ['desktop', 'tablet', 'mobile'] : [device];
+    targets.forEach((targetDevice) => {
+      const bg = currentScene().devices[targetDevice].background;
+      Object.assign(bg, {
+        src: asset.file, title: asset.title || 'Custom background',
+        libraryId: fromLibrary ? asset.id : null,
+        width: Number(asset.width || 0), height: Number(asset.height || 0),
+        orientation: asset.orientation || (Number(asset.width) > Number(asset.height) ? 'landscape' : 'portrait'),
+        placement: asset.placement || '', modelZone: asset.modelZone || null, textZone: asset.textZone || null,
+        x: 50, y: 50, zoom: 1
+      });
+    });
     if (asset.file && asset.url) assetUrls[asset.file] = asset.url;
     commitHistory();
     render();
     activatePropertyTab('background');
-    setStatus(`Background changed to ${asset.title}.`);
+    setStatus(`Previewing ${asset.title}${targets.length > 1 ? ' on all devices' : ` on ${device}`}. Save Draft or Publish when ready.`);
   }
 
   function addLayer(asset, x = 68, y = 50) {
@@ -708,6 +947,9 @@
       flipX: false,
       flipY: false,
       visible: true,
+      locked: false,
+      naturalWidth: Number(asset.width || 0),
+      naturalHeight: Number(asset.height || 0),
       z
     };
     if (asset.file && asset.url) assetUrls[asset.file] = asset.url;
@@ -732,7 +974,7 @@
 
   el.canvas.addEventListener('pointerdown', startBackgroundPan);
   el.canvas.addEventListener('click', (event) => {
-    if (event.target.closest('.composer-layer, [data-content-box]')) return;
+    if (event.target.closest('.composer-layer, [data-content-box], [data-selection-overlay]')) return;
     if (backgroundPanMode) return;
     selectedId = null;
     selectedTarget = 'none';
@@ -786,7 +1028,7 @@
     input.addEventListener('input', () => {
       let value = property === 'overlayColor' ? input.value : Number(input.value);
       if (property === 'zoom') value /= 100;
-      currentScene().background[property] = value;
+      currentBackground()[property] = value;
       applyBackgroundStyles();
       renderProperties(false);
     });
@@ -851,10 +1093,11 @@
     if (!input) return;
     input.addEventListener('input', () => {
       const layer = selectedLayer();
-      if (!layer) return;
+      if (!layer || layer.locked) return;
       let value = Number(input.value);
+      if (!Number.isFinite(value)) return;
       if (property === 'width') value = clamp(value, 0.5, 400);
-      if (property === 'x' || property === 'y') value = clamp(value, -100, 200);
+      if (property === 'x' || property === 'y') value = clamp(value, -400, 500);
       layer[property] = value;
       renderLayers();
       renderProperties(false);
@@ -868,7 +1111,7 @@
 
   root.querySelectorAll('[data-layer-size]').forEach((button) => button.addEventListener('click', () => {
     const layer = selectedLayer();
-    if (!layer) return;
+    if (!layer || layer.locked) return;
     layer.width = clamp(button.dataset.layerSize, 0.5, 400);
     commitHistory();
     render();
@@ -880,6 +1123,7 @@
   function handleAction(action) {
     const layer = selectedLayer();
     if (action === 'toggle-upload') {
+      activateAssetsTab('media');
       const panel = root.querySelector('[data-upload-panel]');
       panel.hidden = !panel.hidden;
       return;
@@ -899,11 +1143,11 @@
       return;
     }
     if (action === 'preview') {
-      window.open(`${baseUrl}/?preview=1`, '_blank', 'noopener');
+      previewDrafts();
       return;
     }
     if (action === 'save' || action === 'publish') {
-      saveScene(action);
+      runSave(action);
       return;
     }
     if (action === 'pan-background') {
@@ -925,7 +1169,7 @@
       return;
     }
     if (action === 'reset-view') {
-      Object.assign(currentScene().background, {x: 50, y: 50, zoom: 1, brightness: 100, contrast: 100, saturation: 100, blur: 0});
+      Object.assign(currentBackground(), {x: 50, y: 50, zoom: 1, brightness: 100, contrast: 100, saturation: 100, blur: 0});
       commitHistory();
       render();
       setStatus('Background view reset.');
@@ -942,17 +1186,25 @@
       return;
     }
     if (!layer) return;
+    if (layer.locked && !['layer-lock', 'layer-hide', 'layer-duplicate'].includes(action)) {
+      setStatus('Unlock this photo before changing it.');
+      return;
+    }
+    if (action.startsWith('layer-align-') || action === 'layer-crop-bottom') alignLayer(action, layer);
+    if (action === 'layer-recover') { layer.x = 50; layer.y = 50; layer.visible = true; }
+    if (action === 'layer-lock') layer.locked = !layer.locked;
 
-    if (action === 'layer-forward') layer.z = Math.max(...currentView().layers.map((item) => Number(item.z || 1))) + 1;
-    if (action === 'layer-back') layer.z = Math.min(...currentView().layers.map((item) => Number(item.z || 1))) - 1;
+    if (action === 'layer-forward') layer.z = Math.max(...currentView().layers.map((item) => Number(item.z ?? 1))) + 1;
+    if (action === 'layer-back') layer.z = Math.min(...currentView().layers.map((item) => Number(item.z ?? 1))) - 1;
     if (action === 'layer-flip') layer.flipX = !layer.flipX;
     if (action === 'layer-duplicate') {
       const copy = clone(layer);
       copy.id = `layer-${Date.now()}-${Math.random().toString(16).slice(2, 6)}`;
       copy.name = `${layer.name} copy`;
-      copy.x = Number(layer.x) + 3;
-      copy.y = Number(layer.y) + 3;
-      copy.z = Math.max(...currentView().layers.map((item) => Number(item.z || 1))) + 1;
+      copy.x = clamp(Number(layer.x) + 3, -400, 500);
+      copy.y = clamp(Number(layer.y) + 3, -400, 500);
+      copy.locked = false;
+      copy.z = Math.max(...currentView().layers.map((item) => Number(item.z ?? 1))) + 1;
       currentView().layers.push(copy);
       selectedId = copy.id;
     }
@@ -967,22 +1219,81 @@
     setStatus('Photo layer updated.');
   }
 
-  async function saveScene(action) {
+  function alignLayer(action, layer) {
+    const node = layerNode(layer);
+    const frame = el.canvas.getBoundingClientRect();
+    const rect = node?.getBoundingClientRect();
+    const width = rect ? rect.width / frame.width * 100 : Number(layer.width);
+    const height = rect ? rect.height / frame.height * 100 : width;
+    if (action === 'layer-align-left') layer.x = width / 2;
+    if (action === 'layer-align-center-x') layer.x = 50;
+    if (action === 'layer-align-right') layer.x = 100 - width / 2;
+    if (action === 'layer-align-top') layer.y = height / 2;
+    if (action === 'layer-align-center-y') layer.y = 50;
+    if (action === 'layer-align-bottom') layer.y = 100 - height / 2;
+    if (action === 'layer-crop-bottom') layer.y = 100 - height * 0.3;
+    layer.x = clamp(layer.x, -400, 500);
+    layer.y = clamp(layer.y, -400, 500);
+  }
+
+  function setSaving(value) {
+    saving = value;
+    root.querySelectorAll('[data-action="save"], [data-action="publish"], [data-action="preview"], [data-restore-version]').forEach((button) => { button.disabled = value; });
+  }
+
+  async function saveScene(action, targetSection, draft) {
+    const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(targetSection)}`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
+      body: JSON.stringify({action, scene: draft})
+    });
+    const result = await response.json();
+    if (!response.ok || !result.ok) throw new Error(result.message || 'Unable to save composition.');
+    versions[targetSection] = result.versions || versions[targetSection];
+    return result;
+  }
+
+  async function runSave(action) {
+    if (saving) return;
+    const targetSection = section;
+    const draft = clone(scenes[targetSection]);
+    setSaving(true);
     setStatus(action === 'publish' ? 'Publishing composition…' : 'Saving draft…', 'busy');
     try {
-      const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(section)}`, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
-        body: JSON.stringify({action, scene: currentScene()})
-      });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || 'Unable to save composition.');
-      versions[section] = result.versions || versions[section];
+      const result = await saveScene(action, targetSection, draft);
       commitHistory();
       renderVersions();
-      setStatus(result.message || 'Saved.');
+      setStatus(result.message || `${targetSection} saved.`);
     } catch (error) {
       setStatus(error.message, 'error');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function previewDrafts() {
+    if (saving) return;
+    const drafts = clone(scenes);
+    const preview = window.open('about:blank', '_blank');
+    if (preview) {
+      preview.opener = null;
+      preview.document.title = 'Preparing your draft preview';
+      preview.document.body.textContent = 'Saving Hero and Footer drafts for your preview…';
+    }
+    setSaving(true);
+    setStatus('Saving Hero and Footer drafts for Full Page Preview…', 'busy');
+    try {
+      // Sequential saves avoid conflicting writes in the file-store installation mode.
+      await saveScene('save', 'hero', drafts.hero);
+      await saveScene('save', 'footer', drafts.footer);
+      renderVersions();
+      if (preview && !preview.closed) preview.location.replace(`${baseUrl}/?preview=1`);
+      setStatus(preview ? 'Full Page Preview opened with both saved drafts.' : 'Both drafts saved. Allow pop-ups, then open Full Page Preview again.');
+    } catch (error) {
+      if (preview && !preview.closed) preview.close();
+      setStatus(error.message, 'error');
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -996,34 +1307,41 @@
     rows.forEach((version, index) => {
       const item = document.createElement('div');
       item.className = 'version-item';
+      item.dataset.versionId = version.id;
       const date = new Date(version.publishedAt || version.createdAt || Date.now());
-      item.innerHTML = `<strong>Published version ${rows.length - index}</strong><small>${escapeHtml(date.toLocaleString())}</small><button type="button">Restore and publish</button>`;
+      item.innerHTML = `<strong>${escapeHtml(version.scene?.title || `Published version ${rows.length - index}`)}</strong><small>${escapeHtml(date.toLocaleString())} · Published version ${rows.length - index}</small><button type="button" data-restore-version>Restore and publish</button>`;
+      item.querySelector('button').disabled = saving;
       item.querySelector('button').addEventListener('click', () => restoreVersion(version.id));
       el.versions.appendChild(item);
     });
   }
 
   async function restoreVersion(versionId) {
+    if (saving) return;
+    const targetSection = section;
     if (!confirm('Restore this version and publish it to the live homepage?')) return;
+    setSaving(true);
     setStatus('Restoring version…', 'busy');
     try {
-      const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(section)}`, {
+      const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(targetSection)}`, {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
         body: JSON.stringify({action: 'restore', versionId})
       });
       const result = await response.json();
       if (!response.ok || !result.ok) throw new Error(result.message || 'Restore failed.');
-      scenes[section] = result.scene;
-      versions[section] = result.versions || [];
+      scenes[targetSection] = result.scene;
+      versions[targetSection] = result.versions || [];
       selectedId = null;
       selectedTarget = 'none';
-      normalizeScene(section);
+      normalizeScene(targetSection);
       resetHistory();
       render();
       setStatus(result.message || 'Version restored.');
     } catch (error) {
       setStatus(error.message, 'error');
+    } finally {
+      setSaving(false);
     }
   }
 
@@ -1057,6 +1375,21 @@
       button.textContent = old;
     }
   });
+
+  root.querySelectorAll('[data-assets-tab]').forEach((button) => button.addEventListener('click', () => activateAssetsTab(button.dataset.assetsTab)));
+  el.librarySearch.addEventListener('input', renderLibrary);
+  el.libraryCategory.addEventListener('change', renderLibrary);
+  root.querySelector('[data-placement-enabled]').addEventListener('change', renderPlacementGuides);
+  el.selection.addEventListener('click', (event) => event.stopPropagation());
+  el.bg.addEventListener('load', renderPlacementGuides);
+  root.querySelector('[data-control="sceneTitle"]').addEventListener('input', (event) => {
+    currentScene().title = event.target.value.slice(0, 160);
+    setStatus('Composition title changed — save when ready.');
+  });
+  root.querySelector('[data-control="sceneTitle"]').addEventListener('change', commitHistory);
+  if (typeof ResizeObserver === 'function') {
+    new ResizeObserver(() => { renderSelectionOverlay(); renderPlacementGuides(); }).observe(el.canvas);
+  }
 
   el.mediaSearch?.addEventListener('input', renderMedia);
   el.mediaFilter?.addEventListener('change', renderMedia);
@@ -1092,7 +1425,7 @@
       if (event.key === 'ArrowDown') { box.y += step; changed = true; }
     } else {
       const layer = selectedLayer();
-      if (!layer) return;
+      if (!layer || layer.locked) return;
       if (event.key === 'Delete' || event.key === 'Backspace') {
         event.preventDefault();
         handleAction('layer-delete');
@@ -1106,6 +1439,15 @@
       if (event.key === '-' || event.key === '_') { layer.width = clamp(layer.width - (event.shiftKey ? 10 : 2), 0.5, 400); changed = true; }
     }
     if (changed) {
+      if (selectedTarget === 'content') {
+        const box = currentView().contentBox;
+        box.x = clamp(box.x, 0, 100 - box.width);
+        box.y = clamp(box.y, 0, 100 - box.height);
+      } else {
+        const layer = selectedLayer();
+        layer.x = clamp(layer.x, -400, 500);
+        layer.y = clamp(layer.y, -400, 500);
+      }
       event.preventDefault();
       commitHistory();
       render();
@@ -1113,7 +1455,15 @@
     }
   });
 
+  (library.categories || []).forEach((category) => {
+    const option = document.createElement('option');
+    option.value = category.id;
+    option.textContent = `${category.title} (${category.count})`;
+    el.libraryCategory.appendChild(option);
+  });
   renderMedia();
+  renderLibrary();
+  activateAssetsTab(assetsTab);
   render();
   setStatus('Ready — drag images and the live text + button box directly on the canvas.');
 })();

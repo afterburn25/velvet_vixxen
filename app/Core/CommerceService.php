@@ -43,8 +43,23 @@ final class CommerceService
         if ($rows === []) {
             throw new RuntimeException('Your cart does not contain any purchasable items.');
         }
+        $merchandise = array_filter($rows, static fn(array $row): bool => $row['itemType'] === 'merchandise');
+        if ($merchandise !== [] && count($merchandise) !== count($rows)) {
+            throw new RuntimeException('Merchandise must be checked out separately from memberships and PPV content.');
+        }
+        if ($merchandise === [] && count($rows) !== 1) {
+            throw new RuntimeException('Choose one membership or content release for direct checkout.');
+        }
+        $keys = [];
+        foreach ($rows as &$row) {
+            if (isset($keys[$row['key']])) throw new RuntimeException('Duplicate checkout items are not allowed.');
+            $keys[$row['key']] = true;
+            $row['quantity'] = (int) ($row['quantity'] ?? 1);
+            $row['lineSubtotal'] = round((float) $row['unitPrice'] * $row['quantity'], 2);
+        }
+        unset($row);
 
-        $subtotal = round(array_sum(array_map(static fn(array $row): float => (float) $row['unitPrice'], $rows)), 2);
+        $subtotal = round(array_sum(array_column($rows, 'lineSubtotal')), 2);
         $coupon = null;
         $discountTotal = 0.0;
         $couponCode = strtoupper(trim($couponCode));
@@ -55,7 +70,7 @@ final class CommerceService
                 $couponRow['couponEligible'] = $couponScope === 'all' || (string) ($couponRow['scope'] ?? '') === $couponScope;
             }
             unset($couponRow);
-            $eligibleSubtotal = round(array_sum(array_map(static fn(array $row): float => !empty($row['couponEligible']) ? (float) $row['unitPrice'] : 0.0, $rows)), 2);
+            $eligibleSubtotal = round(array_sum(array_map(static fn(array $row): float => !empty($row['couponEligible']) ? (float) $row['lineSubtotal'] : 0.0, $rows)), 2);
             if ($coupon['discountType'] === 'percent') {
                 $discountTotal = round($eligibleSubtotal * ((float) $coupon['value'] / 100), 2);
             } else {
@@ -72,7 +87,7 @@ final class CommerceService
         foreach ($rows as $index => $row) {
             if (!empty($row['couponEligible'])) {
                 $eligibleIndices[] = $index;
-                $eligibleTotal += (float) $row['unitPrice'];
+                $eligibleTotal += (float) $row['lineSubtotal'];
             }
         }
         $lastEligibleIndex = $eligibleIndices !== [] ? $eligibleIndices[array_key_last($eligibleIndices)] : null;
@@ -81,12 +96,12 @@ final class CommerceService
             if ($discountTotal > 0 && !empty($row['couponEligible']) && $eligibleTotal > 0) {
                 $lineDiscount = $index === $lastEligibleIndex
                     ? $remainingDiscount
-                    : round($discountTotal * ((float) $row['unitPrice'] / $eligibleTotal), 2);
-                $lineDiscount = min((float) $row['unitPrice'], max(0.0, $lineDiscount));
+                    : round($discountTotal * ((float) $row['lineSubtotal'] / $eligibleTotal), 2);
+                $lineDiscount = min((float) $row['lineSubtotal'], max(0.0, $lineDiscount));
                 $remainingDiscount = round($remainingDiscount - $lineDiscount, 2);
             }
             $row['discountTotal'] = $lineDiscount;
-            $row['lineTotal'] = round((float) $row['unitPrice'] - $lineDiscount, 2);
+            $row['lineTotal'] = round((float) $row['lineSubtotal'] - $lineDiscount, 2);
         }
         unset($row);
 
@@ -94,7 +109,9 @@ final class CommerceService
         $taxRate = max(0, min(100, (float) ($commerceSettings['tax_rate_percent'] ?? 0)));
         $taxable = max(0, round($subtotal - $discountTotal, 2));
         $taxTotal = round($taxable * ($taxRate / 100), 2);
-        $grandTotal = round($taxable + $taxTotal, 2);
+        $shippingTotal = round(array_sum(array_map(static fn(array $row): float => !empty($row['metadata']['requiresShipping']) ? (float) $row['metadata']['shippingPrice'] * $row['quantity'] : 0.0, $rows)), 2);
+        $requiresShipping = (bool) array_filter($rows, static fn(array $row): bool => !empty($row['metadata']['requiresShipping']));
+        $grandTotal = round($taxable + $taxTotal + $shippingTotal, 2);
 
         return [
             'items' => $rows,
@@ -103,6 +120,9 @@ final class CommerceService
             'taxRate' => $taxRate,
             'taxTotal' => $taxTotal,
             'grandTotal' => $grandTotal,
+            'shippingTotal' => $shippingTotal,
+            'requiresShipping' => $requiresShipping,
+            'checkoutFlow' => $merchandise !== [] ? 'merchandise' : ($rows[0]['itemType'] === 'plan' ? 'membership' : 'content'),
             'currency' => $currency ?? strtoupper((string) $this->config->get('currency', 'USD')),
             'coupon' => $coupon,
             'couponCode' => $coupon['code'] ?? null,
@@ -116,6 +136,11 @@ final class CommerceService
      */
     public function checkout(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey): array
     {
+        return $this->store->withCommerceLock(fn(): array => $this->checkoutLocked($memberId, $cartItems, $couponCode, $providerKey, $paymentInput, $idempotencyKey));
+    }
+
+    private function checkoutLocked(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey): array
+    {
         $member = $this->store->member($memberId);
         if (!$member || (string) ($member['status'] ?? '') !== 'active' || empty($member['emailVerifiedAt'])) {
             throw new RuntimeException('An active, verified member account is required for checkout.');
@@ -126,6 +151,7 @@ final class CommerceService
         }
         $existing = $this->store->order($idempotencyKey);
         if ($existing) {
+            if ((string) $existing['memberId'] !== (string) $member['id']) throw new RuntimeException('Checkout session does not belong to this member.');
             $transactions = $this->store->paymentTransactions((string) $existing['id']);
             return [
                 'order' => $existing,
@@ -145,6 +171,7 @@ final class CommerceService
         }
         $provider = $this->providers->get($providerKey);
         $quote = $this->quote($cartItems, $member, $couponCode);
+        $shippingAddress = $quote['requiresShipping'] ? MerchandiseService::shippingAddress((array) ($paymentInput['shipping'] ?? [])) : [];
         foreach ($quote['items'] as $row) {
             if ((string) ($row['itemType'] ?? '') === 'plan' && !$provider->supportsRecurring()) {
                 throw new RuntimeException('The selected payment provider does not support recurring memberships.');
@@ -152,7 +179,7 @@ final class CommerceService
         }
 
         $orderItems = array_map(static fn(array $row): array => [
-            'itemType' => $row['itemType'], 'itemId' => $row['itemId'], 'title' => $row['title'], 'quantity' => 1,
+            'itemType' => $row['itemType'], 'itemId' => $row['itemId'], 'title' => $row['title'], 'quantity' => $row['quantity'],
             'unitPrice' => $row['unitPrice'], 'discountTotal' => $row['discountTotal'], 'lineTotal' => $row['lineTotal'],
             'metadata' => $row['metadata'], 'fulfillmentStatus' => 'pending',
         ], $quote['items']);
@@ -162,12 +189,19 @@ final class CommerceService
             'subtotal' => $quote['subtotal'], 'discountTotal' => $quote['discountTotal'], 'taxTotal' => $quote['taxTotal'],
             'grandTotal' => $quote['grandTotal'], 'currency' => $quote['currency'], 'couponCode' => $quote['couponCode'],
             'providerKey' => $providerKey, 'idempotencyKey' => $idempotencyKey, 'billingEmail' => (string) $member['email'],
-            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => '0.8.1'],
+            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => '0.8.1', 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending'],
         ], $orderItems);
 
-        $charge = $quote['grandTotal'] <= 0
-            ? ['ok'=>true,'status'=>'paid','providerTransactionId'=>'free_'.bin2hex(random_bytes(8)),'message'=>'No payment was required.','last4'=>null,'brand'=>'No charge','payload'=>['free'=>true]]
-            : $provider->charge($order, $paymentInput);
+        try {
+            $this->store->reserveMerchandiseStock($order);
+            $charge = $quote['grandTotal'] <= 0
+                ? ['ok'=>true,'status'=>'paid','providerTransactionId'=>'free_'.bin2hex(random_bytes(8)),'message'=>'No payment was required.','last4'=>null,'brand'=>'No charge','payload'=>['free'=>true]]
+                : $provider->charge($order, $paymentInput);
+        } catch (Throwable $error) {
+            $this->store->settleMerchandiseStock($order, true);
+            $this->store->updateOrder((string) $order['id'], ['status' => 'failed']);
+            throw $error;
+        }
         $transaction = $this->store->savePaymentTransaction([
             'orderId' => (string) $order['id'], 'providerKey' => $providerKey,
             'providerTransactionId' => $charge['providerTransactionId'] ?? null, 'transactionType' => 'charge',
@@ -187,6 +221,7 @@ final class CommerceService
         } else {
             $status = (string) ($charge['status'] ?? 'failed');
             $order = $this->store->updateOrder((string) $order['id'], ['status'=>$status === 'processing' ? 'processing' : 'failed','providerCheckoutId'=>$charge['providerTransactionId']??null]);
+            if ($status !== 'processing') $this->store->settleMerchandiseStock($order, true);
             $this->store->recordMemberEvent((string) $member['id'], 'commerce.order.failed', ['orderId'=>(string)$order['id'],'message'=>$charge['message']??'Payment failed.']);
         }
 
@@ -207,6 +242,14 @@ final class CommerceService
             $type = (string) ($item['itemType'] ?? '');
             $itemId = (string) ($item['itemId'] ?? '');
             $fulfillment = [];
+            if ($type === 'merchandise') {
+                if (empty($metadata['inventoryCommitted'])) {
+                    $this->store->settleMerchandiseStock($order);
+                    $this->store->updateOrderItem((string) $order['id'], (string) $item['id'], ['metadata' => ['inventoryCommitted' => true]]);
+                    $fulfilledItems[] = ['itemType' => $type, 'itemId' => $itemId, 'fulfillment' => ['inventoryCommitted' => true]];
+                }
+                continue;
+            }
             if ($type === 'plan') {
                 $plan = $this->store->membershipPlan($itemId);
                 if (!$plan) throw new RuntimeException('Membership plan no longer exists.');
@@ -263,6 +306,11 @@ final class CommerceService
     /** @return array<string,mixed> */
     public function refundOrder(string|int $orderId, string $reason = ''): array
     {
+        return $this->store->withCommerceLock(fn(): array => $this->refundOrderLocked($orderId, $reason));
+    }
+
+    private function refundOrderLocked(string|int $orderId, string $reason): array
+    {
         $order = $this->store->order($orderId);
         if (!$order || !in_array((string) ($order['status'] ?? ''), ['paid','partially_refunded'], true)) {
             throw new RuntimeException('Only a paid order can be refunded.');
@@ -284,6 +332,7 @@ final class CommerceService
             'transactionType'=>'refund','status'=>'refunded','amount'=>$amount,'currency'=>(string)$order['currency'],'payload'=>(array)($result['payload']??[]),
         ]);
         $order = $this->store->updateOrder((string)$order['id'], ['status'=>'refunded','refundedTotal'=>(float)$order['grandTotal'],'metadata'=>['refundReason'=>$reason,'refundedAt'=>now_iso()]]);
+        $this->store->settleMerchandiseStock($order, true);
         $this->store->revokeEntitlementsBySource('purchase', (string) $order['id']);
         $this->store->revokeEntitlementsBySource('rental', (string) $order['id']);
         $this->store->revokeEntitlementsBySource('bundle', (string) $order['id']);
@@ -299,6 +348,18 @@ final class CommerceService
         $this->store->recordMemberEvent((string)$order['memberId'],'commerce.order.refunded',['orderId'=>(string)$order['id'],'amount'=>$amount]);
         $this->dispatchAddonEvent('order.refunded', ['order' => $order, 'amount' => $amount, 'reason' => $reason, 'source' => 'admin']);
         return $order;
+    }
+
+    public function cancelMerchandiseOrder(string|int $orderId): array
+    {
+        return $this->store->withCommerceLock(function () use ($orderId): array {
+            $order = $this->store->order($orderId);
+            if (!$order || ($order['metadata']['checkoutFlow'] ?? '') !== 'merchandise' || !in_array((string) $order['status'], ['pending', 'processing'], true) || ($order['providerKey'] ?? '') !== 'sandbox') {
+                throw new RuntimeException('Only a pending sandbox merchandise order can be cancelled. Refund a paid order instead.');
+            }
+            $this->store->settleMerchandiseStock($order, true);
+            return $this->store->updateOrder((string) $order['id'], ['status' => 'cancelled', 'metadata' => ['cancelledAt' => now_iso()]]);
+        });
     }
 
     public function cancelSubscription(string|int $memberId, string|int $subscriptionId, bool $atPeriodEnd = true): array
@@ -458,6 +519,11 @@ final class CommerceService
     /** @return array<string,mixed> */
     public function handleWebhook(string $providerKey, string $rawBody, string $signature): array
     {
+        return $this->store->withCommerceLock(fn(): array => $this->handleWebhookLocked($providerKey, $rawBody, $signature));
+    }
+
+    private function handleWebhookLocked(string $providerKey, string $rawBody, string $signature): array
+    {
         $providerConfig = $this->store->paymentProvider($providerKey);
         if (!$providerConfig || empty($providerConfig['enabled'])) {
             throw new RuntimeException('Payment provider is not enabled.');
@@ -493,7 +559,24 @@ final class CommerceService
         if ($order === null && str_starts_with($type, 'order.')) {
             $eventStatus = 'ignored';
         } elseif ($type === 'order.paid' && $order !== null) {
+            if (in_array((string) $order['status'], ['refunded', 'partially_refunded', 'chargeback', 'cancelled'], true)) {
+                return ['duplicate' => false, 'event' => $this->store->saveWebhookEvent($providerKey, $eventId, $type, $payload, 'ignored')];
+            }
+            $this->store->reserveMerchandiseStock($order);
             if ((string) ($order['status'] ?? '') !== 'paid') {
+                // Confirm the existing charge as well as the order. Otherwise an
+                // asynchronously paid order cannot use the normal refund flow.
+                $charge = null;
+                foreach ($this->store->paymentTransactions((string) $order['id']) as $candidate) {
+                    if (($candidate['transactionType'] ?? '') === 'charge' && ($candidate['providerKey'] ?? '') === $providerKey) { $charge = $candidate; break; }
+                }
+                $this->store->savePaymentTransaction(array_replace($charge ?? [], [
+                    'orderId' => (string) $order['id'], 'providerKey' => $providerKey,
+                    'providerTransactionId' => $payload['transaction_id'] ?? ($charge['providerTransactionId'] ?? $order['providerCheckoutId'] ?? null),
+                    'transactionType' => 'charge', 'status' => 'paid', 'amount' => (float) $order['grandTotal'],
+                    'currency' => (string) $order['currency'],
+                    'payload' => array_replace((array) ($charge['payload'] ?? []), ['confirmedByWebhook' => $eventId]),
+                ]));
                 $order = $this->store->updateOrder((string) $order['id'], [
                     'status' => 'paid',
                     'paidAt' => now_iso(),
@@ -585,6 +668,7 @@ final class CommerceService
         $this->store->revokeEntitlementsBySource('purchase', $orderId);
         $this->store->revokeEntitlementsBySource('rental', $orderId);
         $this->store->revokeEntitlementsBySource('bundle', $orderId);
+        $this->store->settleMerchandiseStock($order, true);
 
         foreach ((array) ($order['items'] ?? $this->store->orderItems($orderId)) as $item) {
             $subscriptionId = (string) (($item['metadata']['subscriptionId'] ?? ''));
@@ -614,6 +698,7 @@ final class CommerceService
     /** @param array<string,mixed> $cartItem @param array<string,mixed>|null $member */
     private function resolveCartItem(array $cartItem, ?array $member): array
     {
+        if (($cartItem['type'] ?? '') === 'merchandise') return (new MerchandiseService($this->store))->quoteItem($cartItem);
         $type=(string)($cartItem['type']??'');$id=(string)($cartItem['id']??'');$mode=(string)($cartItem['mode']??($type==='plan'?'subscribe':'purchase'));$activeSubscription=$member!==null&&$this->store->activeSubscriptions((string)$member['id'])!==[];$discountPercent=$member!==null?$this->memberPpvDiscount((string)$member['id']):0.0;
         if($type==='plan'){$plan=$this->store->membershipPlan($id);if(!$plan||empty($plan['isActive']))throw new RuntimeException('The selected membership plan is not available.');return ['key'=>'plan:'.$id.':subscribe','itemType'=>'plan','itemId'=>$id,'mode'=>'subscribe','title'=>(string)$plan['name'],'unitPrice'=>(float)$plan['price'],'currency'=>(string)$plan['currency'],'couponEligible'=>true,'scope'=>'subscription','metadata'=>['purchaseMode'=>'subscribe','billingInterval'=>$plan['billingInterval'],'intervalCount'=>$plan['intervalCount'],'trialDays'=>$plan['trialDays']]];}
         if($type==='gallery'){$content=$this->store->gallery($id);}elseif($type==='video'){$content=$this->store->video($id);}elseif($type==='bundle'){$content=$this->store->bundle($id);}else{$content=null;}if(!$content)throw new RuntimeException('A cart item is no longer available.');
@@ -652,7 +737,7 @@ final class CommerceService
             . "Thank you for your order " . (string) $order['orderNumber'] . ".\n\n"
             . implode("\n", $lines)
             . "\n\nTotal: " . (string) $order['currency'] . ' ' . number_format((float) $order['grandTotal'], 2)
-            . "\n\nYour purchases are available in My Library."
+            . (($order['metadata']['checkoutFlow'] ?? '') === 'merchandise' ? "\n\nYour merchandise order is awaiting fulfillment. Track it in Billing History." : "\n\nYour purchases are available in My Library.")
             . ($footer !== '' ? "\n\n" . $footer : '');
         $this->mailer->send(
             (string) $member['id'],

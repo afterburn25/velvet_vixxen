@@ -32,7 +32,7 @@ The 0.8.1 source contains the older composer implementation despite its larger v
 
 The actual marketing implementation is `app/Core/MarketingStore.php`, a protected file store. Historical descriptions of `MarketingService.php`, `MarketingStoreTrait.php`, MySQL marketing persistence, audience-aware publishing, and lock-aware scene scheduling are not evidence those components exist. The runtime runner prepares outbox files; it does not demonstrate production mail delivery.
 
-The recovered archive also lacks the later claimed About Me page/editor, configurable booking builder, merchandise store, revised direct-PPV checkout, and expanded background collection. These remain explicit follow-up work. Existing functions are preserved, and the roadmap has been corrected to stop treating those claims as landed code.
+The recovered archive also lacks the later claimed About Me page/editor, configurable booking builder, merchandise store, revised direct-PPV checkout, and expanded background collection. Those were explicit implementation gaps at recovery. Subsequent 0.8.1 work on the implementation branch now adds About Me/editor, Booking Builder, merchandise/direct PPV and30 real backgrounds with focused tests. Their current state and final gates are recorded in PROJECT_STATUS.md and TEST_REPORT.md; this historical absence is not erased.
 
 The migration parser now recognizes both quoted and unquoted CREATE TABLE statements. The recovered migrations declare 78 tables, not the earlier reported 75. A database test must verify the actual tables and rollback rather than infer correctness from that count.
 

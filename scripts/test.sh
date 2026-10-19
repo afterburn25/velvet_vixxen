@@ -30,12 +30,13 @@ echo "== Application tests in a disposable copy =="
 php tests/smoke.php
 for test in \
   tests/Installer/foundation.php tests/Installer/single_page.php tests/Installer/recovery.php \
+  tests/Unit/hero_library.php \
   tests/Unit/migrations.php tests/Unit/addon_manifest.php tests/Unit/addon_package.php \
   tests/Unit/media_access.php tests/Unit/media_store.php tests/Unit/member_auth.php \
-  tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/addon_licensing.php \
+  tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
   tests/Feature/media_center.php tests/Feature/members_entitlements.php tests/Feature/commerce.php \
   tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php \
-  tests/Feature/repair_backups.php tests/Security/protected_media.php tests/Security/member_security.php \
+  tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Security/protected_media.php tests/Security/member_security.php \
   tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php; do
   php "$test"
 done

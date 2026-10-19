@@ -39,11 +39,11 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
 <meta name="description" content="Welcome to Nikki Wilder — The Velvet Vixxen.">
 <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
 <title><?= e($brand) ?> — <?= e($subtitle) ?></title>
-<link rel="stylesheet" href="<?= e(asset_url('css/site.css')) ?>?v=0.8.1">
-<link rel="stylesheet" href="<?= e(asset_url('css/media-center.css')) ?>?v=0.8.1">
-<link rel="stylesheet" href="<?= e(asset_url('css/member.css')) ?>?v=0.8.1">
-<link rel="stylesheet" href="<?= e(asset_url('css/communication.css')) ?>?v=0.8.1">
-<link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<link rel="stylesheet" href="<?= e(asset_url('css/site.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/media-center.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/member.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/communication.css')) ?>">
+<link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"><link rel="stylesheet" href="<?= e(asset_url('css/site-ux.css')) ?>"></head>
 <body>
 <div class="age-gate" id="ageGate" hidden>
   <div class="age-gate__backdrop"></div>
@@ -56,16 +56,9 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
   </section>
 </div>
 
-<header class="site-header" id="top">
-  <a class="brand-lockup" href="#top" aria-label="<?= e($brand) ?> home"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></a>
-  <button class="mobile-menu" id="mobileMenu" aria-expanded="false" aria-controls="primaryNav"><span></span><span></span><span></span><span class="sr-only">Open menu</span></button>
-  <nav class="site-nav" id="primaryNav" aria-label="Primary navigation">
-    <a class="active" href="#top">Home</a><a href="#about">About</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="#contact">Contact</a>
-  </nav>
-  <div class="header-actions"><?php if($member):?><a class="header-login" href="<?=e(base_url('account/'))?>">My Account</a><a class="button button--primary button--small" href="<?=e(base_url('account/logout.php'))?>">Sign Out</a><?php else:?><a class="header-login" href="<?=e(base_url('account/login.php'))?>">Login</a><a class="button button--primary button--small" href="<?=e(base_url('account/register.php'))?>">Join Now</a><?php endif;?></div>
-</header>
+<?php $activeNav = 'home'; require root_path('app/Views/public/partials/navigation.php'); ?>
 
-<main>
+<main id="mainContent" tabindex="-1">
 <section class="visual-scene hero-scene" id="heroScene" data-scene="hero">
   <div class="scene-stage" aria-hidden="true"><img class="scene-background" alt=""><div class="scene-overlay"></div><div class="scene-layers"></div></div>
   <div class="hero-content">
@@ -123,14 +116,14 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
   <div class="membership-grid"><?php foreach(array_slice($membershipPlans,0,3) as $index=>$plan):?><article class="<?=$index===1?'featured':''?>"><span><?=e((string)$plan['billingInterval'])?></span><h3><?=e((string)$plan['name'])?></h3><p><?=e((string)$plan['description'])?></p><a class="button <?=$index===1?'button--primary':'button--ghost'?>" href="<?=e(base_url('membership/'))?>">View Plan</a></article><?php endforeach;?><?php if($membershipPlans===[]):?><article><span>Free</span><h3>Member Account</h3><p>Save favorites, track progress, and collect unlocked releases.</p><a class="button button--primary" href="<?=e(base_url('account/register.php'))?>">Create Account</a></article><?php endif;?></div></div>
 </section>
 
-<section class="contact-section" id="contact"><div class="content-wrap contact-grid"><article id="booking"><span class="eyebrow pink">Professional inquiries</span><h2>Booking &amp; Appearances</h2><p>Submit a private appearance, collaboration, interview, media, or event inquiry with optional protected reference files.</p><a class="button button--dark" href="<?= e(base_url('booking/')) ?>">Start a Private Inquiry</a></article><article><span class="eyebrow pink">Stay connected</span><h2>Never miss a drop.</h2><p>New songs, galleries, videos, appearances, and member-only offers delivered directly.</p><form class="newsletter" onsubmit="event.preventDefault();this.querySelector('button').textContent='Added ✓'"><label class="sr-only" for="newsletterEmail">Email address</label><input id="newsletterEmail" type="email" placeholder="Your email address" required><button class="button button--primary">Subscribe</button></form></article></div></section>
+<section class="contact-section" id="contact"><div class="content-wrap contact-grid"><article id="booking"><span class="eyebrow pink">Professional inquiries</span><h2>Booking &amp; Appearances</h2><p>Submit a private appearance, collaboration, interview, media, or event inquiry with optional protected reference files.</p><a class="button button--dark" href="<?= e(base_url('booking/')) ?>">Start a Private Inquiry</a></article><article><span class="eyebrow pink">Stay connected</span><h2>Never miss a drop.</h2><p>New songs, galleries, videos, appearances, and member-only offers delivered directly.</p><a class="button button--primary" href="<?= e(base_url('newsletter/')) ?>">Join the Mailing List</a></article></div></section>
 </main>
 
-<footer class="legal-footer"><div class="brand-lockup compact"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></div><nav><a href="#top">Home</a><a href="#about">About</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="#contact">Contact</a></nav><div class="legal-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">18+</a><a href="#">DMCA</a><a href="#">Support</a></div><span class="signature">Nikki ♡</span></footer>
+<footer class="legal-footer"><div class="brand-lockup compact"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></div><nav><a href="#top">Home</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="<?= e(base_url('about/')) ?>">About Me</a></nav><div class="legal-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">18+</a><a href="#">DMCA</a><a href="#">Support</a></div><span class="signature">Nikki ♡</span></footer>
 
 <?php if ($trailerSrc !== ''): ?><div class="trailer-modal" id="trailerModal" hidden><button class="trailer-close" data-close-trailer aria-label="Close preview">×</button><div class="trailer-player"><video controls playsinline preload="metadata" poster="<?= e(media_thumbnail_src((array)($trailerVideo['posterAsset']??[]))) ?>" src="<?= e($trailerSrc) ?>"></video><h2><?= e((string)($trailerVideo['title']??'Watch Trailer')) ?></h2><a class="button button--primary" href="<?= e(base_url('videos/watch.php?slug='.rawurlencode((string)($trailerVideo['slug']??'')))) ?>">Open Video Page</a></div></div><?php endif; ?>
 <?php require root_path('app/Views/public/partials/player.php'); ?>
-<script>window.VELVET_CONFIG=<?= json_encode(['baseUrl'=>base_url(),'uploadBase'=>base_url('uploads/'),'scenes'=>$publicScenes,'ageGate'=>(bool)($settings['age_gate_enabled']??true),'csrfToken'=>csrf_token(),'member'=>$member?['id'=>(string)$member['id'],'displayName'=>(string)$member['displayName']]:null], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?>;</script>
-<script src="<?= e(asset_url('js/site.js')) ?>?v=0.8.1" defer></script>
-<script src="<?= e(asset_url('js/media-center.js')) ?>?v=0.8.1" defer></script>
+<script>window.VELVET_CONFIG=<?= json_encode(['baseUrl'=>base_url(),'uploadBase'=>base_url('uploads/'),'scenes'=>$publicScenes,'ageGate'=>(bool)($settings['age_gate_enabled']??true),'csrfToken'=>csrf_token(),'member'=>$member?['id'=>(string)$member['id'],'displayName'=>(string)$member['displayName']]:null], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?>;</script>
+<script src="<?= e(asset_url('js/site.js')) ?>" defer></script>
+<script src="<?= e(asset_url('js/media-center.js')) ?>" defer></script>
 </body></html>

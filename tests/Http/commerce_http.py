@@ -1,4 +1,4 @@
-"""HTTP acceptance test for the 0.6.0 subscriptions and PPV commerce milestone."""
+"""HTTP acceptance for memberships, direct PPV/rentals, collections and refunds."""
 from __future__ import annotations
 
 import os
@@ -54,7 +54,7 @@ def post_with_page(
 # Public store and cart are visible without authentication.
 anonymous = requests.Session()
 store_page = get(anonymous, "/shop/")
-for phrase in ["Velvet store", "Featured bundles", "PPV galleries", "PPV videos", "Velvet VIP"]:
+for phrase in ["Velvet store", "Merchandise", "Velvet Signature Tee", "Velvet Studio Mug", "Velvet VIP"]:
     require(phrase in store_page.text, f"Store is missing: {phrase}")
 cart_page = get(anonymous, "/cart/")
 require("Your cart is waiting" in cart_page.text, "Empty cart state did not render.")
@@ -80,18 +80,18 @@ require(verification_link is not None and verification_link.get("href"), "Verifi
 verified = member.get(str(verification_link["href"]), timeout=20, allow_redirects=True)
 require(verified.status_code == 200 and "You're confirmed" in verified.text, "Commerce test member verification failed.")
 
-# Subscribe through the real cart and checkout forms.
+# Subscribe through the dedicated membership checkout.
 add_plan = post_with_page(
     member,
-    "/cart/",
+    "/checkout/",
     "/membership/",
-    {"action": "add", "type": "plan", "id": "plan-vip", "mode": "subscribe", "return": "/cart/"},
+    {"action": "start", "type": "plan", "id": "plan-vip", "mode": "subscribe"},
 )
-require(add_plan.status_code == 200 and "Velvet VIP" in add_plan.text, "Membership plan was not added to cart.")
-checkout_page = get(member, "/checkout/")
+require(add_plan.status_code == 200 and "Velvet VIP" in add_plan.text and 'intent=' in add_plan.url, "Membership checkout intent was not created.")
+checkout_page = add_plan
 require("Sandbox checkout" in checkout_page.text and "USD 19.99" in checkout_page.text, "Subscription checkout quote was incorrect.")
 subscription_checkout = member.post(
-    urljoin(BASE, "checkout/"),
+    checkout_page.url,
     data={
         "_csrf": get_csrf(checkout_page.text),
         "action": "pay",
@@ -143,22 +143,22 @@ require("Automatic renewal was resumed" in resume.text, "Subscription resume did
 # Buy a subscriber-priced bundle with a coupon.
 bundle_add = post_with_page(
     member,
-    "/cart/",
-    "/shop/",
-    {"action": "add", "type": "bundle", "id": "bundle-neon-night", "mode": "purchase", "return": "/cart/"},
+    "/checkout/",
+    "/collections/",
+    {"action": "start", "type": "bundle", "id": "bundle-neon-night", "mode": "purchase"},
 )
 require("Neon Night Collection" in bundle_add.text and "USD 19.99" in bundle_add.text, "Subscriber bundle price was not shown in cart.")
 coupon = member.post(
-    urljoin(BASE, "cart/"),
-    data={"_csrf": get_csrf(bundle_add.text), "action": "coupon", "coupon": "WELCOME10", "return": "/cart/"},
+    bundle_add.url,
+    data={"_csrf": get_csrf(bundle_add.text), "action": "coupon", "coupon": "WELCOME10"},
     timeout=20,
     allow_redirects=True,
 )
 require("WELCOME10" in coupon.text and "USD 17.99" in coupon.text, "Coupon was not applied to the subscriber bundle.")
-bundle_checkout_page = get(member, "/checkout/")
+bundle_checkout_page = coupon
 require("USD 17.99" in bundle_checkout_page.text, "Discounted bundle total did not reach checkout.")
 bundle_checkout = member.post(
-    urljoin(BASE, "checkout/"),
+    bundle_checkout_page.url,
     data={
         "_csrf": get_csrf(bundle_checkout_page.text),
         "action": "pay",
@@ -183,14 +183,14 @@ for phrase in [bundle_order, "Neon Night Collection", "USD 17.99", "Thank you fo
 # Rent a gallery through a separate order.
 rental_add = post_with_page(
     member,
-    "/cart/",
+    "/checkout/",
     "/photos/view.php?slug=after-dark",
-    {"action": "add", "type": "gallery", "id": "demo-gallery-after-dark", "mode": "rental", "return": "/cart/"},
+    {"action": "start", "type": "gallery", "id": "demo-gallery-after-dark", "mode": "rental"},
 )
 require("After Dark" in rental_add.text and "Rental" in rental_add.text, "Gallery rental was not added to cart.")
-rental_checkout_page = get(member, "/checkout/")
+rental_checkout_page = rental_add
 rental_checkout = member.post(
-    urljoin(BASE, "checkout/"),
+    rental_checkout_page.url,
     data={
         "_csrf": get_csrf(rental_checkout_page.text),
         "action": "pay",
@@ -209,13 +209,13 @@ require("After Dark" in library_after_rental.text, "Active gallery rental was no
 # A declined checkout must not unlock content.
 decline_add = post_with_page(
     member,
-    "/cart/",
+    "/checkout/",
     "/videos/watch.php?slug=neon-confessions",
-    {"action": "add", "type": "video", "id": "demo-video-ppv", "mode": "purchase", "return": "/cart/"},
+    {"action": "start", "type": "video", "id": "demo-video-ppv", "mode": "purchase"},
 )
-decline_page = get(member, "/checkout/")
+decline_page = decline_add
 declined = member.post(
-    urljoin(BASE, "checkout/"),
+    decline_page.url,
     data={
         "_csrf": get_csrf(decline_page.text),
         "action": "pay",

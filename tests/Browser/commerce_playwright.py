@@ -1,4 +1,4 @@
-"""End-to-end browser acceptance for 0.6.0 subscriptions and PPV commerce."""
+"""Real-browser acceptance for separate memberships, content checkout and refunds."""
 from __future__ import annotations
 
 import os
@@ -70,9 +70,10 @@ with sync_playwright() as playwright:
     visit(page, "/shop/")
     dismiss_age_gate(page)
     body = page.locator("body").inner_text()
-    for title in ["Neon Night Collection", "Velvet VIP", "Velvet Lounge", "Neon Confessions"]:
+    for title in ["Velvet Signature Tee", "Velvet Studio Mug", "Velvet VIP"]:
         assert title in body, f"Store is missing {title}"
-    assert page.locator(".store-card").count() >= 6
+    assert page.locator(".store-card").count() >= 5
+    assert page.locator('.merchandise-card').count() == 2
     screenshot(page, "store-desktop.png")
 
     # Register and verify a fresh member entirely through the browser UI.
@@ -95,11 +96,9 @@ with sync_playwright() as playwright:
     plan_card = page.locator(".store-card").filter(has_text="Velvet VIP")
     assert plan_card.count() >= 1
     plan_card.first.get_by_role("button", name="Choose Plan").click()
-    page.wait_for_url("**/cart/", timeout=15_000)
+    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
     assert "Velvet VIP" in page.locator("body").inner_text()
-    screenshot(page, "cart-subscription.png")
-    page.get_by_role("link", name="Continue to Checkout").click()
-    page.wait_for_url("**/checkout/", timeout=15_000)
+    assert page.get_by_role('heading', name='Start your membership.', exact=True).is_visible()
     assert "Sandbox checkout" in page.locator("body").inner_text()
     page.check(".checkout-confirm input")
     screenshot(page, "checkout-subscription.png")
@@ -121,16 +120,15 @@ with sync_playwright() as playwright:
     assert "Automatic renewal was resumed" in page.locator("body").inner_text()
 
     # Subscriber-priced bundle with a coupon.
-    visit(page, "/shop/")
+    visit(page, "/collections/")
     bundle_card = page.locator(".store-card").filter(has_text="Neon Night Collection")
-    bundle_card.first.get_by_role("button", name="Add Bundle").click()
-    page.wait_for_url("**/cart/", timeout=15_000)
+    bundle_card.first.get_by_role("button", name="Buy Collection Now").click()
+    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
     assert "USD 19.99" in page.locator("body").inner_text()
     page.fill('input[name="coupon"]', "WELCOME10")
     page.get_by_role("button", name="Apply").click()
     assert "USD 17.99" in page.locator("body").inner_text()
     screenshot(page, "cart-bundle-coupon.png")
-    page.get_by_role("link", name="Continue to Checkout").click()
     page.check(".checkout-confirm input")
     page.get_by_role("button", name=re.compile(r"^Pay ")).click()
     page.wait_for_url("**/checkout/success.php?order=**", timeout=20_000)
@@ -150,21 +148,19 @@ with sync_playwright() as playwright:
     screenshot(page, "receipt-bundle.png")
 
     # A declined purchase remains locked and shows a clear error.
-    visit(page, "/shop/")
-    video_card = page.locator(".store-card").filter(has_text="Neon Confessions")
-    video_card.first.get_by_role("button", name=re.compile(r"^Buy ")).click()
-    page.wait_for_url("**/cart/", timeout=15_000)
-    page.get_by_role("link", name="Continue to Checkout").click()
+    visit(page, "/photos/view.php?slug=after-dark")
+    page.get_by_role("button", name=re.compile(r"^Rent ")).click()
+    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
     page.select_option('select[name="sandbox_result"]', "decline")
     page.check(".checkout-confirm input")
     page.get_by_role("button", name=re.compile(r"^Pay ")).click()
     assert "declined" in page.locator("body").inner_text().lower()
     screenshot(page, "checkout-declined.png")
 
-    # Clear the failed order item before the admin flow.
+    # A direct content checkout must never add an item to the merchandise cart.
     visit(page, "/cart/")
-    page.get_by_role("button", name="Clear cart").click()
-    assert "Your cart is empty" in page.locator("body").inner_text()
+    assert "Your cart is waiting" in page.locator("body").inner_text()
+    assert page.locator('[data-cart-line]').count() == 0
 
     # Owner commerce administration and full refund.
     visit(page, "/admin/?page=login")
@@ -180,7 +176,8 @@ with sync_playwright() as playwright:
     screenshot(page, "admin-orders.png")
     visit(page, f"/admin/?page=orders&order={bundle_order}")
     assert "Refund Full Order" in page.locator("body").inner_text()
-    page.fill('textarea[name="reason"]', "Playwright commerce acceptance refund")
+    page.fill('input[name="reason"]', "Playwright commerce acceptance refund")
+    page.once('dialog', lambda dialog: dialog.accept())
     page.get_by_role("button", name="Refund Full Order").click()
     assert "was refunded" in page.locator("body").inner_text()
 
@@ -199,7 +196,7 @@ with sync_playwright() as playwright:
     observe(page, "commerce-mobile")
     visit(page, "/shop/")
     dismiss_age_gate(page)
-    assert page.locator(".store-card").count() >= 6
+    assert page.locator(".store-card").count() >= 5
     screenshot(page, "store-mobile.png")
     mobile.close()
     browser.close()

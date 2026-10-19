@@ -1,45 +1,71 @@
 # Velvet Vixxen 0.8.1 — Current Test Evidence
 
-Date: 2026-10-19. Active branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1 and #3.
+Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1, #3; PR #15.
 
-## Release boundary
+## Truth boundary
 
-**0.8.1 is in development, not complete.** This report replaces historical pass claims that could not be reproduced from GitHub source. The first checkpoint imports the checksum-verified 0.8.1 executable baseline, selectively restores 0.7.4 Composer fixes, corrects recovery/backup safety, restores engineering tests and enables mandatory CI.
+**The 0.8.1 features are implemented; final combined release verification is in progress.** This report records observed execution, not inferred success from suite filenames or workflow configuration. Historical recovery evidence and feature evidence remain distinct.
 
-Baseline archive SHA-256: `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`. Provenance and mismatched historical claims: `SOURCE_RECOVERY.md`.
+Recovered source commit: [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23). Input archive SHA-256: `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`. See `SOURCE_RECOVERY.md`.
 
-## Observed local evidence
+## Actual baseline GitHub execution
 
-| Gate | Actual result |
+Run [39207173912](https://github.com/afterburn25/velvet_vixxen/actions/runs/39207173912) on the recovery commit:
+
+| Job | Observed result |
 | --- | --- |
-| PHP 8.3.6 source suite | PASS: PHP/JavaScript/Python syntax, smoke, installer, media, members, entitlements, sandbox commerce, add-ons, licensing, communication and basic marketing regressions. |
-| Recovery fixtures | PASS: 72 assertions for matching identities, preservation, ambiguity, linked paths and executing installer behavior. |
-| Repair-backup fixtures | PASS: 71 assertions for verified duplicates, unique/unknown data preservation, path boundaries and archive handling. |
-| Runtime packaging | PASS: fresh/upgrade ZIPs, exact exclusions, deterministic output, unchanged existing config/lock/private data/uploads after overlay, symlink rejection. |
-| MariaDB 10.11.14 migrations | PASS: all 12 migrations create 78 tables; repeated apply is idempotent; rollback leaves the disposable database empty. This is not MySQL 8 evidence. |
-| Installed HTTP | PASS: member/entitlement, sandbox commerce, add-on lifecycle, communication ownership and CSRF, newsletter pending-state/token privacy, same-origin analytics with foreign/malformed/missing origin rejection. |
-| Recovered Composer real Chromium | PASS twice: continuous drag, corner resize, 0.5–400% save/reload, live text/button box movement, distinct desktop/tablet/mobile arrangements, background pan/undo/redo, draft isolation, Hero/Footer publication and bundled/uploaded image loading. |
-| Complete baseline browser regression | In progress; favicon 404 discovered and corrected. |
-| PHP 8.2 source suite | Pending actual GitHub CI execution. |
-| MySQL 8 apply/verify/rollback | Pending actual GitHub CI execution. |
-| New 0.8.1 feature acceptance | Pending implementation and testing; see INCOMPLETE_WORK.md. |
+| Repository/source contract | PASS |
+| PHP 8.2 source and package | PASS |
+| PHP 8.3 source and package | PASS |
+| MySQL 8 apply/reapply/verify/rollback | PASS: baseline 12 migrations / 78 tables |
+| Installed HTTP | PASS step |
+| Browser regression | FAILED: old member test tried Sign In before dismissing age gate; fixed in the feature tree |
+| Final package artifact job | SKIPPED because browser dependency failed |
 
-The source and HTTP harnesses create marked disposable copies. They do not seed or retire the installer inside the engineering checkout or a real site. Chrome for Testing 155.0.8059.84 ran actual local pages; screenshot-only reconstructions are not counted as interaction tests.
+This is not an all-green run and does not verify the subsequent feature migrations or browser additions.
 
-## Commands used
+## Observed feature implementation evidence
+
+| Area | Actual local execution |
+| --- | --- |
+| PHP 8.3 source and syntax | PASS, clean exit0 on the stable final implementation: PHP/JS/Python syntax and restored feature/security/installer/package suites. Log: final-run/source.log in execution evidence. |
+| Installer recovery | PASS: 72 focused assertions for matching identity, active configuration/key preservation, ambiguous backups, linked paths and real installer execution. |
+| Repair backups | PASS: 71 assertions covering verified duplicates, unique/unknown/unreadable data preservation, path confinement and safe deletion/archive handling. |
+| Runtime package tests | PASS: reproducibility, runtime-only exclusions, fresh uninstalled state, upgrade overlay preserving config/lock/private data/uploads byte-for-byte and symlink rejection. |
+| Composer controls | PASS in real Chromium: direct movement, 0.5–400% resizing, coordinates −400% to 500%, reachable handles, aspect ratio, all-edge clipping, lower 20% crop, live text/button geometry, background pan/appearance, device isolation, snapping/keyboard/numeric controls, undo/redo, hide/lock/order/duplicate/delete, draft preview and history rollback. |
+| Composer security/image paths | PASS: protected original exclusion, safe embedded scene titles, leading-zero version IDs, negative-z photo visibility, bundled/uploaded asset decoding. |
+| Hero Library | PASS: 30 distinct full images + 30 thumbnails decode; search/categories/placement and draft selection; all 30 scenes published and rendered at desktop/tablet/mobile, **90/90 public renders**. |
+| Booking Builder | PASS: 54 source assertions; actual owner CRUD/field validation/choice/phone browser acceptance; HTTP CSRF/nonowner/malformed email/phone/choices/rate limit/upload privacy/history; 12 SQL transaction checks preserve snapshots and roll back failed writes. |
+| About Me and admin/public UX | PASS: 21 source assertions; real owner edits, escaping and CSRF, hidden empty stats, persistent categories/active page, mobile menu, centered login/register/recovery/Join, sticky navigation at 1440/834/390 widths. Separate public layout audit passes 12 routes at desktop/mobile. |
+| Merchandise | PASS: 45 source assertions; desktop/mobile owner image/variant editing, live pricing, cart quantities, address/shipping validation, sandbox checkout, fulfillment/tracking, stock reservation/restoration, stale-editor rejection, PPV/cart isolation, pending-charge reconciliation and refund/chargeback revocation. |
+| Installed Database Updates | PASS: 13 source checks, owner/CSRF/private-path HTTP coverage, 32 MariaDB integration checks including actual 12→14 upgrade, existing booking/configuration/lock/key/upload preservation, no automatic down migration on injected DDL failure, reviewed retry, stale plan, locks, symlinks/permissions and real CLI. |
+| MariaDB 10.11.14 full schema | PASS: 14 migrations / 82 declared tables; apply, idempotent reapply, merchandise/booking/updater scenarios, rollback to empty disposable schema. This is not MySQL 8 evidence. |
+| Installed HTTP regression | PASS, all seven suites in one stable aggregate (exit0): members, commerce, add-ons, current platform, booking builder, merchandise and database updates. Log: final-run/http.log. Feature GitHub CI remains required. |
+| Browser regression | Twelve real browser suites are wired, including all new feature acceptance. Focused suites passed; stable aggregate and feature CI remain required. |
+
+The long first library run printed full success, then its Bash wrapper exited after a concurrent harness edit. The wrapper now execs its disposable snapshot and deduplicates its suite list. The stable aggregate must finish cleanly; that earlier outer exit is not called a pass.
+
+The final independent asset/installer audit checked55 public/admin pages, found and corrected one caption thumbnail issue, then rechecked7 pages/29 unique local assets with no broken images or resource errors. All loaded CSS/JS have exactly one current asset build version. Repository safety, expanded credential/private-key signatures,82 directory permissions,47 literal asset references and139 default-data asset references passed.
+
+## Commands and isolation
 
 ```bash
 bash scripts/test.sh
-VELVET_TEST_PORT=8766 bash scripts/test_http.sh
+bash scripts/test_http.sh
+VELVET_BROWSER_TESTS=1 bash scripts/test_http.sh
 php tests/Database/migrations_mysql.php
-VELVET_TEST_SUITE=tests/Browser/composer_recovery_playwright.py \
-VELVET_TEST_PORT=8770 bash scripts/test_http.sh
+python3 scripts/package.py --output artifacts/runtime
 ```
 
-Local tools were isolated PHP 8.3.6, MariaDB 10.11.14, Python/Playwright and Chrome. Database credentials and installed fixture state are outside source control. CI declares separate PHP 8.2/8.3, MySQL 8, HTTP/browser and runtime-package jobs; configuration is not a claim those jobs have passed.
+For a focused browser scenario, set `VELVET_TEST_SUITE=tests/Browser/site_ux_playwright.py`. Set `VELVET_SCREENSHOT_DIR` to collect actual execution screenshots outside customer packages. Full configuration is in `TESTING.md`.
 
-## Remaining completion requirements
+Local tooling: PHP 8.3.6 with PDO MySQL, MariaDB 10.11.14, Python Playwright and Chrome for Testing 155.0.8059.84. Source/HTTP tests create marked disposable runtime copies; SQL tests require a disposable database. No demo is installed in the authoritative checkout. Fixture credentials and private runtime state are not release contents.
 
-All Composer/off-canvas/background-image acceptance, 30 standalone scene selection, Booking Builder fields and validation/history, sticky public navigation, centered auth pages, About Me/editor, admin persistence, merchandise/direct PPV purchase and regressions in `INCOMPLETE_WORK.md` must pass. Zero broken Composer/Hero/Footer images, repository secret/safety checks and runtime-only package exclusions remain required.
+## Remaining release evidence
 
-Payments remain sandbox-only. Production mail delivery and representative shared-hosting certification are not claimed.
+- Stable combined twelve-browser suite on the final implementation tree; stable source and all seven HTTP suites have passed.
+- Actual feature GitHub PHP 8.2/8.3, MySQL 8 apply/reapply/rollback with new booking/merchandise/updater scenarios, HTTP/browser, repository/secret and package jobs.
+- Final runtime-only fresh/upgrade ZIP hashes and artifact links tied to the committed source.
+- Updated issue #13, progress documents and source uploaded after final fixes.
+
+Payments remain sandbox-only. Owner photographs/catalog content, production mail delivery and representative shared-hosting certification are not claimed. Filesystem ownership/write regressions are reproducible local/CI fixtures, not a test of the owner's actual hosting account.

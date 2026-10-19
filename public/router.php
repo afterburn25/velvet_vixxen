@@ -20,6 +20,12 @@ if ($route === '' || str_contains($route, "\0") || str_contains($route, '..')) {
 }
 
 $routes = [
+    'about' => 'about/index.php',
+    'about/index.php' => 'about/index.php',
+    'join' => 'account/register.php',
+    'login' => 'account/login.php',
+    'create-account' => 'account/register.php',
+    'recover' => 'account/forgot.php',
     'account' => 'account/index.php',
     'account/' => 'account/index.php',
     'account/index.php' => 'account/index.php',
@@ -55,6 +61,9 @@ $routes = [
     'checkout/' => 'checkout/index.php',
     'checkout/index.php' => 'checkout/index.php',
     'checkout/success.php' => 'checkout/success.php',
+    'collections' => 'collections/index.php',
+    'collections/' => 'collections/index.php',
+    'collections/index.php' => 'collections/index.php',
     'communication/download.php' => 'communication/download.php',
     'extension' => 'extension/index.php',
     'extension/' => 'extension/index.php',

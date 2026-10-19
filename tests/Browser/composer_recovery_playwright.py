@@ -51,6 +51,7 @@ def choose_device(page, device: str) -> None:
 
 
 def add_photo(page):
+    page.locator('[data-assets-tab="media"]').click()
     card = page.locator('[data-media-id="demo-album-cover"]')
     expect(card).to_have_count(1)
     card.hover()
@@ -78,6 +79,8 @@ def move_in_two_steps(page, locator, dx: float, dy: float, property_name: str) -
 
 def resize_from_corner(page, target, handle_selector: str, dx: float, dy: float) -> None:
     handle = target.locator(handle_selector)
+    if handle.count() == 0 and "content" not in handle_selector:
+        handle = page.locator("[data-selection-overlay]").locator(handle_selector)
     handle.scroll_into_view_if_needed()
     box = handle.bounding_box()
     assert box

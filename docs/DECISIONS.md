@@ -56,6 +56,8 @@
 
 ## Publishing and marketing
 
+These are design requirements; advanced audience/expiration, scheduled scenes, attribution, retention and MySQL marketing persistence were not recovered as implemented capabilities. Current code/evidence governs completion claims.
+
 - Editorial content uses explicit draft, scheduled, published, archived, and expiration states.
 - Public visibility is resolved by publication timing and audience rules rather than by obscured URLs alone.
 - Newsletter consent, confirmation, unsubscribe, and suppression are distinct records and must be respected by every campaign send.
@@ -95,3 +97,14 @@
 - Repair backups containing unique, different, unreadable, unknown, or symlink entries cannot be deleted by the cleanup UI. Deletion requires a fully verified duplicate and explicit owner confirmation.
 - Fresh-install distributions exclude active config/app.php. Upgrade distributions exclude config, storage, uploads, and install entirely.
 - Source and installed-demo tests run in disposable copies, never in a real site or the active engineering checkout.
+
+## 0.8.1 continuation decisions
+
+- Each device stores its own background/geometry, photo layers and live HTML text/button region. Full Page Preview saves both drafts without publishing them. All public scene edges clip separately movable photos.
+- The luxury library counts only valid individual image/thumbnail pairs. Generation provenance, masters and screenshots remain outside runtime packages.
+- Booking field definitions use stable identifiers/revisions. Each inquiry retains the original question labels/options and answers even after later edits or deletions.
+- Merchandise carts contain physical catalog lines only. Membership and PPV/rental use separate checkout intents; direct purchases do not clear the merchandise cart. Stock reservations are serialized, terminal payment events are idempotent, and stale owner edits cannot overwrite newer inventory.
+- Shipping uses configured per-item charges and private order addresses. Automatic carrier labels, region-specific taxes and live payments are not implied.
+- Installed database updates apply pending versioned migrations after identity/plan checks and explicit operator backup acknowledgment. Failure records are retained; destructive down SQL never runs automatically on an existing site.
+- Browser asset cache identity is distinct from the0.8.1 core/add-on compatibility version.
+- Canva is a saved-link/manual export/import bridge. Functional HTML and transparent owner photos remain separate from decorative artwork.

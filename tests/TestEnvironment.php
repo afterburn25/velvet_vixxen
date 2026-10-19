@@ -123,6 +123,7 @@ function velvet_test_cleanup(array $environment): void
             @unlink($environment[$key]);
         }
     }
+    if (!empty($environment['dataPath']) && is_string($environment['dataPath'])) @unlink($environment['dataPath'] . '.commerce.lock');
 }
 
 /** @param list<string> $failures */

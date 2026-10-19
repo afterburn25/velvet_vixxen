@@ -70,8 +70,8 @@ if (!is_array($gallery) || (float) ($gallery['standardPrice'] ?? 0) <= 0) {
     exit(1);
 }
 
-$header = (string) file_get_contents($root . '/app/Views/public/partials/header.php');
-foreach (["base_url('shop/')", "base_url('cart/')", 'cart_service()->count()'] as $needle) {
+$header = (string) file_get_contents($root . '/app/Views/public/partials/navigation.php');
+foreach (["'shop' => ['Store', 'shop/']", 'base_url($path)', "base_url('cart/')", 'cart_service()->count()'] as $needle) {
     if (!str_contains($header, $needle)) {
         fwrite(STDERR, "Public header is missing commerce navigation behavior: {$needle}\n");
         exit(1);

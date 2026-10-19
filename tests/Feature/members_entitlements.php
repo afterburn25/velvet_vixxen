@@ -35,7 +35,8 @@ $assertContains('admin/index.php', [
 ]);
 $assertContains('app/Views/admin/members.php', ['Member Directory', 'Subscription content access', 'Grant Access']);
 $assertContains('public/assets/js/media-center.js', ['member-state.php', 'favorite-toggle', 'progressSeconds']);
-$assertContains('app/Views/public/partials/header.php', ['My Account', 'Sign Out', "base_url('membership/')"]);
+$assertContains('app/Views/public/partials/header.php', ['app/Views/public/partials/navigation.php']);
+$assertContains('app/Views/public/partials/navigation.php', ['My Account', 'Sign Out', "'membership' => ['Membership', 'membership/']", 'base_url($path)']);
 
 $defaults = json_decode((string) file_get_contents($root . '/storage/defaults/data.json'), true);
 if (!is_array($defaults) || count((array) ($defaults['membershipPlans'] ?? [])) < 3) {

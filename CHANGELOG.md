@@ -6,11 +6,22 @@
 - Preserve active configuration and unique repair-backup data; add focused recovery regressions.
 - Build reproducible runtime-only fresh-install and state-preserving upgrade packages.
 - Require real source, database, HTTP, and browser checks instead of a passing missing-source skip.
-- Reconcile status/roadmap/handoff claims with the code actually recovered; record remaining UI/marketing work.
+- Add direct Composer controls, 0.5–400% resizing, reachable handles, all-edge clipping/lower-edge crop, live text/button geometry and independent device backgrounds/layouts.
+- Bundle 30 standalone luxury backgrounds and thumbnails with a searchable validated library, draft previews and publication rollback.
+- Add Booking Form Builder with typed field management, client/server validation, live phone formatting and immutable inquiry snapshots.
+- Add dedicated About Me/editor, shared sticky public navigation, centered account/recovery layouts and persistent grouped administration.
+- Add merchandise products/images/variants/stock/shipping, merchandise-only cart, private delivery details and owner fulfillment/tracking. Protect stock from stale editor saves.
+- Separate membership and direct PPV/rental checkout from merchandise; preserve My Library and refund/chargeback revocation.
+- Add reviewed owner/CLI database updates for existing sites, with locks and no destructive automatic rollback on failed upgrade DDL.
+- Document and display Canva's manual saved-link/export/import workflow with separate cutouts and live functional content.
+- Centralize asset cache identity without changing the 0.8.1 compatibility version; render nonimage Media Library assets as file cards.
+- Reconcile status/roadmap/handoff claims with executable source and observed evidence; final combined release gates remain in progress.
 
 # Changelog
 
 ## 0.8.0 — Marketing, Publishing & Analytics
+
+**Historical package-era claims:** this section records the earlier handoff and is not a certification of the recovered implementation. `docs/SOURCE_RECOVERY.md` identifies missing audiences/expiration, scheduled-scene automation, attribution/retention and MySQL marketing persistence. The verified baseline schema has78 tables, not75. Current results are in `docs/TEST_REPORT.md`.
 
 ### Added
 

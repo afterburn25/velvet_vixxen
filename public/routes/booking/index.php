@@ -4,6 +4,9 @@ if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }
 require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\MailService;
+use App\Core\BookingFormService;
+use App\Core\BookingFormValidationException;
+use App\Core\BookingSubmissionLimiter;
 
 if (!is_installed()) redirect(base_url('install/'));
 $store = app_store();
@@ -12,31 +15,40 @@ $member = current_member();
 $error = '';
 $success = flash('booking_success');
 $reference = flash('booking_reference');
+$bookingBuilder = new BookingFormService($store);
+$bookingDefinition = $bookingBuilder->definition();
+$bookingValues = $_SERVER['REQUEST_METHOD'] === 'POST' ? $bookingBuilder->valuesFromPost($_POST)
+    : ['contact_name' => (string) ($member['displayName'] ?? ''), 'contact_email' => (string) ($member['email'] ?? '')];
+$bookingFieldErrors = [];
+$bookingUploads = null;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (!verify_csrf()) throw new RuntimeException('Your form session expired. Refresh and try again.');
         if (empty($communicationSettings['bookingEnabled'])) throw new RuntimeException('Booking inquiries are temporarily unavailable.');
-        if (trim((string) ($_POST['website'] ?? '')) !== '') throw new RuntimeException('The inquiry could not be submitted.');
-        if (!isset($_POST['consent'])) throw new RuntimeException('Confirm that the inquiry details may be used to respond.');
+        if (!is_string($_POST['website'] ?? '') || trim($_POST['website'] ?? '') !== '') throw new RuntimeException('The inquiry could not be submitted.');
+        if (($_POST['consent'] ?? '') !== '1') throw new RuntimeException('Confirm that the inquiry details may be used to respond.');
+        (new BookingSubmissionLimiter(ROOT_PATH, (string) app_config('security.app_key', '')))->consume((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        $validation = $bookingBuilder->validate($bookingValues, is_string($_POST['form_revision'] ?? null) ? $_POST['form_revision'] : '');
+        if ($validation['errors'] !== []) throw new BookingFormValidationException($validation['errors']);
         $attachments = [];
+        if (empty($communicationSettings['publicBookingAttachmentsEnabled']) && isset($_FILES['references'])) {
+            foreach ((array) ($_FILES['references']['error'] ?? UPLOAD_ERR_NO_FILE) as $uploadError) {
+                if ((int) $uploadError !== UPLOAD_ERR_NO_FILE) throw new RuntimeException('Reference attachments are currently disabled.');
+            }
+        }
         if (!empty($communicationSettings['publicBookingAttachmentsEnabled']) && isset($_FILES['references'])) {
-            $attachments = communication_upload_service()->uploadMany((array) $_FILES['references']);
+            $bookingUploads = communication_upload_service();
+            $attachments = $bookingUploads->uploadMany((array) $_FILES['references']);
         }
         $request = $store->createBookingRequest([
             'memberId' => $member['id'] ?? null,
-            'inquiryType' => (string) ($_POST['inquiry_type'] ?? 'appearance'),
-            'contactName' => (string) ($_POST['contact_name'] ?? ''),
-            'contactEmail' => (string) ($_POST['contact_email'] ?? ''),
-            'phone' => (string) ($_POST['phone'] ?? ''),
-            'requestedDate' => (string) ($_POST['requested_date'] ?? ''),
-            'city' => (string) ($_POST['city'] ?? ''),
-            'venue' => (string) ($_POST['venue'] ?? ''),
-            'budget' => (string) ($_POST['budget'] ?? ''),
-            'details' => (string) ($_POST['details'] ?? ''),
+            'formValues' => $bookingValues,
+            'formRevision' => $validation['submission']['definitionRevision'],
             'attachments' => $attachments,
         ]);
-        if (!empty($communicationSettings['autoAcknowledgeBooking'])) {
+        $bookingUploads?->completeUploads();
+        if (!empty($communicationSettings['autoAcknowledgeBooking']) && $request['contactEmail'] !== '') {
             $mailer = new MailService(app_config(), $store);
             $mailer->send($member['id'] ?? null, (string) $request['contactEmail'], 'Booking inquiry received', 'booking.received',
                 "Thank you for your booking inquiry.\n\nReference: VVX-B-" . strtoupper(substr((string) $request['id'], -8)) . "\nStatus: Submitted\n\nYour details are being reviewed privately. Replies and status changes will be sent by email" . ($member ? ' and will also appear in your member account.' : '.')
@@ -46,7 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         flash('booking_success', 'Your private inquiry was submitted successfully.');
         flash('booking_reference', 'VVX-B-' . strtoupper(substr((string) $request['id'], -8)));
         redirect(base_url('booking/?submitted=1'));
+    } catch (BookingFormValidationException $e) {
+        $bookingUploads?->discardPendingUploads();
+        $bookingFieldErrors = $e->errors;
+        $error = $bookingFieldErrors['_form'] ?? $e->getMessage();
     } catch (Throwable $e) {
+        $bookingUploads?->discardPendingUploads();
         $error = $e->getMessage();
     }
 }
@@ -56,7 +73,8 @@ $pageTitle = 'Booking & Appearances';
 $activeNav = 'booking';
 require root_path('app/Views/public/partials/header.php');
 ?>
-<div class="communication-main">
+<link rel="stylesheet" href="<?=e(asset_url('css/booking-form.css'))?>">
+<div class="communication-main booking-page">
   <div class="communication-wrap">
     <section class="communication-hero">
       <div class="communication-hero-content">
@@ -78,27 +96,11 @@ require root_path('app/Views/public/partials/header.php');
         <span class="communication-kicker">Private intake</span>
         <h2>Tell me about the opportunity.</h2>
         <p>Required fields are marked. Attachments are protected outside the public web directory.</p>
-        <form method="post" enctype="multipart/form-data" class="communication-form">
+        <form method="post" enctype="multipart/form-data" class="communication-form" data-booking-form>
           <?= csrf_field() ?>
           <input type="text" name="website" value="" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
-          <label>Inquiry type
-            <select name="inquiry_type" required>
-              <option value="">Choose an inquiry type</option>
-              <?php foreach (['appearance'=>'Appearance','collaboration'=>'Collaboration','interview'=>'Interview / Podcast','event'=>'Private or Public Event','media'=>'Media / Press','other'=>'Other Professional Inquiry'] as $value=>$label): ?>
-                <option value="<?= e($value) ?>" <?= (string)($_POST['inquiry_type']??'')===$value?'selected':'' ?>><?= e($label) ?></option>
-              <?php endforeach; ?>
-            </select>
-          </label>
-          <div class="communication-form-grid">
-            <label>Your name<input name="contact_name" maxlength="120" required value="<?= e((string)($_POST['contact_name']??$member['displayName']??'')) ?>"></label>
-            <label>Email address<input type="email" name="contact_email" maxlength="190" required value="<?= e((string)($_POST['contact_email']??$member['email']??'')) ?>"></label>
-            <label>Phone <small>optional</small><input name="phone" maxlength="80" value="<?= e((string)($_POST['phone']??'')) ?>"></label>
-            <label>Requested date <small>optional</small><input type="datetime-local" name="requested_date" value="<?= e((string)($_POST['requested_date']??'')) ?>"></label>
-            <label>City<input name="city" maxlength="190" value="<?= e((string)($_POST['city']??'')) ?>"></label>
-            <label>Venue or platform<input name="venue" maxlength="255" value="<?= e((string)($_POST['venue']??'')) ?>"></label>
-          </div>
-          <label>Estimated budget <small>optional</small><input name="budget" maxlength="190" placeholder="Example: $1,500–$2,500" value="<?= e((string)($_POST['budget']??'')) ?>"></label>
-          <label>Inquiry details<textarea name="details" maxlength="10000" required><?= e((string)($_POST['details']??'')) ?></textarea></label>
+          <input type="hidden" name="form_revision" value="<?=e($bookingDefinition['revision'])?>">
+          <div class="booking-fields-grid"><?php require root_path('app/Views/public/partials/booking-fields.php'); ?></div>
           <?php if (!empty($communicationSettings['publicBookingAttachmentsEnabled'])): ?>
           <label class="communication-upload">Reference files <small>optional · up to 5 JPG, PNG, WebP, PDF, or text files · <?= e((string)$communicationSettings['maxAttachmentMb']) ?> MB each</small><input type="file" name="references[]" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain"></label>
           <?php endif; ?>
@@ -128,4 +130,5 @@ require root_path('app/Views/public/partials/header.php');
     <?php endif; ?>
   </div>
 </div>
+<script src="<?=e(asset_url('js/booking-form.js'))?>" defer></script>
 <?php require root_path('app/Views/public/partials/footer.php'); ?>

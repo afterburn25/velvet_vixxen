@@ -13,7 +13,8 @@ if (!is_installed()) {
     redirect(base_url('install/'));
 }
 
-$page = (string) ($_GET['page'] ?? 'dashboard');
+$adminSessionOwner = (string) ($_SESSION['admin']['id'] ?? '');
+$page = (string) ($_GET['page'] ?? ($_SESSION['admin_last_pages'][$adminSessionOwner] ?? 'dashboard'));
 $error = '';
 
 if ($page === 'logout') {
@@ -36,7 +37,7 @@ if ($page === 'login') {
         }
     }
     ?>
-    <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Sign In</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>?v=0.8.1"><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head><body class="login-body"><main class="login-shell"><div class="login-brand"><span>Nikki Wilder</span><small>The Velvet Vixxen</small></div><form method="post" class="login-card"><?= csrf_field() ?><div class="admin-kicker">Private administration</div><h1>Welcome back.</h1><p>Sign in to manage the live design, Canva templates, and media.</p><?php if ($installComplete): ?><div class="admin-alert success"><strong>Installation complete.</strong> The database, owner account, organized folders, security secrets, and installation lock were verified. The installer cleanup was completed or safely locked by the server.</div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?><label>Email address<input type="email" name="email" autocomplete="username" required autofocus></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="admin-button primary">Sign in</button><a class="back-link" href="<?= e(base_url()) ?>">← Return to the website</a></form></main></body></html>
+    <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Sign In</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head><body class="login-body"><main class="login-shell"><div class="login-brand"><span>Nikki Wilder</span><small>The Velvet Vixxen</small></div><form method="post" class="login-card"><?= csrf_field() ?><div class="admin-kicker">Private administration</div><h1>Welcome back.</h1><p>Sign in to manage the live design, Canva templates, and media.</p><?php if ($installComplete): ?><div class="admin-alert success"><strong>Installation complete.</strong> The database, owner account, organized folders, security secrets, and installation lock were verified. The installer cleanup was completed or safely locked by the server.</div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?><label>Email address<input type="email" name="email" autocomplete="username" required autofocus></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="admin-button primary">Sign in</button><a class="back-link" href="<?= e(base_url()) ?>">← Return to the website</a></form></main><script src="<?= e(asset_url('js/admin-ux.js')) ?>" defer></script></body></html>
     <?php exit;
 }
 
@@ -56,6 +57,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new RuntimeException('Your session token expired. Refresh the page and try again.');
         }
         $action = (string) ($_POST['action'] ?? '');
+        if ($page === 'marketing') require root_path('app/Views/admin/marketing-actions.php');
+        require root_path('app/Views/admin/merchandise-actions.php');
+        if ($action === 'apply_database_updates') require root_path('app/Support/database_updates_action.php');
+        if ($action === 'save_about_page') {
+            if (($user['role'] ?? '') !== 'owner') throw new RuntimeException('Owner access is required.');
+            (new App\Core\AboutPage($store))->save($_POST);
+            $store->audit(app_auth()->id(), 'site.about.updated');
+            flash('success', 'About Me was saved.');
+            redirect(base_url('admin/?page=about'));
+        }
+
+        if (in_array($action, ['save_booking_form_field', 'move_booking_form_field', 'toggle_booking_form_field', 'delete_booking_form_field'], true)) {
+            if ((string) ($user['role'] ?? '') !== 'owner') throw new RuntimeException('Only the owner can change the booking form.');
+            $bookingBuilder = new \App\Core\BookingFormService($store);
+            $fieldId = is_string($_POST['field_id'] ?? null) ? $_POST['field_id'] : '';
+            $revision = is_string($_POST['form_revision'] ?? null) ? $_POST['form_revision'] : '';
+            if ($action === 'save_booking_form_field') {
+                $bookingBuilder->saveField(['id' => $fieldId, 'label' => $_POST['field_label'] ?? '', 'type' => $_POST['field_type'] ?? 'text',
+                    'help' => $_POST['field_help'] ?? '', 'placeholder' => $_POST['field_placeholder'] ?? '',
+                    'options' => $_POST['field_options'] ?? '', 'minSelections' => $_POST['field_minimum'] ?? 0,
+                    'required' => isset($_POST['field_required']), 'enabled' => isset($_POST['field_enabled'])], $revision);
+            } elseif ($action === 'move_booking_form_field') {
+                $bookingBuilder->moveField($fieldId, (string) ($_POST['direction'] ?? ''), $revision);
+            } elseif ($action === 'toggle_booking_form_field') {
+                $bookingBuilder->toggleField($fieldId, $revision);
+            } else {
+                $bookingBuilder->deleteField($fieldId, $revision);
+            }
+            $store->audit(app_auth()->id(), 'booking_form.' . $action, ['fieldId' => $fieldId]);
+            flash('success', 'Booking form updated. Earlier inquiries were preserved.');
+            redirect(base_url('admin/?page=booking-form'));
+        }
         if ($action === 'inspect_addon_upload') {
             $addonReview = $addonManager->stageUpload((array) ($_FILES['addon_package'] ?? []));
             $page = 'addons';
@@ -399,6 +432,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $scene['background']['x'] = 50;
                 $scene['background']['y'] = 50;
                 $scene['background']['zoom'] = 1;
+                $scene['background']['title'] = $asset['title'];
+                unset($scene['background']['libraryId'], $scene['background']['modelZone'], $scene['background']['textZone']);
+                foreach (['desktop', 'tablet', 'mobile'] as $device) {
+                    $scene['devices'][$device]['background'] = array_replace((array) ($scene['devices'][$device]['background'] ?? $scene['background']), [
+                        'src' => $asset['file'], 'x' => 50, 'y' => 50, 'zoom' => 1, 'title' => $asset['title'],
+                    ]);
+                    unset($scene['devices'][$device]['background']['libraryId'], $scene['devices'][$device]['background']['modelZone'], $scene['devices'][$device]['background']['textZone']);
+                }
                 $store->saveScene($assign, $scene, false, app_auth()->id());
             }
             $store->audit(app_auth()->id(), 'canva.export.imported', ['template' => $id, 'assign' => $assign]);
@@ -620,6 +661,9 @@ $success = flash('success');
 $pageTitles = [
     'dashboard' => 'Dashboard',
     'composer' => 'Visual Composer',
+    'about' => 'About Me',
+    'merchandise' => 'Merchandise',
+    'marketing' => 'Marketing & Publishing',
     'music' => 'Music',
     'galleries' => 'Photo Galleries',
     'videos' => 'Videos',
@@ -634,6 +678,7 @@ $pageTitles = [
     'messages' => 'Private Messages',
     'content-requests' => 'Content Requests',
     'booking-requests' => 'Booking Requests',
+    'booking-form' => 'Booking Form Builder',
     'communication-settings' => 'Communication Settings',
     'media' => 'Media Library',
     'canva' => 'Canva Templates',
@@ -641,14 +686,19 @@ $pageTitles = [
     'licenses' => 'Add-on Licensing',
     'settings' => 'Site Settings',
     'repair-backups' => 'Repair Backups',
+    'database-updates' => 'Database Updates',
 ];
 foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
     $pageTitles[$addonPageKey] = (string) $addonPage['label'];
 }
-$title = $pageTitles[$page] ?? 'Dashboard';
+if (isset($pageTitles[$page])) $_SESSION['admin_last_pages'][(string) $user['id']] = $page;
+$title = $pageTitles[$page] ?? 'Page not found';
 $nav = [
     'dashboard' => ['⌂', 'Dashboard'],
     'composer' => ['✦', 'Visual Composer'],
+    'about' => ['♡', 'About Me'],
+    'merchandise' => ['▱', 'Merchandise'],
+    'marketing' => ['↗', 'Marketing & Publishing'],
     'music' => ['♫', 'Music'],
     'galleries' => ['◇', 'Photo Galleries'],
     'videos' => ['▶', 'Videos'],
@@ -663,6 +713,7 @@ $nav = [
     'messages' => ['✉', 'Messages'],
     'content-requests' => ['♡', 'Content Requests'],
     'booking-requests' => ['▦', 'Booking Requests'],
+    'booking-form' => ['☷', 'Booking Form Builder'],
     'communication-settings' => ['⚑', 'Communication Settings'],
     'media' => ['▣', 'Media Library'],
     'canva' => ['C', 'Canva Templates'],
@@ -670,224 +721,39 @@ $nav = [
     'licenses' => ['⌁', 'Add-on Licensing'],
     'settings' => ['⚙', 'Site Settings'],
     'repair-backups' => ['↺', 'Repair Backups'],
+    'database-updates' => ['↑', 'Database Updates'],
 ];
 foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
     $nav[$addonPageKey] = [(string)$addonPage['icon'], (string)$addonPage['label']];
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>?v=0.8.1"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>?v=0.8.1"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
-<body class="admin-body"><aside class="admin-sidebar"><a class="admin-brand" href="<?= e(base_url('admin/')) ?>"><span>Nikki Wilder</span><small>The Velvet Vixxen</small></a><nav><?php foreach ($nav as $key => [$icon,$label]): ?><a class="<?= $page===$key?'active':'' ?>" href="<?= e(base_url('admin/?page='.$key)) ?>"><i><?= e($icon) ?></i><span><?= e($label) ?></span></a><?php endforeach; ?></nav><div class="sidebar-bottom"><a href="<?= e(base_url()) ?>" target="_blank"><i>↗</i><span>View Website</span></a><a href="<?= e(base_url('admin/?page=logout')) ?>"><i>⇥</i><span>Sign Out</span></a></div></aside>
-<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu">☰</button><div><div class="admin-kicker">Velvet Vixxen · v0.8.1</div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
+<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v0.8.1</div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
 $stats = $store->stats(); ?>
 <section class="welcome-panel"><div><span class="admin-kicker">Approved visual direction</span><h2>The pink Velvet Vixxen build is active.</h2><p>The public site, one-page installer, Visual Composer, Media Center, member commerce, add-ons, private messaging, content requests, and booking intake are active.</p><div class="panel-actions"><a class="admin-button primary" href="<?= e(base_url('admin/?page=composer')) ?>">Open Visual Composer</a><a class="admin-button secondary" href="<?= e(base_url('admin/?page=canva')) ?>">Open Canva Templates</a></div></div><img src="<?= e(image_url('defaults/canva-hero-preview.jpg')) ?>" alt="Approved pink hero design"></section>
 <div class="stat-grid"><article><span>Members</span><strong><?= e((string)$stats['members']) ?></strong><small><?= e((string)$stats['verifiedMembers']) ?> verified accounts</small></article><article><span>Unread Messages</span><strong><?= e((string)($stats['unreadThreads']??0)) ?></strong><small><?= e((string)($stats['openThreads']??0)) ?> open conversations</small></article><article><span>Open Requests</span><strong><?= e((string)($stats['openContentRequests']??0)) ?></strong><small>Private member ideas and quotes</small></article><article><span>Open Bookings</span><strong><?= e((string)($stats['openBookings']??0)) ?></strong><small>Professional inquiries awaiting action</small></article></div>
-<div class="dashboard-grid"><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">First build workflow</span><h2>Replace placeholders with your images</h2></div></div><ol class="workflow"><li><b>Upload</b><span>Add transparent PNG or WebP photos, with optional custom thumbnails.</span></li><li><b>Compose</b><span>Drag a thumbnail onto the Hero or Footer canvas, then resize and position it.</span></li><li><b>Preview</b><span>Check desktop, tablet, and mobile arrangements independently.</span></li><li><b>Publish</b><span>Create a restorable version and update the live homepage.</span></li></ol></section><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Canva bridge</span><h2>Editable design templates</h2></div></div><p class="muted-copy">Download a layered starter file, upload it to Canva, save the Canva edit link, replace the marked photo areas, then import the finished export and assign it to a section.</p><a class="admin-button secondary full" href="<?= e(base_url('admin/?page=canva')) ?>">Manage Canva Templates</a></section></div>
+<div class="dashboard-grid"><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">First build workflow</span><h2>Add your photos as separate layers</h2></div></div><ol class="workflow"><li><b>Upload</b><span>Add transparent PNG or WebP photos, with optional custom thumbnails.</span></li><li><b>Compose</b><span>Drag a thumbnail onto the Hero or Footer canvas, then resize and position it.</span></li><li><b>Preview</b><span>Check desktop, tablet, and mobile arrangements independently.</span></li><li><b>Publish</b><span>Create a restorable version and update the live homepage.</span></li></ol></section><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Canva bridge</span><h2>Editable design templates</h2></div></div><p class="muted-copy">Download a layered starter file, upload it to Canva, save the Canva edit link, and import the exported background. Add your transparent photos as separate Composer layers.</p><a class="admin-button secondary full" href="<?= e(base_url('admin/?page=canva')) ?>">Manage Canva Templates</a></section></div>
+<?php elseif ($page === 'marketing'):
+require root_path('app/Views/admin/marketing.php'); ?>
+<?php elseif ($page === 'about'):
+require root_path('app/Views/admin/about.php'); ?>
+<?php elseif ($page === 'merchandise'):
+require root_path('app/Views/admin/merchandise.php'); ?>
 <?php elseif ($page === 'composer'):
-$composerScenes = [
-    'hero' => $store->scene('hero', false),
-    'footer' => $store->scene('footer', false),
-];
-$composerMedia = array_values(array_filter($store->media(), static function (array $asset): bool {
-    $type = strtolower((string) ($asset['type'] ?? ''));
-    $mime = strtolower((string) ($asset['mime'] ?? ''));
-    $file = strtolower((string) ($asset['file'] ?? ''));
-    return str_starts_with($mime, 'image/')
-        || in_array($type, ['model', 'background', 'export', 'thumbnail', 'gallery', 'poster'], true)
-        || (bool) preg_match('/\.(?:jpe?g|png|webp|gif|avif)$/i', $file);
-}));
-$composerAssetUrls = [];
-foreach ($composerMedia as &$composerAsset) {
-    $file = (string) ($composerAsset['file'] ?? '');
-    $thumbnail = (string) ($composerAsset['thumbnail'] ?? $file);
-    $composerAsset['url'] = scene_asset_url($file);
-    $composerAsset['thumbnailUrl'] = scene_asset_url($thumbnail !== '' ? $thumbnail : $file);
-    if ($file !== '') {
-        $composerAssetUrls[$file] = $composerAsset['url'];
-    }
-    if ($thumbnail !== '') {
-        $composerAssetUrls[$thumbnail] = $composerAsset['thumbnailUrl'];
-    }
-}
-unset($composerAsset);
-foreach ($composerScenes as $composerScene) {
-    $backgroundPath = (string) ($composerScene['background']['src'] ?? '');
-    if ($backgroundPath !== '') {
-        $composerAssetUrls[$backgroundPath] = scene_asset_url($backgroundPath);
-    }
-    foreach ((array) ($composerScene['devices'] ?? []) as $composerDevice) {
-        foreach ((array) ($composerDevice['layers'] ?? []) as $composerLayer) {
-            foreach (['src', 'thumbnail'] as $composerPathKey) {
-                $composerPath = (string) ($composerLayer[$composerPathKey] ?? '');
-                if ($composerPath !== '') {
-                    $composerAssetUrls[$composerPath] = scene_asset_url($composerPath);
-                }
-            }
-        }
-    }
-}
-$composerData = [
-    'scenes' => $composerScenes,
-    'media' => $composerMedia,
-    'assetUrls' => $composerAssetUrls,
-    'versions' => [
-        'hero' => $store->sceneVersions('hero'),
-        'footer' => $store->sceneVersions('footer'),
-    ],
-    'baseUrl' => base_url(),
-    'uploadBase' => base_url('uploads/'),
-]; ?>
-<div id="visualComposer" class="composer-app">
-  <div class="composer-toolbar">
-    <div class="segmented" data-section-tabs>
-      <button class="active" data-section="hero">Homepage Hero</button>
-      <button data-section="footer">Visual Footer</button>
-    </div>
-    <div class="segmented" data-device-tabs>
-      <button class="active" data-device="desktop">Desktop</button>
-      <button data-device="tablet">Tablet</button>
-      <button data-device="mobile">Mobile</button>
-    </div>
-    <div class="toolbar-spacer"></div>
-    <button class="icon-button" data-action="undo" title="Undo">↶</button>
-    <button class="icon-button" data-action="redo" title="Redo">↷</button>
-    <button class="admin-button secondary" data-action="preview">Full Page Preview</button>
-    <button class="admin-button secondary" data-action="save">Save Draft</button>
-    <button class="admin-button primary" data-action="publish">Publish</button>
-  </div>
-
-  <div class="composer-workspace">
-    <aside class="media-tray">
-      <div class="tray-head">
-        <div><span class="admin-kicker">Assets</span><h2>Media Tray</h2></div>
-        <button class="icon-button" data-action="toggle-upload" title="Upload image">＋</button>
-      </div>
-      <div class="upload-panel" data-upload-panel hidden>
-        <form id="quickUpload" enctype="multipart/form-data">
-          <label>Image<input type="file" name="image" accept="image/png,image/jpeg,image/webp" required></label>
-          <label>Custom thumbnail <small>optional</small><input type="file" name="thumbnail" accept="image/png,image/jpeg,image/webp"></label>
-          <label>Type<select name="type"><option value="model">Model / cutout</option><option value="background">Background</option></select></label>
-          <button class="admin-button primary full">Upload</button>
-        </form>
-      </div>
-      <div class="tray-search">
-        <input type="search" placeholder="Search images" data-media-search>
-        <select data-media-filter><option value="all">All</option><option value="model">Cutouts</option><option value="background">Backgrounds</option><option value="export">Canva exports</option></select>
-      </div>
-      <div class="media-list" data-media-list></div>
-    </aside>
-
-    <section class="canvas-area">
-      <div class="canvas-topline">
-        <span data-canvas-label>Homepage Hero · Desktop</span>
-        <div>
-          <button class="mini-button" data-action="pan-background" aria-pressed="false">Pan Background</button>
-          <button class="mini-button" data-action="copy-layout">Copy to other devices</button>
-          <button class="mini-button" data-action="reset-view">Reset view</button>
-        </div>
-      </div>
-      <div class="canvas-viewport">
-        <div class="design-canvas" data-canvas>
-          <img class="canvas-background" data-canvas-bg alt="">
-          <div class="canvas-overlay" data-canvas-overlay></div>
-          <div class="canvas-grid"></div>
-          <div class="canvas-layers" data-canvas-layers></div>
-          <div class="canvas-content-box" data-content-box tabindex="0" role="button" aria-label="Move the live text and button area">
-            <span class="content-box-label">Live text + buttons</span>
-            <div class="content-box-preview" aria-hidden="true"><b>LIVE CONTENT</b><i></i><div><em>Button</em><em>Button</em></div></div>
-            <span class="content-resize-handle nw" data-content-handle="nw"></span>
-            <span class="content-resize-handle ne" data-content-handle="ne"></span>
-            <span class="content-resize-handle sw" data-content-handle="sw"></span>
-            <span class="content-resize-handle se" data-content-handle="se"></span>
-          </div>
-          <div class="canvas-empty" data-canvas-empty>Drag an image thumbnail here to add a layer</div>
-        </div>
-      </div>
-      <div class="canvas-help">Drag photo layers or the pink live-content box anywhere on the canvas. Use corner handles to resize from very small to very large. Turn on Pan Background to drag the room itself.</div>
-    </section>
-
-    <aside class="properties-panel">
-      <div class="property-tabs">
-        <button class="active" data-property-tab="background">Background</button>
-        <button data-property-tab="content">Text + Buttons</button>
-        <button data-property-tab="layer">Photo Layer</button>
-        <button data-property-tab="versions">Versions</button>
-      </div>
-
-      <div class="property-page active" data-property-page="background">
-        <div class="control-group">
-          <h3>Background placement</h3>
-          <label>Horizontal position <output data-output="bgX">50%</output><input type="range" min="0" max="100" step="1" data-control="bgX"></label>
-          <label>Vertical position <output data-output="bgY">50%</output><input type="range" min="0" max="100" step="1" data-control="bgY"></label>
-          <label>Zoom <output data-output="bgZoom">100%</output><input type="range" min="25" max="400" step="1" data-control="bgZoom"></label>
-          <label>Section height <output data-output="height">760px</output><input type="range" min="280" max="1800" step="10" data-control="height"></label>
-        </div>
-        <div class="control-group">
-          <h3>Background appearance</h3>
-          <label>Brightness <output data-output="bgBrightness">100%</output><input type="range" min="25" max="175" data-control="bgBrightness"></label>
-          <label>Contrast <output data-output="bgContrast">100%</output><input type="range" min="50" max="175" data-control="bgContrast"></label>
-          <label>Saturation <output data-output="bgSaturation">100%</output><input type="range" min="0" max="200" data-control="bgSaturation"></label>
-          <label>Blur <output data-output="bgBlur">0px</output><input type="range" min="0" max="20" data-control="bgBlur"></label>
-          <label>Dark overlay <output data-output="overlay">25%</output><input type="range" min="0" max="90" data-control="overlay"></label>
-          <label>Overlay color<input type="color" data-control="overlayColor"></label>
-        </div>
-      </div>
-
-      <div class="property-page" data-property-page="content">
-        <div class="control-group">
-          <h3>Live text and button box</h3>
-          <p class="property-help">Drag the pink box directly on the canvas. This moves the real headline, description, and buttons on the live site for the selected device.</p>
-          <div class="control-grid">
-            <label>Left %<input type="number" min="0" max="100" step=".1" data-control="contentX"></label>
-            <label>Top %<input type="number" min="0" max="100" step=".1" data-control="contentY"></label>
-            <label>Width %<input type="number" min="5" max="100" step=".1" data-control="contentWidth"></label>
-            <label>Height %<input type="number" min="5" max="100" step=".1" data-control="contentHeight"></label>
-          </div>
-          <button class="mini-button full" type="button" data-action="reset-content">Reset content box</button>
-        </div>
-      </div>
-
-      <div class="property-page" data-property-page="layer">
-        <div class="no-selection" data-no-selection>Select a photo layer on the canvas or click + on an image in the Media Tray.</div>
-        <div data-layer-controls hidden>
-          <div class="selected-preview"><img data-selected-preview alt=""><div><strong data-selected-name>Layer</strong><small data-selected-size></small></div></div>
-          <div class="control-grid">
-            <label>X position<input type="number" min="0" max="100" step=".1" data-control="layerX"></label>
-            <label>Y position<input type="number" min="0" max="100" step=".1" data-control="layerY"></label>
-            <label>Width %<input type="number" min=".5" max="400" step=".5" data-control="layerWidth"></label>
-            <label>Rotation<input type="number" min="-180" max="180" step="1" data-control="layerRotation"></label>
-          </div>
-          <div class="control-group">
-            <label>Image size <output data-output="layerScale">34%</output><input type="range" min=".5" max="400" step=".5" data-control="layerScale"></label>
-            <div class="size-presets"><button type="button" data-layer-size="5">Tiny</button><button type="button" data-layer-size="25">Small</button><button type="button" data-layer-size="60">Medium</button><button type="button" data-layer-size="120">Large</button><button type="button" data-layer-size="250">Huge</button></div>
-            <label>Opacity <output data-output="layerOpacity">100%</output><input type="range" min="0" max="100" data-control="layerOpacity"></label>
-            <label>Brightness <output data-output="layerBrightness">100%</output><input type="range" min="25" max="175" data-control="layerBrightness"></label>
-            <label>Contrast <output data-output="layerContrast">100%</output><input type="range" min="50" max="175" data-control="layerContrast"></label>
-            <label>Saturation <output data-output="layerSaturation">100%</output><input type="range" min="0" max="200" data-control="layerSaturation"></label>
-            <label>Edge feather <output data-output="layerFeather">0%</output><input type="range" min="0" max="45" data-control="layerFeather"></label>
-            <label>Shadow strength <output data-output="layerShadow">35%</output><input type="range" min="0" max="100" data-control="layerShadow"></label>
-          </div>
-          <div class="layer-actions">
-            <button data-action="layer-forward">Move Forward</button><button data-action="layer-back">Move Back</button>
-            <button data-action="layer-flip">Flip Horizontal</button><button data-action="layer-duplicate">Duplicate</button>
-            <button data-action="layer-hide">Hide</button><button class="danger" data-action="layer-delete">Delete</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="property-page" data-property-page="versions"><div class="versions-list" data-versions-list></div></div>
-    </aside>
-  </div>
-  <div class="composer-status" data-status><span class="status-dot"></span><span>Ready</span></div>
-</div>
-<script>window.COMPOSER_DATA=<?= json_encode($composerData, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE) ?>;</script>
+require root_path('app/Views/admin/composer.php'); ?>
 <?php elseif (in_array($page, ['music', 'galleries', 'videos'], true)):
 require root_path('app/Views/admin/media-center.php'); ?>
 <?php elseif (in_array($page, ['members', 'plans', 'entitlements'], true)):
 require root_path('app/Views/admin/members.php'); ?>
 <?php elseif (in_array($page, ['commerce','orders','coupons','bundles','payments'], true)):
 require root_path('app/Views/admin/commerce.php'); ?>
+<?php elseif ($page === 'booking-form'):
+    if ((string) ($user['role'] ?? '') === 'owner') require root_path('app/Views/admin/booking-form.php');
+    else echo '<section class="admin-card"><h2>Owner access required.</h2></section>';
+?>
 <?php elseif (in_array($page, ['messages','content-requests','booking-requests','communication-settings'], true)):
 require root_path('app/Views/admin/communications.php'); ?>
 <?php elseif ($page === 'addons'):
@@ -897,15 +763,16 @@ require root_path('app/Views/admin/addon-licensing.php'); ?>
 <?php elseif (($addonPageContent = addon_runtime()->renderAdminPage($page, ['user'=>$user])) !== null): ?>
 <?= $addonPageContent ?>
 <?php elseif ($page === 'media'):
-$media = $store->media(); ?>
-<div class="admin-card"><div class="card-head"><div><span class="admin-kicker">Backgrounds and transparent photos</span><h2>Media Library</h2></div><button class="admin-button primary" type="button" onclick="document.getElementById('mediaUpload').showModal()">Upload Images</button></div><p class="muted-copy">Transparent PNG and WebP files can be dragged into the Visual Composer. A custom thumbnail may be uploaded separately for easier identification.</p></div><div class="library-grid"><?php foreach ($media as $asset): ?><article class="library-card"><img src="<?= e(scene_asset_url((string)($asset['thumbnail']??$asset['file']??''))) ?>" alt=""><div><span><?= e((string)($asset['type']??'image')) ?></span><h3><?= e((string)($asset['title']??'Untitled')) ?></h3><small><?= e((string)($asset['width']??0)) ?> × <?= e((string)($asset['height']??0)) ?></small></div></article><?php endforeach; ?></div><dialog class="admin-dialog" id="mediaUpload"><form method="dialog" class="dialog-close"><button aria-label="Close">×</button></form><form id="libraryUpload" enctype="multipart/form-data"><span class="admin-kicker">Add asset</span><h2>Upload an image</h2><label>Original image<input type="file" name="image" accept="image/png,image/jpeg,image/webp" required></label><label>Custom thumbnail <small>optional</small><input type="file" name="thumbnail" accept="image/png,image/jpeg,image/webp"></label><label>Asset type<select name="type"><option value="model">Model / transparent cutout</option><option value="background">Background</option><option value="thumbnail">Thumbnail</option></select></label><button class="admin-button primary full">Upload Image</button><div data-upload-message></div></form></dialog>
+require root_path('app/Views/admin/media-library.php'); ?>
 <?php elseif ($page === 'canva'):
 $templates = $store->templates(); ?>
-<div class="admin-card canva-intro"><div><span class="admin-kicker">Canva-compatible workflow</span><h2>Editable template library</h2><p class="muted-copy">Use the layered starter kit to build a Canva design, save its edit link here, and import the finished export back into the Hero, Footer, gallery, or video system.</p></div><div class="canva-actions"><a class="admin-button primary" href="<?= e(base_url('templates/canva/Nikki-Wilder-Canva-Starter-Kit.zip')) ?>" download>Download Starter Kit</a><a class="admin-button secondary" href="https://www.canva.com/" target="_blank" rel="noopener">Open Canva ↗</a></div></div><div class="notice-panel"><strong>Why this is hybrid:</strong> Canva edits the visual artwork. Website navigation, text, buttons, membership logic, and mobile responsiveness stay live and editable in the site.</div><div class="template-grid"><?php foreach ($templates as $template): ?><article class="template-card"><div class="template-preview"><img src="<?= e(scene_asset_url((string)($template['preview']??''))) ?>" alt="<?= e((string)$template['title']) ?>"></div><div class="template-body"><div class="template-meta"><span><?= e((string)$template['category']) ?></span><span><?= e((string)$template['device']) ?></span><span><?= e((string)$template['width']) ?>×<?= e((string)$template['height']) ?></span></div><h3><?= e((string)$template['title']) ?></h3><div class="template-links"><?php if (!empty($template['canvaUrl'])): ?><a class="admin-button primary" href="<?= e((string)$template['canvaUrl']) ?>" target="_blank" rel="noopener">Edit in Canva ↗</a><?php else: ?><span class="admin-button disabled">Add Canva link first</span><?php endif; ?><a class="admin-button secondary" href="<?= e(base_url((string)$template['starterFile'])) ?>" download>Download SVG</a></div><details><summary>Canva link &amp; import</summary><form method="post" class="compact-form"><?= csrf_field() ?><input type="hidden" name="action" value="save_canva_url"><input type="hidden" name="template_id" value="<?= e((string)$template['id']) ?>"><label>Canva edit URL<input type="url" name="canva_url" value="<?= e((string)($template['canvaUrl']??'')) ?>" placeholder="https://www.canva.com/design/..."></label><button class="mini-button">Save Edit Link</button></form><form method="post" enctype="multipart/form-data" class="compact-form"><?= csrf_field() ?><input type="hidden" name="action" value="import_canva_export"><input type="hidden" name="template_id" value="<?= e((string)$template['id']) ?>"><label>Finished Canva export<input type="file" name="export_file" accept="image/png,image/jpeg,image/webp" required></label><label>Assign as draft background<select name="assign_section"><option value="">Do not assign</option><option value="hero">Homepage Hero</option><option value="footer">Visual Footer</option></select></label><button class="mini-button">Import Finished Design</button></form></details></div></article><?php endforeach; ?></div>
+<div class="admin-card canva-intro"><div><span class="admin-kicker">Canva-compatible workflow</span><h2>Editable template library</h2><p class="muted-copy">Use the layered starter kit to build a Canva design, save its edit link here, and import the finished export back into the Hero, Footer, gallery, or video system.</p></div><div class="canva-actions"><a class="admin-button primary" href="<?= e(base_url('templates/canva/Nikki-Wilder-Canva-Starter-Kit.zip')) ?>" download>Download Starter Kit</a><a class="admin-button secondary" href="https://www.canva.com/" target="_blank" rel="noopener">Open Canva ↗</a></div></div><div class="notice-panel"><strong>Manual export/import:</strong> “Edit in Canva” opens your saved design link; it does not synchronize automatically. Export backgrounds or decorative artwork from Canva and import them here. Keep transparent model photos as separate Visual Composer layers. Navigation, text, buttons, forms, paywalls, and media players stay live in the website.</div><div class="template-grid"><?php foreach ($templates as $template): ?><article class="template-card"><div class="template-preview"><img src="<?= e(scene_asset_url((string)($template['preview']??''))) ?>" alt="<?= e((string)$template['title']) ?>"></div><div class="template-body"><div class="template-meta"><span><?= e((string)$template['category']) ?></span><span><?= e((string)$template['device']) ?></span><span><?= e((string)$template['width']) ?>×<?= e((string)$template['height']) ?></span></div><h3><?= e((string)$template['title']) ?></h3><div class="template-links"><?php if (!empty($template['canvaUrl'])): ?><a class="admin-button primary" href="<?= e((string)$template['canvaUrl']) ?>" target="_blank" rel="noopener">Edit in Canva ↗</a><?php else: ?><span class="admin-button disabled">Add Canva link first</span><?php endif; ?><a class="admin-button secondary" href="<?= e(base_url((string)$template['starterFile'])) ?>" download>Download SVG</a></div><details><summary>Canva link &amp; import</summary><form method="post" class="compact-form"><?= csrf_field() ?><input type="hidden" name="action" value="save_canva_url"><input type="hidden" name="template_id" value="<?= e((string)$template['id']) ?>"><label>Canva edit URL<input type="url" name="canva_url" value="<?= e((string)($template['canvaUrl']??'')) ?>" placeholder="https://www.canva.com/design/..."></label><button class="mini-button">Save Edit Link</button></form><form method="post" enctype="multipart/form-data" class="compact-form"><?= csrf_field() ?><input type="hidden" name="action" value="import_canva_export"><input type="hidden" name="template_id" value="<?= e((string)$template['id']) ?>"><label>Finished Canva export<input type="file" name="export_file" accept="image/png,image/jpeg,image/webp" required></label><label>Assign as draft background<select name="assign_section"><option value="">Do not assign</option><option value="hero">Homepage Hero</option><option value="footer">Visual Footer</option></select></label><button class="mini-button">Import Finished Design</button></form></details></div></article><?php endforeach; ?></div>
 <?php elseif ($page === 'repair-backups'):
 require root_path('app/Views/admin/repair-backups.php'); ?>
+<?php elseif ($page === 'database-updates'):
+require root_path('app/Views/admin/database-updates.php'); ?>
 <?php elseif ($page === 'settings'):
 $site = (array)$store->setting('site',[]); ?>
 <form method="post" class="settings-grid"><?= csrf_field() ?><input type="hidden" name="action" value="save_site_settings"><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Brand</span><h2>Public site text</h2></div></div><label>Brand name<input name="brand_name" value="<?= e((string)($site['brand_name']??'Nikki Wilder')) ?>" required></label><label>Brand subtitle<input name="brand_subtitle" value="<?= e((string)($site['brand_subtitle']??'The Velvet Vixxen')) ?>" required></label><label>Hero tagline<input name="tagline" value="<?= e((string)($site['tagline']??'Bolder. Sexier. Closer.')) ?>" required></label><label>Hero supporting copy<textarea name="hero_copy" rows="4"><?= e((string)($site['hero_copy']??'')) ?></textarea></label></section><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Public behavior</span><h2>Homepage options</h2></div></div><label class="toggle-row"><input type="checkbox" name="age_gate_enabled" <?= !empty($site['age_gate_enabled'])?'checked':'' ?>><span><b>18+ entry confirmation</b><small>Show the age-confirmation dialog to new visitors.</small></span></label><label class="toggle-row"><input type="checkbox" name="newsletter_enabled" <?= !empty($site['newsletter_enabled'])?'checked':'' ?>><span><b>Newsletter form</b><small>Display the public email subscription panel.</small></span></label><div class="settings-note"><strong>Canva API status:</strong><span>Manual template-link and export import workflow is active. OAuth synchronization remains a future integration milestone because it requires your Canva developer credentials.</span></div><button class="admin-button primary full">Save Settings</button></section></form>
 <?php else: ?><div class="admin-card"><h2>Page not found</h2></div><?php endif; ?>
-</main></div><script src="<?= e(asset_url('js/admin.js')) ?>?v=0.8.1" defer></script><?php if ($page === 'composer'): ?><script src="<?= e(asset_url('js/composer.js')) ?>?v=0.8.1" defer></script><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><script src="<?= e(asset_url('js/admin-media.js')) ?>?v=0.8.1" defer></script><?php endif; ?></body></html>
+</main></div><script src="<?= e(asset_url('js/admin.js')) ?>" defer></script><?php if ($page === 'composer'): ?><script src="<?= e(asset_url('js/composer.js')) ?>" defer></script><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><script src="<?= e(asset_url('js/admin-media.js')) ?>" defer></script><?php endif; ?><script src="<?= e(asset_url('js/admin-ux.js')) ?>" defer></script></body></html>

@@ -34,9 +34,9 @@ final class MigrationRunner
     }
 
     /** @return list<array{id:string,description:string,file:string,checksum:string}> */
-    public function pending(): array
+    public function pending(bool $ensureRegistry = true): array
     {
-        $this->ensureRegistry();
+        if ($ensureRegistry) $this->ensureRegistry();
         $applied = [];
         foreach ($this->pdo->query('SELECT migration_key, checksum FROM migrations')->fetchAll() as $row) {
             $applied[(string) $row['migration_key']] = (string) $row['checksum'];
@@ -62,7 +62,7 @@ final class MigrationRunner
     }
 
     /** @return list<string> */
-    public function migrate(): array
+    public function migrate(bool $rollbackOnFailure = true): array
     {
         $this->ensureRegistry();
         $batch = (int) $this->pdo->query('SELECT COALESCE(MAX(batch), 0) + 1 FROM migrations')->fetchColumn();
@@ -97,12 +97,14 @@ final class MigrationRunner
                     $this->log('migration.complete', ['id' => $migration['id'], 'statements' => count($executed)]);
                 } catch (Throwable $e) {
                     $this->log('migration.failed', ['id' => $migration['id'], 'error' => $e->getMessage()]);
-                    $this->runDown($migration);
+                    if ($rollbackOnFailure) $this->runDown($migration);
                     throw $e;
                 }
             }
         } catch (Throwable $e) {
-            $this->rollbackKeys(array_reverse($appliedThisRun));
+            // DDL can commit immediately. An installed site must preserve existing data and
+            // completed migrations for review instead of running potentially destructive down SQL.
+            if ($rollbackOnFailure) $this->rollbackKeys(array_reverse($appliedThisRun));
             throw new RuntimeException('Database migration failed: ' . $e->getMessage(), 0, $e);
         }
 

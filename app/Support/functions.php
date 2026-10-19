@@ -218,7 +218,12 @@ function base_url(string $path = ''): string
 
 function asset_url(string $path): string
 {
-    return base_url('public/assets/' . ltrim($path, '/'));
+    require_once root_path('includes/version.php');
+    $url = base_url('public/assets/' . ltrim($path, '/'));
+    [$resource, $fragment] = array_pad(explode('#', $url, 2), 2, '');
+    return $resource . (str_contains($resource, '?') ? '&' : '?')
+        . 'v=' . rawurlencode(VELVET_VIXXEN_ASSET_VERSION)
+        . ($fragment === '' ? '' : '#' . $fragment);
 }
 
 function image_url(string $path): string
