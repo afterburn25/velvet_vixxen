@@ -2,7 +2,7 @@
 
 Status is based on verified implementation and test evidence, not intention.
 
-## Completed
+## Documented completed package milestones
 
 ### 0.1.0–0.2.2 — Foundation, Design, Composer, Installer
 
@@ -40,54 +40,68 @@ Status is based on verified implementation and test evidence, not intention.
 
 - Commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, outage grace, signed feeds, release channels, protected downloads, review, backup, and rollback
 
-### 0.7.0–0.7.3 — Communications & Installer Hardening
+### 0.7.0–0.7.4 — Communications, Installer, and Visual Composer Hardening
 
-- Private member-to-owner conversations and protected attachments
-- Content requests with budgets, quotes, statuses, and replies
-- Public/member booking and appearance inquiries
-- Notifications, saved replies, communication blocks, owner queues, and settings
+- Private conversations and protected attachments
+- Content requests, booking and appearance inquiries, notifications, saved replies, owner queues, and settings
 - Runtime-only public installation ZIP
 - Ownership-safe writable-directory repair
 - Normalized installer email validation
 - Simplified installer and hardened final configuration verification
-- Eleven migrations / 64 declared tables through the 0.7 line
+- Direct Visual Composer layer drag/resize foundations and media-path repairs
 
 ### 0.8.0 — Marketing, Publishing & Analytics
 
+Documented packaged scope:
+
 - Blog, personal update, and announcement publishing
 - Draft, scheduled, published, archived, and expiring states
-- Public, registered-member, and subscriber visibility
-- Categories, tags, SEO metadata, featured images, and featured placement
-- Newsletter single/double opt-in, confirmation, unsubscribe, consent, suppression, tags, segments, campaigns, and delivery-state tracking
+- Audience visibility, categories, tags, SEO metadata, featured images, and featured placement
+- Newsletter consent, confirmation, unsubscribe, suppression, tags, segments, campaigns, and delivery-state tracking
 - Timed promotional banners and campaign landing pages
-- Scheduled Hero/Footer Visual Composer scenes with lock-aware, idempotent processing
-- Link-in-bio page and click tracking
-- Referral codes, order attribution, and attributed-revenue foundations
-- Privacy-conscious same-origin first-party analytics and foreign-origin rejection
-- Marketing/Analytics administration, CSV exports, and retention controls
-- Operational marketing runner
-- Twelfth migration / 75 declared tables
-- Runtime-only package with 203 files, 128 PHP files, and 7 public JavaScript files
+- Scheduled Hero/Footer scene snapshots
+- Link-in-bio and referral attribution
+- Privacy-conscious same-origin first-party analytics
+- Analytics/marketing administration, CSV exports, retention controls, and operational runner
+- Twelve migrations / 75 declared tables
 
-## Next
+The complete executable 0.8.0 engineering-source import and full GitHub CI matrix remain unverified.
+
+## Active continuation — incomplete
+
+### 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
+
+Authoritative scope: `INCOMPLETE_WORK.md`  
+Tracking issue: `#13`
+
+- Recover/import and test the real executable baseline
+- Complete Visual Composer off-canvas placement/clipping, extreme resize, movable live text/buttons, device-specific layouts, background pan, and broken-media repair
+- Integrate at least 30 standalone people-free luxury Hero backgrounds
+- Admin-configurable Booking Form Builder with required/optional text, textarea, email, phone, dropdown, radio, and checkbox fields
+- Client/server validation and live `(337) 450-8598` phone formatting
+- Sticky public navigation, Contact removal, dedicated About Me page/editor, and centered auth-page layouts
+- Persistent collapsible admin categories and active-page state
+- Real merchandise catalog/cart/checkout while subscriptions use membership checkout and PPV uses direct Buy Now/rental flows
+- Clear Canva manual export/import workflow
+- Full PHP/MySQL/HTTP/Playwright/security/runtime-package evidence
+
+Do not begin 0.9.0 until 0.8.1 is verified or explicitly deferred.
+
+## Later milestones
 
 ### 0.9.0 — Compliance, Privacy & Operational Hardening
 
 - Performer and collaborator records
 - Identity/age-verification status and encrypted document references
-- Model releases, content ownership, permitted uses, shoot dates, photographers, and media linkage
+- Model releases, ownership, permitted uses, shoot dates, photographers, and media linkage
 - Complaint, copyright, report, takedown, response, and appeal workflows
-- Configurable age-assurance provider adapters
-- Geographic restriction controls
+- Age-assurance provider adapters and geographic controls
 - Administrator two-factor authentication
 - Privileged-action confirmation and expanded audit logging
-- Backup scheduling and retention
-- Database/file backup verification and restore drills
-- Health dashboard for database, mail, payment webhooks, scheduled tasks, media processing, storage, backups, and add-ons
-- Recovery mode and failed-upgrade/add-on diagnostics
+- Backup scheduling, retention, restore validation, and recovery mode
+- Health dashboard for database, mail, webhooks, scheduled tasks, media, storage, backups, and add-ons
 - Rate limiting, suspicious-access detection, device/session alerts, and security notifications
-- Accessibility review and keyboard alternatives for drag-only actions
-- Privacy review, data export/deletion, consent retention, and documented retention policies
+- Accessibility and privacy review, data export/deletion, and retention policies
 
 ### 1.0.0 — Production Release
 
@@ -99,16 +113,15 @@ Status is based on verified implementation and test evidence, not intention.
 - Browser/device review and complete operating documentation
 - Signed runtime package, checksum, changelog, test evidence, and running-build screenshots
 
-## Not complete in 0.8.0
+## Not complete at this handoff
 
-- Complete engineering-source import and full GitHub CI matrix
+- Complete executable engineering-source import for the latest package
+- Full GitHub PHP/MySQL/Playwright CI matrix
+- 0.8.1 user-facing continuation
 - Live payment certification and automatic tax service
-- Production email-delivery account or deliverability certification
+- Production email-delivery certification
 - Public add-on marketplace or multi-tenant licensing SaaS
 - Websocket chat, voice/video calling, or paid-message workflows
 - Automatic booking contracts, deposits, or quote payments
 - Production two-factor authentication
-- Performer/collaborator compliance vault
-- Complaint/takedown case management
-- Age-assurance integration and geographic enforcement
-- Scheduled backup/restore validation and full operational health dashboard
+- Compliance vault, complaint/takedown case management, age assurance, geographic enforcement, backup/restore validation, and full operational health dashboard
