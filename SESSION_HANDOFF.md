@@ -1,149 +1,113 @@
-# Session Handoff — Velvet Vixxen 0.8.0
+# Session Handoff — Velvet Vixxen 0.8.1 Continuation
 
-## Resume point
+## Resume here
 
-Current completed runtime milestone: **0.8.0 — Marketing, Publishing & Analytics**
+Project: **Nikki Wilder / The Velvet Vixxen**  
+Repository: `afterburn25/velvet_vixxen`  
+Authoritative continuation branch: `handoff/0.8.1-incomplete-site-ux`  
+Tracking issue: `#13`  
+Recommended implementation branch: `feature/0.8.1-site-ux-hero-library`
 
-Repository: `afterburn25/velvet_vixxen`
-
-Branch: `feature/0.8.0-marketing-publishing-analytics`
-
-Tracking issue: `#9`
-
-The customer installation ZIP is runtime-only. Repository documents, tests, SDK source, screenshots, and CI workflows stay outside it. The packaged runtime and GitHub source-import state are separate truth boundaries.
-
-## Runtime artifact
+Read these files before making implementation claims:
 
 ```text
-Nikki-Wilder-Velvet-Vixxen-0.8.0.zip
-SHA-256: ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
+INCOMPLETE_WORK.md
+NEXT_SESSION_PROMPT.md
+PROJECT_STATUS.md
+SESSION_HANDOFF.md
+docs/ROADMAP.md
+docs/TEST_REPORT.md
 ```
 
-Package profile:
+`INCOMPLETE_WORK.md` is the authoritative scope for the user-facing work that remained unfinished or unverified after the documented 0.8.0 Marketing, Publishing & Analytics milestone.
+
+## Critical truth boundary
+
+The repository documents a packaged `0.8.0 — Marketing, Publishing & Analytics` runtime release with recorded SHA-256:
 
 ```text
-203 runtime files
-128 PHP runtime files
-7 public JavaScript files
-12 migrations
-75 declared application tables
+ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993
 ```
 
-## Locked decisions
+However, the complete executable 0.8.0 engineering source and full PHP/MySQL/Playwright CI were not imported and verified in GitHub at handoff time. Do not rely on earlier chat statements that later UI features were “built.” Inspect the actual live branches, files, artifacts, and test evidence first.
 
-- Approved neon-pink design; no new mockups unless explicitly requested
-- One simplified responsive browser installer page
-- No installation key
-- Exact 12-character minimum owner/member passwords
-- Safe `0755`/`0775`; never `0777`
-- Ownership-safe writable-directory repair and content preservation
-- Organized folders rather than root-level file sprawl
-- One Entitlement Resolver for subscription, PPV, rental, bundle, gift, and complimentary access
-- Add-ons extend registered APIs rather than patching core
-- Customer ZIPs contain only files needed to install and run the live site
-- Marketing messages must honor consent, confirmation, unsubscribe, and suppression state
-- Unsubscribe remains available even when public newsletter signup is disabled
-- Private message bodies, protected-media contents, identity documents, and raw payment data never enter email alerts or analytics payloads
-- Scheduled marketing work must be lock-aware and idempotent
-- A failed or repeated scene-task run must not publish the same scene twice or overwrite a newly published file-store scene with stale state
+The next session must identify the newest branch or artifact that genuinely contains runnable source. If the latest branch is documentation-only, locate/import the latest clean engineering source before adding more features. Do not reconstruct missing implementation by guessing from status prose.
 
-## 0.8.0 implementation map
+## Locked product decisions
 
-```text
-app/Core/MarketingStoreTrait.php
-app/Core/MarketingService.php
-app/Views/admin/marketing.php
-api/analytics.php
-blog/index.php
-blog/post.php
-campaign/index.php
-links/index.php
-links/go.php
-newsletter/index.php
-newsletter/confirm.php
-newsletter/unsubscribe.php
-public/assets/css/marketing.css
-public/assets/js/marketing.js
-scripts/run_marketing.php
-database/migrations/202610180012_marketing_publishing_analytics.php
-```
+- Approved neon-pink, magenta, black, and white Velvet Vixxen design.
+- No new mockups unless the user explicitly reopens design exploration.
+- Final public scenes contain no placeholder models. Nikki’s transparent cutout photos remain separately movable layers.
+- One simplified responsive browser installer page.
+- No installation key.
+- Exact 12-character minimum owner/member passwords.
+- Safe `0755`/`0775`; never `0777`.
+- Ownership-safe writable-directory repair.
+- Organized application folders; no root-file sprawl.
+- Customer installation ZIPs contain only files required to install and run the site.
+- Repository docs, tests, SDK source, CI workflows, screenshots, and build tooling stay outside customer ZIPs.
+- One Entitlement Resolver continues to control subscription, PPV, rental, bundle, gift, and complimentary access.
+- PPV photos/videos are direct content purchases, not ordinary merchandise-cart items.
+- Payment remains sandbox-only until a live adult-compatible provider is approved and certified.
+- Canva remains a manual design/export/import bridge unless a real OAuth/API integration is implemented and tested.
+- Never commit production credentials, customer/member/subscriber data, identity records, private messages or attachments, booking/request data, payment secrets, raw license keys, private signing keys, runtime state, logs, sessions, or private/paid media.
 
-Additional integrations landed in the homepage, header/footer navigation, registration, checkout, installer manifest/seeds, default data, asset URL handling, administration routing, and CSV export handling.
+## Incomplete 0.8.1 work
 
-## Delivered behavior
+The detailed requirements and acceptance tests are in `INCOMPLETE_WORK.md`. The main work groups are:
 
-### Publishing
+1. Recover/import and verify the real executable baseline.
+2. Finish Visual Composer direct manipulation, extreme resizing, off-canvas clipping, movable live text/buttons, device-specific layouts, background pan, and broken-media repair.
+3. Integrate at least 30 individual, people-free, luxury Hero scenes covering indoor and outdoor settings.
+4. Build the admin-configurable Booking Form Builder with required/optional text, textarea, email, phone, dropdown, radio, and checkbox fields plus live phone formatting.
+5. Make public navigation sticky, remove Contact, add About Me after Booking, build the About Me stats/bio editor, and center all auth forms in full-page layouts.
+6. Reorganize admin navigation into persistent collapsible categories.
+7. Build a real merchandise store while preserving direct Buy Now/rental flows for PPV galleries and videos.
+8. Clarify Canva behavior and keep model cutouts as separate Visual Composer layers.
 
-- Blog, personal-update, and announcement content
-- Draft, scheduled, published, archived, and expiring states
-- Public/member/subscriber visibility
-- Categories, tags, SEO fields, featured artwork, and featured placement
-- Public blog index and post pages
-- Owner post creation and editing
+## Hero asset recovery note
 
-### Newsletter and campaigns
+Several standalone luxury backgrounds were generated in the prior workspace but were not committed to GitHub or verified as integrated. Their filenames are listed in `INCOMPLETE_WORK.md`. Additional Adobe-generated scene URLs were temporary and were not persisted. Recover the files if accessible; otherwise regenerate equivalent scenes and commit only appropriately optimized, non-sensitive runtime assets.
 
-- Single- and double-opt-in newsletter flows
-- Signed confirmation and unsubscribe tokens
-- Subscriber tags, segments, consent, and suppression state
-- Campaign queues and delivery-state updates
-- Timed promotions, site banners, and campaign landing pages
-- Safe disable behavior: public routes return 404 when modules are disabled, but unsubscribe remains available
+## Existing 0.8.0 documented scope
 
-### Scenes, links, referrals, and analytics
+The `feature/0.8.0-marketing-publishing-analytics` branch records the following packaged functionality:
 
-- Scheduled Hero/Footer scene snapshots, publication, and cancellation
-- Concurrent-safe `scheduled -> processing` scene claim
-- Link-in-bio page and click accounting
-- Referral clicks, orders, and attributed revenue
-- Same-origin first-party analytics endpoint
-- Foreign-origin analytics rejection
-- Analytics summaries, dashboard, CSV exports, and retention cleanup
-- Consent-record retention controls
+- Blog, personal updates, and announcements
+- Scheduled/expiring content and audience visibility
+- Newsletter consent, confirmation, unsubscribe, suppression, tags, and segments
+- Campaign queues and timed promotional banners
+- Campaign landing pages
+- Scheduled Hero/Footer scene snapshots
+- Link-in-bio and referral attribution
+- Same-origin first-party analytics, summaries, CSV exports, and retention controls
+- Operational marketing task runner
+- Twelve migrations and 75 declared tables
 
-## Verification completed
+Treat that scope as documented package evidence, not proof that the complete executable source is present in GitHub.
 
-- 128 PHP runtime files passed syntax validation
-- 7 public JavaScript files passed syntax validation
-- 12 migrations / 75 tables passed the manifest check
-- Marketing file-store suite passed
-- Marketing HTTP suite passed
-- Full-site HTTP smoke passed
-- Simplified installer smoke passed
-- Extracted final ZIP passed integrity, checksum, exclusions, clean-state, and security checks
-- Final package contains no credentials, generated keys, installation lock, sessions, logs, customer/subscriber records, or private/paid media
+## Required validation before completion
 
-## Environmental limits
+- PHP 8.2 and 8.3 source suite
+- JavaScript syntax validation
+- Disposable MySQL 8 migration apply/verify/rollback
+- Installer and shared-hosting ownership/write regression tests
+- HTTP acceptance
+- Desktop/mobile Playwright covering Visual Composer, background library, booking builder, sticky navigation, auth pages, About Me, admin state persistence, merchandise, and direct PPV purchase
+- Zero broken images in Visual Composer and public Hero/Footer
+- At least 30 selectable individual luxury backgrounds
+- Repository safety and secret scans
+- Runtime-only customer ZIP exclusions and clean uninstalled state
 
-- PHP 8.4.24, Node 22.16.0, and Python 3.13.5 were available locally.
-- PDO MySQL and MySQL/MariaDB were unavailable. Live migration apply/verify/rollback is not claimed locally.
-- Direct interactive browser navigation is managed in the packaging environment. Screenshots were rendered from real fetched application HTML and assets; full Playwright acceptance remains CI-owned.
-- Payment remains sandbox-only.
+## Next session behavior
 
-## Repository work still required
+At the start of the next session:
 
-- Import the complete clean 0.8.0 engineering source separately from the runtime ZIP.
-- Run PHP 8.2/8.3, disposable MySQL 8, HTTP, repository-safety, and interactive Playwright jobs.
-- Correct CI-only findings.
-- Update this handoff with the imported commit and exact workflow evidence.
-- Merge only after the required gates are green.
+1. Inspect live GitHub instead of relying on this chat.
+2. Report which branch actually contains executable source.
+3. State what is implemented versus documentation-only.
+4. Create or switch to `feature/0.8.1-site-ux-hero-library`.
+5. Begin concrete implementation and tests rather than returning another roadmap-only answer.
+6. Update issue #13 and all handoff/status/test documents as work lands.
 
-## Runtime-only packaging rule
-
-The installation ZIP may contain the application, installer, migrations, assets, default email/template assets, writable runtime directories, starter add-on packages, and operational runners. It must exclude:
-
-- `.git` and `.github`
-- `/docs` and `/tests`
-- roadmap/status/handoff/contribution/security documents
-- SDK source
-- GitHub workflows
-- development schema snapshots
-- test/demo/cleanup/build tooling
-- screenshots and test reports
-- runtime credentials, generated keys, locks, logs, sessions, customer records, subscriber data, private messages, or attachments
-
-## Next milestone
-
-**0.9.0 — Compliance, Privacy & Operational Hardening**
-
-Planned next areas include performer/collaborator release records, complaint and takedown workflows, age-assurance/geographic adapters, two-factor authentication, privileged-action confirmation, backup/restore validation, health diagnostics, recovery mode, rate limiting, suspicious-access alerts, accessibility, and privacy review.
+Do not begin 0.9.0 Compliance, Privacy & Operational Hardening until the 0.8.1 user-facing continuation is verified or the user explicitly defers it.
