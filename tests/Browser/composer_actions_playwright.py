@@ -154,26 +154,26 @@ def marketing_actions(page, public, site: Path, base: str, label: str) -> dict:
             'Campaign CTA leaves the configured installation.')
     script = public.locator('script[src*="/public/assets/js/marketing.js"]')
     require('?v=' in (script.get_attribute('src') or ''), 'Marketing script URL lacks the current asset revision.')
-    with public.expect_response(lambda response: response.url == base + '/api/marketing-event.php'
-                                and response.request.method == 'POST') as captured, \
-            public.expect_navigation(wait_until='networkidle') as campaign_navigation:
+    marketing_file = site / 'storage/private/marketing/data.json'
+    previous_events = {event['id'] for event in json.loads(marketing_file.read_text())['events']}
+    with public.expect_navigation(wait_until='networkidle') as campaign_navigation:
         campaign.click()
-    event_response = captured.value
-    # Chromium may discard the body of a keepalive beacon as its page navigates.
-    # Inspect the actual response status/type and the server's persisted event;
-    # waiting for response.json() here can hang on that discarded response body.
-    require(event_response.status == 200
-            and event_response.headers.get('content-type', '').startswith('application/json'),
-            'The actual same-origin marketing beacon was rejected or did not return JSON.')
-    payload = json.loads(event_response.request.post_data or '{}')
     expected_event_path = urlparse(base).path + '/campaign/'
-    require(payload == {'event': 'cta_click', 'path': expected_event_path},
-            'Campaign beacon lost its event name or installation path.')
     require(campaign_navigation.value is not None and campaign_navigation.value.status == 200
             and public.url == expected_destination, 'Campaign CTA did not open Booking with its query and fragment.')
-    events = json.loads((site / 'storage/private/marketing/data.json').read_text())['events']
-    require(any(event['name'] == 'cta_click' and event['path'] == expected_event_path for event in events),
-            'Campaign click was not recorded by the actual marketing endpoint.')
+    # Chromium can discard keepalive request/response details during navigation.
+    # The real API must still create exactly one new event with the correct path.
+    # The caller also checks the PHP server's actual POST/200 log entry.
+    deadline = time.monotonic() + 5
+    while True:
+        events = json.loads(marketing_file.read_text())['events']
+        new_clicks = [event for event in events if event['id'] not in previous_events and event['name'] == 'cta_click']
+        if new_clicks:
+            require(len(new_clicks) == 1 and new_clicks[0]['path'] == expected_event_path,
+                    'Campaign click was duplicated or lost its installation path.')
+            break
+        require(time.monotonic() < deadline, 'The real campaign click was not recorded by the marketing endpoint.')
+        time.sleep(0.05)
     return {'owner_posts_view_click': True, 'default_link_destinations': True,
             'banner_click_and_dismiss_persistence': True, 'campaign_cta_click': True,
             'same_origin_campaign_beacon_recorded': True, 'versioned_marketing_asset': True}
@@ -387,6 +387,10 @@ def run() -> None:
                                 time.sleep(0.1)
                             session.close()
                             summary['cases'][label] = browser_case(browser, site, base, label, viewport)
+                            require(re.search(r'\[200\]: POST ' + re.escape(prefix + '/api/marketing-event.php')
+                                              + r'(?:\s|$)', log_file.read_text()) is not None,
+                                    'The local PHP server did not record a successful real campaign beacon at the configured endpoint.')
+                            summary['cases'][label]['marketing']['server_logged_beacon_post_200'] = True
                             require(all((site / name).read_bytes() == data for name, data in preserved.items())
                                     and helpers.state(site)['admins'] == owners, 'Composer actions changed installation identity or owner credentials.')
                             print(f'Packaged Composer actions {label}: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).', flush=True)
