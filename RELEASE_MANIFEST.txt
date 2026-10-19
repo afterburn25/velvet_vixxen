@@ -1,20 +1,32 @@
-VELVET VIXXEN 0.8.1 — DEVELOPMENT CHECKPOINT
+VELVET VIXXEN 0.8.1 — VERIFIED SITE UX CONTINUATION
 
-Status: source recovered and 0.8.1 features implemented; final combined gates and customer distributions in progress.
+Status: all required engineering gates passed; payments remain sandbox-only.
 Branch: feature/0.8.1-site-ux-hero-library
-Issue: #13
-Recovered clean baseline: Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
-Baseline SHA-256: a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87
-Baseline runtime: 211 files / 132 PHP files; 12 migrations / 78 declared tables.
+Runtime source commit: ca527935e0737f55b0b79ea8d88539e0c44bf97c
+Runtime source tree: f9ad6dd825def2b525ce0992c1fb9a010344c8b9
+Asset build identity: 0.8.1-20261019.3
+Verified GitHub CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477
+Tracking: issue #13; PR #15. Merge/deployment state is separate.
+Schema: 14 migrations / 82 declared tables.
+Hero library: 30 standalone full images + 30 thumbnails; 90 published device renders passed.
 
-Source recovery commit:43945af07c145c67db2f2883a4fa7f607215dc23
-Current schema: 14 migrations/82 declared tables.
-Current library:30 individual scene images and 30 thumbnails.
-Current evidence: docs/TEST_REPORT.md
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 4f2e22ce4eb153a89b42180e15ee55ad7259f39712864e3f79756a47d0e27080
+Bytes: 7576019
+Runtime entries: 313; PHP: 166; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715
+Bytes: 7423931
+Runtime entries: 272; PHP: 155; JavaScript: 10
+
+Runtime packages: https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/artifacts/12168746591
+The Site-UX-named customer download copies have identical bytes to these GitHub artifact filenames.
+Build command: python3 scripts/package.py --output artifacts/runtime
+Structured evidence: docs/releases/0.8.1-site-ux.json
+Full test report: docs/TEST_REPORT.md
 Recovery provenance: docs/SOURCE_RECOVERY.md
-Required remaining work: INCOMPLETE_WORK.md
 
-Build fresh-install and upgrade distributions with scripts/package.py. Generated manifests identify each final runtime file and hash outside the customer ZIP. No final 0.8.1 continuation artifact is claimed by this checkpoint.
-
-Runtime ZIP exclusions: repository documents, workflows, tests, SDK, screenshots, build tools, active configuration, generated secrets, installation state, member/customer/booking records, private messages/attachments, logs/sessions, private/paid media.
-Payment remains sandbox-only.
+Fresh ZIP starts uninstalled. Upgrade excludes config, storage, uploads and install.
+Customer ZIP exclusions: repository documents, workflows, tests, SDK, screenshots, development tools, artwork provenance/masters, installed configuration, generated secrets, customer/member/booking records, private messages/attachments, identity records, logs/sessions and private/paid media.
+Owner content is supplied by the owner. Live payments, production mail delivery, advanced historical marketing claims and representative production-hosting certification are not certified by this sandbox milestone.

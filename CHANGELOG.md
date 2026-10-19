@@ -17,7 +17,7 @@
 - Centralize asset cache identity without changing the 0.8.1 compatibility version; render nonimage Media Library assets as file cards.
 - Preserve selected Composer resize/move nodes and keyboard focus through image loads and canvas resizing; correct About page margins and empty sidebar layout.
 - Save Admin category changes before navigation, preserve explicit collapsed active categories, and cover immediate refresh and keyboard activation.
-- Reconcile status/roadmap/handoff claims with executable source and observed evidence; final combined release gates remain in progress.
+- Verify PHP 8.2/8.3, MySQL 8, all seven HTTP and twelve Chromium suites, repository safety and gated reproducible runtime packages in GitHub run 39213140477; record exact source/artifact hashes and upload the completed progress evidence.
 
 # Changelog
 

@@ -46,15 +46,17 @@ Preserve all of these decisions:
 - Payment remains sandbox-only until a live adult-compatible provider is separately approved and tested.
 - Do not commit credentials, customer/member data, identity records, private messages/attachments, payment secrets, raw license keys, private signing keys, logs, sessions, runtime state, or private/paid media.
 
-## Current continuation checkpoint
+## Verified continuation checkpoint
 
-The implementation branch now contains real source recovered in commit `43945af07c145c67db2f2883a4fa7f607215dc23`, followed by actual 0.8.1 feature work. PR #15 and issue #13 track it. Composer/library, Booking Builder, About/public/admin UX, merchandise/direct PPV, manual Canva and installed database updates are implemented with focused executable tests. The library has 30 actual scenes/30 thumbnails and 90 published device renders. Schema: 14 migrations/82 tables.
+The **0.8.1 user-facing engineering continuation is implemented and verified** on `feature/0.8.1-site-ux-hero-library`. Runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c); complete GitHub CI: [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), **all six jobs passed**. PHP 8.2.34/8.3.35, JavaScript syntax, MySQL 8.0.46, installer/ownership/security, seven HTTP suites, twelve real Chromium suites and gated runtime packaging all passed. The library has 30 individual scenes and 30 thumbnails, with 90 successful published renders across desktop/tablet/mobile.
 
-Start by checking whether the final combined feature CI and runtime package evidence in `docs/TEST_REPORT.md` has finished. Do not redo completed recovery or feature implementation, and do not substitute the baseline run for new feature verification. Continue any remaining observed failures, artifact checksum recording and latest-source/docs upload. Preserve the detailed requirements below.
+This is the verified sandbox development milestone. Payments remain sandbox-only, actual owner content must be supplied by the owner, and production hosting/live-service certification is not claimed. PR #15 contains the feature branch; inspect its current merge state separately. No 0.9.0 implementation is included.
 
-## Finish and verify the 0.8.1 continuation
+The six progress documents and issue #13 record the completed implementation. Inspect their latest live state, CI and artifacts before further changes. Do not redo recovery or rebuild existing features from old chat claims. Continue the owner's current requested work from this executable branch and preserve the verified requirements below.
 
-Implement and verify the scope in `INCOMPLETE_WORK.md`, in this order:
+## Preserve the verified 0.8.1 continuation
+
+The following scope is implemented and verified in `INCOMPLETE_WORK.md`; preserve its behavior and regression coverage:
 
 1. Recover/import and test the real executable baseline.
 2. Finish Visual Composer direct dragging, huge/tiny resizing, movable live text/button box, separate desktop/tablet/mobile layouts, background panning, correct media paths, and off-canvas clipping so lower legs or other areas can be hidden below/behind the Hero viewport.
@@ -66,11 +68,9 @@ Implement and verify the scope in `INCOMPLETE_WORK.md`, in this order:
 8. Clarify the Canva workflow as a manual export/import bridge unless a real tested Canva API integration exists. Keep model cutouts as separate Visual Composer layers.
 
 
-## Verification correction checkpoint
+## Final source and artifact evidence
 
-Correction commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678), GitHub run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678), verified PHP 8.2.34/8.3.35, MySQL 8.0.46 (14 migrations / 82 tables, 32 installed-upgrade checks, 12 booking checks, merchandise transactions and complete rollback), all seven HTTP suites and all three Composer suites on CI Chromium 151. The 30-scene library completed all 90 published renders. The prior SQL privilege and Composer focus failures are fixed and verified.
-
-That run then exposed an Admin category-state race during immediate refresh; the gated package job was skipped. The current correction saves native category-state changes before the next browser task, flushes pending changes on page exit, respects an explicitly collapsed active category and checks immediate refresh plus keyboard activation. A complete green run and final committed-source ZIP checksums are still required. Detailed failure history remains in `docs/TEST_REPORT.md`.
+Both packages were built from the exact verified runtime commit. Their byte hashes match the gated GitHub CI build. The fresh package starts uninstalled; the upgrade omits config, storage, uploads and install. Neither contains repository docs, tests, SDK source, workflows, screenshots, artwork provenance/masters, installed records, credentials or private media. Exact package counts/hashes and artifact URLs are recorded in `RELEASE_MANIFEST.txt`, `docs/releases/0.8.1-site-ux.json` and `docs/TEST_REPORT.md`.
 
 ## Testing and evidence
 
@@ -100,7 +100,7 @@ At the beginning of your response to me, report:
 1. Which branch contains the newest executable source.
 2. Which handoff files you read.
 3. What is actually implemented versus only documented.
-4. The first concrete implementation step you are taking.
+4. The first concrete step for the owner's current request, using the verified source rather than repeating completed work.
 
 Then continue building without stopping at planning-only output.
 

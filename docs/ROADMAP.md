@@ -9,11 +9,11 @@ Repository: `afterburn25/velvet_vixxen`. Status follows executable source and re
 | Commerce and PPV | Sandbox lifecycle plus new merchandise catalog/stock/shipping/fulfillment and direct PPV/rental checkout | Approved live provider and live merchant testing. |
 | Add-ons, licensing and updates | Recovered source, SDK and executable lifecycle/security tests | Production remote-service certification and marketplace work. |
 | Messaging and Booking Builder | Private communications plus editable typed fields, validation and immutable submission snapshots | Production operating review; existing records remain protected. |
-| Visual Composer and Hero Library | Direct editing, all-edge clipping, per-device geometry/backgrounds and 30 real standalone scenes; 90 public render checks passed | Final combined feature CI and artifacts. |
-| Public and admin UX | Sticky shared navigation, About Me/editor, centered auth, persistent grouped admin and mobile controls | Final combined feature CI. |
-| Installed database updates | Owner/CLI reviewed-plan update path with preserved identity/data and no destructive failure rollback; actual 12→14 upgrade tested | Actual MySQL 8 feature CI, representative hosting. |
+| Visual Composer and Hero Library | Direct editing, all-edge clipping, per-device geometry/backgrounds and 30 real standalone scenes; 90 public render checks passed | Verified final CI and runtime artifacts; owner content remains configurable. |
+| Public and admin UX | Sticky shared navigation, About Me/editor, centered auth, persistent grouped admin and mobile controls | Verified final CI; preserve immediate-refresh and active-page regressions. |
+| Installed database updates | Owner/CLI reviewed-plan update path with preserved identity/data and no destructive failure rollback; actual 12→14 upgrade tested | Actual MySQL 8 feature CI passed; representative hosting remains a production gate. |
 | Basic publishing/marketing | Protected file-backed recovered implementation and shared admin shell | Advanced audiences/expiration, scheduled scenes, production sending, attribution, retention and MySQL persistence were not recovered as working code. |
-| 0.8.1 user-facing continuation | Implemented; final release gates in progress | Green PHP 8.2/8.3, MySQL 8, HTTP/browser, safety/package CI, final ZIP checksums and source/docs upload. |
+| 0.8.1 user-facing continuation | Implemented and verified | All required source/database/HTTP/browser/safety/package gates passed; exact source, artifacts and checksums recorded. |
 | 0.9 privacy, protection and operations | Planned; not started | Begin only after 0.8.1 verification or explicit user deferral. |
 | 1.0 production release | Planned | Representative hosting and approved live-service certification. |
 
@@ -23,7 +23,7 @@ The detailed acceptance checklist is `../INCOMPLETE_WORK.md`. The implementation
 
 The requested implementation sequence is now represented by executable code and focused evidence: source recovery; expanded Composer and 30-image library; Booking Builder; public navigation/About/auth; persistent admin categories; merchandise/direct PPV; manual Canva clarity. An installed update path applies migrations 013/014 safely to existing sites.
 
-Current concrete work is the stable combined source/HTTP/browser run, actual feature PHP 8.2/8.3 and MySQL 8 CI, repository/private-data scans, and final runtime-only fresh/upgrade distributions from committed source. Record exact results and checksums in `TEST_REPORT.md`, the handoff and issue #13. Do not call 0.8.1 complete merely because focused suites passed.
+The full continuation is verified by GitHub run [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477) on runtime commit [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c). All six required jobs passed, including PHP 8.2/8.3, MySQL 8, all HTTP/browser suites and gated runtime distributions. `TEST_REPORT.md` and `../RELEASE_MANIFEST.txt` identify exact artifacts and hashes. No 0.9.0 implementation was started during this continuation.
 
 Advanced marketing gaps remain explicitly documented in `SOURCE_RECOVERY.md`; they are not silently counted as delivered. Actual owner photos, biography/statistics and catalog content must be supplied by the owner. The source supplies working editors without inventing personal details, products or placeholder people.
 
@@ -47,9 +47,3 @@ Advanced marketing gaps remain explicitly documented in `SOURCE_RECOVERY.md`; th
 - Customer packages built from the committed source; operating documentation and actual running-build evidence.
 
 A feature is complete only when implemented, tested, documented, and uploaded. No percentage is inferred from version numbers or table counts.
-
-## Verification correction checkpoint
-
-Correction commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678), GitHub run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678), verified PHP 8.2.34/8.3.35, MySQL 8.0.46 (14 migrations / 82 tables, 32 installed-upgrade checks, 12 booking checks, merchandise transactions and complete rollback), all seven HTTP suites and all three Composer suites on CI Chromium 151. The 30-scene library completed all 90 published renders. The prior SQL privilege and Composer focus failures are fixed and verified.
-
-That run then exposed an Admin category-state race during immediate refresh; the gated package job was skipped. The current correction saves native category-state changes before the next browser task, flushes pending changes on page exit, respects an explicitly collapsed active category and checks immediate refresh plus keyboard activation. A complete green run and final committed-source ZIP checksums are still required. Detailed failure history remains in `docs/TEST_REPORT.md`.

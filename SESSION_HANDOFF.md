@@ -2,46 +2,36 @@
 
 Updated: 2026-10-19. Repository: `afterburn25/velvet_vixxen`.
 
-## Start from executable source
+## Start from the verified executable branch
 
-- Active branch: **`feature/0.8.1-site-ux-hero-library`**.
-- Target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**. Do not advance to 0.9.0.
-- Source recovery commit: [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23).
-- Review: [PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15). Completion: [issue #13](https://github.com/afterburn25/velvet_vixxen/issues/13). Related source/release/recovery issues: #1, #3, #11, #12.
-- Input: checksum-verified 0.8.1 fresh package, SHA-256 `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`; separate 0.7.4 Composer restoration, then actual 0.8.1 feature implementation.
+The **0.8.1 user-facing engineering continuation is implemented and verified** on `feature/0.8.1-site-ux-hero-library`. Runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c); complete GitHub CI: [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), **all six jobs passed**. PHP 8.2.34/8.3.35, JavaScript syntax, MySQL 8.0.46, installer/ownership/security, seven HTTP suites, twelve real Chromium suites and gated runtime packaging all passed. The library has 30 individual scenes and 30 thumbnails, with 90 successful published renders across desktop/tablet/mobile.
 
-Read all six handoff files and inspect the live branch, current commit, open issues, tests and artifacts. The old handoff/marketing branches were documentation-only; this implementation branch contains the application. Preserve executable source in GitHub after every session.
+This is the verified sandbox development milestone. Payments remain sandbox-only, actual owner content must be supplied by the owner, and production hosting/live-service certification is not claimed. PR #15 contains the feature branch; inspect its current merge state separately. No 0.9.0 implementation is included.
 
-## Work now present
+Read `INCOMPLETE_WORK.md`, `SESSION_HANDOFF.md`, `PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md` and `NEXT_SESSION_PROMPT.md` in full. Inspect the live branch, current commit, [PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15), [issue #13](https://github.com/afterburn25/velvet_vixxen/issues/13), source-import issue #1 and release-gate issue #3. The original handoff and marketing branches were documentation-only. Do not replace the newer executable branch with those older records or assume main has been merged.
 
-Composer direct editing, all-edge clipping/extreme resizing, movable live text/button group, independent device backgrounds/layers, 30 standalone luxury images and thumbnails, searchable library, Booking Builder with immutable submission snapshots, shared sticky public navigation, About Me and editor, centered auth/recovery pages, persistent grouped admin navigation, merchandise/variants/stock/shipping/fulfillment, direct PPV/rental and separate membership checkout, manual Canva bridge, and owner/CLI installed database updates.
+## Delivered scope
 
-Current migrations: **14 / 82 declared tables**. The updater safely applies 013/014 to a prior 12-migration site and never reinstalls or replaces identity/configuration. See `docs/UPGRADING.md`, `docs/VISUAL_COMPOSER.md`, `docs/BOOKING_BUILDER.md`, `docs/MERCHANDISE.md` and `docs/CANVA_WORKFLOW.md`.
+Composer direct dragging/extreme resizing/all-edge clipping and lower-edge crop; movable live text/button group; independent device layouts/background appearance; 30 individual luxury backgrounds and thumbnails; searchable library/drafts/publication/history; Booking Builder and immutable inquiry snapshots; shared sticky public navigation; About Me/editor; centered authentication/recovery pages; eight persistent Admin categories; merchandise/images/variants/stock/shipping/fulfillment; separate membership and direct PPV/rental checkout; manual Canva bridge; safe installed database updates.
 
-## Current evidence and next concrete work
+The final correction preserves Composer handle nodes/focus, makes the MySQL rollback fixture work without elevated privileges, corrects About spacing/empty details layout, and saves native Admin category changes before the next browser task. Its meaningful timing regression fails against the pre-fix script and passes the exact final CI engine.
 
-Focused source/HTTP/browser/SQL tests pass for the new features. The real 30-scene library test decoded all 60 images and published/rendered all scenes at three widths. About/admin/account layouts pass desktop/tablet/mobile. Booking and merchandise acceptance passes, including historical submissions, private addresses, stale stock edits and revoked PPV entitlements. Installed updater preservation/failure/locking checks pass locally.
+## Evidence and customer packages
 
-Baseline GitHub run [39207173912](https://github.com/afterburn25/velvet_vixxen/actions/runs/39207173912) passed PHP 8.2/8.3, MySQL 8 baseline migrations and HTTP, but failed an old age-gate browser setup. That setup is corrected. The feature checkpoint needs the combined stable suite and its own PHP 8.2/8.3, MySQL 8, HTTP/browser and package CI results. Do not present the earlier green individual jobs as a complete feature release.
+Both packages were built from the exact verified runtime commit. Their byte hashes match the gated GitHub CI build. The fresh package starts uninstalled; the upgrade omits config, storage, uploads and install. Neither contains repository docs, tests, SDK source, workflows, screenshots, artwork provenance/masters, installed records, credentials or private media. Exact package counts/hashes and artifact URLs are recorded in `RELEASE_MANIFEST.txt`, `docs/releases/0.8.1-site-ux.json` and `docs/TEST_REPORT.md`.
 
-Finish the current release gates in `docs/TEST_REPORT.md`, fix observed failures, build/check runtime-only fresh and upgrade ZIPs from committed source, record their checksums, and upload the latest source/tests/docs. Keep issue #13 updated with real commit/run links. Only then mark the verified 0.8.1 scope complete.
+Actual MySQL 8.0.46 CI verifies 14 migrations / 82 tables and the prior 12→14 installed-site upgrade. All seven HTTP and twelve actual Chromium browser suites pass in the same workflow. Local PHP 8.3.6/MariaDB 10.11.14/Chrome 155 results remain supplementary; MariaDB is never substituted for MySQL 8 evidence.
 
-## Test discipline
+## Continue without losing work
 
-Run `bash scripts/test.sh`, `bash scripts/test_http.sh`, `VELVET_BROWSER_TESTS=1 bash scripts/test_http.sh`, and `php tests/Database/migrations_mysql.php` with disposable local database credentials. The HTTP harness snapshots itself and the runtime before running; no active shared-file edit can change a long-running Bash suite. Browser execution must actually launch Chromium.
+The requested 0.8.1 implementation and acceptance checklist are complete. Start subsequent work from the live implementation branch and the owner's current instructions. Preserve source/tests/docs in GitHub as work lands. Inspect PR merge and artifact state before describing either; this handoff records a verified feature branch and packages, not an unobserved deployment. 0.9.0 has not been started.
 
-The local environment used PHP 8.3.6, MariaDB 10.11.14 and Chrome for Testing 155.0.8059.84. **MariaDB is not MySQL 8 evidence.** GitHub provides the actual MySQL 8 service. Never seed a demo inside the authoritative checkout or a real site: installed bootstrap may retire `/install`. Never commit test-installed state or credentials.
+Owner workflows are in `docs/VISUAL_COMPOSER.md`, `docs/BOOKING_BUILDER.md`, `docs/MERCHANDISE.md`, `docs/CANVA_WORKFLOW.md` and `docs/UPGRADING.md`. Existing database sites use System → Database Updates after a verified backup; never rerun the fresh installer over them. File-storage mode reports no SQL migration needed.
 
 ## Requirements to preserve
 
-Approved pink/magenta/black design; no new mockups or placeholder people; owner transparent photos remain separate; one-page installer; no installation key; 12-character minimum owner/member passwords; safe 0755/0775 only; organized folders; runtime-only customer ZIPs; sandbox payments; no credentials, customer records, private conversations/attachments, identity records, payment secrets, raw licenses, private signing keys, logs, sessions or paid/private media in GitHub.
+Approved neon-pink/magenta/black design; no new mockups or placeholder people; owner transparent photos remain separate; one-page installer; no installation key; 12-character minimum owner/member passwords; safe 0755/0775, never 0777; organized folders; runtime-only customer ZIPs; sandbox payments. Never commit credentials, customer/member/booking records, private conversations/attachments, identity records, payment secrets, raw license keys, signing private keys, logs, sessions, runtime state or private/paid media.
 
-Upgrade payloads exclude config/storage/uploads/install. Recovery preserves valid active identity and unique/unknown backup data. Database updates require a reviewed plan and operator-confirmed backup, use filesystem/database locks, and stop without automatic rollback if DDL partially fails.
+Test only marked disposable runtime copies/databases. Commands are in `docs/TESTING.md`. Never seed a demo in the source checkout or a real site. Upgrade packages omit config/storage/uploads/install. Recovery preserves valid active identity and unique/unknown backups; installed updates use reviewed plans, locks and operator backup acknowledgment.
 
-Actual owner photographs and real catalog/biography content are not available in source. Do not invent them. Historical advanced marketing claims remain unreconciled implementation gaps in `docs/SOURCE_RECOVERY.md`; production email/live payments/hosting certification remain outside this verified development milestone.
-
-## Verification correction checkpoint
-
-Correction commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678), GitHub run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678), verified PHP 8.2.34/8.3.35, MySQL 8.0.46 (14 migrations / 82 tables, 32 installed-upgrade checks, 12 booking checks, merchandise transactions and complete rollback), all seven HTTP suites and all three Composer suites on CI Chromium 151. The 30-scene library completed all 90 published renders. The prior SQL privilege and Composer focus failures are fixed and verified.
-
-That run then exposed an Admin category-state race during immediate refresh; the gated package job was skipped. The current correction saves native category-state changes before the next browser task, flushes pending changes on page exit, respects an explicitly collapsed active category and checks immediate refresh plus keyboard activation. A complete green run and final committed-source ZIP checksums are still required. Detailed failure history remains in `docs/TEST_REPORT.md`.
+Actual owner photos, biography/statistics and catalog content have not been invented. Historical advanced marketing automation/audiences/attribution/retention/MySQL-persistence claims remain unverified gaps in `docs/SOURCE_RECOVERY.md`. Production email delivery, live payments and representative hosting certification remain outside this sandbox milestone.

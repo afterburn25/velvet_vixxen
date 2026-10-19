@@ -4,9 +4,38 @@ Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13
 
 ## Truth boundary
 
-**The 0.8.1 features are implemented; final combined release verification is in progress.** This report records observed execution, not inferred success from suite filenames or workflow configuration. Historical recovery evidence and feature evidence remain distinct.
+**The 0.8.1 user-facing features and required engineering release gates are implemented and verified.** This report records observed execution, not inferred success from suite filenames or workflow configuration. Historical recovery evidence and feature evidence remain distinct.
 
 Recovered source commit: [`43945af07c145c67db2f2883a4fa7f607215dc23`](https://github.com/afterburn25/velvet_vixxen/commit/43945af07c145c67db2f2883a4fa7f607215dc23). Input archive SHA-256: `a31574353d161aaf95d81ceb6aab57b09d9ada6e1d4f1adaf9192912d8c2bc87`. See `SOURCE_RECOVERY.md`.
+
+## Complete final GitHub verification
+
+Exact runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c). Source tree: `f9ad6dd825def2b525ce0992c1fb9a010344c8b9`. Asset build identity: `0.8.1-20261019.3`. GitHub run [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477) completed successfully; all six required jobs passed.
+
+| Job | Exact GitHub job | Result |
+| --- | --- | --- |
+| Repository and executable source contract | [117930817942](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117930817942) | PASS |
+| Installed HTTP and Chromium desktop/mobile acceptance | [117930918482](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117930918482) | PASS |
+| MySQL 8 installed upgrades, merchandise and booking transactions | [117930918487](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117930918487) | PASS |
+| PHP 8.2 source and package regressions | [117930918510](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117930918510) | PASS |
+| PHP 8.3 source and package regressions | [117930918540](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117930918540) | PASS |
+| Build verified fresh-install and upgrade ZIPs | [117932968594](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/job/117932968594) | PASS |
+
+The source matrix ran PHP 8.2.34 and 8.3.35. MySQL 8.0.46 passed all 14 migrations / 82 tables, idempotent reapply, 32 installed-upgrade checks, 12 booking snapshot/rollback checks, merchandise transaction scenarios and complete rollback. All seven installed HTTP suites and all twelve real Chromium browser suites passed in one stable workflow, including the corrected immediate-refresh Admin behavior. The 30 full scene images and 30 thumbnails decoded, and all 90 published desktop/tablet/mobile renders succeeded.
+
+### Verified artifacts and package hashes
+
+- [velvet-vixxen-runtime-packages](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/artifacts/12168746591), artifact `12168746591`, 14,974,841 bytes, SHA-256 `947bce5ffa3a1369debb6c7885253c5edf694ff2bc5998f29d4e1409b54a0251`.
+- [chromium-browser-evidence](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/artifacts/12168269245), artifact `12168269245`, 48,414,908 bytes, SHA-256 `47b8e5cd4f0f82a7b49e8ccd815a80b45b1df1729e312493303fc644a9e9749c`.
+
+Both customer ZIPs were rebuilt locally from the exact clean committed runtime; their SHA-256 values match the gated GitHub package build. Counts refer to the customer ZIP entries, not engineering source files.
+
+| Package | Bytes | Files | PHP | JavaScript | SHA-256 |
+| --- | ---: | ---: | ---: | ---: | --- |
+| fresh | 7,576,019 | 313 | 166 | 10 | `4f2e22ce4eb153a89b42180e15ee55ad7259f39712864e3f79756a47d0e27080` |
+| upgrade | 7,423,931 | 272 | 155 | 10 | `57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715` |
+
+Fresh installation starts uninstalled. Upgrade excludes config/storage/uploads/install and preserves existing private state. Engineering documents, tests, SDK source, workflows, screenshots and artwork provenance/masters stay outside customer ZIPs. Structured evidence is in `releases/0.8.1-site-ux.json`; complete per-entry checksums accompany the separately delivered package manifest.
 
 ## Actual baseline GitHub execution
 
@@ -28,11 +57,11 @@ This is not an all-green run and does not verify the subsequent feature migratio
 
 Implementation commit [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7), run [39210406490](https://github.com/afterburn25/velvet_vixxen/actions/runs/39210406490): repository contract, PHP 8.2, PHP 8.3 and all 7 installed HTTP suites passed. MySQL 8.0.46 passed all 32 installed-upgrade checks and merchandise transactions, then failed because the booking rollback fixture used a trigger requiring SUPER under binary logging. The fixture now temporarily renames the disposable messages table, requires the exact missing-table SQL error, restores it and checks all six row counts. No global database privilege or production behavior was changed.
 
-The same CI browser job passed its first seven suites, then exposed Composer handle replacement during a canvas redraw. The correction keeps selected handle nodes stable while updating geometry, preserving keyboard focus as well as the resize interaction. The corrected Composer recovery/focus and expanded controls suites pass locally. The new focus assertion fails against the original d81513 renderer at the expected image-load focus loss, demonstrating a meaningful regression. A subsequent exact-engine/full browser CI run is required; this run's failures are retained as evidence rather than hidden.
+The same CI browser job passed its first seven suites, then exposed Composer handle replacement during a canvas redraw. The correction keeps selected handle nodes stable while updating geometry, preserving keyboard focus as well as the resize interaction. The corrected Composer recovery/focus and expanded controls suites pass locally. The new focus assertion fails against the original d81513 renderer at the expected image-load focus loss, demonstrating a meaningful regression. The subsequent final workflow verifies the corrected exact browser engine and full suite; this failed intermediate run is retained as evidence rather than hidden.
 
 Visual screenshot review also corrected About page side spacing and hides an empty details column when no photo or statistics have been supplied. The updated desktop/tablet/mobile About/account/admin layout suite passes. That correction used asset build identity `0.8.1-20261019.2`; core VERSION remains 0.8.1.
 
-## Verified corrections and remaining Admin race
+## Intermediate correction run and Admin race
 
 Run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678) tested commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678):
 
@@ -47,7 +76,7 @@ Run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/3921
 
 The Composer node/focus correction is now verified on the actual CI Chromium 151 engine. The trigger-free booking rollback fixture passes real MySQL 8 without added database privileges. Browser evidence artifact [12168116914](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678/artifacts/12168116914) contains the actual running-build captures; no gated runtime package was produced by this failed run.
 
-The remaining failure is specific: native `details` toggle events are queued, so a refresh immediately after category activation can occur before the preference is saved. The correction observes native open-state changes at the microtask checkpoint, keeps explicit collapse preferences for the active category, and flushes pending changes on page exit. Native mouse and keyboard activation remain intact; initialization defaults are not recorded as explicit owner choices. The regression checks immediate saved state and reload, keyboard activation/focus, owner/site scope and malformed stored preferences without a timed delay. It demonstrably fails against the captured pre-fix Admin script at the missing preference before the next browser task. Current cache identity is `0.8.1-20261019.3`. Full CI must verify this correction before release completion.
+That intermediate failure had a specific cause: native `details` toggle events are queued, so a refresh immediately after category activation can occur before the preference is saved. The correction observes native open-state changes at the microtask checkpoint, keeps explicit collapse preferences for the active category, and flushes pending changes on page exit. Native mouse and keyboard activation remain intact; initialization defaults are not recorded as explicit owner choices. The regression checks immediate saved state and reload, keyboard activation/focus, owner/site scope and malformed stored preferences without a timed delay. It demonstrably fails against the captured pre-fix Admin script at the missing preference before the next browser task. Current cache identity is `0.8.1-20261019.3`. The complete updated local Site UX suite passed, and the final all-green workflow above verifies the same correction on the actual CI engine.
 
 ## Observed feature implementation evidence
 
@@ -65,10 +94,10 @@ The remaining failure is specific: native `details` toggle events are queued, so
 | Merchandise | PASS: 45 source assertions; desktop/mobile owner image/variant editing, live pricing, cart quantities, address/shipping validation, sandbox checkout, fulfillment/tracking, stock reservation/restoration, stale-editor rejection, PPV/cart isolation, pending-charge reconciliation and refund/chargeback revocation. |
 | Installed Database Updates | PASS: 13 source checks, owner/CSRF/private-path HTTP coverage, 32 MariaDB integration checks including actual 12→14 upgrade, existing booking/configuration/lock/key/upload preservation, no automatic down migration on injected DDL failure, reviewed retry, stale plan, locks, symlinks/permissions and real CLI. |
 | MariaDB 10.11.14 full schema | PASS: 14 migrations / 82 declared tables; apply, idempotent reapply, merchandise/booking/updater scenarios, rollback to empty disposable schema. This is not MySQL 8 evidence. |
-| Installed HTTP regression | PASS, all seven suites in one stable aggregate (exit 0): members, commerce, add-ons, current platform, booking builder, merchandise and database updates. Log: final-run/http.log. Feature GitHub CI remains required. |
-| Browser regression | PASS, all 12 real Chromium suites in one stable aggregate (exit 0), including the full 30-scene library/90 public renders, Composer controls, booking/merchandise and desktop/tablet/mobile layouts. Log: final-run/browser.log. A subsequently discovered transient handle replacement has its own correction/regression before the next CI run. |
+| Installed HTTP regression | PASS, all seven suites in one stable aggregate (exit 0): members, commerce, add-ons, current platform, booking builder, merchandise and database updates. Log: final-run/http.log. The final feature GitHub CI above also passed. |
+| Browser regression | PASS, all 12 real Chromium suites in one stable aggregate (exit 0), including the full 30-scene library/90 public renders, Composer controls, booking/merchandise and desktop/tablet/mobile layouts. Log: final-run/browser.log. Subsequent Composer focus and Admin timing corrections have meaningful regressions and pass the complete final CI run above. |
 
-The long first library run printed full success, then its Bash wrapper exited after a concurrent harness edit. The wrapper now execs its disposable snapshot and deduplicates its suite list. The stable aggregate must finish cleanly; that earlier outer exit is not called a pass.
+The long first library run printed full success, then its Bash wrapper exited after a concurrent harness edit. The wrapper now execs its disposable snapshot and deduplicates its suite list. The subsequent stable aggregate finished cleanly; that earlier outer exit is retained as a failed attempt.
 
 The final independent asset/installer audit checked 55 public/admin pages, found and corrected one caption thumbnail issue, then rechecked 7 pages/29 unique local assets with no broken images or resource errors. All loaded CSS/JS have exactly one current asset build version. Repository safety, expanded credential/private-key signatures, 82 directory permissions, 47 literal asset references and 139 default-data asset references passed.
 
@@ -86,11 +115,8 @@ For a focused browser scenario, set `VELVET_TEST_SUITE=tests/Browser/site_ux_pla
 
 Local tooling: PHP 8.3.6 with PDO MySQL, MariaDB 10.11.14, Python Playwright and Chrome for Testing 155.0.8059.84. Source/HTTP tests create marked disposable runtime copies; SQL tests require a disposable database. No demo is installed in the authoritative checkout. Fixture credentials and private runtime state are not release contents.
 
-## Remaining release evidence
+## Completion boundary
 
-- Stable combined source, all 7 HTTP and all 12 browser suites have passed. The SQL fixture and Composer handle corrections now pass actual GitHub CI; verify the subsequently observed immediate-refresh Admin race correction.
-- Actual feature GitHub PHP 8.2/8.3, MySQL 8 apply/reapply/rollback with new booking/merchandise/updater scenarios, HTTP/browser, repository/secret and package jobs.
-- Final runtime-only fresh/upgrade ZIP hashes and artifact links tied to the committed source.
-- Updated issue #13, progress documents and source uploaded after final fixes.
+The required combined gates, final committed-source package hashes, artifacts and repository evidence are complete. Intermediate failures remain above so the audit trail distinguishes what was fixed from what originally passed. Source, tests and these progress records are uploaded on the implementation branch; inspect PR #15 for its separate merge state.
 
 Payments remain sandbox-only. Owner photographs/catalog content, production mail delivery and representative shared-hosting certification are not claimed. Filesystem ownership/write regressions are reproducible local/CI fixtures, not a test of the owner's actual hosting account.

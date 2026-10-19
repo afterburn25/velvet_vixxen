@@ -6,6 +6,8 @@ Repository: `afterburn25/velvet_vixxen`
 
 Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
 
+Verified runtime checkpoint: `ca527935e0737f55b0b79ea8d88539e0c44bf97c`, GitHub run [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), all six required jobs passed. Exact artifacts and package checksums are in `docs/TEST_REPORT.md` and `RELEASE_MANIFEST.txt`. Inspect the live branch and PR state before claiming merge or deployment.
+
 Active branch: `feature/0.8.1-site-ux-hero-library`; `main` is the authoritative integration destination.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
@@ -75,4 +77,4 @@ Distinguish among locally tested package behavior, CI-prepared behavior, planned
 
 ## Current priority
 
-Finish the 0.8.1 continuation in `INCOMPLETE_WORK.md`; the recovery checkpoint is its first step, not completion of the user-facing continuation. Read `docs/SOURCE_RECOVERY.md` and report test failures and unavailable gates truthfully.
+The 0.8.1 continuation in `INCOMPLETE_WORK.md` is implemented and verified, including the final Composer and Admin timing corrections. Continue from the latest executable branch and the owner's current instructions; preserve its regression gates and upload source/tests/progress as work lands. Do not repeat completed source recovery or treat historical advanced marketing claims as implemented. Read `docs/SOURCE_RECOVERY.md` and report subsequent failures and unavailable gates truthfully. No 0.9.0 implementation is included in this checkpoint.

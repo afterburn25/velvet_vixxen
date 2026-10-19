@@ -6,7 +6,7 @@ The authoritative application and engineering repository is `afterburn25/velvet_
 
 This tree now contains the executable application, database migrations, public assets, recovered engineering tests, package builder, and required GitHub Actions checks. It was recovered from the checksum-verified **0.8.1** fresh-install package, then reconciled with the separate **0.7.4** Visual Composer fixes. Application source is no longer deferred to a future import.
 
-The continuation adds the expanded Visual Composer, 30 standalone luxury scenes, Booking Form Builder, About Me and owner editor, shared sticky public navigation, centered account pages, persistent admin categories, merchandise/stock/shipping/fulfillment, direct PPV checkout, and safe installed database updates. The repair also preserves installation identity and backups and produces reproducible fresh-install/upgrade distributions. Current validation and remaining gates are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md).
+The continuation adds the expanded Visual Composer, 30 standalone luxury scenes, Booking Form Builder, About Me and owner editor, shared sticky public navigation, centered account pages, persistent admin categories, merchandise/stock/shipping/fulfillment, direct PPV checkout, and safe installed database updates. The repair also preserves installation identity and backups and produces reproducible fresh-install/upgrade distributions. The full engineering gate passed on runtime commit `ca52793` in [GitHub run 39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477). Exact source, artifacts and fresh/upgrade package hashes are recorded in [`docs/TEST_REPORT.md`](docs/TEST_REPORT.md) and [`RELEASE_MANIFEST.txt`](RELEASE_MANIFEST.txt).
 
 Historical package/handoff claims were not treated as proof of implementation. [`docs/SOURCE_RECOVERY.md`](docs/SOURCE_RECOVERY.md) records provenance and features that remain unfinished in the recovered code.
 
@@ -43,6 +43,6 @@ Customer ZIPs contain runtime files only. Development documentation, tests, SDK 
 
 ## Operating limits
 
-The payment adapter is sandbox-only. Marketing uses a protected file store and prepares an outbox; production campaign delivery and the previously proposed advanced automation are unfinished. Representative shared-hosting installation/upgrade verification remains a release gate. The application is not labelled a production-certified 1.0 release.
+The payment adapter is sandbox-only. Marketing uses a protected file store and prepares an outbox; production campaign delivery and the previously proposed advanced automation are unfinished. Representative shared-hosting installation/upgrade certification remains a production-release gate; disposable ownership/write/install regressions pass for this milestone. The application is not labelled a production-certified 1.0 release.
 
 Never commit installed configuration, credentials, private customer/member/booking data, private messages, identity documents, generated keys, or private/paid media.
