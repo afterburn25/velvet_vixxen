@@ -1,5 +1,12 @@
 ## 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise (2026-10-19)
 
+## 0.8.1 — Timestamp-aware installer folder repair (2026-10-19)
+
+- Advance only the corrected installer service's ZIP timestamp in fresh and one-file repair distributions so a timestamp-preserving extraction reloads the changed service in PHP OPcache.
+- Add a mandatory persistent HTTP/OPcache regression with a demonstrated same-timestamp negative control and real repair-ZIP positive control.
+- Preserve identical corrected PHP bytes, safe modes, deterministic archives and the unchanged standard upgrade package.
+
+
 ## 0.8.1 installer folder correction — 2026-10-19
 
 - Remove unused empty image/font/icon/template/seeds scaffolding from mandatory installer readiness.

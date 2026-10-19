@@ -7,6 +7,7 @@ import json
 import shutil
 import tempfile
 from pathlib import Path
+from unittest.mock import patch
 from zipfile import ZipFile
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -44,8 +45,15 @@ def run() -> None:
         version = (source / "VERSION").read_text().strip()
         first = package.build(source, work / "first", version)
         second = package.build(source, work / "second", version)
+        legacy_timestamp = (2026, 1, 1, 0, 0, 0)
+        with patch.object(package, "INSTALLER_FILESYSTEM_TIMESTAMP", legacy_timestamp):
+            legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
         assert set(releases) == {"fresh", "upgrade", "installer-repair"}, "A required 0.8.1 runtime distribution is missing"
+        legacy_upgrade = next(release for release in legacy_dates["packages"] if release["kind"] == "upgrade")
+        assert releases["upgrade"]["sha256"] == legacy_upgrade["sha256"], "Installer component timestamp changed the ordinary upgrade hash"
+        upgrade_name = releases["upgrade"]["filename"]
+        assert (work / "first" / upgrade_name).read_bytes() == (work / "legacy-dates" / upgrade_name).read_bytes(), "Installer timestamp correction changed ordinary upgrade bytes"
         for release in first["packages"]:
             archive = work / "first" / release["filename"]
             assert archive.read_bytes() == (work / "second" / release["filename"]).read_bytes(), "Package is not reproducible"
@@ -56,6 +64,16 @@ def run() -> None:
                 assert zipped.testzip() is None, "Archive integrity failure"
                 assert all(not Path(name).is_absolute() and ".." not in Path(name).parts for name in entries), "Unsafe archive path"
                 assert all(entry.create_system == 3 and entry.external_attr >> 16 == 0o100644 for entry in zipped.infolist()), "Runtime ZIP entries must be regular files with safe 0644 permissions"
+                with ZipFile(work / "legacy-dates" / release["filename"]) as previous:
+                    assert zipped.comment == previous.comment and zipped.namelist() == previous.namelist(), "Timestamp correction changed package metadata or scope"
+                    for entry in zipped.infolist():
+                        old = previous.getinfo(entry.filename)
+                        assert zipped.read(entry) == previous.read(old), "Timestamp correction changed runtime file content"
+                        assert (entry.external_attr, entry.create_system, entry.compress_type) == (old.external_attr, old.create_system, old.compress_type), "Timestamp correction changed runtime file permissions or archive format"
+                        if entry.filename == "install/services/FileSystemService.php":
+                            assert entry.date_time > legacy_timestamp, "Corrected PHP service retains the legacy mtime and can remain stale in OPcache"
+                        else:
+                            assert entry.date_time == old.date_time == legacy_timestamp, "Installer correction changed another component's timestamp"
                 if release["kind"] == "fresh":
                     assert "config/app.example.php" in entries and "install/index.php" in entries
                 elif release["kind"] == "upgrade":
@@ -88,6 +106,7 @@ def run() -> None:
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
                         current_service = fresh.read(service_path)
                         assert zipped.read(service_path) == current_service, "Repair service differs from the complete fresh package"
+                        assert zipped.getinfo(service_path).date_time == fresh.getinfo(service_path).date_time, "Fresh and repair PHP services have different component timestamps"
                         fresh.extractall(incomplete)
                     unfinished_state = {
                         "config/app.php": b"<?php return ['installed'=>false,'fixture'=>'unfinished setup'];\n",
@@ -134,7 +153,9 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: clean fresh install, protected upgrade overlay, exact one-file unfinished-installer repair, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: clean fresh install, protected upgrade overlay, exact one-file unfinished-installer repair, advanced matching PHP component timestamps, unchanged upgrade bytes, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    for release in first["packages"]:
+        print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 
 
 if __name__ == "__main__":

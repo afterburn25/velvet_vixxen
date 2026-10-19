@@ -1,8 +1,8 @@
 # Nikki Wilder — The Velvet Vixxen
 
-## 0.8.1 installer folder correction
+## 0.8.1 installer folder and PHP cache correction
 
-If an unfinished installation reports missing image/font/icon/template folders, use the focused one-file repair described in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The fresh package also includes the corrected manifest and static-readability checks. The new real foreign-owner package regression and current verification state are recorded in [Test Report](docs/TEST_REPORT.md); earlier same-owner tests did not cover this defect. Corrective source is uploaded at [`776450964e5a1e9d26719d886d114ce3eef4037e`](https://github.com/afterburn25/velvet_vixxen/commit/776450964e5a1e9d26719d886d114ce3eef4037e); the corrected downloads are saved. Current package hashes are in [the installer repair record](docs/releases/0.8.1-installer-folder-repair.json). Fresh CI was still queued at 15:43 UTC; the earlier feature verification below is historical evidence before this correction.
+For an unfinished installation that reports missing image/font/icon/template folders, apply the one-file repair in [Installer Folder Repair](docs/INSTALLER_FOLDER_REPAIR.md). The corrected fresh/repair packages also advance the service's ZIP timestamp so timestamp-preserving extraction reloads the fix in PHP OPcache. Actual foreign-owner and persistent HTTP/cache regressions are mandatory and pass the integrated local suite. [Current test evidence](docs/TEST_REPORT.md) distinguishes the earlier successful PHP/MySQL/browser execution from the newest cache-aware package gate. [Current hashes](docs/releases/0.8.1-installer-folder-repair.json) supersede the earlier same-timestamp downloads; the upgrade package is unchanged.
 
 The authoritative application and engineering repository is `afterburn25/velvet_vixxen`. The website is a PHP/MySQL application for shared hosting, with the approved neon-pink design and a single-page browser installer.
 

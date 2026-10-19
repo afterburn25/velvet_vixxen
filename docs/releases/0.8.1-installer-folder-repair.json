@@ -5,30 +5,23 @@
   "starting_commit": "349fd1a5128c9963e535f77b75890feaac5981b1",
   "filesystem_service_sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
   "verification": {
-    "local_source_suite": "passed (PHP 8.3.6)",
+    "local_source_suite": "passed (integrated final PHP 8.3.6 source/ownership/OPcache/package suite)",
     "real_foreign_ownership_packaged_preflight": "passed",
     "original_nine_path_failure_reproduced": "passed; original ZIP rebuilt byte-for-byte",
     "runtime_package_tests": "passed",
     "new_github_ci": {
-      "status": "queued",
-      "observed_at": "2026-10-19T15:43:00Z",
-      "pull_request_run": {
-        "id": 39278836707,
-        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707"
-      },
-      "push_run": {
-        "id": 39278828940,
-        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940"
-      },
+      "status": "pending follow-up upload",
       "full_ci_success_claimed": false
-    }
+    },
+    "persistent_http_opcache_overlay": "passed; real same-timestamp stale negative control, actual repair ZIP loads corrected source without restart",
+    "previous_runtime_ci": "Both7764509 runs have complete successful archived suite logs; status metadata lagged. Predates OPcache regression."
   },
   "packages": [
     {
       "kind": "fresh",
       "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
       "size_bytes": 7576393,
-      "sha256": "8b60a3142406471c0ab03ed68a298a806832132f46e9ad01b179b01ccaa1e46f",
+      "sha256": "3647aaff64eb33eb02b27a33f02e2cb812b08264b1b206d6f30fba6c09ec7762",
       "files": 313,
       "php_files": 166,
       "javascript_files": 10
@@ -46,7 +39,7 @@
       "kind": "installer-repair",
       "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip",
       "size_bytes": 6400,
-      "sha256": "191e498656b70e11dbc85df3fbd10d29c5a5ac58ee400bf4b92fe5088bfeaac9",
+      "sha256": "5ff968c13fe43d6ab7c759c3c0dabcf28bda5018c2378f5b496664f692171ce3",
       "files": 1,
       "php_files": 1,
       "javascript_files": 0,
@@ -56,7 +49,14 @@
       "installation_state": "incomplete"
     }
   ],
-  "source_commit": "776450964e5a1e9d26719d886d114ce3eef4037e",
-  "source_tree": "77715dcb8b0d8a4fac48ebb4778963659c409a4b",
-  "delivery": "Corrective source/tests/docs uploaded; one-file repair ZIP, corrected fresh ZIP and separate manifest saved."
+  "delivery": "Timestamp-aware repair/fresh packages rebuilt; replacement save checkpoint pending.",
+  "runtime_service_commit": "776450964e5a1e9d26719d886d114ce3eef4037e",
+  "component_zip_timestamp": [
+    2026,
+    10,
+    19,
+    0,
+    0,
+    0
+  ]
 }

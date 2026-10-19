@@ -17,6 +17,9 @@ RUNTIME_ROOTS = {
 PRESERVED_UPGRADE_ROOTS = {"config", "storage", "uploads", "install"}
 INSTALLER_REPAIR_VERSION = "0.8.1"
 INSTALLER_REPAIR_FILES = {"install/services/FileSystemService.php"}
+# Keep this deterministic, but advance it for each unfinished-installer service
+# correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
+INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -155,7 +158,10 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
                 **compatibility,
             }, separators=(",", ":")).encode()
             for relative, content in files.items():
-                entry = ZipInfo(relative, date_time=(2026, 1, 1, 0, 0, 0))
+                timestamp = (INSTALLER_FILESYSTEM_TIMESTAMP
+                             if relative == "install/services/FileSystemService.php"
+                             else (2026, 1, 1, 0, 0, 0))
+                entry = ZipInfo(relative, date_time=timestamp)
                 entry.create_system = 3
                 entry.external_attr = 0o100644 << 16
                 entry.compress_type = ZIP_DEFLATED

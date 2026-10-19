@@ -11,6 +11,7 @@ done
 # Scan the actual checkout before creating test runtime state.
 php tests/Security/repository_safety.php
 python tests/Installer/packaged_preflight.py
+python tests/Installer/packaged_opcache.py
 WORK="$(python tests/copy_runtime.py)"
 cleanup() { python "$SOURCE_ROOT/tests/copy_runtime.py" --remove "$WORK"; }
 trap cleanup EXIT

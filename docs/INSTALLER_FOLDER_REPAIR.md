@@ -25,4 +25,6 @@ The corrected installer checks actual packaged application/assets/templates for 
 
 The new `tests/Installer/packaged_preflight.py` builds and extracts the real runtime ZIP and executes PHP as a different unprivileged user from the static-file owner. It verifies the exact earlier nine-path failure, corrected initial/repeated probes, preserved static bytes/modes/ownership, and continued blocking of genuine write/extraction failures. Detailed observed results and CI/package hashes are in `TEST_REPORT.md` and `../RELEASE_MANIFEST.txt`.
 
+The delivered file also advances its ZIP timestamp to October 19, 2026. A real persistent PHP/OPcache test confirmed this makes the corrected service load after a hosting file manager preserves ZIP timestamps; the initial same-timestamp repair could keep the previous service cached. Use the current repair ZIP, SHA-256 `5ff968c13fe43d6ab7c759c3c0dabcf28bda5018c2378f5b496664f692171ce3`. It still contains just one PHP file and requires no PHP restart in the tested timestamp-validation configuration.
+
 The repair ZIP remains runtime-only; this guide and the regression code are kept in GitHub.

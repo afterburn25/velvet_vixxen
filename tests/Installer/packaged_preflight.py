@@ -94,6 +94,10 @@ def run(args: argparse.Namespace) -> None:
                 destination.parent.mkdir(parents=True, exist_ok=True)
                 destination.write_bytes(payload)
             (source / 'install/services/FileSystemService.php').write_bytes(legacy)
+            # Historical reproduction includes the original archive metadata.
+            # Change only this in-memory legacy build; corrected builds retain
+            # the later component timestamp required for OPcache invalidation.
+            package.INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 
         version = (source / 'VERSION').read_text().strip()
         built = package.build(source, work / 'packages', version)
