@@ -22,6 +22,27 @@ def visit(page, path):
     return response
 
 
+def activate_and_reload(page, changes):
+    """Snapshot storage and refresh before a queued native toggle task can run."""
+    with page.expect_navigation(wait_until='networkidle'):
+        page.evaluate('''changes => {
+          for (const key of Object.keys(changes)) {
+            document.querySelector('[data-admin-group="' + key + '"] summary').click();
+          }
+          queueMicrotask(() => {
+            const scope = document.querySelector('[data-admin-navigation]').dataset.storageKey;
+            sessionStorage.setItem('vvx-test-admin-before-reload', localStorage.getItem(scope) || '{}');
+            location.reload();
+          });
+        }''', changes)
+    saved = page.evaluate("JSON.parse(sessionStorage.getItem('vvx-test-admin-before-reload'))")
+    for group, opened in changes.items():
+        assert saved.get(group) is opened, 'Category preference was not saved before the next browser task'
+        assert page.locator('[data-admin-group="' + group + '"]').evaluate('(node) => node.open') is opened, ('Category state did not survive immediate refresh', group, opened)
+    assert 'page=about' in page.url, 'Refreshing an admin page changed the current page'
+    expect(page.locator('[data-admin-navigation] [aria-current="page"]')).to_have_text('♡About Me')
+
+
 with sync_playwright() as p:
     options = {'headless': True, 'args': ['--no-sandbox', '--disable-dev-shm-usage']}
     if os.getenv('VELVET_CHROMIUM'):
@@ -38,16 +59,33 @@ with sync_playwright() as p:
     visit(page, '/admin/?page=about')
     expect(page.locator('[data-admin-group="design"]')).to_have_attribute('open', '')
     expect(page.locator('[data-admin-navigation] [aria-current="page"]')).to_have_text('♡About Me')
-    for group in ['content', 'marketing']:
-        page.locator('[data-admin-group="' + group + '"] summary').click()
-    page.reload(wait_until='networkidle')
-    for group in ['design', 'content', 'marketing']:
-        assert page.locator('[data-admin-group="' + group + '"]').evaluate('(node) => node.open'), 'Expanded category did not persist'
+    scope = page.locator('[data-admin-navigation]').get_attribute('data-storage-key')
+    assert scope.startswith('velvet-admin-groups:')
+    other_scope = scope + ':another-owner'
+    page.evaluate("key => localStorage.setItem(key, '{\"content\":false}')", other_scope)
+    activate_and_reload(page, {'content': True, 'marketing': True})
+    assert page.locator('[data-admin-group="design"]').evaluate('(node) => node.open')
     assert not page.locator('[data-admin-group="extensions"]').evaluate('(node) => node.open')
-    page.locator('[data-admin-group="content"] summary').click()
+    activate_and_reload(page, {'content': False, 'design': False})
+    # An explicit collapse of the active category survives, without losing its
+    # current-page marker. Native keyboard activation retains focus and persists.
+    design_summary = page.locator('[data-admin-group="design"] summary')
+    design_summary.focus()
+    for key, opened in [('Enter', True), ('Space', False), ('Enter', True)]:
+        design_summary.press(key)
+        expect(design_summary).to_be_focused()
+        assert page.locator('[data-admin-group="design"]').evaluate('(node) => node.open') is opened
+        assert page.evaluate('key => JSON.parse(localStorage.getItem(key)).design', scope) is opened
     page.reload(wait_until='networkidle')
-    assert not page.locator('[data-admin-group="content"]').evaluate('(node) => node.open'), 'Collapsed category did not persist'
-    assert 'page=about' in page.url
+    assert page.locator('[data-admin-group="design"]').evaluate('(node) => node.open')
+    assert page.evaluate('key => localStorage.getItem(key)', other_scope) == '{"content":false}', 'Category preferences escaped their owner/site scope'
+    preferences = page.evaluate('key => localStorage.getItem(key)', scope)
+    for malformed in ['[]', '"invalid preferences"', '{invalid JSON']:
+        page.evaluate('([key, value]) => localStorage.setItem(key, value)', [scope, malformed])
+        page.reload(wait_until='networkidle')
+        assert page.locator('[data-admin-group="design"]').evaluate('(node) => node.open'), 'Malformed preferences hid the default active category'
+        activate_and_reload(page, {'content': True})
+    page.evaluate('([key, value]) => localStorage.setItem(key, value)', [scope, preferences])
     visit(page, '/admin/')
     expect(page.locator('[data-about-editor]')).to_be_visible()
     page.locator('[name="title"]').fill('About Nikki — Browser Fixture')

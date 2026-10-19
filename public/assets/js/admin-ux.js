@@ -4,16 +4,22 @@
   const scope = navigation?.dataset.storageKey || 'velvet-admin-navigation';
   let expanded = {};
   try { expanded = JSON.parse(localStorage.getItem(scope) || '{}') || {}; } catch (_) { expanded = {}; }
+  if (typeof expanded !== 'object' || Array.isArray(expanded)) expanded = {};
   const groups = [...document.querySelectorAll('[data-admin-group]')];
   groups.forEach(group => {
     const key = group.dataset.adminGroup;
-    group.open = !!group.querySelector('[aria-current="page"]') || expanded[key] === true;
+    group.open = typeof expanded[key] === 'boolean' ? expanded[key] : !!group.querySelector('[aria-current="page"]');
   });
-  // Ignore initialization toggle events; user changes are retained per site and owner.
-  setTimeout(() => groups.forEach(group => group.addEventListener('toggle', () => {
-    expanded[group.dataset.adminGroup] = group.open;
+  // Native toggle events are queued tasks. Save subsequent open changes before
+  // the next task, without recording initialization defaults as owner choices.
+  const persistChanges = records => {
+    if (!records.length) return;
+    records.forEach(({target}) => { expanded[target.dataset.adminGroup] = target.open; });
     try { localStorage.setItem(scope, JSON.stringify(expanded)); } catch (_) { /* Navigation stays usable without storage. */ }
-  })), 0);
+  };
+  const observer = new MutationObserver(persistChanges);
+  groups.forEach(group => observer.observe(group, {attributes: true, attributeFilter: ['open']}));
+  window.addEventListener('pagehide', () => persistChanges(observer.takeRecords()));
   if (navigation) {
     const active = navigation.querySelector('[aria-current="page"]');
     active?.scrollIntoView({block:'nearest'});

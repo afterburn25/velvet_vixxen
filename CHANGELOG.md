@@ -16,6 +16,7 @@
 - Document and display Canva's manual saved-link/export/import workflow with separate cutouts and live functional content.
 - Centralize asset cache identity without changing the 0.8.1 compatibility version; render nonimage Media Library assets as file cards.
 - Preserve selected Composer resize/move nodes and keyboard focus through image loads and canvas resizing; correct About page margins and empty sidebar layout.
+- Save Admin category changes before navigation, preserve explicit collapsed active categories, and cover immediate refresh and keyboard activation.
 - Reconcile status/roadmap/handoff claims with executable source and observed evidence; final combined release gates remain in progress.
 
 # Changelog

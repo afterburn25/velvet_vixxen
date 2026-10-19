@@ -147,7 +147,7 @@ Prior Adobe concept URLs also lacked durable assets. The current 30 real individ
 - [x] Persist expanded/collapsed category state across refreshes and returns.
 - [x] Preserve the active page and active-page highlight after refresh.
 - [x] Do not reset the user to the dashboard when reloading an admin page.
-- [x] Automatically expand the category containing the active page.
+- [x] Expand the active category by default while preserving an explicit owner choice to collapse it.
 - [x] Ensure mobile admin navigation remains usable.
 - [x] Place Booking Form Builder under Members & Communications, About Me under Site & Design, and Merchandise under Commerce.
 
@@ -198,4 +198,6 @@ Do not start 0.9.0 compliance work until the user-facing 0.8.1 continuation abov
 
 ## Verification correction checkpoint
 
-The complete feature source was uploaded at [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://github.com/afterburn25/velvet_vixxen/commit/d81513da5369d000a484331ea6a1000f80bc81a7). Its GitHub run39210406490 passed PHP 8.2/8.3 and all seven HTTP suites, then identified a MySQL fixture privilege requirement and transient Composer handle replacement. The SQL test now induces a specific missing-table failure without triggers; the Composer now preserves real handle nodes and keyboard focus during image loads and viewport resizing. Focused local regressions pass, and the focus regression demonstrably fails against the prior renderer. About page spacing/empty-sidebar handling also passes its updated three-width layout suite. The next GitHub run must verify these corrections before the final release gates are marked complete.
+Correction commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678), GitHub run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678), verified PHP 8.2.34/8.3.35, MySQL 8.0.46 (14 migrations / 82 tables, 32 installed-upgrade checks, 12 booking checks, merchandise transactions and complete rollback), all seven HTTP suites and all three Composer suites on CI Chromium 151. The 30-scene library completed all 90 published renders. The prior SQL privilege and Composer focus failures are fixed and verified.
+
+That run then exposed an Admin category-state race during immediate refresh; the gated package job was skipped. The current correction saves native category-state changes before the next browser task, flushes pending changes on page exit, respects an explicitly collapsed active category and checks immediate refresh plus keyboard activation. A complete green run and final committed-source ZIP checksums are still required. Detailed failure history remains in `docs/TEST_REPORT.md`.

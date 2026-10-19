@@ -30,7 +30,24 @@ Implementation commit [`d81513da5369d000a484331ea6a1000f80bc81a7`](https://githu
 
 The same CI browser job passed its first seven suites, then exposed Composer handle replacement during a canvas redraw. The correction keeps selected handle nodes stable while updating geometry, preserving keyboard focus as well as the resize interaction. The corrected Composer recovery/focus and expanded controls suites pass locally. The new focus assertion fails against the original d81513 renderer at the expected image-load focus loss, demonstrating a meaningful regression. A subsequent exact-engine/full browser CI run is required; this run's failures are retained as evidence rather than hidden.
 
-Visual screenshot review also corrected About page side spacing and hides an empty details column when no photo or statistics have been supplied. The updated desktop/tablet/mobile About/account/admin layout suite passes. Asset build identity is now `0.8.1-20261019.2`; core VERSION remains 0.8.1.
+Visual screenshot review also corrected About page side spacing and hides an empty details column when no photo or statistics have been supplied. The updated desktop/tablet/mobile About/account/admin layout suite passes. That correction used asset build identity `0.8.1-20261019.2`; core VERSION remains 0.8.1.
+
+## Verified corrections and remaining Admin race
+
+Run [39211611678](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678) tested commit [`1bb7f1903ac01252f22a5a564f18764998781678`](https://github.com/afterburn25/velvet_vixxen/commit/1bb7f1903ac01252f22a5a564f18764998781678):
+
+| Exact job | Observed result |
+| --- | --- |
+| Repository/source contract, 117926053383 | PASS |
+| PHP 8.2.34, 117926290960 | PASS: complete source and package regressions |
+| PHP 8.3.35, 117926290989 | PASS: complete source and package regressions |
+| MySQL 8.0.46, 117926291147 | PASS: 14 migrations / 82 tables, 32 installed-upgrade checks, 12 booking checks, merchandise transactions, reapply and complete rollback |
+| HTTP/Chromium, 117926291045 | All 7 HTTP suites and first 10 browser suites PASS, including every Composer suite and 90 library renders; Site UX failed at immediate-refresh category persistence |
+| Runtime package, 117927450368 | SKIPPED because the browser dependency failed |
+
+The Composer node/focus correction is now verified on the actual CI Chromium 151 engine. The trigger-free booking rollback fixture passes real MySQL 8 without added database privileges. Browser evidence artifact [12168116914](https://github.com/afterburn25/velvet_vixxen/actions/runs/39211611678/artifacts/12168116914) contains the actual running-build captures; no gated runtime package was produced by this failed run.
+
+The remaining failure is specific: native `details` toggle events are queued, so a refresh immediately after category activation can occur before the preference is saved. The correction observes native open-state changes at the microtask checkpoint, keeps explicit collapse preferences for the active category, and flushes pending changes on page exit. Native mouse and keyboard activation remain intact; initialization defaults are not recorded as explicit owner choices. The regression checks immediate saved state and reload, keyboard activation/focus, owner/site scope and malformed stored preferences without a timed delay. It demonstrably fails against the captured pre-fix Admin script at the missing preference before the next browser task. Current cache identity is `0.8.1-20261019.3`. Full CI must verify this correction before release completion.
 
 ## Observed feature implementation evidence
 
@@ -71,7 +88,7 @@ Local tooling: PHP 8.3.6 with PDO MySQL, MariaDB 10.11.14, Python Playwright and
 
 ## Remaining release evidence
 
-- Stable combined source, all 7 HTTP and all 12 browser suites have passed. Verify the subsequent CI-specific SQL fixture and persistent-handle correction with focused local tests and actual GitHub CI.
+- Stable combined source, all 7 HTTP and all 12 browser suites have passed. The SQL fixture and Composer handle corrections now pass actual GitHub CI; verify the subsequently observed immediate-refresh Admin race correction.
 - Actual feature GitHub PHP 8.2/8.3, MySQL 8 apply/reapply/rollback with new booking/merchandise/updater scenarios, HTTP/browser, repository/secret and package jobs.
 - Final runtime-only fresh/upgrade ZIP hashes and artifact links tied to the committed source.
 - Updated issue #13, progress documents and source uploaded after final fixes.
