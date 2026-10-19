@@ -6,11 +6,45 @@ The nine reported missing static-folder failures were reproduced against the exa
 
 A subsequent real persistent-PHP test found that timestamp-preserving ZIP extraction could leave the old installer cached in OPcache even after the corrected bytes were uploaded. The repaired service now has deterministic ZIP timestamp **2026-10-19 00:00:00** in both fresh and repair packages. Only that entry's timestamp changes; corrected PHP bytes, all other file metadata and the standard upgrade are unchanged. The new mandatory OPcache regression proves stale execution for three same-timestamp requests, then loads the corrected manifest immediately after extracting the real repair ZIP, without restarting PHP or explicitly invalidating its cache.
 
-The integrated local PHP 8.3.6 source, JavaScript/Python syntax, ownership/OPcache, recovery, feature/security and packaging suite **passed**. The earlier correction's PHP 8.2.34/8.3.35, MySQL 8.0.46, seven HTTP and twelve browser suites also have complete successful archived execution logs in runs [39278828940](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940) and [39278836707](https://github.com/afterburn25/velvet_vixxen/actions/runs/39278836707); status metadata lagged those logs. Those earlier runs predate the new OPcache regression. Fresh CI for this packaging follow-up is pending and must be observed before claiming that new gate passed.
+Final implementation and package source: [`eed4c5efe1f3be9aa2522f247adcd2a5e84c509a`](https://github.com/afterburn25/velvet_vixxen/commit/eed4c5efe1f3be9aa2522f247adcd2a5e84c509a), tree `a0be19e15f58d4576d78e1b5a820317f5242acab`. The integrated local PHP 8.3.6 suite **passed**. Both final GitHub runs, [PR 39283445755](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755) and [push 39283438479](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479), have complete successful archived execution logs for the repository/source contract, PHP 8.2.34/8.3.35 source and package suites (including both ownership and OPcache regressions), MySQL 8.0.46 apply/verify/rollback, seven HTTP suites, twelve Chromium browser suites, and runtime packaging. Both CI package builds match the corrected download hashes. At 16:21:51 UTC, GitHub's run/job metadata still reported `queued` with null conclusions despite those completed logs and uploaded artifacts; successful execution is established from the logs, and an official successful workflow conclusion is not claimed. Exact jobs, checkout provenance and artifacts are recorded in `docs/TEST_REPORT.md`.
 
-The rebuilt repair ZIP is 6,400 bytes and contains only `install/services/FileSystemService.php`; the fresh ZIP has 313 runtime files. Replacement download delivery is the next checkpoint. Current hashes are in `docs/releases/0.8.1-installer-folder-repair.json` and `RELEASE_MANIFEST.txt` (paths relative to the repository root). Follow `docs/INSTALLER_FOLDER_REPAIR.md` to resume the existing unfinished installer and click **Run Checks**. Earlier fresh/repair packages are superseded. Preserve all locked requirements; no 0.9.0 work is included.
+The timestamp-aware repair ZIP, fresh ZIP and separate checksum manifest were successfully saved as replacement downloads. The repair ZIP is 6,400 bytes and contains only `install/services/FileSystemService.php`; the fresh ZIP has 313 runtime files. Current hashes are in `docs/releases/0.8.1-installer-folder-repair.json` and `RELEASE_MANIFEST.txt` (paths relative to the repository root). Follow `docs/INSTALLER_FOLDER_REPAIR.md` to resume the existing unfinished installer and click **Run Checks**. Earlier fresh/repair packages are superseded. Preserve all locked requirements; no 0.9.0 work is included.
 
 Updated: 2026-10-19. Branch: `feature/0.8.1-site-ux-hero-library`. Tracking: #13, #1, #3; PR #15.
+
+## Final GitHub execution and delivered package evidence
+
+Final implementation/package commit: [`eed4c5efe1f3be9aa2522f247adcd2a5e84c509a`](https://github.com/afterburn25/velvet_vixxen/commit/eed4c5efe1f3be9aa2522f247adcd2a5e84c509a); source tree `a0be19e15f58d4576d78e1b5a820317f5242acab`. Push run [39283438479](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479) checks out that commit directly. PR run [39283445755](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755) records that head and checks out GitHub's test merge `430dcbd7e3861432f21cddcf8df8d63ebefd081e` into base `0a4940ec816b0a21459b4ae6e8c2bf4818eba060`. This generated test merge is not a merged PR or a production deployment. The package summaries from both runs are identical and match the saved customer downloads.
+
+All twelve archived job logs show completed execution and normal cleanup. The final PR logs were independently read for each of the six gates. The following results describe observed suite execution; they are not substituted values for the delayed GitHub conclusion field.
+
+| Gate | PR job | Push job | Observed result |
+| --- | --- | --- | --- |
+| Repository/source contract | 118162699164 | 118162673422 | Required executable, handoff and locked-requirement assertions completed successfully. |
+| PHP 8.2.34 | 118162988214 | 118162910183 | Full source/JS/Python, installer, recovery, feature/security and package suites passed; real foreign-owner and persistent HTTP/OPcache regressions both passed. |
+| PHP 8.3.35 | 118162988552 | 118162910303 | Same complete suites and both mandatory installer regressions passed. |
+| MySQL 8.0.46 | 118162988283 | 118162910441 | 32 installed-upgrade checks, 12 booking transaction checks, merchandise scenarios, all 14 migrations/82 tables, verification and rollback passed. |
+| HTTP/Chromium | 118162988130 | 118162910110 | All 7 HTTP and 12 browser suites passed; Playwright 1.62.0 / Chromium 151.0.7922.34. Each run uploaded 64 evidence files. |
+| Runtime packages | 118166134986 | 118165895958 | Three runtime ZIPs and a separate manifest built and uploaded; all inner package hashes match local delivered builds. |
+
+Browser evidence includes direct drag, extreme resize, all-edge movement/crop and lower-edge hiding, live text/buttons, per-device backgrounds, real uploads, history and published rollback; all 30 standalone Hero images and thumbnails decoded, with 90 published desktop/tablet/mobile renders. Booking field editing/ordering/toggles, linked choices, phone formatting, inline/server validation and immutable submissions passed. About Me editing, sticky navigation, full account layouts, persistent admin state, merchandise shipping/checkout and direct PPV isolation passed, including the final 12-route public layout audit.
+
+| Run | Runtime package artifact | Browser evidence artifact |
+| --- | --- | --- |
+| PR 39283445755 | [12202911516](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12202911516), 14,981,993 bytes | [12201869438](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12201869438), 48,441,282 bytes |
+| Push 39283438479 | [12202672412](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/artifacts/12202672412), 14,981,993 bytes | [12202711569](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/artifacts/12202711569), 48,414,812 bytes |
+
+The PR runtime artifact's outer ZIP digest is `8b81794f242d9d0384fc7a9d25fa2ea888c75594bdeb6b5a6ed1e2531a8a61ea`; its browser evidence digest is `0383f1ae958c2eb647519200bf511a1df1b99bb9fc4a20d853871d0b05d2c671`. These outer artifact hashes are distinct from the individual customer ZIP hashes below. Browser evidence, repository documents/tests/SDK/workflows and the separate manifest remain outside the customer runtime ZIPs.
+
+| Saved customer package | Bytes / runtime files | SHA-256 |
+| --- | --- | --- |
+| Installer folder repair | 6,400 / exactly 1 PHP file | `5ff968c13fe43d6ab7c759c3c0dabcf28bda5018c2378f5b496664f692171ce3` |
+| Fresh install | 7,576,393 / 313 | `3647aaff64eb33eb02b27a33f02e2cb812b08264b1b206d6f30fba6c09ec7762` |
+| Existing upgrade, unchanged | 7,423,931 / 272 | `57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715` |
+
+The timestamp-aware repair, full fresh archive and separate package manifest were successfully saved as replacements for their earlier download versions. The user-facing fresh download name is `Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip`; it is byte-identical to the CI file named `Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip`. The ordinary upgrade remains unchanged. No new upload of an unchanged upgrade is required.
+
+At **2026-10-19 16:21:51 UTC**, both official run records and their job metadata still reported **queued / null conclusion**, even though all archived executions had finished and final artifacts were uploaded by 16:18:43 UTC. This report preserves that discrepancy without claiming an observed official successful workflow conclusion or diagnosing an unverified service outage. A subsequent documentation-only handoff record changes no executable source, tests, workflows or customer archive bytes; the exact implementation and package evidence above remain authoritative. Merge, deployment and live-provider certification are separate and are not claimed.
 
 ## PHP cache delivery correction — observed evidence
 

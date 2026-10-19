@@ -6,7 +6,7 @@ Repository: `afterburn25/velvet_vixxen`
 
 Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
 
-Verified runtime checkpoint: `ca527935e0737f55b0b79ea8d88539e0c44bf97c`, GitHub run [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), all six required jobs passed. Exact artifacts and package checksums are in `docs/TEST_REPORT.md` and `RELEASE_MANIFEST.txt`. Inspect the live branch and PR state before claiming merge or deployment.
+Current implementation/package checkpoint: `eed4c5efe1f3be9aa2522f247adcd2a5e84c509a`. Final PR run [39283445755](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755) and push run [39283438479](https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479) have complete successful archived execution logs for all required gates and matching runtime package hashes. The run/job status metadata lagged those logs and still reported queued/null at 16:21:51 UTC; no official successful conclusion is inferred. Exact checkout provenance, artifacts and package checksums are in `docs/TEST_REPORT.md` and `RELEASE_MANIFEST.txt`. Inspect the live branch and PR state before claiming merge or deployment.
 
 Active branch: `feature/0.8.1-site-ux-hero-library`; `main` is the authoritative integration destination.
 
@@ -77,7 +77,7 @@ Distinguish among locally tested package behavior, CI-prepared behavior, planned
 
 ## Current priority
 
-The nine-folder installer defect is fixed in service source `7764509`. A demonstrated OPcache delivery issue additionally requires the newer component ZIP timestamp now used by fresh/repair packages. Preserve both mandatory extracted-package ownership and persistent HTTP/OPcache regressions. Read the current checkpoint in `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`; earlier green source/SQL/browser execution predates the cache regression and does not certify its package metadata. Observe the latest follow-up CI, save the corrected downloads and upload final evidence before a completed handoff. No source, test or CI gate may be replaced by an ineffective same-owner/cache fixture or passing skip.
+The nine-folder installer defect is fixed in service source `7764509`; final implementation/package checkpoint `eed4c5e` also corrects the demonstrated OPcache delivery defect through a newer component ZIP timestamp. Both mandatory extracted-package ownership and persistent HTTP/OPcache regressions passed on PHP 8.2 and 8.3, all remaining required suites have successful archived execution logs, and the matching repair/fresh downloads and separate manifest were saved. Use the current checkpoint in `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`, keeping the delayed official status metadata distinct from observed execution. Follow `docs/INSTALLER_FOLDER_REPAIR.md` for the owner's unfinished installation and preserve the verified 0.8.1 continuation. No source, test or CI gate may be replaced by an ineffective same-owner/cache fixture or passing skip.
 
 
 
