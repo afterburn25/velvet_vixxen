@@ -1,3 +1,12 @@
+## 0.8.1 — Installed-build verification and PHP cache refresh (Build 20261019.5)
+
+- Reopen the owner's unchanged-installation report; retain prior CI/download evidence without treating it as hosted deployment proof.
+- Show a distinct build ID in the owner interface and Fresh/Upgrade/Media repair filenames. Keep core compatibility version 0.8.1.
+- Generate a complete shared-runtime hash inventory and add owner-only Update Status with missing/mixed-file reporting.
+- Refresh only verified application PHP after owner/CSRF checks, including hosts that retain old compiled PHP after extraction. Preserve existing account, configuration, keys, database and uploaded content.
+- Exercise the actual historical installed package, retained browser session and persistent PHP cache; record real Apache/FPM missing-entrypoint checks separately.
+- Final new source/CI/artifact evidence is pending and must be recorded in `docs/TEST_REPORT.md` before this build is called verified. The owner's affected host is not accessed or declared fixed.
+
 ## 0.8.1 — Media, Composer buttons and public route repair (2026-10-19)
 
 - Restore physical public page/API entry points while retaining the protected implementation under `public/routes`, including account aliases and existing signed-media URLs.

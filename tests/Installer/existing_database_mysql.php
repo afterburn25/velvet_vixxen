@@ -34,7 +34,14 @@ try {
     $buildOutput = stream_get_contents($pipes[1]); $buildError = stream_get_contents($pipes[2]);
     fclose($pipes[1]); fclose($pipes[2]);
     if (proc_close($process) !== 0) throw new RuntimeException('Runtime package build failed: ' . $buildError . $buildOutput);
-    $archive = $work . '/packages/Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip';
+    $buildManifest = json_decode($buildOutput, true, 512, JSON_THROW_ON_ERROR);
+    $freshPackages = array_values(array_filter((array) ($buildManifest['packages'] ?? []),
+        static fn(array $package): bool => ($package['kind'] ?? '') === 'fresh'));
+    if (count($freshPackages) !== 1 || !is_string($freshPackages[0]['filename'] ?? null)
+        || basename($freshPackages[0]['filename']) !== $freshPackages[0]['filename']) {
+        throw new RuntimeException('The package builder did not identify one fresh installation archive.');
+    }
+    $archive = $work . '/packages/' . $freshPackages[0]['filename'];
     $reset = static function (string $label) use (&$caseName, $pdo, $ownsDatabase, $archive, $runtime): void {
         $caseName = $label;
         vvx_installer_fixture_reset_database($pdo, $ownsDatabase);

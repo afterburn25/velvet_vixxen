@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import shutil
 import tempfile
@@ -40,16 +41,23 @@ PUBLIC_ROUTE_FILES = {
     "videos/index.php", "videos/watch.php",
 }
 COMPOSER_REPAIR_FILES = {
-    *PUBLIC_ROUTE_FILES, "admin/index.php", "public/router.php",
+    *PUBLIC_ROUTE_FILES, "admin/index.php", "admin/update.php", "public/router.php",
     "app/Core/SceneButton.php", "app/Core/Store.php", "app/Core/RepairBackupService.php",
-    "app/Support/functions.php",
+    "app/Core/RuntimeBuildService.php", "app/Support/functions.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
+    "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
     "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
-    "includes/version.php", "public/routes/links/index.php", "public/routes/campaign/index.php",
+    "includes/version.php", "includes/runtime-build.json", "public/routes/links/index.php", "public/routes/campaign/index.php",
     "public/assets/css/site.css", "public/assets/css/composer.css",
     "public/assets/js/api-client.js", "public/assets/js/admin.js",
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
 }
+BUILD_ID = "20261019.5"
+RUNTIME_BUILD_PATH = "includes/runtime-build.json"
+VERIFIED_BASELINES = [
+    "e5b04daa132521be69c943151f8112c7cd2017e8",
+    "db759342e401617c9933c13b81a147ad9f8fd515",
+]
 LEGACY_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 REPAIR_TIMESTAMPS = {
     relative: ((2026, 10, 19, 0, 0, 0) if relative == "install/services/FileSystemService.php"
@@ -57,7 +65,7 @@ REPAIR_TIMESTAMPS = {
     for relative in REPAIR_FILES
 }
 REPAIR_TIMESTAMPS.update({
-    relative: (2026, 10, 19, 18, 0, 0) for relative in COMPOSER_REPAIR_FILES
+    relative: (2026, 10, 19, 19, 30, 0) for relative in COMPOSER_REPAIR_FILES
 })
 
 
@@ -74,6 +82,8 @@ def run() -> None:
             target = source / relative
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(content)
+        stale_inventory = b'{"fixture":"STALE INVENTORY MUST BE REGENERATED"}\n'
+        (source / RUNTIME_BUILD_PATH).write_bytes(stale_inventory)
 
         protected = {
             "config/app.php": b"<?php return ['installed'=>true,'installation_id'=>'test-installation'];\n",
@@ -99,15 +109,44 @@ def run() -> None:
                 patch.object(package, "COMPOSER_REPAIR_TIMESTAMP", LEGACY_TIMESTAMP):
             legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
+        assert first["build_id"] == BUILD_ID == second["build_id"], "Package build identity is missing or ambiguous"
+        assert first["manifest_filename"] == f"Velvet-Vixxen-{version}-Build-{BUILD_ID}-package-manifest.json"
+        assert json.loads((work / "first" / first["manifest_filename"]).read_text()) == first, "Separate manifest differs from the returned build inventory"
+        assert (source / RUNTIME_BUILD_PATH).read_bytes() == stale_inventory, "Packaging wrote generated state back into its source checkout"
         assert set(releases) == {"fresh", "upgrade", "installer-repair", "composer-repair"}, "A required 0.8.1 runtime distribution is missing"
         assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
         assert package.PUBLIC_ROUTE_FILES == PUBLIC_ROUTE_FILES, "Physical public entry points differ from the reviewed compatibility scope"
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
+        with ZipFile(work / "first" / releases["upgrade"]["filename"]) as upgrade:
+            expected_inventory = {
+                "schema": 1, "product": "Velvet Vixxen", "version": version, "build_id": BUILD_ID,
+                "files": {
+                    name: hashlib.sha256(upgrade.read(name)).hexdigest()
+                    for name in sorted(upgrade.namelist()) if name != RUNTIME_BUILD_PATH
+                },
+            }
+            inventory_bytes = upgrade.read(RUNTIME_BUILD_PATH)
+            assert json.loads(inventory_bytes) == expected_inventory, "Runtime inventory does not describe the complete actual Upgrade ZIP"
+            assert inventory_bytes != stale_inventory, "A stale source inventory entered the package"
+            assert len(expected_inventory["files"]) > len(COMPOSER_REPAIR_FILES), "Repair-only hashes cannot verify an unknown installed baseline"
+            assert "app/Core/UploadService.php" in expected_inventory["files"], "Inventory omitted an unchanged upload dependency"
+            assert RUNTIME_BUILD_PATH not in expected_inventory["files"], "Runtime inventory cannot hash itself"
+            assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS or name.startswith("registry/")
+                           for name in expected_inventory["files"]), "Runtime inventory includes installed or private state"
         for release in first["packages"]:
             archive = work / "first" / release["filename"]
             assert archive.read_bytes() == (work / "second" / release["filename"]).read_bytes(), "Package is not reproducible"
             with ZipFile(archive) as zipped:
                 entries = set(zipped.namelist())
+                compatibility = json.loads(zipped.comment)
+                if release["kind"] != "installer-repair":
+                    assert release["build_id"] == compatibility["build_id"] == BUILD_ID
+                    assert f"-{version}-Build-{BUILD_ID}-" in release["filename"], "Customer ZIP filename hides its actual build"
+                    assert zipped.read(RUNTIME_BUILD_PATH) == inventory_bytes, "Fresh/Upgrade/Repair inventories must have identical bytes"
+                    assert f"const VELVET_VIXXEN_BUILD_ID = '{BUILD_ID}';".encode() in zipped.read("includes/version.php")
+                    assert f"const VELVET_VIXXEN_ASSET_VERSION = '{version}-{BUILD_ID}';".encode() in zipped.read("includes/version.php")
+                else:
+                    assert RUNTIME_BUILD_PATH not in entries and "build_id" not in compatibility and "build_id" not in release, "Installer-only repair was mislabeled as a new complete runtime build"
                 assert not entries.intersection(protected), "Installed/private state was packaged"
                 assert not any(name.startswith((".github/", "docs/", "tests/", "scripts/", "addons/sdk/")) for name in entries), "Development files entered runtime ZIP"
                 assert zipped.testzip() is None, "Archive integrity failure"
@@ -149,6 +188,7 @@ def run() -> None:
                     assert entries == REPAIR_FILES, "Installer repair must contain exactly the reviewed database and filesystem dependencies"
                     assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip"
                     assert release["files"] == len(REPAIR_FILES) and release["php_files"] == 6 and release["javascript_files"] == 1
+                    assert release["size_bytes"] == 51241 and release["sha256"] == "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38", "Previously delivered Installer Database Repair bytes changed"
                     compatibility = json.loads(zipped.comment)
                     assert compatibility["kind"] == "installer-repair" and compatibility["version"] == "0.8.1"
                     assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "incomplete", "Installer repair compatibility must stay limited to an unfinished 0.8.1 installation"
@@ -193,13 +233,15 @@ def run() -> None:
                     assert not (incomplete / "storage/install.lock").exists(), "Repair unexpectedly installed or locked the unfinished site"
                 else:
                     assert entries == COMPOSER_REPAIR_FILES, "Media and Composer repair must contain exactly its reviewed runtime dependencies"
-                    assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip"
-                    assert release["files"] == len(COMPOSER_REPAIR_FILES) == 67
-                    assert release["php_files"] == 60 and release["javascript_files"] == 5
+                    assert release["filename"] == f"Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-{BUILD_ID}-Media-Composer-Repair.zip"
+                    assert release["files"] == len(COMPOSER_REPAIR_FILES) == 72
+                    assert release["php_files"] == 64 and release["javascript_files"] == 5
                     compatibility = json.loads(zipped.comment)
                     assert compatibility["kind"] == "composer-repair" and compatibility["version"] == "0.8.1"
                     assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "installed", "Media and Composer repair compatibility must stay limited to installed 0.8.1 sites"
                     assert release["supported_from"] == ["0.8.1"] and release["installation_state"] == "installed"
+                    assert release["verified_source_commits"] == compatibility["verified_source_commits"] == VERIFIED_BASELINES, "Repair compatibility must identify tested source baselines"
+                    assert release["unknown_baseline"] == compatibility["unknown_baseline"] and "complete Upgrade ZIP" in release["unknown_baseline"], "Unknown reused version labels need the complete upgrade guidance"
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries), "Media and Composer repair includes installer or installed state"
 
                     # Deliver this repair to an existing site with its installer
@@ -220,7 +262,10 @@ def run() -> None:
                         target.write_bytes(content)
                     for relative in COMPOSER_REPAIR_FILES:
                         target = repaired_site / relative
-                        if relative in PUBLIC_ROUTE_FILES | {"public/assets/js/api-client.js", "app/Core/SceneButton.php"}:
+                        if relative in PUBLIC_ROUTE_FILES | {
+                            "public/assets/js/api-client.js", "app/Core/SceneButton.php", "admin/update.php",
+                            "app/Core/RuntimeBuildService.php", "app/Views/admin/update-status.php", RUNTIME_BUILD_PATH,
+                        }:
                             target.unlink()  # Earlier packages have no physical public entry points/new helpers.
                         elif relative.endswith(".js"):
                             target.write_bytes(b"// prior Composer runtime fixture\n")
@@ -253,7 +298,7 @@ def run() -> None:
             else:
                 raise AssertionError("Invalid installer repair contents or version were accepted")
 
-        composer_files = {relative: (source / relative).read_bytes() for relative in COMPOSER_REPAIR_FILES}
+        composer_files = package.runtime_files(source, "composer-repair")
         for files, repair_version in [
             ({}, version),
             *[(dict((path, content) for path, content in composer_files.items() if path != omitted), version)
@@ -270,6 +315,59 @@ def run() -> None:
             else:
                 raise AssertionError("Invalid Media and Composer repair contents or version were accepted")
 
+        # A partial overwrite must never be certified by the inventory. Both
+        # changed repair files and unchanged full-runtime dependencies matter.
+        full_files = package.runtime_files(source, "upgrade")
+        for kind, original in [("upgrade", full_files), ("composer-repair", composer_files)]:
+            malformed_inventories = [
+                {**expected_inventory, "build_id": "20261019.4"},
+                {**expected_inventory, "schema": True},
+                {**expected_inventory, "files": {name: digest for name, digest in expected_inventory["files"].items() if name != "app/bootstrap.php"}},
+                {**expected_inventory, "files": {**expected_inventory["files"], "config/app.php": "0" * 64}},
+                {**expected_inventory, "files": {**expected_inventory["files"], RUNTIME_BUILD_PATH: "0" * 64}},
+                {**expected_inventory, "files": {**expected_inventory["files"], "api/upload.php": "0" * 64}},
+            ]
+            for inventory in malformed_inventories:
+                broken = {**original, RUNTIME_BUILD_PATH: json.dumps(inventory).encode()}
+                try:
+                    package.validate(broken, kind, version)
+                except ValueError:
+                    pass
+                else:
+                    raise AssertionError("An invalid or mismatched runtime build inventory was accepted")
+            changed = {**original, "admin/index.php": b"<?php /* prior installed template */\n"}
+            try:
+                package.validate(changed, kind, version)
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("Mixed old/new runtime bytes were accepted with a current inventory")
+
+        dependency = source / "app/Core/UploadService.php"
+        original_dependency = dependency.read_bytes()
+        dependency.write_bytes(original_dependency + b"\n// Disposable inventory change fixture.\n")
+        updated_inventory = json.loads(package.runtime_files(source, "composer-repair")[RUNTIME_BUILD_PATH])
+        expected_updated = json.loads(inventory_bytes)
+        expected_updated["files"]["app/Core/UploadService.php"] = hashlib.sha256(dependency.read_bytes()).hexdigest()
+        assert updated_inventory == expected_updated, "Repair packaging reused a stale inventory after an unchanged dependency changed"
+        dependency.write_bytes(original_dependency)
+
+        version_source = source / "includes/version.php"
+        original_version = version_source.read_bytes()
+        for invalid_version in [
+            original_version.replace(f"const VELVET_VIXXEN_BUILD_ID = '{BUILD_ID}';\n".encode(), b""),
+            original_version.replace(f"'{version}-{BUILD_ID}'".encode(), b"'0.8.1-20261019.4'"),
+            original_version.replace(f"const VELVET_VIXXEN_BUILD_ID = '{BUILD_ID}';".encode(), b"const VELVET_VIXXEN_BUILD_ID = '2026.5';"),
+        ]:
+            version_source.write_bytes(invalid_version)
+            try:
+                package.runtime_files(source, "upgrade")
+            except ValueError:
+                pass
+            else:
+                raise AssertionError("A missing, inconsistent or malformed runtime build identity was accepted")
+        version_source.write_bytes(original_version)
+
         # Refuse a source symlink even when the target would otherwise ship.
         outside = work / "outside.php"
         outside.write_text("<?php /* fixture outside source */\n")
@@ -281,7 +379,7 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: clean fresh install, protected upgrade overlay, exact eight-file database/folder/layout repair, exact Media and Composer repair with public entry points and helper installation, matching fresh/upgrade/repair dependencies and advanced component timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
     for release in first["packages"]:
         print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 

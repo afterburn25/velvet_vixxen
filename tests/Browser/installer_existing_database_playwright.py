@@ -89,7 +89,8 @@ with tempfile.TemporaryDirectory(prefix="vvx-installer-browser-") as temporary:
     packages = work / "packages"
     build = subprocess.run([sys.executable, str(SOURCE / "scripts/package.py"), "--output", str(packages)], capture_output=True, text=True)
     assert build.returncode == 0, build.stderr + build.stdout
-    archive = packages / "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip"
+    fresh_package = next(entry for entry in json.loads(build.stdout)["packages"] if entry["kind"] == "fresh")
+    archive = packages / fresh_package["filename"]
 
     def overlay_runtime():
         runtime.mkdir(exist_ok=True)

@@ -1,7 +1,23 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
+<!-- installed-build-followup:start -->
+## Installed-update repair — Build 20261019.5; final CI pending
+
+**The owner’s affected installation remains unresolved and has not been accessed.** The newest executable source is on `feature/0.8.1-site-ux-hero-library`, continuing from uploaded head `6b2130b6ec6f6d49bf95cab9f9bccaa4fad79f79`. Previous source/CI/download records below are historical and cannot establish that a customer deployment succeeded.
+
+The exact previous saved downloads match their gated artifact. A retained-process negative control now reproduces a missed update failure: every replacement file matches on disk, while PHP OPcache with timestamp validation disabled still executes the earlier Composer and version file. Add Button is absent and Preview/Publish emit no requests. This is a proven laboratory failure mechanism; the owner’s server configuration is unknown.
+
+**Implemented:** explicit build identity in the admin and package filenames; a complete 324-file shared-runtime hash inventory; and active-owner/CSRF-protected `admin/update.php` that diagnoses missing/mixed files and refreshes only this site’s verified PHP. The complete Upgrade contains 325 runtime files including that generated inventory. Missing/mixed contents block activation. Existing configuration, keys, owner records, database state, uploads and other applications’ PHP cache are preserved. The complete Upgrade is the primary update for an installed 0.8.1 site whose exact older build is unknown. The earlier eight-file installer repair is unchanged and is not a new Composer repair.
+
+**Local acceptance passed on final runtime bytes:** all three actual historical-package upgrade cases on PHP 8.3.6 / Chromium 155.0.8059.84: root with persistent cache, nested with persistent cache (including `opcache.enable_cli=0`), and nested with cache genuinely disabled. The same PHP process and authenticated browser survive extraction and the real owner refresh. Both cached cases verify Add Button, preview staying open, persisted publication, the public Booking button, both image upload forms, exact uploaded bytes/browser decoding and zero uncaught JavaScript errors. Owner/member/demoted-owner, CSRF/method, mixed-file blocking, six desktop/mobile status layouts, private-state and unrelated-cache preservation checks passed. The new runtime feature suite passes 25 assertions. Existing source/HTTP and four packaged Composer action suites also passed locally; the broader exact-source PHP 8.2/8.3 and MySQL 8 gates remain mandatory in CI.
+
+A separate four-case Apache/PHP-FPM audit of the prior delivered .4 runtime passed real route/save/publish/upload checks. Removing a physical API under ProxyPassMatch reproduces the exact `File not found.` response. No speculative routing change was added. See `docs/releases/0.8.1-hosted-update-audit.json` for that audit’s distinct scope.
+
+Final new source commit, GitHub CI, gated artifact comparison and replacement download evidence are pending. See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-update-acceptance.json` and `docs/releases/0.8.1-build5-package-audit.json`. Do not infer hosted resolution or final 0.8.1 completion from local acceptance. Issue #13 stays open, payments stay sandbox-only, and no 0.9.0 work is included.
+<!-- installed-build-followup:end -->
+
 <!-- media-composer-repair:start -->
-## Media, Composer buttons and public route repair — 2026-10-19
+## Historical Media, Composer buttons and public route repair — 2026-10-19
 
 The newest executable source is on `feature/0.8.1-site-ux-hero-library`. Runtime repairs were uploaded in commit `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final execution-verified test followup is `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, with identical runtime bytes. All seven jobs in [GitHub run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) are **completed / success**, with every checkout matching that exact source. The downloaded gated runtime artifact and its manifest are byte-identical to the saved customer downloads. Earlier installer and feature records below are historical evidence.
 

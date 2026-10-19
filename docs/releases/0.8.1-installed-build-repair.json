@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "product": "Nikki Wilder / The Velvet Vixxen",
+  "version": "0.8.1",
+  "build_id": "20261019.5",
+  "recorded_at_utc": "2026-10-19T19:58:46Z",
+  "repository": "afterburn25/velvet_vixxen",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "preceding_branch_head": "6b2130b6ec6f6d49bf95cab9f9bccaa4fad79f79",
+  "source_commit": null,
+  "source_tree": null,
+  "ci": {
+    "status": "pending exact-source upload"
+  },
+  "owner_host": {
+    "status": "unresolved",
+    "accessed": false,
+    "affected_url_supplied": false,
+    "deployment_performed": false
+  },
+  "findings": [
+    "The exact previous saved download bytes match their source-built and GitHub-gated artifact.",
+    "The historical delivered installation reproduces missing Add Button, failed Publish and a disappearing preview tab.",
+    "A complete runtime overlay can match all on-disk hashes while persistent PHP OPcache continues executing the old Composer and version files.",
+    "A real Apache/PHP-FPM missing physical API under ProxyPassMatch reproduces the exact File not found. response; the prior repaired physical entrypoint works.",
+    "No inferred production-host diagnosis is claimed."
+  ],
+  "implemented": [
+    "Build identity in owner UI and distinct Fresh/Upgrade/Media repair filenames.",
+    "Package-generated complete shared-runtime SHA-256 inventory; no customer state.",
+    "Active-owner-only Update Status and CSRF-protected verified per-file PHP cache refresh.",
+    "Incomplete/mixed runtime rejection, no-store responses, relative entrypoint/return paths.",
+    "Existing configuration, identity, keys, records and media preservation; no SQL or global cache reset."
+  ],
+  "local_acceptance": {
+    "status": "passed",
+    "php": "8.3.6",
+    "chromium": "155.0.8059.84",
+    "final_upgrade_cases": 3,
+    "status_viewport_checks": 6,
+    "final_upgrade_evidence": "docs/releases/0.8.1-installed-update-acceptance.json",
+    "runtime_build_assertions": 25,
+    "package_audit": "docs/releases/0.8.1-build5-package-audit.json",
+    "prior_runtime_apache_audit": "docs/releases/0.8.1-hosted-update-audit.json",
+    "broader_local_runs": "Existing source, seven HTTP and four packaged Composer-action suites also passed during the followup; exact final full matrix is required in GitHub CI."
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+      "bytes": 7629714,
+      "files": 366,
+      "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+      "new_delivery": true
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+      "bytes": 7474055,
+      "files": 325,
+      "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+      "new_delivery": true
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "bytes": 51241,
+      "files": 8,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "new_delivery": false
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+      "bytes": 111697,
+      "files": 72,
+      "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+      "new_delivery": true
+    }
+  ],
+  "standalone_manifest": {
+    "filename": "Velvet-Vixxen-0.8.1-Build-20261019.5-package-manifest.json",
+    "bytes": 87242,
+    "sha256": "e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5"
+  },
+  "delivery": {
+    "status": "not yet saved; awaiting exact-source gated artifact comparison",
+    "primary_package_kind": "upgrade"
+  },
+  "operating_limits": [
+    "Affected customer host remains unresolved.",
+    "Issue #13 stays open and PR #15 is unmerged.",
+    "Payments remain sandbox-only.",
+    "No 0.9.0 work.",
+    "Customer ZIPs contain runtime only; engineering evidence remains outside."
+  ]
+}

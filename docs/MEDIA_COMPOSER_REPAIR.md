@@ -4,11 +4,15 @@ This update addresses image uploads returning `File not found.` or a JSON parsin
 
 ## Apply the update to an installed 0.8.1 website
 
-1. Download `Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip`.
-2. Open the existing website folder in your hosting file manager: the folder containing `admin`, `app`, `includes`, `public` and the site's `index.php`.
-3. Upload and extract the repair ZIP into that same folder. Replace matching application files and allow the new public folders and files to be created.
-4. Refresh the owner admin, then open Visual Composer. The updated page loads the new scripts and styles with a new asset version.
-5. Try an image upload, **Full Page Preview** and **Publish**. Add a button with **Add Button** in the Composer toolbar.
+For the current **Build 20261019.5** followup, use the complete installed-site update when the previous build is unknown:
+
+1. Download `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip`.
+2. Extract its contents into the active website folder containing `admin`, `app`, `public` and `route.php`, replacing existing application files.
+3. Sign in as the existing owner, then open **System → Update Status**, or this site's `admin/update.php` directly if the old admin page is still cached.
+4. Check that all runtime files match. Missing or different files are listed explicitly; use the complete Upgrade to replace them.
+5. Choose **Refresh application PHP** and check that the running build reads **20261019.5**. Then test **Add Button**, image upload, **Full Page Preview** and **Publish** in the existing Composer.
+
+The owner reported that the previous update appeared unchanged, so the affected host remains unverified. See [UPDATE_VERIFICATION.md](UPDATE_VERIFICATION.md) for the new file/cache check and current testing limits.
 
 The repair contains application files only. It preserves the existing configuration, database, owner/member accounts, uploaded photos, saved compositions and installation state. No installer rerun or database migration is needed for this repair. Existing button-free compositions continue to work.
 
@@ -28,7 +32,7 @@ Drag a button to position it and resize its width and height independently. Nume
 
 The reorganized implementation keeps its protected request handlers under `public/routes`. The repaired package supplies thin PHP entry points at their existing public URLs, including upload/scene APIs, account pages, booking, checkout, content pages and protected media. These forward to the same handlers and preserve their authentication, CSRF, entitlement and request-method checks.
 
-The root `media.php` is a small compatibility entry point for existing signed-media URLs; its implementation stays under `public/routes`. Other page entry points stay in their respective folders. The repair contains 67 runtime files (60 PHP, five JavaScript and two CSS). Legacy cleanup recognizes the current forwarding files and privately archives only obsolete code and unknown sibling files; running cleanup no longer removes the active public routes. The four short account aliases also resolve consistently through direct files and the rewrite router. Member sign-in returns, marketing links/buttons, banners and analytics requests also retain the installation base path. Root and nested installations are covered by actual extracted-package tests without a testing router that forwards missing files.
+The root `media.php` is a small compatibility entry point for existing signed-media URLs; its implementation stays under `public/routes`. Other page entry points stay in their respective folders. The preceding repair contained 67 runtime files (60 PHP, five JavaScript and two CSS). Build 20261019.5 adds the owner update check and package-generated inventory, bringing the focused repair to 72 runtime files; its known baseline requirements are recorded in the separate package manifest. Legacy cleanup recognizes the current forwarding files and privately archives only obsolete code and unknown sibling files; running cleanup no longer removes the active public routes. The four short account aliases also resolve consistently through direct files and the rewrite router. Member sign-in returns, marketing links/buttons, banners and analytics requests also retain the installation base path. Root and nested installations are covered by actual extracted-package tests without a testing router that forwards missing files.
 
 ## Verification and provenance
 

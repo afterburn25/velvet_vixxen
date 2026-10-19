@@ -42,6 +42,9 @@ if ($page === 'login') {
 }
 
 require_admin();
+if ($page === 'update-status') {
+    redirect(base_url('admin/update.php'));
+}
 $user = app_auth()->user();
 $store = app_store();
 $addonManager = addon_manager();
@@ -685,6 +688,7 @@ $pageTitles = [
     'addons' => 'Add-ons',
     'licenses' => 'Add-on Licensing',
     'settings' => 'Site Settings',
+    'update-status' => 'Update Status',
     'repair-backups' => 'Repair Backups',
     'database-updates' => 'Database Updates',
 ];
@@ -720,6 +724,7 @@ $nav = [
     'addons' => ['◇', 'Add-ons'],
     'licenses' => ['⌁', 'Add-on Licensing'],
     'settings' => ['⚙', 'Site Settings'],
+    'update-status' => ['✓', 'Update Status'],
     'repair-backups' => ['↺', 'Repair Backups'],
     'database-updates' => ['↑', 'Database Updates'],
 ];
@@ -730,7 +735,7 @@ foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
-<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v0.8.1</div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
+<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
 $stats = $store->stats(); ?>
 <section class="welcome-panel"><div><span class="admin-kicker">Approved visual direction</span><h2>The pink Velvet Vixxen build is active.</h2><p>The public site, one-page installer, Visual Composer, Media Center, member commerce, add-ons, private messaging, content requests, and booking intake are active.</p><div class="panel-actions"><a class="admin-button primary" href="<?= e(base_url('admin/?page=composer')) ?>">Open Visual Composer</a><a class="admin-button secondary" href="<?= e(base_url('admin/?page=canva')) ?>">Open Canva Templates</a></div></div><img src="<?= e(image_url('defaults/canva-hero-preview.jpg')) ?>" alt="Approved pink hero design"></section>

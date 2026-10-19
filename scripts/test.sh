@@ -33,7 +33,7 @@ echo "== Application tests in a disposable copy =="
 php tests/smoke.php
 for test in \
   tests/Installer/foundation.php tests/Installer/single_page.php tests/Installer/recovery.php \
-  tests/Unit/hero_library.php tests/Unit/installation_urls.php \
+  tests/Unit/hero_library.php tests/Unit/installation_urls.php tests/Feature/runtime_build.php \
   tests/Unit/migrations.php tests/Unit/addon_manifest.php tests/Unit/addon_package.php \
   tests/Unit/media_access.php tests/Unit/media_store.php tests/Unit/member_auth.php \
   tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
