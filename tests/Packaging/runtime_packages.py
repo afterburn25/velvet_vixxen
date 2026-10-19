@@ -25,7 +25,19 @@ REPAIR_FILES = {
     "public/assets/css/installer.css",
     "public/assets/js/installer.js",
 }
-PUBLIC_ROUTE_FILES = {
+APPROVED_ROOT_FILES = {".htaccess", "VERSION", "index.php", "route.php"}
+APPROVED_FRESH_ROOTS = {
+    "addons", "admin", "app", "config", "database", "images", "includes",
+    "install", "public", "storage", "templates", "uploads", "vendor",
+}
+APPROVED_UPGRADE_ROOTS = APPROVED_FRESH_ROOTS - {"config", "storage", "uploads", "install"}
+REJECTED_BUILD5_ROOTS = {
+    "about", "account", "api", "blog", "booking", "campaign", "cart", "checkout",
+    "collections", "communication", "create-account", "extension", "join", "links",
+    "login", "membership", "messages", "music", "newsletter", "photos", "receipt",
+    "recover", "requests", "shop", "videos",
+}
+PUBLIC_HANDLER_FILES = {"public/routes/" + relative for relative in {
     "about/index.php", "account/billing.php", "account/forgot.php", "account/index.php",
     "account/library.php", "account/login.php", "account/logout.php", "account/register.php",
     "account/reset.php", "account/security.php", "account/verify.php",
@@ -33,30 +45,37 @@ PUBLIC_ROUTE_FILES = {
     "api/payment-webhook.php", "api/scene.php", "api/upload.php",
     "blog/index.php", "blog/post.php", "booking/index.php", "campaign/index.php",
     "cart/index.php", "checkout/index.php", "checkout/success.php", "collections/index.php",
-    "communication/download.php", "create-account/index.php", "extension/index.php",
-    "join/index.php", "links/index.php", "login/index.php", "media.php",
+    "communication/download.php", "extension/index.php", "links/index.php", "media.php",
     "membership/index.php", "messages/index.php", "music/index.php", "newsletter/confirm.php",
     "newsletter/index.php", "newsletter/unsubscribe.php", "photos/index.php", "photos/view.php",
-    "receipt/index.php", "recover/index.php", "requests/index.php", "shop/index.php",
+    "receipt/index.php", "requests/index.php", "shop/index.php",
     "videos/index.php", "videos/watch.php",
-}
+}}
 COMPOSER_REPAIR_FILES = {
-    *PUBLIC_ROUTE_FILES, "admin/index.php", "admin/update.php", "public/router.php",
+    *PUBLIC_HANDLER_FILES, ".htaccess", "route.php", "admin/index.php", "admin/update.php",
+    "admin/repair.php", "public/router.php", "app/Support/public_routes.php",
     "app/Core/SceneButton.php", "app/Core/Store.php", "app/Core/RepairBackupService.php",
-    "app/Core/RuntimeBuildService.php", "app/Support/functions.php",
+    "app/Core/RuntimeBuildService.php", "app/Core/RuntimeInventoryService.php",
+    "app/Core/RootLayoutService.php", "app/Support/functions.php",
+    "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
+    "app/Views/admin/repair-backups.php",
+    "app/Views/admin/repair-status.php",
+    "app/Views/public/partials/footer.php", "public/home.php",
     "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
     "includes/version.php", "includes/runtime-build.json", "public/routes/links/index.php", "public/routes/campaign/index.php",
     "public/assets/css/site.css", "public/assets/css/composer.css",
     "public/assets/js/api-client.js", "public/assets/js/admin.js",
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
+    "public/assets/js/media-center.js",
 }
-BUILD_ID = "20261019.5"
+BUILD_ID = "20261019.6"
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
 VERIFIED_BASELINES = [
     "e5b04daa132521be69c943151f8112c7cd2017e8",
     "db759342e401617c9933c13b81a147ad9f8fd515",
+    "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
 ]
 LEGACY_TIMESTAMP = (2026, 1, 1, 0, 0, 0)
 REPAIR_TIMESTAMPS = {
@@ -65,7 +84,7 @@ REPAIR_TIMESTAMPS = {
     for relative in REPAIR_FILES
 }
 REPAIR_TIMESTAMPS.update({
-    relative: (2026, 10, 19, 19, 30, 0) for relative in COMPOSER_REPAIR_FILES
+    relative: (2026, 10, 19, 20, 50, 0) for relative in COMPOSER_REPAIR_FILES
 })
 
 
@@ -74,6 +93,33 @@ def metadata(entry) -> tuple:
 
 
 def run() -> None:
+    historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
+    assert historical["schema"] == 1
+    baselines = historical["upgrade_baselines"]
+    assert [baseline["source_commit"] for baseline in baselines] == VERIFIED_BASELINES
+    assert [(baseline["files"], baseline["sha256"]) for baseline in baselines] == [
+        (273, "e7f6c52d4d7de217b647e41f44827381cfe4a86c58b794947a5a0fd8bfa57028"),
+        (321, "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6"),
+        (325, "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d"),
+    ], "Historical fixture no longer identifies the actual delivered Upgrade packages"
+    rejected_fresh = historical["rejected_build5_fresh"]
+    assert rejected_fresh["sha256"] == "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9"
+    assert len(rejected_fresh["entry_paths"]) == rejected_fresh["files"] == 366
+    assert package.ROOT_FILES == APPROVED_ROOT_FILES, "Package root file allowlist was expanded"
+    assert package.RUNTIME_ROOTS == APPROVED_FRESH_ROOTS, "Package root directory allowlist was expanded"
+    for kind, paths in [("fresh", rejected_fresh["entry_paths"]), ("upgrade", baselines[-1]["entry_sha256"])]:
+        directories = {name.split("/", 1)[0] for name in paths if "/" in name}
+        expected = APPROVED_FRESH_ROOTS if kind == "fresh" else APPROVED_UPGRADE_ROOTS
+        assert directories - expected == REJECTED_BUILD5_ROOTS and "media.php" in paths
+        try:
+            package.validate_runtime_layout(paths, kind)
+        except ValueError as error:
+            assert "unapproved root entries" in str(error) and "media.php" in str(error)
+            assert all(directory in str(error) for directory in REJECTED_BUILD5_ROOTS)
+        else:
+            raise AssertionError("The actual delivered Build .5 root-directory regression passed the restored layout gate")
+    for baseline in baselines:
+        assert len(baseline["entry_sha256"]) == baseline["files"]
     with tempfile.TemporaryDirectory(prefix="vvx-package-test-") as temporary:
         work = Path(temporary)
         source = work / "source"
@@ -115,7 +161,7 @@ def run() -> None:
         assert (source / RUNTIME_BUILD_PATH).read_bytes() == stale_inventory, "Packaging wrote generated state back into its source checkout"
         assert set(releases) == {"fresh", "upgrade", "installer-repair", "composer-repair"}, "A required 0.8.1 runtime distribution is missing"
         assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
-        assert package.PUBLIC_ROUTE_FILES == PUBLIC_ROUTE_FILES, "Physical public entry points differ from the reviewed compatibility scope"
+        assert package.PUBLIC_HANDLER_FILES == PUBLIC_HANDLER_FILES, "Organized public handlers differ from the reviewed route scope"
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
         with ZipFile(work / "first" / releases["upgrade"]["filename"]) as upgrade:
             expected_inventory = {
@@ -133,6 +179,11 @@ def run() -> None:
             assert RUNTIME_BUILD_PATH not in expected_inventory["files"], "Runtime inventory cannot hash itself"
             assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS or name.startswith("registry/")
                            for name in expected_inventory["files"]), "Runtime inventory includes installed or private state"
+            for baseline in baselines:
+                changed = {name for name, digest in expected_inventory["files"].items()
+                           if baseline["entry_sha256"].get(name) != digest}
+                missing = sorted(changed - COMPOSER_REPAIR_FILES)
+                assert not missing, "Focused repair omits changed runtime dependencies from " + baseline["source_commit"] + ": " + ", ".join(missing)
         for release in first["packages"]:
             archive = work / "first" / release["filename"]
             assert archive.read_bytes() == (work / "second" / release["filename"]).read_bytes(), "Package is not reproducible"
@@ -149,6 +200,13 @@ def run() -> None:
                     assert RUNTIME_BUILD_PATH not in entries and "build_id" not in compatibility and "build_id" not in release, "Installer-only repair was mislabeled as a new complete runtime build"
                 assert not entries.intersection(protected), "Installed/private state was packaged"
                 assert not any(name.startswith((".github/", "docs/", "tests/", "scripts/", "addons/sdk/")) for name in entries), "Development files entered runtime ZIP"
+                directories = {name.split("/", 1)[0] for name in entries if "/" in name}
+                root_files = {name for name in entries if "/" not in name}
+                assert not directories.intersection(REJECTED_BUILD5_ROOTS) and "media.php" not in root_files, "Retired page/API entry points reintroduced root clutter"
+                if release["kind"] in {"fresh", "upgrade"}:
+                    approved = APPROVED_FRESH_ROOTS if release["kind"] == "fresh" else APPROVED_UPGRADE_ROOTS
+                    assert directories == approved and root_files == APPROVED_ROOT_FILES, "Actual customer ZIP does not have the exact approved root layout"
+                    assert PUBLIC_HANDLER_FILES <= entries, "Consolidated public handler was removed along with a root forwarding file"
                 assert zipped.testzip() is None, "Archive integrity failure"
                 assert all(not Path(name).is_absolute() and ".." not in Path(name).parts for name in entries), "Unsafe archive path"
                 assert all(entry.create_system == 3 and entry.external_attr >> 16 == 0o100644 for entry in zipped.infolist()), "Runtime ZIP entries must be regular files with safe 0644 permissions"
@@ -234,8 +292,9 @@ def run() -> None:
                 else:
                     assert entries == COMPOSER_REPAIR_FILES, "Media and Composer repair must contain exactly its reviewed runtime dependencies"
                     assert release["filename"] == f"Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-{BUILD_ID}-Media-Composer-Repair.zip"
-                    assert release["files"] == len(COMPOSER_REPAIR_FILES) == 72
-                    assert release["php_files"] == 64 and release["javascript_files"] == 5
+                    assert release["files"] == len(COMPOSER_REPAIR_FILES)
+                    assert release["php_files"] == sum(name.endswith(".php") for name in COMPOSER_REPAIR_FILES)
+                    assert release["javascript_files"] == sum(name.endswith(".js") for name in COMPOSER_REPAIR_FILES)
                     compatibility = json.loads(zipped.comment)
                     assert compatibility["kind"] == "composer-repair" and compatibility["version"] == "0.8.1"
                     assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "installed", "Media and Composer repair compatibility must stay limited to installed 0.8.1 sites"
@@ -245,7 +304,7 @@ def run() -> None:
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries), "Media and Composer repair includes installer or installed state"
 
                     # Deliver this repair to an existing site with its installer
-                    # retired. New public entry points/helpers must be added while
+                    # retired. Organized dispatch/helpers must be restored while
                     # every unrelated runtime/private file stays byte-identical.
                     repaired_site = work / "composer-installed"
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh, \
@@ -262,11 +321,13 @@ def run() -> None:
                         target.write_bytes(content)
                     for relative in COMPOSER_REPAIR_FILES:
                         target = repaired_site / relative
-                        if relative in PUBLIC_ROUTE_FILES | {
+                        if relative in PUBLIC_HANDLER_FILES | {
                             "public/assets/js/api-client.js", "app/Core/SceneButton.php", "admin/update.php",
                             "app/Core/RuntimeBuildService.php", "app/Views/admin/update-status.php", RUNTIME_BUILD_PATH,
+                            "admin/repair.php", "app/Core/RootLayoutService.php", "app/Core/RuntimeInventoryService.php",
+                            "app/Views/admin/repair-status.php", "app/Support/public_routes.php",
                         }:
-                            target.unlink()  # Earlier packages have no physical public entry points/new helpers.
+                            target.unlink()  # Missing or mixed organized dependencies must be supplied by the repair.
                         elif relative.endswith(".js"):
                             target.write_bytes(b"// prior Composer runtime fixture\n")
                         elif relative.endswith(".css"):
@@ -325,6 +386,7 @@ def run() -> None:
                 {**expected_inventory, "files": {name: digest for name, digest in expected_inventory["files"].items() if name != "app/bootstrap.php"}},
                 {**expected_inventory, "files": {**expected_inventory["files"], "config/app.php": "0" * 64}},
                 {**expected_inventory, "files": {**expected_inventory["files"], RUNTIME_BUILD_PATH: "0" * 64}},
+                {**expected_inventory, "files": {**expected_inventory["files"], "public/routes/api/upload.php": "0" * 64}},
                 {**expected_inventory, "files": {**expected_inventory["files"], "api/upload.php": "0" * 64}},
             ]
             for inventory in malformed_inventories:
@@ -379,7 +441,7 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
     for release in first["packages"]:
         print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 

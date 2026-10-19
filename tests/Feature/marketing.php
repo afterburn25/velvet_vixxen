@@ -43,6 +43,15 @@ try {
     $assert(count($events) === 1 && strlen($events[0]['session_hash']) === 64, 'Analytics event allowlist/session hashing failed.');
     $assert(!str_contains(json_encode($events), 'never-store-this'), 'Analytics retained prohibited extra payload fields.');
     $assert($store->analyticsSummary()['counts']['page_view'] === 1, 'Analytics summary did not count the accepted event.');
+    foreach (['account/library.php', 'messages', 'requests', 'communication/download.php', 'receipt',
+        'newsletter/confirm.php', 'newsletter/unsubscribe.php'] as $privateRoute) {
+        $store->recordEvent('page_view', ['path' => '/nested/velvet/route.php?vvx_route=' . rawurlencode($privateRoute) . '&token=never-store-this-token']);
+    }
+    $assert(count($store->all()['events']) === 1, 'Canonical routing bypassed private-page analytics suppression.');
+    $store->recordEvent('page_view', ['path' => '/nested/velvet/route.php?vvx_route=blog%2Fpost.php&slug=update&token=never-store-this-token']);
+    $canonicalEvents = $store->all()['events'];
+    $assert(count($canonicalEvents) === 2 && $canonicalEvents[1]['path'] === '/nested/velvet/blog/post.php'
+        && !str_contains(json_encode($canonicalEvents), 'never-store-this-token'), 'Canonical public analytics lost the page identity or retained query values.');
     $assert(count((new Velvet\Core\MarketingStore($root))->publishedPosts()) === 1, 'Marketing state did not persist across instances.');
 } catch (Throwable $e) { $failures[] = $e->getMessage(); }
 finally {

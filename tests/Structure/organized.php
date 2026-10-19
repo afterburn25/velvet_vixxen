@@ -2,6 +2,24 @@
 declare(strict_types=1);
 
 $root = dirname(__DIR__, 2);
+$runtimeDirectories = ['addons','admin','app','config','database','images','includes','install','public','storage','templates','uploads','vendor'];
+$engineeringDirectories = ['.git','.github','artwork','docs','scripts','tests'];
+$allowedDirectories = array_merge($runtimeDirectories, $engineeringDirectories);
+$unexpectedDirectories = [];
+foreach (new DirectoryIterator($root) as $entry) {
+    if ($entry->isDot()) {
+        continue;
+    }
+    if (($entry->isDir() || $entry->isLink())
+        && (!in_array($entry->getFilename(), $allowedDirectories, true) || $entry->isLink())) {
+        $unexpectedDirectories[] = $entry->getFilename();
+    }
+}
+if ($unexpectedDirectories !== []) {
+    sort($unexpectedDirectories);
+    fwrite(STDERR, 'Unapproved or linked root directories: ' . implode(', ', $unexpectedDirectories) . PHP_EOL);
+    exit(1);
+}
 $requiredDirectories = ['admin','addons','app','config','database','docs','images','includes','install','public','public/routes','scripts','storage','templates','tests','uploads','vendor'];
 foreach ($requiredDirectories as $directory) {
     if (!is_dir($root . '/' . $directory)) {
@@ -9,9 +27,9 @@ foreach ($requiredDirectories as $directory) {
         exit(1);
     }
 }
-// media.php is a thin compatibility entrypoint for existing signed media URLs;
-// all delivery and authorization logic stays in public/routes/media.php.
-$allowedRootPhp = ['index.php','media.php','route.php'];
+// Public pages and APIs use the physical route.php dispatcher. Compatibility
+// with old URLs must never reintroduce their page directories into the root.
+$allowedRootPhp = ['index.php','route.php'];
 $rootPhp = array_map('basename', glob($root . '/*.php') ?: []);
 sort($rootPhp); sort($allowedRootPhp);
 if ($rootPhp !== $allowedRootPhp) {
@@ -40,4 +58,4 @@ foreach ($requiredAddonFiles as $file) {
     }
 }
 
-echo "Repository structure test passed.\n";
+echo "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.\n";

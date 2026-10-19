@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from public_urls import site_url, wait_for_route
 from playwright.sync_api import sync_playwright
 
 BASE = os.getenv("VELVET_BASE_URL", "http://127.0.0.1:8765").rstrip("/")
@@ -23,7 +24,7 @@ def observe(page, label: str) -> None:
 
 
 def visit(page, path: str, wait_ms: int = 200) -> None:
-    page.goto(BASE + path, wait_until="domcontentloaded", timeout=30_000)
+    page.goto(site_url(BASE, path), wait_until="domcontentloaded", timeout=30_000)
     page.wait_for_timeout(wait_ms)
     if page.locator("#ageGate:not([hidden])").count():
         page.locator("#ageEnter").click()
@@ -47,7 +48,7 @@ with sync_playwright() as playwright:
     page.fill('input[name="email"]', "member@example.com")
     page.fill('input[name="password"]', "VelvetMember12")
     page.click('button:has-text("Sign In")')
-    page.wait_for_url("**/account/", timeout=15_000)
+    wait_for_route(page, BASE, 'account', timeout=15_000)
     assert "Welcome, Velvet Member" in page.locator("body").inner_text()
     assert "Velvet VIP" in page.locator("body").inner_text()
     assert page.locator('.member-status-pill:has-text("Active membership")').count() == 1
@@ -82,7 +83,7 @@ with sync_playwright() as playwright:
     page.fill('input[name="email"]', "member@example.com")
     page.fill('input[name="password"]', "VelvetMember12")
     page.click('button:has-text("Sign In")')
-    page.wait_for_url("**/account/", timeout=15_000)
+    wait_for_route(page, BASE, 'account', timeout=15_000)
     assert page.locator(".member-hero").is_visible()
     visit(page, "/account/library.php")
     assert page.locator(".member-library-card").count() >= 4

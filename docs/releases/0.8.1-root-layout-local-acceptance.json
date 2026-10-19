@@ -1,0 +1,302 @@
+{
+  "status": "passed",
+  "historical_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+  "historical_fresh_sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+  "server": "Actual PHP file serving without router/restart; no intercepted responses",
+  "cases": {
+    "root-cache": {
+      "persistent_opcache": true,
+      "php": "8.3.6",
+      "before": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": true,
+        "cli_enabled_flag": true,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": true,
+          "app/Views/admin/composer.php": true,
+          "includes/version.php": true,
+          "admin/update.php": true,
+          "app/Core/RuntimeBuildService.php": true,
+          "app/Views/admin/update-status.php": true
+        },
+        "neighbor_cached": true,
+        "asset_identity": "0.8.1-20261019.5"
+      },
+      "after": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": true,
+        "cli_enabled_flag": true,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": false,
+          "app/Views/admin/composer.php": false,
+          "includes/version.php": true,
+          "admin/update.php": false,
+          "app/Core/RuntimeBuildService.php": false,
+          "app/Views/admin/update-status.php": false
+        },
+        "neighbor_cached": true,
+        "asset_identity": "0.8.1-20261019.6"
+      },
+      "negative_control": {
+        "all_upgrade_bytes_match": true,
+        "same_php_process": true,
+        "overlay_alone_leaves_all_25_root_folders": true,
+        "known_forwarders_remain": 46,
+        "old_update_controller_class_and_view_remain_cached": true,
+        "old_inventory_validator_rejects_organized_package": true,
+        "old_asset_version": "0.8.1-20261019.5"
+      },
+      "security": {
+        "anonymous_and_member_get_post_denied": true,
+        "demoted_owner_session_get_post_403": true,
+        "forbidden_method_405": true,
+        "missing_and_wrong_csrf_419": true,
+        "unknown_action_400": true
+      },
+      "geometry": {
+        "desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        "mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      },
+      "layout": {
+        "known_files_retired": 46,
+        "old_root_directories_removed": 25,
+        "unknown_custom_sibling_preserved": true,
+        "obsolete_broad_action_retired": true,
+        "exact_reversible_nonexecuting_archive": true,
+        "active_runtime_unchanged": true
+      },
+      "actions": {
+        "add_button": true,
+        "preview_stays_open_with_saved_draft": true,
+        "publish_persists_public_button": true,
+        "public_button_booking_navigation": true,
+        "library_and_composer_uploads": true,
+        "exact_asset_bytes_and_browser_decode": true,
+        "normal_reload_preserves_layer": true,
+        "uncaught_javascript_errors": 0
+      },
+      "complete_upgrade_files": 284,
+      "owner_get_no_store": true,
+      "incomplete_overlay_diagnosed_and_activation_blocked": true,
+      "owner_form_post_303": true,
+      "existing_configuration_identity_records_uploads_preserved": true,
+      "same_authenticated_browser_context": true,
+      "no_php_restart": true
+    },
+    "nested-cache": {
+      "persistent_opcache": true,
+      "php": "8.3.6",
+      "before": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": true,
+        "cli_enabled_flag": false,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": true,
+          "app/Views/admin/composer.php": true,
+          "includes/version.php": true,
+          "admin/update.php": true,
+          "app/Core/RuntimeBuildService.php": true,
+          "app/Views/admin/update-status.php": true
+        },
+        "neighbor_cached": true,
+        "asset_identity": "0.8.1-20261019.5"
+      },
+      "after": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": true,
+        "cli_enabled_flag": false,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": false,
+          "app/Views/admin/composer.php": false,
+          "includes/version.php": true,
+          "admin/update.php": false,
+          "app/Core/RuntimeBuildService.php": false,
+          "app/Views/admin/update-status.php": false
+        },
+        "neighbor_cached": true,
+        "asset_identity": "0.8.1-20261019.6"
+      },
+      "negative_control": {
+        "all_upgrade_bytes_match": true,
+        "same_php_process": true,
+        "overlay_alone_leaves_all_25_root_folders": true,
+        "known_forwarders_remain": 46,
+        "old_update_controller_class_and_view_remain_cached": true,
+        "old_inventory_validator_rejects_organized_package": true,
+        "old_asset_version": "0.8.1-20261019.5"
+      },
+      "security": {
+        "anonymous_and_member_get_post_denied": true,
+        "demoted_owner_session_get_post_403": true,
+        "forbidden_method_405": true,
+        "missing_and_wrong_csrf_419": true,
+        "unknown_action_400": true
+      },
+      "geometry": {
+        "desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        "mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      },
+      "layout": {
+        "known_files_retired": 46,
+        "old_root_directories_removed": 25,
+        "unknown_custom_sibling_preserved": true,
+        "obsolete_broad_action_retired": true,
+        "exact_reversible_nonexecuting_archive": true,
+        "active_runtime_unchanged": true
+      },
+      "actions": {
+        "add_button": true,
+        "preview_stays_open_with_saved_draft": true,
+        "publish_persists_public_button": true,
+        "public_button_booking_navigation": true,
+        "library_and_composer_uploads": true,
+        "exact_asset_bytes_and_browser_decode": true,
+        "normal_reload_preserves_layer": true,
+        "uncaught_javascript_errors": 0
+      },
+      "complete_upgrade_files": 284,
+      "owner_get_no_store": true,
+      "incomplete_overlay_diagnosed_and_activation_blocked": true,
+      "owner_form_post_303": true,
+      "existing_configuration_identity_records_uploads_preserved": true,
+      "same_authenticated_browser_context": true,
+      "no_php_restart": true
+    },
+    "nested-cache-disabled": {
+      "persistent_opcache": false,
+      "php": "8.3.6",
+      "before": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": false,
+        "cli_enabled_flag": false,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": false,
+          "app/Views/admin/composer.php": false,
+          "includes/version.php": false,
+          "admin/update.php": false,
+          "app/Core/RuntimeBuildService.php": false,
+          "app/Views/admin/update-status.php": false
+        },
+        "neighbor_cached": false,
+        "asset_identity": "0.8.1-20261019.5"
+      },
+      "after": {
+        "ok": true,
+        "php": "8.3.6",
+        "enabled": false,
+        "cli_enabled_flag": false,
+        "validate_timestamps": false,
+        "cached": {
+          "admin/index.php": false,
+          "app/Views/admin/composer.php": false,
+          "includes/version.php": false,
+          "admin/update.php": false,
+          "app/Core/RuntimeBuildService.php": false,
+          "app/Views/admin/update-status.php": false
+        },
+        "neighbor_cached": false,
+        "asset_identity": "0.8.1-20261019.6"
+      },
+      "negative_control": {
+        "all_upgrade_bytes_match": true,
+        "same_php_process": true,
+        "overlay_alone_leaves_all_25_root_folders": true,
+        "known_forwarders_remain": 46
+      },
+      "security": {},
+      "geometry": {
+        "desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        "mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      },
+      "layout": {
+        "known_files_retired": 46,
+        "old_root_directories_removed": 25,
+        "unknown_custom_sibling_preserved": true,
+        "obsolete_broad_action_retired": true,
+        "exact_reversible_nonexecuting_archive": true,
+        "active_runtime_unchanged": true
+      },
+      "actions": {
+        "add_button": true,
+        "preview_stays_open_with_saved_draft": true,
+        "publish_persists_public_button": true,
+        "public_button_booking_navigation": true,
+        "library_and_composer_uploads": true,
+        "exact_asset_bytes_and_browser_decode": true,
+        "normal_reload_preserves_layer": true,
+        "uncaught_javascript_errors": 0
+      },
+      "complete_upgrade_files": 284,
+      "owner_get_no_store": true,
+      "incomplete_overlay_diagnosed_and_activation_blocked": true,
+      "owner_form_post_303": true,
+      "existing_configuration_identity_records_uploads_preserved": true,
+      "same_authenticated_browser_context": true,
+      "no_php_restart": true
+    }
+  },
+  "build_id": "20261019.6",
+  "upgrade_sha256": "a158e0003d93ba94efec619e5c287b2d33a56b5d986e42ba97ba5f80f2adae8b",
+  "browser_version": "155.0.8059.84",
+  "scope": "Local exact historical Build .5 to corrected Build .6 acceptance. The subsequent disabling of the unused broad archive PHP method changes runtime bytes; final exact-source CI remains required.",
+  "artifact_status": "Local evidence, not a customer-host or final GitHub CI claim.",
+  "tested_at_utc": "2026-10-19T21:22:11Z"
+}

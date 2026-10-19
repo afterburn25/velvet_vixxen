@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 import os
+from public_urls import site_url, wait_for_route
 import re
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -26,7 +27,7 @@ def observe(page, label):
 
 
 def visit(page, path):
-    response = page.goto(BASE + path, wait_until='domcontentloaded')
+    response = page.goto(site_url(BASE, path), wait_until='domcontentloaded')
     assert response and response.status == 200, (path, response.status if response else None)
     if page.locator('#ageGate:not([hidden])').count():
         page.locator('#ageEnter').click()
@@ -101,7 +102,7 @@ with sync_playwright() as playwright:
         page.get_by_label('Email address', exact=True).fill('other@example.com')
         page.get_by_label('Password', exact=True).fill('VelvetMember12')
         page.get_by_role('button', name='Sign In', exact=True).click()
-        page.wait_for_url('**/account/')
+        wait_for_route(page, BASE, 'account')
         visit(page, '/shop/?product=browser-velvet-tee')
         fits(page, label + ' product')
         page.wait_for_function('() => { const images = [...document.querySelectorAll(".merchandise-gallery img")]; return images.length > 0 && images.every(image => image.complete && image.naturalWidth > 0); }')
@@ -113,7 +114,7 @@ with sync_playwright() as playwright:
         buy.locator('[name="quantity"]').fill('2' if label == 'desktop' else '1')
         shot(page, 'merchandise-product-' + label + '.png')
         buy.get_by_role('button', name='Add to Cart', exact=True).click()
-        page.wait_for_url('**/cart/')
+        wait_for_route(page, BASE, 'cart')
         assert page.locator('[data-cart-line]').count() == 1
         if label == 'desktop':
             quantity_form = page.locator('.cart-quantity')
@@ -127,12 +128,12 @@ with sync_playwright() as playwright:
             # Buying one PPV release does not consume the merchandise waiting in cart.
             visit(page, '/photos/view.php?slug=velvet-lounge')
             page.get_by_role('button', name=re.compile(r'^Buy Now')).click()
-            page.wait_for_url('**/checkout/?intent=**')
+            wait_for_route(page, BASE, 'checkout', required_query=('intent',))
             assert page.get_by_role('heading', name='Unlock this release.', exact=True).is_visible()
             assert 'Browser Velvet Tee' not in page.locator('.checkout-items').inner_text()
             page.locator('.checkout-confirm input').check()
             page.get_by_role('button', name=re.compile(r'^Pay ')).click()
-            page.wait_for_url('**/checkout/success.php?order=**')
+            wait_for_route(page, BASE, 'checkout/success.php', required_query=('order',))
             visit(page, '/account/library.php')
             assert 'Velvet Lounge' in page.locator('body').inner_text()
             visit(page, '/cart/')
@@ -144,7 +145,7 @@ with sync_playwright() as playwright:
         assert page.locator('.cart-item-copy').bounding_box()['width'] >= (280 if label == 'desktop' else 200), 'Product details were squeezed into a legacy icon column.'
         shot(page, 'merchandise-cart-' + label + '.png')
         page.get_by_role('link', name='Continue to Checkout', exact=True).click()
-        page.wait_for_url('**/checkout/')
+        wait_for_route(page, BASE, 'checkout')
         assert page.get_by_role('heading', name='Complete your merchandise order.', exact=True).is_visible()
         fits(page, label + ' checkout')
         page.locator('.checkout-confirm input').check()
@@ -156,7 +157,7 @@ with sync_playwright() as playwright:
             page.locator('[name="shipping[' + key + ']"]').fill(value)
         shot(page, 'merchandise-checkout-' + label + '.png')
         page.get_by_role('button', name=re.compile(r'^Pay ')).click()
-        page.wait_for_url('**/checkout/success.php?order=**')
+        wait_for_route(page, BASE, 'checkout/success.php', required_query=('order',))
         assert 'Your merchandise order is confirmed' in page.locator('body').inner_text()
         number = parse_qs(urlparse(page.url).query)['order'][0]
         order_numbers.append(number)

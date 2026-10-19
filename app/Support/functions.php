@@ -18,6 +18,8 @@ use App\Core\AddonUpdateService;
 use App\Core\RemoteHttpClient;
 use App\Core\CommunicationUploadService;
 
+require_once __DIR__ . '/public_routes.php';
+
 function root_path(string $path = ''): string
 {
     $root = defined('ROOT_PATH') ? ROOT_PATH : dirname(__DIR__, 2);
@@ -179,8 +181,9 @@ function require_member(bool $json = false): array
 
 function member_return_path(string $candidate, string $fallback = '/account/'): string
 {
-    $prefix = rtrim((string) (parse_url(base_url(), PHP_URL_PATH) ?? ''), '/');
-    $resolve = static function (string $value) use ($prefix): ?string {
+    $base = base_url();
+    $prefix = rtrim((string) (parse_url($base, PHP_URL_PATH) ?? ''), '/');
+    $resolve = static function (string $value) use ($base, $prefix): ?string {
         if ($value === '' || preg_match('/[\x00-\x20\x7f\\\\]/', $value)
             || preg_match('/%(?:0[0-9a-f]|1[0-9a-f]|7f|5c)/i', $value)
             || preg_match('/%(?![0-9a-f]{2})/i', $value)) return null;
@@ -197,9 +200,12 @@ function member_return_path(string $candidate, string $fallback = '/account/'): 
             $path = $prefix . $path;
         }
         $query = isset($parts['query']) && $parts['query'] !== '' ? '?' . $parts['query'] : '';
-        return $path . $query;
+        $destination = parse_url(vvx_public_destination($base, $path . $query));
+        if (!is_array($destination)) return null;
+        return (string) ($destination['path'] ?? '/')
+            . (isset($destination['query']) ? '?' . $destination['query'] : '');
     };
-    return $resolve($candidate) ?? $resolve($fallback) ?? $prefix . '/account/';
+    return $resolve($candidate) ?? $resolve($fallback) ?? $prefix . '/' . vvx_public_route_relative_url('account/');
 }
 
 function member_content_decision(string $type, array $content, bool $direct = false): array
@@ -220,7 +226,19 @@ function base_url(string $path = ''): string
         if ($script !== '' && !str_starts_with($script, '/')) $script = '/' . $script;
         $configured = $scheme . '://' . $host . $script;
     }
-    return $configured . ($path !== '' ? '/' . ltrim($path, '/') : '');
+    return $configured . ($path !== '' ? '/' . vvx_public_route_relative_url(ltrim($path, '/')) : '');
+}
+
+/** URLs consumed by live JavaScript use the same physical dispatcher as PHP. */
+function public_route_config(): array
+{
+    return [
+        'publicRoutes' => array_keys(vvx_public_routes()),
+        'routeUrl' => base_url('route.php'),
+        'memberStateUrl' => base_url('api/member-state.php'),
+        'marketingEventUrl' => base_url('api/marketing-event.php'),
+        'pagePath' => vvx_public_request_path((string) ($_SERVER['REQUEST_URI'] ?? '/')),
+    ];
 }
 
 function asset_url(string $path): string

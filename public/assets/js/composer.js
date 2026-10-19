@@ -11,6 +11,13 @@
   const clamp = (value, min, max) => Math.min(max, Math.max(min, Number(value)));
   const csrf = document.querySelector('meta[name="csrf-token"]')?.content || '';
   const baseUrl = String(seed.baseUrl || '').replace(/\/$/, '');
+  const sceneUrl = String(seed.sceneUrl || `${baseUrl}/route.php?vvx_route=api%2Fscene.php`);
+  const uploadUrl = String(seed.uploadUrl || `${baseUrl}/route.php?vvx_route=api%2Fupload.php`);
+  const sceneEndpoint = (targetSection) => {
+    const url = new URL(sceneUrl, location.href);
+    url.searchParams.set('section', targetSection);
+    return url.href;
+  };
   const uploadBase = String(seed.uploadBase || `${baseUrl}/uploads/`).replace(/\/?$/, '/');
   const assetUrls = {...(seed.assetUrls || {})};
   const brokenAssets = new Set();
@@ -1359,7 +1366,7 @@
   }
 
   async function saveScene(action, targetSection, draft) {
-    const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(targetSection)}`, {
+    const response = await fetch(sceneEndpoint(targetSection), {
       method: 'POST',
       headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
       body: JSON.stringify({action, scene: draft})
@@ -1453,7 +1460,7 @@
     setSaving(true);
     setStatus('Restoring version…', 'busy');
     try {
-      const response = await fetch(`${baseUrl}/api/scene.php?section=${encodeURIComponent(targetSection)}`, {
+      const response = await fetch(sceneEndpoint(targetSection), {
         method: 'POST',
         headers: {'Content-Type': 'application/json', 'X-CSRF-Token': csrf},
         body: JSON.stringify({action: 'restore', versionId})
@@ -1483,7 +1490,7 @@
     button.textContent = 'Uploading…';
     setStatus('Uploading media…', 'busy');
     try {
-      const response = await fetch(`${baseUrl}/api/upload.php`, {
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: new FormData(quickUpload),
         headers: {'X-CSRF-Token': csrf}

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Upgrade an actual historical installation without restarting PHP or its browser.
 
-The old customer ZIP is rebuilt from pinned Git history and must match the exact
-previously delivered bytes. Persistent OPcache deliberately ignores timestamps:
-replacing the complete runtime must reproduce old PHP rendering new JavaScript
-until the real owner Update Status action invalidates this site's PHP files.
+The rejected Build .5 ZIP is rebuilt from pinned Git history and must match the
+exact delivered bytes. The real .6 Upgrade must restore its package allowlist,
+but extraction alone leaves all 25old root folders. The owner's fresh repair entry
+must bypass retained .5 PHP, activate the new runtime, safely remove only the 46
+known forwarding files, and execute actual actions through the central dispatcher.
 These are disposable file-store installations, not evidence of a customer host
 or the separate MySQL upgrade/installer gates. No routes or responses are mocked.
 """
@@ -23,6 +24,7 @@ import tarfile
 import tempfile
 import time
 from zipfile import ZipFile
+from urllib.parse import parse_qs, quote, urlparse
 
 import requests
 from playwright.sync_api import expect, sync_playwright
@@ -33,9 +35,16 @@ import packaged_media_upload_playwright as helpers
 ROOT = helpers.ROOT
 EVIDENCE = helpers.EVIDENCE
 require = helpers.require
-OLD_COMMIT = 'e5b04daa132521be69c943151f8112c7cd2017e8'
-OLD_FRESH_SHA256 = '0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca'
-OLD_ASSET_VERSION = '0.8.1-20261019.3'
+OLD_COMMIT = '2bc178013c9c528f45a5d0447624f3cbaf4395f2'
+OLD_FRESH_SHA256 = 'dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9'
+OLD_ASSET_VERSION = '0.8.1-20261019.5'
+OLD_BUILD = '20261019.5'
+APPROVED_ROOTS = {'addons', 'admin', 'app', 'config', 'database', 'images', 'includes', 'install',
+                  'public', 'storage', 'templates', 'uploads', 'vendor'}
+RETIRED_ROOTS = {'about', 'account', 'api', 'blog', 'booking', 'campaign', 'cart', 'checkout',
+                 'collections', 'communication', 'create-account', 'extension', 'join', 'links',
+                 'login', 'membership', 'messages', 'music', 'newsletter', 'photos', 'receipt',
+                 'recover', 'requests', 'shop', 'videos'}
 VIEWPORTS = {'desktop': {'width': 1440, 'height': 1000}, 'mobile': {'width': 390, 'height': 844}}
 PRESERVED = ['config/app.php', 'storage/install.lock', 'storage/data.json',
              'storage/private/update-fixture.txt', 'uploads/media/update-existing.png']
@@ -53,7 +62,7 @@ $other = (string) getenv('VVX_UPDATE_TEST_NEIGHBOR');
 if (isset($_GET['warm_other'])) require $other;
 $status = function_exists('opcache_get_status') ? opcache_get_status(false) : false;
 $cached = [];
-foreach (['admin/index.php', 'app/Views/admin/composer.php', 'includes/version.php'] as $file) {
+foreach (['admin/index.php', 'app/Views/admin/composer.php', 'includes/version.php', 'admin/update.php', 'app/Core/RuntimeBuildService.php', 'app/Views/admin/update-status.php'] as $file) {
     $cached[$file] = function_exists('opcache_is_script_cached') && opcache_is_script_cached(ROOT_PATH . '/' . $file);
 }
 json_response(['ok' => true, 'pid' => getmypid(), 'php' => PHP_VERSION,
@@ -64,6 +73,77 @@ json_response(['ok' => true, 'pid' => getmypid(), 'php' => PHP_VERSION,
     'neighbor_cached' => function_exists('opcache_is_script_cached') && opcache_is_script_cached($other),
     'asset_identity' => VELVET_VIXXEN_ASSET_VERSION]);
 """
+
+
+def is_route(url: str, expected: str) -> bool:
+    parsed = urlparse(url)
+    return parsed.path.endswith('/route.php') and parse_qs(parsed.query).get('vvx_route') == [expected]
+
+
+def repair_layout(context, page, site: Path, base: str, label: str, preserved: dict) -> dict:
+    endpoint = base + '/admin/repair.php'
+    # A custom sibling must remain in place even through the stale legacy action.
+    custom = site / 'booking/custom-owner-file.txt'
+    custom_bytes = b'Synthetic owner-added sibling; preserve its path and bytes.\n'
+    custom.write_bytes(custom_bytes)
+    csrf = helpers.csrf_from_html(context.request.get(endpoint).text())
+    legacy = context.request.post(base + '/admin/index.php?page=repair-backups',
+                                  form={'_csrf': csrf, 'action': 'archive_legacy_root_entries'}, max_redirects=0)
+    require(legacy.status in (302, 303) and legacy.headers.get('location', '').endswith('/admin/repair.php'),
+            'The stale broad archive action was not retired to the safe repair page.')
+    require(custom.read_bytes() == custom_bytes, 'The legacy action moved an unknown owner sibling.')
+    # Remove only this test-created sentinel before the all 25folder case. Separate
+    # real cleanup below proves custom sibling preservation rather than merely bypassing it.
+    page.reload(wait_until='networkidle')
+    expect(page.locator('[data-root-layout]')).to_have_attribute('data-root-layout', 'repair-available')
+    for action in ['repair_root_layout']:
+        denied = context.request.post(endpoint, form={'_csrf': 'wrong-root-repair-token', 'action': action})
+        require(denied.status == 419, 'Folder repair accepted an invalid CSRF token.')
+        unchanged(site, preserved, 'Denied root-folder repair')
+    before_files = {str(path.relative_to(site)): path.read_bytes() for root in RETIRED_ROOTS
+                    for path in (site / root).glob('*.php')}
+    before_files['media.php'] = (site / 'media.php').read_bytes()
+    require(len(before_files) == 46, 'Actual rejected package does not have 46 retired forwarders.')
+    with page.expect_navigation(wait_until='networkidle') as cleaned:
+        page.get_by_role('button', name='Restore organized folders', exact=True).click()
+    require(cleaned.value is not None and cleaned.value.status == 200, 'The real root-folder repair form failed.')
+    expect(page.locator('[data-layout-result]')).to_have_attribute('data-retired-files', '46')
+    expect(page.locator('[data-layout-result]')).to_have_attribute('data-removed-directories', '24')
+    require(custom.read_bytes() == custom_bytes and (site / 'booking').is_dir(),
+            'The repair removed or moved a custom sibling instead of preserving it.')
+    require(all(not (site / name).exists() for name in before_files), 'Known forwarding PHP remains after owner repair.')
+    require({path.name for path in site.iterdir() if path.is_dir() and path.name in RETIRED_ROOTS} == {'booking'},
+            'The repair retained an obsolete empty route directory.')
+    records = list((site / 'storage/private/root-layout').glob('retired-*/forwarders.json'))
+    require(len(records) == 1, 'Exactly one private reversible archive record was not produced.')
+    import base64
+    record = json.loads(records[0].read_text())
+    require(set(record['entries']) == set(before_files), 'Archive does not contain every retired public forwarding file.')
+    for name, content in before_files.items():
+        entry = record['entries'][name]
+        require(base64.b64decode(entry['contents'], validate=True) == content
+                and entry['sha256'] == hashlib.sha256(content).hexdigest(), 'Archived forwarding bytes do not match.')
+    require(not list((site / 'storage/private/root-layout').rglob('*.php')), 'Folder repair left executable PHP backups.')
+    unchanged(site, preserved, 'Safe known-file root repair')
+    custom.unlink()  # The test owner removes its own sentinel; application code must never do so.
+    page.reload(wait_until='networkidle')
+    with page.expect_navigation(wait_until='networkidle'):
+        page.get_by_role('button', name='Restore organized folders', exact=True).click()
+    expect(page.locator('[data-layout-result]')).to_have_attribute('data-retired-files', '0')
+    expect(page.locator('[data-layout-result]')).to_have_attribute('data-removed-directories', '1')
+    expect(page.locator('[data-root-layout]')).to_have_attribute('data-root-layout', 'organized')
+    require(not any((site / name).exists() for name in RETIRED_ROOTS) and not (site / 'media.php').exists(),
+            'The approved root layout was not restored after removing the test-owner sentinel.')
+    # The original generated runtime inventory must still match after cleanup.
+    inventory = json.loads((site / 'includes/runtime-build.json').read_text())
+    require(all(sha256(site / name) == digest for name, digest in inventory['files'].items()),
+            'Root cleanup removed or modified active organized runtime files.')
+    unchanged(site, preserved, 'Complete organized-root repair')
+    if EVIDENCE:
+        page.screenshot(path=str(EVIDENCE / f'installed-update-{label}-organized-root.png'), full_page=True)
+    return {'known_files_retired': 46, 'old_root_directories_removed': 25,
+            'unknown_custom_sibling_preserved': True, 'obsolete_broad_action_retired': True,
+            'exact_reversible_nonexecuting_archive': True, 'active_runtime_unchanged': True}
 
 
 def sha256(path: Path) -> str:
@@ -96,8 +176,11 @@ def historical_package(work: Path) -> Path:
     require(sha256(zipped) == OLD_FRESH_SHA256 == fresh['sha256'],
             'Rebuilt historical fresh ZIP differs from the exact previously delivered package.')
     with ZipFile(zipped) as package:
-        require(b'data-action="add-button"' not in package.read('app/Views/admin/composer.php'),
-                'Historical negative control already contains Add Button.')
+        require(b'data-action="add-button"' in package.read('app/Views/admin/composer.php'),
+                'Rejected Build .5 must contain its actual existing Composer implementation.')
+        roots = {name.split('/')[0] for name in package.namelist() if '/' in name}
+        require(roots == APPROVED_ROOTS | RETIRED_ROOTS and 'media.php' in package.namelist(),
+                'Historical ZIP does not reproduce the actual25extra-root-folder regression.')
         require(OLD_ASSET_VERSION.encode() in package.read('includes/version.php'),
                 'Historical negative control has the wrong asset identity.')
     return zipped
@@ -216,7 +299,7 @@ def status_geometry(page, label: str) -> dict:
 
 
 def denied_requests(site: Path, base: str, context, restricted, restricted_csrf: str, member) -> dict:
-    endpoint = base + '/admin/update.php'
+    endpoint = base + '/admin/repair.php'
     with helpers.requests_session() as guest:
         for client, description in [(guest, 'Anonymous'), (member, 'Member-only')]:
             for method in ['get', 'post']:
@@ -243,7 +326,7 @@ def denied_requests(site: Path, base: str, context, restricted, restricted_csrf:
 
 
 def mixed_file_refused(site: Path, base: str, context, preserved: dict, expected_identity: str) -> None:
-    endpoint = base + '/admin/update.php'
+    endpoint = base + '/admin/repair.php'
     csrf = helpers.csrf_from_html(context.request.get(endpoint).text())
     asset = site / 'public/assets/js/composer.js'
     content = asset.read_bytes()
@@ -298,7 +381,7 @@ def after_refresh_actions(context, page, site: Path, base: str, label: str, devi
     if EVIDENCE:
         preview.screenshot(path=str(EVIDENCE / f'installed-update-{label}-preview.png'), full_page=True)
     preview.close()
-    with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as captured:
+    with page.expect_response(lambda response: is_route(response.url, 'api/scene.php') and response.request.method == 'POST') as captured:
         page.get_by_role('button', name='Publish', exact=True).click()
     result = helpers.response_json(captured.value, 200, 'Updated Composer Publish')
     require(result['ok'] and captured.value.request.post_data_json['action'] == 'publish', 'Updated Publish did not reach the real handler.')
@@ -314,7 +397,7 @@ def after_refresh_actions(context, page, site: Path, base: str, label: str, devi
     with public.expect_navigation(wait_until='networkidle') as destination:
         button.click()
     require(destination.value is not None and destination.value.status == 200
-            and public.url == base + '/booking/?source=installed-update', 'Published button failed actual installation-relative Booking navigation.')
+            and is_route(public.url, 'booking') and parse_qs(urlparse(public.url).query).get('source') == ['installed-update'], 'Published button failed actual installation-relative Booking navigation.')
     public.close()
 
     # Both upload forms use the real same-process endpoint and return decodable,
@@ -331,7 +414,7 @@ def after_refresh_actions(context, page, site: Path, base: str, label: str, devi
             submit_name = 'Upload'
         form.locator('input[name=image]').set_input_files({
             'name': f'updated-{label}-{surface}.png', 'mimeType': 'image/png', 'buffer': helpers.PHOTO})
-        with page.expect_response(lambda response: response.url == base + '/api/upload.php'
+        with page.expect_response(lambda response: is_route(response.url, 'api/upload.php')
                                   and response.request.method == 'POST') as captured:
             form.get_by_role('button', name=submit_name, exact=True).click()
         result = helpers.response_json(captured.value, 200, 'Updated ' + surface + ' upload')
@@ -374,7 +457,10 @@ def run_case(browser, site: Path, base: str, process, upgrade: Path, build: dict
         page.wait_for_url('**/admin/')
         page.goto(base + '/admin/?page=media', wait_until='networkidle')
         page.goto(base + '/admin/?page=composer', wait_until='networkidle')
-        require(page.locator('[data-action="add-button"]').count() == 0, 'Actual historical Composer is not the old build.')
+        require(page.locator('[data-action="add-button"]').count() == 1, 'Actual Build .5 Composer is not the pinned old build.')
+        page.goto(base + '/admin/update.php', wait_until='networkidle')
+        expect(page.locator('[data-running-build]')).to_have_text(OLD_BUILD)
+        page.goto(base + '/admin/?page=composer', wait_until='networkidle')
         before = cache_probe(context, base, warm=True)
         require(before['pid'] == process.pid and before['asset_identity'] == OLD_ASSET_VERSION, 'Old runtime/process identity is wrong.')
         require(before['enabled'] == cache and not before['validate_timestamps'], 'PHP cache fixture is not configured as declared.')
@@ -392,33 +478,30 @@ def run_case(browser, site: Path, base: str, process, upgrade: Path, build: dict
         stale = cache_probe(context, base)
         require(stale['pid'] == before['pid'], 'The PHP process restarted during extraction/reload.')
         negative = {'all_upgrade_bytes_match': True, 'same_php_process': True}
+        residue = {path.name for path in site.iterdir() if path.is_dir() and path.name in RETIRED_ROOTS}
+        require(residue == RETIRED_ROOTS and (site / 'media.php').is_file(),
+                'ZIP extraction alone unexpectedly removed old root folders; the real cleanup negative control is invalid.')
+        negative.update({'overlay_alone_leaves_all_25_root_folders': True, 'known_forwarders_remain': 46})
         if cache:
-            require(stale['asset_identity'] == OLD_ASSET_VERSION and all(stale['cached'].values()), 'Old PHP was not retained despite disabled timestamp validation.')
-            require(page.locator('[data-action="add-button"]').count() == 0
-                    and page.evaluate('typeof window.VELVET_API') == 'undefined' and negative_errors,
-                    'Mixed old PHP/new JavaScript did not reproduce the installed-update failure.')
-            responses, popups = [], []
-            page.on('response', lambda response: responses.append(response) if '/api/scene.php' in response.url else None)
-            page.on('popup', lambda popup: popups.append(popup))
-            for action in ['Publish', 'Full Page Preview']:
-                page.get_by_role('button', name=action, exact=True).click()
-                # No request can be awaited in this broken state. A bounded UI
-                # observation verifies the previous silent buttons as a control.
-                page.wait_for_timeout(250)
-            require(not responses and not popups, 'The negative control unexpectedly initialized working Composer actions.')
-            unchanged(site, preserved, 'Stale Composer negative control')
-            negative.update({'old_php_new_js_failure_reproduced': True, 'add_button_absent': True,
-                             'publish_preview_emit_no_request': True, 'old_asset_version': OLD_ASSET_VERSION})
+            require(stale['asset_identity'] == OLD_ASSET_VERSION and all(stale['cached'].values()),
+                    'Old Build .5 PHP did not remain cached through actual extraction.')
+            old_status = context.request.get(base + '/admin/update.php')
+            require(old_status.status == 200 and 'The update file inventory is incomplete.' in old_status.text()
+                    and 'data-update-status=' not in old_status.text(),
+                    'The warmed .5 update verifier did not reproduce the removed-root inventory failure.')
+            negative.update({'old_update_controller_class_and_view_remain_cached': True,
+                             'old_inventory_validator_rejects_organized_package': True,
+                             'old_asset_version': OLD_ASSET_VERSION})
         else:
             require(stale['asset_identity'] == f"{build['version']}-{build['build_id']}"
                     and page.locator('[data-action="add-button"]').count() == 1,
                     'Normal reload did not load the updated runtime when OPcache is disabled.')
-        response = page.goto(base + '/admin/update.php', wait_until='networkidle')
+        response = page.goto(base + '/admin/repair.php', wait_until='networkidle')
         require(response is not None and response.status == 200 and 'no-store' in response.headers.get('cache-control', ''),
                 'Owner Update Status is missing or can be cached by the browser.')
         expect(page.locator('[data-update-status]')).to_have_attribute('data-update-status', 'complete')
         expect(page.locator('[data-uploaded-build]')).to_have_text(build['build_id'])
-        expect(page.locator('[data-running-build]')).to_have_text('Earlier build' if cache else build['build_id'])
+        expect(page.locator('[data-running-build]')).to_have_text(OLD_BUILD if cache else build['build_id'])
         security = denied_requests(site, base, context, restricted, restricted_csrf, member) if cache else {}
         unchanged(site, preserved, 'Owner verification and rejected requests')
         mixed_file_refused(site, base, context, preserved, stale['asset_identity'])
@@ -438,11 +521,12 @@ def run_case(browser, site: Path, base: str, process, upgrade: Path, build: dict
                 'Refresh required a PHP restart or failed to activate the actual new build.')
         require(after['neighbor_cached'] == cache, 'Application refresh reset unrelated PHP cache entries.')
         unchanged(site, preserved, 'Owner application cache refresh')
-        actions = after_refresh_actions(context, page, site, base, label, device) if cache else {}
+        layout = repair_layout(context, page, site, base, label, preserved)
+        actions = after_refresh_actions(context, page, site, base, label, device)
         require(helpers.state(site)['admins'] == owners, 'Verification/actions changed owner account records.')
         unchanged(site, {key: value for key, value in preserved.items() if key != 'storage/data.json'}, 'Completed update actions')
         return {'persistent_opcache': cache, 'php': before['php'], 'before': before, 'after': after,
-                'negative_control': negative, 'security': security, 'geometry': geometry, 'actions': actions,
+                'negative_control': negative, 'security': security, 'geometry': geometry, 'layout': layout, 'actions': actions,
                 'complete_upgrade_files': len(names), 'owner_get_no_store': True,
                 'incomplete_overlay_diagnosed_and_activation_blocked': True, 'owner_form_post_303': True,
                 'existing_configuration_identity_records_uploads_preserved': True,

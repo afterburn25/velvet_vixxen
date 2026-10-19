@@ -32,7 +32,8 @@ def member_login(email):
     session = requests.Session()
     page = get(session, 'account/login.php')
     response = post(session, 'account/login.php', page, {'email': email, 'password': 'VelvetMember12'})
-    assert response.url.rstrip('/').endswith('/account')
+    assert urlparse(response.url).path == urlparse(BASE).path.rstrip('/') + '/route.php'
+    assert parse_qs(urlparse(response.url).query).get('vvx_route') == ['account']
     return session
 
 guest, owner = requests.Session(), requests.Session()
@@ -78,7 +79,11 @@ for image in document.select('.merchandise-gallery img'):
     assert response.status_code == 200 and response.headers.get('Content-Type', '').startswith('image/')
 storefront = BeautifulSoup(get(guest, 'shop/').text, 'html.parser')
 assert not storefront.select('form input[name="type"][value="gallery"], form input[name="type"][value="video"]'), 'PPV appeared as normal store merchandise.'
-assert storefront.select('form[action$="checkout/"] input[name="type"][value="plan"]'), 'Membership did not use its own checkout.'
+plan_fields = storefront.select('form input[name="type"][value="plan"]')
+assert plan_fields, 'Membership checkout form was not rendered.'
+assert all(urlparse(field.find_parent('form')['action']).path == urlparse(BASE).path.rstrip('/') + '/route.php'
+           and parse_qs(urlparse(field.find_parent('form')['action']).query).get('vvx_route') == ['checkout']
+           for field in plan_fields), 'Membership did not use its own canonical checkout.'
 
 # Invalid media is rejected before a product record is created.
 bad_payload = dict(payload, title='Bad Upload', slug='bad-upload')

@@ -3,7 +3,7 @@
   const config = window.VELVET_MEDIA_CENTER || {};
   const siteConfig = window.VELVET_CONFIG || {};
   const signedInMember = siteConfig.member || null;
-  const memberStateUrl = `${String(siteConfig.baseUrl || '').replace(/\/$/, '')}/api/member-state.php`;
+  const memberStateUrl = String(siteConfig.memberStateUrl || `${String(siteConfig.baseUrl || '').replace(/\/$/, '')}/route.php?vvx_route=api%2Fmember-state.php`);
   const saveMemberState = async (type, id, changes = {}) => {
     if (!signedInMember || !type || !id) return null;
     try {

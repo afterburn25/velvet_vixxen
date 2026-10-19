@@ -21,7 +21,7 @@ $adminStorageKey = 'velvet-admin-groups:' . substr(hash('sha256', base_url() . '
 <?php foreach ($adminGroups as $group => [$label, $keys]): $keys = array_values(array_filter($keys, static fn(string $key): bool => isset($nav[$key]))); if ($keys === []) continue; ?>
 <details class="admin-nav-group" data-admin-group="<?= e($group) ?>" <?= in_array($page, $keys, true) ? 'open' : '' ?>>
   <summary><?= e($label) ?></summary><div>
-  <?php foreach ($keys as $key): [$icon, $itemLabel] = $nav[$key]; ?><a class="<?= $page === $key ? 'active' : '' ?>" <?= $page === $key ? 'aria-current="page"' : '' ?> href="<?= e(base_url('admin/?page=' . rawurlencode($key))) ?>"><i aria-hidden="true"><?= e($icon) ?></i><span><?= e($itemLabel) ?></span></a><?php endforeach; ?>
+  <?php foreach ($keys as $key): [$icon, $itemLabel] = $nav[$key]; ?><a class="<?= $page === $key ? 'active' : '' ?>" <?= $page === $key ? 'aria-current="page"' : '' ?> href="<?= e(base_url($key === 'update-status' ? 'admin/repair.php' : 'admin/?page=' . rawurlencode($key))) ?>"><i aria-hidden="true"><?= e($icon) ?></i><span><?= e($itemLabel) ?></span></a><?php endforeach; ?>
   </div>
 </details>
 <?php endforeach; ?>

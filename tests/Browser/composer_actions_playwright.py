@@ -2,7 +2,7 @@
 """Click real Composer and related public actions in extracted runtime packages.
 
 Every case uses PHP's normal file serving without a routing fallback. The
-fixture's physical scene API can be removed to reproduce the hosting failure;
+fixture's organized scene handler can be removed to reproduce a missing-file failure;
 requests are never intercepted or fulfilled by Playwright.
 """
 from __future__ import annotations
@@ -64,7 +64,7 @@ def button(page, section: str, identifier: str):
 
 def publish(page, base: str, section: str) -> dict:
     page.locator(f'[data-section="{section}"]').click()
-    endpoint = f'{base}/api/scene.php?section={section}'
+    endpoint = helpers.route_url(base, f'api/scene.php?section={section}')
     with page.expect_response(lambda response: response.url == endpoint and response.request.method == 'POST') as captured:
         page.get_by_role('button', name='Publish', exact=True).click()
     response = captured.value
@@ -103,7 +103,7 @@ def marketing_actions(page, public, site: Path, base: str, label: str) -> dict:
     }, 'Save Post')
     row = page.locator('tr').filter(has=page.get_by_text(title, exact=True))
     view = row.get_by_role('link', name='View', exact=True)
-    expected_post = base + '/blog/post.php?slug=' + slug
+    expected_post = helpers.route_url(base, 'blog/post.php?slug=' + slug)
     require(view.evaluate('element => element.href') == expected_post,
             'Owner Posts View points outside the configured installation.')
     with page.expect_navigation(wait_until='networkidle') as post_navigation:
@@ -126,30 +126,30 @@ def marketing_actions(page, public, site: Path, base: str, label: str) -> dict:
         'text': banner_label, 'url': '/booking/?source=banner-' + label,
     }, 'Save Banner')
 
-    public.goto(base + '/links/', wait_until='networkidle')
+    public.goto(helpers.route_url(base, 'links/'), wait_until='networkidle')
     dismiss_age(public)
     for link_label, path in [('Official Website', '/'), ('Join the Velvet Club', '/membership/'),
                              ('Booking & Appearances', '/booking/')]:
         link = public.locator('.marketing-link-list').get_by_role('link', name=link_label, exact=True)
-        require(link.evaluate('element => element.href') == base + path,
-                f'Default {link_label} link leaves the configured installation.')
+        helpers.assert_route_destination(link.evaluate('element => element.href'), base, path,
+                                         f'Default {link_label} link does not use the physical installation route.')
     banner_link = public.locator('[data-marketing-banner]').get_by_role('link', name=banner_label, exact=True)
-    expected_banner = base + '/booking/?source=banner-' + label
+    expected_banner = helpers.route_url(base, 'booking/?source=banner-' + label)
     require(banner_link.evaluate('element => element.href') == expected_banner,
             'Promotion banner leaves the configured installation.')
     with public.expect_navigation(wait_until='networkidle') as banner_navigation:
         banner_link.click()
     require(banner_navigation.value is not None and banner_navigation.value.status == 200
             and public.url == expected_banner, 'Promotion banner did not open the actual Booking page.')
-    public.goto(base + '/links/', wait_until='networkidle')
+    public.goto(helpers.route_url(base, 'links/'), wait_until='networkidle')
     public.get_by_role('button', name='Dismiss promotion', exact=True).click()
     expect(public.locator('[data-marketing-banner]')).to_have_count(0)
     public.reload(wait_until='networkidle')
     expect(public.locator('[data-marketing-banner]')).to_have_count(0)
 
-    public.goto(base + '/campaign/?slug=' + campaign_slug, wait_until='networkidle')
+    public.goto(helpers.route_url(base, 'campaign/?slug=' + campaign_slug), wait_until='networkidle')
     campaign = public.get_by_role('link', name=campaign_label, exact=True)
-    expected_destination = base + destination
+    expected_destination = helpers.route_url(base, destination)
     require(campaign.evaluate('element => element.href') == expected_destination,
             'Campaign CTA leaves the configured installation.')
     script = public.locator('script[src*="/public/assets/js/marketing.js"]')
@@ -158,7 +158,7 @@ def marketing_actions(page, public, site: Path, base: str, label: str) -> dict:
     previous_events = {event['id'] for event in json.loads(marketing_file.read_text())['events']}
     with public.expect_navigation(wait_until='networkidle') as campaign_navigation:
         campaign.click()
-    expected_event_path = urlparse(base).path + '/campaign/'
+    expected_event_path = urlparse(base).path + '/campaign'
     require(campaign_navigation.value is not None and campaign_navigation.value.status == 200
             and public.url == expected_destination, 'Campaign CTA did not open Booking with its query and fragment.')
     # Chromium can discard keepalive request/response details during navigation.
@@ -211,13 +211,13 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
             layers[section] = {'id': identifier, 'label': title, 'destination': destination}
         require(helpers.state(site)['scenes'] == before, 'Unsaved button edits changed stored drafts or live scenes.')
 
-        endpoint = site / 'api/scene.php'
+        endpoint = site / 'public/routes/api/scene.php'
         original_endpoint = endpoint.read_bytes()
         endpoint.unlink()
         try:
-            # This is a real server 404; the consolidated handler still exists.
+            # The real physical dispatcher must reject a missing organized handler.
             # The former implementation closed this popup in its error handler.
-            with page.expect_popup() as opened, page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as failed_request:
+            with page.expect_popup() as opened, page.expect_response(lambda response: helpers.is_route_url(response.url, base, 'api/scene.php') and response.request.method == 'POST') as failed_request:
                 page.get_by_role('button', name='Full Page Preview', exact=True).click()
             failed_preview = opened.value
             require(failed_request.value.status == 404, 'Missing scene endpoint was hidden by a test router.')
@@ -236,7 +236,7 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
             expect(failed_preview.locator('[data-canvas]')).to_be_visible()
             failed_preview.close()
 
-            with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as failed_publish:
+            with page.expect_response(lambda response: helpers.is_route_url(response.url, base, 'api/scene.php') and response.request.method == 'POST') as failed_publish:
                 page.get_by_role('button', name='Publish', exact=True).click()
             require(failed_publish.value.status == 404, 'Missing-file Publish did not reach the real host.')
             expect(page.locator('[data-status]')).to_have_class(re.compile(r'\berror\b'))
@@ -248,7 +248,7 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
 
         preview_requests = []
         def record_preview(response) -> None:
-            if '/api/scene.php' in response.url and response.request.method == 'POST':
+            if helpers.is_route_url(response.url, base, 'api/scene.php') and response.request.method == 'POST':
                 preview_requests.append(response)
         page.on('response', record_preview)
         try:
@@ -266,7 +266,7 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
         require([parse_qs(urlparse(response.url).query).get('section') for response in preview_requests] == [['hero'], ['footer']],
                 'Full Page Preview sent a wrong or reordered scene target.')
         for response in preview_requests:
-            require(response.url.startswith(base + '/api/scene.php?'), 'Preview save lost the configured installation path.')
+            require(helpers.is_route_url(response.url, base, 'api/scene.php'), 'Preview save lost the physical dispatcher or configured installation path.')
             require(helpers.response_json(response, 200, 'Preview draft save')['ok'], 'A preview draft did not save.')
             require(response.request.post_data_json['action'] == 'save', 'Full Page Preview published a scene instead of saving its draft.')
         dismiss_age(preview)
@@ -300,8 +300,9 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
             dismiss_age(public)
             require(contains_layer(public_scene(public, section), device, layer['id']), f'{section} Publish did not update the actual public page.')
             cta = public.get_by_role('link', name=layer['label'], exact=True)
-            expected_url = base + '/' + layer['destination'].lstrip('/')
-            expect(cta).to_have_attribute('href', expected_url)
+            expected_url = cta.get_attribute('href') or ''
+            helpers.assert_route_destination(expected_url, base, layer['destination'],
+                                             'Published CTA lost its physical dispatcher, route, query or fragment.')
             with public.expect_navigation(wait_until='networkidle') as navigation:
                 cta.click()
             require(navigation.value is not None and navigation.value.status == 200, 'Published CTA did not open the real Booking page.')
@@ -371,7 +372,7 @@ def run() -> None:
                     environment.pop('PHP_CLI_SERVER_WORKERS', None)
                     log_file = work / label / 'php-server.log'
                     with log_file.open('w+') as log:
-                        process = subprocess.Popen([php, '-d', 'opcache.enable_cli=0', '-S', f'127.0.0.1:{port}', '-t', str(document_root)],
+                        process = subprocess.Popen([php, '-d', 'opcache.enable=0', '-d', 'opcache.enable_cli=0', '-S', f'127.0.0.1:{port}', '-t', str(document_root)],
                                                    cwd=work, env=environment, stdout=log, stderr=log)
                         try:
                             session = helpers.requests_session()
@@ -387,8 +388,8 @@ def run() -> None:
                                 time.sleep(0.1)
                             session.close()
                             summary['cases'][label] = browser_case(browser, site, base, label, viewport)
-                            require(re.search(r'\[200\]: POST ' + re.escape(prefix + '/api/marketing-event.php')
-                                              + r'(?:\s|$)', log_file.read_text()) is not None,
+                            require(any(helpers.is_route_url('http://127.0.0.1:' + str(port) + match, base, 'api/marketing-event.php')
+                                        for match in re.findall(r'\[200\]: POST (\S+)', log_file.read_text())),
                                     'The local PHP server did not record a successful real campaign beacon at the configured endpoint.')
                             summary['cases'][label]['marketing']['server_logged_beacon_post_200'] = True
                             require(all((site / name).read_bytes() == data for name, data in preserved.items())

@@ -2,9 +2,10 @@
 from __future__ import annotations
 
 import os
+from public_urls import is_route_url, site_url
 import re
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urlparse
 
 from playwright.sync_api import expect, sync_playwright
 
@@ -15,7 +16,7 @@ if urlparse(BASE).hostname not in {"127.0.0.1", "localhost", "::1"} or not (RUNT
 
 
 def url(path: str) -> str:
-    return urljoin(BASE, path.lstrip("/"))
+    return site_url(BASE, path)
 
 
 def control(page, name: str, value: float) -> None:
@@ -29,7 +30,7 @@ def percent(locator, name: str) -> float:
 
 
 def change_scene(page, action: str, section: str) -> dict:
-    with page.expect_response(lambda response: "/api/scene.php" in response.url and response.request.method == "POST") as result:
+    with page.expect_response(lambda response: is_route_url(response.url, BASE, "api/scene.php") and response.request.method == "POST") as result:
         page.locator(f'[data-action="{action}"]').click()
     response = result.value
     data = response.json()

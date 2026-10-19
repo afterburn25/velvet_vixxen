@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from public_urls import site_url
 from playwright.sync_api import sync_playwright
 
 BASE = os.getenv("VELVET_BASE_URL", "http://127.0.0.1:8765").rstrip("/")
@@ -24,7 +25,7 @@ def observe(page, label: str) -> None:
 
 
 def visit(page, path: str, wait_ms: int = 300) -> None:
-    page.goto(BASE + path, wait_until="domcontentloaded", timeout=30_000)
+    page.goto(site_url(BASE, path), wait_until="domcontentloaded", timeout=30_000)
     page.wait_for_timeout(wait_ms)
 
 

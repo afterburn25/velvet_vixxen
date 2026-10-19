@@ -68,6 +68,8 @@ $composerData = [
     ],
     'baseUrl' => base_url(),
     'uploadBase' => base_url('uploads/'),
+    'sceneUrl' => base_url('api/scene.php'),
+    'uploadUrl' => base_url('api/upload.php'),
 ]; ?>
 <div id="visualComposer" class="composer-app">
   <div class="composer-toolbar">

@@ -1,3 +1,18 @@
+VELVET VIXXEN 0.8.1 — BUILD 20261019.6 ORGANIZED ROOT CORRECTION
+
+Status: correction implemented; local source, actual historical installed cleanup, packaged route/upload/Composer and HTTP acceptance passed. Final exact-source CI and saved replacement artifacts pending.
+Build 20261019.5 is rejected for introducing 25 root folders and 46 forwarding files contrary to the approved layout. Historical verification below did not enforce that requirement.
+Root files: .htaccess, VERSION, index.php, route.php
+Fresh directories: addons, admin, app, config, database, images, includes, install, public, storage, templates, uploads, vendor
+Upgrade directories: addons, admin, app, database, images, includes, public, templates, vendor
+Public implementations: public/routes; operational commands: app/Console
+Existing-site repair: admin/repair.php -> Refresh application PHP -> Restore organized folders
+Preservation: only exact known old forwarding files retired; unknown/custom items and installed config/data/keys/uploads remain in place.
+Guide: docs/UPDATE_VERIFICATION.md
+Local evidence: docs/releases/0.8.1-root-layout-local-acceptance.json
+
+HISTORICAL RECORDS FOLLOW — DO NOT USE BUILD .5 AS THE CURRENT ORGANIZED RELEASE
+
 VELVET VIXXEN 0.8.1 — BUILD 20261019.5 INSTALLED UPDATE REPAIR
 
 Status: source, all seven exact-tree CI jobs, gated artifacts and saved-download readback verified. The affected customer host remains unresolved and unaccessed.

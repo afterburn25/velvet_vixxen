@@ -1,6 +1,8 @@
 (() => {
   'use strict';
-  const baseUrl = String(window.VELVET_CONFIG?.baseUrl || '').replace(/\/$/, '');
+  const config = window.VELVET_CONFIG || {};
+  const baseUrl = String(config.baseUrl || '').replace(/\/$/, '');
+  const endpoint = String(config.marketingEventUrl || `${baseUrl}/route.php?vvx_route=api%2Fmarketing-event.php`);
   document.addEventListener('click', (event) => {
     const dismiss = event.target.closest('[data-banner-dismiss]');
     if (dismiss) {
@@ -12,8 +14,8 @@
     }
     const cta = event.target.closest('a,button');
     if (cta?.dataset.marketingEvent) {
-      navigator.sendBeacon?.(`${baseUrl}/api/marketing-event.php`, new Blob([
-        JSON.stringify({event: cta.dataset.marketingEvent, path: location.pathname})
+      navigator.sendBeacon?.(endpoint, new Blob([
+        JSON.stringify({event: cta.dataset.marketingEvent, path: String(config.pagePath || location.pathname)})
       ], {type: 'application/json'}));
     }
   });

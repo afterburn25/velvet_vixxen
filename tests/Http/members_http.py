@@ -4,7 +4,7 @@ from __future__ import annotations
 import json
 import os
 import sys
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -63,7 +63,10 @@ login_response = member.post(
     timeout=20,
     allow_redirects=True,
 )
-require(login_response.status_code == 200 and "/account/" in login_response.url, "Member login did not reach the dashboard.")
+require(login_response.status_code == 200
+        and urlparse(login_response.url).path == urlparse(BASE).path.rstrip('/') + '/route.php'
+        and parse_qs(urlparse(login_response.url).query).get('vvx_route') == ['account'],
+        "Member login did not reach the dashboard through the physical dispatcher.")
 require("Welcome, Velvet Member" in login_response.text, "Member dashboard greeting was not rendered.")
 require("Velvet VIP" in login_response.text and "Active membership" in login_response.text, "Active subscription was not shown on the member dashboard.")
 

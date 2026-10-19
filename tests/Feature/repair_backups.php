@@ -213,132 +213,31 @@ namespace {
         symlink($outside, $root . '/.vvx-private-repair-uploads-top-link');
         $expectFailure(static fn() => $service->inspect($root . '/.vvx-private-repair-uploads-top-link'), 'Top-level linked backups must not resolve to an outside directory.');
 
-        $root = $newRoot('legacy-routes');
-        $write($root . '/route.php', 'router fixture');
-        $write($root . '/public/router.php', 'router fixture');
-        $write($root . '/public/routes/account/index.php', 'new account route');
-        $write($root . '/public/routes/media.php', 'new media route');
-        $write($root . '/account/index.php', 'old account route');
-        $write($root . '/account/uploads/unique.bin', 'unexpected unique legacy content');
-        $write($root . '/media.php', 'old media route');
-        $write($root . '/music/index.php', 'route missing consolidated replacement');
+        // The old public method moved unknown siblings and kept the rejected
+        // root forwarding folders. It must now refuse without scanning/moving
+        // anything; exact Build .5 retirement is covered by root_layout.php.
+        $root = $newRoot('retired-broad-archive');
+        $retained = [
+            'route.php' => 'active dispatcher fixture',
+            'public/routes/account/index.php' => 'active protected handler fixture',
+            'account/index.php' => 'owner-modified old entry',
+            'account/uploads/unique.bin' => "unique owner data\0\xff",
+            'booking/custom.txt' => 'owner custom booking file',
+            'media.php' => 'owner-modified media entry',
+        ];
+        foreach ($retained as $relative => $contents) $write($root . '/' . $relative, $contents);
+        symlink($outside . '/unique.txt', $root . '/account/linked.txt');
         $service = new RepairBackupService($root);
-        $result = $service->archiveLegacyRootEntries();
-        $assert($result['moved'] === ['account', 'media.php'] && count($result['failed']) === 1, 'Legacy archiving must require corresponding replacement routes.');
-        $assert(file_get_contents($result['archive'] . '/account/uploads/unique.bin') === 'unexpected unique legacy content', 'Legacy archival must preserve unexpected unique contents.');
-        $assert(file_get_contents($result['archive'] . '/media.php') === 'old media route', 'Legacy file archival must preserve exact contents.');
-        $assert(is_file($root . '/music/index.php'), 'A legacy route without a replacement must remain available.');
-        $assert(is_file($root . '/public/routes/account/index.php') && is_file($root . '/public/routes/media.php'), 'Consolidated replacement routes must stay unchanged.');
-
-        // Use the actual runtime route table and forwarding bytes. This catches
-        // the failure that a synthetic rewrite router concealed: cleanup must
-        // not remove the PHP files a normal shared host needs to execute URLs.
-        $runtime = dirname(__DIR__, 2);
-        $router = (string) file_get_contents($runtime . '/public/router.php');
-        $assert((bool) preg_match('/\$routes\s*=\s*\[(.*?)\];/s', $router, $routeBlock), 'The executable route table must be available to this regression.');
-        preg_match_all("/'([^']+)'\\s*=>\\s*'([^']+)'/", $routeBlock[1], $routePairs, PREG_SET_ORDER);
-        $forwarders = [];
-        foreach ($routePairs as $pair) {
-            $relative = str_ends_with($pair[1], '.php') ? $pair[1] : rtrim($pair[1], '/') . '/index.php';
-            $forwarders[$relative] = ['handler' => $pair[2], 'contents' => (string) file_get_contents($runtime . '/' . $relative)];
+        $assert($service->legacyRootEntries() === [], 'Retired broad cleanup must not propose archiving unknown owner roots.');
+        for ($attempt = 0; $attempt < 2; $attempt++) {
+            $expectFailure(static fn() => $service->archiveLegacyRootEntries(), 'The obsolete broad root-archive API must refuse all calls.');
+            foreach ($retained as $relative => $contents) {
+                $assert(file_get_contents($root . '/' . $relative) === $contents, 'The retired API must preserve every existing path and byte: ' . $relative);
+            }
+            $assert(is_link($root . '/account/linked.txt'), 'The retired API must preserve symbolic links without following them.');
+            $assert(!is_dir($root . '/storage/private/repair-backups'), 'The retired API must not create an archive.');
+            $assert(file_get_contents($outside . '/unique.txt') === 'outside protected content', 'The retired API must leave outside bytes untouched.');
         }
-        $assert(count($forwarders) >= 46, 'All current public compatibility entrypoints must be covered.');
-        $seedCurrentRoutes = static function (string $name) use ($newRoot, $write, $router, $forwarders): string {
-            $root = $newRoot($name);
-            $write($root . '/route.php', 'router fixture');
-            $write($root . '/public/router.php', $router);
-            foreach ($forwarders as $relative => $forwarder) {
-                $write($root . '/' . $relative, $forwarder['contents']);
-                $write($root . '/public/routes/' . $forwarder['handler'], 'protected fixture handler ' . $forwarder['handler']);
-            }
-            return $root;
-        };
-        $assertForwarders = static function (string $root, string $message) use ($assert, $forwarders): void {
-            foreach ($forwarders as $relative => $forwarder) {
-                $assert(is_file($root . '/' . $relative)
-                    && file_get_contents($root . '/' . $relative) === $forwarder['contents'], $message . ': ' . $relative);
-            }
-        };
-        $root = $seedCurrentRoutes('current-forwarders');
-        $service = new RepairBackupService($root);
-        $assert($service->legacyRootEntries() === [], 'Current forwarding files must not be listed as obsolete legacy roots.');
-        $result = $service->archiveLegacyRootEntries();
-        $assert($result['moved'] === [] && $result['failed'] === [] && !file_exists($result['archive']), 'A current installation must make cleanup a no-op without creating an empty archive.');
-        $assertForwarders($root, 'Current root and alias forwarders must survive cleanup byte for byte');
-        $assert($service->legacyRootEntries() === [], 'Repeated listing must remain empty after current-only cleanup.');
-
-        // Ignore formatting/comments only; retain no old controller just because
-        // it contains a familiar forwarding statement or has a familiar name.
-        $formatted = str_replace("declare(strict_types=1);", "declare ( strict_types = 1 ) ;\n/* harmless hosting edit */", $forwarders['api/upload.php']['contents']);
-        $write($root . '/api/upload.php', str_replace("\n", "\r\n", $formatted));
-        $assert($service->legacyRootEntries() === [], 'Whitespace, CRLF and harmless comments must not turn a current forwarder into an obsolete controller.');
-        $service->archiveLegacyRootEntries();
-        $assert(file_get_contents($root . '/api/upload.php') === str_replace("\n", "\r\n", $formatted), 'Cleanup must not rewrite or normalize a recognized forwarding file.');
-
-        foreach (['rename', 'copy-fallback'] as $mode) {
-            $root = $seedCurrentRoutes('mixed-forwarders-' . $mode);
-            $legacy = [
-                'account/legacy-controller.php' => "<?php echo 'obsolete account controller';",
-                'account/old-uploads/unique.bin' => "unique legacy bytes\0\xff\x01",
-                'account/old-uploads/nested/index.php' => $forwarders['account/index.php']['contents'],
-                'api/scene-old.php' => str_replace('/api/scene.php', '/api/scene-old.php', $forwarders['api/scene.php']['contents']) . "\necho 'extra old controller behavior';\n",
-                'api/wrong-target.php' => $forwarders['api/upload.php']['contents'],
-                'booking/.htaccess' => "# owner legacy rule retained privately\n",
-                'booking/notes.txt' => 'unique booking notes',
-                'scripts/old-command.php' => "<?php echo 'obsolete command';",
-            ];
-            foreach ($legacy as $relative => $contents) $write($root . '/' . $relative, $contents);
-            $write($root . '/public/routes/api/scene-old.php', 'protected fixture target');
-            $write($root . '/public/routes/api/wrong-target.php', 'protected fixture target');
-            $write($root . '/app/Console/current.php', 'consolidated command fixture');
-            mkdir($root . '/account/old-uploads/empty', 0700, true);
-            $activeModes = [];
-            foreach (['account', 'api', 'booking', 'account/index.php', 'api/upload.php'] as $relative) {
-                $activeModes[$relative] = fileperms($root . '/' . $relative) & 0777;
-            }
-            $service = new RepairBackupService($root);
-            $assert($service->legacyRootEntries() === ['account', 'api', 'booking', 'scripts'], 'Only roots containing actual old siblings should appear in the archive list.');
-            $GLOBALS['vvx_test_force_rename_failure'] = $mode === 'copy-fallback';
-            try { $result = $service->archiveLegacyRootEntries(); } finally { $GLOBALS['vvx_test_force_rename_failure'] = false; }
-            $assert($result['moved'] === ['account', 'api', 'booking', 'scripts'] && $result['failed'] === [], 'Both rename and verified copy must archive obsolete siblings while leaving current route folders in place.');
-            $assertForwarders($root, 'Mixed-folder cleanup must preserve every current public forwarder');
-            foreach ($legacy as $relative => $contents) {
-                $assert(!file_exists($root . '/' . $relative), 'Old controllers and unknown data must leave the public path: ' . $relative);
-                $assert(file_get_contents($result['archive'] . '/' . $relative) === $contents, 'Private archival must retain exact old bytes: ' . $relative);
-            }
-            $assert(is_dir($result['archive'] . '/account/old-uploads/empty'), 'Mixed-folder archiving must preserve unknown empty directories.');
-            $assert(file_get_contents($result['archive'] . '/.htaccess') === "Require all denied\n", 'The legacy archive must deny public access.');
-            $assert(!is_dir($root . '/scripts'), 'Obsolete scripts must still archive completely; cleanup cannot silently skip all old roots.');
-            foreach ($activeModes as $relative => $permissions) {
-                clearstatcache(true, $root . '/' . $relative);
-                $assert((fileperms($root . '/' . $relative) & 0777) === $permissions, 'Cleanup must not change permissions of a live public entry: ' . $relative);
-            }
-            $assert($service->legacyRootEntries() === [], 'Cleaned mixed folders must no longer be shown as obsolete.');
-            $second = $service->archiveLegacyRootEntries();
-            $assert($second['moved'] === [] && $second['failed'] === [] && !file_exists($second['archive']), 'Repeated mixed-folder cleanup must be an idempotent no-op.');
-            $assert(file_get_contents($root . '/storage/private/sentinel.txt') === 'private fixture sentinel'
-                && file_get_contents($root . '/uploads/existing.txt') === 'current upload', 'Cleanup must preserve private state and current uploads.');
-        }
-
-        $root = $seedCurrentRoutes('forwarder-missing-handler');
-        unlink($root . '/public/routes/account/reset.php');
-        $write($root . '/account/old.txt', 'old sibling preserved until handler repaired');
-        $service = new RepairBackupService($root);
-        $result = $service->archiveLegacyRootEntries();
-        $assert($result['moved'] === [] && count($result['failed']) === 1, 'A canonical forwarder with a missing protected handler must stop archival of that folder.');
-        $assertForwarders($root, 'Missing-handler refusal must preserve every current forwarding file');
-        $assert(is_file($root . '/account/old.txt') && !is_dir($result['archive'] . '/account'), 'Handler verification must fail before any old sibling is moved.');
-
-        $root = $seedCurrentRoutes('mixed-forwarder-links');
-        $write($root . '/account/aa-legacy.php', 'old controller preserved pending safe verification');
-        $write($root . '/account/zz-unknown/note.txt', 'unknown nested content');
-        symlink($outside . '/unique.txt', $root . '/account/zz-unknown/linked.txt');
-        $service = new RepairBackupService($root);
-        $result = $service->archiveLegacyRootEntries();
-        $assert($result['moved'] === [] && count($result['failed']) === 1, 'A linked unknown subtree must refuse archival before moving other siblings.');
-        $assertForwarders($root, 'A linked old subtree must not affect current forwarders');
-        $assert(is_file($root . '/account/aa-legacy.php') && !is_dir($result['archive'] . '/account'), 'Whole mixed-folder preflight must preserve old siblings on verification failure.');
-        $assert(file_get_contents($outside . '/unique.txt') === 'outside protected content', 'Legacy cleanup must never read through or modify linked external data.');
 
         echo "PASS repair backups: {$checks} assertions (disposable fixtures only)\n";
     } finally {

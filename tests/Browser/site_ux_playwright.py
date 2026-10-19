@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from public_urls import assert_route_destination, site_url
 from pathlib import Path
 from urllib.parse import urlparse
 from playwright.sync_api import expect, sync_playwright
@@ -14,7 +15,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 
 
 def visit(page, path):
-    response = page.goto(BASE + path, wait_until='networkidle')
+    response = page.goto(site_url(BASE, path), wait_until='networkidle')
     assert response and response.status == 200, (path, response.status if response else None)
     gate = page.locator('#ageGate:not([hidden])')
     if gate.count():
@@ -127,7 +128,7 @@ with sync_playwright() as p:
         expect(public.locator('.about-statistics')).not_to_contain_text('Hidden measurement')
         expect(public.locator('.about-biography')).to_contain_text('<script>window.aboutInjection=true</script>')
         assert not public.evaluate('Boolean(window.aboutInjection)'), 'Biography executed as HTML'
-        expect(public.get_by_role('link', name='Ask about booking', exact=True)).to_have_attribute('href', BASE + '/booking/')
+        assert_route_destination(public.get_by_role('link', name='Ask about booking', exact=True).get_attribute('href'), BASE, 'booking/')
         public.screenshot(path=str(OUT / ('about-public-' + str(width) + '.png')), full_page=True)
         # Check both canonical auth URLs and friendly aliases, including Join.
         for path in ['/account/login.php', '/account/register.php', '/account/forgot.php', '/account/reset.php', '/account/verify.php', '/join/']:
@@ -151,7 +152,9 @@ with sync_playwright() as p:
                 public.screenshot(path=str(OUT / ('login-centered-' + str(width) + '.png')), full_page=True)
         if width < 1280:
             public.locator('#mobileMenu').click()
-            expect(public.locator('#primaryNav a[href="' + BASE + '/cart/"]')).to_be_visible()
+            cart_link = public.locator('#primaryNav').get_by_role('link', name='Cart', exact=True)
+            expect(cart_link).to_be_visible()
+            assert_route_destination(cart_link.get_attribute('href'), BASE, 'cart/')
             bars = public.locator('#mobileMenu span:not(.sr-only)').evaluate_all('(bars) => bars.map(bar => bar.getBoundingClientRect().width)')
             assert len(bars) == 3 and min(bars) >= 20, ('Mobile menu bars are not visible', bars)
             public.locator('#mobileMenu').click()

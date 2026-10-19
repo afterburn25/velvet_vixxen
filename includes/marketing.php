@@ -20,14 +20,7 @@ function velvet_marketing_escape(string $value): string
 function velvet_marketing_destination(string $value): string
 {
     if (!\App\Core\SceneButton::validUrl($value)) return base_url('/');
-    if (preg_match('#^https?://#i', $value)) return $value;
-    $base = rtrim(base_url(), '/');
-    $prefix = rtrim((string) (parse_url($base, PHP_URL_PATH) ?? ''), '/');
-    $path = (string) (parse_url($value, PHP_URL_PATH) ?? '');
-    if ($prefix !== '' && ($path === $prefix || str_starts_with($path, $prefix . '/'))) {
-        return substr($base, 0, strlen($base) - strlen($prefix)) . $value;
-    }
-    return $base . '/' . ltrim($value, '/');
+    return vvx_public_destination(base_url(), $value);
 }
 
 function velvet_marketing_csrf(): string
@@ -77,7 +70,7 @@ function velvet_marketing_capture_referral(): string
 
 function velvet_marketing_record_pageview(): void
 {
-    $uri = (string)($_SERVER['REQUEST_URI'] ?? '/');
+    $uri = vvx_public_request_path((string)($_SERVER['REQUEST_URI'] ?? '/'));
     if (PHP_SAPI === 'cli' || preg_match('#/(admin|install|api)/#', $uri) || preg_match('/\.(?:css|js|png|jpe?g|webp|svg|ico|woff2?)(?:\?|$)/i', $uri)) return;
     try { velvet_marketing_capture_referral(); velvet_marketing_store()->recordEvent('page_view', ['path'=>$uri]); } catch (Throwable $e) {}
 }

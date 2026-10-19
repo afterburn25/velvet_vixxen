@@ -7,18 +7,18 @@ import hashlib
 import json
 import re
 from pathlib import Path
+from typing import Iterable
 from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
-ROOT_FILES = {".htaccess", "index.php", "route.php", "media.php", "VERSION"}
+ROOT_FILES = {".htaccess", "index.php", "route.php", "VERSION"}
 RUNTIME_ROOTS = {
-    "admin", "api", "app", "addons", "config", "database", "images", "includes",
+    "admin", "app", "addons", "config", "database", "images", "includes",
     "install", "public", "storage", "templates", "uploads", "vendor",
 }
 PRESERVED_UPGRADE_ROOTS = {"config", "storage", "uploads", "install"}
-# Physical compatibility entry points preserve the existing URLs on hosts that
-# require PHP files to exist before dispatching them. Business logic stays under
-# public/routes; media.php is the retained signed-media URL, not a new root API.
-PUBLIC_ROUTE_FILES = {
+# Public page/API implementations stay in one protected, organized tree. The
+# physical route.php dispatcher handles generated URLs even without rewriting.
+PUBLIC_HANDLER_FILES = {"public/routes/" + relative for relative in {
     "about/index.php", "account/billing.php", "account/forgot.php", "account/index.php",
     "account/library.php", "account/login.php", "account/logout.php", "account/register.php",
     "account/reset.php", "account/security.php", "account/verify.php",
@@ -26,14 +26,12 @@ PUBLIC_ROUTE_FILES = {
     "api/payment-webhook.php", "api/scene.php", "api/upload.php",
     "blog/index.php", "blog/post.php", "booking/index.php", "campaign/index.php",
     "cart/index.php", "checkout/index.php", "checkout/success.php", "collections/index.php",
-    "communication/download.php", "create-account/index.php", "extension/index.php",
-    "join/index.php", "links/index.php", "login/index.php", "media.php",
+    "communication/download.php", "extension/index.php", "links/index.php", "media.php",
     "membership/index.php", "messages/index.php", "music/index.php", "newsletter/confirm.php",
     "newsletter/index.php", "newsletter/unsubscribe.php", "photos/index.php", "photos/view.php",
-    "receipt/index.php", "recover/index.php", "requests/index.php", "shop/index.php",
+    "receipt/index.php", "requests/index.php", "shop/index.php",
     "videos/index.php", "videos/watch.php",
-}
-RUNTIME_ROOTS |= {Path(relative).parts[0] for relative in PUBLIC_ROUTE_FILES if "/" in relative}
+}}
 INSTALLER_REPAIR_VERSION = "0.8.1"
 INSTALLER_DATABASE_REPAIR_FILES = {
     "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
@@ -50,26 +48,34 @@ RUNTIME_BUILD_PATH = "includes/runtime-build.json"
 COMPOSER_REPAIR_BASELINES = [
     "e5b04daa132521be69c943151f8112c7cd2017e8",
     "db759342e401617c9933c13b81a147ad9f8fd515",
+    "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
 ]
 # A separate installed-site overlay keeps Media, Composer and route corrections out of the
 # unfinished-installer repair and never ships configuration or uploaded media.
 COMPOSER_REPAIR_FILES = {
-    *PUBLIC_ROUTE_FILES, "admin/index.php", "admin/update.php", "public/router.php",
+    *PUBLIC_HANDLER_FILES, ".htaccess", "route.php", "admin/index.php", "admin/update.php",
+    "admin/repair.php", "public/router.php", "app/Support/public_routes.php",
     "app/Core/SceneButton.php", "app/Core/Store.php", "app/Core/RepairBackupService.php",
-    "app/Core/RuntimeBuildService.php", "app/Support/functions.php",
+    "app/Core/RuntimeBuildService.php", "app/Core/RuntimeInventoryService.php",
+    "app/Core/RootLayoutService.php", "app/Support/functions.php",
+    "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
+    "app/Views/admin/repair-backups.php",
+    "app/Views/admin/repair-status.php",
+    "app/Views/public/partials/footer.php", "public/home.php",
     "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
     "includes/version.php", RUNTIME_BUILD_PATH, "public/routes/links/index.php", "public/routes/campaign/index.php",
     "public/assets/css/site.css", "public/assets/css/composer.css",
     "public/assets/js/api-client.js", "public/assets/js/admin.js",
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
+    "public/assets/js/media-center.js",
 }
 # Keep this deterministic, but advance it for each unfinished-installer service
 # correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
 INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
-COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 19, 19, 30, 0)
+COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 19, 20, 50, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -82,6 +88,25 @@ APPROVED_UPLOADS = {
     *(f"uploads/images/demo/gallery-{number}.jpg" for number in range(1, 6)),
 }
 FORBIDDEN_SUFFIXES = (".log", ".tmp", ".previous", ".backup", ".bak", ".pem", ".key", ".sql")
+
+
+def validate_runtime_layout(paths: Iterable[str], kind: str) -> None:
+    """Enforce the approved root shape independently of individual dependencies."""
+    if kind not in {"fresh", "upgrade", "installer-repair", "composer-repair"}:
+        raise ValueError(f"Unknown runtime package kind: {kind}")
+    names = set(paths)
+    if any(not name or Path(name).is_absolute() or ".." in Path(name).parts for name in names):
+        raise ValueError("Runtime layout contains an unsafe path")
+    root_files = {name for name in names if "/" not in name}
+    roots = {name.split("/", 1)[0] for name in names if "/" in name}
+    allowed_roots = RUNTIME_ROOTS - PRESERVED_UPGRADE_ROOTS if kind in {"upgrade", "composer-repair"} else RUNTIME_ROOTS
+    unexpected = sorted((root_files - ROOT_FILES) | (roots - allowed_roots))
+    if unexpected:
+        raise ValueError("Runtime layout contains unapproved root entries: " + ", ".join(unexpected))
+    if kind in {"fresh", "upgrade"}:
+        missing = sorted((ROOT_FILES - root_files) | (allowed_roots - roots))
+        if missing:
+            raise ValueError("Runtime layout is missing approved root entries: " + ", ".join(missing))
 
 
 def eligible(relative: str, kind: str) -> bool:
@@ -214,6 +239,7 @@ def required_files(kind: str, version: str) -> set[str]:
 
 
 def validate(files: dict[str, bytes], kind: str, version: str) -> None:
+    validate_runtime_layout(files, kind)
     required = required_files(kind, version)
     missing = required - files.keys()
     if missing:

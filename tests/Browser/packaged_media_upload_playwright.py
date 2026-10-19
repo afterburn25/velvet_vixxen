@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Exercise real packaged image uploads with no development-server route fallback.
 
-The ordinary HTTP router forwards missing .php paths and previously hid absent
-API entrypoints. This suite extracts the customer ZIP, serves only actual files,
-and tests both a domain-root and a two-level subdirectory installation. Missing
-physical endpoints are retained as a negative control; a separate labelled host
-error fixture exercises the reported literal 'File not found.' response.
+This suite extracts the customer ZIP, serves only actual files, and tests both a
+domain-root and a two-level subdirectory installation. All public actions use
+the physical route.php dispatcher; the retired root API directories must be
+absent. Removing that dispatcher is a real host-level failure control. A separate
+labelled host-error fixture exercises the reported literal 'File not found.' body.
 """
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ import subprocess
 import sys
 import tempfile
 import time
-from urllib.parse import unquote, urlparse
+from urllib.parse import parse_qs, parse_qsl, quote, unquote, urlencode, urlparse
 from zipfile import ZipFile
 import zlib
 
@@ -39,6 +39,33 @@ sys.dont_write_bytecode = True
 def require(condition: bool, message: str) -> None:
     if not condition:
         raise AssertionError(message)
+
+
+def route_url(base: str, destination: str) -> str:
+    """Expected physical public URL, independent of application URL generation."""
+    parsed = urlparse(destination)
+    name = parsed.path.strip('/')
+    if not name:
+        return base + '/' + ('?' + parsed.query if parsed.query else '') + ('#' + parsed.fragment if parsed.fragment else '')
+    parameters = [('vvx_route', name), *parse_qsl(parsed.query, keep_blank_values=True)]
+    return base + '/route.php?' + urlencode(parameters, quote_via=quote) + ('#' + parsed.fragment if parsed.fragment else '')
+
+
+def is_route_url(url: str, base: str, name: str) -> bool:
+    actual = urlparse(url)
+    origin = urlparse(base)
+    query = parse_qs(actual.query, keep_blank_values=True)
+    return (actual.scheme, actual.netloc, actual.path) == (origin.scheme, origin.netloc, origin.path + '/route.php') \
+        and query.get('vvx_route') == [name.strip('/')]
+
+
+def assert_route_destination(url: str, base: str, destination: str, message: str) -> None:
+    """Check the real physical path, selector, application fields and fragment."""
+    expected = urlparse(route_url(base, destination))
+    actual = urlparse(url)
+    require((actual.scheme, actual.netloc, actual.path, actual.fragment)
+            == (expected.scheme, expected.netloc, expected.path, expected.fragment)
+            and parse_qs(actual.query, keep_blank_values=True) == parse_qs(expected.query, keep_blank_values=True), message)
 
 
 def png(width: int, height: int, color: tuple[int, int, int, int]) -> bytes:
@@ -97,8 +124,8 @@ def requests_session() -> requests.Session:
 
 
 def security_http(site: Path, base: str, php: str) -> dict:
-    endpoint = base + '/api/upload.php'
-    scene_endpoint = base + '/api/scene.php?section=hero'
+    endpoint = route_url(base, 'api/upload.php')
+    scene_endpoint = route_url(base, 'api/scene.php?section=hero')
     before_media = state(site)['media']
     before_uploads = uploaded_files(site)
     guest = requests_session()
@@ -186,18 +213,19 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
     page.goto(base + '/admin/?page=media', wait_until='networkidle')
     page.get_by_role('button', name='Upload Images', exact=True).click()
     form = page.locator('#libraryUpload')
-    require(form.get_attribute('action') == base + '/api/upload.php', 'Library form action does not use the configured installation URL.')
+    assert_route_destination(form.get_attribute('action') or '', base, 'api/upload.php',
+                             'Library form action must use the configured physical dispatcher.')
     photo_name = f'{label}-library.png'
     form.locator('input[name=image]').set_input_files({'name': photo_name, 'mimeType': 'image/png', 'buffer': PHOTO})
     form.locator('input[name=thumbnail]').set_input_files({'name': 'custom-thumbnail.png', 'mimeType': 'image/png', 'buffer': THUMBNAIL})
-    endpoint_file = site / 'api/upload.php'
+    endpoint_file = site / 'route.php'
     endpoint_bytes = endpoint_file.read_bytes()
-    endpoint = base + '/api/upload.php'
+    endpoint = form.get_attribute('action')
     baseline_media = state(site)['media']
     baseline_uploads = uploaded_files(site)
 
     # Real missing-file regression: no router is passed to php -S. Removing only
-    # the physical compatibility entrypoint must produce a host-level 404 even
+    # the physical dispatcher must produce a host-level 404 even
     # though public/routes/api/upload.php still exists in the runtime.
     endpoint_file.unlink()
     try:
@@ -275,12 +303,12 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> 
     require(layer.locator('img').get_attribute('src') == composer_asset['url'], 'Composer did not use the exact newly uploaded original.')
     layer_id = layer.get_attribute('data-layer-id')
     for action in ['save', 'publish']:
-        with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as captured:
+        with page.expect_response(lambda response: is_route_url(response.url, base, 'api/scene.php') and response.request.method == 'POST') as captured:
             page.locator(f'[data-action="{action}"]').click()
         result = response_json(captured.value, 200, f'Composer {action}')
         require(result['ok'], f'Composer {action} failed without URL rewriting.')
         expect(page.locator('[data-action="save"]')).to_be_enabled()
-    saved = response_json(context.request.get(base + '/api/scene.php?section=hero'), 200, 'Read saved scene')
+    saved = response_json(context.request.get(route_url(base, 'api/scene.php?section=hero')), 200, 'Read saved scene')
     require(any(layer.get('mediaId') == composer_asset['id'] for layer in saved['scene']['devices'][device]['layers']),
             'The uploaded image layer did not persist in the saved scene.')
     page.reload(wait_until='networkidle')
@@ -325,8 +353,10 @@ def run() -> None:
         archive = work / 'packages' / fresh['filename']
         summary['fresh_zip_sha256'] = fresh['sha256']
         with ZipFile(archive) as zipped:
-            require({'api/upload.php', 'api/scene.php'} <= set(zipped.namelist()),
-                    'Customer ZIP is missing physical upload/scene endpoints; the old rewritten-only build fails this regression.')
+            require({'route.php', 'app/Support/public_routes.php', 'public/routes/api/upload.php', 'public/routes/api/scene.php'} <= set(zipped.namelist()),
+                    'Customer ZIP is missing the physical dispatcher or organized upload/scene handlers.')
+            require(not any(name.startswith('api/') for name in zipped.namelist()),
+                    'The rejected root API directory must not return to the customer ZIP.')
             require(not any(name.startswith(('tests/', 'scripts/', 'docs/')) for name in zipped.namelist()),
                     'Engineering helpers must not enter the customer ZIP.')
         options = {'headless': True}
@@ -358,7 +388,7 @@ def run() -> None:
                 environment = os.environ.copy()
                 environment.pop('PHP_CLI_SERVER_WORKERS', None)
                 with log_file.open('w+') as log:
-                    process = subprocess.Popen([php, '-d', 'opcache.enable_cli=0', '-S', f'127.0.0.1:{port}', '-t', str(document_root)],
+                    process = subprocess.Popen([php, '-d', 'opcache.enable=0', '-d', 'opcache.enable_cli=0', '-S', f'127.0.0.1:{port}', '-t', str(document_root)],
                                                cwd=work, env=environment, stdout=log, stderr=log)
                     try:
                         session = requests_session()

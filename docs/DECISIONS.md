@@ -1,6 +1,15 @@
 # Architecture and Product Decisions
 
-## Public route compatibility and Composer controls (2026-10-19)
+## Organized root and central public routing correction (2026-10-19)
+
+- The owner explicitly rejected the agent-authored physical root compatibility folders. Restore the pre-regression 13-directory fresh and nine-directory upgrade allowlists and four root files: `.htaccess`, `VERSION`, `index.php`, `route.php`.
+- Keep public implementations under `public/routes`; use the physical `route.php` dispatcher and an allowlisted scalar `vvx_route` selector for generated URLs on hosts without rewrite support. Retain existing pretty-path aliases through actual server rewrite configuration.
+- Check complete actual ZIP root directories independently of the packager's own allowlist. Passing action tests cannot excuse a directory regression.
+- An existing .5 installation must be repaired in place: verify new runtime bytes and owner/CSRF boundaries; privately preserve exact known retired stub bytes as nonexecuting data; remove only those verified files and empty retired directories. Never move/delete custom siblings or unrelated state.
+
+## Superseded public route compatibility decision (2026-10-19)
+
+The first two bullets below are historical and explicitly rejected by the owner; do not implement or retain their root-file/folder exception.
 
 - Keep protected implementations under `public/routes` and preserve existing public URLs with thin physical entry points. A host may dispatch nonexistent `.php` paths to FastCGI before rewrite rules can forward them. Every registered public page/API must be present in the runtime ZIP, including nested-installation paths and short account aliases.
 - Keep `media.php` as the single additional root compatibility entry point for already-issued signed-media URLs; its implementation stays under `public/routes`. This is a narrow organized-source exception, not permission to move business logic into the root.

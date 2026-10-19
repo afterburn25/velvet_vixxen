@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import os
+from public_urls import is_route_url, site_url, wait_for_route
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -17,7 +18,7 @@ paths = [('home', '/'), ('about', '/about/'), ('music', '/music/'), ('photos', '
     ('login', '/account/login.php'), ('register', '/account/register.php'), ('cart', '/cart/')]
 
 def visit(page, path):
-    response = page.goto(BASE + path, wait_until='domcontentloaded')
+    response = page.goto(site_url(BASE, path), wait_until='domcontentloaded')
     if page.locator('#ageGate:not([hidden])').count():
         page.locator('#ageEnter').click()
     return response
@@ -63,7 +64,8 @@ with sync_playwright() as playwright:
                 if menu.get_attribute('aria-expanded') != 'true' or not page.locator('#primaryNav').is_visible():
                     failures.append(label + ' ' + path + ': mobile menu did not open accessibly')
                 # An account entry must remain reachable on small screens.
-                if not any(link.is_visible() for link in page.locator('.public-navigation a[href*="account/login"]').all()):
+                if not any(link.is_visible() and is_route_url(link.get_attribute('href'), BASE, 'account/login.php')
+                           for link in page.locator('.public-navigation a[href]').all()):
                     failures.append(label + ' ' + path + ': no reachable Login link')
                 menu.click()
                 if menu.get_attribute('aria-expanded') != 'false':
@@ -75,7 +77,7 @@ with sync_playwright() as playwright:
         if label == 'mobile':
             page.locator('#mobileMenu').click()
         page.locator('#primaryNav').get_by_role('link', name='About Me', exact=True).click()
-        page.wait_for_url('**/about/')
+        wait_for_route(page, BASE, 'about')
         if page.locator('#primaryNav').get_by_role('link', name='About Me', exact=True, include_hidden=True).get_attribute('aria-current') != 'page':
             failures.append(label + ': About navigation failed to mark the current page')
         # Signed-in account access must also stay reachable on both layouts.
@@ -83,10 +85,11 @@ with sync_playwright() as playwright:
         page.locator('[name="email"]').fill('member@example.com')
         page.locator('[name="password"]').fill('VelvetMember12')
         page.get_by_role('button', name='Sign In', exact=True).click()
-        page.wait_for_url('**/account/')
+        wait_for_route(page, BASE, 'account')
         if label == 'mobile':
             page.locator('#mobileMenu').click()
-        if not any(link.is_visible() for link in page.locator('.public-navigation a[href$="account/"]').all()):
+        if not any(link.is_visible() and is_route_url(link.get_attribute('href'), BASE, 'account')
+                   for link in page.locator('.public-navigation a[href]').all()):
             failures.append(label + ': no reachable My Account link for a signed-in member')
         context.close()
     browser.close()

@@ -4,7 +4,7 @@ import json
 import os
 import re
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import parse_qs, urljoin, urlparse
 import requests
 from bs4 import BeautifulSoup
 
@@ -29,7 +29,8 @@ def login(email):
     session = requests.Session()
     page = get(session, "/account/login.php")
     response = session.post(urljoin(BASE, "account/login.php"), data={"_csrf": token(page), "email": email, "password": "VelvetMember12", "return": "/account/"}, timeout=20)
-    assert response.status_code == 200 and response.url.rstrip("/").endswith("/account"), "Member login failed."
+    assert response.status_code == 200 and urlparse(response.url).path == urlparse(BASE).path.rstrip('/') + '/route.php' \
+        and parse_qs(urlparse(response.url).query).get('vvx_route') == ['account'], "Member login failed."
     return session
 
 guest = requests.Session()
@@ -65,7 +66,12 @@ invalid = guest.post(urljoin(BASE, "newsletter/"), data={"name": "Fixture", "ema
 assert invalid.status_code == 419, "Newsletter CSRF rejection failed."
 valid = guest.post(urljoin(BASE, "newsletter/"), data={"name": "Fixture", "email": "newsletter@example.test", "consent": "1", "csrf": token(newsletter, "csrf")}, timeout=20)
 assert valid.status_code == 200 and "unconfirmed" in valid.text.lower(), "Disabled email delivery must leave the subscription unconfirmed."
-assert 'confirm.php?token=' not in valid.text, "Newsletter exposed an email confirmation token in the public response."
+for link in BeautifulSoup(valid.text, 'html.parser').select('a[href]'):
+    parsed_link = urlparse(str(link['href']))
+    parameters = parse_qs(parsed_link.query)
+    confirmation = parsed_link.path.endswith('/newsletter/confirm.php') \
+        or parameters.get('vvx_route') == ['newsletter/confirm.php']
+    assert not (confirmation and parameters.get('token')), "Newsletter exposed an email confirmation token in the public response."
 marketing = json.loads((ROOT / "storage/private/marketing/data.json").read_text())
 contacts = [c for c in marketing["contacts"] if c["email"] == "newsletter@example.test"]
 assert len(contacts) == 1 and contacts[0]["status"] == "pending", "Newsletter bypassed confirmation."

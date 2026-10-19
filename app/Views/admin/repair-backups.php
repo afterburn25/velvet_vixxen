@@ -2,13 +2,12 @@
 declare(strict_types=1);
 /** @var \App\Core\RepairBackupService $repairService */
 $repairBackups = $repairService->backups();
-$legacyEntries = $repairService->legacyRootEntries();
 ?>
 <section class="welcome-panel"><div><span class="admin-kicker">Safe shared-hosting recovery</span><h2>Repair Backups</h2><p>These private folders may contain older uploads or configuration. Moving a backup preserves its contents and keeps it available here. Restore missing files before reviewing a duplicate for deletion.</p><div class="panel-actions"><form method="post"><?=csrf_field()?><input type="hidden" name="action" value="archive_repair_residues"><button class="admin-button primary">Move Root Backups to Private Storage</button></form></div></div></section>
 
-<section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Consolidated root layout</span><h2>Obsolete Root Route Folders</h2></div></div>
-<?php if ($legacyEntries === []): ?><p class="muted-copy">No obsolete route folders remain in the site root.</p>
-<?php else: ?><p class="muted-copy">The new router already serves these public URLs from <code>/public/routes</code>. Move the old physical entries into protected private storage after confirming the site is working.</p><p><code><?=e(implode(', ', $legacyEntries))?></code></p><form method="post"><?=csrf_field()?><input type="hidden" name="action" value="archive_legacy_root_entries"><button class="admin-button primary">Archive Old Root Entries</button></form><?php endif; ?>
+<section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Organized root layout</span><h2>Restore Organized Folders</h2></div></div>
+<p class="muted-copy">Update Status verifies the current application and retires only exact forwarding files from the earlier package. Custom files stay in their existing locations, and only empty route folders are removed.</p>
+<a class="admin-button primary" href="<?= e(base_url('admin/repair.php')) ?>">Open Update &amp; Folder Repair</a>
 </section>
 
 <?php if ($repairBackups === []): ?>

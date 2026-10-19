@@ -1,5 +1,17 @@
 # Velvet Vixxen Development Roadmap
 
+<!-- root-layout-repair:start -->
+## Root-layout regression — Build 20261019.5 rejected; correction implemented, final gates pending
+
+The owner rejected the delivered build because it restored the old route folders at the website root. Actual ZIP comparison confirms **25 extra root directories and 46 forwarding PHP files** (45 inside those directories plus `media.php`). The regression was introduced in `723205b7bddad06d4f603b539aea1a777bdd2ae5` and retained in Build 20261019.5. Earlier passing tests verified that implementation but failed to enforce the user's approved directory requirement. Do not present Build .5 as an acceptable organized-site release.
+
+Restore the executable pre-regression layout: fresh ZIP directories are exactly `addons`, `admin`, `app`, `config`, `database`, `images`, `includes`, `install`, `public`, `storage`, `templates`, `uploads`, `vendor`; Upgrade excludes `config`, `install`, `storage`, `uploads`. Root files are exactly `.htaccess`, `VERSION`, `index.php`, `route.php`. Public implementations stay under `public/routes`, operational commands under `app/Console`. Agent-authored exceptions for root compatibility folders/files are superseded by the owner's explicit rejection.
+
+The implemented correction uses the existing physical `route.php` dispatcher for generated public/API URLs, including root and subfolder installations without rewrite assistance. It must preserve query parameters, authentication, CSRF, entitlements, signed media and all real upload/button/Preview/Publish flows. An already-extracted update also requires a verified owner action to retire only exact known forwarding files and remove only empty retired directories; unknown/custom files, configuration, data, keys and uploads must remain intact.
+
+**Build 20261019.6 is implemented; final exact-source CI and saved replacement downloads are pending.** Local PHP 8.3.6 source/JavaScript/security/ownership/package suites pass, including 692 safe-root-repair assertions, 87 retained repair-backup assertions, 136 installation-URL assertions and 836 central-route assertions. All seven HTTP suites pass. The actual checksum-pinned .5-to-.6 browser upgrade passes root/nested persistent-cache and disabled-cache cases, verifies exact 46-file/25-folder retirement, custom-item preservation, old-action redirection, reversible nonexecuting archives, and real upload/button/Preview/Publish actions. Actual packaged route sweeps pass all 87 aliases before/after cleanup; separate root/nested upload and four Composer-action cases pass. Local Apache/FPM checks verify canonical execution on six configurations, with the old pretty-path/private-denial limits explicitly scoped. The remaining application-browser gates and PHP 8.2/8.3/MySQL CI still govern final release verification. The independent root-directory allowlist gate now rejects the actual .5 Fresh/Upgrade maps. Require final execution of the real .5-to-.6 installed cleanup path, meaningful routing/browser regressions, PHP 8.2/8.3/MySQL 8 gates and matching saved artifact bytes before final delivery. The affected host remains unaccessed. Issue #13 stays open, PR #15 remains unmerged, payments stay sandbox-only and no 0.9.0 work is included.
+<!-- root-layout-repair:end -->
+
 <!-- installed-build-followup:start -->
 ## Installed-update repair — Build 20261019.5 verified and delivered
 

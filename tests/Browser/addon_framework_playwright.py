@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from urllib.parse import urljoin
+from public_urls import site_url
 
 from playwright.sync_api import sync_playwright
 
@@ -9,7 +9,7 @@ BASE = os.environ.get("VELVET_BASE_URL", "http://127.0.0.1:8765/")
 
 
 def url(path: str) -> str:
-    return urljoin(BASE, path.lstrip("/"))
+    return site_url(BASE, path)
 
 
 with sync_playwright() as playwright:

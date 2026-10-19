@@ -1,7 +1,9 @@
 """Interactive booking, communications and publishing on desktop and mobile."""
 from __future__ import annotations
 import os
+from public_urls import is_route_url, site_url, wait_for_route
 from pathlib import Path
+from urllib.parse import parse_qs, urlparse
 from playwright.sync_api import sync_playwright
 
 BASE = os.environ["VELVET_BASE_URL"].rstrip("/")
@@ -9,7 +11,7 @@ OUT = Path(os.environ.get("VELVET_SCREENSHOT_DIR", "/tmp/vvx-browser-evidence"))
 OUT.mkdir(parents=True, exist_ok=True)
 
 def visit(page, path):
-    response = page.goto(BASE + path, wait_until="domcontentloaded")
+    response = page.goto(site_url(BASE, path), wait_until="domcontentloaded")
     assert response and response.status == 200, f"Page failed: {path}"
     if page.locator("#ageGate:not([hidden])").count():
         page.locator("#ageEnter").click()
@@ -38,7 +40,7 @@ with sync_playwright() as playwright:
         page.fill('input[name="email"]', "member@example.com")
         page.fill('input[name="password"]', "VelvetMember12")
         page.get_by_role("button", name="Sign In", exact=True).click()
-        page.wait_for_url("**/account/")
+        wait_for_route(page, BASE, 'account')
         visit(page, "/messages/")
         form = page.locator("form.inbox-new")
         form.locator('[name="subject"]').fill(f"Browser {label} private conversation")
@@ -56,7 +58,13 @@ with sync_playwright() as playwright:
         page.get_by_role("button", name="Subscribe", exact=True).click()
         page.locator(".marketing-notice").wait_for()
         assert "unconfirmed" in page.locator(".marketing-notice").inner_text().lower()
-        assert page.locator('a[href*="confirm.php?token="]').count() == 0
+        confirmation_links = page.locator('a[href]').evaluate_all('links => links.map(link => link.href)')
+        assert not any(
+            (is_route_url(href, BASE, 'newsletter/confirm.php')
+             or urlparse(href).path.endswith('/newsletter/confirm.php'))
+            and parse_qs(urlparse(href).query).get('token')
+            for href in confirmation_links
+        ), 'Newsletter signup exposed a confirmation token in a public link.'
         page.screenshot(path=str(OUT / f"newsletter-{label}.png"), full_page=True)
         assert not errors, errors
         context.close()

@@ -43,7 +43,7 @@ if ($page === 'login') {
 
 require_admin();
 if ($page === 'update-status') {
-    redirect(base_url('admin/update.php'));
+    redirect(base_url('admin/repair.php'));
 }
 $user = app_auth()->user();
 $store = app_store();
@@ -598,12 +598,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             redirect(base_url('admin/?page=orders&order=' . rawurlencode((string)$order['id'])));
         }
         if ($action === 'archive_legacy_root_entries') {
-            $result = $repairService->archiveLegacyRootEntries();
-            $store->audit(app_auth()->id(), 'system.legacy_root.archived', $result);
-            $message = count($result['moved']) . ' obsolete root entry/entries moved into private storage.';
-            if ($result['failed'] !== []) $message .= ' ' . count($result['failed']) . ' could not be moved.';
-            flash('success', $message);
-            redirect(base_url('admin/?page=repair-backups'));
+            // Old bookmarks/forms must not invoke broad legacy-folder archival.
+            // The replacement checks current owner, package bytes and exact retired files.
+            redirect(base_url('admin/repair.php'));
         }
         if ($action === 'archive_repair_residues') {
             $result = $repairService->archiveRootResidues();

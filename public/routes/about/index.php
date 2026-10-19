@@ -21,7 +21,7 @@ require root_path('app/Views/public/partials/header.php');
     <?php endif; ?>
     <article class="about-biography">
       <?php foreach (preg_split('/\R\s*\R/u', (string) $about['biography']) ?: [] as $paragraph): if (trim($paragraph) === '') continue; ?><p><?= nl2br(e($paragraph)) ?></p><?php endforeach; ?>
-      <?php if ($about['ctaLabel'] !== '' && $about['ctaUrl'] !== ''): $aboutCta = str_starts_with($about['ctaUrl'], '/') ? base_url(ltrim($about['ctaUrl'], '/')) : $about['ctaUrl']; ?><a class="button button--primary" href="<?= e($aboutCta) ?>"><?= e($about['ctaLabel']) ?></a><?php endif; ?>
+      <?php if ($about['ctaLabel'] !== '' && $about['ctaUrl'] !== ''): $aboutCta = vvx_public_destination(base_url(), (string) $about['ctaUrl']); ?><a class="button button--primary" href="<?= e($aboutCta) ?>"><?= e($about['ctaLabel']) ?></a><?php endif; ?>
     </article>
   </div>
 </section>

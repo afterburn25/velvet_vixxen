@@ -1,12 +1,15 @@
 """Real live button editing, geometry, publication and device isolation."""
 from __future__ import annotations
 
+from public_urls import assert_route_destination, is_route_url, wait_for_route
+
 import json
 import re
 
 from playwright.sync_api import expect, sync_playwright
 
 from composer_support import (
+    BASE,
     RUNTIME, action, choose_device, choose_section, control, dismiss_age,
     handles_reachable, launch, login, percent, read_scene, screenshot, url,
 )
@@ -194,7 +197,7 @@ with sync_playwright() as playwright:
         link = public.locator(f'[data-scene="hero"] a[data-layer-id="{identifier}"]')
         expect(public.get_by_role('link', name='View the collection', exact=True)).to_have_count(1)
         expect(link).to_have_text('View the collection')
-        expect(link).to_have_attribute('href', url('photos/'))
+        assert_route_destination(link.get_attribute('href'), BASE, 'photos/')
         assert percent(link, 'width') == expected_width, 'Published button used the wrong device geometry'
         assert link.evaluate('node => getComputedStyle(node).pointerEvents') == 'auto', 'Public button is not clickable'
         assert link.locator('img,canvas').count() == 0, 'Button must remain HTML, not an image'
@@ -204,7 +207,7 @@ with sync_playwright() as playwright:
         expect(link).to_be_focused()
         screenshot(public, f'composer-buttons-public-{target}.png')
         link.click()
-        public.wait_for_url('**/photos/**')
+        wait_for_route(public, BASE, 'photos')
 
     # Edits publish through ordinary version history, with safe new-tab links.
     control(page, 'buttonLabel', 'Read <more> & join')
@@ -222,14 +225,14 @@ with sync_playwright() as playwright:
     # Unsafe URL rejected by the real endpoint without replacing any published content.
     before = read_scene(context)['scene']
     control(page, 'buttonUrl', 'javascript:alert(1)')
-    with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as rejected:
+    with page.expect_response(lambda response: is_route_url(response.url, BASE, "api/scene.php") and response.request.method == 'POST') as rejected:
         page.locator('[data-action="publish"]').click()
     assert rejected.value.status == 422 and rejected.value.json()['ok'] is False
     expect(page.locator('[data-status]')).to_have_class(re.compile(r'\berror\b'))
     assert read_scene(context)['scene'] == before, 'Rejected button destination replaced stored scene'
     page.on('dialog', lambda dialog: dialog.accept())
     page.locator('[data-property-tab="versions"]').click()
-    with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as restored:
+    with page.expect_response(lambda response: is_route_url(response.url, BASE, "api/scene.php") and response.request.method == 'POST') as restored:
         page.locator(f'[data-version-id="{first_version}"] [data-restore-version]').click()
     assert restored.value.ok and restored.value.json()['ok']
     public.goto(url(''), wait_until='networkidle')
@@ -262,9 +265,9 @@ with sync_playwright() as playwright:
     public.set_viewport_size({'width': 390, 'height': 844})
     public.goto(url(''), wait_until='networkidle')
     footer = public.locator(f'[data-scene="footer"] a[data-layer-id="{footer_id}"]')
-    expect(footer).to_have_attribute('href', url('membership/'))
+    assert_route_destination(footer.get_attribute('href'), BASE, 'membership/')
     footer.click()
-    public.wait_for_url('**/membership/**')
+    wait_for_route(public, BASE, 'membership')
 
     # Legacy persisted payloads still receive renderer defense in depth.
     fixture_file = RUNTIME / 'storage/data.json'

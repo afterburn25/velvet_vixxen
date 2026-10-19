@@ -23,7 +23,9 @@ $remove = static function (string $path) use (&$remove): void {
 try {
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js',
-        'api/upload.php', 'api/scene.php', 'public/router.php'];
+        'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
+        'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
+        'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php'];
     $hashes = [];
     foreach ($files as $relative) {
         $directory = dirname($fixture . '/' . $relative);
@@ -59,10 +61,10 @@ try {
     ], 'Same-size/same-time old Composer must be identified by contents.');
     $reject(static fn() => $service->refreshPhpCache(), 'Incomplete deployment must not activate via cache refresh.');
     file_put_contents($target, $original);
-    unlink($fixture . '/api/upload.php');
+    unlink($fixture . '/public/routes/api/upload.php');
     $status = $service->inspect();
-    $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'api/upload.php', 'Missing physical upload entry must be identified.');
-    copy($source . '/api/upload.php', $fixture . '/api/upload.php');
+    $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'public/routes/api/upload.php', 'Missing organized upload handler must be identified.');
+    copy($source . '/public/routes/api/upload.php', $fixture . '/public/routes/api/upload.php');
 
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);
@@ -72,14 +74,14 @@ try {
     rename($fixture . '/composer-outside.php', $target);
 
     foreach (['config/app.php', 'storage/data.json', 'uploads/owner-photo.txt', '../foreign.php', '/tmp/foreign.php',
-        'app/../config/app.php', 'app\\Core\\Other.php', 'addons/installed/private.php', 'includes/runtime-build.json'] as $unsafe) {
+        'app/../config/app.php', 'app\\Core\\Other.php', 'addons/installed/private.php', 'includes/runtime-build.json', 'api/upload.php', 'media.php', 'account/index.php'] as $unsafe) {
         $invalid = $manifest;
         $invalid['files'][$unsafe] = str_repeat('0', 64);
         $write($invalid);
         $reject(static fn() => $service->inspect(), 'Private or escaping manifest path must fail: ' . $unsafe);
     }
     $invalid = $manifest;
-    unset($invalid['files']['api/scene.php']);
+    unset($invalid['files']['public/routes/api/scene.php']);
     $write($invalid);
     $reject(static fn() => $service->inspect(), 'Manifest cannot omit the scene endpoint and claim a complete update.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');

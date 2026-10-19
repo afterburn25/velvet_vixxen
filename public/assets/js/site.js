@@ -3,6 +3,7 @@
   const config = window.VELVET_CONFIG || {};
   const baseUrl = String(config.baseUrl || '').replace(/\/$/, '');
   const uploadBase = String(config.uploadBase || `${baseUrl}/uploads/`).replace(/\/?$/, '/');
+  const publicRoutes = new Set((config.publicRoutes || []).map(route => String(route).replace(/^\/+|\/+$/g, '')));
 
   const normalizePath = (path) => {
     path = String(path || '').trim().replace(/\\/g, '/');
@@ -32,13 +33,32 @@
     try { decoded = decodeURIComponent(url); } catch { return ''; }
     if (url.startsWith('//') || decoded.startsWith('//') || decoded.includes('\\')) return '';
     try {
+      const site = new URL(`${baseUrl}/`);
+      const prefix = site.pathname.replace(/\/$/, '');
+      let target;
       if (/^https?:\/\//i.test(url)) {
-        const target = new URL(url);
-        return target.hostname && !target.username && !target.password ? target.href : '';
+        target = new URL(url);
+        if (!target.hostname || target.username || target.password) return '';
+        if (target.origin !== site.origin
+          || (prefix && target.pathname !== prefix && !target.pathname.startsWith(`${prefix}/`))) return target.href;
+      } else {
+        if (/^[^/?#]*:/.test(url) || /^[^/?#]*:/.test(decoded)
+          || /(?:^|\/)\.\.(?:\/|$)/.test(decoded.split(/[?#]/)[0])) return '';
+        const path = url.split(/[?#]/)[0];
+        const relative = prefix && (path === prefix || path.startsWith(`${prefix}/`)) ? url.slice(prefix.length) : url;
+        target = new URL(relative.replace(/^\/+/, ''), site);
       }
-      if (/^[^/?#]*:/.test(url) || /^[^/?#]*:/.test(decoded)
-        || /(?:^|\/)\.\.(?:\/|$)/.test(decoded.split(/[?#]/)[0])) return '';
-      return new URL(url.replace(/^\/+/, ''), `${baseUrl}/`).href;
+      const route = decodeURIComponent(target.pathname.slice(prefix.length)).replace(/^\/+|\/+$/g, '');
+      if (!publicRoutes.has(route)) return target.href;
+      const destination = new URL(String(config.routeUrl || `${baseUrl}/route.php`), site);
+      destination.search = target.search;
+      // PHP normalizes dots/spaces in parameter names; none may override routing.
+      for (const key of Array.from(destination.searchParams.keys())) {
+        if (/^vvx_route(?:\[|$)/.test(key.trimStart().replace(/[ .]/g, '_'))) destination.searchParams.delete(key);
+      }
+      destination.searchParams.set('vvx_route', route);
+      destination.hash = target.hash;
+      return destination.href;
     } catch { return ''; }
   }
 

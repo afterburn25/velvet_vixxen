@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Velvet\Core;
 
+require_once dirname(__DIR__) . '/Support/public_routes.php';
+
 final class MarketingStore
 {
     private string $root;
@@ -156,7 +158,7 @@ final class MarketingStore
         if (!in_array($name, $allowed, true)) return;
         $data = $this->all();
         $rawPath = (string) ($properties['path'] ?? ($_SERVER['REQUEST_URI'] ?? '/'));
-        $path = parse_url($rawPath, PHP_URL_PATH);
+        $path = \vvx_public_request_path($rawPath);
         $path = is_string($path) && str_starts_with($path, '/') ? $path : '/';
         if (preg_match('#/(?:admin|account|messages|requests|communication|receipt|newsletter/(?:confirm|unsubscribe))(/|\\.|$)#i', $path)) return;
         $day = gmdate('Y-m-d');

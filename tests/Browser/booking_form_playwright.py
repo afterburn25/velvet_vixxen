@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import os
+from public_urls import site_url
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
@@ -15,7 +16,7 @@ def data():
     return json.loads((ROOT / 'storage/data.json').read_text())
 
 def visit(page, path):
-    response = page.goto(BASE + path, wait_until='domcontentloaded')
+    response = page.goto(site_url(BASE, path), wait_until='domcontentloaded')
     assert response is not None and response.status == 200, path
     if page.locator('#ageGate:not([hidden])').count():
         page.locator('#ageEnter').click()

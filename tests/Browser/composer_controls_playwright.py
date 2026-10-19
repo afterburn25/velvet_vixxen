@@ -1,6 +1,8 @@
 """Exercise off-frame editing, per-device backgrounds, draft preview and rollback."""
 from __future__ import annotations
 
+from public_urls import is_route_url
+
 import json
 import struct
 import zlib
@@ -8,6 +10,7 @@ import zlib
 from playwright.sync_api import expect, sync_playwright
 
 from composer_support import (
+    BASE,
     RUNTIME, action, choose_device, choose_section, control, dismiss_age,
     drag_grip, handles_reachable, launch, login, percent, read_scene, screenshot, url,
 )
@@ -73,7 +76,7 @@ with sync_playwright() as playwright:
     # The real upload endpoint supplies an image layer with a visibly distinct lower edge.
     page.locator('[data-action="toggle-upload"]').click()
     page.locator('#quickUpload input[name="image"]').set_input_files(str(crop_fixture()))
-    with page.expect_response(lambda response: "/api/upload.php" in response.url and response.request.method == "POST") as uploaded:
+    with page.expect_response(lambda response: is_route_url(response.url, BASE, "api/upload.php") and response.request.method == "POST") as uploaded:
         page.locator('#quickUpload button').click()
     upload = uploaded.value.json()
     assert uploaded.value.ok and upload.get("ok"), "Crop fixture upload failed"
@@ -253,7 +256,7 @@ with sync_playwright() as playwright:
     version = page.locator(f'[data-version-id="{version_a}"]')
     expect(version).to_contain_text('Edge crop proof A')
     page.once('dialog', lambda dialog: dialog.accept())
-    with page.expect_response(lambda response: '/api/scene.php' in response.url and response.request.method == 'POST') as restored:
+    with page.expect_response(lambda response: is_route_url(response.url, BASE, "api/scene.php") and response.request.method == 'POST') as restored:
         version.locator('button').click()
     restored_data = restored.value.json()
     assert restored.value.ok and restored_data.get('ok')

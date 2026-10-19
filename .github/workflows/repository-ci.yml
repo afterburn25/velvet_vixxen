@@ -36,13 +36,17 @@ jobs:
             tests/Installer/existing_database_mysql.php tests/Installer/browser_database_fixture.php
             tests/Installer/migration_resume_mysql_scenarios.php
             tests/Browser/installer_existing_database_playwright.py
-            api/upload.php api/scene.php app/Core/SceneButton.php public/assets/js/api-client.js
+            route.php app/Support/public_routes.php public/routes/api/upload.php public/routes/api/scene.php
+            app/Core/SceneButton.php public/assets/js/api-client.js
             tests/Unit/api_client.js tests/Unit/installation_urls.php tests/Feature/scene_buttons.php
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
             tests/Browser/installed_update_playwright.py tests/Feature/runtime_build.php
             admin/update.php app/Core/RuntimeBuildService.php app/Views/admin/update-status.php
-            media.php account/login.php booking/index.php create-account/index.php)
+            admin/repair.php app/Core/RuntimeInventoryService.php app/Core/RootLayoutService.php
+            app/Views/admin/repair-status.php tests/Feature/root_layout.php
+            tests/Fixtures/root-layout-build5.json tests/Packaging/fixtures/historical-runtime-layouts.json
+            public/routes/account/login.php public/routes/booking/index.php)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing required source or handoff file: $file"; exit 1; }
           done
@@ -169,7 +173,7 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/packaged_media_upload_playwright.py
-      - name: Upgrade the pinned historical runtime in the same browser and persistent PHP cache
+      - name: Repair the rejected Build .5 root layout in the same browser and persistent PHP cache
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/installed_update_playwright.py

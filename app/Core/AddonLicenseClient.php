@@ -169,7 +169,18 @@ final class AddonLicenseClient
     /** @return array<string,mixed> */
     private function requiredAddon(string $addonKey):array{$addon=$this->store->addon($addonKey);if($addon===null)throw new RuntimeException('The selected add-on is not installed.');return $addon;}
     private function serviceUrl(string $url):string{$url=rtrim(trim($url),'/');if($url==='')throw new RuntimeException('Enter the license service base URL.');$parts=parse_url($url);if(!is_array($parts)||!isset($parts['scheme'],$parts['host'])||!in_array(strtolower((string)$parts['scheme']),['http','https'],true))throw new RuntimeException('The license service URL is invalid.');$host=strtolower(trim((string)$parts['host'],'[]'));$local=in_array($host,['localhost','127.0.0.1','::1'],true)||str_ends_with($host,'.test');if(strtolower((string)$parts['scheme'])!=='https'&&!$local)throw new RuntimeException('The license service must use HTTPS.');return $url;}
-    private function endpoint(string $serverUrl):string{$serverUrl=rtrim($serverUrl,'/');return str_ends_with($serverUrl,'/api/addon-license.php')?$serverUrl:$serverUrl.'/api/addon-license.php';}
+    private function endpoint(string $serverUrl): string
+    {
+        $serverUrl = rtrim($serverUrl, '/');
+        $parts = parse_url($serverUrl);
+        $query = [];
+        parse_str((string) ($parts['query'] ?? ''), $query);
+        if (basename((string) ($parts['path'] ?? '')) === 'route.php'
+            && ($query['vvx_route'] ?? null) === 'api/addon-license.php') return $serverUrl;
+        // Preserve explicitly configured legacy services; current Hub screens
+        // supply their complete canonical endpoint for organized installations.
+        return str_ends_with($serverUrl, '/api/addon-license.php') ? $serverUrl : $serverUrl . '/api/addon-license.php';
+    }
     private function assertPublicKey(string $key):void{$raw=base64_decode($key,true);if(!is_string($raw)||strlen($raw)!==32)throw new RuntimeException('Enter the license service Ed25519 public key.');}
     private function installationId():string{$id=trim((string)$this->config->get('installation_id',''));if($id===''){$seed=(string)$this->config->get('security.app_key','').$this->siteUrl();$id='vvx-'.substr(hash('sha256',$seed),0,32);}return $id;}
     private function siteUrl():string{$url=rtrim((string)$this->config->get('base_url',''),'/');if($url==='')$url=base_url();return $url;}

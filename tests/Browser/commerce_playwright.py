@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from public_urls import site_url, wait_for_route
 import re
 import time
 from pathlib import Path
@@ -34,7 +35,7 @@ def observe(page: Page, label: str) -> None:
 
 
 def visit(page: Page, path: str, wait_ms: int = 250) -> None:
-    page.goto(BASE + path, wait_until="domcontentloaded", timeout=30_000)
+    page.goto(site_url(BASE, path), wait_until="domcontentloaded", timeout=30_000)
     page.wait_for_timeout(wait_ms)
 
 
@@ -88,7 +89,7 @@ with sync_playwright() as playwright:
     verification = page.locator("a.member-debug-link")
     assert verification.count() == 1, "Local verification link was not rendered"
     verification.click()
-    page.wait_for_url("**/account/verify.php**", timeout=15_000)
+    wait_for_route(page, BASE, 'account/verify.php', required_query=('token',), timeout=15_000)
     assert "You're confirmed" in page.locator("body").inner_text()
 
     # Purchase a recurring membership through the sandbox adapter.
@@ -96,14 +97,14 @@ with sync_playwright() as playwright:
     plan_card = page.locator(".store-card").filter(has_text="Velvet VIP")
     assert plan_card.count() >= 1
     plan_card.first.get_by_role("button", name="Choose Plan").click()
-    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
+    wait_for_route(page, BASE, 'checkout', required_query=('intent',), timeout=15_000)
     assert "Velvet VIP" in page.locator("body").inner_text()
     assert page.get_by_role('heading', name='Start your membership.', exact=True).is_visible()
     assert "Sandbox checkout" in page.locator("body").inner_text()
     page.check(".checkout-confirm input")
     screenshot(page, "checkout-subscription.png")
     page.get_by_role("button", name=re.compile(r"^Pay ")).click()
-    page.wait_for_url("**/checkout/success.php?order=**", timeout=20_000)
+    wait_for_route(page, BASE, 'checkout/success.php', required_query=('order',), timeout=20_000)
     success_text = page.locator("body").inner_text()
     assert "Your content is ready" in success_text
     subscription_order = parse_qs(urlparse(page.url).query).get("order", [""])[0]
@@ -123,7 +124,7 @@ with sync_playwright() as playwright:
     visit(page, "/collections/")
     bundle_card = page.locator(".store-card").filter(has_text="Neon Night Collection")
     bundle_card.first.get_by_role("button", name="Buy Collection Now").click()
-    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
+    wait_for_route(page, BASE, 'checkout', required_query=('intent',), timeout=15_000)
     assert "USD 19.99" in page.locator("body").inner_text()
     page.fill('input[name="coupon"]', "WELCOME10")
     page.get_by_role("button", name="Apply").click()
@@ -131,7 +132,7 @@ with sync_playwright() as playwright:
     screenshot(page, "cart-bundle-coupon.png")
     page.check(".checkout-confirm input")
     page.get_by_role("button", name=re.compile(r"^Pay ")).click()
-    page.wait_for_url("**/checkout/success.php?order=**", timeout=20_000)
+    wait_for_route(page, BASE, 'checkout/success.php', required_query=('order',), timeout=20_000)
     bundle_order = parse_qs(urlparse(page.url).query).get("order", [""])[0]
     assert bundle_order.startswith("VVX-")
     assert "Neon Night Collection" in page.locator("body").inner_text()
@@ -150,7 +151,7 @@ with sync_playwright() as playwright:
     # A declined purchase remains locked and shows a clear error.
     visit(page, "/photos/view.php?slug=after-dark")
     page.get_by_role("button", name=re.compile(r"^Rent ")).click()
-    page.wait_for_url("**/checkout/?intent=**", timeout=15_000)
+    wait_for_route(page, BASE, 'checkout', required_query=('intent',), timeout=15_000)
     page.select_option('select[name="sandbox_result"]', "decline")
     page.check(".checkout-confirm input")
     page.get_by_role("button", name=re.compile(r"^Pay ")).click()
