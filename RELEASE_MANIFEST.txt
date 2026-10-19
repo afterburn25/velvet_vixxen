@@ -1,13 +1,55 @@
-Velvet Vixxen 0.8.1 — Media, Composer buttons and public route repair
-Updated: 2026-10-19
-Status: combined implementation and verification in progress; no final new runtime/source hash or customer delivery is claimed yet.
+VELVET VIXXEN 0.8.1 — MEDIA, COMPOSER BUTTONS AND PUBLIC ROUTE REPAIR
+
+Status: all seven exact-source GitHub jobs completed/success. Downloaded gated ZIPs and manifest are byte-identical to the saved customer downloads.
 Branch: feature/0.8.1-site-ux-hero-library
-Starting handoff commit: 195699c12620e4803160b28f023764bebc421bb4
-Starting executable installer baseline: e5b04daa132521be69c943151f8112c7cd2017e8
-New package: Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip, installed 0.8.1 only; runtime files without configuration, storage, uploads, database data or installer state.
-Current guide: docs/MEDIA_COMPOSER_REPAIR.md
-Current execution state: docs/TEST_REPORT.md
-The existing-database installer repair and earlier distributions below are historical evidence; their successful CI does not certify this new routing/button continuation.
+Source and execution-verified tests: db759342e401617c9933c13b81a147ad9f8fd515
+Source tree: c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7
+Runtime implementation commit: 723205b7bddad06d4f603b539aea1a777bdd2ae5
+Verified CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698
+CI conclusion: completed/success; run updated 2026-10-19T18:54:21Z
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12214187647
+Runtime artifact SHA-256: 7926d4ed85c6ae55c8dcfbfb9ca2690f2e46e0b0ccb92314cd98a0838c7d08de
+Runtime artifact bytes: 15167490
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12212794646
+Customer repair/fresh/upgrade and separate manifest saved: 2026-10-19T18:57:50.594321+00:00
+Validation: PHP 8.2.34/8.3.35 source suites; MySQL 8.0.46 on both PHP versions; 922 extracted-installer assertions per version; 32 upgrade and 12 booking checks; 7 HTTP and 13 application-browser suites; actual packaged root/nested uploads/routes/cleanup/preview/publication/buttons/marketing; security, ownership, persistent cache and package exclusion/reproducibility gates.
+Routing: 46 physical public entrypoints, 87 registered URLs; protected implementations remain under public/routes.
+Repair scope: 67 runtime files, 60 PHP + 5 JavaScript + 2 CSS. Installed 0.8.1 only; no installer rerun or database migration.
+Changed component ZIP timestamps: 2026-10-19 18:00:00; regular file modes: 0644.
+Browser asset revision: 0.8.1-20261019.4
+The separate eight-file Installer Database Repair is unchanged from its earlier delivery.
+Guide: docs/MEDIA_COMPOSER_REPAIR.md
+Evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-media-composer-repair.json
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f
+Bytes: 7608429
+Runtime files: 362; PHP: 214; JavaScript: 11
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6
+Bytes: 7452770
+Runtime files: 321; PHP: 203; JavaScript: 11
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip
+SHA-256: 9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38
+Bytes: 51241
+Runtime files: 8; PHP: 6; JavaScript: 1
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip
+SHA-256: 26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2
+Bytes: 89030
+Runtime files: 67; PHP: 60; JavaScript: 5
+
+Velvet-Vixxen-0.8.1-package-manifest.json
+SHA-256: c88b2291e17f1146d9359b9c36b13f457e76a023d4c7a2da6011705de8445ff9
+Bytes: 85338
+Separate engineering/checksum manifest; excluded from customer ZIPs.
+Established download aliases: fresh = Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip; manifest = Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json. Alias files contain identical artifact bytes.
+
+No owner-server deployment or PR merge is claimed. Payments stay sandbox-only. No 0.9.0 work.
+
+Historical installer and earlier feature evidence follows.
 
 VELVET VIXXEN 0.8.1 — INSTALLER DATABASE AND LAYOUT REPAIR
 

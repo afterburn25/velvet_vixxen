@@ -3,9 +3,9 @@
   "correction": "Media, Composer buttons and public route repair",
   "branch": "feature/0.8.1-site-ux-hero-library",
   "starting_commit": "195699c12620e4803160b28f023764bebc421bb4",
-  "source_commit": null,
-  "source_tree": null,
-  "source_note": "Source checkpoint awaiting exact GitHub commit/run evidence. Earlier installer CI does not certify these changes.",
+  "source_commit": "db759342e401617c9933c13b81a147ad9f8fd515",
+  "source_tree": "c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7",
+  "source_note": "Runtime repairs are in 723205b7; db759342 adds the execution-verified browser test with identical runtime bytes. All seven exact-source GitHub jobs passed, and the gated runtime ZIPs and manifest match the saved downloads. Later documentation-only handoff commits do not change this tested implementation.",
   "asset_version": "0.8.1-20261019.4",
   "repair_files": 67,
   "repair_php_files": 60,
@@ -50,11 +50,19 @@
     },
     "local_http_aggregate": {
       "status": "passed",
-      "suites": 7
+      "suites": 7,
+      "php_errors": 0,
+      "log_sha256": "363d6e464409b25e966a71afa5b055ca3eff75147aacf73ff682b7eff00e0857"
     },
     "local_browser_aggregate": {
-      "status": "pending",
-      "suites": 13
+      "status": "passed",
+      "suites": 13,
+      "screenshots": 67,
+      "library_scene_count": 30,
+      "published_library_renders": 90,
+      "public_layout_routes": 12,
+      "php_errors": 0,
+      "log_sha256": "28dc543b8e2d1825251fbce3871b4c3f243dfa974c5bfe04fd7dc12b2aa87c53"
     },
     "packaged_uploads": {
       "status": "passed",
@@ -82,35 +90,406 @@
       "default_requests_and_logout_redirects": "passed"
     },
     "packaged_preview_publish_marketing": {
-      "status": "pending",
+      "status": "passed",
+      "php": "8.3.6",
+      "chromium": "155.0.8059.84",
+      "router_script": false,
       "cases": [
         "root-desktop",
         "root-mobile",
         "nested-desktop",
         "nested-mobile"
-      ]
+      ],
+      "fresh_zip_sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+      "test_sha256": "681663212fbc3d2f59680f932e84239384f14cc89b15d8d9458b565b6623d525",
+      "checks": {
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "preview_error_tab_retained": true,
+        "preview_return_link_works": true,
+        "publish_error_readable_and_retry_enabled": true,
+        "preview_saves_two_drafts_without_publishing": true,
+        "owner_only_draft_preview": true,
+        "publish_updates_live_scene_and_history": true,
+        "reload_preserves_buttons": true,
+        "accessible_cta_clicks_preserve_path_query_fragment": true,
+        "marketing": {
+          "owner_posts_view_click": true,
+          "default_link_destinations": true,
+          "banner_click_and_dismiss_persistence": true,
+          "campaign_cta_click": true,
+          "same_origin_campaign_beacon_recorded": true,
+          "versioned_marketing_asset": true,
+          "server_logged_beacon_post_200": true
+        }
+      },
+      "case_results": {
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "preview_error_tab_retained": true,
+          "preview_return_link_works": true,
+          "publish_error_readable_and_retry_enabled": true,
+          "preview_saves_two_drafts_without_publishing": true,
+          "owner_only_draft_preview": true,
+          "publish_updates_live_scene_and_history": true,
+          "reload_preserves_buttons": true,
+          "accessible_cta_clicks_preserve_path_query_fragment": true,
+          "marketing": {
+            "owner_posts_view_click": true,
+            "default_link_destinations": true,
+            "banner_click_and_dismiss_persistence": true,
+            "campaign_cta_click": true,
+            "same_origin_campaign_beacon_recorded": true,
+            "versioned_marketing_asset": true,
+            "server_logged_beacon_post_200": true
+          }
+        },
+        "root-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "preview_error_tab_retained": true,
+          "preview_return_link_works": true,
+          "publish_error_readable_and_retry_enabled": true,
+          "preview_saves_two_drafts_without_publishing": true,
+          "owner_only_draft_preview": true,
+          "publish_updates_live_scene_and_history": true,
+          "reload_preserves_buttons": true,
+          "accessible_cta_clicks_preserve_path_query_fragment": true,
+          "marketing": {
+            "owner_posts_view_click": true,
+            "default_link_destinations": true,
+            "banner_click_and_dismiss_persistence": true,
+            "campaign_cta_click": true,
+            "same_origin_campaign_beacon_recorded": true,
+            "versioned_marketing_asset": true,
+            "server_logged_beacon_post_200": true
+          }
+        },
+        "nested-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "preview_error_tab_retained": true,
+          "preview_return_link_works": true,
+          "publish_error_readable_and_retry_enabled": true,
+          "preview_saves_two_drafts_without_publishing": true,
+          "owner_only_draft_preview": true,
+          "publish_updates_live_scene_and_history": true,
+          "reload_preserves_buttons": true,
+          "accessible_cta_clicks_preserve_path_query_fragment": true,
+          "marketing": {
+            "owner_posts_view_click": true,
+            "default_link_destinations": true,
+            "banner_click_and_dismiss_persistence": true,
+            "campaign_cta_click": true,
+            "same_origin_campaign_beacon_recorded": true,
+            "versioned_marketing_asset": true,
+            "server_logged_beacon_post_200": true
+          }
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "preview_error_tab_retained": true,
+          "preview_return_link_works": true,
+          "publish_error_readable_and_retry_enabled": true,
+          "preview_saves_two_drafts_without_publishing": true,
+          "owner_only_draft_preview": true,
+          "publish_updates_live_scene_and_history": true,
+          "reload_preserves_buttons": true,
+          "accessible_cta_clicks_preserve_path_query_fragment": true,
+          "marketing": {
+            "owner_posts_view_click": true,
+            "default_link_destinations": true,
+            "banner_click_and_dismiss_persistence": true,
+            "campaign_cta_click": true,
+            "same_origin_campaign_beacon_recorded": true,
+            "versioned_marketing_asset": true,
+            "server_logged_beacon_post_200": true
+          }
+        }
+      }
     },
     "github_ci": {
-      "status": "pending",
-      "runs": []
+      "status": "completed",
+      "conclusion": "success",
+      "source_commit": "db759342e401617c9933c13b81a147ad9f8fd515",
+      "source_tree": "c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7",
+      "runs": [
+        {
+          "id": 39304801698,
+          "name": "Repository and Source CI",
+          "event": "push",
+          "status": "completed",
+          "conclusion": "success",
+          "run_attempt": 1,
+          "created_at": "2026-10-19T18:42:42Z",
+          "run_started_at": "2026-10-19T18:42:42Z",
+          "updated_at": "2026-10-19T18:54:21Z",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698"
+        }
+      ],
+      "jobs": [
+        {
+          "id": 118239467075,
+          "name": "Repository and executable source contract",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118239467075",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118240096182,
+          "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118240096182",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118240096184,
+          "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118240096184",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118240096275,
+          "name": "PHP 8.3 source and package regressions",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118240096275",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118240096313,
+          "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118240096313",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118240096457,
+          "name": "PHP 8.2 source and package regressions",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118240096457",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        },
+        {
+          "id": 118244112685,
+          "name": "Build verified fresh-install and upgrade ZIPs",
+          "status": "completed",
+          "conclusion": "success",
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/job/118244112685",
+          "checkout_sha_observed_in_log": "db759342e401617c9933c13b81a147ad9f8fd515"
+        }
+      ],
+      "observed_versions": {
+        "php_82": "8.2.34",
+        "php_83": "8.3.35",
+        "mysql": "8.0.46",
+        "playwright": "1.62.0",
+        "chromium": "151.0.7922.34",
+        "browser_version_basis": "Final browser-job log records installed Chrome for Testing and Chrome Headless Shell 151.0.7922.34; the tests use the bundled Playwright browser."
+      },
+      "key_counts": {
+        "source_matrices": 2,
+        "mysql_matrices": 2,
+        "existing_database_installer_assertions_per_mysql_matrix": 922,
+        "installed_upgrade_checks_per_mysql_matrix": 32,
+        "database_booking_transaction_checks_per_mysql_matrix": 12,
+        "api_response_handling_checks_per_source_matrix": 15,
+        "installation_url_assertions_per_source_matrix": 90,
+        "repair_backup_assertions_per_source_matrix": 371,
+        "scene_button_assertions_per_source_matrix": 127,
+        "route_structure_assertions_per_source_matrix": 566,
+        "physical_public_entrypoints": 46,
+        "registered_public_urls": 87,
+        "packaged_route_installation_cases": 2,
+        "packaged_upload_browser_cases": 2,
+        "packaged_composer_action_browser_cases": 4,
+        "hero_library_distinct_real_scenes": 30,
+        "hero_library_published_device_renders": 90,
+        "public_layout_audited_routes": 12
+      },
+      "artifacts": [
+        {
+          "id": 12214187647,
+          "name": "velvet-vixxen-runtime-packages",
+          "size_in_bytes": 15167490,
+          "digest": "sha256:7926d4ed85c6ae55c8dcfbfb9ca2690f2e46e0b0ccb92314cd98a0838c7d08de",
+          "expired": false,
+          "created_at": "2026-10-19T18:54:18Z",
+          "expires_at": "2026-11-18T18:54:17Z"
+        },
+        {
+          "id": 12212794646,
+          "name": "chromium-browser-evidence",
+          "size_in_bytes": 79742132,
+          "digest": "sha256:6c171ab98c97b171532c5fd6a16d489c2de76d849ef8ba32c3d00353e8efb513",
+          "expired": false,
+          "created_at": "2026-10-19T18:53:10Z",
+          "expires_at": "2026-11-02T18:53:07Z"
+        }
+      ],
+      "superseded_run": {
+        "id": 39303910755,
+        "head_sha": "723205b7bddad06d4f603b539aea1a777bdd2ae5",
+        "not_authoritative_for_final_tests": true,
+        "browser_failed_step": "Verify packaged preview, publish and button destinations without rewrite assistance",
+        "browser_error": "Old marketing_actions test timed out waiting for the keepalive response event; final test-only follow-up passed."
+      }
     }
   },
-  "packages": [],
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+      "size_bytes": 7608429,
+      "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+      "files": 362,
+      "php_files": 214,
+      "javascript_files": 11,
+      "matches_downloaded_github_bytes": true
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7452770,
+      "sha256": "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6",
+      "files": 321,
+      "php_files": 203,
+      "javascript_files": 11,
+      "matches_downloaded_github_bytes": true
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8,
+      "php_files": 6,
+      "javascript_files": 1,
+      "matches_downloaded_github_bytes": true
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+      "size_bytes": 89030,
+      "sha256": "26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2",
+      "files": 67,
+      "php_files": 60,
+      "javascript_files": 5,
+      "matches_downloaded_github_bytes": true
+    }
+  ],
   "delivery": {
-    "status": "pending",
+    "status": "saved",
     "repair_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
     "fresh_download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
     "upgrade_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
-    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json"
+    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json",
+    "saved_at_utc": "2026-10-19T18:57:50.594321+00:00",
+    "downloads": [
+      {
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+        "download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+        "size_bytes": 89030,
+        "sha256": "26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2",
+        "status": "succeeded"
+      },
+      {
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+        "download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
+        "size_bytes": 7608429,
+        "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+        "status": "succeeded"
+      },
+      {
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+        "download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+        "size_bytes": 7452770,
+        "sha256": "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6",
+        "status": "succeeded"
+      },
+      {
+        "artifact_filename": "Velvet-Vixxen-0.8.1-package-manifest.json",
+        "download_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json",
+        "size_bytes": 85338,
+        "sha256": "c88b2291e17f1146d9359b9c36b13f457e76a023d4c7a2da6011705de8445ff9",
+        "status": "succeeded"
+      }
+    ]
   },
   "preserved_installer_repair": {
     "size_bytes": 51241,
-    "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38"
+    "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+    "matches_previous_delivered_bytes": true
   },
   "boundaries": [
-    "No customer deployment",
+    "No deployment to the owner server or production database",
+    "PR #15 remains open and unmerged at handoff",
     "Payments sandbox-only",
-    "No production credentials or private data",
+    "Actual owner photos, biography and product content remain owner-configurable",
+    "Historical advanced marketing gaps in SOURCE_RECOVERY.md are not claimed as implemented",
+    "No credentials, customer/private data or runtime state in source or customer ZIPs",
     "No 0.9.0 work"
-  ]
+  ],
+  "runtime_commit": "723205b7bddad06d4f603b539aea1a777bdd2ae5",
+  "verified_at_utc": "2026-10-19T18:56:40.527016+00:00",
+  "artifact_verification": {
+    "verified_at_utc": "2026-10-19T18:56:40.527016+00:00",
+    "run_id": 39304801698,
+    "artifact_id": 12214187647,
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12214187647",
+    "archive_size_bytes": 15167490,
+    "archive_sha256": "7926d4ed85c6ae55c8dcfbfb9ca2690f2e46e0b0ccb92314cd98a0838c7d08de",
+    "outer_digest_matches_github_metadata": true,
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+        "size_bytes": 7608429,
+        "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+        "matches_local_bytes": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+        "size_bytes": 51241,
+        "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+        "matches_local_bytes": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+        "size_bytes": 89030,
+        "sha256": "26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2",
+        "matches_local_bytes": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+        "size_bytes": 7452770,
+        "sha256": "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6",
+        "matches_local_bytes": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.1-package-manifest.json",
+        "size_bytes": 85338,
+        "sha256": "c88b2291e17f1146d9359b9c36b13f457e76a023d4c7a2da6011705de8445ff9",
+        "matches_local_bytes": true
+      }
+    ],
+    "all_runtime_packages_and_manifest_match": true
+  }
 }

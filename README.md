@@ -2,7 +2,7 @@
 
 ## Current Media/Composer and public-route continuation
 
-The active repair fixes missing public entry points after folder reorganization, image-upload JSON errors, disappearing Full Page Preview tabs and failed publication. It also adds separate editable live button layers in Visual Composer. Read [the repair guide](docs/MEDIA_COMPOSER_REPAIR.md) and [current test/delivery status](docs/TEST_REPORT.md); final combined verification is in progress. The previous installer database/layout repair below remains included in the full distribution.
+The active repair fixes missing public entry points after folder reorganization, image-upload JSON errors, disappearing Full Page Preview tabs and failed publication. It also adds separate editable live button layers in Visual Composer. Read [the repair guide](docs/MEDIA_COMPOSER_REPAIR.md) and [current test/delivery status](docs/TEST_REPORT.md); all seven jobs in [the exact-source GitHub run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved downloads match its gated artifact byte for byte. The previous installer database/layout repair below remains included in the full distribution.
 
 ## 0.8.1 installer database and layout repair
 

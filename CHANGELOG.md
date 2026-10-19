@@ -4,8 +4,10 @@
 - Repair Library and Composer upload paths, parse non-JSON host errors readably, and preserve authenticated/CSRF-protected handler behavior.
 - Keep Full Page Preview open with an actionable error if saving fails; use the repaired scene API for Save Draft, Publish and Restore.
 - Add independent live button layers with labels, destinations, colors/styles, device-specific geometry and existing layer/history controls. Validate button data before saving.
+- Preserve the new route entry points during legacy cleanup; privately archive obsolete controllers and unknown sibling files without losing their bytes.
+- Keep member login returns, marketing links, banners, post links and campaign events inside root or subfolder installations as configured.
 - Extend actual-package no-rewrite routing/upload/action acceptance and add server/browser button tests. Build a runtime-only Media/Composer repair alongside fresh/upgrade packages.
-- Current combined execution and delivery state is recorded in `docs/TEST_REPORT.md`; previous successful CI does not certify these new changes.
+- All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed on source `db759342e401617c9933c13b81a147ad9f8fd515`; runtime repair/fresh/upgrade downloads and the separate manifest were saved after literal comparison with the gated artifact. Exact evidence is in `docs/TEST_REPORT.md`.
 
 ## 0.8.1 — Existing-database installer and alignment repair (2026-10-19)
 

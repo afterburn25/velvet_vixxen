@@ -6,7 +6,7 @@ Repository: `afterburn25/velvet_vixxen`
 
 Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
 
-Current executable installer/database/layout correction: `e5b04daa132521be69c943151f8112c7cd2017e8` on the active feature branch. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) passed and matching customer downloads were saved. Exact current source, verification and delivery status is in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json`. Earlier folder-only checkpoint `eed4c5efe1f3be9aa2522f247adcd2a5e84c509a` predates this repair. Inspect live source, CI, PR and package evidence before claiming completion, merge or deployment.
+Current executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the active feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. Exact current evidence is in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-media-composer-repair.json`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
 Active branch: `feature/0.8.1-site-ux-hero-library`; `main` is the authoritative integration destination.
 
@@ -77,7 +77,7 @@ Distinguish among locally tested package behavior, CI-prepared behavior, planned
 
 ## Current priority
 
-Finish the owner's image-upload, Full Page Preview, Publish and folder-reorganization routing repair together with separate Add Button layers in Visual Composer. Current progress and pending verification are at the top of the six handoff files. The earlier installer source/CI above is the verified starting baseline, not proof of this new repair.
+Preserve the verified image-upload, Full Page Preview, Publish, folder-reorganization routing and separate Add Button layers. This repair is implemented, uploaded, fully verified and delivered; do not repeat it from an older handoff. The current source/CI/artifact/download evidence is at the top of the six handoff files. Continue the owner's next requested work from this actual executable branch.
 
 Public implementations stay under `public/routes`. Thin physical compatibility files must preserve every existing public destination, including root/subfolder installations and signed-media URLs. `media.php` is the only additional root PHP entry point permitted by this repair; keep its implementation in the organized source directory and retain the strict root allowlist for all other files. Never replace authentication, CSRF, entitlement or method checks with a permissive forwarding handler.
 
