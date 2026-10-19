@@ -3,14 +3,25 @@
   "product": "Nikki Wilder / The Velvet Vixxen",
   "version": "0.8.1",
   "build_id": "20261019.5",
-  "recorded_at_utc": "2026-10-19T19:58:46Z",
+  "recorded_at_utc": "2026-10-19T20:31:19Z",
   "repository": "afterburn25/velvet_vixxen",
   "branch": "feature/0.8.1-site-ux-hero-library",
   "preceding_branch_head": "6b2130b6ec6f6d49bf95cab9f9bccaa4fad79f79",
-  "source_commit": null,
-  "source_tree": null,
+  "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+  "source_tree": "1b576e805d17b259a24e0d648e0568b54dc0bc37",
   "ci": {
-    "status": "pending exact-source upload"
+    "status": "completed",
+    "conclusion": "success",
+    "run_id": 39315788377,
+    "event": "pull_request",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377",
+    "updated_at_utc": "2026-10-19T20:25:55Z",
+    "completed_successful_jobs": 7,
+    "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+    "entire_repository_tree_matches_source": true,
+    "all_checkout_logs_verified": true,
+    "execution_record": "docs/releases/0.8.1-installed-build-ci.json",
+    "secondary_direct_push_snapshot": "Run 39315780488 remained pending at the 2026-10-19T20:31:19Z audit; it is not claimed as the completed primary gate."
   },
   "owner_host": {
     "status": "unresolved",
@@ -42,7 +53,7 @@
     "runtime_build_assertions": 25,
     "package_audit": "docs/releases/0.8.1-build5-package-audit.json",
     "prior_runtime_apache_audit": "docs/releases/0.8.1-hosted-update-audit.json",
-    "broader_local_runs": "Existing source, seven HTTP and four packaged Composer-action suites also passed during the followup; exact final full matrix is required in GitHub CI."
+    "broader_local_runs": "Source, seven HTTP and four packaged Composer-action suites passed during the followup. The final exact repository tree subsequently passed the complete PHP 8.2/8.3, MySQL 8 and browser CI matrix."
   },
   "packages": [
     {
@@ -84,8 +95,42 @@
     "sha256": "e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5"
   },
   "delivery": {
-    "status": "not yet saved; awaiting exact-source gated artifact comparison",
-    "primary_package_kind": "upgrade"
+    "status": "saved_and_readback_verified",
+    "verified_at_utc": "2026-10-19T20:30:12Z",
+    "primary_package_kind": "upgrade",
+    "existing_download_identities_and_version_guards_preserved": true,
+    "all_four_filenames_identify_build": true,
+    "saved_download_byte_comparison": {
+      "status": "passed",
+      "verified_saved_files": 4,
+      "files": [
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+          "bytes": 7474055,
+          "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+          "saved_download_readback_matches_staged_and_gated_bytes": true
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+          "bytes": 7629714,
+          "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+          "saved_download_readback_matches_staged_and_gated_bytes": true
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+          "bytes": 111697,
+          "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+          "saved_download_readback_matches_staged_and_gated_bytes": true
+        },
+        {
+          "filename": "Velvet-Vixxen-0.8.1-Build-20261019.5-package-manifest.json",
+          "bytes": 87242,
+          "sha256": "e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5",
+          "saved_download_readback_matches_staged_and_gated_bytes": true
+        }
+      ]
+    },
+    "unchanged_installer_repair_redelivered": false
   },
   "operating_limits": [
     "Affected customer host remains unresolved.",
@@ -93,5 +138,52 @@
     "Payments remain sandbox-only.",
     "No 0.9.0 work.",
     "Customer ZIPs contain runtime only; engineering evidence remains outside."
-  ]
+  ],
+  "gated_artifact_byte_comparison": {
+    "status": "passed",
+    "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+    "source_tree": "1b576e805d17b259a24e0d648e0568b54dc0bc37",
+    "ci_test_merge_commit": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+    "ci_run_id": 39315788377,
+    "artifact_id": 12219288424,
+    "artifact_bytes": 15232935,
+    "artifact_sha256": "65f10e22fdfc0b0e4eed8e309e86dc0f99825af20c4cb366b14dbfb5a8104fbb",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+        "bytes": 7629714,
+        "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+        "gated_artifact_matches_local_bytes": true,
+        "prepared_delivery_matches": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+        "bytes": 111697,
+        "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+        "gated_artifact_matches_local_bytes": true,
+        "prepared_delivery_matches": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+        "bytes": 7474055,
+        "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+        "gated_artifact_matches_local_bytes": true,
+        "prepared_delivery_matches": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+        "bytes": 51241,
+        "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+        "gated_artifact_matches_local_bytes": true,
+        "prepared_delivery_matches": null
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.1-Build-20261019.5-package-manifest.json",
+        "bytes": 87242,
+        "sha256": "e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5",
+        "gated_artifact_matches_local_bytes": true,
+        "prepared_delivery_matches": true
+      }
+    ]
+  }
 }

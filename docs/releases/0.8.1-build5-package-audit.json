@@ -4,10 +4,10 @@
   "version": "0.8.1",
   "build_id": "20261019.5",
   "audited_at_utc": "2026-10-19T19:58:00Z",
-  "evidence_status": "Locally verified provisional package bytes; exact-source GitHub CI and final release recording are pending.",
+  "evidence_status": "The local file-map audit is complete; exact-tree GitHub CI, literal gated-artifact comparison and saved-download readback subsequently passed. See 0.8.1-installed-build-repair.json.",
   "source_branch": "feature/0.8.1-site-ux-hero-library",
   "source_parent_commit": "6b2130b6ec6f6d49bf95cab9f9bccaa4fad79f79",
-  "source_state": "Current worktree implementation; these package bytes match the runtime source read at audit time.",
+  "source_state": "Committed implementation 2bc178013c9c528f45a5d0447624f3cbaf4395f2; final source, gated artifact and saved downloads contain identical runtime bytes.",
   "hosted_installation_verified": false,
   "hosted_installation_status": "The owner-reported unchanged installation remains unresolved; the affected hosting account has not been accessed.",
   "prior_saved_download_comparison": {
@@ -339,5 +339,7 @@
       "app/Core/RuntimeBuildService.php",
       "includes/runtime-build.json"
     ]
-  }
+  },
+  "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+  "release_verification_record": "docs/releases/0.8.1-installed-build-repair.json"
 }

@@ -5,7 +5,7 @@
 - Generate a complete shared-runtime hash inventory and add owner-only Update Status with missing/mixed-file reporting.
 - Refresh only verified application PHP after owner/CSRF checks, including hosts that retain old compiled PHP after extraction. Preserve existing account, configuration, keys, database and uploaded content.
 - Exercise the actual historical installed package, retained browser session and persistent PHP cache; record real Apache/FPM missing-entrypoint checks separately.
-- Final new source/CI/artifact evidence is pending and must be recorded in `docs/TEST_REPORT.md` before this build is called verified. The owner's affected host is not accessed or declared fixed.
+- All seven jobs in [PR run 39315788377](https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377) passed against the identical complete source tree of commit `2bc178013c9c528f45a5d0447624f3cbaf4395f2`. The gated archives and four saved replacement downloads were compared literally and match. See `docs/TEST_REPORT.md`. The owner's affected host remains unaccessed and unresolved.
 
 ## 0.8.1 — Media, Composer buttons and public route repair (2026-10-19)
 

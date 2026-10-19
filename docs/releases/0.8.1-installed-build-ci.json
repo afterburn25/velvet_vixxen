@@ -1,0 +1,699 @@
+{
+  "schema_version": 1,
+  "audited_at_utc": "2026-10-19T20:31:19Z",
+  "scope": "Read-only official GitHub run/job status, complete execution logs, actual checkout/tree equality and reported package hashes. Artifact byte download comparison and saved delivery are recorded separately by the parent.",
+  "repository": "afterburn25/velvet_vixxen",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "source": {
+    "commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+    "tree": "1b576e805d17b259a24e0d648e0568b54dc0bc37"
+  },
+  "primary_ci": {
+    "id": 39315788377,
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377",
+    "head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+    "created_at": "2026-10-19T20:01:15Z",
+    "updated_at": "2026-10-19T20:25:55Z",
+    "all_jobs_completed_successfully": true,
+    "completed_successful_jobs": 7,
+    "expected_jobs": 7,
+    "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+    "actual_checkout_kind": "GitHub-generated PR test merge; the PR remains unmerged",
+    "tree_equality": {
+      "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+      "pr_test_merge_commit": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+      "source_tree": "1b576e805d17b259a24e0d648e0568b54dc0bc37",
+      "pr_merge_tree": "1b576e805d17b259a24e0d648e0568b54dc0bc37",
+      "entire_repository_tree_identical": true,
+      "changed_paths": [],
+      "independently_checked_via_git_commit_api": true,
+      "pr_actually_merged": false
+    },
+    "jobs": [
+      {
+        "id": 118276780492,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276780492",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:01:18Z",
+        "completed_at": "2026-10-19T20:01:24Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "20c9e36d20f43227468637d159f9860f76990254e53356b3511f1b36ac3f1d25",
+          "bytes": 13995,
+          "lines": 167
+        }
+      },
+      {
+        "id": 118276848358,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276848358",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:05:49Z",
+        "completed_at": "2026-10-19T20:06:24Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "746d9ffbf647bf08b85d458af75b86415c382b882707d3be4a7b8843d00299a1",
+          "bytes": 22539,
+          "lines": 279
+        },
+        "execution": {
+          "php": "8.3.35",
+          "completed": true,
+          "named_pass_result_count": 41,
+          "reported_assertions": 1446,
+          "javascript_api_response_checks": 15,
+          "syntax": {
+            "PHP": true,
+            "JavaScript": true,
+            "Python": true
+          },
+          "security_scan_passes": 2,
+          "packaged_preflight": {
+            "fresh_package_sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+            "runtime_files": 366,
+            "read_only_parents": [
+              "images",
+              "public/assets",
+              "templates"
+            ]
+          },
+          "packaged_opcache": {
+            "php_version": "8.3.35",
+            "repair_sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+            "legacy_zip_timestamp": [
+              2026,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "repair_zip_timestamp": [
+              2026,
+              10,
+              19,
+              0,
+              0,
+              0
+            ],
+            "negative_control_requests": 3,
+            "corrected_requests": 2
+          },
+          "package_hashes": {
+            "fresh": {
+              "bytes": 7629714,
+              "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+              "matches_expected": true
+            },
+            "upgrade": {
+              "bytes": 7474055,
+              "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+              "matches_expected": true
+            },
+            "installer-repair": {
+              "bytes": 51241,
+              "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+              "matches_expected": true
+            },
+            "composer-repair": {
+              "bytes": 111697,
+              "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+              "matches_expected": true
+            }
+          }
+        }
+      },
+      {
+        "id": 118276848361,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276848361",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:14:49Z",
+        "completed_at": "2026-10-19T20:22:41Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "f7f69cd80f985f6011e686ebac4bebab76487c35b5b41e06dfe602c2e64150b7",
+          "bytes": 76971,
+          "lines": 812
+        },
+        "execution": {
+          "php": "8.3.35",
+          "playwright": "1.62.0",
+          "chromium": "151.0.7922.34",
+          "historical_installed_update_cases": [
+            "root-cache",
+            "nested-cache",
+            "nested-cache-disabled"
+          ],
+          "packaged_media_upload_cases": [
+            "root-desktop",
+            "nested-mobile"
+          ],
+          "packaged_composer_action_cases": [
+            "root-desktop",
+            "root-mobile",
+            "nested-desktop",
+            "nested-mobile"
+          ],
+          "packaged_route_cases": 2,
+          "registered_urls_per_route_case": 87,
+          "physical_entrypoints_per_route_case": 46,
+          "existing_database_installer_browser_cases": 2,
+          "hero_backgrounds": 30,
+          "hero_public_renders": 90,
+          "public_layout_routes_per_device": 12,
+          "standalone_http_suites": 7,
+          "pass_result_lines": [
+            "Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+            "Packaged media upload root-desktop: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+            "Packaged media upload nested-mobile: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+            "Packaged no-rewrite Media Library and Composer upload acceptance passed at root/desktop and nested/mobile.",
+            "Historical installed update root-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+            "Historical installed update nested-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+            "Historical installed update nested-cache-disabled: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+            "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+            "Packaged public routing root: PASS (87 registered URLs, 46 physical entrypoints; application responses, member/owner protection and aliases).",
+            "Packaged public routing nested: PASS (87 registered URLs, 46 physical entrypoints; application responses, member/owner protection and aliases).",
+            "Members & Entitlements HTTP acceptance test passed.",
+            "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+            "Add-on HTTP acceptance passed.",
+            "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+            "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+            "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+            "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+            "Packaged Composer actions root-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+            "Packaged Composer actions root-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+            "Packaged Composer actions nested-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+            "Packaged Composer actions nested-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+            "Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+            "Media Center browser acceptance test passed.",
+            "Members & Entitlements browser acceptance test passed.",
+            "Subscriptions & PPV Commerce browser acceptance test passed.",
+            "Add-on Playwright acceptance passed.",
+            "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+            "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+            "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+            "Composer recovery acceptance passed: drag, resize, 0.5–400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+            "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+            "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+            "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+            "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+            "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access."
+          ]
+        }
+      },
+      {
+        "id": 118276848389,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276848389",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:11:58Z",
+        "completed_at": "2026-10-19T20:13:29Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "0aeade2bf20a8edede5cbddce4086fa10ec47b534d6070ee82ced4876b4d3dfb",
+          "bytes": 35493,
+          "lines": 405
+        },
+        "execution": {
+          "php": "8.3.35",
+          "mysql": "8.0.46",
+          "existing_database_installer_assertions": 922,
+          "installed_update_checks": 32,
+          "booking_database_checks": 12,
+          "pass_result_lines": [
+            "Installed database update scenarios passed (32 checks; actual012→014 upgrade, preserved data/keys/uploads, locks, failure/retry and CLI; server 8.0.46).",
+            "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+            "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+            "MySQL migration rollback passed.",
+            "PASS installer MySQL: empty database and working owner login",
+            "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+            "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+            "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+            "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+            "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+            "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+            "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+            "PASS installer MySQL: matching prior configuration restores existing keys",
+            "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+            "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+            "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+            "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+            "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+            "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+            "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+            "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+            "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+            "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+            "Existing-database installer acceptance passed (922 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package)."
+          ]
+        }
+      },
+      {
+        "id": 118276848441,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276848441",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:05:02Z",
+        "completed_at": "2026-10-19T20:06:23Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "585a552e06bad33c52df58cae2719d012e9b763e738109818bf4c2fdf6015bef",
+          "bytes": 35544,
+          "lines": 406
+        },
+        "execution": {
+          "php": "8.2.34",
+          "mysql": "8.0.46",
+          "existing_database_installer_assertions": 922,
+          "installed_update_checks": 32,
+          "booking_database_checks": 12,
+          "pass_result_lines": [
+            "Installed database update scenarios passed (32 checks; actual012→014 upgrade, preserved data/keys/uploads, locks, failure/retry and CLI; server 8.0.46).",
+            "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+            "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+            "MySQL migration rollback passed.",
+            "PASS installer MySQL: empty database and working owner login",
+            "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+            "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+            "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+            "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+            "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+            "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+            "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+            "PASS installer MySQL: matching prior configuration restores existing keys",
+            "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+            "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+            "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+            "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+            "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+            "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+            "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+            "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+            "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+            "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+            "Existing-database installer acceptance passed (922 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package)."
+          ]
+        }
+      },
+      {
+        "id": 118276848527,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118276848527",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:05:36Z",
+        "completed_at": "2026-10-19T20:06:12Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "b9961aaf7e264d3e596da56aded689a8c2b96f8a2099d4edbf9e6573d78bb003",
+          "bytes": 22538,
+          "lines": 279
+        },
+        "execution": {
+          "php": "8.2.34",
+          "completed": true,
+          "named_pass_result_count": 41,
+          "reported_assertions": 1446,
+          "javascript_api_response_checks": 15,
+          "syntax": {
+            "PHP": true,
+            "JavaScript": true,
+            "Python": true
+          },
+          "security_scan_passes": 2,
+          "packaged_preflight": {
+            "fresh_package_sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+            "runtime_files": 366,
+            "read_only_parents": [
+              "images",
+              "public/assets",
+              "templates"
+            ]
+          },
+          "packaged_opcache": {
+            "php_version": "8.2.34",
+            "repair_sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+            "legacy_zip_timestamp": [
+              2026,
+              1,
+              1,
+              0,
+              0,
+              0
+            ],
+            "repair_zip_timestamp": [
+              2026,
+              10,
+              19,
+              0,
+              0,
+              0
+            ],
+            "negative_control_requests": 3,
+            "corrected_requests": 2
+          },
+          "package_hashes": {
+            "fresh": {
+              "bytes": 7629714,
+              "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+              "matches_expected": true
+            },
+            "upgrade": {
+              "bytes": 7474055,
+              "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+              "matches_expected": true
+            },
+            "installer-repair": {
+              "bytes": 51241,
+              "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+              "matches_expected": true
+            },
+            "composer-repair": {
+              "bytes": 111697,
+              "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+              "matches_expected": true
+            }
+          }
+        }
+      },
+      {
+        "id": 118287120087,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/job/118287120087",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:25:49Z",
+        "completed_at": "2026-10-19T20:25:55Z",
+        "actual_checkout_sha": "99396b2277d947a5f2cc47ef0e181d1c048891cd",
+        "checkout_verified_in_complete_log": true,
+        "execution_error_markers": 0,
+        "complete_log": {
+          "sha256": "36e7d06bd5cc706f272bdd4b5bae527b245710a097a20dae225586fec2499abf",
+          "bytes": 19613,
+          "lines": 259
+        },
+        "execution": {
+          "all_four_expected_hashes_and_sizes_explicit_in_log": true,
+          "package_hashes": {
+            "fresh": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+            "upgrade": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+            "composer-repair": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+            "installer-repair": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38"
+          }
+        }
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12219640705,
+        "name": "chromium-browser-evidence",
+        "bytes": 87066287,
+        "digest": "sha256:954c8a8be3b1423ede35db1b87165cee8700ab5311e63264ef2a30b46e9a0d7b",
+        "expired": false,
+        "created_at": "2026-10-19T20:22:38Z",
+        "updated_at": "2026-10-19T20:22:38Z",
+        "expires_at": "2026-11-02T20:22:34Z"
+      },
+      {
+        "id": 12219288424,
+        "name": "velvet-vixxen-runtime-packages",
+        "bytes": 15232935,
+        "digest": "sha256:65f10e22fdfc0b0e4eed8e309e86dc0f99825af20c4cb366b14dbfb5a8104fbb",
+        "expired": false,
+        "created_at": "2026-10-19T20:25:53Z",
+        "updated_at": "2026-10-19T20:25:53Z",
+        "expires_at": "2026-11-18T20:25:52Z"
+      }
+    ]
+  },
+  "packages": {
+    "all_four_hashes_and_sizes_match_in_both_source_jobs_and_final_packaging_job": true,
+    "manifest_runtime_file_hashes": 324,
+    "observed": [
+      {
+        "kind": "fresh",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+        "bytes": 7629714,
+        "files": 366,
+        "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+        "observed_in_job_ids": [
+          118276848358,
+          118276848527,
+          118287120087
+        ]
+      },
+      {
+        "kind": "upgrade",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+        "bytes": 7474055,
+        "files": 325,
+        "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+        "observed_in_job_ids": [
+          118276848358,
+          118276848527,
+          118287120087
+        ]
+      },
+      {
+        "kind": "composer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+        "bytes": 111697,
+        "files": 72,
+        "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+        "observed_in_job_ids": [
+          118276848358,
+          118276848527,
+          118287120087
+        ]
+      },
+      {
+        "kind": "installer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+        "bytes": 51241,
+        "files": 8,
+        "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+        "observed_in_job_ids": [
+          118276848358,
+          118276848527,
+          118287120087
+        ]
+      }
+    ]
+  },
+  "source_suite_common_evidence": {
+    "reported_assertion_counts_per_php": {
+      "installer_recovery": 134,
+      "installation_urls": 90,
+      "runtime_build_verification": 25,
+      "merchandise": 45,
+      "repair_backups": 371,
+      "database_updates": 13,
+      "about_me": 21,
+      "booking_form_builder": 54,
+      "scene_buttons": 127,
+      "public_routes": 566
+    },
+    "reported_assertions_total_per_php": 1446,
+    "javascript_api_response_checks_per_php": 15,
+    "named_pass_result_count_per_php": 41,
+    "pass_result_lines_identical_between_php_versions": true,
+    "migration_manifest": {
+      "migrations": 14,
+      "tables": 82
+    },
+    "public_route_structure": {
+      "physical_entrypoints": 46,
+      "registered_urls": 87
+    },
+    "pass_result_lines": [
+      "Repository security scan passed.",
+      "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+      "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+      "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+      "Smoke test passed.",
+      "Installer foundation test passed.",
+      "Single-page installer test passed.",
+      "PASS installer recovery: 134 assertions (disposable fixtures only)",
+      "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+      "Installation-scoped member returns and marketing destinations passed: 90 assertions.",
+      "PASS runtime build verification: 25 assertions",
+      "Migration manifest test passed (14 migrations, 82 tables).",
+      "Add-on manifest test passed.",
+      "Add-on package test passed.",
+      "Media access test passed.",
+      "Media store test passed.",
+      "Member authentication test passed.",
+      "Entitlement resolver test passed.",
+      "Subscriptions & PPV commerce test passed.",
+      "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+      "Add-on licensing, signature and encrypted-storage regressions passed.",
+      "Media Center feature test passed.",
+      "Members & Entitlements feature test passed.",
+      "Subscriptions & PPV Commerce feature test passed.",
+      "Add-on framework feature test passed.",
+      "Communications, request and booking regressions passed.",
+      "Marketing consent, publishing, campaign and analytics regressions passed.",
+      "PASS repair backups: 371 assertions (disposable fixtures only)",
+      "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+      "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+      "PASS booking form builder: 54 assertions (disposable fixtures only)",
+      "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+      "Protected media test passed.",
+      "Member security test passed.",
+      "Payment webhook security test passed.",
+      "Add-on security test passed.",
+      "Repository structure test passed.",
+      "Public route parity and path safety passed: 46 physical entrypoints, 87 registered URLs, 566 assertions.",
+      "Repository security scan passed.",
+      "Runtime packages passed: distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+      "All non-database tests passed."
+    ]
+  },
+  "historical_installed_update_evidence": {
+    "job_id": 118276848361,
+    "actual_ci_pass": true,
+    "pinned_old_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+    "pinned_old_fresh_sha256": "0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca",
+    "current_upgrade_sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+    "cases": 3,
+    "root_and_nested": true,
+    "persistent_process_and_browser": true,
+    "active_cache_negative_control": true,
+    "active_cli_server_enable_cli_zero_case": true,
+    "explicit_opcache_enable_zero_disabled_case": true,
+    "assertions_scope": [
+      "Owner-only status and CSRF refresh",
+      "Current stored-role demotion, guest/member and invalid method/action rejection",
+      "Mixed-file direct-refresh rejection and preserved installation state",
+      "Desktop/mobile status geometry",
+      "Unrelated cached PHP sentinel retained",
+      "Real post-refresh Add Button, retained draft Preview, Publish, CTA navigation, Library upload, Composer upload and image readback"
+    ]
+  },
+  "secondary_direct_push_snapshot": {
+    "id": 39315780488,
+    "event": "push",
+    "status": "queued",
+    "conclusion": null,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488",
+    "head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+    "created_at": "2026-10-19T20:01:11Z",
+    "updated_at": "2026-10-19T20:01:27Z",
+    "recorded_as": "Last observed pending snapshot; this stream is not the primary completed gate and was not awaited after exact-tree PR success.",
+    "all_seven_success": false,
+    "observed_job_count": 6,
+    "observed_success_count": 5,
+    "pending_source_job_id": 118276874862,
+    "runtime_package_job_not_yet_created_in_snapshot": true,
+    "jobs": [
+      {
+        "id": 118276754051,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276754051",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:01:21Z",
+        "completed_at": "2026-10-19T20:01:27Z"
+      },
+      {
+        "id": 118276874751,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276874751",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:01:55Z",
+        "completed_at": "2026-10-19T20:03:30Z"
+      },
+      {
+        "id": 118276874862,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "queued",
+        "conclusion": null,
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276874862",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:01:27Z",
+        "completed_at": null
+      },
+      {
+        "id": 118276874952,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276874952",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:18:07Z",
+        "completed_at": "2026-10-19T20:18:44Z"
+      },
+      {
+        "id": 118276875000,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276875000",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:04:24Z",
+        "completed_at": "2026-10-19T20:06:31Z"
+      },
+      {
+        "id": 118276875234,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39315780488/job/118276875234",
+        "reported_head_sha": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+        "started_at": "2026-10-19T20:06:26Z",
+        "completed_at": "2026-10-19T20:13:21Z"
+      }
+    ],
+    "artifacts": [
+      {
+        "id": 12217629249,
+        "name": "chromium-browser-evidence",
+        "bytes": 86986347,
+        "digest": "sha256:e1734db3388869a18822392bca042cd07cb03db9f424a464a521974bf7cd3087",
+        "expired": false,
+        "created_at": "2026-10-19T20:13:18Z",
+        "updated_at": "2026-10-19T20:13:18Z",
+        "expires_at": "2026-11-02T20:13:15Z"
+      }
+    ]
+  },
+  "audit_actions": {
+    "repository_edits": 0,
+    "workflow_reruns": 0,
+    "workflow_cancellations": 0,
+    "gate_changes": 0,
+    "artifact_downloads_by_this_auditor": 0
+  }
+}

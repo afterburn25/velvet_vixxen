@@ -36,6 +36,6 @@ The root `media.php` is a small compatibility entry point for existing signed-me
 
 ## Verification and provenance
 
-Exact implementation, executed tests, GitHub run state and final package hashes are recorded in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the Media/Composer release record](releases/0.8.1-media-composer-repair.json). Current release status must be read from those records; this guide alone is not proof that an upload or deployment succeeded.
+Exact implementation, executed tests, GitHub run state and final package hashes are recorded in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the installed-build repair record](releases/0.8.1-installed-build-repair.json). The [preceding Media/Composer record](releases/0.8.1-media-composer-repair.json) remains historical evidence. Current release status must be read from those records; this guide alone is not proof that an upload or deployment succeeded.
 
 The repair ZIP excludes configuration, storage, uploads, installer state, database records, repository documentation, tests, workflows, screenshots, SDK source and private data. The package manifest is a separate download. Payments remain sandbox-only, and no deployment to the owner's server is implied by the source or package verification.

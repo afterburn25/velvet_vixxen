@@ -4,7 +4,7 @@ The owner reported that the previous Media/Composer update left the site unchang
 
 ## Applying the complete installed-site update
 
-For an existing site whose exact previous build is unknown, use the complete **Upgrade** ZIP with `Build-20261019.5` in its filename. Extract the ZIP's contents into the active site folder, where the existing `admin`, `app`, `public` and `route.php` are located, and choose to replace existing application files. The archive has no enclosing product directory. The outer GitHub Actions artifact is a collection of ZIPs; extract the intended inner customer ZIP.
+For an existing 0.8.1 site whose exact previous build is unknown, use the complete **Upgrade** ZIP with `Build-20261019.5` in its filename. Extract the ZIP's contents into the active site folder, where the existing `admin`, `app`, `public` and `route.php` are located, and choose to replace existing application files. The archive has no enclosing product directory. The outer GitHub Actions artifact is a collection of ZIPs; extract the intended inner customer ZIP.
 
 The Upgrade omits `config`, `storage`, `uploads` and `install`. It supplies the complete current application runtime. It does not reinstall the site, create a new owner, replace security keys, run SQL or replace saved content. The separate Installer Database Repair is for unfinished setup and does not supply the Composer update.
 
