@@ -6,6 +6,7 @@ namespace Velvet\Core;
 require_once dirname(__DIR__) . '/Support/public_routes.php';
 require_once __DIR__ . '/MarketingAudience.php';
 require_once __DIR__ . '/MarketingPublication.php';
+require_once __DIR__ . '/MarketingHistory.php';
 require_once __DIR__ . '/MarketingStorage.php';
 
 final class MarketingStore
@@ -69,7 +70,7 @@ final class MarketingStore
             && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)));
         usort($posts, static fn(array $a, array $b): int => (MarketingPublication::storedDate($b['publish_at'] ?? null)?->getTimestamp() ?? 0)
             <=> (MarketingPublication::storedDate($a['publish_at'] ?? null)?->getTimestamp() ?? 0));
-        return $limit ? array_slice($posts, 0, $limit) : $posts;
+        return array_map(MarketingHistory::withoutHistory(...), $limit ? array_slice($posts, 0, $limit) : $posts);
     }
 
     public function findPost(string $slug, ?array $viewer = null): ?array
@@ -115,7 +116,7 @@ final class MarketingStore
             $record = $posts[$id];
             if (!$preview && (!MarketingPublication::visibility('posts', $record, $now)['visible']
                 || !MarketingAccess::allows($record, $viewer))) continue;
-            $related[] = $record;
+            $related[] = MarketingHistory::withoutHistory($record);
         }
         return $related;
     }
@@ -138,7 +139,7 @@ final class MarketingStore
     {
         MarketingPublication::collection($collection);
         $now = time();
-        return array_values(array_map(static fn(array $record): array => MarketingPublication::describe($collection, $record, $now),
+        return array_values(array_map(static fn(array $record): array => MarketingHistory::withoutHistory(MarketingPublication::describe($collection, $record, $now)),
             array_filter($this->all()[$collection], 'is_array')));
     }
 
@@ -148,7 +149,7 @@ final class MarketingStore
         MarketingPublication::id($id);
         $data = $this->all();
         $index = $this->publicationIndex($data, $collection, $id);
-        return $index === false ? null : MarketingPublication::describe($collection, $data[$collection][$index]);
+        return $index === false ? null : MarketingHistory::describe($collection, $data[$collection][$index]);
     }
 
     /** The caller must freshly authorize the active owner before this private saved read. */
@@ -164,7 +165,81 @@ final class MarketingStore
             if ($record !== null) throw new \RuntimeException('Duplicate publication identities need review before editing.');
             $record = $candidate;
         }
-        return $record === null ? null : MarketingPublication::describe($collection, $record);
+        return $record === null ? null : MarketingHistory::describe($collection, $record);
+    }
+
+    /** Owner-only history; the HTTP caller rechecks current authorization after every read. */
+    public function publicationHistory(string $collection, string $id, ?string $entryId = null): ?array
+    {
+        MarketingPublication::collection($collection);
+        MarketingPublication::id($id);
+        if ($entryId !== null) MarketingHistory::id($entryId);
+        $data = $this->storage->peek();
+        return $data === null ? null : self::publicationHistoryFromSnapshot($data, $collection, $id, $entryId);
+    }
+
+    /** Saved-state-only read; does not create marketing storage, a lock, defaults or a SQL guard. */
+    public static function previewPublicationHistory(string $collection, string $id, ?string $entryId = null, ?string $root = null): ?array
+    {
+        MarketingPublication::collection($collection);
+        MarketingPublication::id($id);
+        if ($entryId !== null) MarketingHistory::id($entryId);
+        $data = (new MarketingStorage($root))->peek();
+        if ($data === null) return null;
+        return self::publicationHistoryFromSnapshot($data, $collection, $id, $entryId);
+    }
+
+    /** Related labels use this exact saved snapshot, without another initializing read. */
+    private static function publicationHistoryFromSnapshot(array $data, string $collection, string $id, ?string $entryId): ?array
+    {
+        $record = null;
+        foreach ($data[$collection] as $candidate) {
+            if (!is_array($candidate) || ($candidate['id'] ?? '') !== $id) continue;
+            if ($record !== null) throw new \RuntimeException('Duplicate publication identities need review before editing.');
+            $record = $candidate;
+        }
+        if ($record === null) return null;
+        $review = MarketingHistory::review($collection, $record, $entryId);
+        if ($review === null) return null;
+        $titles = []; $seen = [];
+        foreach ($data['posts'] as $post) {
+            if (!is_array($post)) continue;
+            try { $postId = MarketingPublication::id($post['id'] ?? null); }
+            catch (\InvalidArgumentException) { continue; }
+            // An ambiguous identity must not be presented as a verified title.
+            if (isset($seen[$postId])) { unset($titles[$postId]); continue; }
+            $seen[$postId] = true;
+            try { $titles[$postId] = MarketingAudience::text($post['title'] ?? null, 255, 'Related post title'); }
+            catch (\InvalidArgumentException) { /* Invalid saved titles are not echoed. */ }
+        }
+        $review['related_titles'] = $titles;
+        return $review;
+    }
+
+    /** Restore only a server-held prior version and always leave the result offline. */
+    public function restorePublication(string $collection, string $id, string $historyId, string $revision, ?callable $authorize = null): array
+    {
+        MarketingPublication::collection($collection);
+        MarketingPublication::id($id);
+        MarketingHistory::id($historyId);
+        return $this->update(function (array &$data) use ($collection, $id, $historyId, $revision, $authorize): array {
+            $index = $this->publicationIndex($data, $collection, $id);
+            if ($index === false) throw new \RuntimeException('This publication no longer exists. Reload before restoring it.');
+            $previous = $data[$collection][$index];
+            $this->requirePublicationRevision($previous, $revision);
+            $review = MarketingHistory::review($collection, $previous, $historyId);
+            if ($review === null) throw new \RuntimeException('This saved version is no longer available. Reload the history before restoring.');
+            $fields = MarketingHistory::snapshot($collection, MarketingHistory::project($collection, $previous, $review['selected']));
+            if ($collection === 'posts') $fields['status'] = 'draft'; else $fields['enabled'] = false;
+            $record = array_replace($previous, $fields, ['edit_version' => (int) ($previous['edit_version'] ?? 0) + 1, 'updated_at' => gmdate('c')]);
+            $this->validateMetadataReferences($collection, $fields, $record, $data);
+            $record = MarketingHistory::capture($collection, $previous, $record, 'restore');
+            // Media/tier resolution may wait. The final current-owner callback is
+            // deliberately after every reference and private-history operation.
+            if ($authorize !== null) $authorize($record);
+            $data[$collection][$index] = $record;
+            return MarketingHistory::describe($collection, $record);
+        });
     }
 
     /** Merge one validated editor under the existing fresh marketing-store lock. */
@@ -187,11 +262,12 @@ final class MarketingStore
                 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
             $this->validateMetadataReferences($collection, $fields, $record, $data);
+            $record = MarketingHistory::capture($collection, $existing, $record, 'save');
             // Media catalogue reads can wait. Authorization must be checked only
             // after every saved reference has been resolved inside this lock.
             if ($authorize !== null) $authorize($record);
             if ($index === false) $data[$collection][] = $record; else $data[$collection][$index] = $record;
-            return MarketingPublication::describe($collection, $record);
+            return MarketingHistory::describe($collection, $record);
         });
     }
 
@@ -218,7 +294,8 @@ final class MarketingStore
         return $this->update(function (array &$data) use ($collection, $id, $enabled, $revision, $authorize): array {
             $index = $this->publicationIndex($data, $collection, $id);
             if ($index === false) throw new \RuntimeException('This publication no longer exists. Reload before changing it.');
-            $record = $data[$collection][$index];
+            $previous = $data[$collection][$index];
+            $record = $previous;
             $this->requirePublicationRevision($record, $revision);
             if ($collection === 'posts') $record['status'] = $enabled ? 'published' : 'draft';
             else $record['enabled'] = $enabled;
@@ -226,9 +303,10 @@ final class MarketingStore
             if ($enabled && $visibility['problem'] !== null) throw new \InvalidArgumentException('Repair this publication before enabling it. ' . $visibility['problem']);
             $record['edit_version'] = (int) ($record['edit_version'] ?? 0) + 1;
             $record['updated_at'] = gmdate('c');
+            $record = MarketingHistory::capture($collection, $previous, $record, 'visibility', !$enabled);
             if ($authorize !== null) $authorize($record);
             $data[$collection][$index] = $record;
-            return MarketingPublication::describe($collection, $record);
+            return MarketingHistory::describe($collection, $record);
         });
     }
 
@@ -748,8 +826,8 @@ final class MarketingStore
     private function activeWindow(string $collection, ?array $viewer = null): array
     {
         $now = time();
-        return array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
-            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer)));
+        return array_map(MarketingHistory::withoutHistory(...), array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
+            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer))));
     }
 
     private function id(string $prefix): string

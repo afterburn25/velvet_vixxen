@@ -8,6 +8,12 @@ if (($_GET['page'] ?? null) === 'marketing-preview') {
     require ROOT_PATH . '/app/Views/admin/marketing-preview.php';
     exit;
 }
+if (($_GET['page'] ?? null) === 'marketing-history') {
+    // History review is private and read-only; restoring uses the guarded owner POST.
+    require ROOT_PATH . '/includes/bootstrap.php';
+    require ROOT_PATH . '/app/Views/admin/marketing-history.php';
+    exit;
+}
 require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;

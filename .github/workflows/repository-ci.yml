@@ -67,6 +67,9 @@ jobs:
             app/Core/MarketingMetadata.php docs/EDITORIAL_METADATA.md
             tests/Feature/editorial_metadata.php tests/Http/editorial_metadata_fixture.php
             tests/Http/editorial_metadata_http.py tests/Browser/editorial_metadata_playwright.py
+            app/Core/MarketingHistory.php app/Views/admin/marketing-history.php docs/EDITORIAL_HISTORY.md
+            tests/Feature/editorial_history.php tests/Http/editorial_history_fixture.php
+            tests/Http/editorial_history_http.py tests/Browser/editorial_history_playwright.py
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
             app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
@@ -86,6 +89,7 @@ jobs:
             tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json
             tests/Packaging/fixtures/release-0.8.6-build-20261020.7.json
             tests/Packaging/fixtures/release-0.8.7-build-20261020.8.json
+            tests/Packaging/fixtures/release-0.8.8-build-20261020.9.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -219,6 +223,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/editorial_metadata_http.py --mode mysql
+      - name: Capture and restore private editorial history through actual packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/editorial_history_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -366,6 +378,15 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/editorial_metadata_playwright.py
+      - name: Review and restore editorial history through actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/editorial_history_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

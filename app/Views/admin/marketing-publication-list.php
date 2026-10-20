@@ -43,6 +43,7 @@ $publicationListCatalog = mm_publication_access_catalog();
           <a href="?page=marketing&amp;tab=<?= $publicationMeta['tab'] ?>&amp;<?= $publicationMeta['edit'] ?>=<?= rawurlencode($publicationId) ?>">Edit</a>
           <?php if ($publicationUrl !== ''): ?><a href="<?= velvet_marketing_escape($publicationUrl) ?>">View</a><?php endif; ?>
           <?php if ($publicationPreviewUrl !== ''): ?><a data-publication-preview href="<?= velvet_marketing_escape($publicationPreviewUrl) ?>" target="_blank" rel="noopener noreferrer">Preview Saved</a><?php endif; ?>
+          <?php if ($publicationPreviewUrl !== ''): ?><a data-publication-history href="<?= velvet_marketing_escape(mm_publication_history_url($publicationCollection, $publicationId)) ?>">History</a><?php endif; ?>
           <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="set_publication_enabled"><input type="hidden" name="collection" value="<?= $publicationCollection ?>"><input type="hidden" name="id" value="<?= velvet_marketing_escape($publicationId) ?>"><input type="hidden" name="publication_revision" value="<?= $publicationRow['revision'] ?>"><input type="hidden" name="enabled" value="<?= $publicationEnabled ? '0' : '1' ?>"><button class="marketing-button"><?= $publicationCollection === 'posts' ? ($publicationEnabled ? 'Move to draft' : 'Publish') : ($publicationEnabled ? 'Disable' : 'Enable') ?></button></form>
           <?php if ($publicationCollection === 'posts'): ?><form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="delete_publication"><input type="hidden" name="collection" value="posts"><input type="hidden" name="id" value="<?= velvet_marketing_escape($publicationId) ?>"><input type="hidden" name="publication_revision" value="<?= $publicationRow['revision'] ?>"><button class="marketing-button">Delete</button></form><?php endif; ?>
         </div>
@@ -51,4 +52,5 @@ $publicationListCatalog = mm_publication_access_catalog();
   <?php endforeach; ?>
   </tbody></table>
   <?php if ($publicationRows !== []): ?><p>Times shown in <?= velvet_marketing_escape(date_default_timezone_get()) ?>. Visibility updates on the next public request.</p><?php endif; ?>
+  <?php if ($publicationCollection === 'posts' && $publicationRows !== []): ?><p class="marketing-field-help">Deleting a post permanently removes that post and its saved history. Move it to draft to keep its content and versions.</p><?php endif; ?>
 </section>
