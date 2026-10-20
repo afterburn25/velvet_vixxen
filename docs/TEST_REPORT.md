@@ -1,7 +1,23 @@
 # Velvet Vixxen — Current Test Evidence
 
+<!-- editorial-metadata-088:start -->
+## Current work — 0.8.8 Editorial metadata, Build 20261020.9
+
+The current integration advances the visible version from delivered **0.8.7** to **0.8.8**, starting at authoritative `main` `f918db21b031b3fe43baa6619b2a16d1a62b5f0d` on `feature/0.8.8-editorial-metadata`. Implementation, local acceptance, exact-tree GitHub CI, merge and saved-download verification are in progress. No completed release is claimed for the changed tree.
+
+Posts gain a deliberately public author display name, comma-separated tags, an existing public featured image and alternative text, search title/description and up to six manually ordered related posts. Landing pages gain the image and search fields; banners keep their existing controls. Existing categories, IDs, permalinks, order, publication timing and Public/Members/Selected tiers access remain in place. Related content is filtered by source and target access before metadata disclosure. Saved-owner previews resolve metadata before their final active-owner check, keep related links inert and produce no marketing events or email.
+
+Required acceptance covers field validation and preservation, current public image eligibility, related-content timing/access, generic denial without search metadata, private saved previews, stale revisions/CSRF/current-owner checks including real storage waits, unchanged frozen marketing records, and actual-package file/MySQL root/nested desktop/mobile flows. Every existing source, security, foreign-ownership, persistent-OPcache, MySQL, installer, HTTP, browser and package gate remains mandatory.
+
+Full Fresh/Upgrade will carry **0.8.8 / Build 20261020.9**, preserving the exact approved 13/9 root directories and four root files. Changed runtime entries advance their archive timestamps; unchanged entries retain the verified 0.8.7 timestamps. The unchanged eleven-file unfinished-installer repair retains **0.8.1 / repair Build 20261020.3**, its original hash and saved identity. Each changed completed release advances the visible version.
+
+The broader #9 roadmap remains open for editorial history/restore, calendar and post expiry; scheduled Composer scenes; durable referral attribution; analytics operations; campaign message preview/test-send, templates and tracking; missing notification workflows; additional audience predicates; and provider hooks. File and MySQL storage retain the same business rules without a new migration. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+[Release and exact evidence](releases/0.8.8-editorial-metadata.md) · [Editorial metadata guide](EDITORIAL_METADATA.md) · [Apply and verify the Upgrade](UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- editorial-metadata-088:end -->
+
 <!-- editorial-access-087:start -->
-## Current release — 0.8.7 Editorial access and owner previews, Build 20261020.8
+## Historical release — 0.8.7 Editorial access and owner previews, Build 20261020.8
 
 **Version 0.8.7 is verified, merged into `main` through [PR #23](https://github.com/afterburn25/velvet_vixxen/pull/23) and delivered.** Merge `aa119809f0e7e7bd093ce12d07ae60383f1a451e` completed at **2026-10-20T17:57:08Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39466086276) passed. Release source `d89dbe8419c6362c8e676751e0d42facdd98f498`, actual CI checkout `b597edf820b514c951acebac810934b7388ae259` and the merge share the complete tree `c4d65acff90d5c3ca0f393f3c3fb28ac2295c75c`. Later documentation recording changes no executable, test, workflow or package bytes.
 

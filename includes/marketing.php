@@ -111,20 +111,31 @@ function velvet_marketing_record_text(array $record, string $field, string $defa
 }
 
 /** The same saved content is rendered publicly and in the private owner preview. */
-function velvet_marketing_render_post(array $post): void
+function velvet_marketing_render_post(array $post, ?array $presentation = null, array $related = [], bool $preview = false): void
 {
+    $presentation ??= ['values' => \Velvet\Core\MarketingMetadata::describe('posts', $post)['values'], 'image' => null];
     try { $publishedDate = \Velvet\Core\MarketingPublication::storedDate($post['publish_at'] ?? null); }
     catch (InvalidArgumentException) { $publishedDate = null; }
-    echo '<article class="marketing-card"><div class="marketing-meta">';
+    echo '<article class="marketing-card marketing-article" data-editorial-post="' . velvet_marketing_escape(velvet_marketing_record_text($post, 'id')) . '">';
+    velvet_marketing_render_editorial_image($post, $presentation);
+    echo '<div class="marketing-meta">';
     if ($publishedDate !== null) echo '<span>' . velvet_marketing_escape($publishedDate->setTimezone(new DateTimeZone(date_default_timezone_get()))->format('F j, Y')) . '</span>';
     echo '<span>' . velvet_marketing_escape(velvet_marketing_record_text($post, 'category', 'Update')) . '</span></div>';
     echo '<h1 class="marketing-title">' . velvet_marketing_escape(velvet_marketing_record_text($post, 'title')) . '</h1>';
+    velvet_marketing_render_editorial_details($presentation);
     echo '<div class="marketing-content">' . nl2br(velvet_marketing_escape(velvet_marketing_record_text($post, 'body'))) . '</div></article>';
+    if ($related !== []) {
+        echo '<section class="marketing-related" data-editorial-related aria-labelledby="editorial-related-title"><div class="marketing-section-heading"><span class="marketing-eyebrow">Keep exploring</span><h2 id="editorial-related-title">More updates for you</h2></div><div class="marketing-grid">';
+        foreach ($related as $item) velvet_marketing_render_post_card($item['record'], $item['presentation'], $preview, true);
+        echo '</div></section>';
+    }
 }
 
-function velvet_marketing_render_landing_page(array $page, bool $preview = false): void
+function velvet_marketing_render_landing_page(array $page, bool $preview = false, ?array $presentation = null): void
 {
-    echo '<section class="marketing-hero"><span class="marketing-eyebrow">' . velvet_marketing_escape(velvet_marketing_record_text($page, 'eyebrow', 'Special Offer')) . '</span>';
+    echo '<section class="marketing-hero">';
+    if ($presentation !== null) velvet_marketing_render_editorial_image($page, $presentation);
+    echo '<span class="marketing-eyebrow">' . velvet_marketing_escape(velvet_marketing_record_text($page, 'eyebrow', 'Special Offer')) . '</span>';
     echo '<h1>' . velvet_marketing_escape(velvet_marketing_record_text($page, 'title')) . '</h1>';
     echo '<p>' . velvet_marketing_escape(velvet_marketing_record_text($page, 'body')) . '</p>';
     $url = velvet_marketing_record_text($page, 'cta_url');
@@ -134,6 +145,72 @@ function velvet_marketing_render_landing_page(array $page, bool $preview = false
         else echo '<a class="marketing-button" data-marketing-event="cta_click" href="' . velvet_marketing_escape(velvet_marketing_destination($url)) . '">' . $label . '</a>';
     }
     echo '</section>';
+}
+
+/** Resolve image references before the caller's final authorization check. */
+function velvet_marketing_editorial_presentation(string $collection, array $record): array
+{
+    $metadata = \Velvet\Core\MarketingMetadata::describe($collection, $record);
+    $image = null;
+    $id = $metadata['values']['featured_asset_id'] ?? '';
+    if ($id !== '') {
+        try { $image = \Velvet\Core\MarketingMetadata::resolveImage($id, dirname(__DIR__)); }
+        catch (Throwable) { /* An unavailable optional image never becomes another asset or a private URL. */ }
+    }
+    return ['values' => $metadata['values'], 'problems' => $metadata['problems'], 'image' => $image];
+}
+
+/** This metadata is passed to the document head only after public access succeeds. */
+function velvet_marketing_editorial_head(array $record, array $presentation): array
+{
+    $values = $presentation['values'];
+    return ['title' => $values['seo_title'] !== '' ? $values['seo_title'] : velvet_marketing_record_text($record, 'title'),
+        'description' => $values['seo_description'] !== '' ? $values['seo_description'] : velvet_marketing_record_text($record, 'excerpt')];
+}
+
+/** Rendering performs no storage reads, including inside saved-owner previews. */
+function velvet_marketing_render_editorial_image(array $record, array $presentation): void
+{
+    $image = $presentation['image'] ?? null;
+    if (!is_array($image) || !is_string($image['path'] ?? null) || $image['path'] === '') return;
+    $alt = $presentation['values']['featured_alt'] ?? '';
+    if (!is_string($alt) || $alt === '') $alt = velvet_marketing_record_text($record, 'title');
+    echo '<figure class="marketing-featured"><img data-editorial-featured-image="' . velvet_marketing_escape((string) $image['id'])
+        . '" src="' . velvet_marketing_escape(base_url($image['path'])) . '" alt="' . velvet_marketing_escape($alt)
+        . '" width="' . (int) $image['width'] . '" height="' . (int) $image['height'] . '" loading="lazy" decoding="async"></figure>';
+}
+
+function velvet_marketing_render_editorial_details(array $presentation): void
+{
+    $values = $presentation['values'];
+    if (($values['author_name'] ?? '') !== '') {
+        echo '<p class="marketing-byline" data-editorial-byline>By <span>' . velvet_marketing_escape($values['author_name']) . '</span></p>';
+    }
+    if (($values['tags'] ?? []) !== []) {
+        echo '<ul class="marketing-tags" data-editorial-tags aria-label="Topics">';
+        foreach ($values['tags'] as $tag) echo '<li>' . velvet_marketing_escape($tag) . '</li>';
+        echo '</ul>';
+    }
+}
+
+function velvet_marketing_render_post_card(array $post, array $presentation, bool $preview = false, bool $related = false): void
+{
+    $id = velvet_marketing_record_text($post, 'id');
+    $heading = $related ? 'h3' : 'h2';
+    try { $published = \Velvet\Core\MarketingPublication::storedDate($post['publish_at'] ?? null); }
+    catch (InvalidArgumentException) { $published = null; }
+    echo '<article class="marketing-card marketing-post-card" data-editorial-post-card="' . velvet_marketing_escape($id) . '"'
+        . ($related ? ' data-related-post-id="' . velvet_marketing_escape($id) . '"' : '') . '>';
+    velvet_marketing_render_editorial_image($post, $presentation);
+    echo '<div class="marketing-meta">';
+    if ($published !== null) echo '<span>' . velvet_marketing_escape($published->setTimezone(new DateTimeZone(date_default_timezone_get()))->format('M j, Y')) . '</span>';
+    echo '<span>' . velvet_marketing_escape(velvet_marketing_record_text($post, 'category', 'Update')) . '</span></div>';
+    echo '<' . $heading . '>' . velvet_marketing_escape(velvet_marketing_record_text($post, 'title')) . '</' . $heading . '>';
+    velvet_marketing_render_editorial_details($presentation);
+    echo '<p>' . velvet_marketing_escape(velvet_marketing_record_text($post, 'excerpt')) . '</p>';
+    if ($preview) echo '<span class="marketing-button" aria-disabled="true" data-preview-inert>Read More</span>';
+    else echo '<a class="marketing-button" href="' . velvet_marketing_escape(base_url('blog/post.php?slug=' . rawurlencode(velvet_marketing_record_text($post, 'slug')))) . '">Read More</a>';
+    echo '</article>';
 }
 
 function velvet_marketing_render_banner_record(array $banner, bool $preview = false): void

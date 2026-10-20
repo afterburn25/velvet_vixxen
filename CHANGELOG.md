@@ -1,3 +1,9 @@
+## 0.8.8 — Editorial metadata, Build 20261020.9 (in progress)
+
+Posts gain a deliberately public author display name, comma-separated tags, an existing public featured image and alternative text, search title/description and up to six manually ordered related posts. Landing pages gain the image and search fields; banners keep their existing controls. Existing categories, IDs, permalinks, order, publication timing and Public/Members/Selected tiers access remain in place. Related content is filtered by source and target access before metadata disclosure. Saved-owner previews resolve metadata before their final active-owner check, keep related links inert and produce no marketing events or email.
+
+Local acceptance, GitHub CI, merge and delivery are pending. See [the numbered release record](docs/releases/0.8.8-editorial-metadata.md).
+
 ## 0.8.7 — Editorial access and owner previews, Build 20261020.8 (verified, merged and delivered)
 
 This increment adds Public, Members and Selected tiers access to the existing posts, banners and landing pages, plus an independent active-owner preview of saved content. Members includes active verified free accounts. Selected tiers uses exact currently enabled plan IDs and eligible current subscriptions, without an inferred tier hierarchy. Publication timing still applies. Invalid restrictions hold access; absent legacy policies retain public behavior. Public filtering precedes listing limits, private fields and campaign-view recording. Saved-owner previews do not publish, collect marketing events or send email.

@@ -64,6 +64,9 @@ jobs:
             app/Core/MarketingAccess.php app/Views/admin/marketing-preview.php docs/EDITORIAL_ACCESS.md
             tests/Feature/editorial_access.php tests/Http/editorial_access_fixture.php
             tests/Http/editorial_access_http.py tests/Browser/editorial_access_playwright.py
+            app/Core/MarketingMetadata.php docs/EDITORIAL_METADATA.md
+            tests/Feature/editorial_metadata.php tests/Http/editorial_metadata_fixture.php
+            tests/Http/editorial_metadata_http.py tests/Browser/editorial_metadata_playwright.py
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
             app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
@@ -82,6 +85,7 @@ jobs:
             tests/Packaging/fixtures/release-0.8.4-build-20261020.5.json
             tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json
             tests/Packaging/fixtures/release-0.8.6-build-20261020.7.json
+            tests/Packaging/fixtures/release-0.8.7-build-20261020.8.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -148,7 +152,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_mysql, mbstring, fileinfo, openssl, sodium, zip
+          extensions: pdo_mysql, mbstring, fileinfo, openssl, sodium, zip, gd
           coverage: none
       - uses: actions/setup-python@v5
         with:
@@ -207,6 +211,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/editorial_access_http.py --mode mysql
+      - name: Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/editorial_metadata_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -345,6 +357,15 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/editorial_access_playwright.py
+      - name: Edit and render editorial metadata through actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/editorial_metadata_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

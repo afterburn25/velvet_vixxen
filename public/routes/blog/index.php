@@ -10,7 +10,7 @@ velvet_marketing_public_header('Latest Updates', 'News, music, galleries, videos
   <section class="marketing-grid" aria-label="Published updates">
   <?php if (!$posts): ?><article class="marketing-card"><h2>Updates are coming soon</h2><p>Join the mailing list to be first to know when something new is published.</p><a class="marketing-button" href="<?= velvet_marketing_escape(base_url('newsletter/')) ?>">Join the list</a></article><?php endif; ?>
   <?php foreach ($posts as $post): ?>
-    <article class="marketing-card"><div class="marketing-meta"><?php $publishedDate = \Velvet\Core\MarketingPublication::storedDate($post['publish_at'] ?? null); if ($publishedDate !== null): ?><span><?= velvet_marketing_escape($publishedDate->setTimezone(new DateTimeZone(date_default_timezone_get()))->format('M j, Y')) ?></span><?php endif; ?><span><?= velvet_marketing_escape((string)($post['category'] ?? 'Update')) ?></span></div><h2><?= velvet_marketing_escape((string)$post['title']) ?></h2><p><?= velvet_marketing_escape((string)($post['excerpt'] ?? '')) ?></p><a class="marketing-button" href="<?= velvet_marketing_escape(base_url('blog/post.php?slug=' . rawurlencode((string)$post['slug']))) ?>">Read More</a></article>
+    <?php velvet_marketing_render_post_card($post, velvet_marketing_editorial_presentation('posts', $post)); ?>
   <?php endforeach; ?>
   </section>
 </div>

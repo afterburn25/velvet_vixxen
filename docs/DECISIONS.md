@@ -1,5 +1,15 @@
 # Architecture and Product Decisions
 
+## 2026-10-20 — Bounded editorial metadata and current asset references
+
+- Keep metadata on the existing publication record in both file and MySQL marketing storage; add no schema migration or storage cutover.
+- Publish only an explicit author display name. Never infer a public byline from private owner/account fields.
+- Use saved IDs for existing public raster images. Validate the actual local file and current protection state, reject unsafe paths and symlinks, and omit an unavailable image without silently substituting another asset. A public image remains public even when selected for restricted content.
+- Select related posts explicitly in a bounded saved order. Check source and target access/timing before returning related metadata. Selecting a draft does not publish it.
+- Preserve omitted metadata for older callers, require locked revisions for explicit changes, and recheck current ownership after storage-dependent reference validation. Saved previews remain read-only, private and inert.
+- Deliver this as 0.8.8 only after its exact source/package/CI/download acceptance. History/restore, calendar and post expiry remain separate next increments.
+
+
 ## Release versions advance with completed work (2026-10-19 America/Chicago)
 
 - The user explicitly directed that visible release versions increase from now on as completed work ships. The rule began with delivered 0.8.2; later completed releases advance to 0.8.3, 0.8.4, or the appropriate next roadmap milestone.

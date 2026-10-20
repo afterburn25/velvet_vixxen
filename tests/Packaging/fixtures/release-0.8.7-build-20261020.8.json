@@ -1,0 +1,3949 @@
+{
+  "schema": 1,
+  "source_commit": "d89dbe8419c6362c8e676751e0d42facdd98f498",
+  "version": "0.8.7",
+  "build_id": "20261020.8",
+  "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.7-Build-20261020.8-Fresh-Install.zip",
+  "sha256": "f27724a42bed450bb6044a21aa0f244b670de2c95de2f1a098dc49e4d25da210",
+  "files": 358,
+  "entries": {
+    ".htaccess": {
+      "sha256": "4b2f3bfb41600f45c7f3e641a2565aea16449d33325d0ecbd8c286e00d7d7756",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "VERSION": {
+      "sha256": "02939ea165d14df175ec4d4212b9937ec97bd5d4d79133a013a0ced33cc17aa6",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "addons/.htaccess": {
+      "sha256": "ecd684e6fb1467c6ede9aa8db2b59f4cb1b14656d5f16406ec3ba678b20eb514",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/installed/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/packages/velvet-welcome-banner-1.0.0.zip": {
+      "sha256": "bbaf421c2ce591247b31f848ef9b51a6e490a232840c280ebbae2355784dd177",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/packages/velvet-welcome-banner-1.0.1.zip": {
+      "sha256": "0c2e934fe1b2216883e235560b4c3709af0bc5d35357b3ed81ae8f8182fa9d6c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/staging/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/addon-recovery.php": {
+      "sha256": "bab6b10ac8f47f55a4209b9fb86e2683de1e57497e4a8c32259b92e88072ddfa",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "admin/download.php": {
+      "sha256": "6aa8af0ff412da470270c094ddcfeae4d245b071dac5b4cdfa0e8541aed9cba6",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/index.php": {
+      "sha256": "69ab67b6b9b969a49188a4ed93d07a3c64adebe98993e0d7602728245e8be304",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "admin/marketing.php": {
+      "sha256": "466d3c37f21752b098a9972a8f866ed5aa7e41ec63ecab7b323f30f0494dca40",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/repair.php": {
+      "sha256": "0d92d7afe085fc51a89afb8f417df66856b095be59b3daf1d995df5bb715c611",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "admin/update.php": {
+      "sha256": "82ff2b0c22f7171479a6dadc2f155361df699bb93b2d92c74c8c47d3b32e4c7e",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/migrate.php": {
+      "sha256": "0b92d6e29f28c473c9a5707e3683b634f77d1451b0710b9c06854c508f72799f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_addon_tasks.php": {
+      "sha256": "6a238567491798286fec372343196691ab5eeb254ac5bd3ca187306548aba670",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_billing.php": {
+      "sha256": "5442b3d3f506b5d8af1bc8b3ec1e3059cbba5b3522cfb40102002e022bb13e2f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_marketing.php": {
+      "sha256": "47d3c998ae6f97a1b98e57d70a84c17c86da6430034afcdf50e1b7a888bd34ab",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Console/run_media.php": {
+      "sha256": "ead6a9e34b2629b0b769248b0b46f26f3ad99cce3c4312b2c373ea54b5157146",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/AboutPage.php": {
+      "sha256": "0ae118e8a3e6acfb967515e3d18ad0220c68553cbd560540ecef6065534be0b3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonArchive.php": {
+      "sha256": "f14cf6aba5442519e730b06e0df56a6951d3fa2ace530b792dac6e4311270801",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonContext.php": {
+      "sha256": "d4df134de69ac81181b41cc5718047f51c935a178b0f55e7fef5d2932f71c3cd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonLicenseClient.php": {
+      "sha256": "45325368908bb8b1177936210af0540088d7e9fb43e022f4ff591b2e47489284",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/AddonLicenseHub.php": {
+      "sha256": "050701c096ad2f71056f6b8819b538b0097e99e47dc15db515d1c945a883996f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonLicensingStoreTrait.php": {
+      "sha256": "81538720b013d518372d73aecea4897e6da023487ec31f002c40aacc9bc03b35",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonManager.php": {
+      "sha256": "d64cf2139a3451f764ab7a9af491a526dafeb4c318154bba6743cec790461fd1",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonManifest.php": {
+      "sha256": "67687c044c72f8926dea33544beef511b4ad5563a174c8ddac566583cc670263",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationException.php": {
+      "sha256": "c3c7bfbbd820893f0aa29beef9f7cc57345030dc99f01a90080e23f9f6778075",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationPlan.php": {
+      "sha256": "6e58d28939a9af781a56d64e8268fc177a1b06ceb67e35e64873193491a7ab38",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationRecovery.php": {
+      "sha256": "17dc5ff1218179bf2a1b7d87d6fb1b0cd92ed767e548542e8a04fcc684ddf758",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonPackageInspector.php": {
+      "sha256": "0db6ac8b70cb0abf39a08335c165ed0c0dc8927e5ed4e88491b627b7648f859e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonPermissionCatalog.php": {
+      "sha256": "a37781d8b93090d5881461d86389050f4a5deecfd88c1ce84a63ec22516784b1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonRuntime.php": {
+      "sha256": "54cfc2a6f8cc53b01fb8fcd489e106e88e98a73592e88e412f43948b2f556184",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonStoreTrait.php": {
+      "sha256": "b836e1b507dca2ff45aa492f437753314a98b92649830534a7286676821a87f3",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonUpdateService.php": {
+      "sha256": "aa234cdbf6359b8d5fd657208c40a07c979d6938f5fe06449c8b7cbd804cbf7e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Auth.php": {
+      "sha256": "d97118b56119373c425db0c76028bb42c7b29584143dac0e4455c32ab5c6fdee",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormService.php": {
+      "sha256": "3338f6d8699d2025de3a6670f767ff99e1cc2c29a6620a4bfb7a15d30b8e0283",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormStoreTrait.php": {
+      "sha256": "7be807f0f7a57148b73c791425c948a70f13dacecdb4ea97342d5609acedd3fb",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormValidationException.php": {
+      "sha256": "454b9108beb0c5cef7e22e8ca389ab00e1212db374fce630e3e92dd0a76f02e5",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingSubmissionLimiter.php": {
+      "sha256": "f0f8d3ed65726e6ba413e44927ec57eb9f92d1ae004d6b438e3b2ed1f6e09060",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CampaignDeliveryService.php": {
+      "sha256": "1c6e32516a53273687f3d0a7a98117b14866864da579ce6ee3a0fdf144a39131",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/CartService.php": {
+      "sha256": "43a754ac1cd076ac74605362ce5432f2f7999ae9e707918fbeb109fc7acd304d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CheckoutIntent.php": {
+      "sha256": "81f3404fc134d0c349c5d32afd58792cfde8294e8b964894c203885278c60e52",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommerceService.php": {
+      "sha256": "7d85589f1cca7e9350e4639e9d470244c5db19efb0935ca7031fbe029df2cca5",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/CommerceStoreTrait.php": {
+      "sha256": "333d30e538013982e386dc17821350fdc0aac3046a195acf5c0251e9e3a38040",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommunicationStoreTrait.php": {
+      "sha256": "4a7efc4054b5c7efef4c743978651b1dae26dbff3c0fb87d3693e83f74fa2e8d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommunicationUploadService.php": {
+      "sha256": "47ac73785f334f4770ea1f3ebca7e3db1e0377f96e808f933d0ce53c43454bbd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Config.php": {
+      "sha256": "f31994373bdec22df9ebf52e6cde736fe10821caf46308e82f3b4b1c2b05623d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Database.php": {
+      "sha256": "8dd3b0aaec44f6bac6ea7719dcc2f6d874db9747721ed6dbe8fb37555226040b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/DatabaseUpdateService.php": {
+      "sha256": "eede8124a8a7c0a8724ef63a1cfa2f5735d92cee3480974681d53422157cb1d7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/EmailAddress.php": {
+      "sha256": "ff3d2c2c9bd0d7e5754fc07c35bbdefbba01fd7145fc468fa9f6d97ebda5bb8c",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/EntitlementResolver.php": {
+      "sha256": "34cfe358d76cbd967533d5ba38c4f8ec7eea4b7a13e2d33a66289af495d58419",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/HeroLibrary.php": {
+      "sha256": "8c39627c6ac53634fd019152c05e6cb5823538986c10a808418e8b7649dac3da",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MailDeliveryException.php": {
+      "sha256": "d3c3f11c98ad2eba1c67f24725d08ac50d2567dc0abfd6255c2ac51b9904b552",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/MailService.php": {
+      "sha256": "235b7fb710bb0762ae85b47a9d90b6c0f019b1ce088a32558decbfb4ddcc7bd9",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/MailSettingsService.php": {
+      "sha256": "a1808aab3c899326b59ac52a26042fbfe095282a42c8361805ec675d88ffe776",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/MarketingAccess.php": {
+      "sha256": "9176465b90db3ec61652ddfcd57d163e252480f8c7285b17575dd2d22f7ee882",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MarketingAudience.php": {
+      "sha256": "fef129b313e6b639a294c2c155f426ef2f3baf00a9df8ca8084d574faa5994e3",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        20,
+        0
+      ]
+    },
+    "app/Core/MarketingPublication.php": {
+      "sha256": "38a6a11154c1f29b705274cf9b70a50d8485279189c4885a691c37ba2ae297da",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MarketingSqlRepository.php": {
+      "sha256": "21267400e758721444be61ae1147766662f4c49f9501f1939f8a6526b4b1b511",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Core/MarketingStorage.php": {
+      "sha256": "16a9eeee123e436dccf8023c45b851528a334a04c2bcde0181f52064f2c23aab",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MarketingStorageException.php": {
+      "sha256": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Core/MarketingStore.php": {
+      "sha256": "ae9f7011c914bd8e31f794c95dac64d8a04bf0119770d2061657cbe577f00527",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MediaAccess.php": {
+      "sha256": "f4d73d91c3200472b6e7b9e0ca09a7db6f1ba71a4ec31e01fac5e2f68ef1ac1e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MediaAdminService.php": {
+      "sha256": "72062d9f6896b565c9bb6807bd7bbf018bafda6b91a2a9a6951860f23fc3673e",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/MediaInput.php": {
+      "sha256": "b424704c81e123b345e82159886a0f8c8323eb459e701ba46dc077da874c30fa",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/MediaStoreTrait.php": {
+      "sha256": "f77396b456199c2b120d652af523809d5edeb01ea9f975aa7995b17ee2b37dd0",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/MediaUploadService.php": {
+      "sha256": "faa4eb5e8dd22e462d1f419b0520655b14993228aa97bd40be1f627370a9197b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberAuth.php": {
+      "sha256": "85f6130aebbc320e2e71b758dd169fa47da06c13ca13aa9d9c628b1fa9f16e71",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberStoreTrait.php": {
+      "sha256": "6740f3e241964189c94622c64b8d2950d89a4c6b9e91ec5ab4932eb87e3ada77",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MerchandiseService.php": {
+      "sha256": "991b782e2caa0d02e3fe67dd082d2781359a3946c5b84dfeaf1c7d4ac0f7860a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MerchandiseStoreTrait.php": {
+      "sha256": "85f696dc1897956694480c32d15fe1829063dbe4630efffcc01a58b63906be4a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MigrationResumeSchema.php": {
+      "sha256": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/MigrationRunner.php": {
+      "sha256": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/RemoteHttpClient.php": {
+      "sha256": "4280527d87b19c7e693b64166c22dc5e059d50111ad560e67e22c6ab7cd68a59",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/RepairBackupService.php": {
+      "sha256": "5b51b472399b2ef16ba431164f137e12374fbd044ebe9ad5d22406078b1e53e2",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RootLayoutService.php": {
+      "sha256": "db8ccd346126025ea329315a18b3dffd3e147cb712dd1bb2918265b39bc9a7f5",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RuntimeBuildService.php": {
+      "sha256": "2272e686fdca30768f5c4a909271c02839a072ec92a078e1366392ad7da45aa8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RuntimeInventoryService.php": {
+      "sha256": "a1c842ea58b2c1859a39043586df51bb79182707bbd28e21f4b26a51de8ea8ec",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/SceneButton.php": {
+      "sha256": "d77ad1ed81a5c8d724908be978ebebbcb1be8e464e2daf5bc2d40f0f9bed8543",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/SecureValue.php": {
+      "sha256": "2264ddbe9e2bb951db23a96180e54264dbeae664b4bd2855d8cee6c4c2c8295c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/SignedPayload.php": {
+      "sha256": "737a8342513197899ec09c5b21ed2ad792ab80d7a1ee1fda0c4ec350e5545508",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Store.php": {
+      "sha256": "0d3f1faeabef85a1ce916102e139c9fe975421c3e4d1811bbb1c01e56a647d8b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/UploadService.php": {
+      "sha256": "5bd9af3e5e72cb607e11f4bcac9cc1ecfaa97973d903ee2f219a8c0b599284c7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/PaymentProviderInterface.php": {
+      "sha256": "776b060d35cf2c01a707f71ab93bc0547c09937b87f92ee0d5d63bbce5f5507c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/PaymentProviderRegistry.php": {
+      "sha256": "be7bdd7ed7d3b75015c7813ba77a643144a2c75b7f6a0804401caae60135879d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/SandboxPaymentProvider.php": {
+      "sha256": "093a4c2a714f904fb7e2e3abb2f5f0ec9e596d39a2a0eb1c9e71b3ab03fc6f11",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Support/database_updates_action.php": {
+      "sha256": "6706d811da60be336de599f26d8a5f9084cf7820d76b49af4c3c0f9f14c13499",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Support/functions.php": {
+      "sha256": "4c217c99b4eb0d45d4ea67d9c1b82bafab17417fd65356805d99f42567e5aa2b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Support/mail_settings_admin.php": {
+      "sha256": "8acfc801a3088fe3133ff0888e8920f9efd7daa0981989be32250cc872ce2e6f",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Support/marketing_storage_admin.php": {
+      "sha256": "7adf94417b199c4af03d95b66309eac11e52565e33bf801f34ff0120d5740141",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Support/media_admin.php": {
+      "sha256": "7f17d8002fd3e1d141cea00a1244196228a5173d65a7acae1cf156a000ae87c1",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Support/public_routes.php": {
+      "sha256": "13c1add36dc037eba9badf7b93183ad523e1a060003e7b18e6212dffe8e24f92",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/about.php": {
+      "sha256": "1deb7d91710b95328024d19955b7473423c0db56c4bb6a8c944d4ccc74357f95",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/addon-licensing.php": {
+      "sha256": "82979b605fd6df62491b1891f5cf54cb4f8a89ea7d5b361a79e9c1c8ca366708",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/addons.php": {
+      "sha256": "77eabe3896c9b2b32da1ff957450bf7c67e916365af6d696b777fba74de926c8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/booking-answers.php": {
+      "sha256": "fbb3a0132cdf494b9816a39c7b6f60b9457168b92e5bdc62b52fe92f1aeeaaad",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/booking-form.php": {
+      "sha256": "5febcd6a1fba9b29c686faa6d4b709159bf938ce3a43dd766a672b28f5154618",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/commerce.php": {
+      "sha256": "e1fa0f06482faafede1e643552a9c9ba79d1dd14d2241c1c9b258bc9bc4d2153",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/communications.php": {
+      "sha256": "7f9c61c45711e3514a345ace109da44f3a103e0e4bfeb4a79635643200e499dd",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/composer.php": {
+      "sha256": "ef79be629524c03d0cfa95363124ed67e7cb3c853bb997efc071a388a0f93b95",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/database-updates.php": {
+      "sha256": "8300afd94e7d3de76e0b556b8264f85522f4190f0307ad0c51c98c819f00808f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/mail-settings-actions.php": {
+      "sha256": "126f9efd8463f5420dc94c590277443df5e12c530bd2aa25e27e3479a6380b6c",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/mail-settings.php": {
+      "sha256": "e33eff7e865887a85d18c795b464028090bb406193d23e9a82911c9cbd34a9b4",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-actions.php": {
+      "sha256": "65de669851b3d0866d9447144783fe17465fe1e611abeb87093973629aab76ea",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Views/admin/marketing-audiences.php": {
+      "sha256": "553ae517cf38ef09c504bddfd35e520edd5bc0b7216c1be9a6ce2e5fac1765f9",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        20,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-campaign-form.php": {
+      "sha256": "bb5f3c4c51787f86afaf3e4d365199c63bab527c588467b5fb4b28698065eb0d",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        20,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-preview.php": {
+      "sha256": "fba77e3b2b8c3ebf997ff2fba9a3df1233e98a839427b6a461cac97f87672308",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Views/admin/marketing-publication-editor.php": {
+      "sha256": "08e838606142f10cca94b498657db7de7320948681c9d0367ce822f07ade3d05",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Views/admin/marketing-publication-list.php": {
+      "sha256": "c761063146b9a7cce2a68dbc2226d3ce67e8160ffba8340be777a1e6bf0258b5",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Views/admin/marketing-storage-actions.php": {
+      "sha256": "c32051e5a32219a8511a239a5b24ebc0319f004746f44fd2da131e64a59da0eb",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/marketing-storage.php": {
+      "sha256": "0eacfc13a69fcf0f6fa4e9d0fa98528e299c6ed38a7f935b53fbaa69827f9cd3",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/marketing.php": {
+      "sha256": "6f742a9c5bec40e22bbd96f45248bee31bc09a192fa633c5de8dcebb7931731b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/media-center.php": {
+      "sha256": "b82f3499a607dcb1fd7f4b01eeb0b57159193ab1b52e2d2a17fc6abf73204ee1",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/media-library.php": {
+      "sha256": "c0105f2e1245f4b74b9e18bf13ba6f01713c122d9dc1611bc6c600cb0ab817e8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/members.php": {
+      "sha256": "cd8676a7210ab8ebe573ecbfd78af4e2023b9f87153e182946f785119c4ff27b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise-actions.php": {
+      "sha256": "58ac4ac11d77919ceca7fc11f3a708dc56eaa265bbf4829dbc0c3ef7c9c4f772",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise-order.php": {
+      "sha256": "8e0a70c391ac15317da6e136db0a61b367a85cd955d37d3381514953286a5474",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise-variant.php": {
+      "sha256": "4ac862f9959c1a80e98052c935561ae63884ed71e50b80364d3b24c25162f7d1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise.php": {
+      "sha256": "2c0f9c38f6295e9903797fd3e7989b9ff79db4de2995a72f912805f8de6b0e43",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/navigation.php": {
+      "sha256": "d4ee8b2996bc1e868ba803b87d4af22966d2023668537845ca10f680897a3a29",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/repair-backups.php": {
+      "sha256": "417b5e3736c7a40e1910aea5ed3e91cc8ebc819d3d30f85df2a0156df258f6d9",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/repair-status.php": {
+      "sha256": "c95e75420407dda22da76fa8765976eb1e9c76d3a948374865c75441cfd8fdf2",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/update-status.php": {
+      "sha256": "fcf7111ceffc8b71f6ac30e8274a1cf13005ed8f2c2dcee1d94e017ba214b458",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/public/partials/booking-fields.php": {
+      "sha256": "a322116682c45f6be8ac51a160c38e3b1ae7d9d3e127711c7e2cd51198c8844d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/footer.php": {
+      "sha256": "0f36c0cffcb7a72c054db176bb031e4e709bd08fa9f6a54a8f69c3949e97b793",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/public/partials/header.php": {
+      "sha256": "ea223c8e8e3f372a1d70b7825cdf577519368e297d684be3bc352ee5096c8585",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Views/public/partials/merchandise-buy.php": {
+      "sha256": "bee2c2e4aa88d54273be6de016e57235be74ed7227dd70f7af284ddaa7d8d063",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/navigation.php": {
+      "sha256": "188ed2550c1d9d7a80767fb0608438c6dc48098cc153737e99cd6626224db5c5",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/order-totals.php": {
+      "sha256": "203feae424ad4ee411fbcd36aa07bc1359558e26b6f48b952cc3d154b44fc560",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/player.php": {
+      "sha256": "985d4206964224a9727e8bd6616cdc56113e4bf18602333a806e2ac3c1f1265b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/scene-buttons.php": {
+      "sha256": "4954f3745f6ff8d51cb6140d10aec58b2cdbf0a28fb6c5c90b0ceeeb3a989f0e",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/bootstrap.php": {
+      "sha256": "3d091f15891c9cd90079b9c488682afd50c398b1364050dc51c4eba1878bcda6",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "config/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "config/app.example.php": {
+      "sha256": "2ba7999dc9e9e796cd6da59a35d14d3812df3da2855ae5e9ad7c56e7e9eb10ef",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "database/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/backups/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170001_core.php": {
+      "sha256": "710b6f6b79fae333f6350c1a29839acf2ca2514e3372d50abca28b1d6dcc27fc",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170002_installation_and_roles.php": {
+      "sha256": "6d12fdea88ae4270c60196e22acb5407e7301514443cc8cc639e7d6dfdef0ab0",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170003_addon_foundation.php": {
+      "sha256": "11f10fd1eb4d3493f8b0b600b878780ccff0be43d335ba8006ee8de063de1dd4",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170004_media_and_commerce_foundation.php": {
+      "sha256": "fdb254ca147c1e342df5e31ee3ea6300c6ad82aab7d1347f18c87735ccd5363a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180005_media_center.php": {
+      "sha256": "1dd6926a4bf0e38ec7f63f453a601af102a6b551066fc5ea2b88a850af566871",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180006_media_center_metadata.php": {
+      "sha256": "bdadbfbfae1ea75e47f488482ab7ece1ba079f8527acd61adb9f094febd7deb6",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180007_members_and_entitlements.php": {
+      "sha256": "c7c2963f8e685a5f5d3cdb65477db4c16146f317c339eaebdd8ae97c39f04786",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180008_subscriptions_and_ppv_commerce.php": {
+      "sha256": "762e29dca53e4fda94b475cc7aba17a8080f03e19081ef163ddf5bb57fc2af34",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180009_addon_framework.php": {
+      "sha256": "897f1e1964069e59ac1997dd9083983c0ba70b704d35dc6e979be4f3813b98c2",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180010_addon_licensing_updates.php": {
+      "sha256": "9d5d5179813de4e287fc6c840c79efb4e65266046b80b0708be616deb5445147",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180011_messaging_booking_requests.php": {
+      "sha256": "ff6b261052eea696c3114feec7ad88ac199762fdc9d338dca8d8cd2644f50809",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180012_marketing_publishing_analytics.php": {
+      "sha256": "27d95b1be0202656379065cf63a29c4eeccf4d973e6076fb555b4b719855753a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610190013_booking_form_builder.php": {
+      "sha256": "a9b6f526e00c43954b7401ae2307ad1caca634aa18817bc7023d02a19cecacad",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610190014_merchandise.php": {
+      "sha256": "00a943f0cef005b6bcd7bfac7ce47b0f6f550e0cae5ede05a64868e75453036a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610200015_marketing_sql_storage.php": {
+      "sha256": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "images/.htaccess": {
+      "sha256": "7b0d3af1fe06659f9acbfc1f4f1094720ec9ed769fe521cd25fe5a6fa432d1f5",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/about-pink-room.jpg": {
+      "sha256": "d48a33af74c2cdf0fbecc02b22fb38acdd118207827be5f6a79f6cd30d3d3897",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/brand-mark.png": {
+      "sha256": "3ef7e83e97bf28be8ed517156d9ffe8b8cef1b8a8b1e290e2989cf60e570f383",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/canva-footer-preview.jpg": {
+      "sha256": "7c5f19d6f6531c7147823510c7edfa9cdd5a650915728f69015a328df0963cbf",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/canva-hero-preview.jpg": {
+      "sha256": "8219a972435c1a4f6929db3bc7fd8baf3607b6bd8a6f4b7aab4d3f4b25f18247",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/footer-pink-room.jpg": {
+      "sha256": "d2cff98498eb06c41e94d35cbfeb859f9388dfc95da269f99d3de8a4710586f0",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/hero-pink-room.jpg": {
+      "sha256": "cc70151cf8c65a389315fb1cc4d5d8a442639812ad9f5c804a1cedc50c7c063f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-1.jpg": {
+      "sha256": "4ae6a60b946beecff91f92ad9e471b3ca88ff6e02027a19f6185ad3a5e681895",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-2.jpg": {
+      "sha256": "aed0c52db01b524a7e8596d49f75da596b045b86ed583cee2776cde5e633ad5c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-3.jpg": {
+      "sha256": "c218b8ed21ab7c9a29879832697e65c9e8df19761024b64ec2262ec164298c66",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-4.jpg": {
+      "sha256": "36e2419c26219d1af25a04d431c1f96eb79cafb71eba9e58247a08f2f41ba6e9",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-5.jpg": {
+      "sha256": "6d4c7feff8d7f6fc395b7f32d2b898c0f36e11302fed6b01958e883241699ddb",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/art-deco-home-bar.webp": {
+      "sha256": "f02a1ce5c23995745ef85239428d35e0ab61b72b07d96e60f4f6bf6a74574222",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/black-marble-bath.webp": {
+      "sha256": "efeba4eec4980bce8aaa7bf86a84d4f40baa502b4941359ecc92773716d1c7af",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/cedar-sauna-retreat.webp": {
+      "sha256": "400fa98c77b395a22bce7f029cc1c5d2156b287b6f3cd9e1845b7e8c51913399",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/couture-walk-in-closet.webp": {
+      "sha256": "593c141b20fa0ada12b836aded247b9cc82e09ded6cff6fc070bea64b66fd7af",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/garden-firepit-lounge.webp": {
+      "sha256": "207d00f2bf9f01d2d71d9dbc70c13bd78d0bcdf8e7ad5fbbb60aa02e15848dab",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/grand-mansion-foyer.webp": {
+      "sha256": "ab9af81826fea27bba6e1b79f968192dfbe165027ed1ebe41f9bd83aaa854ffa",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/magenta-billiards-room.webp": {
+      "sha256": "e204dc8da712285024dadd7d6f784b449932a679016bc3b6cfcd92ccbe451fe6",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/magenta-penthouse-suite.webp": {
+      "sha256": "55585afb29e3016c57fef2205048822cba2d64e3787bd17f028dffeeac200414",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/manifest.json": {
+      "sha256": "1ef66072530ecc08bb53fb99f99b87623dafe973528d3e1f30b416f8d579193c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/midnight-music-studio.webp": {
+      "sha256": "fe79f3c4c5d32c363feea47a8324b5b324b8fcd1531857c7e45a62079f200182",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/midnight-penthouse-kitchen.webp": {
+      "sha256": "2d0bb529cca50c6c8bf8b7bab592df7f069e677ec09f3eaeb783453d932e4c3b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/mountain-lodge-retreat.webp": {
+      "sha256": "99bfb544e97b9cc5bebd1f1feee298eaee1d0064be81e71d420eab1f2800c15e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/oceanfront-outdoor-bar.webp": {
+      "sha256": "a9cd858df3c26b59c68d5b0f971dfb5c62547d3a8cc0888d530d64cc0749a9c7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/poolside-evening-bar.webp": {
+      "sha256": "9a8ef82a3d9fb381ea4c978146ad161c51271774a7a49ebbd977ab4586b8cf77",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-beach-cabana.webp": {
+      "sha256": "f569a85e62a5245eac0e0f84ed2b0aedf889939c3ce5a2a26bab291d7ad96d9a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-cinema.webp": {
+      "sha256": "98c1502e5bbe115421730ecfca5ba0db7d390dc2c700798fa85f0fe2cdc2b7dd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-cocktail-bar.webp": {
+      "sha256": "297b3b30dd4e0427fef9cf118c8a8abbc381cd3e18c79886f3b174bf95cd3a77",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-jet-cabin.webp": {
+      "sha256": "45bcec8916325dd2a31ce147b6e1cd63169644bb6a4448a88c1b34a6ea8bfb09",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-wine-cellar.webp": {
+      "sha256": "1eb12d49ce8a776e8f025104c7c2f22f1060d4263292a106cac4d7c86f7b611e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/romantic-candlelit-suite.webp": {
+      "sha256": "ff5565670b1c11d496c34a18190a9267a47241ccec80a56e7f048640b75c1574",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/rose-marble-master-suite.webp": {
+      "sha256": "b173308524d848ab30d2609b391915ef778faba1ff31bc1f7aafac597a9eabd2",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/rose-marble-spa.webp": {
+      "sha256": "59a6a761a2fbb3148bb458b4d495bbb80591312b9a402a133b45784f308b09d3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/skyline-living-room.webp": {
+      "sha256": "adcf55eee9054c40d05d14c5d74622bec139931aa0a3b9695e6da1d9ca16d4d5",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/skyline-rooftop-lounge.webp": {
+      "sha256": "f19de94468ea01e1603c55e4fb1cb7e2ef1959d33f8d9a92767547aa65b71008",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-beach-terrace.webp": {
+      "sha256": "dbf2a36d75f4024ed350b4323b3101ba7afcd11306bc70758bab2238b6cea610",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-chef-kitchen.webp": {
+      "sha256": "1e407e952d73f24add4217e36a8700265dc3a95eb1dfb0f0e73c2b11898bd360",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-penthouse-terrace.webp": {
+      "sha256": "17923fe715ccc20e1e443d0da186cb44a11b29fe42b23cf009d48f6d7d5fe635",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/superyacht-sunset-deck.webp": {
+      "sha256": "5a672508ffb22e60f706434398d769391b8310e5ff4cb3c40a8cac7f5d331bfe",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/art-deco-home-bar.webp": {
+      "sha256": "4f8f6f64b48b7d7f06327826d9202bc7af2f0326824713c899822e42f2d790c7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/black-marble-bath.webp": {
+      "sha256": "3508705a960f113f0f25cd2e435f070fe1a2de14f24bd3685f67171822390140",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/cedar-sauna-retreat.webp": {
+      "sha256": "606d66bb8be444eec899245a1cf62fa6a1c91a28e871eb2e98b27a4eaae7449b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/couture-walk-in-closet.webp": {
+      "sha256": "95e3364f99982694b95089c182ab2c780cb54e5f8a9d1af1ea7b780834d77a94",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/garden-firepit-lounge.webp": {
+      "sha256": "7826049140642ab6380f52dbef3b824f82de8ccedf3635ea294e3858ffa91214",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/grand-mansion-foyer.webp": {
+      "sha256": "3f67dd8772d25b6b3e1c7bee2d39957635253a9ca8fc209c8a04c89281844775",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/magenta-billiards-room.webp": {
+      "sha256": "c779012a194014b98ad006206e08792e6ecff78ca490a5a50e27e2f51adc8898",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/magenta-penthouse-suite.webp": {
+      "sha256": "dae8f182c91fd67e44ae16ba6d1fc1ed1e138f2b38877ee05475c731786a8a30",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/midnight-music-studio.webp": {
+      "sha256": "e62a8b2362eb9859468dd13f6ec0ab727a518b853b0b81ffdee1086fa39acb15",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/midnight-penthouse-kitchen.webp": {
+      "sha256": "6fb3fc54dfec52aac7bdb4c05352af9d089f5e34456ba35dcec6974ed77e8fde",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/mountain-lodge-retreat.webp": {
+      "sha256": "8adef6c634f2eee18d25ae87ddeddc53952d6022bbed37b9c350b7827af03ca7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/oceanfront-outdoor-bar.webp": {
+      "sha256": "f8f32d9536dbfc642958f19bc9199c96e8223ffb7b43987a0063203ac91aad10",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/poolside-evening-bar.webp": {
+      "sha256": "d33a7ffda3f4ed75d092259b83aaff2717fb952d5d4610b8cac8b2a26b24830a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-beach-cabana.webp": {
+      "sha256": "cc62515a5d096ba97a575b4879e0f044ac81b49d182a628ad356d5115a8a8c8f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-cinema.webp": {
+      "sha256": "f2968ecb5689ff7b759569a3cc234b3ef0af2e1af9aba1816d9ef82fb6a05abd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-cocktail-bar.webp": {
+      "sha256": "f8c2f0922cd3f25e89a6221a798886c41b72a3f9531f8053473b5604f8b1a734",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-jet-cabin.webp": {
+      "sha256": "58c10bdb4f2fd2f5238367013ea7296c0b169aa9f893f7fbb6a9ab6e4764db97",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-wine-cellar.webp": {
+      "sha256": "75f23b13552e42ffa45f74a6ea94e3e5de0e8a8e9d46d7e75b4f8cea8aecad2c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/romantic-candlelit-suite.webp": {
+      "sha256": "cd76a31c845480ad14293a36a386a00c5c5679485c6b32a78b66a6f75ad716d7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/rose-marble-master-suite.webp": {
+      "sha256": "deeb932dd7389ee0ef3b65aee1447e37b36e844c9a21a2a56119419622ff4e0b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/rose-marble-spa.webp": {
+      "sha256": "1208a8660ecc24d0481a55e945c22030bc59ce84135b136a22f9201b8aaab26d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/skyline-living-room.webp": {
+      "sha256": "f8fd7a2ac75fa66a9a2d519f484ca8490d67625087b46cfbf9692e310aed8c8f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/skyline-rooftop-lounge.webp": {
+      "sha256": "83a92cb1546ad34c088ffc4db1f24f96b9be7b95bcad68dd44440c33844d4499",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-beach-terrace.webp": {
+      "sha256": "3289a56b55dfca7f24de11692e3e863fd8ced62914ce2037ba2571c606b6f4e7",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-chef-kitchen.webp": {
+      "sha256": "647304b687e105cd31da8a51110430116eb9b7a29945ac59da0cb6ffd758256f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-penthouse-terrace.webp": {
+      "sha256": "37fd14f96dcde074fc935d5fa2d57eb291dc8617752e5e476a9fa7c4699e7f7a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/superyacht-sunset-deck.webp": {
+      "sha256": "00ffe9e84bb002d54f197bd872638f6cdb022a8d03f19784a1ee08fe5cb22cb2",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/tropical-infinity-pool.webp": {
+      "sha256": "a8c4beecc582f473c5b97d4cef4b428a20f03496c779d47aa7667a8452929966",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/velvet-penthouse-lounge.webp": {
+      "sha256": "25e476314cd30b07e4d8afbd0654982d884199e8f35cf10ac53b85fa27e83573",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/waterfall-pool-retreat.webp": {
+      "sha256": "c7f79dc819b305a65b7d146640c2ed4bd5e9f9594be022333b46bece5f41df1d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/tropical-infinity-pool.webp": {
+      "sha256": "9b6db76cc0e3cea669d7f477c028568c9e83077d539f932b5b48c280c65fe565",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/velvet-penthouse-lounge.webp": {
+      "sha256": "67fce0b3b4d8cef150c82ed78f107d304f559eb3edf55d40e8e2ce0e795458cd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/waterfall-pool-retreat.webp": {
+      "sha256": "10b32f6d98638323ef933b1b889b3ddf65f13f625feea8f7ac2aed201651ba7c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/autoload.php": {
+      "sha256": "a8492b8cff5f5efde1271246c56010231e44d51edcc740c79202766093ba6d0c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/bootstrap.php": {
+      "sha256": "f8ed2626fb6fc7458d3a743cefc7da9e1664e02f8c800a26a2b92851ea372cb2",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/helpers.php": {
+      "sha256": "3c718f41b429d961f8ec52b10b4c68367bbe7c1b2901ca2891b328a9e0e2960e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/installation_recovery.php": {
+      "sha256": "52ce3d42a00b5577d5ee121f7bc990bea124c6ffafa96df42c72f92d4897eea2",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "includes/marketing.php": {
+      "sha256": "00f86d59b4c660a5ca2c1b000941597997f64dd0d16078edc1cd0f4d9a7e841a",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "includes/marketing_admin.php": {
+      "sha256": "334ed0fb1cd0e4f32648f7d74e4af3dc61710a765c6e2d782f17c8770c711465",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "includes/marketing_public_shell.php": {
+      "sha256": "f03c052eba9a57630fcf4f07839eff7296dd5c6d90ccaa0de43b8824fe4483e4",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "includes/runtime-build.json": {
+      "sha256": "fd30c725a540ddf861a021d77d801e285a1d42f538d48179d089f98f07c6e36f",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "includes/security.php": {
+      "sha256": "2dd533af92967caae0876dc543de3f9538410fae22410bcea33674265d363cd4",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/version.php": {
+      "sha256": "5bdea919e21605d7e776add1b726a1f203f9bd6fa3457ebc9e9a3b1a328cc164",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "index.php": {
+      "sha256": "c437df949c1c9902165717545fa973fd272ec6f911d96de8b68d6ab9369f009e",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/bootstrap.php": {
+      "sha256": "dd21d72cddc0de1f359c2f7b6f05d7b6221a1298d4491b978dd30f1058716826",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/index.php": {
+      "sha256": "3e7eef91bfc7eab9da6d844373898fbc5fafa77025279a62a93e26cb1ac22e07",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/services/EmailAddress.php": {
+      "sha256": "a6f3d32630c8c006b9f7d1774f5d6d1df3e9e778b4f839912fbc596503e714a1",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/services/FileSystemService.php": {
+      "sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerLog.php": {
+      "sha256": "95f624aca56cc013b2d619f82a63ccbec3d26b8aab9b089d75b2188934f54a9f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerProgress.php": {
+      "sha256": "3284c4dd94107ccf8b70f4fdfc44e8238e8cdb3313c78ab7db4897f654e01be1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerService.php": {
+      "sha256": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "install/services/RequirementChecker.php": {
+      "sha256": "591222c1c11d8571d97c934c751cc64b20da8b0ef143e77a246112a14f0cd7b8",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/SmtpTester.php": {
+      "sha256": "9c56e66c47cf36e0ef6e9231092e7f658b0e082c11729d8a79c5cbad77cd9311",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/views/single-page.php": {
+      "sha256": "3f77f8da83a26e1af62c9e1cdc0c177a0e6ae6377790529faa4e0243bb422555",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/css/admin-ux.css": {
+      "sha256": "26c2554f6dc7d3954d3780028e4ee53e33c65e7ac178ecc8481d90a55e6c2fd1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/admin.css": {
+      "sha256": "d93c86d5b0a3b4e6b62c862d80aa285ac58c0a84b5ca0cb23fee6334f6426303",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/booking-form.css": {
+      "sha256": "b814d966dcd04803bc74302df4575591d0f719e4e64f5bace4a19f1fe705233a",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/commerce.css": {
+      "sha256": "2befe41daf98853e917fa04f3e93b67cb64e27dc540114a59df1dd096df1a894",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/communication.css": {
+      "sha256": "dd4a560073417d1f7887f3f53b2fb99d62419c3c97f6034c2e0cc04d16cd6a8c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/composer.css": {
+      "sha256": "a36d840f67ccb7c98c5d7eb221d3bc4d7fc7012c9e60909194c5bc378801a8bf",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/css/installer.css": {
+      "sha256": "7b499c5824aa5445054aa025507b1fe0b373bbc77039902bf503a70a3d6dd81f",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/mail-settings.css": {
+      "sha256": "a0311d645a1ecf03a1effa52d309e9afa00a44127f966dc7c841cbd68d4ee16a",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/css/marketing.css": {
+      "sha256": "905e035f16861d04ab0c58bfb684202c6e0d653136110543af39d15723b26325",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "public/assets/css/media-admin-edit.css": {
+      "sha256": "ba3c662a0ea30717faeac433cf5cf3f84e5fd765e4e3602754708531fc1372a2",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/css/media-center.css": {
+      "sha256": "9ef7a383e600d52ba822edad82acf96f4a18113848e73c779bbf16f31ce234e1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/member.css": {
+      "sha256": "ac072b8785d9b70bd5a9d5b2006c4613042252e2620fb022b09e5fe6e92299f0",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/merchandise.css": {
+      "sha256": "1c951e949e67d5d1c8f48d5edc8027c5037c3949fe106015acb94f3862b4e3e1",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/site-ux.css": {
+      "sha256": "914cb7a93f3e8a9e47f9e1f69cee73a1bab4e4c8a19c6239e1e6213852f84500",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/css/site.css": {
+      "sha256": "fcefe803df9d059078377239423bfa631bcb8c3f29023fdb5f3c47ed840170d2",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/admin-media.js": {
+      "sha256": "a72e9c7e88431b45da45e1ba2f510c3de55cf13f7cd002a6c4b8bdc630f995cb",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/js/admin-ux.js": {
+      "sha256": "c439289ba63e7dadfd39ddbb0946386dd179ab6d803094e1b66789dfa232db89",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/admin.js": {
+      "sha256": "3ade3f67e3d0cec2394d7efde3346c25f14495c342230506b0f87b89b9481e86",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/api-client.js": {
+      "sha256": "96a1e8ec2a401e4348405b4d87d02e60bd442fbb064c46ccb5f7df8498ca39a0",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/booking-form.js": {
+      "sha256": "52e55db2e350830f48297dc31f3d1f70756d873f2becea2632b8a7194ddbdc8b",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/composer.js": {
+      "sha256": "338688aa718708aa985b423dec5d27ce1c1491a122e677f433e9ea0fce7622a8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/installer.js": {
+      "sha256": "2b12ed66d231102c2451d8d74a297a9e3af408b58a04147627068676e59c598b",
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/mail-settings.js": {
+      "sha256": "87329ccb166503b73cf46a566f8b748e70615c135421573dd0242803c1cd6786",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/marketing.js": {
+      "sha256": "67dffed34e8f7d32fa9c11df7930d0ba4d1902fa0817ce313e06061800b6b32b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/media-center.js": {
+      "sha256": "6cdf94e88620949b2ae36227208eb93c4ae4cc6845dc2fe70ef41db88723c240",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/merchandise.js": {
+      "sha256": "da39c36257ef37c796600c160075febaf0c824c95314ff70d490819779e82176",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/site.js": {
+      "sha256": "97d4795c9682183515ff6836f12019fe676908ee1e35070611765112eca09940",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/home.php": {
+      "sha256": "41cbb17b0d6c5412184aaa8177a284f5f3a745b1ca29747344d665c370ad3771",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/router.php": {
+      "sha256": "0553ae31199941e29639d0e29a01edc8c95fc15e13d1b98d8b41bd67248836bf",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/routes/about/index.php": {
+      "sha256": "6f9736a069724934de231e3caf44a0a89722f7fa91640dcfc59d6c79b6ca8861",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/billing.php": {
+      "sha256": "cdb3c660c3ca27efad592593495f0a0c37868d117b98bacbb0f9350ccf20828a",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/forgot.php": {
+      "sha256": "4faf84103cf2013380cb89ec2497bc5552aff8dc557ffae80f484bcab21d1364",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/index.php": {
+      "sha256": "9f74af249200d21675cc98518a5a4945ed9b8307433576f4c7b81aa0e3f7e3bf",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/library.php": {
+      "sha256": "08ba3b45b35e72f7ae24a1e66436846b4261a9c3d8aaa698d418bf75304b206b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/login.php": {
+      "sha256": "05da50bda57958097c77663a49f83841e0fe1f9f731dd005ff00872e1bf46784",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/logout.php": {
+      "sha256": "f4187b4e7ee6f883967d7cc485597ebe6730ab96b2b2ac6d66b6a78bc4f863a8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/register.php": {
+      "sha256": "cde69ff0e528fbdaa458f0fbe8db2f21f9ce2d42cae5e1e0f3bdbae4f924c0be",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/reset.php": {
+      "sha256": "ed387551638b5b0e33c0b54a31e8e2126c43e8459a0070a778e0dbc28ef81d59",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/security.php": {
+      "sha256": "03e195ae769322afb776cf5ca9ebe4d78310938507520ae018a4886692a6d405",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/verify.php": {
+      "sha256": "aad3af62ab3cdd580185c8fdadcf6340f7825c8e7123e62f4a8ee4c469f82364",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/addon-license.php": {
+      "sha256": "377f94d729ee32236cf69e296d5b0848d1de84386037194275e2dd8840ff234b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/marketing-event.php": {
+      "sha256": "c40699bdf6b4cffe0ad51a8375b68c3425541daf408163dead7fe62da01449fc",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/member-state.php": {
+      "sha256": "ed56ebc3f1a0887ae747f96ff5c1b6f7a13fb4ade6869453a62356873f6b9dc6",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/payment-webhook.php": {
+      "sha256": "283656a7a81f2106050ea05984177dec142be5f424b9a67dcd6f9b21c988329d",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/scene.php": {
+      "sha256": "9d9fe7a12f8ad97e1878932cc0c00620e85751082cbf8c41960d53e55d03515e",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/upload.php": {
+      "sha256": "45c986b973c8a474aabbcadeea33cc762eec771a4ef6132c65217b0365da92c1",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/blog/index.php": {
+      "sha256": "3db4c2b7b1efe50d25c09f69cc9ab6f272e0ecbf78d74729246c33b9842ff8f9",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "public/routes/blog/post.php": {
+      "sha256": "afae344a6f6d1c2f0ce1fa9b2666d40352f3aa2cc6eb562f7477f82c8e28b2bc",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "public/routes/booking/index.php": {
+      "sha256": "8795e79cebf0cb1a7c12c74da886beebb9f2117453eda9fe45e13a539e55a6f4",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/campaign/index.php": {
+      "sha256": "32d20fd36fe930f92235f46f7757bd787efa1c40e47f57dafd1a960518ac3908",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "public/routes/cart/index.php": {
+      "sha256": "1d728f1a6f5aef037a189312fd687ddc87c94c765a498a75435b42fe7e6c69b5",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/checkout/index.php": {
+      "sha256": "0b0a2736a7ea161556c1aa9aabef3b49fe5c21ec4261b87df4d121df7b5593f9",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/checkout/success.php": {
+      "sha256": "40e6228aa63b21d02dee47b7eaed7a99758a263112702c571268d3503907198d",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/collections/index.php": {
+      "sha256": "a6f158548c00aa3b55e5efa3eea53a0d443a4f2e8289810c12fa362e46268457",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/communication/download.php": {
+      "sha256": "db0b2fff925f1bf7f982165cd357eb737ba3d6c2ca64b7ce8e75716db24f5640",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/extension/index.php": {
+      "sha256": "9e311131a578a6f659b9e72979f82c71e8170fdb99c82d982b396fed78817ca0",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/links/index.php": {
+      "sha256": "e4c4aafaf1d881ccb6efeace0d1425915ee4864cff246a9b95e531c7a9022d0c",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/media.php": {
+      "sha256": "8c788e890d2c26b6b27fa4f6b6fab5742cf2fb6842561937c9fafb8bb717567b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/membership/index.php": {
+      "sha256": "fa2c07dc1b7e6b50178df9147ef712cc28f3dad23dfaa008798da2f0af1cbf8e",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/messages/index.php": {
+      "sha256": "c05945555891f34747ec645f5a92e562948324175a5ed3e2b68de452f0144490",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/music/index.php": {
+      "sha256": "8b99d343d0948a670bdc3f489dd632f4f63a56269bc7820f943c9bba480208c8",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/routes/newsletter/confirm.php": {
+      "sha256": "5230d67c1d03f50949e14c03938c6bb0344e2ea9ef8453db98fb4ac949a4c7de",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/newsletter/index.php": {
+      "sha256": "061abe5199bd9e3314167e9346e6d1ce3694a131bb641e201a360b71d87004b0",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/newsletter/unsubscribe.php": {
+      "sha256": "24a4a553d7c2a97b537b20e92f3a3af108cff6c9002f3c754f6a7c4abb101651",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/photos/index.php": {
+      "sha256": "f1f8f814cf62737d6d81577043ae95b2773f2b9740fc41889069fba7bfb2ce59",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/photos/view.php": {
+      "sha256": "95a932f1881dd785ce51e21fc9c8a587e2a68785c0ce56a9e83bea8b487a4f38",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/receipt/index.php": {
+      "sha256": "aa8e39dbc7da402ae8eb207a72024067c41a052f659f03865cc802fe8f18351d",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/requests/index.php": {
+      "sha256": "388b0e7cf135294cc9fea1481972c4ec9bb80e11a2b2a7385db503adfbc70829",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/shop/index.php": {
+      "sha256": "f326145deac7cbe07905c7a5a3bc23db657b41ffb7b67a7769abfb9a9fdbf73b",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/videos/index.php": {
+      "sha256": "30e8a0d926ee6d9f5aa4558b3df8639ea261736e88353a98c30c54b714512dee",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/videos/watch.php": {
+      "sha256": "4831f8c450eb930db2b7dd025a9697145895e67b771961c93ac222d180f9ec85",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "route.php": {
+      "sha256": "e08e01f3e3d5e097e1b98b75ca5faee3c46c58606f14ea4666fb8d3d143abedc",
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "storage/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/backups/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/cache/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/defaults/data.json": {
+      "sha256": "062438df05c72929f934c87003b2cb4d01e70709bda2c663fd36608461a01b72",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/defaults/marketing/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/logs/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/marketing/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/marketing/outbox/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/repair-backups/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/sessions/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/temp/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/temporary/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/updates/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/.htaccess": {
+      "sha256": "7b0d3af1fe06659f9acbfc1f4f1094720ec9ed769fe521cd25fe5a6fa432d1f5",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/Nikki-Wilder-Canva-Starter-Kit.zip": {
+      "sha256": "d9474fed5a76c3aa83ee0c9e9285caba435aa5be9318ab1f28bced8ab9ea35fd",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/footer-desktop.svg": {
+      "sha256": "1dea48504e6d1f684d2df37190155ea65ea269c1b8b74c79fa67d716e4e29417",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/gallery-cover.svg": {
+      "sha256": "915e2c6c1d92ab31d28b2b0bb3622608e00de3f3af15058c5617e2d24024f20d",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-desktop.svg": {
+      "sha256": "073116653d50d77682342b99f1a4d2c431f479cfa1a65d4e1487f2733aac930f",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-mobile.svg": {
+      "sha256": "367a447444ffecf565168750eddfa76e54176c837e5f4c515740b67e664e6821",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-tablet.svg": {
+      "sha256": "cd4839dd1aefbf151e1e22430aee01522ee2c226f84c8b6a9270b0ed6da2afb4",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/video-thumbnail.svg": {
+      "sha256": "5da905255def89bb8de83930b2bf57c6a5d2aff4c8a14fc7fd93dae67761ecaf",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/.htaccess": {
+      "sha256": "8a54b1cb9e877ce507abcb9c7cf04333bf3c82c656a74c5eb1b7926eb0622418",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/neon-heartbeat.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/pink-room-dreams.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/velvet-after-dark.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/captions/demo/velvet-trailer.vtt": {
+      "sha256": "41337ab081bcc44d38a61a72ec0697a44bda3114ad3182c81d1cf035b7722e46",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/album-cover.jpg": {
+      "sha256": "502cce7fea09209d2b1d44fac4c49dcd20ee351cede5cb06eb4c5865d8585e5c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-1.jpg": {
+      "sha256": "4ae6a60b946beecff91f92ad9e471b3ca88ff6e02027a19f6185ad3a5e681895",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-2.jpg": {
+      "sha256": "aed0c52db01b524a7e8596d49f75da596b045b86ed583cee2776cde5e633ad5c",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-3.jpg": {
+      "sha256": "c218b8ed21ab7c9a29879832697e65c9e8df19761024b64ec2262ec164298c66",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-4.jpg": {
+      "sha256": "36e2419c26219d1af25a04d431c1f96eb79cafb71eba9e58247a08f2f41ba6e9",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-5.jpg": {
+      "sha256": "6d4c7feff8d7f6fc395b7f32d2b898c0f36e11302fed6b01958e883241699ddb",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/video-poster.jpg": {
+      "sha256": "960a9b8f9b678a18607a81c6506b16a116388cb125086165b028b59255b25c35",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/index.html": {
+      "sha256": "3755050627a08174e143439708785d1a46490891f4606ea3ee2773338135ca41",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/videos/demo/velvet-feature.mp4": {
+      "sha256": "6f83c5058cb0b03c4f0b1f6929fce579939bcf09ad90ea63d956074de267ee22",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/videos/demo/velvet-trailer.mp4": {
+      "sha256": "6f83c5058cb0b03c4f0b1f6929fce579939bcf09ad90ea63d956074de267ee22",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "vendor/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}
