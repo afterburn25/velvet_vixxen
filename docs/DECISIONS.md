@@ -102,6 +102,8 @@ The first two bullets below are historical and explicitly rejected by the owner;
 
 These are design requirements; advanced audience/expiration, scheduled scenes, attribution, retention and MySQL marketing persistence were not recovered as implemented capabilities. Current code/evidence governs completion claims.
 
+That recovery finding and the earlier dated campaign-storage decision describe their original baselines. The bounded 0.8.6 SQL storage increment is now implemented: migration 015 creates the additive schema, and a separate reviewed owner action moves the preserved marketing snapshot. File-mode compatibility remains. [Marketing Storage](MARKETING_STORAGE.md) documents the active-backend and failure boundaries; [the roadmap](ROADMAP.md) starts the remaining #9 work with editorial access/preview/metadata/history/calendar/post expiry. SQL persistence does not implement indexed analytics or complete 0.9.
+
 - Editorial content uses explicit draft, scheduled, published, archived, and expiration states.
 - Public visibility is resolved by publication timing and audience rules rather than by obscured URLs alone.
 - Newsletter consent, confirmation, unsubscribe, and suppression are distinct records and must be respected by every campaign send.

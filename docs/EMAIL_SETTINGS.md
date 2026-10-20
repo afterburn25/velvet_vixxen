@@ -1,8 +1,8 @@
 # Owner Email & SMTP Settings
 
-**Current runtime: 0.8.5 / Build 20261020.6.** Open **System → Email & SMTP** at `admin/?page=mail-settings` to manage the shared connection used by account email, booking notifications and newsletter campaigns. Each feature retains its own notification or delivery preferences. Private-reply alerts use the generic notices described below.
+**Current runtime: 0.8.6 / Build 20261020.7.** Open **System → Email & SMTP** at `admin/?page=mail-settings` to manage the shared connection used by account email, booking notifications and newsletter campaigns. Each feature retains its own notification or delivery preferences. Private-reply alerts use the generic notices described below.
 
-The editor was introduced in the verified Build 20261020.2 owner-mail release through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17); [its release record](releases/0.8.1-owner-mail-settings.md) preserves that historical evidence. [The current 0.8.5 release record](releases/0.8.5-publication-windows.md) identifies the latest verified source and downloads. The affected customer host and production email service remain unverified.
+The editor was introduced in the verified Build 20261020.2 owner-mail release through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17); [its release record](releases/0.8.1-owner-mail-settings.md) preserves that historical evidence. [The current 0.8.6 release record](releases/0.8.6-marketing-sql.md) records source and download evidence. The affected customer host and production email service remain unverified.
 
 ## Private-reply email alerts
 
@@ -44,7 +44,7 @@ If the connection is disabled or incomplete, the test panel explains what needs 
 
 ## Install or update
 
-For an installed 0.8.x site, use the complete **0.8.5 / Build 20261020.6 Upgrade** and follow [Update Verification](UPDATE_VERIFICATION.md): preserve installed configuration and content, verify uploaded files, refresh running PHP and require the current build. Fresh setup is for a new installation.
+For an installed 0.8.x site, use the complete **0.8.6 / Build 20261020.7 Upgrade** and follow [Update Verification](UPDATE_VERIFICATION.md): preserve installed configuration and content, verify uploaded files, refresh running PHP and require the current build. Fresh setup is for a new installation.
 
 The unchanged **11-file 0.8.1 / repair Build 20261020.3 Installer Database Repair** is for unfinished 0.8.1 setup. It retains its saved identity and bytes; applying it does not install the owner settings feature or advance an installed runtime build. See [the installer repair guide](INSTALLER_DATABASE_REPAIR.md).
 

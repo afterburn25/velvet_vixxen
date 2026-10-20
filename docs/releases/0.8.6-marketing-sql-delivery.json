@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "version": "0.8.6",
+  "build_id": "20261020.7",
+  "source_commit": "e4640e84a2c5417954f936f86ee993112c67bb37",
+  "source_tree": "8deae90664202b37199283ec0121169291771349",
+  "pr": {
+    "sha": "2a2bf4468c52304e08e246030d075527ab5972e3",
+    "merged": true,
+    "merged_at": "2026-10-20T15:41:54Z",
+    "tree": "8deae90664202b37199283ec0121169291771349",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/22",
+    "pr_number": 22,
+    "head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "base_sha": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "parents": [
+      "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+      "e4640e84a2c5417954f936f86ee993112c67bb37"
+    ],
+    "main_sha_observed": "2a2bf4468c52304e08e246030d075527ab5972e3"
+  },
+  "ci_run_id": 39446912796,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796",
+  "actual_ci_checkout": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+  "ci_checkout_tree": "8deae90664202b37199283ec0121169291771349",
+  "gated_artifact_verification": {
+    "artifact_id": 12279065001,
+    "run_id": 39446912796,
+    "artifact_bytes": 15316421,
+    "artifact_sha256": "edeb514e73bd4b5db5717af8c78fb6f05d2935f785899a5e52315d590e6d0483",
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12279065001",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+        "bytes": 7720218,
+        "sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+        "bytes": 7562889,
+        "sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.6-Build-20261020.7-package-manifest.json",
+        "bytes": 79143,
+        "sha256": "46a905da8cc8444232ec70e25d9c4b749f48aad978e6216c18befc66a4079446",
+        "gated_bytes_equal_local": true
+      }
+    ]
+  },
+  "saved_download_verification": {
+    "verified_at": "2026-10-20 15:45:08 UTC",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+        "bytes": 7562889,
+        "sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+        "saved_version_number": 10,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+        "bytes": 7720218,
+        "sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "saved_version_number": 13,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.6-Build-20261020.7-package-manifest.json",
+        "bytes": 79143,
+        "sha256": "46a905da8cc8444232ec70e25d9c4b749f48aad978e6216c18befc66a4079446",
+        "saved_version_number": 13,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "saved_version_number": 2,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": true
+      }
+    ]
+  },
+  "affected_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only"
+}

@@ -2,6 +2,12 @@
 
 Recovery date: 2026-10-19. Repository: `afterburn25/velvet_vixxen`.
 
+## Current continuation
+
+The recovery findings below describe the 2026-10-19 baseline and remain unchanged. Subsequent work added bounded campaign delivery, saved audiences and publication editors; 0.8.6 adds per-record MySQL marketing persistence with an explicit owner-reviewed move. `MarketingStore.php` now uses `MarketingStorage.php` and `MarketingSqlRepository.php` while retaining file-mode support. See [Marketing Storage](MARKETING_STORAGE.md) and [the 0.8.6 release record](releases/0.8.6-marketing-sql.md) for the current implementation and its evidence.
+
+The next open #9 group is editorial access/preview/metadata/history/calendar/post expiry. Broader scene scheduling, attribution, analytics operations and provider handling remain open; this storage increment does not complete #9 or 0.9 or establish production email or customer-host deployment.
+
 ## Verified source inputs
 
 | Input | SHA-256 | Role |

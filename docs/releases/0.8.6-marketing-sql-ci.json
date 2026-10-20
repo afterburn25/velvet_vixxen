@@ -1,0 +1,3102 @@
+{
+  "schema_version": 1,
+  "version": "0.8.6",
+  "build_id": "20261020.7",
+  "status": "passed",
+  "observed_at": "2026-10-20T15:43:09.958Z",
+  "repository": "afterburn25/velvet_vixxen",
+  "release": {
+    "version": "0.8.6",
+    "build_id": "20261020.7"
+  },
+  "pull_request": {
+    "number": 22,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/22",
+    "base_sha": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "source_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "source_tree": "8deae90664202b37199283ec0121169291771349",
+    "source_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/e4640e84a2c5417954f936f86ee993112c67bb37",
+    "test_merge_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+    "test_merge_tree": "8deae90664202b37199283ec0121169291771349",
+    "test_merge_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+    "test_merge_parents": [
+      "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+      "e4640e84a2c5417954f936f86ee993112c67bb37"
+    ],
+    "trees_equal": true,
+    "latest_observed_state": "open",
+    "latest_observed_head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "latest_observed_base_sha": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "latest_observed_merge_commit_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+    "merged": false,
+    "merged_at": null,
+    "mergeable_state_reported": "unstable"
+  },
+  "release_run": {
+    "id": 39446912796,
+    "event": "pull_request",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "requested_head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "created_at": "2026-10-20T15:16:40Z",
+    "updated_at": "2026-10-20T15:36:32Z",
+    "expected_jobs": [
+      "Repository and executable source contract",
+      "PHP 8.2 source and package regressions",
+      "PHP 8.3 source and package regressions",
+      "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+      "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+      "Installed HTTP and Chromium desktop/mobile acceptance",
+      "Build verified fresh-install and upgrade ZIPs"
+    ],
+    "required_job_count": 7,
+    "jobs": [
+      {
+        "id": 118711146821,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711146821",
+        "started_at": "2026-10-20T15:17:11Z",
+        "completed_at": "2026-10-20T15:17:17Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:17:12Z",
+            "completed_at": "2026-10-20T15:17:13Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:17:13Z",
+            "completed_at": "2026-10-20T15:17:14Z"
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:17:14Z",
+            "completed_at": "2026-10-20T15:17:14Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:17:14Z",
+            "completed_at": "2026-10-20T15:17:14Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T15:17:14Z",
+            "completed_at": "2026-10-20T15:17:14Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "evidence_lines": [
+          "##[group]Run actions/checkout@v4",
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "  test -s \"$file\" || { echo \"Missing required source or handoff file: $file\"; exit 1; }"
+        ],
+        "raw_log_chars": 19171,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711146821.log",
+          "size_bytes": 19173,
+          "sha256": "8d071fff50ee8f835ed2aaf4ab91b895f611f7df300be0505d812f18a64cc776"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 121
+      },
+      {
+        "id": 118711462502,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711462502",
+        "started_at": "2026-10-20T15:19:26Z",
+        "completed_at": "2026-10-20T15:21:16Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:19:27Z",
+            "completed_at": "2026-10-20T15:19:28Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:19:28Z",
+            "completed_at": "2026-10-20T15:19:56Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:19:56Z",
+            "completed_at": "2026-10-20T15:19:57Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:19:57Z",
+            "completed_at": "2026-10-20T15:20:00Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:20:00Z",
+            "completed_at": "2026-10-20T15:20:00Z"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:20:00Z",
+            "completed_at": "2026-10-20T15:20:03Z"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T15:20:03Z",
+            "completed_at": "2026-10-20T15:20:54Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T15:20:54Z",
+            "completed_at": "2026-10-20T15:20:54Z"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T15:20:54Z",
+            "completed_at": "2026-10-20T15:21:03Z"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:21:03Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-20T15:21:10Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-20T15:21:10Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-20T15:21:10Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-20T15:21:10Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "Successfully set up CPython (3.12.15)",
+          "Installed database update scenarios passed (43 checks; actual012\u2192014\u2192015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46).",
+          "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+          "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+          "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "MySQL migrations applied successfully (15 migrations, 84 declared tables).",
+          "MySQL migration rollback passed.",
+          "PASS installer MySQL: empty database and working owner login",
+          "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+          "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+          "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+          "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+          "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+          "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+          "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+          "PASS installer MySQL: matching prior configuration restores existing keys",
+          "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+          "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+          "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+          "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+          "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+          "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+          "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+          "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+          "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+          "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+          "Existing-database installer acceptance passed (971 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package).",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.3.35; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "PASS marketing SQL: actual Fresh dependency hashes, exact15/84 schema, read-only review and pre015 file compatibility",
+          "PASS marketing SQL: stable count-only review, stale-plan rejection, malformed/symlinked sources and orphan SQL preservation",
+          "PASS marketing SQL: later-batch/authority rollback, repeated owner authorization and actual disconnected commit fail closed",
+          "PASS marketing SQL: in-flight file edit excludes cutover, exact legacy snapshot retained, one authority, repeat no-op and cross-root readers",
+          "PASS marketing SQL: four independent writers across two roots retain all52 mutations; failed SQL update rolls back atomically",
+          "PASS marketing SQL: cross-root delivery exclusion, losing-worker immutability, short data locks and stopped-process recovery",
+          "PASS marketing SQL: original tokens, revocations, stale-save protection, frozen audiences/messages and unknown-delivery holds",
+          "PASS marketing SQL: real loopback SMTP permits concurrent unsubscribe/pause, transmits no canceled body and holds unknown acceptance",
+          "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back",
+          "Marketing SQL MySQL acceptance passed: {\"suite\":\"marketing_sql_mysql\",\"checks\":401,\"version\":\"0.8.6\",\"mysql\":\"8.0.46\",\"migrations\":15,\"declared_tables\":84,\"database_tables\":85,\"fresh_sha256\":\"356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06\",\"legacy_source_preserved\":true,\"installation_id_length\":190,\"metadata_only_installation_setting\":true,\"independent_roots\":2,\"concurrent_writers\":4,\"external_messages\":0}",
+          " 2026-10-20T15:19:41.890362Z 0 [System] [MY-013169] [Server] /usr/sbin/mysqld (mysqld 8.0.46) initializing of server in progress as process 80",
+          " 2026-10-20 15:19:41+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.46-1.el9 started.",
+          " 2026-10-20T15:19:44.963615Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.46) starting as process 124",
+          " 2026-10-20T15:19:45.189423Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL.",
+          " 2026-10-20T15:19:46.946565Z 13 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.0.46).",
+          " 2026-10-20T15:19:47.674795Z 0 [System] [MY-010910] [Server] /usr/sbin/mysqld: Shutdown complete (mysqld 8.0.46)  MySQL Community Server - GPL.",
+          " 2026-10-20T15:19:48.133590Z 0 [System] [MY-010116] [Server] /usr/sbin/mysqld (mysqld 8.0.46) starting as process 1",
+          " 2026-10-20T15:19:48.347555Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  MySQL Community Server - GPL.",
+          " 2026-10-20 15:19:41+00:00 [Note] [Entrypoint]: Entrypoint script for MySQL Server 8.0.46-1.el9 started."
+        ],
+        "raw_log_chars": 43818,
+        "php": "8.3.35",
+        "mysql": "8.0.46",
+        "python": "3.12.15",
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711462502.log",
+          "size_bytes": 43844,
+          "sha256": "cd35c831255ccf7cd1c7a66498ac8e47136dfd465bb1a70f94b6305f5f1bf959"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 221
+      },
+      {
+        "id": 118711462793,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711462793",
+        "started_at": "2026-10-20T15:20:40Z",
+        "completed_at": "2026-10-20T15:36:21Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:20:41Z",
+            "completed_at": "2026-10-20T15:20:42Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:20:42Z",
+            "completed_at": "2026-10-20T15:21:10Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:21:10Z",
+            "completed_at": "2026-10-20T15:21:30Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:21:30Z",
+            "completed_at": "2026-10-20T15:21:32Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:21:32Z",
+            "completed_at": "2026-10-20T15:21:33Z"
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:21:33Z",
+            "completed_at": "2026-10-20T15:22:02Z"
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T15:22:02Z",
+            "completed_at": "2026-10-20T15:22:24Z"
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T15:22:24Z",
+            "completed_at": "2026-10-20T15:22:41Z"
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T15:22:41Z",
+            "completed_at": "2026-10-20T15:23:32Z"
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:23:32Z",
+            "completed_at": "2026-10-20T15:23:44Z"
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T15:23:44Z",
+            "completed_at": "2026-10-20T15:24:12Z"
+          },
+          {
+            "name": "Keep private replies out of actual member and guest notification emails",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T15:24:12Z",
+            "completed_at": "2026-10-20T15:24:17Z"
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T15:24:17Z",
+            "completed_at": "2026-10-20T15:25:31Z"
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-20T15:25:31Z",
+            "completed_at": "2026-10-20T15:26:46Z"
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-20T15:26:46Z",
+            "completed_at": "2026-10-20T15:27:12Z"
+          },
+          {
+            "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-20T15:27:12Z",
+            "completed_at": "2026-10-20T15:27:47Z"
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-20T15:27:47Z",
+            "completed_at": "2026-10-20T15:28:06Z"
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-20T15:28:06Z",
+            "completed_at": "2026-10-20T15:32:32Z"
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-20T15:32:32Z",
+            "completed_at": "2026-10-20T15:34:25Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-20T15:34:25Z",
+            "completed_at": "2026-10-20T15:34:25Z"
+          },
+          {
+            "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-20T15:34:25Z",
+            "completed_at": "2026-10-20T15:34:47Z"
+          },
+          {
+            "name": "Edit publication windows through actual packaged owner and public pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-10-20T15:34:47Z",
+            "completed_at": "2026-10-20T15:35:37Z"
+          },
+          {
+            "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-10-20T15:35:37Z",
+            "completed_at": "2026-10-20T15:36:13Z"
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24,
+            "started_at": "2026-10-20T15:36:13Z",
+            "completed_at": "2026-10-20T15:36:19Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 46,
+            "started_at": "2026-10-20T15:36:19Z",
+            "completed_at": "2026-10-20T15:36:20Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 47,
+            "started_at": "2026-10-20T15:36:20Z",
+            "completed_at": "2026-10-20T15:36:20Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 48,
+            "started_at": "2026-10-20T15:36:20Z",
+            "completed_at": "2026-10-20T15:36:20Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 49,
+            "started_at": "2026-10-20T15:36:20Z",
+            "completed_at": "2026-10-20T15:36:20Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "php": "8.3.35",
+        "python": "3.12.15",
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "\u2713 PHP Updated to PHP 8.3.35",
+          "Successfully set up CPython (3.12.15)",
+          "PASS real desktop installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+          "PASS real mobile installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+          "Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+          "Packaged media upload root-desktop: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+          "Packaged media upload nested-mobile: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+          "Packaged no-rewrite Media Library and Composer upload acceptance passed at root/desktop and nested/mobile.",
+          "Historical installed update root-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Historical installed update nested-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Historical installed update nested-cache-disabled: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+          "Packaged public routing root: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+          "Packaged public routing nested: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+          "Members & Entitlements HTTP acceptance test passed.",
+          "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+          "Add-on HTTP acceptance passed.",
+          "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+          "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+          "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+          "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+          "Campaign SMTP/HTTP regressions passed (54 assertions; localhost capture only).",
+          "Mail settings HTTP: 168 assertions passed; real owner auth/save/revision/credentials, SMTP outcomes, one-use tests/cooldown and concurrent disable/demotion. External messages sent: 0.",
+          "Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access).",
+          "Actual packaged private reply email privacy passed. External messages sent: 0.",
+          "Packaged Composer actions root-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions root-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions nested-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions nested-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+          "Packaged grouped buttons root: PASS (real inspector, third Hero/Footer CTA, history, device geometry, retained preview and six public Booking clicks).",
+          "Packaged grouped buttons nested: PASS (real inspector, third Hero/Footer CTA, history, device geometry, retained preview and six public Booking clicks).",
+          "Live Text + Buttons group acceptance passed at root/nested installation paths with real desktop/mobile owner controls and desktop/tablet/mobile public links.",
+          "Campaign delivery UI root-desktop: PASS (real owner forms, queue/pause/resume, disabled-mail hold, independent switches, disabled signup and available unsubscribe).",
+          "Campaign delivery UI nested-mobile: PASS (real owner forms, queue/pause/resume, disabled-mail hold, independent switches, disabled signup and available unsubscribe).",
+          "Campaign desktop/mobile owner and public-switch acceptance passed with disabled mail in actual root/nested customer packages.",
+          "Newsletter audiences root-http: PASS (actual customer package; disabled mail).",
+          "Newsletter audiences root-desktop: PASS (actual customer package; disabled mail).",
+          "Newsletter audiences nested-mobile: PASS (actual customer package; disabled mail).",
+          "Newsletter audience owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+          "Mail settings root-desktop: PASS (actual package, owner forms, credentials, local SMTP test, no overflow).",
+          "Mail settings nested-mobile: PASS (actual package, owner forms, credentials, local SMTP test, no overflow).",
+          "Mail settings desktop/mobile acceptance passed in actual root/nested packages. External messages sent: 0.",
+          "Media Center browser acceptance test passed.",
+          "Members & Entitlements browser acceptance test passed.",
+          "Subscriptions & PPV Commerce browser acceptance test passed.",
+          "Add-on Playwright acceptance passed.",
+          "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+          "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+          "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+          "Composer recovery acceptance passed: drag, resize, 0.5\u2013400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+          "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+          "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+          "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+          "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+          "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access.",
+          "Media Center file-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center file-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center mysql-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center mysql-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center packaged acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on recovery browser desktop: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence /home/runner/work/velvet_vixxen/velvet_vixxen/artifacts/browser",
+          "PASS add-on recovery browser mobile: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence /home/runner/work/velvet_vixxen/velvet_vixxen/artifacts/browser",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 197 assertions; PHP 8.3.35; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "Publication windows root-http: PASS (actual customer package; disabled mail).",
+          "Publication windows root-desktop: PASS (actual customer package; disabled mail).",
+          "Publication windows nested-mobile: PASS (actual customer package; disabled mail).",
+          "Publication window owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+          "Marketing Storage root-desktop: PASS (actual ZIP/MySQL/owner POSTs, preserved records, zero SMTP).",
+          "Marketing Storage nested-mobile: PASS (actual ZIP/MySQL/owner POSTs, preserved records, zero SMTP).",
+          "Marketing Storage packaged acceptance passed: MySQL root-desktop and nested-mobile cases.",
+          "SHA256 digest of uploaded artifact zip is 431ee2a23ec99dd5d20c2cb0b2ec33ebec50a993efe4db9ee22e30fba1e8b1c8",
+          "Artifact chromium-browser-evidence.zip successfully finalized. Artifact ID 12278180450",
+          "Artifact chromium-browser-evidence has been successfully uploaded! Final size is 148575100 bytes. Artifact ID is 12278180450",
+          "Artifact download URL: https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12278180450"
+        ],
+        "raw_log_chars": 108532,
+        "mysql": "8.0.46",
+        "playwright": "1.62.0",
+        "chromium": "151.0.7922.34",
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Keep private replies out of actual member and guest notification emails",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Edit publication windows through actual packaged owner and public pages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711462793.log",
+          "size_bytes": 111358,
+          "sha256": "f3a52d46e94dffbc2e0f56bb881e6a1e270ee2d753d520ce4248cdbe3f1a8e10"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 239
+      },
+      {
+        "id": 118711462938,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711462938",
+        "started_at": "2026-10-20T15:21:18Z",
+        "completed_at": "2026-10-20T15:21:59Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:21:19Z",
+            "completed_at": "2026-10-20T15:21:20Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:21:20Z",
+            "completed_at": "2026-10-20T15:21:22Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:21:22Z",
+            "completed_at": "2026-10-20T15:21:25Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:21:25Z",
+            "completed_at": "2026-10-20T15:21:26Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:21:26Z",
+            "completed_at": "2026-10-20T15:21:26Z"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:21:26Z",
+            "completed_at": "2026-10-20T15:21:56Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:21:56Z",
+            "completed_at": "2026-10-20T15:21:56Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T15:21:56Z",
+            "completed_at": "2026-10-20T15:21:56Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T15:21:56Z",
+            "completed_at": "2026-10-20T15:21:57Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T15:21:57Z",
+            "completed_at": "2026-10-20T15:21:57Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "php": "8.2.34",
+        "python": "3.12.15",
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "\u2713 PHP Installed PHP 8.2.34",
+          "Successfully set up CPython (3.12.15)",
+          "Visible release version passed: 0.8.6; last delivered 0.8.5; advanced.",
+          "Repository security scan passed.",
+          "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+          "Smoke test passed.",
+          "Installer foundation test passed.",
+          "Single-page installer test passed.",
+          "PASS installer recovery: 134 assertions (disposable fixtures only)",
+          "Installer mail validation passed (269 assertions).",
+          "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+          "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+          "PASS runtime build verification: 30 assertions",
+          "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+          "Migration manifest test passed (15 migrations, 84 tables).",
+          "Add-on manifest test passed.",
+          "Add-on package test passed.",
+          "Media access test passed.",
+          "Media store test passed.",
+          "Member authentication test passed.",
+          "Entitlement resolver test passed.",
+          "Subscriptions & PPV commerce test passed.",
+          "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+          "Add-on licensing, signature and encrypted-storage regressions passed.",
+          "Media Center feature test passed.",
+          "Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "Members & Entitlements feature test passed.",
+          "Subscriptions & PPV Commerce feature test passed.",
+          "Add-on framework feature test passed.",
+          "Communications, request and booking regressions passed.",
+          "Marketing consent, publishing, campaign and analytics regressions passed.",
+          "Newsletter audience source acceptance passed (149 assertions; disposable stores, no mail transport).",
+          "Publication window source acceptance passed (134 assertions).",
+          "Marketing storage source regressions passed (41 checks; read-only review, stable legacy normalization and SQL-required refusal).",
+          "Campaign source regressions passed (41 assertions, concurrent storage writers included).",
+          "Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "PASS repair backups: 87 assertions (disposable fixtures only)",
+          "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+          "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+          "PASS booking form builder: 54 assertions (disposable fixtures only)",
+          "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+          "Live text group buttons, legacy actions, safe public links and restorable publication passed: 139 assertions.",
+          "Protected media test passed.",
+          "Member security test passed.",
+          "Payment webhook security test passed.",
+          "Add-on security test passed.",
+          "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+          "Repository security scan passed.",
+          "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "All non-database tests passed."
+        ],
+        "raw_log_chars": 24057,
+        "node": "22.23.3",
+        "npm": "10.9.9",
+        "yarn": "1.22.22",
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711462938.log",
+          "size_bytes": 24083,
+          "sha256": "5de41a1fe1a7fb1ac6beaab5f13d5e74edd15e7384c315609104abb308bad4f8"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 124
+      },
+      {
+        "id": 118711462988,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711462988",
+        "started_at": "2026-10-20T15:21:48Z",
+        "completed_at": "2026-10-20T15:23:33Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:21:49Z",
+            "completed_at": "2026-10-20T15:21:50Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:21:50Z",
+            "completed_at": "2026-10-20T15:22:17Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:22:17Z",
+            "completed_at": "2026-10-20T15:22:19Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:22:19Z",
+            "completed_at": "2026-10-20T15:22:22Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:22:22Z",
+            "completed_at": "2026-10-20T15:22:22Z"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:22:22Z",
+            "completed_at": "2026-10-20T15:22:25Z"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T15:22:25Z",
+            "completed_at": "2026-10-20T15:23:14Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T15:23:14Z",
+            "completed_at": "2026-10-20T15:23:14Z"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T15:23:14Z",
+            "completed_at": "2026-10-20T15:23:23Z"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:23:23Z",
+            "completed_at": "2026-10-20T15:23:29Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-20T15:23:29Z",
+            "completed_at": "2026-10-20T15:23:30Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-20T15:23:30Z",
+            "completed_at": "2026-10-20T15:23:30Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-20T15:23:30Z",
+            "completed_at": "2026-10-20T15:23:30Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-20T15:23:30Z",
+            "completed_at": "2026-10-20T15:23:30Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "php": "8.2.34",
+        "python": "3.12.15",
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "\u2713 PHP Installed PHP 8.2.34",
+          "Successfully set up CPython (3.12.15)",
+          "Installed database update scenarios passed (43 checks; actual012\u2192014\u2192015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46).",
+          "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+          "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+          "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "MySQL migrations applied successfully (15 migrations, 84 declared tables).",
+          "MySQL migration rollback passed.",
+          "PASS installer MySQL: empty database and working owner login",
+          "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+          "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+          "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+          "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+          "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+          "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+          "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+          "PASS installer MySQL: matching prior configuration restores existing keys",
+          "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+          "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+          "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+          "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+          "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+          "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+          "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+          "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+          "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+          "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+          "Existing-database installer acceptance passed (971 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package).",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.2.34; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "PASS marketing SQL: actual Fresh dependency hashes, exact15/84 schema, read-only review and pre015 file compatibility",
+          "PASS marketing SQL: stable count-only review, stale-plan rejection, malformed/symlinked sources and orphan SQL preservation",
+          "PASS marketing SQL: later-batch/authority rollback, repeated owner authorization and actual disconnected commit fail closed",
+          "PASS marketing SQL: in-flight file edit excludes cutover, exact legacy snapshot retained, one authority, repeat no-op and cross-root readers",
+          "PASS marketing SQL: four independent writers across two roots retain all52 mutations; failed SQL update rolls back atomically",
+          "PASS marketing SQL: cross-root delivery exclusion, losing-worker immutability, short data locks and stopped-process recovery",
+          "PASS marketing SQL: original tokens, revocations, stale-save protection, frozen audiences/messages and unknown-delivery holds",
+          "PASS marketing SQL: real loopback SMTP permits concurrent unsubscribe/pause, transmits no canceled body and holds unknown acceptance",
+          "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back",
+          "Marketing SQL MySQL acceptance passed: {\"suite\":\"marketing_sql_mysql\",\"checks\":401,\"version\":\"0.8.6\",\"mysql\":\"8.0.46\",\"migrations\":15,\"declared_tables\":84,\"database_tables\":85,\"fresh_sha256\":\"356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06\",\"legacy_source_preserved\":true,\"installation_id_length\":190,\"metadata_only_installation_setting\":true,\"independent_roots\":2,\"concurrent_writers\":4,\"external_messages\":0}"
+        ],
+        "raw_log_chars": 43816,
+        "mysql": "8.0.46",
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711462988.log",
+          "size_bytes": 43842,
+          "sha256": "9ea923c892bc2b3717a66f117562fbefb6fad48d3bae811f5a5e962bed95d25e"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 221
+      },
+      {
+        "id": 118711462993,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118711462993",
+        "started_at": "2026-10-20T15:21:55Z",
+        "completed_at": "2026-10-20T15:22:43Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:21:56Z",
+            "completed_at": "2026-10-20T15:21:57Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:21:57Z",
+            "completed_at": "2026-10-20T15:21:59Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:21:59Z",
+            "completed_at": "2026-10-20T15:22:01Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:22:01Z",
+            "completed_at": "2026-10-20T15:22:02Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:22:02Z",
+            "completed_at": "2026-10-20T15:22:02Z"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T15:22:02Z",
+            "completed_at": "2026-10-20T15:22:39Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:22:39Z",
+            "completed_at": "2026-10-20T15:22:40Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T15:22:40Z",
+            "completed_at": "2026-10-20T15:22:40Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T15:22:40Z",
+            "completed_at": "2026-10-20T15:22:40Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T15:22:40Z",
+            "completed_at": "2026-10-20T15:22:40Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "php": "8.3.35",
+        "python": "3.12.15",
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "\u2713 PHP Updated to PHP 8.3.35",
+          "Successfully set up CPython (3.12.15)",
+          "Visible release version passed: 0.8.6; last delivered 0.8.5; advanced.",
+          "Repository security scan passed.",
+          "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+          "Smoke test passed.",
+          "Installer foundation test passed.",
+          "Single-page installer test passed.",
+          "PASS installer recovery: 134 assertions (disposable fixtures only)",
+          "Installer mail validation passed (269 assertions).",
+          "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+          "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+          "PASS runtime build verification: 30 assertions",
+          "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+          "Migration manifest test passed (15 migrations, 84 tables).",
+          "Add-on manifest test passed.",
+          "Add-on package test passed.",
+          "Media access test passed.",
+          "Media store test passed.",
+          "Member authentication test passed.",
+          "Entitlement resolver test passed.",
+          "Subscriptions & PPV commerce test passed.",
+          "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+          "Add-on licensing, signature and encrypted-storage regressions passed.",
+          "Media Center feature test passed.",
+          "Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "Members & Entitlements feature test passed.",
+          "Subscriptions & PPV Commerce feature test passed.",
+          "Add-on framework feature test passed.",
+          "Communications, request and booking regressions passed.",
+          "Marketing consent, publishing, campaign and analytics regressions passed.",
+          "Newsletter audience source acceptance passed (149 assertions; disposable stores, no mail transport).",
+          "Publication window source acceptance passed (134 assertions).",
+          "Marketing storage source regressions passed (41 checks; read-only review, stable legacy normalization and SQL-required refusal).",
+          "Campaign source regressions passed (41 assertions, concurrent storage writers included).",
+          "Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "PASS repair backups: 87 assertions (disposable fixtures only)",
+          "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+          "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+          "PASS booking form builder: 54 assertions (disposable fixtures only)",
+          "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+          "Live text group buttons, legacy actions, safe public links and restorable publication passed: 139 assertions.",
+          "Protected media test passed.",
+          "Member security test passed.",
+          "Payment webhook security test passed.",
+          "Add-on security test passed.",
+          "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+          "Repository security scan passed.",
+          "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "All non-database tests passed."
+        ],
+        "raw_log_chars": 24057,
+        "node": "22.23.3",
+        "npm": "10.9.9",
+        "yarn": "1.22.22",
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118711462993.log",
+          "size_bytes": 24083,
+          "sha256": "8776cb44df23a18e9c885ffe40d686cf969f2439cd6c997d1347cf4c944a84fa"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 124
+      },
+      {
+        "id": 118721822898,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/job/118721822898",
+        "started_at": "2026-10-20T15:36:24Z",
+        "completed_at": "2026-10-20T15:36:31Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T15:36:24Z",
+            "completed_at": "2026-10-20T15:36:25Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T15:36:25Z",
+            "completed_at": "2026-10-20T15:36:27Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T15:36:27Z",
+            "completed_at": "2026-10-20T15:36:27Z"
+          },
+          {
+            "name": "Build separate runtime packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T15:36:27Z",
+            "completed_at": "2026-10-20T15:36:27Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T15:36:27Z",
+            "completed_at": "2026-10-20T15:36:29Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T15:36:29Z",
+            "completed_at": "2026-10-20T15:36:29Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T15:36:29Z",
+            "completed_at": "2026-10-20T15:36:29Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T15:36:29Z",
+            "completed_at": "2026-10-20T15:36:29Z"
+          }
+        ],
+        "checkout_sha": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "checkout_tree": "8deae90664202b37199283ec0121169291771349",
+        "checkout_tree_equals_source": true,
+        "python": "3.12.15",
+        "evidence_lines": [
+          "[command]/usr/bin/git log -1 --format=%H",
+          "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+          "Successfully set up CPython (3.12.15)",
+          "SHA256 digest of uploaded artifact zip is edeb514e73bd4b5db5717af8c78fb6f05d2935f785899a5e52315d590e6d0483",
+          "Artifact velvet-vixxen-runtime-packages.zip successfully finalized. Artifact ID 12279065001",
+          "Artifact velvet-vixxen-runtime-packages has been successfully uploaded! Final size is 15316421 bytes. Artifact ID is 12279065001",
+          "Artifact download URL: https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12279065001"
+        ],
+        "raw_log_chars": 19086,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Build separate runtime packages",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "all_required_steps_successful": true,
+        "log": {
+          "path": "/tmp/vvx-086-ci-logs/118721822898.log",
+          "size_bytes": 19088,
+          "sha256": "95e675602522c8406f355b0f706d71d3cc4e5c7ae300925ad2d3c62e1e95ed45"
+        },
+        "actual_checkout_log_line": "9eace0ec2802a8ea47ddba75748521f8bbfb5168",
+        "actual_checkout_log_line_number": 123
+      }
+    ]
+  },
+  "failed_gate": null,
+  "counts_observed": {
+    "mysql_php83": {
+      "marketing_sql": 401,
+      "marketing_sql_evidence": {
+        "suite": "marketing_sql_mysql",
+        "checks": 401,
+        "version": "0.8.6",
+        "mysql": "8.0.46",
+        "migrations": 15,
+        "declared_tables": 84,
+        "database_tables": 85,
+        "fresh_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "legacy_source_preserved": true,
+        "installation_id_length": 190,
+        "metadata_only_installation_setting": true,
+        "independent_roots": 2,
+        "concurrent_writers": 4,
+        "external_messages": 0
+      },
+      "existing_database_installer": 971,
+      "installed_database_updates": 43,
+      "media_mysql": 108,
+      "booking_transactions": 12,
+      "addon_lifecycle": 183,
+      "addon_recovery_http": 34,
+      "migrations": 15,
+      "declared_tables": 84,
+      "database_tables": 85,
+      "fixture_cleanup": true,
+      "migration_rollback": true
+    },
+    "source_php82": {
+      "api_client": 15,
+      "installation_urls": 136,
+      "runtime_build": 30,
+      "root_layout": 692,
+      "installer_recovery": 134,
+      "installer_mail_smtp": 143,
+      "installer_mail_validation": 269,
+      "merchandise": 45,
+      "media_file": 116,
+      "newsletter_audiences": 149,
+      "publication_windows": 134,
+      "marketing_storage": 41,
+      "campaign_delivery": 41,
+      "mail_settings": 199,
+      "repair_backups": 87,
+      "database_updates": 13,
+      "about": 21,
+      "booking_form": 54,
+      "scene_buttons": 127,
+      "group_buttons": 139,
+      "public_routes": 836,
+      "migrations": 15,
+      "tables": 84,
+      "packaged_installer_ownership": "passed",
+      "packaged_persistent_opcache": "passed",
+      "runtime_packages": "passed",
+      "visible_release_version": "0.8.6 > 0.8.5",
+      "all_source_suites": "passed"
+    },
+    "source_php83": {
+      "api_client": 15,
+      "installation_urls": 136,
+      "runtime_build": 30,
+      "root_layout": 692,
+      "installer_recovery": 134,
+      "installer_mail_smtp": 143,
+      "installer_mail_validation": 269,
+      "merchandise": 45,
+      "media_file": 116,
+      "newsletter_audiences": 149,
+      "publication_windows": 134,
+      "marketing_storage": 41,
+      "campaign_delivery": 41,
+      "mail_settings": 199,
+      "repair_backups": 87,
+      "database_updates": 13,
+      "about": 21,
+      "booking_form": 54,
+      "scene_buttons": 127,
+      "group_buttons": 139,
+      "public_routes": 836,
+      "migrations": 15,
+      "tables": 84,
+      "packaged_installer_ownership": "passed",
+      "packaged_persistent_opcache": "passed",
+      "runtime_packages": "passed",
+      "visible_release_version": "0.8.6 > 0.8.5",
+      "all_source_suites": "passed"
+    },
+    "mysql_php82": {
+      "marketing_sql": 401,
+      "marketing_sql_evidence": {
+        "suite": "marketing_sql_mysql",
+        "checks": 401,
+        "version": "0.8.6",
+        "mysql": "8.0.46",
+        "migrations": 15,
+        "declared_tables": 84,
+        "database_tables": 85,
+        "fresh_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "legacy_source_preserved": true,
+        "installation_id_length": 190,
+        "metadata_only_installation_setting": true,
+        "independent_roots": 2,
+        "concurrent_writers": 4,
+        "external_messages": 0
+      },
+      "existing_database_installer": 971,
+      "installed_database_updates": 43,
+      "media_mysql": 108,
+      "booking_transactions": 12,
+      "addon_lifecycle": 183,
+      "addon_recovery_http": 34,
+      "migrations": 15,
+      "declared_tables": 84,
+      "database_tables": 85,
+      "fixture_cleanup": true,
+      "migration_rollback": true
+    },
+    "new_marketing_storage_packaged_acceptance": {
+      "http_checks_each_case": 141,
+      "http_checks_total": 282,
+      "cases": [
+        "root-desktop",
+        "nested-mobile"
+      ],
+      "smtp_connections": 0,
+      "smtp_messages": 0,
+      "origin": "Actual job 118711462793 stdout JSON; downloaded artifact readback is independently owned by root."
+    },
+    "installed_http": {
+      "suites_passed": 10,
+      "campaign_smtp_http": 54,
+      "mail_settings": 168,
+      "media_center": 198,
+      "external_messages_reported_for_mail_settings": 0
+    },
+    "preserved_browser": {
+      "existing_app_suites": 13,
+      "hero_scenes": 30,
+      "hero_public_renders": 90,
+      "public_layout_routes": 12,
+      "public_layout_viewports": 2,
+      "addon_recovery_checks_each_viewport": 33,
+      "addon_recovery_viewports": [
+        "desktop",
+        "mobile"
+      ],
+      "addon_mysql_lifecycle_with_browser": 197,
+      "addon_recovery_http": 34,
+      "media_package_cases": [
+        "file-root-desktop",
+        "file-nested-mobile",
+        "mysql-root-desktop",
+        "mysql-nested-mobile"
+      ]
+    }
+  },
+  "runtime_versions_observed": {
+    "php83": "8.3.35",
+    "mysql": "8.0.46",
+    "python": "3.12.15",
+    "php82": "8.2.34",
+    "node": "22.23.3",
+    "npm": "10.9.9",
+    "yarn": "1.22.22",
+    "browser": {
+      "php": "8.3.35",
+      "playwright": "1.62.0",
+      "chromium": "151.0.7922.34",
+      "mysql": "8.0.46",
+      "python": "3.12.15"
+    }
+  },
+  "superseded_push_run": {
+    "id": 39446902979,
+    "event": "push",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "created_at": "2026-10-20T15:16:36Z",
+    "updated_at": "2026-10-20T15:16:42Z",
+    "excluded_from_release_acceptance": true,
+    "cancellation_context": "The matching branch push was cancelled after the pull-request run entered the shared workflow concurrency group. Its jobs are not combined with the release run.",
+    "jobs": [
+      {
+        "id": 118711104089,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979/job/118711104089",
+        "started_at": "2026-10-20T15:16:37Z",
+        "completed_at": "2026-10-20T15:16:41Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": []
+      },
+      {
+        "id": 118711144669,
+        "name": "MySQL 8 / PHP ${{ matrix.php }} installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979/job/118711144669",
+        "started_at": "2026-10-20T15:16:41Z",
+        "completed_at": "2026-10-20T15:16:41Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": []
+      },
+      {
+        "id": 118711145277,
+        "name": "PHP ${{ matrix.php }} source and package regressions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979/job/118711145277",
+        "started_at": "2026-10-20T15:16:41Z",
+        "completed_at": "2026-10-20T15:16:41Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": []
+      },
+      {
+        "id": 118711145545,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979/job/118711145545",
+        "started_at": "2026-10-20T15:16:41Z",
+        "completed_at": "2026-10-20T15:16:41Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": []
+      },
+      {
+        "id": 118711145602,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446902979/job/118711145602",
+        "started_at": "2026-10-20T15:16:42Z",
+        "completed_at": "2026-10-20T15:16:41Z",
+        "head_sha_reported": "e4640e84a2c5417954f936f86ee993112c67bb37",
+        "steps": []
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 12279065001,
+      "node_id": "MDg6QXJ0aWZhY3QxMjI3OTA2NTAwMQ==",
+      "name": "velvet-vixxen-runtime-packages",
+      "size_in_bytes": 15316421,
+      "url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12279065001",
+      "archive_download_url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12279065001/zip",
+      "expired": false,
+      "digest": "sha256:edeb514e73bd4b5db5717af8c78fb6f05d2935f785899a5e52315d590e6d0483",
+      "created_at": "2026-10-20T15:36:29Z",
+      "updated_at": "2026-10-20T15:36:29Z",
+      "expires_at": "2026-11-19T15:36:27Z",
+      "workflow_run": {
+        "id": 39446912796,
+        "repository_id": 1423979224,
+        "head_repository_id": 1423979224,
+        "head_branch": "feature/0.8.6-marketing-sql",
+        "head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37"
+      },
+      "upload_job_id": 118721822898,
+      "human_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12279065001",
+      "metadata_matches_actual_upload_log": true,
+      "metadata_checks": {
+        "digest": true,
+        "artifact_id": true,
+        "size_bytes": true,
+        "source_sha": true,
+        "run_id": true,
+        "not_expired": true
+      },
+      "upload_log_evidence": [
+        "SHA256 digest of uploaded artifact zip is edeb514e73bd4b5db5717af8c78fb6f05d2935f785899a5e52315d590e6d0483",
+        "Artifact velvet-vixxen-runtime-packages.zip successfully finalized. Artifact ID 12279065001",
+        "Artifact velvet-vixxen-runtime-packages has been successfully uploaded! Final size is 15316421 bytes. Artifact ID is 12279065001",
+        "Artifact download URL: https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12279065001"
+      ]
+    },
+    {
+      "id": 12278180450,
+      "node_id": "MDg6QXJ0aWZhY3QxMjI3ODE4MDQ1MA==",
+      "name": "chromium-browser-evidence",
+      "size_in_bytes": 148575100,
+      "url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12278180450",
+      "archive_download_url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12278180450/zip",
+      "expired": false,
+      "digest": "sha256:431ee2a23ec99dd5d20c2cb0b2ec33ebec50a993efe4db9ee22e30fba1e8b1c8",
+      "created_at": "2026-10-20T15:36:19Z",
+      "updated_at": "2026-10-20T15:36:19Z",
+      "expires_at": "2026-11-03T15:36:13Z",
+      "workflow_run": {
+        "id": 39446912796,
+        "repository_id": 1423979224,
+        "head_repository_id": 1423979224,
+        "head_branch": "feature/0.8.6-marketing-sql",
+        "head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37"
+      },
+      "upload_job_id": 118711462793,
+      "human_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12278180450",
+      "metadata_matches_actual_upload_log": true,
+      "metadata_checks": {
+        "digest": true,
+        "artifact_id": true,
+        "size_bytes": true,
+        "source_sha": true,
+        "run_id": true,
+        "not_expired": true
+      },
+      "upload_log_evidence": [
+        "SHA256 digest of uploaded artifact zip is 431ee2a23ec99dd5d20c2cb0b2ec33ebec50a993efe4db9ee22e30fba1e8b1c8",
+        "Artifact chromium-browser-evidence.zip successfully finalized. Artifact ID 12278180450",
+        "Artifact chromium-browser-evidence has been successfully uploaded! Final size is 148575100 bytes. Artifact ID is 12278180450",
+        "Artifact download URL: https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796/artifacts/12278180450"
+      ]
+    }
+  ],
+  "runtime_package_artifact": {
+    "status": "metadata_and_build_log_verified",
+    "expected_local_release": {
+      "version": "0.8.6",
+      "build_id": "20261020.7",
+      "directory": "/workspace/scratch/0218c4945941/velvet-vixxen-0.8.6-build-20261020.7",
+      "files": [
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "size_bytes": 60065,
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+          "size_bytes": 7720218,
+          "sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06"
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+          "size_bytes": 7562889,
+          "sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e"
+        },
+        {
+          "filename": "Velvet-Vixxen-0.8.6-Build-20261020.7-package-manifest.json",
+          "size_bytes": 79143,
+          "sha256": "46a905da8cc8444232ec70e25d9c4b749f48aad978e6216c18befc66a4079446"
+        }
+      ]
+    },
+    "artifact_id": 12279065001,
+    "build_job_id": 118721822898,
+    "actual_build_summary": {
+      "version": "0.8.6",
+      "build_id": "20261020.7",
+      "manifest_filename": "Velvet-Vixxen-0.8.6-Build-20261020.7-package-manifest.json",
+      "packages": [
+        {
+          "kind": "fresh",
+          "version": "0.8.6",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+          "build_id": "20261020.7",
+          "size_bytes": 7720218,
+          "sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+          "files": 356,
+          "php_files": 204,
+          "javascript_files": 12,
+          "supported_from": []
+        },
+        {
+          "kind": "upgrade",
+          "version": "0.8.6",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+          "build_id": "20261020.7",
+          "size_bytes": 7562889,
+          "sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+          "files": 315,
+          "php_files": 193,
+          "javascript_files": 12,
+          "supported_from": [
+            "0.8.0",
+            "0.8.1",
+            "0.8.2",
+            "0.8.3",
+            "0.8.4",
+            "0.8.5",
+            "0.8.6"
+          ]
+        },
+        {
+          "kind": "installer-repair",
+          "version": "0.8.1",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "repair_build_id": "20261020.3",
+          "size_bytes": 60065,
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+          "files": 11,
+          "php_files": 9,
+          "javascript_files": 1,
+          "supported_from": [
+            "0.8.1"
+          ],
+          "installation_state": "incomplete"
+        }
+      ]
+    },
+    "zip_summary_comparisons": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+        "ci_size_bytes": 7720218,
+        "ci_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "expected_size_bytes": 7720218,
+        "expected_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "matches_expected": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+        "ci_size_bytes": 7562889,
+        "ci_sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+        "expected_size_bytes": 7562889,
+        "expected_sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+        "matches_expected": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "ci_size_bytes": 60065,
+        "ci_sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "expected_size_bytes": 60065,
+        "expected_sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "matches_expected": true
+      }
+    ],
+    "all_three_zip_build_summary_hashes_and_sizes_match_expected": true,
+    "download_verification": {
+      "status": "outside_independent_log_audit",
+      "owner": "root",
+      "note": "Root independently downloads and compares all four customer files, including the literal package manifest. This record does not infer downloaded bytes from build stdout or artifact metadata."
+    }
+  },
+  "browser_evidence": {
+    "status": "actual_job_log_verified",
+    "job_id": 118711462793,
+    "artifact_id": 12278180450,
+    "owner_marketing_storage": {
+      "php": "8.3.35",
+      "playwright": "1.62.0",
+      "server": "php -S without any router script",
+      "cases": {
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "http": {
+            "checks": 141,
+            "mysql_version": "8.0.46",
+            "active_owner_csrf_method_and_page_guards": true,
+            "read_only_get_and_preview": true,
+            "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+            "all_record_fingerprint_stale_refusal": true,
+            "malformed_and_repeated_review_refusal": true,
+            "missing_schema_database_updates_path": true,
+            "source_sql_outbox_backups_unchanged_on_rejection": true
+          },
+          "browser": {
+            "mysql_version": "8.0.46",
+            "real_owner_post_actions": [
+              "apply_database_updates",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "save_link"
+            ],
+            "missing_schema_then_actual_database_update": true,
+            "review_counts_and_keyboard_focus": true,
+            "stale_browser_review_refused": true,
+            "exact_sql_import_and_independent_readback": true,
+            "refresh_and_replay_safe": true,
+            "ordinary_marketing_form_committed_to_sql": true,
+            "source_config_uploads_backups_and_outbox_preserved": true,
+            "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+            "smtp_connections": 0,
+            "smtp_messages": 0,
+            "record_counts_after_edit": {
+              "posts": 2,
+              "banners": 1,
+              "landing_pages": 1,
+              "links": 3,
+              "referral_codes": 1,
+              "contacts": 2,
+              "segments": 1,
+              "campaigns": 1,
+              "campaign_queue": 2,
+              "events": 1,
+              "consents": 2,
+              "suppressions": 1
+            },
+            "javascript_errors": [],
+            "geometry": {
+              "missing_schema": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Open Database Updates",
+                    "left": 321,
+                    "right": 541.0625,
+                    "width": 220.0625,
+                    "height": 44
+                  }
+                ]
+              },
+              "review": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Move to MySQL",
+                    "left": 321,
+                    "right": 1379,
+                    "width": 1058,
+                    "height": 44
+                  },
+                  {
+                    "text": "Cancel Review",
+                    "left": 321,
+                    "right": 1379,
+                    "width": 1058,
+                    "height": 44
+                  }
+                ]
+              },
+              "mysql": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Open Marketing",
+                    "left": 321,
+                    "right": 477.90625,
+                    "width": 156.90625,
+                    "height": 44
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "http": {
+            "checks": 141,
+            "mysql_version": "8.0.46",
+            "active_owner_csrf_method_and_page_guards": true,
+            "read_only_get_and_preview": true,
+            "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+            "all_record_fingerprint_stale_refusal": true,
+            "malformed_and_repeated_review_refusal": true,
+            "missing_schema_database_updates_path": true,
+            "source_sql_outbox_backups_unchanged_on_rejection": true
+          },
+          "browser": {
+            "mysql_version": "8.0.46",
+            "real_owner_post_actions": [
+              "apply_database_updates",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "save_link"
+            ],
+            "missing_schema_then_actual_database_update": true,
+            "review_counts_and_keyboard_focus": true,
+            "stale_browser_review_refused": true,
+            "exact_sql_import_and_independent_readback": true,
+            "refresh_and_replay_safe": true,
+            "ordinary_marketing_form_committed_to_sql": true,
+            "source_config_uploads_backups_and_outbox_preserved": true,
+            "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+            "smtp_connections": 0,
+            "smtp_messages": 0,
+            "record_counts_after_edit": {
+              "posts": 2,
+              "banners": 1,
+              "landing_pages": 1,
+              "links": 3,
+              "referral_codes": 1,
+              "contacts": 2,
+              "segments": 1,
+              "campaigns": 1,
+              "campaign_queue": 2,
+              "events": 1,
+              "consents": 2,
+              "suppressions": 1
+            },
+            "javascript_errors": [],
+            "geometry": {
+              "missing_schema": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Open Database Updates",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              },
+              "review": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Move to MySQL",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  },
+                  {
+                    "text": "Cancel Review",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              },
+              "mysql": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Open Marketing",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "version": "0.8.6",
+      "build_id": "20261020.7",
+      "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+      "archive_ui_matches_sources": true,
+      "browser": "151.0.7922.34"
+    },
+    "required_step_conclusions_verified": true,
+    "preserved_gate_pass_lines": [
+      "PASS real desktop installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+      "PASS real mobile installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+      "Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+      "Packaged no-rewrite Media Library and Composer upload acceptance passed at root/desktop and nested/mobile.",
+      "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+      "Members & Entitlements HTTP acceptance test passed.",
+      "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+      "Add-on HTTP acceptance passed.",
+      "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+      "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+      "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+      "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+      "Campaign SMTP/HTTP regressions passed (54 assertions; localhost capture only).",
+      "Mail settings HTTP: 168 assertions passed; real owner auth/save/revision/credentials, SMTP outcomes, one-use tests/cooldown and concurrent disable/demotion. External messages sent: 0.",
+      "Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access).",
+      "Actual packaged private reply email privacy passed. External messages sent: 0.",
+      "Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+      "Live Text + Buttons group acceptance passed at root/nested installation paths with real desktop/mobile owner controls and desktop/tablet/mobile public links.",
+      "Campaign desktop/mobile owner and public-switch acceptance passed with disabled mail in actual root/nested customer packages.",
+      "Newsletter audience owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+      "Mail settings desktop/mobile acceptance passed in actual root/nested packages. External messages sent: 0.",
+      "Media Center browser acceptance test passed.",
+      "Members & Entitlements browser acceptance test passed.",
+      "Subscriptions & PPV Commerce browser acceptance test passed.",
+      "Add-on Playwright acceptance passed.",
+      "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+      "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+      "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+      "Composer recovery acceptance passed: drag, resize, 0.5\u2013400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+      "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+      "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+      "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+      "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+      "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access.",
+      "Media Center packaged acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+      "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+      "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+      "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+      "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+      "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+      "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+      "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+      "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+      "PASS add-on recovery browser desktop: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence /home/runner/work/velvet_vixxen/velvet_vixxen/artifacts/browser",
+      "PASS add-on recovery browser mobile: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence /home/runner/work/velvet_vixxen/velvet_vixxen/artifacts/browser",
+      "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+      "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+      "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+      "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+      "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+      "Add-on MySQL lifecycle acceptance passed: 197 assertions; PHP 8.3.35; MySQL 8.0.46.",
+      "Add-on fixture database and extracted runtime cleanup passed.",
+      "Publication window owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+      "Marketing Storage packaged acceptance passed: MySQL root-desktop and nested-mobile cases.",
+      "SHA256 digest of uploaded artifact zip is 431ee2a23ec99dd5d20c2cb0b2ec33ebec50a993efe4db9ee22e30fba1e8b1c8",
+      "Artifact chromium-browser-evidence.zip successfully finalized. Artifact ID 12278180450",
+      "Artifact chromium-browser-evidence has been successfully uploaded! Final size is 148575100 bytes. Artifact ID is 12278180450"
+    ],
+    "preserved_existing_app_browser_suites": [
+      "Media Center",
+      "Members & Entitlements",
+      "Subscriptions & PPV Commerce",
+      "Add-on Playwright",
+      "Interactive desktop/mobile booking, private messaging and newsletter",
+      "Booking builder",
+      "Merchandise",
+      "Composer recovery",
+      "Expanded Composer controls",
+      "Hero Library",
+      "Composer live buttons",
+      "About Me, admin navigation and authentication layouts",
+      "Public layout audit"
+    ],
+    "artifact_download_readback": {
+      "status": "outside_independent_log_audit",
+      "owner": "root with SQL test agent",
+      "note": "Owner case details in this record were parsed from this run's actual stdout. Downloaded JSON, trace and screenshot contents are independently verified by root's artifact reviewer."
+    }
+  },
+  "notes": [
+    "All seven jobs and all explicit required steps of the new 0.8.6 PR run completed successfully. Every actual checkout log names the validated test merge; its full tree equals the published source tree.",
+    "The prior 0.8.5 audit was consulted only for evidence structure. All release identities, runtime versions, assertion counts and artifact metadata here come from the new source and run.",
+    "The SQL suite reports 401 checks on each actual CI PHP matrix leg. The local supplied-package result of 402 used an extra setup assertion and is not substituted for the CI result.",
+    "The cancelled branch-push run is preserved separately and excluded from acceptance. Its five cancelled checks must not be combined with the seven successful checks of the required pull-request run.",
+    "CI build stdout reports the expected hashes and sizes for all three ZIPs. Literal downloaded runtime-file equality, the manifest, and downloaded browser archive contents are a separate root-owned verification.",
+    "This audit does not assert that the PR was merged, the site deployed, or a production database moved."
+  ],
+  "preserved_gate_review": {
+    "all_existing_non_contract_steps_preserved_exactly": true,
+    "all_job_dependencies_matrices_and_services_preserved_exactly": true,
+    "only_condition_is_always_on_browser_artifact_upload": true,
+    "no_continue_on_error": true,
+    "installed_http_script_unchanged": true,
+    "added_source_suite_only": "tests/Feature/marketing_storage.php",
+    "new_sql_both_php_versions": "tests/Database/marketing_sql_mysql.php",
+    "new_sql_worker_required_source": "tests/Database/marketing_sql_worker.php",
+    "worker_completion_fails_on_timeout_nonzero_exit_stderr_or_invalid_json": true,
+    "new_owner_package_gate": "tests/Browser/marketing_storage_playwright.py",
+    "owner_http_runs_in_each_packaged_browser_case": true,
+    "owner_cases": [
+      "root-desktop",
+      "nested-mobile"
+    ],
+    "owner_requires_real_mysql_fixture": true,
+    "existing_private_reply_audience_publication_and_other_browser_gates_preserved": true,
+    "runtime_package_artifact_requires_all_source_mysql_browser_jobs": true,
+    "package_constants_match_independent_test": true,
+    "package_prior_delivery_fixture": "tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json",
+    "visible_version_gate_mandatory": true,
+    "runtime_inventory_roots_timestamps_private_exclusions_reproducibility_installer_repair_gates_preserved": true
+  },
+  "source_wiring_review": {
+    "status": "passed_source_wiring_review",
+    "path": "/tmp/vvx-086-gate-wiring-review.json",
+    "sha256": "a5a112fc67b8951825a2fd11805e6a9fe73f428a7fe930437ba20f1dfa5a3453",
+    "reviewed_files": {
+      ".github/workflows/repository-ci.yml": "f78d115b9eda1058a7cc11db8dbdd51e55a3cb875538c83e42cd64c203024871",
+      "scripts/test.sh": "67b6d4169ab4227b441cb7a62bca190aedf8b35313544bace2f564fee3d4e096",
+      "scripts/test_http.sh": "8022e7aae46df63699aad7ced0c74a1e66bb1841ea5c9228d37117619bce16e3",
+      "scripts/package.py": "00ca34cc58b674dd142744dbb0451ace063c0e01025e9d8e658442ad096353de",
+      "tests/Packaging/runtime_packages.py": "3dbcb9ed9f668a38ae1328dbdfc901ae5f4e6ca0064c4695cbf936d6847e37bf",
+      "tests/Packaging/release_version.py": "8a8075bf97bd578483bd1e9b0542250a13dfb01cf682c2e60d5529c81010491d",
+      "tests/Feature/marketing_storage.php": "2b03feb73237ec192b84507b27e02b6a907cbc45bbb07648d6764dea6224a3f2",
+      "tests/Http/marketing_storage_fixture.php": "c5a5e4c1bcfc5d43d79f14935b9f4b9199210c66d5319c6cccf3b3c67f7bb9db",
+      "tests/Http/marketing_storage_http.py": "9d8a1d15364fe1a29bffe96fc9e2b5e3caf28ab1fe95c06f23e761b85cd7a6df",
+      "tests/Browser/marketing_storage_playwright.py": "4ed8a7a470c581897ef9e2c1cf7a85c7131e5bcc39e80ab18383dda4ee937ddc",
+      "tests/Database/database_update_scenarios.php": "2cfae548167ff225760a6bb67b2a4709557f67d360cf113625f4789cfecadeeb",
+      "tests/Installer/existing_database_mysql.php": "511c9cc4c4549a372e56e852aa83dab04676270980d0e6a7aba13e047b0719d4",
+      "tests/Installer/browser_database_fixture.php": "69ef9cafa350a24391b35d3b31043c919797645d48a9d6a89a516a80cd7e75c9",
+      "tests/Database/marketing_sql_mysql.php": "55f783179755fce085259b40fd09f0a28fba4f4dbc816af9dffc9331ba189079",
+      "tests/Database/marketing_sql_worker.php": "6ee2c7db6de37d4666595001194b42dcec81efa7f9094d5b783c43baf3ef71c9"
+    }
+  },
+  "independent_source_tree_verification": {
+    "status": "passed",
+    "observed_at": "2026-10-20T15:18:00.614993+00:00",
+    "source_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "source_tree": "8deae90664202b37199283ec0121169291771349",
+    "remote_tree_truncated": false,
+    "blob_count": 585,
+    "working_changes_count": 0,
+    "all_remote_source_bytes_modes_match_local": true,
+    "mismatches": [],
+    "local_changes_omitted_from_published_tree": [],
+    "path": "/tmp/vvx-086-source-tree-independent.json",
+    "sha256": "cf2fa5e7e067a1f76860f3ed9b2533ab90fe83cc791b783a376330cf0fc82515"
+  },
+  "required_step_contract": {
+    "workflow_sha256": "f78d115b9eda1058a7cc11db8dbdd51e55a3cb875538c83e42cd64c203024871",
+    "path": "/tmp/vvx-086-ci-required-steps.json",
+    "jobs": {
+      "Repository and executable source contract": [
+        "Run actions/checkout@v4",
+        "Require documentation and executable source"
+      ],
+      "PHP 8.2 source and package regressions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-node@v4",
+        "Run actions/setup-python@v5",
+        "Run mandatory source and packaging suites in disposable copies"
+      ],
+      "PHP 8.3 source and package regressions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-node@v4",
+        "Run actions/setup-python@v5",
+        "Run mandatory source and packaging suites in disposable copies"
+      ],
+      "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+        "Verify real packaged installer on existing and interrupted MySQL databases",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+        "Preserve marketing records through an actual packaged MySQL move and concurrent delivery"
+      ],
+      "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+        "Verify real packaged installer on existing and interrupted MySQL databases",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+        "Preserve marketing records through an actual packaged MySQL move and concurrent delivery"
+      ],
+      "Installed HTTP and Chromium desktop/mobile acceptance": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Install browser acceptance dependencies",
+        "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+        "Verify packaged media uploads without rewrite assistance at root and nested paths",
+        "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+        "Verify every packaged public route and cleanup preservation without rewrite assistance",
+        "Run installed HTTP suites in a disposable copy",
+        "Keep private replies out of actual member and guest notification emails",
+        "Verify packaged preview, publish and button destinations without rewrite assistance",
+        "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+        "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+        "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+        "Configure email and test saved SMTP settings through the real packaged owner page",
+        "Run real desktop and mobile browser suites in a disposable copy",
+        "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Recover a held add-on through the actual desktop and mobile owner controls",
+        "Edit publication windows through actual packaged owner and public pages",
+        "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+        "Upload real browser evidence"
+      ],
+      "Build verified fresh-install and upgrade ZIPs": [
+        "Run actions/checkout@v4",
+        "Run actions/setup-python@v5",
+        "Build separate runtime packages",
+        "Run actions/upload-artifact@v4"
+      ]
+    }
+  },
+  "finalized_at": "2026-10-20T15:43:09.958Z",
+  "audit_scope": "Independent source/tree, seven actual checkout logs, mandatory CI steps, runtime and assertion output, and artifact metadata audit. Downloaded archive byte and screenshot verification is handled separately by root and is outside this record's pass conclusion.",
+  "validation_summary": {
+    "required_jobs_successful": 7,
+    "actual_checkout_logs_verified": 7,
+    "all_checkout_shas_equal_validated_test_merge": true,
+    "source_and_test_merge_full_trees_equal": true,
+    "explicit_required_steps_successful": 54,
+    "all_api_steps_successful": 89,
+    "missing_required_steps": [],
+    "skipped_required_steps": [],
+    "failed_required_steps": [],
+    "artifacts_bound_to_run_and_source": 2,
+    "artifact_metadata_and_upload_logs_agree": true,
+    "new_marketing_source_checks_each_php": 41,
+    "new_marketing_sql_checks_each_php": 401,
+    "owner_http_checks_each_case": 141,
+    "owner_http_checks_total": 282,
+    "owner_browser_case_count": 2,
+    "owner_smtp_connections": 0,
+    "owner_smtp_messages": 0,
+    "downloaded_archive_verification_scope": "separate root-owned evidence"
+  },
+  "merge": {
+    "sha": "2a2bf4468c52304e08e246030d075527ab5972e3",
+    "merged": true,
+    "merged_at": "2026-10-20T15:41:54Z",
+    "tree": "8deae90664202b37199283ec0121169291771349",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/22",
+    "pr_number": 22,
+    "head_sha": "e4640e84a2c5417954f936f86ee993112c67bb37",
+    "base_sha": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "parents": [
+      "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+      "e4640e84a2c5417954f936f86ee993112c67bb37"
+    ],
+    "main_sha_observed": "2a2bf4468c52304e08e246030d075527ab5972e3"
+  },
+  "final_browser": {
+    "artifact_id": 12278180450,
+    "artifact_sha256": "431ee2a23ec99dd5d20c2cb0b2ec33ebec50a993efe4db9ee22e30fba1e8b1c8",
+    "artifact_bytes": 148575100,
+    "version": "0.8.6",
+    "build_id": "20261020.7",
+    "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+    "required_json_entries": [
+      "campaign-delivery-browser-evidence.json",
+      "composer-actions-evidence.json",
+      "composer-group-buttons-evidence.json",
+      "installed-update-results.json",
+      "installer-existing-desktop-geometry.json",
+      "installer-existing-mobile-geometry.json",
+      "mail-settings-browser-evidence.json",
+      "media-persistence-browser-evidence.json",
+      "packaged-public-routes-evidence.json",
+      "packaged-upload-evidence.json",
+      "public-layout-audit.json",
+      "addon-recovery-desktop.json",
+      "addon-recovery-mobile.json",
+      "marketing-audiences-browser-evidence.json",
+      "publication-windows-browser-evidence.json",
+      "private-reply-email-evidence.json",
+      "marketing-storage-browser-evidence.json"
+    ],
+    "focused_evidence": {
+      "addon-recovery-desktop.json": {
+        "php": "8.3.35",
+        "version": "0.8.6",
+        "build_id": "20261020.7",
+        "viewport": "desktop",
+        "dimensions": {
+          "width": 1440,
+          "height": 1000
+        },
+        "playwright": "1.62.0",
+        "fixture_only": true,
+        "screenshots": [
+          "addon-recovery-desktop-held.png",
+          "addon-recovery-desktop-blocked.png",
+          "addon-recovery-desktop-recovered.png"
+        ],
+        "browser": "151.0.7922.34",
+        "initial_button": {
+          "x": 337,
+          "y": 568.375,
+          "width": 222.984375,
+          "height": 44
+        },
+        "blocked_button": {
+          "x": 337,
+          "y": 638.375,
+          "width": 222.984375,
+          "height": 44
+        },
+        "checks": 33,
+        "status": "passed"
+      },
+      "addon-recovery-mobile.json": {
+        "php": "8.3.35",
+        "version": "0.8.6",
+        "build_id": "20261020.7",
+        "viewport": "mobile",
+        "dimensions": {
+          "width": 390,
+          "height": 844
+        },
+        "playwright": "1.62.0",
+        "fixture_only": true,
+        "screenshots": [
+          "addon-recovery-mobile-held.png",
+          "addon-recovery-mobile-blocked.png",
+          "addon-recovery-mobile-recovered.png"
+        ],
+        "browser": "151.0.7922.34",
+        "initial_button": {
+          "x": 51,
+          "y": 799.75,
+          "width": 222.984375,
+          "height": 44
+        },
+        "blocked_button": {
+          "x": 51,
+          "y": 399.75,
+          "width": 222.984375,
+          "height": 44
+        },
+        "checks": 33,
+        "status": "passed"
+      },
+      "marketing-audiences-browser-evidence.json": {
+        "php": "8.3.35",
+        "playwright": "1.62.0",
+        "server": "php -S without router fallback",
+        "cases": {
+          "root-http": {
+            "assertions": 44,
+            "real_owner_http": true,
+            "source_date_preview_exact": true,
+            "preview_staleness_preserves_queue": true,
+            "frozen_rules_after_edit_delete": true,
+            "explicit_append_only_requeue": true,
+            "current_owner_and_csrf": true,
+            "mail_mode": "disabled",
+            "external_messages_sent": 0
+          },
+          "root-desktop": {
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "source_date_preview": true,
+            "stale_preview_retry": true,
+            "stale_segment_tab_rejected": true,
+            "queued_rules_survive_edit_delete": true,
+            "explicit_append_only_requeue": true,
+            "public_unsubscribe_suppresses_selected_delivery": true,
+            "no_horizontal_overflow_or_clipped_controls": true,
+            "mail_mode": "disabled",
+            "external_messages_sent": 0
+          },
+          "nested-mobile": {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "source_date_preview": true,
+            "stale_preview_retry": true,
+            "stale_segment_tab_rejected": true,
+            "queued_rules_survive_edit_delete": true,
+            "explicit_append_only_requeue": true,
+            "public_unsubscribe_suppresses_selected_delivery": true,
+            "no_horizontal_overflow_or_clipped_controls": true,
+            "mail_mode": "disabled",
+            "external_messages_sent": 0
+          }
+        },
+        "build_id": "20261020.7",
+        "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "browser": "151.0.7922.34"
+      },
+      "publication-windows-browser-evidence.json": {
+        "php": "8.3.35",
+        "playwright": "1.62.0",
+        "server": "php -S without router fallback",
+        "cases": {
+          "root-http": {
+            "assertions": 105,
+            "real_owner_http": true,
+            "stable_identity_permalink": true,
+            "site_timezone": "America/New_York",
+            "strict_dates_and_stale_rejections": true,
+            "public_before_during_after": true,
+            "explicit_banner_precedence": true,
+            "current_owner_csrf": true,
+            "frozen_campaigns_preserved": true,
+            "external_messages_sent": 0
+          },
+          "root-desktop": {
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "stable_edit_permalink": true,
+            "stale_browser_form_preserved": true,
+            "publication_before_during_after": true,
+            "banner_precedence_disable": true,
+            "legacy_date_repair": true,
+            "no_horizontal_overflow_or_clipped_controls": true,
+            "frozen_campaigns_preserved": true,
+            "external_messages_sent": 0
+          },
+          "nested-mobile": {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "stable_edit_permalink": true,
+            "stale_browser_form_preserved": true,
+            "publication_before_during_after": true,
+            "banner_precedence_disable": true,
+            "legacy_date_repair": true,
+            "no_horizontal_overflow_or_clipped_controls": true,
+            "frozen_campaigns_preserved": true,
+            "external_messages_sent": 0
+          }
+        },
+        "build_id": "20261020.7",
+        "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "browser": "151.0.7922.34"
+      },
+      "private-reply-email-evidence.json": {
+        "php": "8.3.35",
+        "cases": {
+          "root": {
+            "assertions": 50,
+            "member_and_guest_private_subject_body_absent": true,
+            "attachment_names_absent": true,
+            "in_site_content_and_protection_preserved": true,
+            "internal_notes_send_none": true,
+            "local_smtp_messages": 2,
+            "external_messages_sent": 0
+          },
+          "nested": {
+            "assertions": 50,
+            "member_and_guest_private_subject_body_absent": true,
+            "attachment_names_absent": true,
+            "in_site_content_and_protection_preserved": true,
+            "internal_notes_send_none": true,
+            "local_smtp_messages": 2,
+            "external_messages_sent": 0
+          }
+        },
+        "build_id": "20261020.7",
+        "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06"
+      },
+      "media-persistence-browser-evidence.json": {
+        "php": "8.3.35",
+        "playwright": "1.62.0",
+        "server": "php -S without any router script",
+        "version": "0.8.6",
+        "build_id": "20261020.7",
+        "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "browser": "151.0.7922.34",
+        "cases": {
+          "file-root-desktop": {
+            "mode": "file",
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "mysql_version": null,
+            "real_package_form_navigation": true,
+            "exact_gallery_ids_order_captions_tags_preview_cover": true,
+            "remove_undo_and_subsequent_save": true,
+            "literal_lightbox_caption_and_private_preview": true,
+            "real_sql_row_readback": false,
+            "exact_playlist_order_and_removal": true,
+            "schedule_not_due_then_due_owner_action": true,
+            "publication_idempotence_and_stale_tabs": true,
+            "guest_registered_and_subscription_access": true,
+            "explicit_metadata_date_clearing": true,
+            "no_horizontal_overflow": true,
+            "uncaught_javascript_errors": []
+          },
+          "file-nested-mobile": {
+            "mode": "file",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "mysql_version": null,
+            "real_package_form_navigation": true,
+            "exact_gallery_ids_order_captions_tags_preview_cover": true,
+            "remove_undo_and_subsequent_save": true,
+            "literal_lightbox_caption_and_private_preview": true,
+            "real_sql_row_readback": false,
+            "exact_playlist_order_and_removal": true,
+            "schedule_not_due_then_due_owner_action": true,
+            "publication_idempotence_and_stale_tabs": true,
+            "guest_registered_and_subscription_access": true,
+            "explicit_metadata_date_clearing": true,
+            "no_horizontal_overflow": true,
+            "uncaught_javascript_errors": []
+          },
+          "mysql-root-desktop": {
+            "mode": "mysql",
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "mysql_version": "8.0.46",
+            "real_package_form_navigation": true,
+            "exact_gallery_ids_order_captions_tags_preview_cover": true,
+            "remove_undo_and_subsequent_save": true,
+            "literal_lightbox_caption_and_private_preview": true,
+            "real_sql_row_readback": true,
+            "exact_playlist_order_and_removal": true,
+            "schedule_not_due_then_due_owner_action": true,
+            "publication_idempotence_and_stale_tabs": true,
+            "guest_registered_and_subscription_access": true,
+            "explicit_metadata_date_clearing": true,
+            "no_horizontal_overflow": true,
+            "uncaught_javascript_errors": []
+          },
+          "mysql-nested-mobile": {
+            "mode": "mysql",
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "mysql_version": "8.0.46",
+            "real_package_form_navigation": true,
+            "exact_gallery_ids_order_captions_tags_preview_cover": true,
+            "remove_undo_and_subsequent_save": true,
+            "literal_lightbox_caption_and_private_preview": true,
+            "real_sql_row_readback": true,
+            "exact_playlist_order_and_removal": true,
+            "schedule_not_due_then_due_owner_action": true,
+            "publication_idempotence_and_stale_tabs": true,
+            "guest_registered_and_subscription_access": true,
+            "explicit_metadata_date_clearing": true,
+            "no_horizontal_overflow": true,
+            "uncaught_javascript_errors": []
+          }
+        }
+      },
+      "marketing-storage-browser-evidence.json": {
+        "php": "8.3.35",
+        "playwright": "1.62.0",
+        "server": "php -S without any router script",
+        "version": "0.8.6",
+        "build_id": "20261020.7",
+        "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "archive_ui_matches_sources": true,
+        "browser": "151.0.7922.34",
+        "cases": {
+          "root-desktop": {
+            "viewport": {
+              "width": 1440,
+              "height": 1000
+            },
+            "http": {
+              "checks": 141,
+              "mysql_version": "8.0.46",
+              "active_owner_csrf_method_and_page_guards": true,
+              "read_only_get_and_preview": true,
+              "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+              "all_record_fingerprint_stale_refusal": true,
+              "malformed_and_repeated_review_refusal": true,
+              "missing_schema_database_updates_path": true,
+              "source_sql_outbox_backups_unchanged_on_rejection": true
+            },
+            "browser": {
+              "mysql_version": "8.0.46",
+              "real_owner_post_actions": [
+                "apply_database_updates",
+                "preview_marketing_storage",
+                "migrate_marketing_storage",
+                "preview_marketing_storage",
+                "migrate_marketing_storage",
+                "save_link"
+              ],
+              "missing_schema_then_actual_database_update": true,
+              "review_counts_and_keyboard_focus": true,
+              "stale_browser_review_refused": true,
+              "exact_sql_import_and_independent_readback": true,
+              "refresh_and_replay_safe": true,
+              "ordinary_marketing_form_committed_to_sql": true,
+              "source_config_uploads_backups_and_outbox_preserved": true,
+              "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+              "smtp_connections": 0,
+              "smtp_messages": 0,
+              "record_counts_after_edit": {
+                "posts": 2,
+                "banners": 1,
+                "landing_pages": 1,
+                "links": 3,
+                "referral_codes": 1,
+                "contacts": 2,
+                "segments": 1,
+                "campaigns": 1,
+                "campaign_queue": 2,
+                "events": 1,
+                "consents": 2,
+                "suppressions": 1
+              },
+              "javascript_errors": [],
+              "geometry": {
+                "missing_schema": {
+                  "content": 1440,
+                  "viewport": 1440,
+                  "controls_checked": 1,
+                  "fit": true
+                },
+                "review": {
+                  "content": 1440,
+                  "viewport": 1440,
+                  "controls_checked": 2,
+                  "fit": true
+                },
+                "mysql": {
+                  "content": 1440,
+                  "viewport": 1440,
+                  "controls_checked": 1,
+                  "fit": true
+                }
+              }
+            },
+            "screenshots": [
+              "marketing-storage-root-desktop-database-update-needed.png",
+              "marketing-storage-root-desktop-review.png",
+              "marketing-storage-root-desktop-mysql-active.png",
+              "marketing-storage-root-desktop-sql-access-held.png"
+            ]
+          },
+          "nested-mobile": {
+            "viewport": {
+              "width": 390,
+              "height": 844
+            },
+            "http": {
+              "checks": 141,
+              "mysql_version": "8.0.46",
+              "active_owner_csrf_method_and_page_guards": true,
+              "read_only_get_and_preview": true,
+              "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+              "all_record_fingerprint_stale_refusal": true,
+              "malformed_and_repeated_review_refusal": true,
+              "missing_schema_database_updates_path": true,
+              "source_sql_outbox_backups_unchanged_on_rejection": true
+            },
+            "browser": {
+              "mysql_version": "8.0.46",
+              "real_owner_post_actions": [
+                "apply_database_updates",
+                "preview_marketing_storage",
+                "migrate_marketing_storage",
+                "preview_marketing_storage",
+                "migrate_marketing_storage",
+                "save_link"
+              ],
+              "missing_schema_then_actual_database_update": true,
+              "review_counts_and_keyboard_focus": true,
+              "stale_browser_review_refused": true,
+              "exact_sql_import_and_independent_readback": true,
+              "refresh_and_replay_safe": true,
+              "ordinary_marketing_form_committed_to_sql": true,
+              "source_config_uploads_backups_and_outbox_preserved": true,
+              "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+              "smtp_connections": 0,
+              "smtp_messages": 0,
+              "record_counts_after_edit": {
+                "posts": 2,
+                "banners": 1,
+                "landing_pages": 1,
+                "links": 3,
+                "referral_codes": 1,
+                "contacts": 2,
+                "segments": 1,
+                "campaigns": 1,
+                "campaign_queue": 2,
+                "events": 1,
+                "consents": 2,
+                "suppressions": 1
+              },
+              "javascript_errors": [],
+              "geometry": {
+                "missing_schema": {
+                  "content": 390,
+                  "viewport": 390,
+                  "controls_checked": 1,
+                  "fit": true
+                },
+                "review": {
+                  "content": 390,
+                  "viewport": 390,
+                  "controls_checked": 2,
+                  "fit": true
+                },
+                "mysql": {
+                  "content": 390,
+                  "viewport": 390,
+                  "controls_checked": 1,
+                  "fit": true
+                }
+              }
+            },
+            "screenshots": [
+              "marketing-storage-nested-mobile-database-update-needed.png",
+              "marketing-storage-nested-mobile-review.png",
+              "marketing-storage-nested-mobile-mysql-active.png",
+              "marketing-storage-nested-mobile-sql-access-held.png"
+            ]
+          }
+        }
+      }
+    },
+    "marketing_storage": {
+      "evidence_file": "marketing-storage-browser-evidence.json",
+      "version": "0.8.6",
+      "build_id": "20261020.7",
+      "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+      "php": "8.3.35",
+      "playwright": "1.62.0",
+      "browser": "151.0.7922.34",
+      "archive_ui_matches_sources": true,
+      "cases": {
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "http_checks": 141,
+          "mysql_version": "8.0.46",
+          "all_http_guards_passed": true,
+          "all_browser_assertions_passed": true,
+          "smtp_connections": 0,
+          "smtp_messages": 0,
+          "javascript_errors": [],
+          "geometry_fit": true,
+          "screenshots": [
+            "marketing-storage-root-desktop-database-update-needed.png",
+            "marketing-storage-root-desktop-review.png",
+            "marketing-storage-root-desktop-mysql-active.png",
+            "marketing-storage-root-desktop-sql-access-held.png"
+          ]
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "http_checks": 141,
+          "mysql_version": "8.0.46",
+          "all_http_guards_passed": true,
+          "all_browser_assertions_passed": true,
+          "smtp_connections": 0,
+          "smtp_messages": 0,
+          "javascript_errors": [],
+          "geometry_fit": true,
+          "screenshots": [
+            "marketing-storage-nested-mobile-database-update-needed.png",
+            "marketing-storage-nested-mobile-review.png",
+            "marketing-storage-nested-mobile-mysql-active.png",
+            "marketing-storage-nested-mobile-sql-access-held.png"
+          ]
+        }
+      },
+      "screenshots": {
+        "marketing-storage-root-desktop-database-update-needed.png": {
+          "sha256": "6af049302243d1d0f1435066e58ece2771085a59402ca4cdead03ffb9f2871a4",
+          "bytes": 384188,
+          "width": 1440,
+          "height": 1000
+        },
+        "marketing-storage-root-desktop-review.png": {
+          "sha256": "f61d937f09eae8117218bd8f29758c3357ef1c8c893e3d58df1dc79524552f56",
+          "bytes": 630822,
+          "width": 1440,
+          "height": 1412
+        },
+        "marketing-storage-root-desktop-mysql-active.png": {
+          "sha256": "5326751c03484eaec9ad6d15764ee09bc3ff740cad0451832178a9e7be113047",
+          "bytes": 653084,
+          "width": 1440,
+          "height": 1443
+        },
+        "marketing-storage-root-desktop-sql-access-held.png": {
+          "sha256": "511b57ed4d96a1e1ba50067a5f6b65b0c8eb32ef94c3137990783adf69258fa6",
+          "bytes": 338112,
+          "width": 1440,
+          "height": 1000
+        },
+        "marketing-storage-nested-mobile-database-update-needed.png": {
+          "sha256": "c70d28e24c751e99887522b04318f0ab561dd6e2abe8880c9279fcf74d8b9da7",
+          "bytes": 191780,
+          "width": 390,
+          "height": 844
+        },
+        "marketing-storage-nested-mobile-review.png": {
+          "sha256": "ee352f1af70d687754b8bda26c462c632422dfa1866107368c264e423cbfa185",
+          "bytes": 335977,
+          "width": 390,
+          "height": 1573
+        },
+        "marketing-storage-nested-mobile-mysql-active.png": {
+          "sha256": "7e0de350cf2731b2f588b0a0b759015b7c3255e6128b19b3bc9b8280946e7733",
+          "bytes": 343941,
+          "width": 390,
+          "height": 1606
+        },
+        "marketing-storage-nested-mobile-sql-access-held.png": {
+          "sha256": "0d560c9631ff8a62eace4fa7a5f9d42d772a1c99d1bc3e7a2a26bf45685632de",
+          "bytes": 157013,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "http_checks_total": 282,
+      "smtp_connections_total": 0,
+      "smtp_messages_total": 0,
+      "all_geometry_fits": true,
+      "screenshots_verified": 8
+    }
+  },
+  "boundaries": {
+    "actual_host_verified": false,
+    "production_email_verified": false,
+    "payments": "sandbox-only",
+    "post_merge_ci_claimed": false
+  }
+}

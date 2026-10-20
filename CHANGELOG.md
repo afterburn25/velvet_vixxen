@@ -1,8 +1,8 @@
-## 0.8.6 — SQL marketing persistence, Build 20261020.7 (in progress)
+## 0.8.6 — SQL marketing persistence, Build 20261020.7 (verified, merged and delivered)
 
 The SQL marketing increment adds per-record MySQL persistence and a separate System → Marketing Storage owner page. Migration 015 creates two additive tables; it does not import records or change the active backend. The current active owner reviews aggregate counts, then explicitly moves the preserved marketing snapshot. Transactions, a source-bound review, installation authority, a local SQL-required intent and database-wide data/delivery locks protect the transition. Existing identifiers, tokens, consent, suppressions, saved audiences, frozen messages, queued recipients and delivery outcomes retain their meaning. The original file remains unchanged after activation.
 
-Local acceptance passed; GitHub CI, merge and delivery are pending. See [the numbered release record](docs/releases/0.8.6-marketing-sql.md).
+All seven [GitHub CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796) passed; [PR #22](https://github.com/afterburn25/velvet_vixxen/pull/22) merged at 2026-10-20T15:41:54Z. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes at 2026-10-20 15:45:08 UTC.
 
 ## 0.8.5 — Publication-window editing, Build 20261020.6 (verified, merged and delivered)
 

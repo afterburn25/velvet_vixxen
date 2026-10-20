@@ -2,7 +2,7 @@
 
 Version **0.8.6**, Build **20261020.7**, adds SQL marketing persistence and an explicitly reviewed owner move. It includes the previously released publication editors, saved audiences, Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** 0.8.6 local acceptance passed; final GitHub CI, merge and saved-download verification are pending. [The release record](releases/0.8.6-marketing-sql.md) records the current state. Earlier release evidence does not certify this changed tree. The affected customer host has not been accessed or verified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796) passed; [PR #22](https://github.com/afterburn25/velvet_vixxen/pull/22) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.6-marketing-sql.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
 Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.6; its historical CI/delivery records remain available.
 
@@ -141,7 +141,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.6 / Build 20261020.7** local acceptance passed; final GitHub gates, merge and saved-download verification are pending. Exact results will be recorded in [the release record](releases/0.8.6-marketing-sql.md) after execution.
+Current **0.8.6 / Build 20261020.7** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.6-marketing-sql.md).
 
 ### Historical baseline — Build 20261020.1
 

@@ -43,10 +43,10 @@ The pending marker remains in place through final database/configuration/lock ve
 
 ## New installations and installed-site updates
 
-The current `Nikki-Wilder-Velvet-Vixxen-0.8.5-Build-20261020.6-Fresh-Install.zip` includes the corrections and starts uninstalled. Use it for a new installation; use the complete Upgrade for an existing installed site.
+The current `Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip` includes the corrections and starts uninstalled. Use it for a new installation; use the complete Upgrade for an existing installed site.
 
-The current `Nikki-Wilder-Velvet-Vixxen-0.8.5-Build-20261020.6-Upgrade-from-0.8.x.zip` preserves the exclusion of `config`, `storage`, `uploads` and `install` and supplies the complete installed runtime. The small installer repair remains for unfinished 0.8.1 setup. Follow [Update Verification](UPDATE_VERIFICATION.md) and [Upgrading](UPGRADING.md) for installed websites.
+The current `Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip` preserves the exclusion of `config`, `storage`, `uploads` and `install` and supplies the complete installed runtime. The small installer repair remains for unfinished 0.8.1 setup. Follow [Update Verification](UPDATE_VERIFICATION.md) and [Upgrading](UPGRADING.md) for installed websites.
 
 ## Evidence
 
-Current executed tests, source/CI status and package identities are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and the current 0.8.5 release record linked there. Preserve required source, real-MySQL, installer browser, ownership, persistent-OPcache, HTTP and runtime-package gates. Earlier database/layout and Build .2 sender-release records remain historical. The unchanged 0.8.1 / repair Build 20261020.3 download keeps its own identity; the affected customer host remains unverified.
+Current executed tests, source/CI status and package identities are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and the current 0.8.6 release record linked there. Preserve required source, real-MySQL, installer browser, ownership, persistent-OPcache, HTTP and runtime-package gates. Earlier database/layout and Build .2 sender-release records remain historical. The unchanged 0.8.1 / repair Build 20261020.3 download keeps its own identity; the affected customer host remains unverified.

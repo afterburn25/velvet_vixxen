@@ -1,6 +1,6 @@
 # Marketing Storage
 
-**Implementation target: 0.8.6 / Build 20261020.7.** Implementation and local acceptance passed. Final GitHub CI, merge and verified downloads remain pending; exact evidence is recorded in the numbered release record.
+**Available in verified 0.8.6 / Build 20261020.7.** [PR #22](https://github.com/afterburn25/velvet_vixxen/pull/22) is merged; all seven required CI jobs passed and saved downloads match the gated artifact literally. [The numbered release record](releases/0.8.6-marketing-sql.md) contains exact evidence. The broader marketing roadmap remains open.
 
 ## What changes
 
@@ -49,6 +49,6 @@ Do not manually remove storage authority or local intent records to make an erro
 
 This release adds runtime SQL persistence and a reviewed preservation move. The existing MarketingStore API still reconstructs a complete snapshot for its business operations. Per-record SQL storage does not claim indexed reporting, large-dataset performance certification, durable analytics rollups, a scene scheduler or provider bounce/complaint ingestion.
 
-Required acceptance includes real MySQL import/readback, preserved identifiers and consent, stale reviews, transaction failure, uncertain activation, cross-process and cross-root delivery exclusion, installer continuation and database-update preservation. Actual extracted Fresh-package owner HTTP and desktop/mobile browser tests must exercise the move. The existing source, security, installer, MySQL, HTTP, browser and package gates remain required.
+Executed acceptance covered real MySQL import/readback, preserved identifiers and consent, stale reviews, transaction failure, uncertain activation, cross-process and cross-root delivery exclusion, installer continuation and database-update preservation. The required GitHub run passed 41 new source checks and 401 packaged SQL checks on each supported PHP version. Actual extracted Fresh-package owner HTTP and desktop/mobile browser tests passed 141 HTTP checks in each of the root-desktop and nested-mobile cases, with zero SMTP connections or messages. All existing source, security, installer, MySQL, HTTP, browser and package gates remain required and passed.
 
 All test transport stays disabled or on loopback fixtures. Source and package evidence does not establish that a customer host has been upgraded or that a production mail provider delivered a message. The remaining editorial, scheduling, attribution and analytics work is tracked in [the roadmap](ROADMAP.md).

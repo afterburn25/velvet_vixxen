@@ -52,6 +52,6 @@ Edits to other publications and new analytics events do not invalidate your form
 
 ## Scope and verification
 
-This increment uses the existing protected marketing store. It does not switch marketing data to SQL, add post-expiry fields, scene scheduling, referral attribution or provider connections. Publication edits preserve newsletter consent, saved audiences, queued addresses, frozen campaign content and unrelated marketing settings.
+The original 0.8.5 increment used the protected marketing store and did not switch marketing data to SQL. In 0.8.6, the separate owner-reviewed [Marketing Storage](MARKETING_STORAGE.md) move adds per-record MySQL persistence. Publication edits retain the same behavior on both backends and preserve newsletter consent, saved audiences, queued addresses, frozen campaign content and unrelated marketing settings. Broader editorial access/preview/metadata/history/calendar/post expiry is the next open group; scene scheduling, referral attribution and provider connections also remain open.
 
 Focused acceptance uses disposable stores and extracted customer packages with email disabled. It checks exact date boundaries and site-timezone conversion, valid legacy date compatibility, invalid-date visibility holds, stable identities and links, concurrent stale edits, owner and CSRF checks, banner precedence, and real desktop/mobile form interaction. Integrated release evidence is recorded in [the 0.8.5 release record](releases/0.8.5-publication-windows.md).
