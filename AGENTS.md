@@ -1,7 +1,19 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- owner-mail-settings:start -->
+## Current continuation — owner Email & SMTP, Build 20261020.2
+
+Work is on `feature/0.8.1-owner-mail-settings`, from verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Compatibility stays **0.8.1**. The owner editor at **System → Email & SMTP** and stricter installer/runtime sender validation are implemented. Final local source/security/package and all nine HTTP suites passed; focused counts and final local ZIP hashes are in `docs/releases/0.8.1-owner-mail-settings.md`. Required GitHub CI, new source/PR identities, remaining browser/MySQL release evidence, merge and delivery remain pending. Earlier green CI belongs to the historical build.
+
+Preserve active-owner authorization, CSRF, revision-checked mail-only configuration writes, blank-password retention and explicit clearing, no password echo, and a one-use test to the current owner using saved settings. Save must not send mail. Tests use disposable loopback SMTP and reserved fixtures only. Retain every existing security, MySQL, HTTP, real packaged browser, ownership and persistent-OPcache gate.
+
+Keep the exact **13 Fresh / nine Upgrade roots and four root files** listed in the release record. All four ZIP names carry `Build-20261020.2`. The unfinished-installer repair now contains **11 files**, including all four changed sender files; `repair_build_id` identifies the overlay and must not advance an installed site's runtime build. Complete Upgrade remains the installed-site path.
+
+After this release is verified and merged, continue media **#2**, then **#7/#9**. Actual-host **#12/#13** stay open; payments remain sandbox-only. Older blocks below retain historical evidence and do not supersede this continuation.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 
@@ -139,6 +151,6 @@ Require extracted-package routing/upload/preview/publication acceptance without 
 
 The user requires setup to continue whether the selected database is empty or already contains compatible application tables. Preserve the implemented resume/schema reconciliation, original owner authentication, keys, identity, rows and saved content; never restore a blanket empty-database refusal or destructive automatic rollback. A pending checkpoint must remain resumable across ordinary HTTP bootstrap and process interruption, and must not count as publicly installed before verification. Recovery and installer retirement share the setup guard.
 
-The same continuation fixes Server/Folders alignment, the extra Folders rule and Password/Confirm Password alignment. Preserve real browser geometry and completion-state checks. The runtime-only database repair is an eight-file overlay and includes the earlier folder fix; it must not contain customer configuration or runtime state. Current source, test and download evidence belongs in the database-repair release record.
+The same continuation fixes Server/Folders alignment, the extra Folders rule and Password/Confirm Password alignment. Preserve real browser geometry and completion-state checks. The current runtime-only database repair is an 11-file overlay and includes the earlier folder/database fixes plus all four changed installer sender files. It must not contain customer configuration or runtime state. Its `repair_build_id` identifies the repair revision without updating an installed runtime build. Current evidence belongs in `docs/releases/0.8.1-owner-mail-settings.md`; the original eight-file repair record remains historical.
 
 Keep all required gates, including actual packaged foreign ownership, real persistent OPcache, packaged existing-database MySQL execution on PHP 8.2/8.3, and real desktop/mobile installer acceptance. No source, test or CI gate may be replaced by a passing skip or ineffective fixture. Continue from the actual executable branch and upload source/tests/progress as work lands. Do not repeat completed recovery or treat historical advanced marketing claims as implemented. No 0.9.0 work is included.

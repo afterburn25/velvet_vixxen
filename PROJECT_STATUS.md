@@ -1,7 +1,19 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
+<!-- owner-mail-settings:start -->
+## Current work — owner Email & SMTP, Build 20261020.2
+
+**Implemented; final local source/package and all nine HTTP suites pass. Required GitHub CI, merge and delivery are pending.** The scoped branch is `feature/0.8.1-owner-mail-settings`, based on main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`; compatibility remains **0.8.1**.
+
+The owner can now save Disabled, SMTP or PHP mail settings from **System → Email & SMTP**, retain or explicitly remove a saved password, and send a guarded test to the current owner. Saving never sends. Stale forms, demoted/inactive accounts, forged test content, repeated test submissions and unsafe email headers are covered. Installer and runtime sender fallback now use a valid explicit From, then an SMTP username that is an email address, then the owner fallback.
+
+Focused local passes: **199 backend, 269 installer validation, 143 packaged installer and 168 HTTP assertions**, plus **two real packaged owner browser cases**. Final local ZIP hashes are recorded; new GitHub source/PR/run, remaining full release gates, merge and delivery are pending; see [the release record](docs/releases/0.8.1-owner-mail-settings.md) and [owner guide](docs/EMAIL_SETTINGS.md).
+
+All four ZIP names include Build 20261020.2. Exact approved roots remain unchanged. Installer repair is now 11 files with a separate `repair_build_id`; the complete Upgrade is primary for installed sites. Next: media **#2**, then **#7/#9**. The actual-host reports **#12/#13** remain unresolved and payments remain sandbox-only. Earlier release evidence follows as history.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 

@@ -1,7 +1,19 @@
 # Session Handoff — Velvet Vixxen
 
+<!-- owner-mail-settings:start -->
+## Resume here — owner Email & SMTP, Build 20261020.2
+
+Continue `feature/0.8.1-owner-mail-settings` from verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. The new owner page, shared sender validation and package dependency updates are implemented. Read [the release record](docs/releases/0.8.1-owner-mail-settings.md) and [owner workflow](docs/EMAIL_SETTINGS.md) first. Build 20261020.2 retains compatibility 0.8.1 and the exact approved package roots.
+
+Focused local results are **199 backend + 269 installer validation + 143 packaged installer + 168 HTTP assertions**, and **two extracted-Fresh-ZIP browser cases**. The browser evidence used an intermediate archive; final runtime changes require the final rebuilt package evidence. Final local source/security/package and all nine HTTP suites passed; final local ZIP hashes are recorded. New GitHub run/source/merge identities, gated artifacts and saved downloads remain pending.
+
+Finish the remaining complete release gates, inspect the exact source/tree and final local archive manifest, upload the source/tests/docs, verify the required GitHub jobs, and merge the verified change into `main`. Record actual final hashes and delivery readback when obtained. Do not reuse historical Build 20261020.1 CI as certification for this build or weaken a gate to finish.
+
+The complete Upgrade serves installed sites; the 11-file Installer Database Repair serves unfinished setup and uses `repair_build_id` without changing the installed runtime build. Preserve configuration, keys, data and the reorganized roots. Next roadmap work is media **#2**, then **#7/#9**; actual-host **#12/#13** remain open and payments remain sandbox-only. Older blocks are historical.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 

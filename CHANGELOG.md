@@ -1,3 +1,17 @@
+## 0.8.1 — Build 20261020.2 owner Email & SMTP (2026-10-20)
+
+Implemented on `feature/0.8.1-owner-mail-settings` from verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Final local source/package and all nine HTTP suites pass; required GitHub CI, new source/merge identities, gated artifacts and saved-download delivery remain pending. See [the release record](docs/releases/0.8.1-owner-mail-settings.md).
+
+- Add **System → Email & SMTP** in the existing owner dashboard, with Disabled/SMTP/PHP mail, sender details, saved transport status and related feature controls.
+- Preserve blank passwords, provide explicit clearing, reject stale configuration forms, and keep saved credentials out of HTML and audit metadata. Save changes without sending email.
+- Add a one-use, rate-limited test to the current owner using the saved revision, with fresh authorization/configuration checks before SMTP DATA and honest accepted/rejected/unknown results. Clear prior results when settings change.
+- Validate runtime and installer addresses before normalization; retain ordinary pasted Gmail/plus-address forms, reject unsafe headers and use explicit From → email-shaped SMTP username → owner fallback.
+- Keep existing protected plaintext configuration compatibility and mail-only locked merges; no encrypted-credential migration is claimed.
+- Name all four ZIPs with Build 20261020.2, preserve exact approved roots and add all runtime dependencies. Expand the unfinished-installer repair to 11 files, including all four changed sender files; its `repair_build_id` does not advance an installed site's build.
+- Record 199 backend, 269 installer validation, 143 packaged installer and 168 owner HTTP assertions, plus two real packaged desktop/mobile browser cases using only loopback SMTP. The browser archive was intermediate; final exact-package release gates remain mandatory.
+
+Next roadmap work is media #2, then #7/#9. Actual-host #12/#13 stay open; production mail remains unverified and payments remain sandbox-only. Previous release entries below retain their historical evidence.
+
 ## 0.8.1 — Build 20261020.1 grouped buttons and campaign delivery (2026-10-20)
 
 Merged into main through PR #16 (`0c4d6be5516c9c777c31524a33cd30c4d337f1d7`), with all seven jobs in CI run `39352867755` successful and saved downloads verified byte for byte against its gated artifact. Adds editable third/additional buttons inside the existing Live Text + Buttons inspector, preserving automatic account/trailer actions, shared labels/links and independent device geometry/history. Connects queued campaigns to the existing configured mail transport with consent/suppression checks, queue deduplication, bounded claims, responsive owner pause/unsubscribe, explicit failure retries and unknown-outcome holds. Adds independent newsletter/delivery switches and actual packaged UI/localhost SMTP regressions. Exact approved root folders and runtime-only packages are preserved.

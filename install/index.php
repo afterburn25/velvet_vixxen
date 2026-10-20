@@ -51,13 +51,13 @@ $databasePayload = static function (array $source): array {
 $mailPayload = static function (array $source): array {
     return [
         'mode' => strtolower(trim((string) ($source['mail_mode'] ?? 'disabled'))),
-        'host' => trim((string) ($source['smtp_host'] ?? '')),
+        'host' => $source['smtp_host'] ?? '',
         'port' => (int) ($source['smtp_port'] ?? 587),
         'encryption' => strtolower(trim((string) ($source['smtp_encryption'] ?? 'tls'))),
-        'username' => trim((string) ($source['smtp_username'] ?? '')),
+        'username' => $source['smtp_username'] ?? '',
         'password' => (string) ($source['smtp_password'] ?? ''),
-        'from_email' => EmailAddress::normalize($source['mail_from_email'] ?? ''),
-        'from_name' => trim((string) ($source['mail_from_name'] ?? 'Nikki Wilder')),
+        'from_email' => $source['mail_from_email'] ?? '',
+        'from_name' => $source['mail_from_name'] ?? 'Nikki Wilder',
     ];
 };
 
@@ -154,12 +154,12 @@ if (!$installed && $_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($action === 'test_mail') {
             $mail = $mailPayload($_POST);
-            $recipient = EmailAddress::normalize($_POST['admin_email'] ?? '');
-            if ($mail['from_email'] === '') {
-                $mail['from_email'] = $recipient;
+            $recipient = $_POST['admin_email'] ?? '';
+            if (!is_string($recipient)) {
+                throw new RuntimeException('Enter a valid owner email address.');
             }
-            if ($mail['from_name'] === '') {
-                $mail['from_name'] = trim((string) ($_POST['admin_name'] ?? 'Nikki Wilder'));
+            if (EmailAddress::isBlank($mail['from_name'])) {
+                $mail['from_name'] = $_POST['admin_name'] ?? 'Nikki Wilder';
             }
             $result = $smtpTester->test($mail, $recipient);
             $log->write('mail.test_passed', ['mail' => $mail, 'result' => $result]);
@@ -190,9 +190,9 @@ if (!$installed && $_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new RuntimeException('Required server or file checks are not passing. Open Server & File Readiness and correct the failed items.');
             }
 
-            $ownerEmail = EmailAddress::normalize($_POST['admin_email'] ?? '');
-            $supportEmail = EmailAddress::normalize($_POST['support_email'] ?? '');
-            if ($supportEmail === '') {
+            $ownerEmail = $_POST['admin_email'] ?? '';
+            $supportEmail = $_POST['support_email'] ?? '';
+            if (EmailAddress::isBlank($supportEmail)) {
                 $supportEmail = $ownerEmail;
             }
 

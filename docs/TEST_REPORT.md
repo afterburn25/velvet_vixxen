@@ -1,7 +1,27 @@
 # Velvet Vixxen 0.8.1 — Current Test Evidence
 
+<!-- owner-mail-settings:start -->
+## Current focused evidence — owner Email & SMTP, Build 20261020.2
+
+Working branch: `feature/0.8.1-owner-mail-settings`; verified main baseline: `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. The **final local source/security/package gate and all nine HTTP suites passed** on PHP 8.3.6; the focused results below are also recorded. The new complete release gate and GitHub CI are not yet claimed complete.
+
+| Executed check | Result |
+| --- | --- |
+| `php tests/Feature/mail_settings.php` | 199 assertions: validation, safe snapshots, revision/locking, password semantics and configuration preservation. |
+| `php tests/Installer/mail_validation.php` | 269 assertions: pasted addresses, Gmail/plus forms, From fallback, unsafe headers, SMTP validation and optional disabled mail. |
+| `python tests/Installer/mail_smtp_capture.py` | 143 assertions through the actual packaged installer at root/nested paths and loopback SMTP. |
+| `VELVET_TEST_SUITE=tests/Http/mail_settings_http.py bash scripts/test_http.sh` | 168 assertions: auth/CSRF/methods, stale forms, save/no-send, credentials, SMTP outcomes, one-use/cooldown and concurrent disable/demotion. Repeated successfully after the synthetic fixture constant rename. |
+| `python tests/Browser/mail_settings_playwright.py` | Two actual extracted-Fresh-ZIP cases: root desktop 1440×1000 and nested mobile 390×844, owner navigation/save/reload, no password echo, dirty-test disabling, cleared stale success, one local test each and no overflow. |
+| Final packaged foreign ownership / persistent OPcache | Passed as part of `scripts/test.sh`, using the final Fresh/Installer Repair archives and real negative controls. |
+| `php tests/Security/repository_safety.php` | Passed after renaming a synthetic test constant; scanner and exclusions unchanged. |
+
+Mail execution used reserved fixture accounts and loopback capture only: **zero external messages**. The browser run used PHP 8.3.6, Playwright 1.62.0 and Chromium 155.0.8059.84; its archive preceded the final disabled-transport hint edit. Six screenshots and JSON are intermediate internal evidence, not a final package certification.
+
+**Final local archives:** sizes/hashes are in [the release record](releases/0.8.1-owner-mail-settings.md) and `RELEASE_MANIFEST.txt`. Source/package and HTTP logs are `/tmp/vvx-mail-source-final.log` and `/tmp/vvx-mail-http-final.log`. **Pending:** remaining final browser/MySQL release gates, new GitHub commit/PR/run, gated artifact comparison, merge and saved-download readback. The full required suite remains mandatory. The [release record](releases/0.8.1-owner-mail-settings.md) gives scope and package invariants; earlier run results below certify their historical source only.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 

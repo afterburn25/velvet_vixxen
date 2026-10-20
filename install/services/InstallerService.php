@@ -260,9 +260,10 @@ final class InstallerService
     private function validateOwner(array $owner): array
     {
         $name = trim((string) ($owner['name'] ?? ''));
-        $email = EmailAddress::normalize($owner['email'] ?? '');
+        $rawEmail = $owner['email'] ?? '';
+        $email = EmailAddress::normalize($rawEmail);
         $password = (string) ($owner['password'] ?? '');
-        if ($name === '' || !EmailAddress::isValid($email)) {
+        if ($name === '' || !EmailAddress::isValid($rawEmail)) {
             throw new RuntimeException('Enter the owner name and a valid owner email address.');
         }
         $length = function_exists('mb_strlen') ? mb_strlen($password) : strlen($password);
@@ -281,7 +282,8 @@ final class InstallerService
         $siteName = trim((string) ($site['site_name'] ?? 'Nikki Wilder — The Velvet Vixxen'));
         $timezone = trim((string) ($site['timezone'] ?? 'America/Chicago'));
         $currency = strtoupper(trim((string) ($site['currency'] ?? 'USD')));
-        $supportEmail = EmailAddress::normalize($site['support_email'] ?? '');
+        $rawSupportEmail = $site['support_email'] ?? '';
+        $supportEmail = EmailAddress::normalize($rawSupportEmail);
         $ageGateEnabled = filter_var($site['age_gate_enabled'] ?? true, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
         $ageGateEnabled = $ageGateEnabled ?? true;
         if (!filter_var($baseUrl, FILTER_VALIDATE_URL) || !preg_match('#^https?://#i', $baseUrl)) {
@@ -296,7 +298,7 @@ final class InstallerService
         if (!preg_match('/^[A-Z]{3}$/', $currency)) {
             throw new RuntimeException('Currency must be a three-letter code such as USD.');
         }
-        if (!EmailAddress::isValid($supportEmail)) {
+        if (!EmailAddress::isValid($rawSupportEmail)) {
             throw new RuntimeException('Enter a valid support email address.');
         }
         return compact('baseUrl', 'siteName', 'timezone', 'currency', 'supportEmail', 'ageGateEnabled') + [
@@ -314,13 +316,19 @@ final class InstallerService
             throw new RuntimeException('Choose Disabled, PHP mail, or SMTP for email delivery.');
         }
 
+        if (!EmailAddress::isValid($ownerEmail)) {
+            throw new RuntimeException('Enter a valid owner email address.');
+        }
         $ownerEmail = EmailAddress::normalize($ownerEmail);
-        $fromName = trim((string) ($mail['from_name'] ?? ''));
+        $rawFromName = $mail['from_name'] ?? '';
+        $fromName = is_string($rawFromName) ? trim($rawFromName) : '';
 
         // Email delivery is optional during installation. When it is disabled,
         // ignore stale or invisible browser-autofill values in hidden mail
         // fields instead of blocking an otherwise valid installation.
         if ($mode === 'disabled') {
+            if (EmailAddress::hasForbiddenControls($rawFromName)) $fromName = '';
+            $safeSiteName = EmailAddress::hasForbiddenControls($siteName) ? 'Nikki Wilder' : $siteName;
             return [
                 'mode' => 'disabled',
                 'host' => '',
@@ -329,11 +337,22 @@ final class InstallerService
                 'username' => '',
                 'password' => '',
                 'from_email' => $ownerEmail,
-                'from_name' => $fromName !== '' ? $fromName : $siteName,
+                'from_name' => $fromName !== '' ? $fromName : $safeSiteName,
             ];
         }
 
-        $fromEmail = EmailAddress::normalize($mail['from_email'] ?? '');
+        if (EmailAddress::hasForbiddenControls($rawFromName)
+            || ($fromName === '' && EmailAddress::hasForbiddenControls($siteName))) {
+            throw new RuntimeException('The From name cannot contain line breaks or control characters.');
+        }
+        if ($mode === 'smtp') {
+            foreach (['host' => 'SMTP hostname', 'username' => 'SMTP username'] as $field => $label) {
+                if (EmailAddress::hasForbiddenControls($mail[$field] ?? '')) {
+                    throw new RuntimeException($label . ' cannot contain line breaks or control characters.');
+                }
+            }
+        }
+        $fromEmail = EmailAddress::resolveSender($mail['from_email'] ?? '', $mode === 'smtp' ? ($mail['username'] ?? '') : '', $ownerEmail);
         $clean = [
             'mode' => $mode,
             'host' => trim((string) ($mail['host'] ?? '')),
@@ -341,15 +360,18 @@ final class InstallerService
             'encryption' => strtolower(trim((string) ($mail['encryption'] ?? 'tls'))),
             'username' => trim((string) ($mail['username'] ?? '')),
             'password' => (string) ($mail['password'] ?? ''),
-            'from_email' => $fromEmail !== '' ? $fromEmail : $ownerEmail,
+            'from_email' => $fromEmail,
             'from_name' => $fromName !== '' ? $fromName : $siteName,
         ];
-        if (!EmailAddress::isValid($clean['from_email'])) {
-            throw new RuntimeException('Enter a valid email From address. A normal address such as red.pixie93@gmail.com is accepted; retype or paste it without display-name text.');
-        }
         if ($clean['mode'] === 'smtp') {
             if ($clean['host'] === '') {
                 throw new RuntimeException('Enter the SMTP server hostname or disable email setup for now.');
+            }
+            $address = str_starts_with($clean['host'], '[') && str_ends_with($clean['host'], ']')
+                ? substr($clean['host'], 1, -1) : $clean['host'];
+            if (strlen($clean['host']) > 255 || (!filter_var($address, FILTER_VALIDATE_IP)
+                && !filter_var($clean['host'], FILTER_VALIDATE_DOMAIN, FILTER_FLAG_HOSTNAME))) {
+                throw new RuntimeException('Enter a valid SMTP hostname without a URL, path, or port.');
             }
             if ($clean['port'] < 1 || $clean['port'] > 65535) {
                 throw new RuntimeException('The SMTP port must be between 1 and 65535.');

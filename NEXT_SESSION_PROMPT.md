@@ -1,7 +1,19 @@
 # Copy-Paste Prompt for the Next Session
 
+<!-- owner-mail-settings:start -->
+## Current prompt — resume Build 20261020.2
+
+Continue Velvet Vixxen from `feature/0.8.1-owner-mail-settings`, based on verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Read `AGENTS.md`, the current status/handoff, `docs/releases/0.8.1-owner-mail-settings.md` and `docs/EMAIL_SETTINGS.md`; check live GitHub before claiming the release merged. This block supersedes the older continuation prompts below.
+
+The owner **System → Email & SMTP** page, safe saved-settings test and strict runtime/installer sender handling are implemented. Focused local tests passed: 199 backend, 269 installer validation, 143 packaged installer and 168 HTTP assertions plus two extracted-package browser cases. Final local source/security/package and all nine HTTP suites passed; final local ZIP hashes are recorded. Remaining full release gates, new source/PR/CI, merge and delivery are pending. Continue that verification and merge the verified work into `main`; retain every required gate and record actual evidence.
+
+Keep compatibility 0.8.1, Build 20261020.2 and the exact approved 13 Fresh / nine Upgrade root directories and four root files. All four ZIP names include the build. The installer-only overlay is now 11 files; `repair_build_id` identifies its revision without changing an installed site's build. Use complete Upgrade for an installed site; preserve configuration, original owner/keys, content and uploads.
+
+Then continue media **#2**, followed by **#7/#9**. Keep the actual customer host reports **#12/#13** open until observed on that host. Payments remain sandbox-only. Do not redo completed grouped-button, campaign dispatch, root-layout or database-recovery work, invent production verification, or start 0.9.0.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 
@@ -118,7 +130,7 @@ Preserve all of these decisions:
 
 Continue from the latest executable feature branch. Installer/database/layout implementation and package source is `e5b04daa132521be69c943151f8112c7cd2017e8` (tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`); matching customer downloads were saved on 2026-10-19 and are byte-identical to the gated GitHub artifact. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) are completed/success. The installer now reuses compatible existing databases, preserves owner credentials/records/settings/scenes/keys/identity, resumes failed DDL and finalization, and keeps pending setup out of automatic recovery/public activation. The owner also required evenly aligned Server/Folders checks, removal of the extra Folders rule, and aligned Password/Confirm Password inputs. Those fixes and completion-state cleanup are part of this same repair.
 
-Read the current `PROJECT_STATUS.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt` and `docs/releases/0.8.1-installer-database-repair.json` for actual source/CI/download status. The database repair is an eight-file runtime overlay (six PHP, CSS and JavaScript) and supersedes the one-file Folder Repair ZIP for this issue. Use `docs/INSTALLER_DATABASE_REPAIR.md` for the already-uploaded unfinished site. Preserve configuration, storage, uploads and database contents. A genuine incompatible schema or missing original key set requires a specific diagnosis; never restore the blanket empty-database requirement or silently overwrite an existing owner.
+Read the current `PROJECT_STATUS.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt` and `docs/releases/0.8.1-installer-database-repair.json` for actual source/CI/download status. The current Build 20261020.2 database repair is an 11-file runtime overlay (nine PHP, CSS and JavaScript), including all changed installer sender dependencies. Its `repair_build_id` does not change the installed runtime build. The earlier eight-file and one-file repair records are historical; consult `docs/releases/0.8.1-owner-mail-settings.md` for current evidence. Use `docs/INSTALLER_DATABASE_REPAIR.md` for the already-uploaded unfinished site. Preserve configuration, storage, uploads and database contents. A genuine incompatible schema or missing original key set requires a specific diagnosis; never restore the blanket empty-database requirement or silently overwrite an existing owner.
 
 Keep the real packaged MySQL installer suite mandatory on PHP 8.2 and 8.3, and keep the real desktop/mobile installer browser flow alongside the existing seven HTTP/thirteen application-browser suites. Preserve the actual foreign-owner and persistent-OPcache package tests. A configured CI gate, intermediate archive or previous source commit is not evidence that the latest changes passed. Update every handoff and issue #13, commit/upload the work, and provide the corrected downloadable packages before a completed handoff.
 
