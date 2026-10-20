@@ -10,6 +10,7 @@ use InvalidArgumentException;
 
 require_once __DIR__ . '/SceneButton.php';
 require_once __DIR__ . '/MarketingAudience.php';
+require_once __DIR__ . '/MarketingAccess.php';
 
 /** Publication windows are evaluated on read; they never run email or media jobs. */
 final class MarketingPublication
@@ -100,6 +101,7 @@ final class MarketingPublication
         $now ??= time();
         $result = ['state' => 'Needs review', 'visible' => false, 'problem' => null, 'start' => null, 'end' => null];
         try {
+            MarketingAccess::policy($record);
             $start = self::storedDate($record[$collection === 'posts' ? 'publish_at' : 'starts_at'] ?? null)?->getTimestamp();
             $end = $collection === 'posts' ? null : self::storedDate($record['ends_at'] ?? null)?->getTimestamp();
             if ($start !== null && $end !== null && $end <= $start) throw new InvalidArgumentException('The end must be after the start.');
@@ -143,6 +145,9 @@ final class MarketingPublication
     {
         self::collection($collection);
         $result = [];
+        // Older forms preserve both an existing restriction and a legacy absence.
+        // Explicit edits can deliberately replace a malformed held policy.
+        if (array_key_exists('access', $input)) $result['access'] = MarketingAccess::validate($input['access']);
         $single = $collection === 'banners' ? ['text' => 1000] : ['title' => 255];
         if ($collection === 'posts') $single['category'] = 120;
         if ($collection === 'landing_pages') $single += ['eyebrow' => 120, 'cta_label' => 120];

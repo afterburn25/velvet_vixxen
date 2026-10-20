@@ -200,6 +200,16 @@ trait MemberStoreTrait
         return $member;
     }
 
+    /** Compare a SQL verification DATETIME in the same connection timezone that stores it. */
+    public function databaseMemberVerificationIsCurrent(string|int $memberId): bool
+    {
+        if ($this->mode !== 'mysql') throw new RuntimeException('Database verification comparison requires SQL storage.');
+        $statement = $this->pdo()->prepare("SELECT 1 FROM members WHERE id=? AND status='active' AND deleted_at IS NULL
+            AND email_verified_at IS NOT NULL AND email_verified_at>='1000-01-01 00:00:00' AND email_verified_at<=NOW() LIMIT 1");
+        $statement->execute([(string) $memberId]);
+        return $statement->fetchColumn() !== false;
+    }
+
     public function recordMemberLoginSuccess(string|int $memberId): void
     {
         $member = $this->member($memberId);

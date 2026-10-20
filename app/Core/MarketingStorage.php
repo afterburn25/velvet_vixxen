@@ -47,6 +47,12 @@ final class MarketingStorage
         return $this->access(static fn(array &$data): array => $data, false);
     }
 
+    /** Saved-state read only: no directory, lock file, defaults or SQL guard is created. */
+    public function peek(): ?array
+    {
+        return $this->access(static fn(array &$data): array => $data, false, false);
+    }
+
     public function update(callable $operation): mixed
     {
         return $this->access($operation, true);
@@ -199,13 +205,13 @@ final class MarketingStorage
         }
     }
 
-    private function access(callable $operation, bool $write): mixed
+    private function access(callable $operation, bool $write, bool $initialize = true): mixed
     {
         if ($this->dataOperation) throw new MarketingStorageException('A marketing data operation is already in progress.');
         $this->dataOperation = true;
         $local = null; $context = null; $databaseLock = false; $transaction = false;
         try {
-            $local = $this->acquireLocal('data.lock');
+            $local = $this->acquireLocal('data.lock', false, $initialize);
             $context = $this->context();
             $inspection = ['schema' => 'needed', 'state' => null, 'authority' => null];
             if ($context['mode'] === 'mysql') {
@@ -215,18 +221,25 @@ final class MarketingStorage
             }
             if ($inspection['state'] !== null) {
                 $this->assertGuardMatches($context['guard'], $inspection['authority']);
-                $this->ensureGuard($inspection['authority']);
+                if ($initialize) $this->ensureGuard($inspection['authority']);
                 $data = $context['repository']->read($inspection['state']);
             } else {
                 if ($context['guard'] !== null) {
                     throw new MarketingStorageException('A marketing SQL move requires review. Open System → Marketing Storage; the old file has not been reactivated.');
                 }
                 $source = $this->source();
-                if (!$source['exists']) { $this->writeFile($this->defaults()); $source = $this->source(); }
-                $data = $this->sourceData($source);
+                if (!$source['exists'] && $initialize) { $this->writeFile($this->defaults()); $source = $this->source(); }
+                $data = $source['exists'] ? $this->sourceData($source) : null;
+            }
+            if (!$initialize && $local === null) {
+                // A first writer creates the persistent mutex before selecting or changing
+                // storage. If that happened during this unlocked read, require a locked retry.
+                $lockPath = $this->directory . '/data.lock';
+                $this->assertPath($lockPath, true);
+                if (file_exists($lockPath)) throw new MarketingStorageException('Marketing storage changed while opening the saved preview. Reload and try again.');
             }
             $before = $data;
-            $result = $operation($data);
+            $result = $data === null ? null : $operation($data);
             if ($write && $data !== $before) {
                 $data['meta']['revision'] = (int) ($before['meta']['revision'] ?? 0) + 1;
                 $data['meta']['updated_at'] = gmdate('c');
@@ -513,17 +526,19 @@ final class MarketingStorage
         }
     }
 
-    private function acquireLocal(string $name, bool $nonblocking = false)
+    private function acquireLocal(string $name, bool $nonblocking = false, bool $create = true)
     {
-        $this->ensureDirectory();
+        if ($create) $this->ensureDirectory();
+        else $this->assertPath($this->directory, true);
         $path = $this->directory . '/' . $name;
         $this->assertPath($path, true);
-        if (file_exists($path) && (!is_file($path) || !is_writable($path) || ((int) fileperms($path) & 0222) === 0)) {
+        if (!$create && !file_exists($path)) return null;
+        if (file_exists($path) && (!is_file($path) || ($create && (!is_writable($path) || ((int) fileperms($path) & 0222) === 0)))) {
             throw new MarketingStorageException('Marketing storage could not be locked. Check private storage permissions.');
         }
-        $handle = @fopen($path, 'c+b');
+        $handle = @fopen($path, $create ? 'c+b' : 'rb');
         if (!is_resource($handle)) throw new MarketingStorageException('Marketing storage could not be locked.');
-        @chmod($path, 0640);
+        if ($create) @chmod($path, 0640);
         $deadline = microtime(true) + ($nonblocking ? 0 : 10);
         do {
             if (flock($handle, LOCK_EX | LOCK_NB)) return $handle;

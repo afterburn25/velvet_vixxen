@@ -2,7 +2,7 @@
 declare(strict_types=1);
 if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }
 require_once ROOT_PATH . '/includes/marketing_public_shell.php';
-$posts = velvet_marketing_store()->publishedPosts();
+$posts = velvet_marketing_store()->publishedPosts(null, velvet_marketing_viewer());
 velvet_marketing_public_header('Latest Updates', 'News, music, galleries, videos and personal updates from Nikki Wilder.');
 ?>
 <div class="marketing-shell">

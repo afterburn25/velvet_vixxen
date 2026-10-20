@@ -99,9 +99,9 @@ REPAIR_TIMESTAMPS.update({
 })
 PRIOR_RELEASE_TIMESTAMPS = {
     '.htaccess': (2026, 10, 20, 2, 24, 0),
-    'VERSION': (2026, 10, 20, 5, 46, 48),
+    'VERSION': (2026, 10, 20, 14, 16, 8),
     'admin/addon-recovery.php': (2026, 10, 20, 5, 0, 0),
-    'admin/index.php': (2026, 10, 20, 5, 46, 48),
+    'admin/index.php': (2026, 10, 20, 14, 16, 8),
     'admin/repair.php': (2026, 10, 20, 2, 24, 0),
     'admin/update.php': (2026, 10, 20, 2, 24, 0),
     'app/Console/run_marketing.php': (2026, 10, 20, 2, 24, 0),
@@ -121,7 +121,10 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/MailSettingsService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/MarketingAudience.php': (2026, 10, 20, 5, 20, 0),
     'app/Core/MarketingPublication.php': (2026, 10, 20, 5, 46, 48),
-    'app/Core/MarketingStore.php': (2026, 10, 20, 5, 46, 48),
+    'app/Core/MarketingSqlRepository.php': (2026, 10, 20, 14, 16, 8),
+    'app/Core/MarketingStorage.php': (2026, 10, 20, 14, 16, 8),
+    'app/Core/MarketingStorageException.php': (2026, 10, 20, 14, 16, 8),
+    'app/Core/MarketingStore.php': (2026, 10, 20, 14, 16, 8),
     'app/Core/MediaAdminService.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaStoreTrait.php': (2026, 10, 20, 3, 48, 0),
@@ -136,6 +139,7 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/Store.php': (2026, 10, 20, 3, 48, 0),
     'app/Support/functions.php': (2026, 10, 20, 2, 24, 0),
     'app/Support/mail_settings_admin.php': (2026, 10, 20, 2, 24, 0),
+    'app/Support/marketing_storage_admin.php': (2026, 10, 20, 14, 16, 8),
     'app/Support/media_admin.php': (2026, 10, 20, 3, 48, 0),
     'app/Support/public_routes.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/addon-licensing.php': (2026, 10, 20, 3, 48, 0),
@@ -150,23 +154,26 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Views/admin/marketing-campaign-form.php': (2026, 10, 20, 5, 20, 0),
     'app/Views/admin/marketing-publication-editor.php': (2026, 10, 20, 5, 46, 48),
     'app/Views/admin/marketing-publication-list.php': (2026, 10, 20, 5, 46, 48),
-    'app/Views/admin/marketing.php': (2026, 10, 20, 5, 46, 48),
+    'app/Views/admin/marketing-storage-actions.php': (2026, 10, 20, 14, 16, 8),
+    'app/Views/admin/marketing-storage.php': (2026, 10, 20, 14, 16, 8),
+    'app/Views/admin/marketing.php': (2026, 10, 20, 14, 16, 8),
     'app/Views/admin/media-center.php': (2026, 10, 20, 3, 48, 0),
     'app/Views/admin/media-library.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/members.php': (2026, 10, 20, 3, 48, 0),
-    'app/Views/admin/navigation.php': (2026, 10, 20, 2, 24, 0),
+    'app/Views/admin/navigation.php': (2026, 10, 20, 14, 16, 8),
     'app/Views/admin/repair-backups.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/repair-status.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/update-status.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/public/partials/footer.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/public/partials/scene-buttons.php': (2026, 10, 20, 2, 24, 0),
     'config/app.example.php': (2026, 10, 20, 3, 48, 0),
+    'database/migrations/202610200015_marketing_sql_storage.php': (2026, 10, 20, 14, 16, 8),
     'includes/installation_recovery.php': (2026, 10, 19, 16, 0, 0),
     'includes/marketing.php': (2026, 10, 20, 2, 24, 0),
     'includes/marketing_admin.php': (2026, 10, 20, 5, 46, 48),
     'includes/marketing_public_shell.php': (2026, 10, 20, 2, 24, 0),
-    'includes/runtime-build.json': (2026, 10, 20, 5, 46, 48),
-    'includes/version.php': (2026, 10, 20, 5, 46, 48),
+    'includes/runtime-build.json': (2026, 10, 20, 14, 16, 8),
+    'includes/version.php': (2026, 10, 20, 14, 16, 8),
     'install/index.php': (2026, 10, 20, 2, 24, 0),
     'install/services/EmailAddress.php': (2026, 10, 20, 2, 24, 0),
     'install/services/FileSystemService.php': (2026, 10, 19, 0, 0, 0),
@@ -235,22 +242,29 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/routes/videos/watch.php': (2026, 10, 20, 2, 24, 0),
     'route.php': (2026, 10, 20, 2, 24, 0),
 }
-RELEASE_TIMESTAMP = (2026, 10, 20, 14, 16, 8)
+RELEASE_TIMESTAMP = (2026, 10, 20, 17, 20, 22)
 RELEASE_FILES = {
     'VERSION',
     'admin/index.php',
-    'app/Core/MarketingSqlRepository.php',
+    'app/Core/MarketingAccess.php',
+    'app/Core/MarketingPublication.php',
     'app/Core/MarketingStorage.php',
-    'app/Core/MarketingStorageException.php',
     'app/Core/MarketingStore.php',
-    'app/Support/marketing_storage_admin.php',
-    'app/Views/admin/marketing-storage-actions.php',
-    'app/Views/admin/marketing-storage.php',
-    'app/Views/admin/marketing.php',
-    'app/Views/admin/navigation.php',
-    'database/migrations/202610200015_marketing_sql_storage.php',
+    'app/Core/MemberStoreTrait.php',
+    'app/Views/admin/marketing-actions.php',
+    'app/Views/admin/marketing-preview.php',
+    'app/Views/admin/marketing-publication-editor.php',
+    'app/Views/admin/marketing-publication-list.php',
+    'app/Views/public/partials/header.php',
+    'includes/marketing.php',
+    'includes/marketing_admin.php',
+    'includes/marketing_public_shell.php',
     'includes/runtime-build.json',
     'includes/version.php',
+    'public/assets/css/marketing.css',
+    'public/routes/blog/index.php',
+    'public/routes/blog/post.php',
+    'public/routes/campaign/index.php',
 }
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in {
@@ -316,11 +330,11 @@ echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION
 
 
 def run() -> None:
-    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json").read_text())
-    assert prior_release["source_commit"] == "3368ffc41e63ded8c790ad1f8e4156349a4bc4ed"
-    assert prior_release["version"] == "0.8.5" and prior_release["build_id"] == "20261020.6"
-    assert prior_release["sha256"] == "66e565dda69938cdadc80cc8780860d6e339a00c1b632721e6d3107b2c3cede3"
-    assert prior_release["files"] == len(prior_release["entries"]) == 349, "Prior-release fixture must retain the exact delivered Fresh inventory"
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.6-build-20261020.7.json").read_text())
+    assert prior_release["source_commit"] == "e4640e84a2c5417954f936f86ee993112c67bb37"
+    assert prior_release["version"] == "0.8.6" and prior_release["build_id"] == "20261020.7"
+    assert prior_release["sha256"] == "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06"
+    assert prior_release["files"] == len(prior_release["entries"]) == 356, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
