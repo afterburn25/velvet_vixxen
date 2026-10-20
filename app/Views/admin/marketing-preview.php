@@ -22,12 +22,22 @@ try {
     $previewId = \Velvet\Core\MarketingPublication::id($_GET['id'] ?? null);
     $previewRecord = \Velvet\Core\MarketingStore::previewPublication($previewCollection, $previewId, ROOT_PATH);
     if ($previewRecord === null) $previewDeny(404);
+    $previewPresentation = null;
+    $previewRelated = [];
+    if ($previewCollection !== 'banners') {
+        $previewPresentation = velvet_marketing_editorial_presentation($previewCollection, $previewRecord);
+        if ($previewCollection === 'posts') {
+            foreach (\Velvet\Core\MarketingStore::previewRelatedPosts($previewId, ROOT_PATH) as $relatedPost) {
+                $previewRelated[] = ['record' => $relatedPost, 'presentation' => velvet_marketing_editorial_presentation('posts', $relatedPost)];
+            }
+        }
+    }
 } catch (Throwable) { $previewDeny(404); }
 $previewMeta = mm_publication_meta($previewCollection);
 $previewCatalog = mm_publication_access_catalog();
 $previewAccess = \Velvet\Core\MarketingAccess::describe($previewRecord, $previewCatalog['available_plan_ids']);
 $previewEditUrl = base_url('admin/?page=marketing&tab=' . $previewMeta['tab'] . '&' . $previewMeta['edit'] . '=' . rawurlencode($previewId));
-// Either saved-content or tier-catalog reads may have waited. Recheck the owner
+// Saved content, related posts, artwork and tier-catalog reads may have waited. Recheck the owner
 // after all of them, immediately before the private response is rendered.
 if (!velvet_marketing_is_owner()) $previewDeny(403);
 ?>
@@ -54,11 +64,21 @@ if (!velvet_marketing_is_owner()) $previewDeny(403);
     <p>Buttons and links in the content are shown for review. This preview does not publish content, record a visit or send email.</p>
     <a class="marketing-button" data-preview-back href="<?= velvet_marketing_escape($previewEditUrl) ?>">Back to Edit</a>
   </header>
+  <?php if ($previewPresentation !== null): $previewSearch = velvet_marketing_editorial_head($previewRecord, $previewPresentation); ?>
+  <section class="marketing-card marketing-preview-search" data-preview-editorial-seo aria-labelledby="preview-search-title">
+    <span class="marketing-eyebrow">Saved search appearance</span>
+    <h2 id="preview-search-title"><?= velvet_marketing_escape($previewSearch['title']) ?></h2>
+    <?php if ($previewSearch['description'] !== ''): ?><p><?= velvet_marketing_escape($previewSearch['description']) ?></p><?php else: ?><p>No excerpt or search description is saved.</p><?php endif; ?>
+    <p class="marketing-field-help">Search appearance does not change publication status or who can view this content.</p>
+    <?php foreach ($previewPresentation['problems'] as $previewProblem): ?><p class="marketing-notice"><?= velvet_marketing_escape($previewProblem) ?></p><?php endforeach; ?>
+    <?php if ($previewPresentation['values']['featured_asset_id'] !== '' && $previewPresentation['image'] === null): ?><p class="marketing-notice" data-preview-image-unavailable>The saved featured image is unavailable. Choose a current public image or clear it in the editor.</p><?php endif; ?>
+  </section>
+  <?php endif; ?>
   <div data-preview-content="<?= velvet_marketing_escape($previewCollection) ?>" data-preview-id="<?= velvet_marketing_escape($previewId) ?>">
     <?php
-    if ($previewCollection === 'posts') velvet_marketing_render_post($previewRecord);
+    if ($previewCollection === 'posts') velvet_marketing_render_post($previewRecord, $previewPresentation, $previewRelated, true);
     elseif ($previewCollection === 'banners') velvet_marketing_render_banner_record($previewRecord, true);
-    else velvet_marketing_render_landing_page($previewRecord, true);
+    else velvet_marketing_render_landing_page($previewRecord, true, $previewPresentation);
     ?>
   </div>
 </main>

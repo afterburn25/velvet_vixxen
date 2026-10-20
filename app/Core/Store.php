@@ -164,10 +164,11 @@ final class Store
         throw new RuntimeException('The selected composition version could not be found.');
     }
 
-    public function media(): array
+    /** Read-only metadata lookups must not initialize storage or change write digests. */
+    public function media(bool $readOnly = false): array
     {
         if ($this->mode === 'file') {
-            $data = $this->readFileStore();
+            $data = $readOnly ? $this->loadFileStore()[0] : $this->readFileStore();
             $rows = array_values((array) ($data['media'] ?? []));
             usort($rows, static fn(array $a, array $b): int => strcmp((string) ($b['createdAt'] ?? ''), (string) ($a['createdAt'] ?? '')));
             return $rows;

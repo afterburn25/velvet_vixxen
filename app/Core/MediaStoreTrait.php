@@ -11,14 +11,15 @@ use Throwable;
 
 trait MediaStoreTrait
 {
-    public function mediaAsset(string|int $id): ?array
+    /** Read-only metadata lookups must not initialize storage or change write digests. */
+    public function mediaAsset(string|int $id, bool $readOnly = false): ?array
     {
         $id = (string) $id;
         if ($id === '') {
             return null;
         }
         if ($this->mode === 'file') {
-            $data = $this->readFileStore();
+            $data = $readOnly ? $this->loadFileStore()[0] : $this->readFileStore();
             $asset = $data['media'][$id] ?? null;
             return is_array($asset) && empty($asset['deletedAt']) ? $asset : null;
         }

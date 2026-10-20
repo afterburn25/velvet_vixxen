@@ -35,7 +35,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = Path(__file__).with_name('editorial_access_fixture.php')
-VERSION, BUILD = '0.8.7', '20261020.8'
+VERSION, BUILD = '0.8.8', '20261020.9'
 OWNER, PASSWORD, MEMBER_PASSWORD = 'owner@example.test', 'VelvetDemo12', 'VelvetMember12'
 COLLECTIONS = ('posts', 'banners', 'landing_pages', 'links', 'referral_codes', 'contacts', 'segments',
                'campaigns', 'campaign_queue', 'events', 'consents', 'suppressions')
@@ -809,7 +809,7 @@ def prepare_package(work: Path):
     with ZipFile(archive) as zipped:
         files = {name: zipped.read(name) for name in zipped.namelist() if not name.endswith('/')}
     version, build = package.package_identity(files)
-    check((version, build) == (VERSION, BUILD), 'Editorial acceptance requires 0.8.7 / Build20261020.8.')
+    check((version, build) == (VERSION, BUILD), 'Editorial acceptance requires 0.8.8 / Build20261020.9.')
     package.validate(files, 'fresh', version)
     check(set(UI_FILES) <= files.keys() and all(files[name] == (ROOT / name).read_bytes() for name in UI_FILES),
           'The actual Fresh ZIP does not contain the exact editorial runtime sources under test.')

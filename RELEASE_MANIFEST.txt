@@ -1,3 +1,16 @@
+VELVET VIXXEN 0.8.8 — BUILD 20261020.9 IN PROGRESS
+
+Branch: feature/0.8.8-editorial-metadata
+Authoritative integration baseline: f918db21b031b3fe43baa6619b2a16d1a62b5f0d
+Posts gain a deliberately public author display name, comma-separated tags, an existing public featured image and alternative text, search title/description and up to six manually ordered related posts. Landing pages gain the image and search fields; banners keep their existing controls. Existing categories, IDs, permalinks, order, publication timing and Public/Members/Selected tiers access remain in place. Related content is filtered by source and target access before metadata disclosure. Saved-owner previews resolve metadata before their final active-owner check, keep related links inert and produce no marketing events or email.
+Local acceptance, GitHub CI, merge and saved-download equality pending.
+Full Fresh/Upgrade: 0.8.8 / Build 20261020.9; approved 13/9 root directories and four root files.
+Unchanged unfinished-installer repair: 0.8.1 / repair Build 20261020.3; original delivered identity retained.
+Current evidence: docs/releases/0.8.8-editorial-metadata.md; owner guide: docs/EDITORIAL_METADATA.md.
+The broader #9 roadmap remains open for editorial history/restore, calendar and post expiry; scheduled Composer scenes; durable referral attribution; analytics operations; campaign message preview/test-send, templates and tracking; missing notification workflows; additional audience predicates; and provider hooks. File and MySQL storage retain the same business rules without a new migration. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+HISTORICAL RELEASE RECORD FOLLOWS
+
 VELVET VIXXEN 0.8.7 — BUILD 20261020.8 VERIFIED, MERGED AND DELIVERED
 
 Visible release version: 0.8.7; secondary build ID: 20261020.8.

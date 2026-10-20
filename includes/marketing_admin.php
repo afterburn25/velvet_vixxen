@@ -32,6 +32,23 @@ function mm_publication_input(string $collection, array $post): array
         default => throw new InvalidArgumentException('Choose a valid publication.'),
     };
     $input = array_intersect_key($post, array_flip($allowed));
+    if ($collection !== 'banners') {
+        foreach (['featured_asset_id', 'featured_alt', 'seo_title', 'seo_description'] as $key) {
+            if (array_key_exists($key, $post)) $input[$key] = $post[$key];
+        }
+    }
+    if ($collection === 'posts') {
+        if (array_key_exists('tags', $post)) $input['tags'] = \Velvet\Core\MarketingMetadata::tagsFromText($post['tags']);
+        if (array_key_exists('author_name', $post)) $input['author_name'] = $post['author_name'];
+        if (array_key_exists('related_post_ids', $post)) {
+            $related = $post['related_post_ids'];
+            if (!is_array($related) || !array_is_list($related) || count($related) > \Velvet\Core\MarketingMetadata::MAX_RELATED
+                || array_filter($related, static fn(mixed $id): bool => !is_string($id)) !== []) {
+                throw new InvalidArgumentException('Choose at most six related posts in order.');
+            }
+            $input['related_post_ids'] = \Velvet\Core\MarketingMetadata::relatedIds(array_values(array_filter($related, static fn(string $id): bool => $id !== '')));
+        }
+    }
     $input['id'] = $post['id'] ?? '';
     $input['expected_revision'] = $post['publication_revision'] ?? null;
     if ($collection !== 'posts') $input['enabled'] = mm_checked($post['enabled'] ?? null);
@@ -51,6 +68,16 @@ function mm_publication_access_input(array $post): array
     }
     return \Velvet\Core\MarketingAccess::validate(['version' => 1, 'mode' => $mode,
         'plan_ids' => $mode === 'tiers' ? $plans : []]);
+}
+
+/** Private owner choices; public renderers resolve the selected asset afresh. */
+function mm_publication_metadata_catalog(): array
+{
+    try {
+        return ['images' => \Velvet\Core\MarketingMetadata::imageCatalog(ROOT_PATH), 'problem' => ''];
+    } catch (Throwable) {
+        return ['images' => [], 'problem' => 'The saved image catalogue could not be checked. Existing image selections stay saved; choose an available image before changing one.'];
+    }
 }
 
 /** Rechecked inside the publication lock; safe withdrawals need no policy repair. */

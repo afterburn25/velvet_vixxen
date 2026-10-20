@@ -9,6 +9,12 @@ $publicHeaderBrand = (string) ($publicHeaderSettings['brand_name'] ?? 'Nikki Wil
 $publicHeaderSubtitle = (string) ($publicHeaderSettings['brand_subtitle'] ?? 'The Velvet Vixxen');
 $pageTitle = isset($pageTitle) ? (string) $pageTitle : $publicHeaderBrand;
 $activeNav = isset($activeNav) ? (string) $activeNav : '';
+$publicHeaderDocumentTitle = $pageTitle;
+$publicHeaderDescription = $pageTitle . ' — Nikki Wilder, The Velvet Vixxen.';
+if (isset($marketingPageMetadata) && is_array($marketingPageMetadata)) {
+    if (is_string($marketingPageMetadata['title'] ?? null) && $marketingPageMetadata['title'] !== '') $publicHeaderDocumentTitle = $marketingPageMetadata['title'];
+    if (is_string($marketingPageMetadata['description'] ?? null) && $marketingPageMetadata['description'] !== '') $publicHeaderDescription = $marketingPageMetadata['description'];
+}
 
 ?>
 <!doctype html>
@@ -17,9 +23,9 @@ $activeNav = isset($activeNav) ? (string) $activeNav : '';
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090308">
-<meta name="description" content="<?= e($pageTitle) ?> — Nikki Wilder, The Velvet Vixxen.">
+<meta name="description" content="<?= e($publicHeaderDescription) ?>">
 <meta name="csrf-token" content="<?= e(csrf_token()) ?>">
-<title><?= e($pageTitle) ?> · <?= e($publicHeaderBrand) ?></title>
+<title><?= e($publicHeaderDocumentTitle) ?> · <?= e($publicHeaderBrand) ?></title>
 <link rel="stylesheet" href="<?= e(asset_url('css/site.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('css/media-center.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('css/member.css')) ?>">

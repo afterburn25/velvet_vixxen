@@ -11,6 +11,7 @@ use InvalidArgumentException;
 require_once __DIR__ . '/SceneButton.php';
 require_once __DIR__ . '/MarketingAudience.php';
 require_once __DIR__ . '/MarketingAccess.php';
+require_once __DIR__ . '/MarketingMetadata.php';
 
 /** Publication windows are evaluated on read; they never run email or media jobs. */
 final class MarketingPublication
@@ -144,7 +145,7 @@ final class MarketingPublication
     public static function fields(string $collection, array $input, array $previous): array
     {
         self::collection($collection);
-        $result = [];
+        $result = MarketingMetadata::fields($collection, $input);
         // Older forms preserve both an existing restriction and a legacy absence.
         // Explicit edits can deliberately replace a malformed held policy.
         if (array_key_exists('access', $input)) $result['access'] = MarketingAccess::validate($input['access']);

@@ -11,9 +11,11 @@ require_once __DIR__ . '/MarketingStorage.php';
 final class MarketingStore
 {
     private MarketingStorage $storage;
+    private readonly string $root;
 
     public function __construct(?string $root = null)
     {
+        $this->root = $root ?: dirname(__DIR__, 2);
         $this->storage = new MarketingStorage($root);
         $this->storage->initialize();
     }
@@ -76,6 +78,46 @@ final class MarketingStore
             if (($post['slug'] ?? '') === $slug) return $post;
         }
         return null;
+    }
+
+    /** Both the source and related posts are resolved from one current snapshot. */
+    public function relatedPosts(string $sourceId, ?array $viewer = null): array
+    {
+        MarketingPublication::id($sourceId);
+        return self::relatedFromSnapshot($this->all(), $sourceId, $viewer, false);
+    }
+
+    /** The active-owner caller rechecks ownership after this and all media reads. */
+    public static function previewRelatedPosts(string $sourceId, ?string $root = null): array
+    {
+        MarketingPublication::id($sourceId);
+        $data = (new MarketingStorage($root))->peek();
+        return $data === null ? [] : self::relatedFromSnapshot($data, $sourceId, null, true);
+    }
+
+    private static function relatedFromSnapshot(array $data, string $sourceId, ?array $viewer, bool $preview): array
+    {
+        $posts = []; $duplicates = [];
+        foreach ($data['posts'] as $record) {
+            if (!is_array($record) || !is_string($record['id'] ?? null)) continue;
+            $id = $record['id'];
+            if (array_key_exists($id, $posts)) $duplicates[$id] = true;
+            $posts[$id] = $record;
+        }
+        $source = $posts[$sourceId] ?? null;
+        $now = time();
+        if ($source === null || isset($duplicates[$sourceId]) || (!$preview
+            && (!MarketingPublication::visibility('posts', $source, $now)['visible'] || !MarketingAccess::allows($source, $viewer)))) return [];
+        $ids = MarketingMetadata::describe('posts', $source)['values']['related_post_ids'];
+        $related = [];
+        foreach ($ids as $id) {
+            if ($id === $sourceId || isset($duplicates[$id]) || !isset($posts[$id])) continue;
+            $record = $posts[$id];
+            if (!$preview && (!MarketingPublication::visibility('posts', $record, $now)['visible']
+                || !MarketingAccess::allows($record, $viewer))) continue;
+            $related[] = $record;
+        }
+        return $related;
     }
 
     public function activeBanners(?array $viewer = null): array
@@ -144,10 +186,28 @@ final class MarketingStore
             $record = array_replace($existing, $fields, ['id' => $id ?: $this->id(rtrim($collection, 's')),
                 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
+            $this->validateMetadataReferences($collection, $fields, $record, $data);
+            // Media catalogue reads can wait. Authorization must be checked only
+            // after every saved reference has been resolved inside this lock.
             if ($authorize !== null) $authorize($record);
             if ($index === false) $data[$collection][] = $record; else $data[$collection][$index] = $record;
             return MarketingPublication::describe($collection, $record);
         });
+    }
+
+    private function validateMetadataReferences(string $collection, array $fields, array $record, array $data): void
+    {
+        if (array_key_exists('featured_asset_id', $fields) && $fields['featured_asset_id'] !== ''
+            && MarketingMetadata::resolveImage($fields['featured_asset_id'], $this->root) === null) {
+            throw new \InvalidArgumentException('That featured image is unavailable. Choose a current public image from the Media Library.');
+        }
+        if ($collection !== 'posts' || !array_key_exists('related_post_ids', $fields)) return;
+        foreach ($fields['related_post_ids'] as $id) {
+            if ($id === $record['id']) throw new \InvalidArgumentException('A post cannot be related to itself.');
+            $matches = 0;
+            foreach ($data['posts'] as $other) if (is_array($other) && ($other['id'] ?? null) === $id) $matches++;
+            if ($matches !== 1) throw new \InvalidArgumentException('A selected related post is unavailable. Choose the related posts again.');
+        }
     }
 
     /** A safe withdrawal is allowed even if legacy dates need repair. */
