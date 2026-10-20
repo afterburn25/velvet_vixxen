@@ -1,33 +1,46 @@
-VELVET VIXXEN 0.8.1 — BUILD 20261020.2 OWNER EMAIL & SMTP
+VELVET VIXXEN 0.8.1 — BUILD 20261020.2 VERIFIED, MERGED AND DELIVERED
 
-Status: implemented; final local source/security/package and all nine HTTP suites passed on PHP 8.3.6. Required GitHub CI, merge, gated artifact comparison and saved-download delivery remain pending.
-Working branch: feature/0.8.1-owner-mail-settings
-Verified main baseline: 6d9b5677d6374ddb1b6dd7a93c6d307f982b877a
-New source commit/tree, PR, exact CI run/checkout and merge: pending; do not substitute prior Build 20261020.1 evidence.
-Local focused checks: 199 backend; 269 installer validation; 143 actual packaged installer; 168 owner HTTP assertions; two real packaged owner browser cases. Loopback mail only; zero external messages. Browser archive preceded the final transport-hint edit and is intermediate evidence.
-Final local source and HTTP logs: /tmp/vvx-mail-source-final.log; /tmp/vvx-mail-http-final.log
-Frozen executable/test/build/workflow inventory: /tmp/vvx-mail-source-freeze.json (451 files)
+Status: all seven exact-tree PR CI jobs passed; merged into main; all four ZIPs and the separate manifest match the downloaded gated artifact and their saved/retrieved bytes literally.
+Integration branch: main
+Release source: 20384c93235749a6ae13b2686c34a37af5fec9bd
+Prior main baseline: 6d9b5677d6374ddb1b6dd7a93c6d307f982b877a
+Source/CI/merge tree: cef4014a6a07a3297be6be53641fbcc5ed267b57
+PR #17: https://github.com/afterburn25/velvet_vixxen/pull/17
+Actual merge: 65bea278efacd59e8ba24401cc3fe7d47300a7d4 at 2026-10-20 03:10:04 UTC
+Required CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062
+All seven jobs: completed/success; actual checkout 77062d02579e93c573e8c7955a5362220199ac59; complete tree equals release source and merge.
+The completed PR run certifies this identical tree. No separate post-merge CI result is claimed. Push run 39361536502 was superseded by the complete PR run under the shared concurrency group.
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12238380045
+Runtime artifact 12238380045: 15400090 bytes; verified SHA-256 e0b148a04e60e3cc339eaaf39753e3bede2a93d60c262a08346b758e944c6f70
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12237308708
+CI versions: PHP 8.2.34 / 8.3.35; MySQL 8.0.46; final browser PHP 8.3.35 / Playwright 1.62.0 / Chromium 151.0.7922.34.
+Executed acceptance: 199 backend; 269 installer validation; 143 packaged installer SMTP; 168 owner HTTP; 54 campaign HTTP; 922 existing-database installer assertions per PHP version; nine HTTP suites; 13 existing browser suites plus two new owner cases; security/ownership/OPcache/package gates passed.
+Mail fixtures: disposable and loopback-only; zero external messages. Local Chromium 155.0.8059.84 evidence used an intermediate archive and remains scoped historical evidence.
+Saved-download readback: 2026-10-20 03:11:47 UTC; all five saved/retrieved files equal the gated artifact literally.
 
-Final locally built ZIPs (GitHub artifact/readback comparison pending):
-Fresh: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip
-  7653396 bytes; SHA-256 fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803
-Upgrade: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip
-  7496073 bytes; SHA-256 2246960057f831c645ff1c66d0768cceac67a5776a2ff9505cc2c7205e43f506
-Installer repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip
-  11 files; 60065 bytes; SHA-256 07aafea10e8c6ccb2205cf73e0751b440a8edb7e1433e5a0fede6e34600685c8
-Media/Composer repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Media-Composer-Repair.zip
-  222568 bytes; SHA-256 3b4a7deacfd6b322e4b66b0d4d76d22bc25080311979df028ca8af291e68210e
+Verified packages:
+fresh: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip
+  335 runtime files; 7653396 bytes; SHA-256 fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803
+upgrade: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip
+  294 runtime files; 7496073 bytes; SHA-256 2246960057f831c645ff1c66d0768cceac67a5776a2ff9505cc2c7205e43f506
+installer-repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip
+  11 runtime files; 60065 bytes; SHA-256 07aafea10e8c6ccb2205cf73e0751b440a8edb7e1433e5a0fede6e34600685c8
+composer-repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Media-Composer-Repair.zip
+  94 runtime files; 222568 bytes; SHA-256 3b4a7deacfd6b322e4b66b0d4d76d22bc25080311979df028ca8af291e68210e
 Separate manifest: Velvet-Vixxen-0.8.1-Build-20261020.2-package-manifest.json
+  85110 bytes; SHA-256 46644b5be1467a7a47668e2139fbe43060734ec556c31e34a73496702666a1d0
 
 Fresh roots (13): addons, admin, app, config, database, images, includes, install, public, storage, templates, uploads, vendor
 Upgrade roots (9): addons, admin, app, database, images, includes, public, templates, vendor
 Root files (4): .htaccess, VERSION, index.php, route.php
 Public implementations remain under public/routes; commands under app/Console; no additional root route/API folders or root media.php.
 Installed-site package: complete Build-20261020.2 Upgrade. Preserve installed configuration, state, keys and content; verify files and running build through the existing update procedure.
-Unfinished-installer overlay: 11 files, including install/index.php, install/services/InstallerService.php, install/services/EmailAddress.php and install/services/SmtpTester.php. repair_build_id identifies its revision without changing an installed site's runtime inventory/build. It does not substitute for complete Upgrade.
+Unfinished-installer overlay: 11 files, including install/index.php, install/services/InstallerService.php, install/services/EmailAddress.php and install/services/SmtpTester.php. repair_build_id identifies its revision without advancing an installed runtime build; it does not substitute for complete Upgrade.
 All customer ZIPs exclude docs/tests/SDK/workflows/screenshots, installed configuration/keys and private runtime state; Upgrade excludes config/storage/uploads/install.
-Evidence and owner workflow: docs/releases/0.8.1-owner-mail-settings.md; docs/EMAIL_SETTINGS.md; docs/TEST_REPORT.md.
-Next roadmap: media #2, then #7/#9. Actual-host #12/#13 open; production mail unverified; payments sandbox-only; no 0.9.0 work.
+Evidence: docs/releases/0.8.1-owner-mail-settings.md; docs/releases/0.8.1-owner-mail-settings-ci.json; docs/releases/0.8.1-owner-mail-settings-delivery.json; docs/TEST_REPORT.md.
+Owner workflow: docs/EMAIL_SETTINGS.md.
+Sender issue #10 closed; broader marketing #9 open. Next media #2: caption editing and exact gallery-item/order MySQL/browser persistence including removal, then asset tags with SQL hydration, then playlist dates and due publication. Follow with addon migration acceptance #7 and remaining #9.
+Actual-host #12/#13 open; production mail unverified; payments sandbox-only; no 0.9.0 work.
 
 HISTORICAL RELEASE MANIFESTS FOLLOW — THEIR CI/HASHES DO NOT CERTIFY BUILD 20261020.2
 

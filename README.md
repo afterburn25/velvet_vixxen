@@ -1,11 +1,13 @@
 # Nikki Wilder — The Velvet Vixxen
 
 <!-- owner-mail-settings:start -->
-## Current continuation — owner Email & SMTP, Build 20261020.2
+## Current release — owner Email & SMTP, Build 20261020.2
 
-The owner can configure a shared email connection from **System → Email & SMTP**, retain or clear a saved password, and test the saved settings with one message to the current owner. Saving sends nothing. Runtime and installer sender validation now reject unsafe headers and use a valid explicit From, then an email-shaped SMTP username, then the owner fallback. Read [the owner guide](docs/EMAIL_SETTINGS.md) and [release evidence](docs/releases/0.8.1-owner-mail-settings.md).
+The owner can configure a shared email connection from **System → Email & SMTP**, retain or clear a saved password, and test the saved settings with one message to the current owner. Saving sends nothing. Runtime and installer sender validation reject unsafe headers and use a valid explicit From, then an email-shaped SMTP username, then the owner fallback. Read [the owner guide](docs/EMAIL_SETTINGS.md) and [release evidence](docs/releases/0.8.1-owner-mail-settings.md).
 
-**Implemented with final local source/package and all nine HTTP suites passing; required GitHub CI, merge and delivery pending.** Compatibility stays 0.8.1. All four ZIP names include Build 20261020.2 and preserve the exact approved roots. The complete Upgrade is primary for installed sites. The 11-file installer-only repair uses `repair_build_id` and does not advance an installed site's runtime build. The affected customer host and production email remain unverified; payments remain sandbox-only. See [Update Verification](docs/UPDATE_VERIFICATION.md) and [the remaining roadmap](docs/ROADMAP.md).
+**Verified, merged into `main` through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), and delivered.** All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the identical release source/checkout/merge tree. All four ZIPs and the separate manifest were saved and retrieved again with exact byte equality to the gated artifact at **2026-10-20 03:11:47 UTC**. [CI](docs/releases/0.8.1-owner-mail-settings-ci.json) and [delivery](docs/releases/0.8.1-owner-mail-settings-delivery.json) records include the exact identities and hashes.
+
+Compatibility stays **0.8.1**. All four ZIP names include Build 20261020.2 and preserve the approved roots. Complete Upgrade is primary for installed sites; the 11-file installer-only repair uses `repair_build_id` without advancing their runtime build. Sender issue **#10 is closed**. Next is media **#2**, then **#7** and remaining **#9**. Actual-host **#12/#13** and production email remain unverified; payments remain sandbox-only. See [Update Verification](docs/UPDATE_VERIFICATION.md) and [the roadmap](docs/ROADMAP.md).
 <!-- owner-mail-settings:end -->
 
 ## Historical verified release — Build 20261020.1
@@ -24,7 +26,7 @@ The repair retains working image uploads, Full Page Preview, publication and sep
 
 For the already-uploaded unfinished installer, use [Installer Database Repair](docs/INSTALLER_DATABASE_REPAIR.md). Setup now preserves and continues compatible existing databases, including previous attempts with partial tables or missing migration history. Existing owners authenticate with their current login; missing setup work completes without resetting their data, keys, scenes or settings. Server/Folders checks and the owner password fields are aligned, and completed setup clears its loading state.
 
-The current Build 20261020.2 installer-only repair contains 11 runtime files, including the earlier folder/database correction and all changed installer sender dependencies. Its `repair_build_id` identifies the overlay without changing the installed runtime build. [Current verification](docs/TEST_REPORT.md) and [the current release record](docs/releases/0.8.1-owner-mail-settings.md) distinguish local execution from pending CI/delivery. The [original eight-file evidence](docs/releases/0.8.1-installer-database-repair.json) and older one-file folder repair are historical.
+The current Build 20261020.2 installer-only repair contains 11 runtime files, including the earlier folder/database correction and all changed installer sender dependencies. Its `repair_build_id` identifies the overlay without changing the installed runtime build. [Current verification](docs/TEST_REPORT.md) and [the current release record](docs/releases/0.8.1-owner-mail-settings.md) record completed exact-source CI, merge and byte-verified delivery. The [original eight-file evidence](docs/releases/0.8.1-installer-database-repair.json) and older one-file folder repair are historical.
 
 ## Current integration: 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
 

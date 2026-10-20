@@ -2,7 +2,7 @@
 
 Build **20261020.2** adds **System → Email & SMTP** to the existing owner dashboard at `admin/?page=mail-settings`. This connection is shared by account email, booking notifications and configured newsletter campaign delivery. Each feature retains its own notification or delivery preferences.
 
-The implementation and final local source/package/HTTP checks are complete. Required GitHub CI, merge and delivery are still pending; [the release record](releases/0.8.1-owner-mail-settings.md) separates those stages. The affected customer's host and a production email provider have not been verified.
+This release is verified, merged into `main` through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), and delivered. All seven required CI jobs passed, and the four ZIPs plus separate manifest were saved, retrieved and compared byte for byte with the gated artifact. [The release record](releases/0.8.1-owner-mail-settings.md) gives the exact evidence. The affected customer's host and a production email provider have not been verified.
 
 ## Save a connection
 

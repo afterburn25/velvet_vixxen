@@ -1,15 +1,17 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
 <!-- owner-mail-settings:start -->
-## Current work — owner Email & SMTP, Build 20261020.2
+## Current release — owner Email & SMTP, Build 20261020.2
 
-**Implemented; final local source/package and all nine HTTP suites pass. Required GitHub CI, merge and delivery are pending.** The scoped branch is `feature/0.8.1-owner-mail-settings`, based on main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`; compatibility remains **0.8.1**.
+**Verified, merged into `main`, and delivered.** [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) merged at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the complete tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`, shared by release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual PR checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge. Compatibility remains **0.8.1**.
 
-The owner can now save Disabled, SMTP or PHP mail settings from **System → Email & SMTP**, retain or explicitly remove a saved password, and send a guarded test to the current owner. Saving never sends. Stale forms, demoted/inactive accounts, forged test content, repeated test submissions and unsafe email headers are covered. Installer and runtime sender fallback now use a valid explicit From, then an SMTP username that is an email address, then the owner fallback.
+The owner can save Disabled, SMTP or PHP mail settings from **System → Email & SMTP**, retain or explicitly remove a saved password, and send a guarded test to the current owner. Saving never sends. Stale forms, demoted/inactive accounts, forged test content, repeated test submissions and unsafe email headers are covered. Installer and runtime sender fallback use a valid explicit From, then an email-shaped SMTP username, then the owner fallback. Sender issue **#10 is closed**; this completes only the connection-editor slice of broader **#9**.
 
-Focused local passes: **199 backend, 269 installer validation, 143 packaged installer and 168 HTTP assertions**, plus **two real packaged owner browser cases**. Final local ZIP hashes are recorded; new GitHub source/PR/run, remaining full release gates, merge and delivery are pending; see [the release record](docs/releases/0.8.1-owner-mail-settings.md) and [owner guide](docs/EMAIL_SETTINGS.md).
+Executed evidence includes **199 backend, 269 installer validation, 143 packaged installer and 168 owner HTTP assertions**, all **nine HTTP suites**, PHP **8.2.34/8.3.35**, MySQL **8.0.46** with **922 installer assertions per PHP version**, the 13 existing browser suites and **two new packaged owner browser cases**. The final CI browser used PHP 8.3.35 / Playwright 1.62.0 / Chromium 151.0.7922.34. Mail fixtures used loopback capture only: **zero external messages**. See [the release record](docs/releases/0.8.1-owner-mail-settings.md), [CI evidence](docs/releases/0.8.1-owner-mail-settings-ci.json) and [owner guide](docs/EMAIL_SETTINGS.md).
 
-All four ZIP names include Build 20261020.2. Exact approved roots remain unchanged. Installer repair is now 11 files with a separate `repair_build_id`; the complete Upgrade is primary for installed sites. Next: media **#2**, then **#7/#9**. The actual-host reports **#12/#13** remain unresolved and payments remain sandbox-only. Earlier release evidence follows as history.
+The four ZIPs and separate manifest match the downloaded [gated artifact](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12238380045) literally; all five saved files were retrieved and verified again at **2026-10-20 03:11:47 UTC**. [Delivery evidence](docs/releases/0.8.1-owner-mail-settings-delivery.json) records the sizes, hashes and approved roots. Complete Upgrade is primary for installed sites; the 11-file installer repair uses `repair_build_id` without advancing the installed runtime build.
+
+**Next: media #2** — caption editing and exact gallery-item/order MySQL/browser persistence, then asset tags with SQL hydration, then playlist date preservation and due publication. Follow with **#7** and remaining **#9**. Actual-host **#12/#13** and production email remain unverified; payments remain sandbox-only. Earlier release evidence follows as history.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->

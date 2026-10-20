@@ -1,15 +1,17 @@
 # Copy-Paste Prompt for the Next Session
 
 <!-- owner-mail-settings:start -->
-## Current prompt — resume Build 20261020.2
+## Current prompt — continue from main; media #2 next
 
-Continue Velvet Vixxen from `feature/0.8.1-owner-mail-settings`, based on verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Read `AGENTS.md`, the current status/handoff, `docs/releases/0.8.1-owner-mail-settings.md` and `docs/EMAIL_SETTINGS.md`; check live GitHub before claiming the release merged. This block supersedes the older continuation prompts below.
+Continue Velvet Vixxen from live **`main`** on a new scoped branch. Owner Email & SMTP Build **20261020.2** is verified, merged and delivered: [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), merge `65bea278efacd59e8ba24401cc3fe7d47300a7d4` at **2026-10-20 03:10:04 UTC**. Read `AGENTS.md`, the current status/handoff, `docs/releases/0.8.1-owner-mail-settings.md`, its CI/delivery JSON records and `docs/EMAIL_SETTINGS.md`; inspect current GitHub before starting the next change. This block supersedes older continuation prompts below.
 
-The owner **System → Email & SMTP** page, safe saved-settings test and strict runtime/installer sender handling are implemented. Focused local tests passed: 199 backend, 269 installer validation, 143 packaged installer and 168 HTTP assertions plus two extracted-package browser cases. Final local source/security/package and all nine HTTP suites passed; final local ZIP hashes are recorded. Remaining full release gates, new source/PR/CI, merge and delivery are pending. Continue that verification and merge the verified work into `main`; retain every required gate and record actual evidence.
+All seven jobs in [PR CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed. Release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual checkout `77062d02579e93c573e8c7955a5362220199ac59` and merge share tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`. The four runtime ZIPs and separate manifest match the downloaded gated artifact and all five saved/retrieved files literally, verified **2026-10-20 03:11:47 UTC**. Required PHP 8.2/8.3, MySQL 8, nine HTTP suites, existing and new packaged browser suites, security/ownership/OPcache/package gates passed. Final CI browser versions are PHP 8.3.35 / Playwright 1.62.0 / Chromium 151.0.7922.34; local Chromium 155 evidence was intermediate. Sender issue **#10 is closed**; broader **#9** remains open.
 
-Keep compatibility 0.8.1, Build 20261020.2 and the exact approved 13 Fresh / nine Upgrade root directories and four root files. All four ZIP names include the build. The installer-only overlay is now 11 files; `repair_build_id` identifies its revision without changing an installed site's build. Use complete Upgrade for an installed site; preserve configuration, original owner/keys, content and uploads.
+**Implement media #2 next:** caption storage and public lightbox display already exist, but editor changes must persist. Cover exact gallery items and order using MySQL and real browsers; removed items currently reappear on save because omitted IDs are reappended. Then persist photo asset tags and hydrate them in SQL galleries. Then expose playlist scheduling dates, preserve dates on edit and prove due publication. Follow with actual MySQL addon migration apply/rollback **#7**, then remaining marketing **#9**.
 
-Then continue media **#2**, followed by **#7/#9**. Keep the actual customer host reports **#12/#13** open until observed on that host. Payments remain sandbox-only. Do not redo completed grouped-button, campaign dispatch, root-layout or database-recovery work, invent production verification, or start 0.9.0.
+Keep compatibility **0.8.1**, Build **20261020.2** and the exact approved 13 Fresh / nine Upgrade root directories and four root files. All four ZIP names include the build. The installer-only overlay has 11 files; `repair_build_id` identifies its revision without changing an installed site's build. Use complete Upgrade for installed sites and preserve configuration, original owner/keys, content and uploads.
+
+Keep actual customer-host reports **#12/#13** open until observed on that host; production email remains unverified and payments remain sandbox-only. Preserve completed owner mail, grouped-button, campaign dispatch, root-layout and database-recovery work and every required gate. No 0.9.0 work is included.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->

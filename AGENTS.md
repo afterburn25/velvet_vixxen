@@ -1,15 +1,17 @@
 # Agent Instructions — Velvet Vixxen
 
 <!-- owner-mail-settings:start -->
-## Current continuation — owner Email & SMTP, Build 20261020.2
+## Current continuation — Build 20261020.2 verified, merged and delivered
 
-Work is on `feature/0.8.1-owner-mail-settings`, from verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Compatibility stays **0.8.1**. The owner editor at **System → Email & SMTP** and stricter installer/runtime sender validation are implemented. Final local source/security/package and all nine HTTP suites passed; focused counts and final local ZIP hashes are in `docs/releases/0.8.1-owner-mail-settings.md`. Required GitHub CI, new source/PR identities, remaining browser/MySQL release evidence, merge and delivery remain pending. Earlier green CI belongs to the historical build.
+**`main` is authoritative.** Owner **System → Email & SMTP** and strict installer/runtime sender handling are released through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), merged at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`. All seven jobs in [PR CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed. Release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual CI checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge share the complete tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`. Compatibility remains **0.8.1**. Exact CI and delivery records are in `docs/releases/0.8.1-owner-mail-settings.md` and its `-ci.json` / `-delivery.json` companions.
+
+All four ZIPs and the separate manifest were compared literally with the downloaded gated artifact, then saved and retrieved again; all five matched at **2026-10-20 03:11:47 UTC**. Retain the distinction between verified delivery and the affected customer's unverified installation. The final CI browser used PHP **8.3.35**, Playwright **1.62.0** and Chromium **151.0.7922.34**; the earlier local Chromium 155 run is scoped intermediate evidence.
 
 Preserve active-owner authorization, CSRF, revision-checked mail-only configuration writes, blank-password retention and explicit clearing, no password echo, and a one-use test to the current owner using saved settings. Save must not send mail. Tests use disposable loopback SMTP and reserved fixtures only. Retain every existing security, MySQL, HTTP, real packaged browser, ownership and persistent-OPcache gate.
 
-Keep the exact **13 Fresh / nine Upgrade roots and four root files** listed in the release record. All four ZIP names carry `Build-20261020.2`. The unfinished-installer repair now contains **11 files**, including all four changed sender files; `repair_build_id` identifies the overlay and must not advance an installed site's runtime build. Complete Upgrade remains the installed-site path.
+Keep the exact **13 Fresh / nine Upgrade roots and four root files** listed in the release record. All four ZIP names carry `Build-20261020.2`. The unfinished-installer repair contains **11 files**; `repair_build_id` identifies the overlay without advancing an installed site's runtime build. Complete Upgrade remains the installed-site path.
 
-After this release is verified and merged, continue media **#2**, then **#7/#9**. Actual-host **#12/#13** stay open; payments remain sandbox-only. Older blocks below retain historical evidence and do not supersede this continuation.
+Start the next scoped branch from live `main`: media **#2**, first caption editing and exact gallery-item/order persistence in MySQL and browsers, including removed items staying removed; then asset tags with SQL gallery hydration; then playlist dates and due publication behavior. Follow with addon migration acceptance **#7** and remaining marketing **#9**. Sender issue **#10 is closed**; broader #9 stays open. Actual-host **#12/#13** and production email remain unverified; payments remain sandbox-only. Older blocks retain historical evidence and do not supersede this continuation.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->
@@ -68,11 +70,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current integration target: **0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise**
+Current integration target: **0.8.1 — Build 20261020.2 owner Email & SMTP released; media #2 next**
 
-Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the active feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. Exact current evidence is in `PROJECT_STATUS.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-media-composer-repair.json`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
+Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and now contains PR #15 and PR #16. Start subsequent implementation from live `main` on a scoped feature branch; the earlier `feature/0.8.1-site-ux-hero-library` and grouped-button branches are historical merged implementations.
+`main` is the authoritative integration destination and now contains PR #15, PR #16 and PR #17. Start subsequent implementation from live `main` on a scoped feature branch; the earlier site-UX, grouped-button and owner-mail branches are historical merged implementations. Current release evidence is `docs/releases/0.8.1-owner-mail-settings.md` and its CI/delivery JSON records; media #2 is the next acceptance target.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 

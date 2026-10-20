@@ -1,23 +1,26 @@
 # Velvet Vixxen 0.8.1 — Current Test Evidence
 
 <!-- owner-mail-settings:start -->
-## Current focused evidence — owner Email & SMTP, Build 20261020.2
+## Current release evidence — owner Email & SMTP, Build 20261020.2
 
-Working branch: `feature/0.8.1-owner-mail-settings`; verified main baseline: `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. The **final local source/security/package gate and all nine HTTP suites passed** on PHP 8.3.6; the focused results below are also recorded. The new complete release gate and GitHub CI are not yet claimed complete.
+**All seven jobs in [PR CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) completed successfully.** Release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual checkout `77062d02579e93c573e8c7955a5362220199ac59` and [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) merge `65bea278efacd59e8ba24401cc3fe7d47300a7d4` share the complete tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`. The merge completed at **2026-10-20 03:10:04 UTC**. PHP source/package gates ran on **8.2.34/8.3.35**; database gates used **MySQL 8.0.46**, including **922 actual-package installer assertions on each PHP version**. All **nine installed HTTP suites**, the **13 existing browser suites**, two new owner browser cases, repository security, foreign ownership, persistent OPcache and gated reproducible packaging passed. [CI evidence](releases/0.8.1-owner-mail-settings-ci.json) records every job ID and checkout.
 
-| Executed check | Result |
+| Executed focused check | Result |
 | --- | --- |
 | `php tests/Feature/mail_settings.php` | 199 assertions: validation, safe snapshots, revision/locking, password semantics and configuration preservation. |
 | `php tests/Installer/mail_validation.php` | 269 assertions: pasted addresses, Gmail/plus forms, From fallback, unsafe headers, SMTP validation and optional disabled mail. |
 | `python tests/Installer/mail_smtp_capture.py` | 143 assertions through the actual packaged installer at root/nested paths and loopback SMTP. |
-| `VELVET_TEST_SUITE=tests/Http/mail_settings_http.py bash scripts/test_http.sh` | 168 assertions: auth/CSRF/methods, stale forms, save/no-send, credentials, SMTP outcomes, one-use/cooldown and concurrent disable/demotion. Repeated successfully after the synthetic fixture constant rename. |
-| `python tests/Browser/mail_settings_playwright.py` | Two actual extracted-Fresh-ZIP cases: root desktop 1440×1000 and nested mobile 390×844, owner navigation/save/reload, no password echo, dirty-test disabling, cleared stale success, one local test each and no overflow. |
-| Final packaged foreign ownership / persistent OPcache | Passed as part of `scripts/test.sh`, using the final Fresh/Installer Repair archives and real negative controls. |
-| `php tests/Security/repository_safety.php` | Passed after renaming a synthetic test constant; scanner and exclusions unchanged. |
+| `tests/Http/mail_settings_http.py` | 168 assertions: auth/CSRF/methods, stale forms, save/no-send, credentials, SMTP outcomes, one-use/cooldown and concurrent disable/demotion. |
+| `tests/Browser/mail_settings_playwright.py` | Two extracted-Fresh-ZIP cases: root desktop 1440×1000 and nested mobile 390×844; owner navigation/save/reload, no password echo, dirty-test disabling, cleared stale success, one local test each and no overflow. |
+| Existing campaign HTTP acceptance | 54 assertions passed with loopback SMTP and the guarded delivery outcomes preserved. |
+| Packaged foreign ownership / persistent OPcache | Passed with real negative controls in the source/package gates. |
+| Repository safety | Passed with the existing scanner and exclusions unchanged; the synthetic test constant was renamed. |
 
-Mail execution used reserved fixture accounts and loopback capture only: **zero external messages**. The browser run used PHP 8.3.6, Playwright 1.62.0 and Chromium 155.0.8059.84; its archive preceded the final disabled-transport hint edit. Six screenshots and JSON are intermediate internal evidence, not a final package certification.
+The **final CI browser** used PHP **8.3.35**, Playwright **1.62.0** and Chromium **151.0.7922.34**; [browser evidence](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12237308708) is separate from customer ZIPs. The earlier local PHP 8.3.6 / Chromium 155.0.8059.84 run used an intermediate archive before the final transport-hint edit and remains scoped local history. Final local source/package and all nine HTTP suites also passed independently. Mail fixtures and capture were disposable and loopback-only: **zero external messages**.
 
-**Final local archives:** sizes/hashes are in [the release record](releases/0.8.1-owner-mail-settings.md) and `RELEASE_MANIFEST.txt`. Source/package and HTTP logs are `/tmp/vvx-mail-source-final.log` and `/tmp/vvx-mail-http-final.log`. **Pending:** remaining final browser/MySQL release gates, new GitHub commit/PR/run, gated artifact comparison, merge and saved-download readback. The full required suite remains mandatory. The [release record](releases/0.8.1-owner-mail-settings.md) gives scope and package invariants; earlier run results below certify their historical source only.
+The downloaded [runtime artifact](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12238380045) is **15,400,090 bytes**, SHA-256 `e0b148a04e60e3cc339eaaf39753e3bede2a93d60c262a08346b758e944c6f70`. Its four ZIPs and separate manifest equal the final local files literally. All five saved files were retrieved and compared again at **2026-10-20 03:11:47 UTC**, with exact equality. Package sizes, hashes, inventories and readback results are in [delivery evidence](releases/0.8.1-owner-mail-settings-delivery.json), [the release record](releases/0.8.1-owner-mail-settings.md) and `RELEASE_MANIFEST.txt`.
+
+Release CI, merge and saved-download verification are complete. The certifying evidence is the PR run against the identical tree; no separate post-merge CI result is claimed. Actual-host **#12/#13** and production email remain unverified, and payments remain sandbox-only. Earlier run results below certify their historical source only.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->

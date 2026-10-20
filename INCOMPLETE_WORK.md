@@ -1,20 +1,22 @@
 # Acceptance Record — Velvet Vixxen 0.8.1 Continuation
 
 <!-- owner-mail-settings:start -->
-## Current acceptance — owner Email & SMTP, Build 20261020.2
+## Current acceptance — Build 20261020.2 released
 
-This slice is implemented on `feature/0.8.1-owner-mail-settings`; final release acceptance is unfinished. Main baseline is `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. See [the scoped release record](docs/releases/0.8.1-owner-mail-settings.md).
+The owner Email & SMTP slice is **verified, merged into `main` and delivered** through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), merge `65bea278efacd59e8ba24401cc3fe7d47300a7d4`. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the identical source/checkout/merge tree. See [the scoped release record](docs/releases/0.8.1-owner-mail-settings.md).
 
 - [x] Owner settings in **System → Email & SMTP**, protected save, password retention/clear and a saved-settings test to the current owner.
-- [x] Strict shared-contract runtime/installer email validation and explicit From → email-shaped SMTP username → owner fallback.
-- [x] Focused local evidence: 199 backend, 269 installer, 143 packaged installer and 168 HTTP assertions; two real packaged desktop/mobile browser cases with loopback mail only.
-- [x] Package definitions preserve exact roots, include runtime dependencies, name all four ZIPs with Build 20261020.2 and expand the unfinished-installer repair to 11 files. Its `repair_build_id` does not advance the installed build.
-- [x] Final local source/security/package (including foreign ownership and persistent OPcache) and all nine HTTP suites pass; final local ZIP sizes/hashes are recorded.
-- [ ] Complete and record the remaining final browser and MySQL release gates against final bytes.
-- [ ] Upload/review the exact source, verify the required GitHub jobs, merge into `main`, and record final source/tree/run/artifact identities.
-- [ ] Verify final package hashes and saved-download readback; distinguish release delivery from installation on the actual customer host.
+- [x] Strict runtime/installer email validation and explicit From → email-shaped SMTP username → owner fallback; sender issue **#10 closed**.
+- [x] Focused evidence: 199 backend, 269 installer, 143 packaged installer and 168 owner HTTP assertions; two packaged desktop/mobile browser cases, loopback mail only.
+- [x] All required PHP 8.2/8.3 source/security/package, MySQL 8, nine HTTP suites and real packaged browser gates, including foreign ownership and persistent OPcache.
+- [x] Four ZIPs with Build 20261020.2 names, exact approved roots, complete runtime dependencies and an 11-file unfinished-installer repair using `repair_build_id`.
+- [x] Exact source/tree/checkout, all seven successful jobs, actual main merge and gated artifact identities recorded.
+- [x] All four ZIPs and the separate manifest compared literally with the gated artifact, saved and retrieved again; all five matched at **2026-10-20 03:11:47 UTC**.
+- [ ] Media **#2**: caption editing and exact gallery-item/order MySQL/browser persistence, including permanent removal; then photo asset tags with SQL gallery hydration; then playlist scheduling dates and due publication.
+- [ ] Addon-owned migration apply/rollback against real MySQL **#7**, followed by remaining broader marketing **#9**.
+- [ ] Actual-host incidents **#12/#13**, representative shared-host certification and production email verification.
 
-Next feature work is media **#2**, then **#7/#9**. Broader marketing, actual-host **#12/#13**, shared-host certification and production email verification remain incomplete. Payments remain sandbox-only. Historical checked items below do not close these current outstanding items.
+Start new implementation from live **`main`**. The complete Upgrade serves installed sites; the installer-only repair does not advance their runtime build. Preserve configuration, owner/keys, content and uploads. Payments remain sandbox-only and no 0.9.0 work is included. Historical checked items below do not close the current outstanding work.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->

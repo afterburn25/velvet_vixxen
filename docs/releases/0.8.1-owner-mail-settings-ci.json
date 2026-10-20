@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "version": "0.8.1",
+  "build_id": "20261020.2",
+  "baseline_main": "6d9b5677d6374ddb1b6dd7a93c6d307f982b877a",
+  "source_commit": "20384c93235749a6ae13b2686c34a37af5fec9bd",
+  "source_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57",
+  "pr": {
+    "number": 17,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/17",
+    "merged": true,
+    "merged_at": "2026-10-20T03:10:04Z",
+    "merge_commit": "65bea278efacd59e8ba24401cc3fe7d47300a7d4",
+    "merge_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57"
+  },
+  "ci": {
+    "run_id": 39361581062,
+    "run_number": 113,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062",
+    "status": "completed",
+    "conclusion": "success",
+    "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59",
+    "checkout_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57",
+    "jobs": [
+      {
+        "id": 118429080676,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118429114293,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118429114332,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118429114380,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118429114389,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118429114443,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      },
+      {
+        "id": 118432106145,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "success",
+        "actual_checkout": "77062d02579e93c573e8c7955a5362220199ac59"
+      }
+    ],
+    "superseded_push_run": {
+      "id": 39361536502,
+      "conclusion": "cancelled",
+      "reason": "A push and its PR share one concurrency group; the later complete PR run is release evidence."
+    }
+  },
+  "exact_tree_verification": {
+    "source_tree_equals_actual_ci_checkout_tree": true,
+    "source_tree_equals_merge_tree": true,
+    "certifying_run": "The completed PR run listed here certifies the identical release source, actual PR checkout and merge tree.",
+    "post_merge_ci_claimed": false
+  },
+  "runtime_versions": {
+    "source_php": [
+      "8.2.34",
+      "8.3.35"
+    ],
+    "mysql": "8.0.46",
+    "browser_php": "8.3.35",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "local_php": "8.3.6",
+    "local_chromium": "155.0.8059.84"
+  },
+  "assertions": {
+    "mail_backend": 199,
+    "installer_validation": 269,
+    "packaged_installer_smtp": 143,
+    "owner_mail_http": 168,
+    "campaign_http": 54,
+    "existing_database_installer_each_php": 922,
+    "installed_http_suites": 9,
+    "existing_browser_suites": 13,
+    "new_mail_browser_cases": 2,
+    "external_messages_sent": 0
+  },
+  "artifacts": [
+    {
+      "id": 12238380045,
+      "name": "velvet-vixxen-runtime-packages",
+      "bytes": 15400090,
+      "digest": "sha256:e0b148a04e60e3cc339eaaf39753e3bede2a93d60c262a08346b758e944c6f70",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12238380045",
+      "created_at": "2026-10-20T03:07:49Z"
+    },
+    {
+      "id": 12237308708,
+      "name": "chromium-browser-evidence",
+      "bytes": 122931221,
+      "digest": "sha256:76750263e706f3932b051a355a3265045b72ee038ae1b10cadbbd04a0639bd62",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12237308708",
+      "created_at": "2026-10-20T03:07:37Z"
+    }
+  ],
+  "local_browser_scope": {
+    "php": "8.3.6",
+    "playwright": "1.62.0",
+    "chromium": "155.0.8059.84",
+    "fresh_sha256": "d756ff3d9e7f6c257d883869a753cb9a954791967f65fd822b24c346756bc911",
+    "scope": "Intermediate archive before the final disabled-transport hint edit; final browser acceptance is recorded by the completed PR CI run."
+  },
+  "boundaries": {
+    "affected_host_verified": false,
+    "production_email_verified": false,
+    "payments": "sandbox-only",
+    "version_0_9_started": false,
+    "host_issues_open": [
+      12,
+      13
+    ]
+  }
+}

@@ -1,20 +1,22 @@
 # Velvet Vixxen Development Roadmap
 
 <!-- owner-mail-settings:start -->
-## Current roadmap — Build 20261020.2 continuation
+## Current roadmap — Build 20261020.2 released
 
-The **owner Email & SMTP** slice is implemented on `feature/0.8.1-owner-mail-settings` from main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Final local source/package and all nine HTTP suites pass, with focused browser evidence and final local ZIP hashes recorded. Remaining full release gates, new source/PR/CI, merge and delivery remain pending. See [the release record](releases/0.8.1-owner-mail-settings.md). Build 20261020.1 grouped buttons and guarded campaign dispatch are completed baseline work.
+The **owner Email & SMTP** slice is verified, merged through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) into `main` at `65bea278efacd59e8ba24401cc3fe7d47300a7d4`, and delivered. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the identical release source/checkout/merge tree. The four ZIPs and separate manifest were saved, retrieved and compared literally with the gated artifact at **2026-10-20 03:11:47 UTC**. See [the release record](releases/0.8.1-owner-mail-settings.md). Build 20261020.1 grouped buttons and guarded campaign dispatch remain completed baseline work.
 
 | Work | Current boundary / next acceptance |
 | --- | --- |
-| Owner SMTP / sender slice of #9 and #10 | Owner settings, retained/cleared password, safe saved-settings test, strict headers and installer/runtime sender fallback implemented locally; finish release verification before reconciling GitHub issues. |
-| **Next: media #2** | Complete gallery caption/tag editing, playlist scheduling and actual MySQL media/order persistence acceptance. |
+| Owner SMTP / sender slice of #9 and #10 | Released: owner settings, retained/cleared password, safe saved-settings test, strict headers and installer/runtime sender fallback. **#10 is closed**; broader #9 remains open. |
+| **Next: media #2 — captions and exact gallery contents** | Caption storage and public lightbox display exist; connect caption edits in the owner editor. Add actual MySQL and browser persistence acceptance for captions, exact item lists and ordering. Correct removal that currently reappends omitted items on save. |
+| **Then within #2: photo asset tags** | Persist the asset tag changes and hydrate them into SQL-backed galleries; verify retained tags after save/reload. |
+| **Then within #2: playlist scheduling** | Add scheduling date controls, preserve dates on edit and implement/prove publication when a scheduled item becomes due. |
 | **Then: addons #7** | Prove addon-owned migration apply/rollback against real MySQL; preserve the existing addon lifecycle. |
-| **Then: remaining marketing #9** | Complete the remaining segmentation/SQL, editorial/calendar, scheduling, attribution, retention/rollups/exports and bounce work according to actual source evidence. The new connection editor does not complete that backlog. |
+| **Then: remaining marketing #9** | Complete remaining segmentation/SQL, editorial/calendar, scheduling, attribution, retention/rollups/exports and bounce work according to actual source evidence. The released connection editor does not complete that backlog. |
 | Actual-host #12/#13 | Verify the affected customer's deployed build and reported behavior; local or CI success does not close a host incident. |
 | Release evidence #3 | Keep exact source/tree, required CI, package/root inventory and saved-artifact readback evidence for each release. |
 
-Keep compatibility **0.8.1**, approved roots, all existing gates and sandbox-only payments. No 0.9.0 work is included. Earlier reconciliation and release sections below are historical snapshots.
+Start new implementation from live **`main`**. Keep compatibility **0.8.1**, approved roots, all existing gates and sandbox-only payments. Production email is unverified; no 0.9.0 work is included. Earlier reconciliation and release sections below are historical snapshots.
 <!-- owner-mail-settings:end -->
 
 <!-- grouped-buttons-delivery:start -->

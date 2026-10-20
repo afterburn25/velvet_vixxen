@@ -1,6 +1,6 @@
 ## 0.8.1 — Build 20261020.2 owner Email & SMTP (2026-10-20)
 
-Implemented on `feature/0.8.1-owner-mail-settings` from verified main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Final local source/package and all nine HTTP suites pass; required GitHub CI, new source/merge identities, gated artifacts and saved-download delivery remain pending. See [the release record](docs/releases/0.8.1-owner-mail-settings.md).
+Verified, merged into `main` through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`, and delivered. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the complete tree shared by release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge. All four ZIPs and the separate manifest were saved and retrieved again with exact equality to the gated artifact at **2026-10-20 03:11:47 UTC**. See [the release record](docs/releases/0.8.1-owner-mail-settings.md) and its CI/delivery JSON evidence.
 
 - Add **System → Email & SMTP** in the existing owner dashboard, with Disabled/SMTP/PHP mail, sender details, saved transport status and related feature controls.
 - Preserve blank passwords, provide explicit clearing, reject stale configuration forms, and keep saved credentials out of HTML and audit metadata. Save changes without sending email.
@@ -8,9 +8,9 @@ Implemented on `feature/0.8.1-owner-mail-settings` from verified main `6d9b5677d
 - Validate runtime and installer addresses before normalization; retain ordinary pasted Gmail/plus-address forms, reject unsafe headers and use explicit From → email-shaped SMTP username → owner fallback.
 - Keep existing protected plaintext configuration compatibility and mail-only locked merges; no encrypted-credential migration is claimed.
 - Name all four ZIPs with Build 20261020.2, preserve exact approved roots and add all runtime dependencies. Expand the unfinished-installer repair to 11 files, including all four changed sender files; its `repair_build_id` does not advance an installed site's build.
-- Record 199 backend, 269 installer validation, 143 packaged installer and 168 owner HTTP assertions, plus two real packaged desktop/mobile browser cases using only loopback SMTP. The browser archive was intermediate; final exact-package release gates remain mandatory.
+- Record 199 backend, 269 installer validation, 143 packaged installer and 168 owner HTTP assertions, plus two packaged desktop/mobile owner browser cases using only loopback SMTP. Required PHP 8.2/8.3, MySQL 8, nine HTTP suites, existing browser, security/ownership/OPcache and reproducible-package gates passed. Final CI browser: PHP 8.3.35, Playwright 1.62.0, Chromium 151.0.7922.34; the earlier local Chromium 155 archive remains intermediate evidence.
 
-Next roadmap work is media #2, then #7/#9. Actual-host #12/#13 stay open; production mail remains unverified and payments remain sandbox-only. Previous release entries below retain their historical evidence.
+Sender issue #10 is closed; broader #9 remains open. Next is media #2: caption editing and exact gallery-item/order MySQL/browser persistence, then asset tags with SQL hydration, then playlist dates and due publication. Follow with #7 and remaining #9. Actual-host #12/#13 stay open; production mail remains unverified and payments remain sandbox-only. Previous release entries below retain their historical evidence.
 
 ## 0.8.1 — Build 20261020.1 grouped buttons and campaign delivery (2026-10-20)
 

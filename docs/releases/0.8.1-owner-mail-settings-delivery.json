@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "version": "0.8.1",
+  "build_id": "20261020.2",
+  "source_commit": "20384c93235749a6ae13b2686c34a37af5fec9bd",
+  "source_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57",
+  "pr": {
+    "number": 17,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/17",
+    "merged": true,
+    "merged_at": "2026-10-20T03:10:04Z",
+    "merge_commit": "65bea278efacd59e8ba24401cc3fe7d47300a7d4",
+    "merge_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57"
+  },
+  "ci_run_id": 39361581062,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062",
+  "actual_ci_checkout": "77062d02579e93c573e8c7955a5362220199ac59",
+  "ci_checkout_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57",
+  "ci_evidence": "0.8.1-owner-mail-settings-ci.json",
+  "runtime_artifact": {
+    "id": 12238380045,
+    "name": "velvet-vixxen-runtime-packages",
+    "bytes": 15400090,
+    "digest": "sha256:e0b148a04e60e3cc339eaaf39753e3bede2a93d60c262a08346b758e944c6f70",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062/artifacts/12238380045",
+    "created_at": "2026-10-20T03:07:49Z"
+  },
+  "gated_artifact_verification": {
+    "artifact_id": 12238380045,
+    "run_id": 39361581062,
+    "artifact_bytes": 15400090,
+    "artifact_sha256": "e0b148a04e60e3cc339eaaf39753e3bede2a93d60c262a08346b758e944c6f70",
+    "file_count": 5,
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip",
+        "bytes": 7653396,
+        "sha256": "fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "07aafea10e8c6ccb2205cf73e0751b440a8edb7e1433e5a0fede6e34600685c8",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Media-Composer-Repair.zip",
+        "bytes": 222568,
+        "sha256": "3b4a7deacfd6b322e4b66b0d4d76d22bc25080311979df028ca8af291e68210e",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip",
+        "bytes": 7496073,
+        "sha256": "2246960057f831c645ff1c66d0768cceac67a5776a2ff9505cc2c7205e43f506",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.1-Build-20261020.2-package-manifest.json",
+        "bytes": 85110,
+        "sha256": "46644b5be1467a7a47668e2139fbe43060734ec556c31e34a73496702666a1d0",
+        "gated_bytes_equal_local": true
+      }
+    ]
+  },
+  "saved_bytes_verified_at": "2026-10-20 03:11:47 UTC",
+  "saved_download_verification": {
+    "verified_files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip",
+        "bytes": 7496073,
+        "sha256": "2246960057f831c645ff1c66d0768cceac67a5776a2ff9505cc2c7205e43f506",
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip",
+        "bytes": 7653396,
+        "sha256": "fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803",
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "07aafea10e8c6ccb2205cf73e0751b440a8edb7e1433e5a0fede6e34600685c8",
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Media-Composer-Repair.zip",
+        "bytes": 222568,
+        "sha256": "3b4a7deacfd6b322e4b66b0d4d76d22bc25080311979df028ca8af291e68210e",
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.1-Build-20261020.2-package-manifest.json",
+        "bytes": 85110,
+        "sha256": "46644b5be1467a7a47668e2139fbe43060734ec556c31e34a73496702666a1d0",
+        "saved_bytes_equal_gated_artifact": true
+      }
+    ]
+  },
+  "packages": {
+    "source_commit": "20384c93235749a6ae13b2686c34a37af5fec9bd",
+    "source_tree": "cef4014a6a07a3297be6be53641fbcc5ed267b57",
+    "manifest_sha256": "46644b5be1467a7a47668e2139fbe43060734ec556c31e34a73496702666a1d0",
+    "manifest_bytes": 85110,
+    "packages": [
+      {
+        "kind": "fresh",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip",
+        "build_id": "20261020.2",
+        "size_bytes": 7653396,
+        "sha256": "fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803",
+        "files": 335,
+        "php_files": 184,
+        "javascript_files": 12
+      },
+      {
+        "kind": "upgrade",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip",
+        "build_id": "20261020.2",
+        "size_bytes": 7496073,
+        "sha256": "2246960057f831c645ff1c66d0768cceac67a5776a2ff9505cc2c7205e43f506",
+        "files": 294,
+        "php_files": 173,
+        "javascript_files": 12
+      },
+      {
+        "kind": "installer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip",
+        "repair_build_id": "20261020.2",
+        "size_bytes": 60065,
+        "sha256": "07aafea10e8c6ccb2205cf73e0751b440a8edb7e1433e5a0fede6e34600685c8",
+        "files": 11,
+        "php_files": 9,
+        "javascript_files": 1,
+        "supported_from": [
+          "0.8.1"
+        ],
+        "installation_state": "incomplete"
+      },
+      {
+        "kind": "composer-repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Media-Composer-Repair.zip",
+        "build_id": "20261020.2",
+        "size_bytes": 222568,
+        "sha256": "3b4a7deacfd6b322e4b66b0d4d76d22bc25080311979df028ca8af291e68210e",
+        "files": 94,
+        "php_files": 81,
+        "javascript_files": 7,
+        "supported_from": [
+          "0.8.1"
+        ],
+        "installation_state": "installed",
+        "verified_source_commits": [
+          "e5b04daa132521be69c943151f8112c7cd2017e8",
+          "db759342e401617c9933c13b81a147ad9f8fd515",
+          "2bc178013c9c528f45a5d0447624f3cbaf4395f2"
+        ],
+        "unknown_baseline": "Use the complete Upgrade ZIP when the installed source build is unknown."
+      }
+    ],
+    "roots": [
+      {
+        "kind": "fresh",
+        "entries": 335,
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "config",
+          "database",
+          "images",
+          "includes",
+          "install",
+          "public",
+          "storage",
+          "templates",
+          "uploads",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ]
+      },
+      {
+        "kind": "upgrade",
+        "entries": 294,
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "database",
+          "images",
+          "includes",
+          "public",
+          "templates",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ]
+      },
+      {
+        "kind": "installer-repair",
+        "entries": 11,
+        "root_directories": [
+          "app",
+          "includes",
+          "install",
+          "public"
+        ],
+        "root_files": []
+      },
+      {
+        "kind": "composer-repair",
+        "entries": 94,
+        "root_directories": [
+          "admin",
+          "app",
+          "includes",
+          "public"
+        ],
+        "root_files": [
+          ".htaccess",
+          "route.php"
+        ]
+      }
+    ]
+  },
+  "boundaries": {
+    "affected_host_verified": false,
+    "production_email_verified": false,
+    "payments": "sandbox-only",
+    "version_0_9_started": false,
+    "host_issues_open": [
+      12,
+      13
+    ]
+  }
+}
