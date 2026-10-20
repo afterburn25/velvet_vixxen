@@ -1,8 +1,8 @@
-## 0.8.4 — Newsletter audiences, Build 20261020.5 (in progress)
+## 0.8.4 — Newsletter audiences, Build 20261020.5 (verified, merged and delivered)
 
 Owners can save revision-checked newsletter audiences using exact signup sources and confirmation-date bounds, preview currently eligible recipients and select an audience when drafting a campaign. Preview is optional; queueing reevaluates current eligibility and rejects a supplied stale preview. The first queue freezes audience identity/rules, message content and recipient identities; explicit later requeue appends newly eligible matches using those frozen rules. Current consent and suppression remain enforced immediately before delivery.
 
-The version-integrated source suite, all ten existing installed HTTP suites and actual packaged audience HTTP/desktop/mobile acceptance passed. The new audience source test passed 149 assertions; the extracted customer ZIP passed 44 owner HTTP assertions plus root-desktop and nested-mobile browser flows. Tests use disabled mail and send zero external messages. Final GitHub CI/merge/delivery are pending. See [the numbered release record](docs/releases/0.8.4-newsletter-audiences.md).
+The version-integrated source suite, all ten existing installed HTTP suites and actual packaged audience HTTP/desktop/mobile acceptance passed. The new audience source test passed 149 assertions; the extracted customer ZIP passed 44 owner HTTP assertions plus root-desktop and nested-mobile browser flows. Tests use disabled mail and send zero external messages. All seven [GitHub CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39376462679) passed; [PR #20](https://github.com/afterburn25/velvet_vixxen/pull/20) merged at 2026-10-20T05:58:19Z. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes at 2026-10-20 05:59:26 UTC. See [the numbered release record](docs/releases/0.8.4-newsletter-audiences.md).
 
 ## 0.8.3 — Add-on migration recovery, Build 20261020.4 (verified, merged and delivered)
 

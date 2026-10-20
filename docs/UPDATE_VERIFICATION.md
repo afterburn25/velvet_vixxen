@@ -2,7 +2,7 @@
 
 Version **0.8.4**, Build **20261020.5**, adds newsletter audiences. It includes the previously released Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** local 0.8.4 source and packaged acceptance passed; GitHub CI, merge and saved-download verification are pending. Use [the numbered release record](releases/0.8.4-newsletter-audiences.md) for current evidence. Historical CI does not certify this changed runtime. The affected customer host remains unverified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39376462679) passed; [PR #20](https://github.com/afterburn25/velvet_vixxen/pull/20) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.4-newsletter-audiences.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
 Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.4; its historical CI/delivery records remain available.
 
@@ -88,7 +88,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.4 / Build 20261020.5** GitHub gates, merge and saved-download verification are pending. Final evidence will be recorded in [the release record](releases/0.8.4-newsletter-audiences.md) after completion.
+Current **0.8.4 / Build 20261020.5** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.4-newsletter-audiences.md).
 
 ### Historical baseline — Build 20261020.1
 

@@ -1,6 +1,6 @@
 # Newsletter audiences
 
-**Status: integrated 0.8.4 / Build 20261020.5; final GitHub CI, merge and delivery pending.** Local source and actual-package acceptance passed. [The numbered release record](releases/0.8.4-newsletter-audiences.md) identifies the current verification state; this bounded increment does not complete the broader marketing roadmap.
+**Available in verified 0.8.4 / Build 20261020.5.** [PR #20](https://github.com/afterburn25/velvet_vixxen/pull/20) is merged; all seven required CI jobs passed and saved downloads match the gated artifact literally. [The numbered release record](releases/0.8.4-newsletter-audiences.md) contains exact evidence. The broader marketing roadmap remains open.
 
 ## Create a saved audience
 
