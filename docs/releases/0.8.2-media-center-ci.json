@@ -1,0 +1,1670 @@
+{
+  "schema_version": 1,
+  "version": "0.8.2",
+  "build_id": "20261020.3",
+  "status": "success",
+  "observed_at": "2026-10-20 04:59:03 UTC",
+  "repository": "afterburn25/velvet_vixxen",
+  "release": {
+    "version": "0.8.2",
+    "build_id": "20261020.3"
+  },
+  "pull_request": {
+    "number": 18,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/18",
+    "base_sha": "7b5966108d7e311ce11d95bafb06abef4e9e4442",
+    "source_sha": "91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+    "source_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+    "source_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+    "test_merge_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+    "test_merge_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+    "test_merge_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/7cd686fad6a49cd794d7e566854faf28d414cb98",
+    "test_merge_parents": [
+      "7b5966108d7e311ce11d95bafb06abef4e9e4442",
+      "91d5cee9d7625d4f0eaf111f5923695ae681fa58"
+    ],
+    "trees_equal": true
+  },
+  "release_run": {
+    "id": 39370771018,
+    "event": "pull_request",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "requested_head_sha": "91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+    "created_at": "2026-10-20T04:40:01Z",
+    "updated_at": "2026-10-20T04:57:53Z",
+    "jobs": [
+      {
+        "id": 118459285014,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          }
+        ],
+        "evidence_lines": [],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459285014"
+      },
+      {
+        "id": 118459313069,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 34
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 35
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:46:35.8909187Z Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+          "2026-10-20T04:47:42.4172714Z Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+          "2026-10-20T04:47:54.1092085Z Members & Entitlements HTTP acceptance test passed.",
+          "2026-10-20T04:47:56.1894696Z Subscriptions & PPV Commerce HTTP acceptance test passed.",
+          "2026-10-20T04:47:57.0778757Z Add-on HTTP acceptance passed.",
+          "2026-10-20T04:47:58.1011380Z Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+          "2026-10-20T04:47:59.7031598Z Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+          "2026-10-20T04:48:01.8480572Z Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+          "2026-10-20T04:48:02.5766120Z Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+          "2026-10-20T04:48:07.8541442Z Campaign SMTP/HTTP regressions passed (54 assertions; localhost capture only).",
+          "2026-10-20T04:48:11.5387767Z Mail settings HTTP: 168 assertions passed; real owner auth/save/revision/credentials, SMTP outcomes, one-use tests/cooldown and concurrent disable/demotion. External messages sent: 0.",
+          "2026-10-20T04:48:17.6462131Z Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access).",
+          "2026-10-20T04:49:29.3951985Z Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+          "2026-10-20T04:50:39.8808948Z Live Text + Buttons group acceptance passed at root/nested installation paths with real desktop/mobile owner controls and desktop/tablet/mobile public links.",
+          "2026-10-20T04:51:04.5875171Z Campaign desktop/mobile owner and public-switch acceptance passed with disabled mail in actual root/nested customer packages.",
+          "2026-10-20T04:51:22.9217991Z Mail settings desktop/mobile acceptance passed in actual root/nested packages. External messages sent: 0.",
+          "2026-10-20T04:51:29.9164890Z Media Center browser acceptance test passed.",
+          "2026-10-20T04:51:34.1115431Z Members & Entitlements browser acceptance test passed.",
+          "2026-10-20T04:51:46.5661731Z Subscriptions & PPV Commerce browser acceptance test passed.",
+          "2026-10-20T04:51:51.6956729Z Add-on Playwright acceptance passed.",
+          "2026-10-20T04:51:59.9822485Z Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+          "2026-10-20T04:52:20.0562773Z Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+          "2026-10-20T04:52:30.0270919Z Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+          "2026-10-20T04:52:40.5820443Z Composer recovery acceptance passed: drag, resize, 0.5\u2013400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+          "2026-10-20T04:52:55.1123570Z Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+          "2026-10-20T04:54:20.3187857Z Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+          "2026-10-20T04:54:37.6464582Z Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+          "2026-10-20T04:55:36.7568779Z About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+          "2026-10-20T04:55:47.1072496Z Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access.",
+          "2026-10-20T04:56:14.9637390Z Media Center file-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "2026-10-20T04:56:40.6155580Z Media Center file-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "2026-10-20T04:57:08.2198615Z Media Center mysql-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "2026-10-20T04:57:35.7035504Z Media Center mysql-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "2026-10-20T04:57:36.5252633Z Media Center packaged acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+          "2026-10-20T04:57:41.7136837Z SHA256 digest of uploaded artifact zip is 82aab85ea16837c21c301633fa23b5e6a61b2c658afdd3d1cc333cc2e35fd471",
+          "2026-10-20T04:57:41.9523180Z Artifact chromium-browser-evidence.zip successfully finalized. Artifact ID 12241717923"
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459313069"
+      },
+      {
+        "id": 118459313090,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": "8.2.34",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:45:16.5078528Z Repository security scan passed.",
+          "2026-10-20T04:45:18.8612058Z PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "2026-10-20T04:45:19.7580862Z PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "2026-10-20T04:45:22.7634032Z Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "2026-10-20T04:45:35.5501213Z Installer mail validation passed (269 assertions).",
+          "2026-10-20T04:45:38.6020357Z Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "2026-10-20T04:45:39.5965185Z Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "2026-10-20T04:45:41.2591440Z Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "2026-10-20T04:45:43.2642167Z Repository security scan passed.",
+          "2026-10-20T04:45:47.7310136Z Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "2026-10-20T04:45:47.7523085Z All non-database tests passed."
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459313090"
+      },
+      {
+        "id": 118459313143,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:45:16.4542101Z Repository security scan passed.",
+          "2026-10-20T04:45:18.8736319Z PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "2026-10-20T04:45:19.7688794Z PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "2026-10-20T04:45:21.7805725Z Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "2026-10-20T04:45:35.2649613Z Installer mail validation passed (269 assertions).",
+          "2026-10-20T04:45:38.5026553Z Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "2026-10-20T04:45:39.4884123Z Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "2026-10-20T04:45:41.1826962Z Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "2026-10-20T04:45:43.2999486Z Repository security scan passed.",
+          "2026-10-20T04:45:47.8521037Z Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "2026-10-20T04:45:47.8707756Z All non-database tests passed."
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459313143"
+      },
+      {
+        "id": 118459313159,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:45:57.0046115Z Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "2026-10-20T04:45:57.0047048Z MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+          "2026-10-20T04:45:57.8784701Z MySQL migration rollback passed.",
+          "2026-10-20T04:46:40.3638265Z Existing-database installer acceptance passed (957 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package)."
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459313159"
+      },
+      {
+        "id": 118459313178,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": "8.2.34",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:45:53.7246468Z Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "2026-10-20T04:45:53.7253057Z MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+          "2026-10-20T04:45:54.5367319Z MySQL migration rollback passed.",
+          "2026-10-20T04:46:52.7126193Z Existing-database installer acceptance passed (957 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package)."
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118459313178"
+      },
+      {
+        "id": 118462730683,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "success",
+        "checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+        "checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+        "checkout_tree_equals_source": true,
+        "php": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Build separate runtime packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:57:51.2449827Z SHA256 digest of uploaded artifact zip is 278660c7cfa796f41f31f71739c84f8798ecb59e1f71f72bf0f907f7f9dc85e9",
+          "2026-10-20T04:57:51.4472693Z Artifact velvet-vixxen-runtime-packages.zip successfully finalized. Artifact ID 12241662290"
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/job/118462730683"
+      }
+    ],
+    "run_started_at": "2026-10-20T04:40:01Z",
+    "all_seven_required_jobs_passed": true
+  },
+  "failed_gate": null,
+  "counts_observed": {
+    "source_php82": {
+      "media_file": 116,
+      "installer_mail": 269,
+      "packaged_installer_smtp": 143,
+      "mail_settings": 199
+    },
+    "source_php83": {
+      "media_file": 116,
+      "installer_mail": 269,
+      "packaged_installer_smtp": 143,
+      "mail_settings": 199
+    },
+    "mysql_php82": {
+      "media_mysql": 108,
+      "existing_database_installer": 957,
+      "migrations": 14,
+      "tables": 82
+    },
+    "mysql_php83": {
+      "media_mysql": 108,
+      "existing_database_installer": 957,
+      "migrations": 14,
+      "tables": 82
+    },
+    "new_media_packaged_browser": {
+      "status": "success",
+      "completed_cases": 4,
+      "required_cases": 4,
+      "cases": [
+        "file-root-desktop",
+        "file-nested-mobile",
+        "mysql-root-desktop",
+        "mysql-nested-mobile"
+      ]
+    },
+    "installed_http": {
+      "suites": 10,
+      "media_center": 198,
+      "mail_settings": 168,
+      "campaign_delivery": 54
+    },
+    "existing_application_browser": {
+      "status": "success",
+      "suites": 13
+    }
+  },
+  "runtime_versions_observed": {
+    "php82": "8.2.34",
+    "php83": "8.3.35",
+    "mysql": "8.0.46",
+    "python": "3.12.15",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "packaged_browser_php": "8.3.35",
+    "packaged_browser_mysql": "8.0.46"
+  },
+  "superseded_push_run": {
+    "id": 39370767594,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370767594",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "updated_at": "2026-10-20T04:45:02Z",
+    "counted_as_passing": false,
+    "jobs": [
+      {
+        "id": 118457901412,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "counted_as_passing": false
+      },
+      {
+        "id": 118459283801,
+        "name": "MySQL 8 / PHP ${{ matrix.php }} installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "counted_as_passing": false
+      },
+      {
+        "id": 118459284089,
+        "name": "PHP ${{ matrix.php }} source and package regressions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "counted_as_passing": false
+      },
+      {
+        "id": 118459284316,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "counted_as_passing": false
+      },
+      {
+        "id": 118459285347,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "counted_as_passing": false
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 12241717923,
+      "name": "chromium-browser-evidence",
+      "size_in_bytes": 131803368,
+      "digest": "sha256:82aab85ea16837c21c301633fa23b5e6a61b2c658afdd3d1cc333cc2e35fd471",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/artifacts/12241717923",
+      "created_at": "2026-10-20T04:57:41Z",
+      "expires_at": "2026-11-03T04:57:36Z",
+      "expired": false,
+      "source_sha": "91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+      "run_id": 39370771018,
+      "downloaded_bytes_and_digest_verified": true
+    },
+    {
+      "id": 12241662290,
+      "name": "velvet-vixxen-runtime-packages",
+      "size_in_bytes": 15217307,
+      "digest": "sha256:278660c7cfa796f41f31f71739c84f8798ecb59e1f71f72bf0f907f7f9dc85e9",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/artifacts/12241662290",
+      "created_at": "2026-10-20T04:57:51Z",
+      "expires_at": "2026-11-19T04:57:50Z",
+      "expired": false,
+      "source_sha": "91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+      "run_id": 39370771018,
+      "downloaded_bytes_and_digest_verified": true
+    }
+  ],
+  "runtime_package_artifact": {
+    "status": "success",
+    "job_id": 118462730683,
+    "artifact_id": 12241662290,
+    "source_checkout_sha": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+    "artifact_sha256": "278660c7cfa796f41f31f71739c84f8798ecb59e1f71f72bf0f907f7f9dc85e9",
+    "artifact_size_in_bytes": 15217307,
+    "downloaded_bytes_and_digest_verified": true,
+    "package_summary_from_job_log": {
+      "version": "0.8.2",
+      "build_id": "20261020.3",
+      "manifest_filename": "Velvet-Vixxen-0.8.2-Build-20261020.3-package-manifest.json",
+      "packages": [
+        {
+          "kind": "fresh",
+          "version": "0.8.2",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Fresh-Install.zip",
+          "build_id": "20261020.3",
+          "size_bytes": 7670044,
+          "sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4",
+          "files": 339,
+          "php_files": 187,
+          "javascript_files": 12,
+          "supported_from": []
+        },
+        {
+          "kind": "upgrade",
+          "version": "0.8.2",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Upgrade-from-0.8.x.zip",
+          "build_id": "20261020.3",
+          "size_bytes": 7512683,
+          "sha256": "a85360afcb6662883a03ddbc11f0c2ced79d47b2bb059335db126265b91e2d85",
+          "files": 298,
+          "php_files": 176,
+          "javascript_files": 12,
+          "supported_from": [
+            "0.8.0",
+            "0.8.1",
+            "0.8.2"
+          ]
+        },
+        {
+          "kind": "installer-repair",
+          "version": "0.8.1",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "repair_build_id": "20261020.3",
+          "size_bytes": 60065,
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+          "files": 11,
+          "php_files": 9,
+          "javascript_files": 1,
+          "supported_from": [
+            "0.8.1"
+          ],
+          "installation_state": "incomplete"
+        }
+      ]
+    },
+    "downloaded_entries": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Fresh-Install.zip",
+        "bytes": 7670044,
+        "sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4"
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Upgrade-from-0.8.x.zip",
+        "bytes": 7512683,
+        "sha256": "a85360afcb6662883a03ddbc11f0c2ced79d47b2bb059335db126265b91e2d85"
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.2-Build-20261020.3-package-manifest.json",
+        "bytes": 75063,
+        "sha256": "13cb5abe9df7fbe7de6d492394614e36a298684c67817c946546524f13dd00dc"
+      }
+    ],
+    "local_byte_comparison": {
+      "evidence_file": "/tmp/vvx-082-gated-comparison.json",
+      "all_four_files_byte_identical": true,
+      "performed_by": "release parent; downloaded entry hashes independently verified in this audit"
+    }
+  },
+  "prior_attempt": {
+    "run_id": 39369724707,
+    "status": "failure",
+    "evidence_file": "/tmp/vvx-082-ci-first-attempt.json",
+    "repository_evidence": "docs/releases/0.8.2-media-center-ci-first-attempt.json",
+    "source_runtime_changed": false,
+    "changed_files": [
+      "docs/releases/0.8.2-media-center-ci-first-attempt.json",
+      "docs/releases/0.8.2-media-center.md",
+      "tests/Browser/media_center_playwright.py"
+    ]
+  },
+  "notes": [
+    "All seven required jobs and every listed step completed successfully; no skipped or cancelled gate is counted as passing.",
+    "Every actual checkout log reports the same PR test merge commit, whose full Git tree equals the source commit tree. The pull-request head is recorded separately from the executed checkout.",
+    "The superseded push run was cancelled. The earlier failed PR attempt remains preserved with its failed legacy browser assertion, skipped new Media step and skipped package job.",
+    "Replacement source changes only the preserved browser smoke assertion and first-attempt release documentation. Runtime and package builder files are unchanged.",
+    "Both downloaded GitHub artifact containers match their reported byte counts and SHA-256 digests. The Media browser summary comes from the verified browser artifact and identifies the exact Fresh ZIP and real runtime versions.",
+    "Fresh and Upgrade target 0.8.2 Build 20261020.3. The eleven-file installer repair explicitly targets incomplete 0.8.1 installations and has repair_build_id 20261020.3; it does not change the installed core build.",
+    "These are local/CI package and disposable fixture results. They do not establish verification of the actual hosting environment or live payment delivery."
+  ],
+  "browser_artifact_evidence": {
+    "artifact_id": 12241717923,
+    "artifact_sha256": "82aab85ea16837c21c301633fa23b5e6a61b2c658afdd3d1cc333cc2e35fd471",
+    "artifact_size_in_bytes": 131803368,
+    "downloaded_bytes_and_digest_verified": true,
+    "entry": "media-persistence-browser-evidence.json",
+    "extracted_summary_file": "/tmp/vvx-082-ci-browser-summary.json",
+    "release": {
+      "version": "0.8.2",
+      "build_id": "20261020.3",
+      "fresh_zip_sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4"
+    },
+    "php": "8.3.35",
+    "playwright": "1.62.0",
+    "browser": "151.0.7922.34",
+    "server": "php -S without any router script",
+    "cases": {
+      "file-root-desktop": {
+        "mode": "file",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "mysql_version": null,
+        "real_package_form_navigation": true,
+        "exact_gallery_ids_order_captions_tags_preview_cover": true,
+        "remove_undo_and_subsequent_save": true,
+        "literal_lightbox_caption_and_private_preview": true,
+        "real_sql_row_readback": false,
+        "exact_playlist_order_and_removal": true,
+        "schedule_not_due_then_due_owner_action": true,
+        "publication_idempotence_and_stale_tabs": true,
+        "guest_registered_and_subscription_access": true,
+        "explicit_metadata_date_clearing": true,
+        "usable_playlist_checkbox_titles_arrows": [
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          }
+        ],
+        "no_horizontal_overflow": true,
+        "uncaught_javascript_errors": []
+      },
+      "file-nested-mobile": {
+        "mode": "file",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mysql_version": null,
+        "real_package_form_navigation": true,
+        "exact_gallery_ids_order_captions_tags_preview_cover": true,
+        "remove_undo_and_subsequent_save": true,
+        "literal_lightbox_caption_and_private_preview": true,
+        "real_sql_row_readback": false,
+        "exact_playlist_order_and_removal": true,
+        "schedule_not_due_then_due_owner_action": true,
+        "publication_idempotence_and_stale_tabs": true,
+        "guest_registered_and_subscription_access": true,
+        "explicit_metadata_date_clearing": true,
+        "usable_playlist_checkbox_titles_arrows": [
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          }
+        ],
+        "no_horizontal_overflow": true,
+        "uncaught_javascript_errors": []
+      },
+      "mysql-root-desktop": {
+        "mode": "mysql",
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        },
+        "mysql_version": "8.0.46",
+        "real_package_form_navigation": true,
+        "exact_gallery_ids_order_captions_tags_preview_cover": true,
+        "remove_undo_and_subsequent_save": true,
+        "literal_lightbox_caption_and_private_preview": true,
+        "real_sql_row_readback": true,
+        "exact_playlist_order_and_removal": true,
+        "schedule_not_due_then_due_owner_action": true,
+        "publication_idempotence_and_stale_tabs": true,
+        "guest_registered_and_subscription_access": true,
+        "explicit_metadata_date_clearing": true,
+        "usable_playlist_checkbox_titles_arrows": [
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 270.296875,
+            "row_height": 54,
+            "buttons_inside_row_and_viewport": true
+          }
+        ],
+        "no_horizontal_overflow": true,
+        "uncaught_javascript_errors": []
+      },
+      "mysql-nested-mobile": {
+        "mode": "mysql",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "mysql_version": "8.0.46",
+        "real_package_form_navigation": true,
+        "exact_gallery_ids_order_captions_tags_preview_cover": true,
+        "remove_undo_and_subsequent_save": true,
+        "literal_lightbox_caption_and_private_preview": true,
+        "real_sql_row_readback": true,
+        "exact_playlist_order_and_removal": true,
+        "schedule_not_due_then_due_owner_action": true,
+        "publication_idempotence_and_stale_tabs": true,
+        "guest_registered_and_subscription_access": true,
+        "explicit_metadata_date_clearing": true,
+        "usable_playlist_checkbox_titles_arrows": [
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          },
+          {
+            "checkbox_width": 18,
+            "title_width": 160,
+            "row_height": 58,
+            "buttons_inside_row_and_viewport": true
+          }
+        ],
+        "no_horizontal_overflow": true,
+        "uncaught_javascript_errors": []
+      }
+    }
+  },
+  "merge": {
+    "sha": "e1dc2069ab62b9399a968dfd86602a5c30b9fcaf",
+    "tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+    "merged": true,
+    "merged_at": "2026-10-20T04:58:45Z",
+    "pr_number": 18,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/18",
+    "main_head_at_verification": "e1dc2069ab62b9399a968dfd86602a5c30b9fcaf"
+  },
+  "final_browser": {
+    "artifact_id": 12241717923,
+    "artifact_sha256": "82aab85ea16837c21c301633fa23b5e6a61b2c658afdd3d1cc333cc2e35fd471",
+    "artifact_bytes": 131803368,
+    "entry": "media-persistence-browser-evidence.json",
+    "summary": {
+      "php": "8.3.35",
+      "playwright": "1.62.0",
+      "server": "php -S without any router script",
+      "cases": {
+        "file-root-desktop": {
+          "mode": "file",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "mysql_version": null,
+          "real_package_form_navigation": true,
+          "exact_gallery_ids_order_captions_tags_preview_cover": true,
+          "remove_undo_and_subsequent_save": true,
+          "literal_lightbox_caption_and_private_preview": true,
+          "real_sql_row_readback": false,
+          "exact_playlist_order_and_removal": true,
+          "schedule_not_due_then_due_owner_action": true,
+          "publication_idempotence_and_stale_tabs": true,
+          "guest_registered_and_subscription_access": true,
+          "explicit_metadata_date_clearing": true,
+          "usable_playlist_checkbox_titles_arrows": [
+            {
+              "id": "f81e5ff56bb0f2f3",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            },
+            {
+              "id": "a1cb4d767899d42c",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            },
+            {
+              "id": "0596a4412b181ba0",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            }
+          ],
+          "no_horizontal_overflow": true,
+          "uncaught_javascript_errors": []
+        },
+        "file-nested-mobile": {
+          "mode": "file",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mysql_version": null,
+          "real_package_form_navigation": true,
+          "exact_gallery_ids_order_captions_tags_preview_cover": true,
+          "remove_undo_and_subsequent_save": true,
+          "literal_lightbox_caption_and_private_preview": true,
+          "real_sql_row_readback": false,
+          "exact_playlist_order_and_removal": true,
+          "schedule_not_due_then_due_owner_action": true,
+          "publication_idempotence_and_stale_tabs": true,
+          "guest_registered_and_subscription_access": true,
+          "explicit_metadata_date_clearing": true,
+          "usable_playlist_checkbox_titles_arrows": [
+            {
+              "id": "0f06d3aab47a4025",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            },
+            {
+              "id": "bac5b40c67aa7873",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            },
+            {
+              "id": "438755461248c9e8",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            }
+          ],
+          "no_horizontal_overflow": true,
+          "uncaught_javascript_errors": []
+        },
+        "mysql-root-desktop": {
+          "mode": "mysql",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "mysql_version": "8.0.46",
+          "real_package_form_navigation": true,
+          "exact_gallery_ids_order_captions_tags_preview_cover": true,
+          "remove_undo_and_subsequent_save": true,
+          "literal_lightbox_caption_and_private_preview": true,
+          "real_sql_row_readback": true,
+          "exact_playlist_order_and_removal": true,
+          "schedule_not_due_then_due_owner_action": true,
+          "publication_idempotence_and_stale_tabs": true,
+          "guest_registered_and_subscription_access": true,
+          "explicit_metadata_date_clearing": true,
+          "usable_playlist_checkbox_titles_arrows": [
+            {
+              "id": "1",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            },
+            {
+              "id": "2",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            },
+            {
+              "id": "3",
+              "row": {
+                "left": 336,
+                "right": 740.296875,
+                "width": 404.296875,
+                "height": 54
+              },
+              "checkbox": {
+                "left": 347,
+                "right": 365,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 375,
+                "right": 645.296875,
+                "width": 270.296875,
+                "height": 25
+              },
+              "titleContent": 270,
+              "titleViewport": 270,
+              "buttons": [
+                {
+                  "left": 655.296875,
+                  "right": 689.296875,
+                  "width": 34,
+                  "height": 34
+                },
+                {
+                  "left": 695.296875,
+                  "right": 729.296875,
+                  "width": 34,
+                  "height": 34
+                }
+              ],
+              "viewport": 1440
+            }
+          ],
+          "no_horizontal_overflow": true,
+          "uncaught_javascript_errors": []
+        },
+        "mysql-nested-mobile": {
+          "mode": "mysql",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "mysql_version": "8.0.46",
+          "real_package_form_navigation": true,
+          "exact_gallery_ids_order_captions_tags_preview_cover": true,
+          "remove_undo_and_subsequent_save": true,
+          "literal_lightbox_caption_and_private_preview": true,
+          "real_sql_row_readback": true,
+          "exact_playlist_order_and_removal": true,
+          "schedule_not_due_then_due_owner_action": true,
+          "publication_idempotence_and_stale_tabs": true,
+          "guest_registered_and_subscription_access": true,
+          "explicit_metadata_date_clearing": true,
+          "usable_playlist_checkbox_titles_arrows": [
+            {
+              "id": "1",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            },
+            {
+              "id": "2",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            },
+            {
+              "id": "3",
+              "row": {
+                "left": 50,
+                "right": 340,
+                "width": 290,
+                "height": 58
+              },
+              "checkbox": {
+                "left": 59,
+                "right": 77,
+                "width": 18,
+                "height": 18
+              },
+              "title": {
+                "left": 87,
+                "right": 247,
+                "width": 160,
+                "height": 39
+              },
+              "titleContent": 160,
+              "titleViewport": 160,
+              "buttons": [
+                {
+                  "left": 253,
+                  "right": 289,
+                  "width": 36,
+                  "height": 40
+                },
+                {
+                  "left": 295,
+                  "right": 331,
+                  "width": 36,
+                  "height": 40
+                }
+              ],
+              "viewport": 390
+            }
+          ],
+          "no_horizontal_overflow": true,
+          "uncaught_javascript_errors": []
+        }
+      },
+      "version": "0.8.2",
+      "build_id": "20261020.3",
+      "fresh_zip_sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4",
+      "browser": "151.0.7922.34"
+    }
+  },
+  "boundaries": {
+    "actual_host_verified": false,
+    "production_email_verified": false,
+    "payments": "sandbox-only",
+    "post_merge_ci_claimed": false
+  }
+}

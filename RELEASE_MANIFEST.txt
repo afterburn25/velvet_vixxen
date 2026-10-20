@@ -1,15 +1,22 @@
-VELVET VIXXEN 0.8.2 — BUILD 20261020.3 IN PROGRESS
+VELVET VIXXEN 0.8.2 — BUILD 20261020.3 VERIFIED, MERGED AND DELIVERED
 
-Branch: feature/0.8.2-media-center
-Prior main baseline: 7b5966108d7e311ce11d95bafb06abef4e9e4442
-Status: implementation and independent acceptance in progress; final CI, merge and saved-download verification pending.
-Visible versions advance for each completed release, as directed by the user; build IDs are secondary.
-Full Fresh/Upgrade target 0.8.2; preserve 13/9 approved directories and four root files.
-The separate unfinished-installer repair targets incomplete 0.8.1 setup and cannot advance the runtime build.
-Retire the earlier focused Media/Composer overlay for this release; installed sites use the complete Upgrade.
-Current scope/evidence: docs/releases/0.8.2-media-center.md
-Owner workflow: docs/MEDIA_CENTER.md
-Next: addon-owned MySQL migration acceptance #7, then remaining marketing #9.
+Visible release version: 0.8.2; secondary build ID: 20261020.3.
+Integration branch: main
+Release source: 91d5cee9d7625d4f0eaf111f5923695ae681fa58
+Source/CI/merge tree: e2e4a338593c8e78cd86d433bed262ee743fcb02
+PR #18: https://github.com/afterburn25/velvet_vixxen/pull/18
+Actual merge: e1dc2069ab62b9399a968dfd86602a5c30b9fcaf at 2026-10-20T04:58:45Z
+Required CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018
+All seven jobs: completed/success; actual checkout 7cd686fad6a49cd794d7e566854faf28d414cb98.
+The completed PR run certifies this identical tree. No separate post-merge CI result is claimed.
+Three ZIPs plus the separate manifest were compared literally against the gated artifact and saved/retrieved bytes at 2026-10-20 04:59:42 UTC.
+Full Fresh/Upgrade: 0.8.2 / Build 20261020.3; exact 13/9 approved directories and four root files.
+Unfinished-installer repair: incomplete 0.8.1 only, repair_build_id 20261020.3; no installed runtime version/build advance.
+Former focused Media/Composer overlay retired; installed sites use the complete Upgrade.
+Current scope/evidence: docs/releases/0.8.2-media-center.md and its -ci.json / -delivery.json companions.
+Owner workflow: docs/MEDIA_CENTER.md and docs/UPDATE_VERIFICATION.md.
+Next: 0.8.3 addon-owned MySQL migration/recovery #7, then 0.8.4 newsletter audiences within #9.
+Actual customer host and production email remain unverified; payments remain sandbox-only.
 
 HISTORICAL RELEASE RECORD FOLLOWS
 

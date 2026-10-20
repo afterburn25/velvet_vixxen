@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "version": "0.8.2",
+  "build_id": "20261020.3",
+  "source_commit": "91d5cee9d7625d4f0eaf111f5923695ae681fa58",
+  "source_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+  "pr": {
+    "sha": "e1dc2069ab62b9399a968dfd86602a5c30b9fcaf",
+    "tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+    "merged": true,
+    "merged_at": "2026-10-20T04:58:45Z",
+    "pr_number": 18,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/18",
+    "main_head_at_verification": "e1dc2069ab62b9399a968dfd86602a5c30b9fcaf"
+  },
+  "ci_run_id": 39370771018,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018",
+  "actual_ci_checkout": "7cd686fad6a49cd794d7e566854faf28d414cb98",
+  "ci_checkout_tree": "e2e4a338593c8e78cd86d433bed262ee743fcb02",
+  "gated_artifact_verification": {
+    "artifact_id": 12241662290,
+    "run_id": 39370771018,
+    "artifact_bytes": 15217307,
+    "artifact_sha256": "278660c7cfa796f41f31f71739c84f8798ecb59e1f71f72bf0f907f7f9dc85e9",
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018/artifacts/12241662290",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Fresh-Install.zip",
+        "bytes": 7670044,
+        "sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Upgrade-from-0.8.x.zip",
+        "bytes": 7512683,
+        "sha256": "a85360afcb6662883a03ddbc11f0c2ced79d47b2bb059335db126265b91e2d85",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.2-Build-20261020.3-package-manifest.json",
+        "bytes": 75063,
+        "sha256": "13cb5abe9df7fbe7de6d492394614e36a298684c67817c946546524f13dd00dc",
+        "gated_bytes_equal_local": true
+      }
+    ]
+  },
+  "saved_download_verification": {
+    "verified_at": "2026-10-20 04:59:42 UTC",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Upgrade-from-0.8.x.zip",
+        "bytes": 7512683,
+        "sha256": "a85360afcb6662883a03ddbc11f0c2ced79d47b2bb059335db126265b91e2d85",
+        "saved_version_number": 6,
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Fresh-Install.zip",
+        "bytes": 7670044,
+        "sha256": "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4",
+        "saved_version_number": 9,
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "saved_version_number": 2,
+        "saved_bytes_equal_gated_artifact": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.2-Build-20261020.3-package-manifest.json",
+        "bytes": 75063,
+        "sha256": "13cb5abe9df7fbe7de6d492394614e36a298684c67817c946546524f13dd00dc",
+        "saved_version_number": 9,
+        "saved_bytes_equal_gated_artifact": true
+      }
+    ]
+  },
+  "affected_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only"
+}

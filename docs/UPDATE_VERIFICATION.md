@@ -2,7 +2,7 @@
 
 Version **0.8.2**, Build **20261020.3**, adds persistent gallery captions/tags, exact gallery removal/order, playlist ordering and dates, stale-form protection, bounded scheduled media publication and playlist access checks. It retains owner Email & SMTP settings, grouped Composer buttons, campaign delivery, the approved organized layout and the previous upload, Preview, Publish and installed-update repairs.
 
-**Current evidence:** implementation and independent acceptance are in progress. Final CI, main merge and saved-download verification for 0.8.2 remain pending. [The release record](releases/0.8.2-media-center.md) records the current scope; the 0.8.1 release evidence certifies only its historical source and packages. The following steps describe the intended complete Upgrade. The affected customer host has not been accessed or verified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed; [PR #18](https://github.com/afterburn25/velvet_vixxen/pull/18) is merged into `main`. The three ZIPs and manifest match the gated artifact and their saved/retrieved bytes literally. [The release record](releases/0.8.2-media-center.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
 Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.2; its historical CI/delivery records remain available.
 

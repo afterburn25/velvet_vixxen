@@ -2,9 +2,9 @@
 
 ## User-directed release versioning — effective 2026-10-19 America/Chicago
 
-The user explicitly requires the visible release version to advance with each completed release. The next release is **0.8.2**, Build **20261020.3**, continuing Media Center issue **#2** from `main` commit `7b5966108d7e311ce11d95bafb06abef4e9e4442`. Subsequent completed releases must advance to 0.8.3, 0.8.4, or the appropriate next milestone; build IDs are secondary identifiers and must not substitute for release increments. Update the canonical version, running application, installer metadata, upgrade compatibility, packaging and current guides together. Preserve historical release identities and hashes. A patch-version advance does not claim the separate 0.9 roadmap milestone is complete.
+The user explicitly requires the visible release version to advance with each completed release. The first release under this rule is **0.8.2**, Build **20261020.3**, now verified, merged and delivered. Continue with **0.8.3** addon migration/recovery #7, followed by **0.8.4** newsletter audience controls within #9. Subsequent completed releases must advance to 0.8.3, 0.8.4, or the appropriate next milestone; build IDs are secondary identifiers and must not substitute for release increments. Update the canonical version, running application, installer metadata, upgrade compatibility, packaging and current guides together. Preserve historical release identities and hashes. A patch-version advance does not claim the separate 0.9 roadmap milestone is complete.
 
-This current work is in progress on `feature/0.8.2-media-center`; its tests, CI, merge and downloads must be verified independently before release. The 0.8.1 records below are the verified baseline, not evidence for 0.8.2. Preserve all approved package roots and every required gate. Continue Media Center, addon migration acceptance #7 and remaining marketing #9 in scoped, verified releases.
+0.8.2 source `91d5cee9d7625d4f0eaf111f5923695ae681fa58`, actual CI checkout `7cd686fad6a49cd794d7e566854faf28d414cb98` and merge `e1dc2069ab62b9399a968dfd86602a5c30b9fcaf` share tree `e2e4a338593c8e78cd86d433bed262ee743fcb02`. All seven [PR CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed, and all four saved files match the gated artifact literally. Exact evidence is in `docs/releases/0.8.2-media-center.md` and its CI/delivery JSON companions. Media #2 is complete; continue #7 and remaining #9 from live `main`, preserving approved package roots and every required gate. Earlier records below are historical.
 
 <!-- owner-mail-settings:start -->
 ## Historical continuation — Build 20261020.2 verified, merged and delivered
@@ -76,11 +76,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current integration target: **0.8.2 — Build 20261020.3 Media Center; independent acceptance in progress**
+Current released baseline: **0.8.2 — Build 20261020.3 Media Center; verified, merged and delivered**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and now contains PR #15, PR #16 and PR #17. Start subsequent implementation from live `main` on a scoped feature branch; the earlier site-UX, grouped-button and owner-mail branches are historical merged implementations. Current release work is recorded in `docs/releases/0.8.2-media-center.md`; the 0.8.1 owner-mail CI/delivery JSON records certify only that historical baseline. Media #2 is the active acceptance target, followed by #7 and remaining #9.
+`main` is the authoritative integration destination and now contains PR #15 through PR #18. Start subsequent implementation from live `main` on a scoped feature branch; the earlier site-UX, grouped-button and owner-mail branches are historical merged implementations. Current release work is recorded in `docs/releases/0.8.2-media-center.md`; the 0.8.1 owner-mail CI/delivery JSON records certify only that historical baseline. Media #2 is complete. Addon migration/recovery #7 is the next acceptance target, followed by remaining #9.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 
@@ -117,7 +117,7 @@ The user requires the latest source and progress documents to be uploaded to Git
 
 ## Active continuation
 
-Read `INCOMPLETE_WORK.md` in full. Preserve the already merged and verified source recovery, Composer, 30 standalone Hero scenes, Booking Builder, public navigation/About/auth, persistent admin categories, merchandise/direct PPV separation, Canva clarity, grouped buttons and owner mail settings. Active implementation is Media Center #2, then addon migration acceptance #7 and remaining marketing #9. Keep #12/#13 open for actual hosted verification; do not repeat completed source work. Advance the visible version for each completed release. The separate 0.9 milestone remains incomplete until its own acceptance is fulfilled.
+Read `INCOMPLETE_WORK.md` in full. Preserve the already merged and verified source recovery, Composer, 30 standalone Hero scenes, Booking Builder, public navigation/About/auth, persistent admin categories, merchandise/direct PPV separation, Canva clarity, grouped buttons and owner mail settings. Media Center #2 is complete; active continuation is addon migration/recovery #7, then remaining marketing #9. Keep #12/#13 open for actual hosted verification; do not repeat completed source work. Advance the visible version for each completed release. The separate 0.9 milestone remains incomplete until its own acceptance is fulfilled.
 
 Actual recovered marketing source is `app/Core/MarketingStore.php`; runtime public routes are under `public/routes`, and operational commands are under `app/Console`. Do not assume historical paths or advanced marketing descriptions exist in executable source.
 

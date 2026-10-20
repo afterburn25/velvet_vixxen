@@ -1,4 +1,4 @@
-## 0.8.2 — Media Center, Build 20261020.3 (in progress)
+## 0.8.2 — Media Center, Build 20261020.3 (verified, merged and delivered)
 
 - Advance visible release numbers with each completed release; use canonical version metadata throughout the runtime and installer.
 - Edit gallery captions and shared photo tags; save exactly the retained photographs and their order, with mobile controls and undo before saving.
@@ -8,7 +8,7 @@
 - Enforce playlist access before offering its public queue, with each track's existing access/preview rules.
 - Preserve approved roots, verify changed upload timestamps against the exact previous Fresh archive, and use complete 0.8.2 Fresh/Upgrade packages. Keep the unfinished 0.8.1 installer repair explicitly targeted; retire the former focused Media/Composer overlay for new releases.
 
-Local source, ten HTTP suites, real MySQL and all four packaged browser cases passed; final GitHub CI, merge and delivery remain pending. See [the 0.8.2 release record](docs/releases/0.8.2-media-center.md). After Media Center #2, continue addon-owned MySQL migration acceptance #7 and remaining marketing #9.
+Local source, ten HTTP suites, real MySQL and all four packaged browser cases passed. All seven [GitHub CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed on the identical source/checkout/merge tree; [PR #18](https://github.com/afterburn25/velvet_vixxen/pull/18) merged at 2026-10-20T04:58:45Z. The three ZIPs and manifest matched the gated artifact and saved/retrieved bytes at 2026-10-20 04:59:42 UTC. See [the 0.8.2 release record](docs/releases/0.8.2-media-center.md). After Media Center #2, continue addon-owned MySQL migration acceptance #7 and remaining marketing #9.
 
 ## 0.8.1 — Build 20261020.2 owner Email & SMTP (2026-10-20)
 
