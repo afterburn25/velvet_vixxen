@@ -1,23 +1,24 @@
-# Update and verify Velvet Vixxen — 0.8.7 / Build 20261020.8
+# Update and verify Velvet Vixxen — 0.8.8 / Build 20261020.9
 
-Version **0.8.7**, Build **20261020.8**, adds Public/Members/Selected tiers for posts, banners and landing pages, plus private saved-owner previews. It includes SQL marketing persistence, publication editors, saved audiences, Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
+Version **0.8.8**, Build **20261020.9**, adds post tags, an explicit public author name, ordered related updates and featured-image/SEO controls for posts and landing pages. It preserves Public/Members/Selected tiers access, private saved-owner previews, SQL marketing persistence, publication windows, saved audiences, Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. This metadata increment requires no new database migration or storage cutover. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39466086276) passed; [PR #23](https://github.com/afterburn25/velvet_vixxen/pull/23) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.7-editorial-access.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39492640091) passed; [PR #24](https://github.com/afterburn25/velvet_vixxen/pull/24) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.8-editorial-metadata.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.7; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.8; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
-1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.7-Build-20261020.8-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
+1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.8-Build-20261020.9-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
 2. Sign in with the existing owner account and open **`admin/repair.php`** under this installation's URL. This entry remains usable when an older update page or PHP classes are cached. **System → Update Status** also opens this page.
-3. Require **Update files verified**, **Uploaded package: v0.8.7 · Build 20261020.8**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
-4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.8** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
+3. Require **Update files verified**, **Uploaded package: v0.8.8 · Build 20261020.9**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
+4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.9** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
 5. If the page detects forwarding files or empty route folders left by rejected Build .5, click **Restore organized folders** after file/build verification. The repair retires only the exact 46 known forwarding files and removes their 25 directories only when empty. Review its result and any custom or modified items preserved. If the page already reports that no retired compatibility files or folders remain, no folder-repair action is needed.
 6. Open Visual Composer and complete the grouped-button checks below, including a real image upload, the existing standalone **Add Button** action, retained **Full Page Preview**, and **Publish**.
 7. Open **Media Center**, edit and save a gallery caption/tag and its order, then reload and confirm exact retained photographs. Check playlist order and dates. Follow [the Media Center guide](MEDIA_CENTER.md) for stale-form recovery and the owner action or hosting scheduler that runs due publication.
 8. Open **Add-ons** and review any recorded recovery hold. Follow [the Add-on recovery guide](ADDON_RECOVERY.md); an uncertain database outcome requires review, and schema rollback/purge cannot restore deleted data without a database backup.
 9. Open **System → Email & SMTP** and verify the owner settings using the steps below. Then check the campaign controls if you use newsletter campaigns.
-10. For an installed MySQL site, open **System → Database Updates**, review/apply the pending marketing migration, then follow the separate **Marketing Storage** move below. Applying the tables alone leaves the marketing file active.
+10. If an installed MySQL site still has pending marketing migrations, open **System → Database Updates**, review/apply them, then follow the separate **Marketing Storage** move below if you want to move the marketing records. Applying the tables alone leaves the marketing file active. This 0.8.8 metadata increment adds no migration.
+11. Use the editorial metadata checks below to verify a saved post and landing page, including their public and **Preview Saved** views.
 
 The Upgrade excludes `config`, `storage`, `uploads` and `install`. It does not reinstall the site, create a new owner, replace keys, run SQL or replace saved content. A ZIP overlay alone cannot remove folders from an earlier extraction; an installation still carrying the rejected .5 folders needs the verified owner repair action.
 
@@ -121,6 +122,16 @@ See [Publication windows and saved promotion editors](PUBLICATION_WINDOWS.md) fo
 
 Use the [Editorial access guide](EDITORIAL_ACCESS.md) for the exact access, timing, cache and compatibility rules. These checks apply to both file storage and explicitly activated MySQL marketing storage; this update does not change the active backend.
 
+## Verify editorial metadata
+
+1. Open **Marketing & Publishing → Posts** and edit a saved verification post. Enter an **Author display name** and comma-separated **Tags**. These are public values; the byline does not copy an account name or email. Save and reload, and confirm the saved ID, slug, category, status, date and access setting are retained.
+2. Under **Featured image**, select an existing public image and enter **Image description**. Save and confirm that the image loads on the allowed public post and in **Preview Saved**. Protected originals are unavailable even if they have public thumbnails. Featured artwork remains a public asset when selected for a member-only publication.
+3. Enter **Search title** and **Search description**. Confirm that the editor's sample updates, then save and reload. Check the allowed public page's browser title and description metadata while its visible heading stays the publication title. Empty search fields fall back to the ordinary title/excerpt. A denied request must retain the generic not-found response without private search text.
+4. Select up to six distinct **Related updates** in the desired order, save and reload. Check guest and eligible member views: each shows only currently published related posts allowed for that visitor, in the saved order. A draft or future selection stays unpublished. **Preview Saved** shows saved related content with inert links and excludes unsaved editor text.
+5. Under **Campaigns**, edit a saved landing page and verify the same featured-image and search fields. Banners retain their existing controls. Check desktop and mobile layouts. Saving metadata must preserve access, publication dates, saved permalinks and unrelated marketing records.
+
+Use the [Editorial metadata guide](EDITORIAL_METADATA.md) for field limits, existing-image requirements, safe fallbacks and file/MySQL preservation rules. Previewing does not publish content, record marketing visits or send email. Editorial history/restore, a calendar and post expiry remain separate next work.
+
 ## Private-reply email notices
 
 The correction introduced in **0.8.5 / Build 20261020.6** remains included: private reply subjects, message bodies and attachment names stay out of notification emails. Member notices link to the conversation after sign-in. Guest booking notices ask the recipient to contact the site to follow up; they do not promise guest access to an authenticated conversation. The complete reply stays on the site, and internal notes send no email.
@@ -150,7 +161,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.7 / Build 20261020.8** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.7-editorial-access.md).
+Current **0.8.8 / Build 20261020.9** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.8-editorial-metadata.md).
 
 ### Historical baseline — Build 20261020.1
 

@@ -12,7 +12,7 @@ File-mode installations retain file storage. The move uses the MySQL connection 
 
 ## Owner workflow
 
-1. Apply the complete **0.8.6 / Build 20261020.7 Upgrade** and complete [Update Verification](UPDATE_VERIFICATION.md). Confirm the active application files before applying its database update.
+1. Apply the complete current **0.8.8 / Build 20261020.9 Upgrade** and complete [Update Verification](UPDATE_VERIFICATION.md). Confirm the active application files before applying its database update.
 2. Open **System → Database Updates** and review/apply the pending migration. Existing configuration, installation identity, uploads and other application records remain in place.
 3. Open **System → Marketing Storage**. This page reports the active backend and whether the required database tables are available. It can display a storage problem independently of the normal Marketing pages.
 4. Select **Preview Move**. The review shows aggregate collection counts and binds the operation to the current source and destination state. Reading the page does not start a move. **Cancel Review** discards that review.

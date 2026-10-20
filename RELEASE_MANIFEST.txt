@@ -1,13 +1,39 @@
-VELVET VIXXEN 0.8.8 — BUILD 20261020.9 IN PROGRESS
+VELVET VIXXEN 0.8.8 — BUILD 20261020.9 VERIFIED AND DELIVERED
 
-Branch: feature/0.8.8-editorial-metadata
-Authoritative integration baseline: f918db21b031b3fe43baa6619b2a16d1a62b5f0d
+Source: 0fb8be539368802f0f8d423da5d51def69120734
+Actual seven-job CI checkout: 595f50f14d719cc774be373751f5760819842460
+Final merge on main: 606f313a2607e5d22dbe79c2a5c893a90b261cec
+Complete identical source/CI/merge tree: 8cb1e2e55b10fd64c071d5a6b7576ac86f642f8b
+PR: https://github.com/afterburn25/velvet_vixxen/pull/24
+Seven successful required CI jobs; 62 required steps: https://github.com/afterburn25/velvet_vixxen/actions/runs/39492640091
+Merged: 2026-10-20 15:59:29 CDT (America/Chicago); exact UTC: 2026-10-20T20:59:29Z
+Saved/retrieved bytes verified: 2026-10-20 16:01:46 CDT (America/Chicago); exact UTC: 2026-10-20 21:01:46 UTC
+
 Posts gain a deliberately public author display name, comma-separated tags, an existing public featured image and alternative text, search title/description and up to six manually ordered related posts. Landing pages gain the image and search fields; banners keep their existing controls. Existing categories, IDs, permalinks, order, publication timing and Public/Members/Selected tiers access remain in place. Related content is filtered by source and target access before metadata disclosure. Saved-owner previews resolve metadata before their final active-owner check, keep related links inert and produce no marketing events or email.
-Local acceptance, GitHub CI, merge and saved-download equality pending.
-Full Fresh/Upgrade: 0.8.8 / Build 20261020.9; approved 13/9 root directories and four root files.
-Unchanged unfinished-installer repair: 0.8.1 / repair Build 20261020.3; original delivered identity retained.
-Current evidence: docs/releases/0.8.8-editorial-metadata.md; owner guide: docs/EDITORIAL_METADATA.md.
-The broader #9 roadmap remains open for editorial history/restore, calendar and post expiry; scheduled Composer scenes; durable referral attribution; analytics operations; campaign message preview/test-send, templates and tracking; missing notification workflows; additional audience predicates; and provider hooks. File and MySQL storage retain the same business rules without a new migration. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+Fresh: 360 runtime entries, 13 approved root directories.
+Upgrade: 319 runtime entries, 9 approved root directories.
+Four root files in both: .htaccess, VERSION, index.php, route.php.
+19 changed runtime entries advance timestamps; 341 unchanged Fresh entries preserve historical timestamps.
+The unfinished-installer repair stays 0.8.1 / repair Build 20261020.3, 11 files, 60,065 bytes, original saved version 2.
+All four files below matched frozen/gated/saved bytes literally.
+
+upgrade: Nikki-Wilder-Velvet-Vixxen-0.8.8-Build-20261020.9-Upgrade-from-0.8.x.zip
+Bytes: 7583343; SHA-256: 159a947f927c92198fdd83800fe6dcdfd43a0a4abd2bf049a882d7bf031ddb92; saved version: 12
+fresh: Nikki-Wilder-Velvet-Vixxen-0.8.8-Build-20261020.9-Fresh-Install.zip
+Bytes: 7740656; SHA-256: a9f4a811139530f6f3c0fbb89182efe771de183769870c5accd98419cd8c4120; saved version: 15
+manifest: Velvet-Vixxen-0.8.8-Build-20261020.9-package-manifest.json
+Bytes: 80085; SHA-256: 69f3a5341a41a8241adafd8c311e85a8a150079105197071661bdbddae62c8db; saved version: 15
+installer-repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+Bytes: 60065; SHA-256: f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297; saved version: 2
+
+Current evidence: docs/releases/0.8.8-editorial-metadata.md
+CI/raw evidence record: docs/releases/0.8.8-editorial-metadata-ci.json
+Delivery evidence: docs/releases/0.8.8-editorial-metadata-delivery.json
+Owner guide: docs/EDITORIAL_METADATA.md
+The recovered local summary discloses missing temporary raw local logs; actual final CI independently repeats acceptance.
+Every changed completed release advances the visible version; build IDs remain secondary.
+The bounded 0.8.8 editorial metadata increment of #9 is complete. The broader #9 roadmap remains open, beginning with separately scoped editorial history/restore, calendar and post expiry. Scheduled Composer scenes, durable referral attribution, analytics operations, campaign message preview/test-send, templates and tracking, missing notification workflows, additional audience predicates and provider hooks remain open. File and MySQL storage retain the same business rules without a new migration; indexed reporting and large-dataset performance are not claimed. Issue #3 remains open as the ongoing version and release-evidence policy. Actual customer-host #12/#13 and production email remain unverified; payments remain sandbox-only. Add-on PHP is not a complete sandbox. The separate 0.9 milestone is not complete.
 
 HISTORICAL RELEASE RECORD FOLLOWS
 

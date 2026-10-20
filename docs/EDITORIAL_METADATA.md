@@ -2,7 +2,7 @@
 
 ## Release status
 
-The 0.8.8 / Build 20261020.9 metadata increment is in implementation and acceptance. The latest verified delivered release remains 0.8.7 until the new source, packages, required GitHub jobs and saved-download comparisons pass. See [the candidate release record](releases/0.8.8-editorial-metadata.md).
+**0.8.8 / Build 20261020.9 is verified, merged and delivered.** [PR #24](https://github.com/afterburn25/velvet_vixxen/pull/24) and all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39492640091) passed their recorded release gates. The four frozen customer files match both the gated artifact and retrieved saved files literally. See [the complete release record](releases/0.8.8-editorial-metadata.md), including exact identities and the recovered local-summary limitation. The affected customer host remains unverified.
 
 ## Owner controls
 
@@ -52,4 +52,6 @@ The feature does not change newsletter consent, suppressions, audiences, frozen 
 
 ## Verification
 
-The required source suite, real packaged MySQL HTTP cases and file/MySQL desktop/mobile browser cases are being added alongside all existing release gates. Final executed counts, observed runtime versions, source/CI/merge identities and literal artifact/download comparisons belong in the completed release record. Configuration of a test is not evidence that it passed.
+The metadata source suite passed 173 assertions on PHP 8.2 and PHP 8.3. Both real-MySQL jobs passed 1308 metadata HTTP checks at each root/nested path, including current-owner refusal after actual media reads waited. The actual Fresh package passed four file/MySQL root-desktop/nested-mobile browser cases, with 20 decoded screenshots, fitting geometry, no JavaScript errors and no SMTP activity. The two MySQL browser cases include four blocked media-catalogue owner-revocation scenarios. All retained source, security, ownership, persistent-OPcache, MySQL, installer, HTTP and browser gates passed.
+
+[The release record](releases/0.8.8-editorial-metadata.md) records the exact observed runtimes, source/CI/merge trees, current artifact identities and literal saved-file comparisons. The local summary explicitly discloses loss of its temporary raw reports during workspace recovery; the final committed-source GitHub run supplies independent durable logs and artifacts. [Update verification](UPDATE_VERIFICATION.md) gives owner-facing checks after applying the complete Upgrade. These release tests do not establish actual customer-host installation or production email delivery.

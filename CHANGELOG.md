@@ -1,8 +1,12 @@
-## 0.8.8 — Editorial metadata, Build 20261020.9 (in progress)
+## 0.8.8 — Editorial metadata, Build 20261020.9
 
 Posts gain a deliberately public author display name, comma-separated tags, an existing public featured image and alternative text, search title/description and up to six manually ordered related posts. Landing pages gain the image and search fields; banners keep their existing controls. Existing categories, IDs, permalinks, order, publication timing and Public/Members/Selected tiers access remain in place. Related content is filtered by source and target access before metadata disclosure. Saved-owner previews resolve metadata before their final active-owner check, keep related links inert and produce no marketing events or email.
 
-Local acceptance, GitHub CI, merge and delivery are pending. See [the numbered release record](docs/releases/0.8.8-editorial-metadata.md).
+Verified, merged through [PR #24](https://github.com/afterburn25/velvet_vixxen/pull/24) and delivered after all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39492640091) passed. The new source suite passed 173 assertions on both PHP versions; packaged MySQL metadata HTTP passed 1308 checks per root/nested case in both database jobs. Four file/MySQL desktop/mobile metadata cases passed with 20 verified screenshots, no JavaScript errors and no SMTP activity. All retained gates passed. Source, actual checkout and merge share the complete accepted tree; all four customer files match the gated and retrieved saved bytes literally.
+
+Full Fresh/Upgrade advance the visible version to 0.8.8 / Build 20261020.9. The unchanged eleven-file 0.8.1 / repair Build 20261020.3 overlay retains its original hash and saved version 2. The local acceptance record explicitly preserves the raw-log loss during workspace recovery; final CI independently supplies durable evidence. Editorial history/restore, calendar and post expiry remain next separately scoped work. Broader #9/#3, actual-host #12/#13, production email and the separate 0.9 milestone remain open; payments remain sandbox-only.
+
+See [the exact release and delivery record](docs/releases/0.8.8-editorial-metadata.md).
 
 ## 0.8.7 — Editorial access and owner previews, Build 20261020.8 (verified, merged and delivered)
 

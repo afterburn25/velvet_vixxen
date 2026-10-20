@@ -1,14 +1,14 @@
 # Copy-Paste Prompt for the Next Session
 
-<!-- editorial-access-087-current-prompt:start -->
-## Current prompt — continue from live main after 0.8.7
+<!-- editorial-metadata-088-current-prompt:start -->
+## Current prompt — continue from live main after 0.8.8
 
-Continue from live `main` on a scoped branch. Read the 0.8.7 / Build 20261020.8 source, CI, merge and saved-download record before changing the application. Preserve the completed Media Center #2, add-on recovery #7, 0.8.4 source/date audiences, 0.8.5 publication editing, 0.8.6 SQL marketing persistence and 0.8.7 editorial Public/Members/Selected tiers access and private saved-owner previews. The next open #9 group is editorial metadata, history/restore, calendar and post expiry. Actual-host #12/#13 remain open, production email remains unverified, payments remain sandbox-only and 0.9 requires separate acceptance. Full Fresh/Upgrade use 0.8.7 / Build 20261020.8; the unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3 with its existing identity. Preserve all required gates and exact approved package roots.
+Continue from live `main` on a scoped branch. Read the 0.8.8 / Build 20261020.9 source, CI, merge and saved-download record before changing the application. Preserve the completed Media Center #2, add-on recovery #7, 0.8.4 source/date audiences, 0.8.5 publication editing, 0.8.6 SQL marketing persistence, 0.8.7 editorial Public/Members/Selected tiers access and private saved-owner previews, and 0.8.8 editorial metadata. Metadata comprises post tags, explicit public bylines and ordered related selections, plus safe public featured images and SEO fields for posts and landing pages. The next open #9 work is separately scoped editorial history/restore, calendar and post expiry. Actual-host #12/#13 remain open, production email remains unverified, payments remain sandbox-only and 0.9 requires separate acceptance. Full Fresh/Upgrade use 0.8.8 / Build 20261020.9; the unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3 with its existing identity. Preserve all required gates and exact approved package roots.
 
 Every changed completed release must advance the visible version. Build IDs remain secondary; exact byte-identical rebuilds are the only same-version exception. Use the committed delivery-aware version gate and preserve all seven required CI jobs. Recheck live GitHub before selecting the next bounded increment; do not repeat completed work.
 
-[Current release and exact evidence](docs/releases/0.8.7-editorial-access.md) · [Roadmap](docs/ROADMAP.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md).
-<!-- editorial-access-087-current-prompt:end -->
+[Current release and exact evidence](docs/releases/0.8.8-editorial-metadata.md) · [Roadmap](docs/ROADMAP.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md).
+<!-- editorial-metadata-088-current-prompt:end -->
 
 <!-- owner-mail-settings:start -->
 ## Historical prompt — owner Email & SMTP, Build 20261020.2
@@ -98,7 +98,7 @@ Use the following prompt in a new ChatGPT session:
 
 Continue development of **Nikki Wilder / The Velvet Vixxen** using GitHub repository **`afterburn25/velvet_vixxen`**.
 
-Before answering or coding, inspect live `main` and the current 0.8.7 release record, then create a scoped branch for the next concrete #9 increment: editorial metadata, followed by separately scoped history/restore, calendar and post expiry. Do not restart from the historical 0.8.1 feature branch.
+Before answering or coding, inspect live `main` and the current 0.8.8 release record, then create a scoped branch for the next concrete #9 increment: separately scoped editorial history/restore, followed by calendar and post expiry. Do not restart from the historical 0.8.1 feature branch.
 
 Read these files in full:
 
@@ -138,7 +138,7 @@ Preserve all of these decisions:
 
 Preserve the historical installer/database/layout baseline, now included in live `main`. Its original implementation and package source was `e5b04daa132521be69c943151f8112c7cd2017e8` (tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`); matching customer downloads were saved on 2026-10-19 and are byte-identical to the gated GitHub artifact. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) are completed/success. The installer now reuses compatible existing databases, preserves owner credentials/records/settings/scenes/keys/identity, resumes failed DDL and finalization, and keeps pending setup out of automatic recovery/public activation. The owner also required evenly aligned Server/Folders checks, removal of the extra Folders rule, and aligned Password/Confirm Password inputs. Those fixes and completion-state cleanup are part of this same repair.
 
-Read current status, test and release records for verified source and download identities. The unchanged **0.8.1 / repair Build 20261020.3** unfinished-installer overlay contains 11 files and retains its saved identity and hash. The complete **0.8.7 / Build 20261020.8** Fresh/Upgrade packages are separate. Use `docs/INSTALLER_DATABASE_REPAIR.md` only for unfinished 0.8.1 setup and `docs/UPDATE_VERIFICATION.md` for an installed site. Preserve configuration, original owner/keys, uploads and database contents; incompatible schema or missing original keys require diagnosis, not destructive reinstallation.
+Read current status, test and release records for verified source and download identities. The unchanged **0.8.1 / repair Build 20261020.3** unfinished-installer overlay contains 11 files and retains its saved identity and hash. The complete **0.8.8 / Build 20261020.9** Fresh/Upgrade packages are separate. Use `docs/INSTALLER_DATABASE_REPAIR.md` only for unfinished 0.8.1 setup and `docs/UPDATE_VERIFICATION.md` for an installed site. Preserve configuration, original owner/keys, uploads and database contents; incompatible schema or missing original keys require diagnosis, not destructive reinstallation.
 
 Keep the real packaged MySQL installer suite mandatory on PHP 8.2 and 8.3, and keep the real desktop/mobile installer browser flow alongside every currently required installed HTTP and application-browser suite. Preserve the actual foreign-owner and persistent-OPcache package tests. A configured CI gate, intermediate archive or previous source commit is not evidence that the latest changes passed. Update every handoff and issue #13, commit/upload the work, and provide the corrected downloadable packages before a completed handoff.
 
@@ -183,7 +183,7 @@ Do not claim completion without direct evidence. Required gates include:
 - Repository-safety and secret scans
 - Runtime-only customer ZIP exclusion checks
 
-Continue on a scoped branch from live `main`, preserving the completed bounded 0.8.6 SQL storage and 0.8.7 editorial access/saved-owner preview increments and all existing release gates.
+Continue on a scoped branch from live `main`, preserving the completed bounded 0.8.6 SQL storage, 0.8.7 editorial access/saved-owner preview and 0.8.8 editorial metadata increments and all existing release gates.
 
 Update `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `INCOMPLETE_WORK.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md`, and the tracking issue as work lands. Commit code, tests, and evidence to GitHub. The separate 0.9 milestone requires its own implementation and acceptance; continue the remaining #9 scope from the verified baseline without reopening completed 0.8.1 work.
 
