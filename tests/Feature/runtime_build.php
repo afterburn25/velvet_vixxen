@@ -21,6 +21,8 @@ $remove = static function (string $path) use (&$remove): void {
     @rmdir($path);
 };
 try {
+    $assert(trim((string) file_get_contents($source . '/VERSION')) === VELVET_VIXXEN_VERSION, 'Visible runtime version differs from canonical VERSION.');
+    $assert(VELVET_VIXXEN_ASSET_VERSION === VELVET_VIXXEN_VERSION . '-' . VELVET_VIXXEN_BUILD_ID, 'Browser assets do not identify the same canonical release/build.');
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',

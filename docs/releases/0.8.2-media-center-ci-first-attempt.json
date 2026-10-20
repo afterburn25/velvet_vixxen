@@ -1,0 +1,713 @@
+{
+  "schema_version": 1,
+  "status": "failed_first_attempt",
+  "observed_at": "2026-10-20T04:37:39Z",
+  "repository": "afterburn25/velvet_vixxen",
+  "release": {
+    "version": "0.8.2",
+    "build_id": "20261020.3"
+  },
+  "pull_request": {
+    "number": 18,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/18",
+    "base_sha": "7b5966108d7e311ce11d95bafb06abef4e9e4442",
+    "source_sha": "c28ccfefc57c03158b2b3307a30528b7f5657174",
+    "source_tree": "18af0bad31fc6f8a984008aa3d55491dca7873cb",
+    "source_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/c28ccfefc57c03158b2b3307a30528b7f5657174",
+    "test_merge_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+    "test_merge_tree": "18af0bad31fc6f8a984008aa3d55491dca7873cb",
+    "test_merge_commit_api": "https://api.github.com/repos/afterburn25/velvet_vixxen/git/commits/eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+    "test_merge_parents": [
+      "7b5966108d7e311ce11d95bafb06abef4e9e4442",
+      "c28ccfefc57c03158b2b3307a30528b7f5657174"
+    ],
+    "trees_equal": true
+  },
+  "release_run": {
+    "id": 39369724707,
+    "event": "pull_request",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "failure",
+    "requested_head_sha": "c28ccfefc57c03158b2b3307a30528b7f5657174",
+    "created_at": "2026-10-20T04:28:07Z",
+    "updated_at": "2026-10-20T04:36:34Z",
+    "jobs": [
+      {
+        "id": 118455055899,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455055899",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": null,
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          }
+        ],
+        "evidence_lines": []
+      },
+      {
+        "id": 118455086565,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455086565",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": "8.2.34",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:29:57.2046574Z Repository security scan passed.",
+          "2026-10-20T04:30:11.1264674Z Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "2026-10-20T04:30:14.3993632Z Repository security scan passed.",
+          "2026-10-20T04:30:17.2063588Z All non-database tests passed."
+        ]
+      },
+      {
+        "id": 118455086595,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "failure",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455086595",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 16
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 17
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 34
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 35
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:32:18.7568887Z Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+          "2026-10-20T04:32:57.2068340Z Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access)."
+        ]
+      },
+      {
+        "id": 118455086641,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455086641",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:30:25.8478155Z Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "2026-10-20T04:30:25.8479797Z MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+          "2026-10-20T04:30:26.4866371Z MySQL migration rollback passed.",
+          "2026-10-20T04:31:16.9433943Z Existing-database installer acceptance passed (957 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package)."
+        ]
+      },
+      {
+        "id": 118455086671,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455086671",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": "8.3.35",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:29:58.7004577Z Repository security scan passed.",
+          "2026-10-20T04:30:19.4575176Z Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "2026-10-20T04:30:23.8060402Z Repository security scan passed.",
+          "2026-10-20T04:30:28.3334251Z All non-database tests passed."
+        ]
+      },
+      {
+        "id": 118455086740,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118455086740",
+        "checkout_sha": "eeccb8089afde0bc88f4d7b8a265be5990a0eddd",
+        "checkout_reason": "Observed git log -1 --format=%H in job log.",
+        "php": "8.2.34",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          }
+        ],
+        "evidence_lines": [
+          "2026-10-20T04:30:29.9133060Z Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "2026-10-20T04:30:29.9135609Z MySQL migrations applied successfully (14 migrations, 82 declared tables).",
+          "2026-10-20T04:30:30.7312330Z MySQL migration rollback passed.",
+          "2026-10-20T04:31:32.2981874Z Existing-database installer acceptance passed (957 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package)."
+        ]
+      },
+      {
+        "id": 118456981172,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "skipped",
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/job/118456981172",
+        "checkout_sha": null,
+        "checkout_reason": "Skipped dependency; checkout did not run.",
+        "php": null,
+        "steps": [],
+        "evidence_lines": []
+      }
+    ]
+  },
+  "failed_gate": {
+    "job_id": 118455086595,
+    "step_number": 16,
+    "step": "Run real desktop and mobile browser suites in a disposable copy",
+    "file": "tests/Browser/media_center_playwright.py",
+    "line": 91,
+    "exception": "playwright._impl._errors.TimeoutError: Timeout 15000ms exceeded.",
+    "assertion": "page.wait_for_url(\"**?page=galleries\", timeout=15_000)",
+    "log_timestamp": "2026-10-20T04:36:26Z",
+    "assessment": "The preserved browser test expects a gallery-list-only redirect. Media Center intentionally now redirects saves to the saved gallery editor with &edit=<id>. Root is correcting and rerunning the acceptance assertion; no runtime defect is inferred from the timeout alone.",
+    "source_runtime_changed_by_auditor": false
+  },
+  "counts_observed": {
+    "source_php82": {
+      "media_file": 116,
+      "installer_mail": 269,
+      "packaged_installer_smtp": 143,
+      "mail_settings": 199
+    },
+    "source_php83": {
+      "media_file": 116,
+      "installer_mail": 269,
+      "packaged_installer_smtp": 143,
+      "mail_settings": 199
+    },
+    "mysql_php82": {
+      "media_mysql": 108,
+      "existing_database_installer": 957,
+      "migrations": 14,
+      "tables": 82
+    },
+    "mysql_php83": {
+      "media_mysql": 108,
+      "existing_database_installer": 957,
+      "migrations": 14,
+      "tables": 82
+    },
+    "http": {
+      "suites": 10,
+      "media": 198,
+      "mail_settings": 168,
+      "campaign_smtp": 54
+    },
+    "new_media_packaged_browser": {
+      "status": "skipped",
+      "completed_cases": 0,
+      "required_cases": 4
+    },
+    "preexisting_13_app_browser_suites": {
+      "status": "failed",
+      "first_failing_suite": "media_center_playwright.py",
+      "all_13_passed": false
+    }
+  },
+  "runtime_versions_observed": {
+    "php82": "8.2.34",
+    "php83": "8.3.35",
+    "mysql": "8.0.46",
+    "python": "3.12.15",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "chromium_evidence": "Browser installation log and executed historical installed-update suite's Chromium version output."
+  },
+  "superseded_push_run": {
+    "id": 39369697492,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369697492",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "counted_as_passing": false,
+    "jobs": [
+      {
+        "id": 118454544930,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 118454618824,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      },
+      {
+        "id": 118454618856,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      },
+      {
+        "id": 118454618876,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      },
+      {
+        "id": 118454618901,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      },
+      {
+        "id": 118454618918,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      },
+      {
+        "id": 118455055290,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "failed_steps": []
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 12241575018,
+      "name": "chromium-browser-evidence",
+      "size_in_bytes": 65641122,
+      "digest": "sha256:4faef265826c9c0398c7a735e579f27a54ca3791072fda054cfada8a05af2fe6",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39369724707/artifacts/12241575018",
+      "api_url": "https://api.github.com/repos/afterburn25/velvet_vixxen/actions/artifacts/12241575018",
+      "expired": false,
+      "created_at": "2026-10-20T04:36:29Z",
+      "expires_at": "2026-11-03T04:36:26Z",
+      "workflow_run_id": 39369724707,
+      "source_head_sha": "c28ccfefc57c03158b2b3307a30528b7f5657174",
+      "purpose": "Partial browser/failure evidence; new Media persistence suite did not execute.",
+      "digest_verification": "GitHub artifact API digest equals upload-artifact job log digest; archive bytes not downloaded by this audit."
+    }
+  ],
+  "runtime_package_artifact": {
+    "status": "not_created",
+    "reason": "Dependent final package job was skipped after browser gate failure."
+  },
+  "notes": [
+    "Five jobs succeeded; browser job failed; seventh final package job was skipped. All six executed jobs checked out the same PR test merge commit, whose complete tree equals the uploaded source tree.",
+    "No cancelled or skipped gate is counted as passing. Push run was superseded/cancelled and is excluded from release-success evidence.",
+    "The auditor did not alter source, tests, workflow or GitHub state. This failed attempt is preserved as history pending a corrected source commit and fresh required CI run."
+  ]
+}

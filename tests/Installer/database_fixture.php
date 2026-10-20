@@ -79,6 +79,7 @@ function vvx_installer_fixture_load(string $runtime, bool $loadInstaller = true)
 {
     if (!is_file($runtime . '/.vvx-installer-db-fixture')) throw new RuntimeException('Refusing to load an unmarked installation fixture.');
     if (!defined('ROOT_PATH')) define('ROOT_PATH', $runtime);
+    require_once $runtime . '/includes/version.php';
     require_once $runtime . '/includes/autoload.php';
     require_once $runtime . '/includes/installation_recovery.php';
     require_once $runtime . '/app/Support/functions.php';

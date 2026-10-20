@@ -723,7 +723,7 @@ trait MemberStoreTrait
         $pdo->beginTransaction();
         try {
             $pdo->prepare("DELETE FROM content_access_rules WHERE content_type=? AND content_id=? AND rule_type='plan_include'")->execute([$contentType, (int) $contentId]);
-            $stmt = $pdo->prepare("INSERT INTO content_access_rules (content_type,content_id,rule_type,plan_id,value_json,created_at,updated_at) VALUES (?,?,\'plan_include\',?,NULL,NOW(),NOW())");
+            $stmt = $pdo->prepare("INSERT INTO content_access_rules (content_type,content_id,rule_type,plan_id,value_json,created_at,updated_at) VALUES (?,?,'plan_include',?,NULL,NOW(),NOW())");
             foreach ($planIds as $planId) {
                 $stmt->execute([$contentType, (int) $contentId, (int) $planId]);
             }

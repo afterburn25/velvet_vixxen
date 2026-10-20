@@ -1,3 +1,18 @@
+VELVET VIXXEN 0.8.2 — BUILD 20261020.3 IN PROGRESS
+
+Branch: feature/0.8.2-media-center
+Prior main baseline: 7b5966108d7e311ce11d95bafb06abef4e9e4442
+Status: implementation and independent acceptance in progress; final CI, merge and saved-download verification pending.
+Visible versions advance for each completed release, as directed by the user; build IDs are secondary.
+Full Fresh/Upgrade target 0.8.2; preserve 13/9 approved directories and four root files.
+The separate unfinished-installer repair targets incomplete 0.8.1 setup and cannot advance the runtime build.
+Retire the earlier focused Media/Composer overlay for this release; installed sites use the complete Upgrade.
+Current scope/evidence: docs/releases/0.8.2-media-center.md
+Owner workflow: docs/MEDIA_CENTER.md
+Next: addon-owned MySQL migration acceptance #7, then remaining marketing #9.
+
+HISTORICAL RELEASE RECORD FOLLOWS
+
 VELVET VIXXEN 0.8.1 — BUILD 20261020.2 VERIFIED, MERGED AND DELIVERED
 
 Status: all seven exact-tree PR CI jobs passed; merged into main; all four ZIPs and the separate manifest match the downloaded gated artifact and their saved/retrieved bytes literally.

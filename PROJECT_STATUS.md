@@ -1,7 +1,19 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
+<!-- media-center-082:start -->
+## Current work — 0.8.2 Media Center, Build 20261020.3
+
+The user requires the visible release version to advance with each completed release. This branch advances to **0.8.2**, with **Build 20261020.3** as its secondary identity. Implementation continues from authoritative `main` baseline `7b5966108d7e311ce11d95bafb06abef4e9e4442` on `feature/0.8.2-media-center`.
+
+The increment covers exact gallery membership/order, caption and shared photo-tag editing, mobile ordering and unsaved removal undo, stale-form protection, ordered playlists with retained dates, bounded due media publication and playlist access checks. Local acceptance passed: the full source/security/ownership/OPcache/package suite, all ten HTTP suites, 116 focused file assertions, 108 real-MySQL assertions and 198 Media Center HTTP assertions. All four actual Fresh-package browser cases passed (file/MySQL at root desktop and nested mobile). GitHub CI, merge and saved-download equality remain pending for this frozen changed tree.
+
+The complete Fresh and Upgrade packages use **0.8.2 / Build 20261020.3** and preserve the approved 13/9 root directories and four root files. The unfinished-installer repair remains explicitly for incomplete **0.8.1** setup; the prior focused Media/Composer overlay is retired for new releases. Package checks require newer timestamps for every runtime file changed since the exact previous delivered Fresh archive.
+
+Read [the 0.8.2 release record](docs/releases/0.8.2-media-center.md) and [the Media Center guide](docs/MEDIA_CENTER.md) for the scope and owner workflow. After verified media #2, continue addon-owned real-MySQL migration acceptance **#7**, then remaining marketing **#9**. The media runner does not complete scene scheduling or expiry. Actual-host **#12/#13** and production mail remain unverified; payments stay sandbox-only. Older release records below preserve historical evidence and instructions.
+<!-- media-center-082:end -->
+
 <!-- owner-mail-settings:start -->
-## Current release — owner Email & SMTP, Build 20261020.2
+## Historical release — owner Email & SMTP, Build 20261020.2
 
 **Verified, merged into `main`, and delivered.** [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) merged at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the complete tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`, shared by release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual PR checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge. Compatibility remains **0.8.1**.
 

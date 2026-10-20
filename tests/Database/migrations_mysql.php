@@ -4,6 +4,7 @@ declare(strict_types=1);
 use App\Core\MigrationRunner;
 
 $root = dirname(__DIR__, 2);
+require $root . '/includes/version.php';
 require $root . '/includes/autoload.php';
 
 $host = getenv('VELVET_TEST_DB_HOST') ?: '127.0.0.1';
@@ -109,6 +110,7 @@ try {
     require $root . '/tests/Database/database_update_scenarios.php';
     require $root . '/tests/Database/merchandise_scenarios.php';
     require $root . '/tests/Database/booking_form_scenarios.php';
+    require $root . '/tests/Database/media_center_mysql.php';
     echo 'MySQL migrations applied successfully (' . count($applied) . ' migrations, ' . count($required) . " declared tables).\n";
 } finally {
     if ($applied !== []) {

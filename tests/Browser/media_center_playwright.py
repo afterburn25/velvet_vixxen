@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import os
+from urllib.parse import parse_qs, urlparse
 from public_urls import site_url
 from playwright.sync_api import sync_playwright
 
@@ -88,8 +89,14 @@ with sync_playwright() as playwright:
     form = page.locator('form:has(input[name="action"][value="save_gallery"])')
     assert form.locator("[data-gallery-sort] article").count() == 5
     form.locator('button:has-text("Save Gallery")').click()
-    page.wait_for_url("**?page=galleries", timeout=15_000)
+    page.wait_for_url(
+        lambda url: parse_qs(urlparse(url).query) == {"page": ["galleries"], "edit": ["demo-gallery"]},
+        timeout=15_000,
+    )
     assert "saved" in page.locator(".admin-alert.success").inner_text().lower()
+    saved_gallery = page.locator('form:has(input[name="action"][value="save_gallery"])')
+    assert saved_gallery.locator('input[name="id"]').input_value() == "demo-gallery"
+    assert saved_gallery.locator("[data-gallery-sort] article").count() == 5
 
     visit(page, "/admin/?page=videos&edit=demo-video")
     form = page.locator('form:has(input[name="action"][value="save_video"])')

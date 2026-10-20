@@ -1,5 +1,13 @@
 # Architecture and Product Decisions
 
+## Release versions advance with completed work (2026-10-19 America/Chicago)
+
+- The user explicitly directed that visible release versions increase from now on as completed work ships. The next release is 0.8.2; later releases continue 0.8.3, 0.8.4, or the appropriate next roadmap milestone.
+- Date-based build IDs remain useful secondary diagnostics. They do not replace incrementing the release version.
+- Keep application, canonical VERSION, installer stamps, upgrade compatibility and new package names consistent. Avoid hard-coded current-version copies where the canonical value can be used safely.
+- Preserve prior release numbers, exact package hashes and pinned historical fixtures. Verify each new release before merging and delivering it.
+- The 0.9 privacy/protection/operations scope remains a separate milestone; finishing a 0.8.x release does not claim that work is complete.
+
 ## Grouped actions and guarded campaign delivery (2026-10-20)
 
 - Store optional shared `scene.contentButtons` separately from per-device group geometry. Absence preserves automatic legacy Hero/Footer actions; an explicit empty list intentionally removes group buttons. The right inspector supports up to eight ordered live actions. Photo cutouts and independent button layers remain separate.

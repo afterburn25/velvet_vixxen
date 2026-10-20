@@ -50,6 +50,10 @@ jobs:
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
             tests/Installer/mail_validation.php tests/Installer/mail_smtp_capture.py tests/Feature/mail_settings.php
             tests/Http/mail_settings_http.py tests/Http/mail_settings_fixture.php tests/Browser/mail_settings_playwright.py
+            app/Core/MediaInput.php app/Support/media_admin.php app/Console/run_media.php
+            public/assets/css/media-admin-edit.css tests/Feature/media_center_persistence.php
+            tests/Database/media_center_mysql.php tests/Http/media_center_http.py tests/Http/media_center_fixture.php
+            tests/Browser/media_center_persistence_playwright.py
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -216,6 +220,15 @@ jobs:
           VELVET_BROWSER_TESTS: '1'
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: bash scripts/test_http.sh
+      - name: Persist gallery edits and scheduled playlists through actual file and MySQL customer packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/media_center_persistence_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

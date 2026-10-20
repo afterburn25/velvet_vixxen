@@ -46,6 +46,20 @@ if ($page === 'update-status') {
     redirect(base_url('admin/repair.php'));
 }
 $user = app_auth()->user();
+$mediaPages = ['music', 'galleries', 'videos'];
+$mediaActions = ['save_album', 'save_track', 'save_audio_playlist', 'save_gallery', 'save_video', 'run_due_media'];
+$isMediaRequest = in_array($page, $mediaPages, true)
+    || in_array(is_string($_POST['action'] ?? null) ? $_POST['action'] : '', $mediaActions, true);
+if ($isMediaRequest) {
+    header('Cache-Control: no-store, private, max-age=0');
+    require_once root_path('app/Support/media_admin.php');
+    vvx_media_require_owner();
+    if (!in_array((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'POST'], true)) {
+        header('Allow: GET, POST');
+        http_response_code(405);
+        exit('Method not allowed.');
+    }
+}
 if ($page === 'mail-settings') {
     header('Cache-Control: no-store, private, max-age=0');
     header('Pragma: no-cache');
@@ -68,7 +82,7 @@ $repairService = new RepairBackupService(ROOT_PATH);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (!verify_csrf()) {
-            if ($page === 'mail-settings') http_response_code(419);
+            if ($page === 'mail-settings' || $isMediaRequest) http_response_code(419);
             throw new RuntimeException('Your session token expired. Refresh the page and try again.');
         }
         $action = (string) ($_POST['action'] ?? '');
@@ -635,7 +649,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             flash('success', 'Repair backup deleted.');
             redirect(base_url('admin/?page=repair-backups'));
         }
+        if ($action === 'run_due_media') {
+            vvx_media_require_owner();
+            $result = $store->publishDueMedia(100);
+            try {
+                $store->audit(app_auth()->id(), 'media.scheduled.published', ['published' => (int) $result['published']]);
+            } catch (Throwable) {
+                // A completed publishing run must not appear to fail because an audit write failed.
+            }
+            flash('success', (int) $result['published'] . ' due media item(s) published.');
+            $returnPage = is_string($_POST['return_page'] ?? null) && in_array($_POST['return_page'], $mediaPages, true) ? $_POST['return_page'] : 'music';
+            redirect(base_url('admin/?page=' . $returnPage));
+        }
         if (in_array($action, ['save_album', 'save_track', 'save_audio_playlist', 'save_gallery', 'save_video'], true)) {
+            $mediaPlanIds = null;
+            if (array_key_exists('plan_ids', $_POST)) {
+                $mediaPlanIds = \App\Core\MediaInput::ids($_POST['plan_ids'], 200, 'Membership plans');
+                foreach ($mediaPlanIds as $planId) {
+                    if ($store->membershipPlan($planId) === null) {
+                        throw new RuntimeException('A selected membership plan could not be found. Reload the editor.');
+                    }
+                }
+            }
             $mediaAdmin = new MediaAdminService($store);
             $result = match ($action) {
                 'save_album' => $mediaAdmin->saveAlbum($_POST, $_FILES),
@@ -655,14 +690,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'save_track' => 'track',
                 default => null,
             };
-            if ($contentType !== null && isset($result['id'])) {
-                $store->setContentPlanRules($contentType, (string) $result['id'], array_values((array) ($_POST['plan_ids'] ?? [])));
+            if ($contentType !== null && isset($result['id']) && $mediaPlanIds !== null) {
+                $store->setContentPlanRules($contentType, (string) $result['id'], $mediaPlanIds);
             }
             $store->audit(app_auth()->id(), 'media.' . str_replace('save_', '', $action) . '.saved', [
                 'id' => (string) ($result['id'] ?? ''),
                 'title' => (string) ($result['title'] ?? ''),
             ]);
             flash('success', (string) ($result['title'] ?? 'Media item') . ' saved.');
+            if ($action === 'save_gallery') redirect(base_url('admin/?page=galleries&edit=' . rawurlencode((string) $result['id'])));
+            if ($action === 'save_audio_playlist') redirect(base_url('admin/?page=music&edit_playlist=' . rawurlencode((string) $result['id'])) . '#playlists');
             redirect(base_url('admin/?page=' . $destination));
         }
     } catch (Throwable $e) {
@@ -745,7 +782,7 @@ foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):

@@ -56,6 +56,7 @@ try {
 } finally {
     @unlink($configPath);
     @unlink($dataPath);
+    @unlink($dataPath . '.lock');
 }
 
 if ($failures !== []) {

@@ -136,7 +136,7 @@ final class InstallerService
             ];
             $baseConfig['installed'] = false;
             $baseConfig['installation_id'] = $installId;
-            $baseConfig['version'] = '0.8.1';
+            $baseConfig['version'] = \VELVET_VIXXEN_VERSION;
             $baseConfig['storage_mode'] = 'mysql';
             $baseConfig['file_store_path'] = $baseConfig['file_store_path'] ?? 'storage/data.json';
             $baseConfig['db'] = $db;
@@ -178,7 +178,7 @@ final class InstallerService
             $installedAt = (string) ($savedConfig['installed_at'] ?? $databaseState['installed_at'] ?? gmdate('c'));
             $this->writeInstallationState($pdo, $installId, (string) $baseConfig['base_url'], $installedAt);
             $store->audit($adminId, $databaseMode === 'resumed' ? 'installation.resumed' : 'installation.completed', [
-                'version' => '0.8.1', 'install_id' => $installId,
+                'version' => \VELVET_VIXXEN_VERSION, 'install_id' => $installId,
             ]);
 
             $finalConfig = $baseConfig;
@@ -187,7 +187,7 @@ final class InstallerService
             // Keep the pending marker through lock and startup verification. A
             // concurrent page load must not activate or retire an unfinished setup.
             $config->write($finalConfig);
-            $createdLock = ['installed' => true, 'installation_id' => $installId, 'version' => '0.8.1',
+            $createdLock = ['installed' => true, 'installation_id' => $installId, 'version' => \VELVET_VIXXEN_VERSION,
                 'base_url' => (string) $finalConfig['base_url'], 'installed_at' => (string) $finalConfig['installed_at']];
             $this->report('lock', 'Creating installation lock', 86, 'running', 'Protecting the completed website.');
             $this->writeLock($createdLock);
@@ -549,7 +549,7 @@ final class InstallerService
             $store->setSetting((string) $key, $value);
         }
         $settingExists->execute(['installation']);
-        if ($settingExists->fetchColumn() === false) $store->setSetting('installation', ['version' => '0.8.1', 'installed_at' => gmdate('c')]);
+        if ($settingExists->fetchColumn() === false) $store->setSetting('installation', ['version' => \VELVET_VIXXEN_VERSION, 'installed_at' => gmdate('c')]);
         if ($completedBefore) return; // Do not re-add artwork or offers an established owner intentionally removed.
 
         $planExists = $pdo->prepare('SELECT 1 FROM membership_plans WHERE plan_key=? LIMIT 1');
@@ -620,7 +620,7 @@ final class InstallerService
     {
         $state = [
             'installation_id' => $installId,
-            'version' => '0.8.1',
+            'version' => \VELVET_VIXXEN_VERSION,
             'installed_at' => $installedAt,
             'base_url' => $baseUrl,
         ];
@@ -658,7 +658,7 @@ final class InstallerService
         if (($loaded['installed'] ?? false) !== true) {
             throw new RuntimeException('The final configuration file was readable, but it was not marked installed. PHP may have returned an older cached copy.');
         }
-        if ((string) ($loaded['version'] ?? '') !== '0.8.1') {
+        if ((string) ($loaded['version'] ?? '') !== \VELVET_VIXXEN_VERSION) {
             throw new RuntimeException('The final configuration file contains the wrong application version.');
         }
         if (!hash_equals((string) ($configValues['installation_id'] ?? ''), (string) ($loaded['installation_id'] ?? ''))) {
