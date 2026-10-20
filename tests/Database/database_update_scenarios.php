@@ -30,6 +30,19 @@ $updateTestWriteMigration = static function (string $key, array $up, array $down
         . var_export(['id' => $key, 'description' => 'Disposable update safety fixture', 'up' => $up, 'down' => $down], true) . ";\n");
 };
 try {
+    // Reconstruct the exact historical twelve-migration starting point in the
+    // exclusively owned test schema. The current marketing schema must contain
+    // no authority or imported customer records before this guarded rewind.
+    $updateTestMarketingKey = '202610200015_marketing_sql_storage';
+    $updateTestMarketingRows = $pdo->query('SELECT * FROM marketing_storage_state')->fetchAll();
+    $updateTestAssert($updateTestMarketingRows === [], 'Refusing to rewind existing marketing authority rows.');
+    $updateTestAssert((int) $pdo->query('SELECT COUNT(*) FROM marketing_storage_records')->fetchColumn() === 0,
+        'Refusing to rewind imported marketing records.');
+    $updateTestAssert($pdo->query("SELECT setting_value FROM settings WHERE setting_key='marketing_sql_storage'")->fetchColumn() === false,
+        'Refusing to rewind a database with recorded SQL marketing authority.');
+    $updateTestMarketingDefinition = require $root . '/database/migrations/' . $updateTestMarketingKey . '.php';
+    foreach ($updateTestMarketingDefinition['down'] as $sql) $pdo->exec($sql);
+    $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$updateTestMarketingKey]);
     // Rewind only the still-empty new tables in this disposable schema to simulate a real v0.8.1 upgrade.
     foreach (['booking_form_submissions', 'merchandise_reservations', 'merchandise_variants', 'merchandise_products'] as $table) {
         if ((int) $pdo->query('SELECT COUNT(*) FROM ' . $table)->fetchColumn() !== 0) throw new RuntimeException('Refusing to rewind a nonempty update-test table: ' . $table);
@@ -42,7 +55,11 @@ try {
     foreach (['config', 'storage', 'uploads', 'install', 'database/migrations', 'includes', 'app/Core', 'app/Console'] as $directory) {
         mkdir($updateTestRoot . '/' . $directory, 0700, true);
     }
-    foreach (glob($root . '/database/migrations/*.php') ?: [] as $file) copy($file, $updateTestRoot . '/database/migrations/' . basename($file));
+    foreach (glob($root . '/database/migrations/*.php') ?: [] as $file) {
+        if (strcmp(basename($file), '202610190014_merchandise.php') <= 0) {
+            copy($file, $updateTestRoot . '/database/migrations/' . basename($file));
+        }
+    }
     foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Database.php', 'app/Core/MigrationRunner.php',
         'app/Core/DatabaseUpdateService.php', 'app/Console/migrate.php'] as $relative) copy($root . '/' . $relative, $updateTestRoot . '/' . $relative);
     $updateTestInstallation = 'fixture-installed-update-' . bin2hex(random_bytes(8));
@@ -83,6 +100,53 @@ try {
     $updateTestAssert(file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
         && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes
         && file_get_contents($updateTestRoot . '/uploads/customer-fixture.txt') === 'Preserve this pre-existing customer upload.', 'Upgrade changed configuration, keys, installation lock or customer uploads.');
+
+    // Install migration015 through the same production updater used by an
+    // already-installed 0.8.5 site. Schema installation does not activate SQL or
+    // rewrite the separately reviewed legacy marketing snapshot.
+    $updateTestMarketingDirectory = $updateTestRoot . '/storage/private/marketing';
+    mkdir($updateTestMarketingDirectory, 0700, true);
+    $updateTestMarketingBytes = json_encode(['meta' => ['revision' => 27, 'analytics_salt' => 'retained-fixture-salt'],
+        'contacts' => [['id' => 'retained-newsletter-contact', 'email' => 'retained-newsletter@example.test',
+            'status' => 'unsubscribed', 'unsubscribe_token' => 'retained-fixture-token']],
+        'consents' => [['contact_id' => 'retained-newsletter-contact', 'type' => 'newsletter', 'granted' => false]],
+        'campaign_queue' => [['id' => 'retained-unknown-delivery', 'status' => 'unknown', 'attempts' => 1]]],
+        JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . "\n";
+    file_put_contents($updateTestMarketingDirectory . '/data.json', $updateTestMarketingBytes);
+    $updateTestBeforeMarketingLedger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
+    copy($root . '/database/migrations/' . $updateTestMarketingKey . '.php',
+        $updateTestRoot . '/database/migrations/' . $updateTestMarketingKey . '.php');
+    $updateTestMarketingPlan = $updateTestService->preview();
+    $updateTestAssert(count($updateTestMarketingPlan['applied']) === 14
+        && array_column($updateTestMarketingPlan['pending'], 'id') === [$updateTestMarketingKey],
+        'Installed fourteen-migration site did not list exactly marketing migration015.');
+    $updateTestMarketingApplied = $updateTestService->apply($updateTestMarketingPlan['plan'], true,
+        'Verified existing-site database and marketing-file fixture backup');
+    $updateTestAssert($updateTestMarketingApplied['status'] === 'completed'
+        && $updateTestMarketingApplied['applied'] === [$updateTestMarketingKey], 'Actual014→015 installed-site update did not complete.');
+    $updateTestAfterMarketingLedger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
+    $updateTestAssert(count($updateTestAfterMarketingLedger) === 15
+        && array_values(array_filter($updateTestAfterMarketingLedger,
+            static fn(array $row): bool => $row['migration_key'] !== $updateTestMarketingKey)) === $updateTestBeforeMarketingLedger,
+        'Marketing schema update changed a historical migration row or timestamp.');
+    $updateTestAssert($pdo->query('SELECT * FROM marketing_storage_state')->fetchAll() === $updateTestMarketingRows
+        && (int) $pdo->query('SELECT COUNT(*) FROM marketing_storage_records')->fetchColumn() === 0
+        && $pdo->query("SELECT setting_value FROM settings WHERE setting_key='marketing_sql_storage'")->fetchColumn() === false,
+        'Schema update imported records or activated marketing SQL without the separate owner cutover.');
+    $updateTestAssert(file_get_contents($updateTestMarketingDirectory . '/data.json') === $updateTestMarketingBytes,
+        'Schema update rewrote existing consent, token or unknown campaign outcome bytes.');
+    $updateTestAssert(file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
+        && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes
+        && file_get_contents($updateTestRoot . '/uploads/customer-fixture.txt') === 'Preserve this pre-existing customer upload.'
+        && $updateTestStore->bookingRequest($updateTestBooking['id'])['details'] === $updateTestBooking['details'],
+        'Marketing schema update changed installed configuration, keys, owner content or uploads.');
+    $updateTestMarketingCurrent = $updateTestService->preview();
+    $updateTestAssert($updateTestMarketingCurrent['pending'] === []
+        && $updateTestService->apply($updateTestMarketingCurrent['plan'], false, '')['status'] === 'current',
+        'Reapplying current marketing migration was not a no-op.');
+    $updateTestAssert($pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll() === $updateTestAfterMarketingLedger
+        && file_get_contents($updateTestMarketingDirectory . '/data.json') === $updateTestMarketingBytes,
+        'No-op migration apply changed its ledger or legacy marketing data.');
 
     // A deliberately failing DDL migration contains destructive down SQL: installed-site mode must never run it.
     $updateTestWriteMigration('999900000015_update_success', [
@@ -156,7 +220,7 @@ try {
     $updateTestAssert($updateTestCliApplied['exit'] === 0 && (json_decode($updateTestCliApplied['output'], true)['applied'] ?? []) === ['999900000017_update_blocked'], 'Real SQL CLI apply failed: ' . $updateTestCliApplied['error']);
     $updateTestAssert(is_file($updateTestRoot . '/install/fixture.txt') && file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
         && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes, 'CLI update invoked installer cleanup or replaced installation state.');
-    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014 upgrade, preserved data/keys/uploads, locks, failure/retry and CLI; server '
+    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014→015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server '
         . $pdo->getAttribute(PDO::ATTR_SERVER_VERSION) . ").\n";
 } finally {
     foreach (['vvx_update_blocked', 'vvx_update_partial', 'vvx_update_completed', 'vvx_upgrade_customer'] as $table) $pdo->exec('DROP TABLE IF EXISTS ' . $table);

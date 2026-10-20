@@ -1,3 +1,9 @@
+## 0.8.6 — SQL marketing persistence, Build 20261020.7 (in progress)
+
+The SQL marketing increment adds per-record MySQL persistence and a separate System → Marketing Storage owner page. Migration 015 creates two additive tables; it does not import records or change the active backend. The current active owner reviews aggregate counts, then explicitly moves the preserved marketing snapshot. Transactions, a source-bound review, installation authority, a local SQL-required intent and database-wide data/delivery locks protect the transition. Existing identifiers, tokens, consent, suppressions, saved audiences, frozen messages, queued recipients and delivery outcomes retain their meaning. The original file remains unchanged after activation.
+
+Local acceptance passed; GitHub CI, merge and delivery are pending. See [the numbered release record](docs/releases/0.8.6-marketing-sql.md).
+
 ## 0.8.5 — Publication-window editing, Build 20261020.6 (verified, merged and delivered)
 
 Owners can reopen and edit saved posts, banners and landing pages, withdraw publication, disable promotions and delete posts while retaining stable IDs, existing permalinks, list order and unrelated marketing records. Locked revision checks include the site timezone. Strict date parsing rejects impossible dates, skipped daylight-saving times and invalid windows, preserves unchanged stored instants and holds malformed legacy dates out of public visibility. The banner list distinguishes the shown banner from later active banners waiting behind it. Private-reply email alerts now use generic notices without the private conversation subject or message body; the full reply remains on the site.

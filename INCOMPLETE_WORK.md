@@ -1,7 +1,23 @@
 # Acceptance Record — Velvet Vixxen
 
+<!-- marketing-sql-086:start -->
+## Current work — 0.8.6 SQL marketing persistence, Build 20261020.7
+
+Integration advances the visible version from delivered **0.8.5** to **0.8.6**, starting at authoritative `main` `5e8f56e864d163b7693ae10a10eb56fafd4abb3f` on `feature/0.8.6-marketing-sql`. Implementation and local acceptance are complete. Exact-tree GitHub CI, merge and saved-download verification are pending. Historical releases certify their own bytes only.
+
+The SQL marketing increment adds per-record MySQL persistence and a separate System → Marketing Storage owner page. Migration 015 creates two additive tables; it does not import records or change the active backend. The current active owner reviews aggregate counts, then explicitly moves the preserved marketing snapshot. Transactions, a source-bound review, installation authority, a local SQL-required intent and database-wide data/delivery locks protect the transition. Existing identifiers, tokens, consent, suppressions, saved audiences, frozen messages, queued recipients and delivery outcomes retain their meaning. The original file remains unchanged after activation.
+
+Local acceptance passed the full source/security/ownership/persistent-OPcache/package suite, all ten existing HTTP suites, 41 new source checks, 402 actual-package SQL checks, 971 existing-database installer assertions and the existing migration/add-on gates. Actual root-desktop/nested-mobile owner browser flows each passed 141 HTTP checks and verified the separate database update, stale review refusal, explicit move and subsequent SQL-backed Marketing save with zero SMTP activity. Every existing release gate remains mandatory. GitHub must independently execute the full integrated tree before release.
+
+Full Fresh/Upgrade carry **0.8.6 / Build 20261020.7**, with the exact approved 13/9 root directories and four root files. Unchanged entries retain their prior archive timestamps. The unchanged eleven-file unfinished-installer repair keeps **0.8.1 / repair Build 20261020.3**, its original hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version.
+
+File-mode sites retain file storage. SQL persistence still reconstructs a complete marketing snapshot for the existing business API; indexed reporting and large-dataset performance are not claimed. Moving storage queues or sends no email. Broader editorial access/preview/metadata/history/calendar/post expiry, scene schedules, referral attribution, analytics operations, campaign templates/tracking, missing notification workflows and provider hooks remain open under #9. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+[Release and exact evidence](docs/releases/0.8.6-marketing-sql.md) · [Marketing Storage guide](docs/MARKETING_STORAGE.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- marketing-sql-086:end -->
+
 <!-- publication-windows-085:start -->
-## Current release — 0.8.5 Publication-window editing, Build 20261020.6
+## Historical release — 0.8.5 Publication-window editing, Build 20261020.6
 
 **Version 0.8.5 is verified, merged into `main` through [PR #21](https://github.com/afterburn25/velvet_vixxen/pull/21) and delivered.** Merge `9f782d4769ef31c73f21134ec2cb6ab7e29d8bd9` completed at **2026-10-20T13:33:24Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39378794728) passed. Release source `3368ffc41e63ded8c790ad1f8e4156349a4bc4ed`, actual CI checkout `32b876eed4746c383eeb001e808c8a418d30dff9` and the merge share the complete tree `1bfae06c9576f765c6f6a32d90cfd316b33e57ee`. Later documentation recording changes no executable, test, workflow or package bytes.
 
