@@ -1,17 +1,17 @@
-# Update and verify Velvet Vixxen — 0.8.3 / Build 20261020.4
+# Update and verify Velvet Vixxen — 0.8.4 / Build 20261020.5
 
-Version **0.8.3**, Build **20261020.4**, adds guarded add-on-owned migration recovery, aligned package/schema rollback and durable holds across interrupted activation. It includes the released 0.8.2 Media Center, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
+Version **0.8.4**, Build **20261020.5**, adds newsletter audiences. It includes the previously released Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39374591561) passed; [PR #19](https://github.com/afterburn25/velvet_vixxen/pull/19) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.3-addon-recovery.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
+**Current evidence:** local 0.8.4 source and packaged acceptance passed; GitHub CI, merge and saved-download verification are pending. Use [the numbered release record](releases/0.8.4-newsletter-audiences.md) for current evidence. Historical CI does not certify this changed runtime. The affected customer host remains unverified.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.3; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.4; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
-1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.3-Build-20261020.4-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
+1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.4-Build-20261020.5-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
 2. Sign in with the existing owner account and open **`admin/repair.php`** under this installation's URL. This entry remains usable when an older update page or PHP classes are cached. **System → Update Status** also opens this page.
-3. Require **Update files verified**, **Uploaded package: v0.8.3 · Build 20261020.4**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
-4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.4** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
+3. Require **Update files verified**, **Uploaded package: v0.8.4 · Build 20261020.5**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
+4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.5** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
 5. If the page detects forwarding files or empty route folders left by rejected Build .5, click **Restore organized folders** after file/build verification. The repair retires only the exact 46 known forwarding files and removes their 25 directories only when empty. Review its result and any custom or modified items preserved. If the page already reports that no retired compatibility files or folders remain, no folder-repair action is needed.
 6. Open Visual Composer and complete the grouped-button checks below, including a real image upload, the existing standalone **Add Button** action, retained **Full Page Preview**, and **Publish**.
 7. Open **Media Center**, edit and save a gallery caption/tag and its order, then reload and confirm exact retained photographs. Check playlist order and dates. Follow [the Media Center guide](MEDIA_CENTER.md) for stale-form recovery and the owner action or hosting scheduler that runs due publication.
@@ -41,17 +41,39 @@ The repair preserves the exact old forwarding bytes as base64 JSON under protect
 
 The test uses a single-use token and a 60-second per-session cooldown. The [owner email guide](EMAIL_SETTINGS.md) explains the connection, password, test-result and troubleshooting behavior. Account email, booking notifications and campaign delivery use this shared transport while retaining their own feature preferences.
 
-## Campaign settings and bounded delivery
+## Campaign audiences, settings and bounded delivery
 
-Open **Marketing → Campaigns** as the owner. The **Campaign delivery** status describes the saved shared mail transport. Configure that connection in **System → Email & SMTP**; the Upgrade preserves the private installation configuration. If the status reports disabled or incomplete mail configuration, save and verify the connection there before running delivery. Campaign switches remain separate from SMTP connection settings.
+Open **Marketing & Publishing → Campaigns** as the owner. **Campaign delivery** describes the saved shared mail transport. Configure that connection in **System → Email & SMTP**; the Upgrade preserves the private installation configuration. If delivery is held by disabled or incomplete mail settings, save and verify the connection there before running a batch.
 
-1. Set **Public newsletter signup and confirmation** and **Campaign email delivery** independently, then click **Save Marketing Settings**. Turning off signup hides signup/confirmation routes while existing unsubscribe links remain available. Turning off campaign delivery holds campaign work.
-2. Under **Email Campaign**, enter the subject and message, optional preheader and optional schedule. The form displays the schedule timezone. Leave the schedule blank for work that may run now. Check **Queue for confirmed subscribers** when ready and click **Save Campaign**, or save the draft first and later use **Queue Recipients** on its saved card. Queueing freezes the message text; create a new campaign for different text. Existing legacy prepared items require the explicit **Queue Recipients** action before delivery.
-3. When the transport is ready, choose **Messages per batch** from 1 to 10 and click **Run Due Campaign Batch**. Only explicitly queued, due campaigns with currently confirmed and consented recipients are eligible. Every campaign message includes an unsubscribe link. The page reports queued, processing, accepted, failed, unknown and suppressed counts; accepted means the transport accepted the message, not that an inbox received it.
-4. Use **Pause Campaign** to stop waiting work and **Resume Campaign** when ready. Pause remains usable from another owner tab while a batch waits on SMTP. Consent, suppression and campaign state are checked again immediately before transmission. A message already transmitting cannot be recalled.
-5. Inspect **Delivery problems** before using **Retry Failed Deliveries**. Only definite failures can be explicitly retried, with cooldowns and a three-attempt limit. Accepted and unknown outcomes are not retried; an unknown acknowledgement may mean the transport already accepted the message. Repeated queue/run actions do not duplicate an existing delivery for the same campaign and address.
+### Choose and preview the audience
 
-For scheduled hosting execution, run `php app/Console/run_marketing.php --limit=10` from this installation's directory, or use its absolute script path in the hosting scheduler. The CLI accepts 1–25 messages per invocation and uses the same schedule, consent, pause, locking and retry checks. It must be invoked by the scheduler for future work to run; saving a schedule does not create a hosting cron job.
+1. Set **Public newsletter signup and confirmation** and **Campaign email delivery** independently, then click **Save Marketing Settings**. Turning off signup hides signup and confirmation routes while existing unsubscribe links remain available. Turning off campaign delivery holds campaign work.
+2. For a saved audience, open **Audiences**, enter **Audience name**, then choose at least one signup source or confirmation date. **Exact signup sources, one per line** matches the saved, case-sensitive values shown under **Saved signup sources**. A contact can match any listed source and must also meet every entered date criterion. **Confirmed on or after** includes its starting moment; **Confirmed before** excludes its ending moment. Dates use the displayed site timezone and the contact's latest newsletter confirmation.
+3. Click **Preview Audience** to check the current eligible count, then **Save Audience** to save the definition. Previewing saves nothing and queues no messages. Leave **Available for new campaigns** checked to offer this audience in campaign forms. An eligible contact must still have confirmed consent and pass suppression checks.
+4. Return to **Campaigns**. Under **Email Campaign**, enter **Subject**, **Message** and an optional **Preheader**. Choose a saved audience or **All eligible newsletter contacts** in **Newsletter audience**, then use **Preview Campaign Audience** to review the matching count. This preview preserves your entered message and does not save or queue it.
+
+Previewing is optional. When the current form contains a preview, queueing checks that preview again. If the audience or eligible recipients changed, refresh the preview and review the new count before retrying. A preview from an earlier page visit does not carry forward automatically; preview again after reopening the form. Queueing without a preview still applies the selected rules, current confirmation, consent and suppression checks.
+
+### Save a draft or queue recipients
+
+Enter an optional **Schedule** in the displayed site timezone. Leave it blank for queued work that may run now. To keep a draft, leave **Queue for confirmed subscribers in this audience** unchecked and click **Save Campaign**. Reopen it through **Edit campaign draft** on its saved card. If its saved audience has since changed, been disabled or been removed, select an available audience again before queueing.
+
+To save and queue together, check **Queue for confirmed subscribers in this audience** and click **Save Campaign**. If queueing finds a stale preview after saving the draft, the page says **“The campaign draft was saved, but no new recipients were queued.”** Use **Preview Campaign Audience** again, review the count, then save with the queue option selected. The retained form updates the same draft.
+
+On a saved campaign, **Preview Recipients** reports both new eligible recipients and addresses that already have delivery records. **Queue Recipients** explicitly adds the new matches. When that card contains a preview, it is checked again before any queue changes. Existing legacy prepared deliveries also require this explicit queue action before delivery.
+
+The first successful queue freezes the message text, audience rules and selected addresses, even if it finds zero eligible recipients. Editing an audience, clearing **Available for new campaigns**, or using **Remove Audience** does not rewrite an already queued campaign. Create a new campaign for different message text or rules. Later confirmations are added only through another explicit **Queue Recipients** action, using that campaign's frozen rules and current eligibility. Requeue does not duplicate existing addresses or reset their delivery outcomes. Use **Pause Campaign** to hold waiting deliveries.
+
+### Run and inspect delivery
+
+1. When the transport is ready, choose **Messages per batch** from 1 to 10 and click **Run Due Campaign Batch**. Only explicitly queued, due campaigns can run. Previewing, saving an audience and queueing do not themselves transmit messages. Every campaign message includes an unsubscribe link.
+2. Check the campaign's queued, processing, accepted, failed, unknown and suppressed counts. Accepted means the mail transport accepted the message; it does not confirm arrival in an inbox.
+3. Use **Pause Campaign** to stop waiting work and **Resume Campaign** when ready. Pause remains usable from another owner tab while a batch waits on SMTP. Consent, suppression and campaign state are checked again immediately before transmission. A message already transmitting cannot be recalled.
+4. Inspect **Delivery problems** before choosing **Retry Failed Deliveries**. Only definite failures can be explicitly retried, with cooldowns and a three-attempt limit. Accepted and unknown outcomes are not retried; an unknown acknowledgement may mean the transport already accepted the message.
+
+For scheduled hosting execution, run `php app/Console/run_marketing.php --limit=10` from this installation's directory, or use its absolute script path in the hosting scheduler. The CLI accepts 1–25 messages per invocation and uses the same schedule, consent, pause, locking and retry checks. Saving a campaign schedule does not create a hosting cron job; the scheduler must invoke the command for future work to run.
+
+See [Newsletter audiences](NEWSLETTER_AUDIENCES.md) for criteria, edit behavior and limits.
 
 ## Approved package layout
 
@@ -66,7 +88,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.3 / Build 20261020.4** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.3-addon-recovery.md).
+Current **0.8.4 / Build 20261020.5** GitHub gates, merge and saved-download verification are pending. Final evidence will be recorded in [the release record](releases/0.8.4-newsletter-audiences.md) after completion.
 
 ### Historical baseline — Build 20261020.1
 

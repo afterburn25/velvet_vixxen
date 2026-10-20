@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Velvet\Core;
 
 require_once dirname(__DIR__) . '/Support/public_routes.php';
+require_once __DIR__ . '/MarketingAudience.php';
 
 final class MarketingStore
 {
@@ -269,24 +270,201 @@ final class MarketingStore
         return ['events' => count($events), 'unique_sessions' => count($sessions), 'counts' => $counts, 'top_paths' => array_slice($paths, 0, 10, true)];
     }
 
+    /** @return list<array<string,mixed>> */
+    public function segments(): array
+    {
+        return array_map(fn(array $record): array => $this->describeSegment($record), array_values($this->all()['segments']));
+    }
+
+    public function segment(string $id): ?array
+    {
+        MarketingAudience::id($id);
+        foreach ($this->segments() as $segment) if ($segment['id'] === $id) return $segment;
+        return null;
+    }
+
+    public function saveSegment(array $input): array
+    {
+        if (array_diff(array_keys($input), ['id', 'name', 'enabled', 'rules', 'expected_revision']) !== []) {
+            throw new \InvalidArgumentException('The audience contains unsupported fields.');
+        }
+        $id = MarketingAudience::id($input['id'] ?? '', true);
+        $name = MarketingAudience::text($input['name'] ?? '', 120, 'Audience name');
+        $rules = MarketingAudience::rules($input['rules'] ?? null);
+        if ($name === '' || !is_bool($input['enabled'] ?? null)) throw new \InvalidArgumentException('Enter an audience name and enabled state.');
+        if (!MarketingAudience::restricted($rules)) throw new \InvalidArgumentException('Choose a signup source or confirmation date; use All eligible newsletter contacts for the whole list.');
+        return $this->update(function (array &$data) use ($input, $id, $name, $rules): array {
+            $index = $id === '' ? false : $this->segmentIndex($data, $id);
+            if ($id !== '' && $index === false) throw new \RuntimeException('The audience no longer exists. Reload before saving.');
+            $existing = $index === false ? [] : $data['segments'][$index];
+            if ($index !== false) $this->requireSegmentRevision($existing, $input['expected_revision'] ?? null);
+            if ($index === false && count($data['segments']) >= MarketingAudience::MAX_SEGMENTS) throw new \RuntimeException('Keep at most ' . MarketingAudience::MAX_SEGMENTS . ' saved audiences.');
+            $record = array_replace($existing, ['id' => $id ?: $this->id('segment'), 'name' => $name,
+                'enabled' => $input['enabled'], 'rules' => $rules, 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
+                'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
+            if ($index === false) $data['segments'][] = $record; else $data['segments'][$index] = $record;
+            return $this->describeSegment($record);
+        });
+    }
+
+    public function deleteSegment(string $id, string $revision): void
+    {
+        MarketingAudience::id($id);
+        $this->update(function (array &$data) use ($id, $revision): void {
+            $index = $this->segmentIndex($data, $id);
+            if ($index === false) throw new \RuntimeException('The audience no longer exists. Reload before removing it.');
+            $this->requireSegmentRevision($data['segments'][$index], $revision);
+            unset($data['segments'][$index]);
+            $data['segments'] = array_values($data['segments']);
+        });
+    }
+
+    private function segmentIndex(array $data, string $id): int|string|false
+    {
+        foreach ($data['segments'] as $index => $segment) if (($segment['id'] ?? '') === $id) return $index;
+        return false;
+    }
+
+    private function requireSegmentRevision(array $record, mixed $revision): void
+    {
+        if (!MarketingAudience::validRevision($revision) || !hash_equals(MarketingAudience::segmentRevision($record), $revision)) {
+            throw new \RuntimeException('This audience changed. Reload it before saving, previewing or queueing.');
+        }
+    }
+
+    /** Invalid legacy definitions remain visible for correction, never selectable. */
+    private function describeSegment(array $record): array
+    {
+        $valid = true;
+        $name = 'Audience needs review';
+        $rules = MarketingAudience::rules([]);
+        try {
+            MarketingAudience::id($record['id'] ?? null);
+            $name = MarketingAudience::text($record['name'] ?? null, 120, 'Audience name');
+            $rules = MarketingAudience::rules($record['rules'] ?? null);
+            if ($name === '' || !is_bool($record['enabled'] ?? null) || !MarketingAudience::restricted($rules)) $valid = false;
+        } catch (\InvalidArgumentException) { $valid = false; }
+        return ['id' => is_string($record['id'] ?? null) ? $record['id'] : '', 'name' => $name,
+            'enabled' => ($record['enabled'] ?? null) === true, 'rules' => $rules, 'valid' => $valid,
+            'revision' => MarketingAudience::segmentRevision($record), 'updated_at' => $record['updated_at'] ?? null];
+    }
+
+    /** Preview unsaved rules without creating an audience, campaign or delivery. */
+    public function previewSegment(array $rules): array
+    {
+        $rules = MarketingAudience::rules($rules);
+        if (!MarketingAudience::restricted($rules)) throw new \InvalidArgumentException('Choose a signup source or confirmation date to preview this audience.');
+        $snapshot = ['version' => 1, 'mode' => 'segment', 'label' => 'Audience preview', 'segment_id' => 'preview',
+            'segment_revision' => str_repeat('0', 64), 'rules' => $rules];
+        return $this->evaluateAudience($this->all(), $snapshot)[0];
+    }
+
+    public function previewAudience(array $selection): array
+    {
+        $data = $this->all();
+        return $this->evaluateAudience($data, $this->resolveAudience($data, $selection))[0];
+    }
+
+    public function campaign(string $id): ?array
+    {
+        MarketingAudience::id($id);
+        foreach ($this->all()['campaigns'] as $campaign) if (($campaign['id'] ?? '') === $id) return $campaign;
+        return null;
+    }
+
+    public function previewCampaignAudience(string $id): array
+    {
+        MarketingAudience::id($id);
+        $data = $this->all();
+        foreach ($data['campaigns'] as $campaign) {
+            if (($campaign['id'] ?? '') === $id) return $this->evaluateAudience($data, $this->campaignAudience($data, $campaign), $id)[0];
+        }
+        throw new \RuntimeException('Campaign not found.');
+    }
+
+    private function resolveAudience(array $data, array $selection): array
+    {
+        $selection = MarketingAudience::selection($selection);
+        if ($selection['mode'] === 'all') {
+            return ['version' => 1, 'mode' => 'all', 'label' => 'All eligible newsletter contacts', 'segment_id' => null,
+                'segment_revision' => null, 'rules' => MarketingAudience::rules([])];
+        }
+        foreach ($data['segments'] as $record) {
+            if (($record['id'] ?? '') !== $selection['segment_id']) continue;
+            $this->requireSegmentRevision($record, $selection['segment_revision']);
+            $segment = $this->describeSegment($record);
+            if (!$segment['valid'] || !$segment['enabled']) throw new \RuntimeException('This audience is disabled or needs review. Choose another audience before queueing.');
+            return ['version' => 1, 'mode' => 'segment', 'label' => $segment['name'], 'segment_id' => $segment['id'],
+                'segment_revision' => $segment['revision'], 'rules' => $segment['rules']];
+        }
+        throw new \RuntimeException('The selected audience no longer exists. Choose another audience.');
+    }
+
+    private function campaignAudience(array $data, array $campaign): array
+    {
+        if (array_key_exists('audience_snapshot', $campaign)) return MarketingAudience::snapshot($campaign['audience_snapshot']);
+        // Older queued campaigns selected the entire eligible list. Do not
+        // reinterpret arbitrary historical metadata as a newly selected segment.
+        if (isset($campaign['delivery_snapshot'])) return $this->resolveAudience($data, ['mode' => 'all']);
+        return $this->resolveAudience($data, array_key_exists('audience', $campaign) ? MarketingAudience::selection($campaign['audience']) : ['mode' => 'all']);
+    }
+
+    /** @return array{0:array<string,mixed>,1:list<array{contact_id:string,email:string}>} */
+    private function evaluateAudience(array $data, array $snapshot, ?string $campaignId = null): array
+    {
+        $recipients = [];
+        $seen = [];
+        foreach ($data['contacts'] as $contact) {
+            if (!is_array($contact) || !is_string($contact['email'] ?? null) || !is_string($contact['id'] ?? null)
+                || !MarketingAudience::matches($contact, $snapshot['rules'])) continue;
+            $email = strtolower(trim($contact['email']));
+            if (isset($seen[$email]) || !$this->eligibleContact($data, $contact['id'], $email)) continue;
+            $recipients[] = ['contact_id' => $contact['id'], 'email' => $email];
+            $seen[$email] = true;
+        }
+        $existing = [];
+        foreach ($data['campaign_queue'] as $delivery) {
+            if ($campaignId !== null && ($delivery['campaign_id'] ?? '') === $campaignId) $existing[strtolower(trim((string) ($delivery['email'] ?? '')))] = true;
+        }
+        $new = array_values(array_filter($recipients, static fn(array $recipient): bool => !isset($existing[$recipient['email']])));
+        $canonical = $recipients;
+        usort($canonical, static fn(array $left, array $right): int => strcmp($left['email'] . ':' . $left['contact_id'], $right['email'] . ':' . $right['contact_id']));
+        $existingEmails = array_keys($existing);
+        sort($existingEmails, SORT_STRING);
+        $revision = hash('sha256', json_encode([$snapshot, $canonical, $existingEmails], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
+        return [['audience' => $snapshot, 'eligible_count' => count($recipients), 'new_count' => count($new),
+            'existing_count' => count($existing), 'revision' => $revision], $new];
+    }
+
     public function upsert(string $collection, array $record): array
     {
         $this->requireCollection($collection);
+        if ($collection === 'segments') return $this->saveSegment($record);
+        if ($collection === 'campaigns' && array_key_exists('audience_snapshot', $record)) throw new \InvalidArgumentException('Campaign audience snapshots are created only when queueing.');
         return $this->update(function (array &$data) use ($collection, $record): array {
+            if ($collection === 'campaigns' && array_key_exists('audience', $record)) $record['audience'] = MarketingAudience::selection($record['audience']);
             $record['id'] = trim((string) ($record['id'] ?? '')) ?: $this->id(rtrim($collection, 's'));
             $record['updated_at'] = gmdate('c');
             foreach ($data[$collection] as $i => $existing) {
                 if (($existing['id'] ?? '') !== $record['id']) continue;
-                if ($collection === 'campaigns' && isset($existing['delivery_snapshot'])) {
+                if ($collection === 'campaigns' && (isset($existing['delivery_snapshot']) || array_key_exists('audience_snapshot', $existing))) {
                     foreach (['subject', 'preheader', 'body'] as $key) {
                         if (isset($record[$key]) && $record[$key] !== ($existing[$key] ?? '')) {
                             throw new \RuntimeException('Queued campaign text is frozen. Create a new campaign for a different message.');
                         }
                     }
+                    if (array_key_exists('audience', $record)) {
+                        $frozen = $this->campaignAudience($data, $existing);
+                        $selection = $frozen['mode'] === 'all' ? ['mode' => 'all'] : ['mode' => 'segment', 'segment_id' => $frozen['segment_id'], 'segment_revision' => $frozen['segment_revision']];
+                        if ($record['audience'] !== $selection) throw new \RuntimeException('The queued campaign audience is frozen. Create a new campaign for a different audience.');
+                    }
                     unset($record['status'], $record['delivery_snapshot'], $record['delivery_paused']);
+                } elseif ($collection === 'campaigns' && array_key_exists('audience', $record)) {
+                    $this->resolveAudience($data, $record['audience']);
                 }
                 return $data[$collection][$i] = array_merge($existing, $record);
             }
+            if ($collection === 'campaigns' && array_key_exists('audience', $record)) $this->resolveAudience($data, $record['audience']);
             $record['created_at'] = gmdate('c');
             $data[$collection][] = $record;
             return $record;
@@ -296,6 +474,7 @@ final class MarketingStore
     public function delete(string $collection, string $id): void
     {
         $this->requireCollection($collection);
+        if ($collection === 'segments') throw new \InvalidArgumentException('Remove audiences through their revision-checked editor.');
         $this->update(static function (array &$data) use ($collection, $id): void {
             $data[$collection] = array_values(array_filter($data[$collection], static fn(array $record): bool => ($record['id'] ?? '') !== $id));
             if ($collection === 'campaigns') {
@@ -317,9 +496,10 @@ final class MarketingStore
         }
     }
 
-    public function queueCampaign(string $id): int
+    public function queueCampaign(string $id, ?string $previewRevision = null): int
     {
-        return $this->update(function (array &$data) use ($id): int {
+        MarketingAudience::id($id);
+        return $this->update(function (array &$data) use ($id, $previewRevision): int {
             $index = array_search($id, array_column($data['campaigns'], 'id'), true);
             if ($index === false) throw new \RuntimeException('Campaign not found.');
             $campaign = &$data['campaigns'][$index];
@@ -328,6 +508,12 @@ final class MarketingStore
             if (trim((string) ($campaign['subject'] ?? $campaign['name'] ?? '')) === '' || trim((string) ($campaign['body'] ?? '')) === '') {
                 throw new \InvalidArgumentException('Enter a campaign subject and message before queueing.');
             }
+            $audience = $this->campaignAudience($data, $campaign);
+            [$preview, $recipients] = $this->evaluateAudience($data, $audience, $id);
+            if ($previewRevision !== null && (!MarketingAudience::validRevision($previewRevision) || !hash_equals($preview['revision'], $previewRevision))) {
+                throw new \RuntimeException('The audience or eligible recipients changed. Refresh the preview before queueing.');
+            }
+            $campaign['audience_snapshot'] ??= $audience + ['queued_at' => gmdate('c')];
             $campaign['delivery_snapshot'] ??= [
                 'subject' => (string) ($campaign['subject'] ?? $campaign['name'] ?? 'Velvet Vixxen update'),
                 'preheader' => (string) ($campaign['preheader'] ?? ''), 'body' => (string) ($campaign['body'] ?? ''),
@@ -347,11 +533,11 @@ final class MarketingStore
             }
             unset($delivery);
             $count = 0;
-            foreach ($data['contacts'] as $contact) {
-                $email = strtolower(trim((string) ($contact['email'] ?? '')));
-                if (isset($existing[$email]) || !$this->eligibleContact($data, (string) $contact['id'], $email)) continue;
+            foreach ($recipients as $recipient) {
+                $email = $recipient['email'];
+                if (isset($existing[$email])) continue;
                 $data['campaign_queue'][] = [
-                    'id' => $this->id('delivery'), 'campaign_id' => $id, 'contact_id' => (string) $contact['id'],
+                    'id' => $this->id('delivery'), 'campaign_id' => $id, 'contact_id' => $recipient['contact_id'],
                     'email' => $email, 'status' => 'queued', 'attempts' => 0, 'created_at' => gmdate('c'),
                 ];
                 $existing[$email] = true;
@@ -450,9 +636,10 @@ final class MarketingStore
         $defaults = $this->defaults();
         $data = array_replace($defaults, $decoded);
         foreach (['meta', 'settings'] as $key) $data[$key] = array_replace($defaults[$key], (array) ($decoded[$key] ?? []));
-        foreach (['contacts', 'consents', 'suppressions', 'campaigns', 'campaign_queue', 'events', 'posts', 'banners', 'links', 'landing_pages'] as $key) {
+        foreach (['contacts', 'consents', 'suppressions', 'campaigns', 'campaign_queue', 'events', 'posts', 'banners', 'links', 'landing_pages', 'segments'] as $key) {
             if (!is_array($data[$key])) throw new \RuntimeException('Marketing records are invalid. Existing data was preserved.');
         }
+        foreach ($data['segments'] as $segment) if (!is_array($segment)) throw new \RuntimeException('Saved audience records are invalid. Existing data was preserved.');
         return $data;
     }
 
