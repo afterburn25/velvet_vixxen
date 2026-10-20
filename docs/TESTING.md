@@ -1,19 +1,23 @@
 # Testing — Velvet Vixxen
 
 <!-- editorial-history-089:start -->
-## Candidate — 0.8.9 Editorial history and restore, Build 20261020.10
+## Current release — 0.8.9 Editorial history and restore, Build 20261020.10
 
-**The implementation and local source/package gates are complete; required CI, merge and saved-download delivery remain pending.** The latest verified, merged and delivered release is still 0.8.8 / Build 20261020.9. This candidate starts from authoritative main `d3e9826440c27a176a0b55f55c46342e53f63a1c` on `feature/0.8.9-editorial-history`.
+**Version 0.8.9 is verified, merged into `main` through [PR #25](https://github.com/afterburn25/velvet_vixxen/pull/25) and delivered.** Merge `ca638ef486846d37c80606d5a012f07f23299dae` completed at **2026-10-20 18:11:46 CDT (America/Chicago)** (`2026-10-20T23:11:46Z`). Release source `c07c02bd0b6957cba4e0c9d6722765e262e37157`, actual seven-job CI checkout `f22982b761358e12db2cacde64a0ce283ce7a6e2` and the merge share the complete tree `99ecb497aa99006568152c058c9b9c447625c16a`. Later completion documentation changes no executable, test, workflow or package bytes.
 
 Existing posts, banners and landing pages now have private owner History, Review version and deliberate restore controls. Each retains its newest 20 earlier editorial states; restoration preserves current identity and always leaves a post draft or a banner/page disabled. Current references, revision and active ownership are rechecked. Read-only history does not initialize storage or record visits or email. Deletion removes attached history; calendar, explicit post expiry and deleted-item recovery remain separate.
 
-The local PHP 8.3.6 source suite passed, including 192 history assertions and the retained metadata/access/publication/storage gates. The ten installed HTTP suites reported success. The frozen package candidate has 362 Fresh / 321 Upgrade entries, exact approved 13/9 root directories, 13 changed runtime entries and 349 unchanged Fresh entries with preserved timestamps. Final file/MySQL browser and actual seven-job CI acceptance remain pending; no previous release evidence substitutes for them.
+All **seven required CI jobs and 65 configured required steps** passed in [run 39510626159](https://github.com/afterburn25/velvet_vixxen/actions/runs/39510626159). History source acceptance passed 192 assertions on PHP 8.2.34 and 8.3.35, with retained metadata 173, access 412, publication windows 134 and Marketing Storage 41. Both real-MySQL jobs passed 2292 history HTTP checks per root/nested case, alongside retained database gates. The four actual-package file/MySQL desktop/mobile history cases passed: each file case had 2028 HTTP and 404 browser checks; each MySQL case had 2253 HTTP and 428 browser checks. All 40 history screenshots decoded; a contact sheet and representative full-size captures were reviewed. No JavaScript errors or SMTP activity were observed. Existing source, security, ownership, persistent-OPcache, installer, ten-suite HTTP and browser gates remain required and passed.
 
-Use the [candidate release record](releases/0.8.9-editorial-history.md) and [owner guide](EDITORIAL_HISTORY.md). Keep #3 and broader #9 open; actual-host #12/#13 and production email remain unverified, payments sandbox-only and the separate 0.9 milestone incomplete. The unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3.
+Full Fresh and Upgrade carry **0.8.9 / Build 20261020.10**, with 362/321 runtime entries, the exact approved 13/9 root directories and four root files. Thirteen changed runtime entries advance timestamps; 349 unchanged Fresh entries retain theirs. Both full ZIPs, the separate manifest and unchanged installer repair matched the gated artifact literally, then matched saved/retrieved bytes at **2026-10-20 18:13:07 CDT (America/Chicago)** (exact UTC: `2026-10-20T23:13:07.846261+00:00`). Saved versions are Upgrade 13, Fresh 16, manifest 16 and unchanged repair 2. The eleven-file unfinished-installer repair remains **0.8.1 / repair Build 20261020.3**, with its original bytes and SHA-256. Installed sites use the complete Upgrade.
+
+The bounded 0.8.9 history/restore increment is complete. The next user-directed fix is **0.8.10 Composer/public Hero and Footer geometry**: its local 52 scene/device/path comparisons passed, while its required CI, merge and delivery remain pending. The requested depth-placement and foreground-masking controls remain a separate pending increment. Broader #9 stays open for calendar, explicit post expiry, scheduled scenes, referral attribution, analytics operations, campaign preview/test-send/templates/tracking, missing notifications, additional audience predicates and provider hooks. Keep #3 open as the ongoing release policy. Actual-host #12/#13 and production email remain unverified, payments sandbox-only and the separate 0.9 milestone incomplete.
+
+[Release and exact evidence](releases/0.8.9-editorial-history.md) · [CI record](releases/0.8.9-editorial-history-ci.json) · [Delivery record](releases/0.8.9-editorial-history-delivery.json) · [Owner guide](EDITORIAL_HISTORY.md). Every changed completed release advances its visible version; build IDs remain secondary and exact byte-identical rebuilds remain permitted. Older records below are historical.
 <!-- editorial-history-089:end -->
 
 <!-- editorial-metadata-088:start -->
-## Current release — 0.8.8 Editorial metadata, Build 20261020.9
+## Historical release — 0.8.8 Editorial metadata, Build 20261020.9
 
 **Version 0.8.8 is verified, merged into `main` through [PR #24](https://github.com/afterburn25/velvet_vixxen/pull/24) and delivered.** Merge `606f313a2607e5d22dbe79c2a5c893a90b261cec` completed at **2026-10-20 15:59:29 CDT (America/Chicago)** (`2026-10-20T20:59:29Z`). All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39492640091) passed. Release source `0fb8be539368802f0f8d423da5d51def69120734`, actual CI checkout `595f50f14d719cc774be373751f5760819842460` and the merge share the complete tree `8cb1e2e55b10fd64c071d5a6b7576ac86f642f8b`. Later documentation recording changes no executable, test, workflow or package bytes.
 
@@ -183,9 +187,9 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Tests are mandatory release gates. Use PHP 8.2 or 8.3 with PDO MySQL, mbstring, fileinfo, OpenSSL, GD, Zip and sodium; Node for JavaScript syntax; Python with requests, BeautifulSoup and Playwright for HTTP/browser suites.
 
-## Pending 0.8.9 editorial history and restore acceptance
+## Verified 0.8.9 editorial history and restore acceptance
 
-The [editorial history owner guide](EDITORIAL_HISTORY.md) and [candidate release record](releases/0.8.9-editorial-history.md) define the implemented increment. The local PHP 8.3.6 source/package suite passed, including 192 history assertions; the ten installed HTTP suites reported success. The commands below remain required acceptance producers. Final file/MySQL browser and actual CI results must be recorded from the exact committed source before claiming merge or delivery complete.
+The [editorial history owner guide](EDITORIAL_HISTORY.md), [verified release record](releases/0.8.9-editorial-history.md) and [exact CI record](releases/0.8.9-editorial-history-ci.json) define the completed increment. All seven jobs and 65 configured required steps passed against the recorded source tree. History source acceptance passed 192 assertions on both PHP versions; both real-MySQL jobs passed 2292 history HTTP checks per root/nested case. All four actual-package file/MySQL desktop/mobile history cases passed, producing 40 decoded screenshots. The separate local PHP 8.3.6 source/package and ten-suite HTTP observations remain supplementary. The commands below remain mandatory acceptance producers for future changes.
 
 ```bash
 bash scripts/test.sh
@@ -200,7 +204,7 @@ The new source and actual-package acceptance must cover existing posts, banners 
 
 Exercise owner History links from both editor and list, Review version, the real restore POST and subsequent saved preview/public views at root and nested paths on desktop and mobile. The browser matrix covers file/MySQL storage at root desktop (1440 × 1000) and nested mobile (390 × 844). Test guest/member refusal, CSRF/method validation, arbitrary/missing version IDs, unavailable current images/related posts/tiers, escaped historical content, private caching, inert destinations and final current-owner checks after real blocked storage reads. Verify that rejected or read-only actions preserve current content/history, unrelated marketing fields, frozen campaigns, queue/consent/suppression records and media state, with zero SMTP activity.
 
-Acceptance must use the actual Fresh package and record its release/build, checksum, runtime versions, per-case assertion results and real screenshots. The producers write `editorial-history-http-evidence.json` and `editorial-history-browser-evidence.json`; screenshots use the `editorial-history-` prefix. The final release record must bind the committed producers to the actual seven-job CI checkout and downloaded artifacts. Existing 0.8.8 evidence remains historical and does not verify this increment.
+Acceptance must use the actual Fresh package and record its release/build, checksum, runtime versions, per-case assertion results and real screenshots. The producers write `editorial-history-http-evidence.json` and `editorial-history-browser-evidence.json`; screenshots use the `editorial-history-` prefix. The final 0.8.9 release and CI records bind these committed producers to source `c07c02bd0b6957cba4e0c9d6722765e262e37157`, actual seven-job checkout `f22982b761358e12db2cacde64a0ce283ce7a6e2`, the identical merged tree and the downloaded artifacts. The delivery record binds the same package bytes to the saved/read-back files. Previous release evidence remains historical.
 
 ## Source and packaging
 
@@ -257,7 +261,7 @@ The PHP suite covers empty/unrelated/core-only/full/ledgerless schemas, interrup
 
 The browser suite uses the real installer HTTP page at desktop/mobile widths and an isolated MySQL service. It covers actual AJAX connection/install, CSRF and 11-character rejection, acceptance of a 12-character owner password, wrong-owner refusal, post-final-config failure followed by ordinary HTTP-bootstrap retry, preserved records, cleanup and final owner login. Expanded technical details verify Server/Folders geometry and the missing redundant rule before/after Run Checks; password fields remain aligned and completion clears its spinner/scroll lock. PNGs/logs remain engineering evidence outside every customer ZIP.
 
-The existing seven HTTP and all application browser suites remain mandatory. Do not substitute a copied HTML form, a simulated DB response, a same-owner filesystem, a stopped/restarted cache process or a passing skip for these release gates.
+The existing ten HTTP and all application browser suites remain mandatory. Do not substitute a copied HTML form, a simulated DB response, a same-owner filesystem, a stopped/restarted cache process or a passing skip for these release gates.
 
 ## Packaged public routes, uploads and Composer actions
 

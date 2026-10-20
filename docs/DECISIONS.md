@@ -1,6 +1,6 @@
 # Architecture and Product Decisions
 
-## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, pending)
+## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, verified)
 
 - Add history to existing posts, banners and landing pages in their current marketing record/backend. Keep at most 20 earlier versions, newest first; capture the prior editorial state only when supported fields or visibility genuinely change. Creation and unchanged saves do not manufacture prior versions. Existing items begin retaining history on their first changed save after upgrade.
 - Snapshot only an allowlist of editorial fields. Exclude IDs, permalinks, creation identity, arbitrary unknown fields, private account data and nested history. Preserve the current record's identity, order and unknown fields during restoration. Store capture time in UTC and the captured site timezone; retain explicit date offsets and interpret legacy local dates in that recorded timezone.
@@ -9,7 +9,7 @@
 - Force restored posts to draft and banners/pages to disabled. Review and explicit ordinary publication are separate owner actions. Preserve the replaced current editorial state as a new history entry when the restore changes it. A restore never requeues or sends campaign mail.
 - Keep malformed or oversized history intact and hold ordinary editing/restoration for review. Safe withdrawal to draft/disabled remains possible without resetting damaged history. Do not claim a new snapshot for a withdrawal that could not safely capture one.
 - Permanent deletion removes the item and its attached history. Deleted-item recovery, an editorial calendar and explicit post expiry remain separate work. No new database migration, backend cutover, public route or package-root exception is included.
-- Implement 0.8.9 / Build 20261020.10 as an acceptance candidate. Local source/package gates passed; final required acceptance, exact source/checkout/artifact evidence, merge and literal saved-download verification remain pending. Prior delivered releases retain their historical identities and evidence.
+- Delivered 0.8.9 / Build 20261020.10 after all seven jobs and 65 configured required steps passed in run 39510626159. Source `c07c02bd0b6957cba4e0c9d6722765e262e37157`, actual CI checkout `f22982b761358e12db2cacde64a0ce283ce7a6e2` and PR #25 merge `ca638ef486846d37c80606d5a012f07f23299dae` share tree `99ecb497aa99006568152c058c9b9c447625c16a`. Literal saved-download read-back passed at `2026-10-20T23:13:07.846261+00:00`; see [the release record](releases/0.8.9-editorial-history.md). Prior releases retain their historical identities and evidence. The separate 0.8.10 Composer geometry correction has passed local acceptance but awaits CI, merge and delivery; depth/masking remains pending.
 
 ## 2026-10-20 — Bounded editorial metadata and current asset references
 
@@ -132,7 +132,7 @@ The first two bullets below are historical and explicitly rejected by the owner;
 
 These are design requirements; advanced audience/expiration, scheduled scenes, attribution, retention and MySQL marketing persistence were not recovered as implemented capabilities. Current code/evidence governs completion claims.
 
-That recovery finding and the earlier dated campaign-storage decision describe their original baselines. The bounded 0.8.6 SQL storage increment is now implemented: migration 015 creates the additive schema, and a separate reviewed owner action moves the preserved marketing snapshot. File-mode compatibility remains. [Marketing Storage](MARKETING_STORAGE.md) documents the active-backend and failure boundaries. The bounded 0.8.7 [editorial access and saved-owner preview](EDITORIAL_ACCESS.md) increment is also complete. The bounded 0.8.8 [editorial metadata](EDITORIAL_METADATA.md) increment is complete. [The roadmap](ROADMAP.md) starts the remaining #9 work with separately scoped editorial history/restore, calendar and post expiry. SQL persistence does not implement indexed analytics or complete 0.9.
+That recovery finding and the earlier dated campaign-storage decision describe their original baselines. The bounded 0.8.6 SQL storage increment is now implemented: migration 015 creates the additive schema, and a separate reviewed owner action moves the preserved marketing snapshot. File-mode compatibility remains. [Marketing Storage](MARKETING_STORAGE.md) documents the active-backend and failure boundaries. The bounded 0.8.7 [editorial access and saved-owner preview](EDITORIAL_ACCESS.md) increment is also complete. The bounded 0.8.8 [editorial metadata](EDITORIAL_METADATA.md) and 0.8.9 [editorial history/restore](EDITORIAL_HISTORY.md) increments are complete. [The roadmap](ROADMAP.md) starts the remaining #9 work with separately scoped calendar and explicit post expiry; deleted-item recovery remains separate. SQL persistence does not implement indexed analytics or complete 0.9.
 
 - Editorial content uses explicit draft, scheduled, published, archived, and expiration states.
 - Public visibility is resolved by publication timing and audience rules rather than by obscured URLs alone.

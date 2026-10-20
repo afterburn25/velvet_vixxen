@@ -1,3 +1,44 @@
+VELVET VIXXEN 0.8.9 — BUILD 20261020.10 VERIFIED, MERGED AND DELIVERED
+
+Source: c07c02bd0b6957cba4e0c9d6722765e262e37157
+Actual seven-job CI checkout: f22982b761358e12db2cacde64a0ce283ce7a6e2
+Final merge on main: ca638ef486846d37c80606d5a012f07f23299dae
+Complete identical source/CI/merge tree: 99ecb497aa99006568152c058c9b9c447625c16a
+PR: https://github.com/afterburn25/velvet_vixxen/pull/25
+Seven successful required CI jobs; 65 configured required steps: https://github.com/afterburn25/velvet_vixxen/actions/runs/39510626159
+Merged: 2026-10-20 18:11:46 CDT (America/Chicago); exact UTC: 2026-10-20T23:11:46Z
+Saved/retrieved bytes verified: 2026-10-20 18:13:07 CDT (America/Chicago); exact UTC: 2026-10-20T23:13:07.846261+00:00
+
+Private owner History and Review version for posts, banners and landing pages retain 20 earlier editorial states. Deliberate restore preserves identity and always leaves a post draft or a banner/page disabled, with current revision, references and owner checks. Read-only history records no visits or email. Calendar, post expiry and deleted-item recovery remain separate.
+History source: 192 assertions on PHP 8.2.34 and 8.3.35. Both MySQL jobs: 2292 history HTTP checks at each root/nested path. Four actual-package history browser cases: file cases 2028 HTTP / 404 browser each; MySQL cases 2253 HTTP / 428 browser each. All 40 screenshots decoded; contact sheet and representative full-size captures reviewed. No JavaScript errors or SMTP activity. All retained release gates passed.
+
+Fresh: 362 runtime entries, 13 approved root directories.
+Upgrade: 321 runtime entries, 9 approved root directories.
+Four root files in both: .htaccess, VERSION, index.php, route.php.
+13 changed runtime entries use 2026-10-20 21:30:00; 349 unchanged Fresh entries preserve historical timestamps; no removals.
+The unchanged unfinished-installer repair stays 0.8.1 / repair Build 20261020.3, 11 files, 60,065 bytes, original saved version 2.
+All four files below matched frozen/gated/saved bytes literally.
+
+upgrade: Nikki-Wilder-Velvet-Vixxen-0.8.9-Build-20261020.10-Upgrade-from-0.8.x.zip
+Bytes: 7593247; SHA-256: abf13af5fa0c77a1172b7c450d4802e441ef6d0448aa232c830555cf4bcad736; saved version: 13
+fresh: Nikki-Wilder-Velvet-Vixxen-0.8.9-Build-20261020.10-Fresh-Install.zip
+Bytes: 7750552; SHA-256: 7251336a4aee0acdf8ecf8167d77525e5b273992113ebe3451affe32e1862df3; saved version: 16
+manifest: Velvet-Vixxen-0.8.9-Build-20261020.10-package-manifest.json
+Bytes: 80560; SHA-256: a7dac70bd3c8aeba03ba446f0176fe2753b8a928f5edb23f8b66e4dc0bfe8c9f; saved version: 16
+installer-repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+Bytes: 60065; SHA-256: f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297; saved version: 2
+
+Runtime artifact: 12306014889; bytes: 15376789; SHA-256: a3138ff279ea59bc6d1cc1d671f38260a3dd21e995fff01fccef3eac331187bd
+Browser artifact: 12306895281; bytes: 227908100; SHA-256: 318bd92aa062eb90e8ab16eb648df687559310f65dc653727e7fce55d4ac15e3
+Current evidence: docs/releases/0.8.9-editorial-history.md
+CI evidence: docs/releases/0.8.9-editorial-history-ci.json
+Delivery evidence: docs/releases/0.8.9-editorial-history-delivery.json
+Owner guide: docs/EDITORIAL_HISTORY.md
+Every changed completed release advances the visible version; build IDs remain secondary. Exact byte-identical rebuilds remain permitted.
+The bounded 0.8.9 history/restore increment is complete. The immediate 0.8.10 Composer/public geometry correction passed 52 local comparisons; its required CI, merge and delivery remain pending. Dedicated depth placement and foreground masking remain separate pending work. Broader #9 and ongoing release-policy #3 remain open. Actual customer-host #12/#13 and production email remain unverified; payments remain sandbox-only. Add-on PHP is not a complete sandbox. The separate 0.9 milestone is not complete.
+
+HISTORICAL RELEASE RECORD FOLLOWS
+
 VELVET VIXXEN 0.8.8 — BUILD 20261020.9 VERIFIED AND DELIVERED
 
 Source: 0fb8be539368802f0f8d423da5d51def69120734

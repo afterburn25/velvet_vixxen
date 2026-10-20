@@ -2,7 +2,7 @@
 
 ## Release status
 
-**0.8.9 / Build 20261020.10 is an implemented acceptance candidate. Local source and package gates passed; required CI, merge and saved-download delivery remain pending.** This guide describes the implemented owner workflow. The latest verified, merged and delivered release remains [0.8.8](releases/0.8.8-editorial-metadata.md). Track this increment's actual evidence in [the candidate 0.8.9 release record](releases/0.8.9-editorial-history.md).
+**0.8.9 / Build 20261020.10 is verified, merged and delivered.** [PR #25](https://github.com/afterburn25/velvet_vixxen/pull/25) merged after all seven jobs and 65 configured required steps passed in [CI run 39510626159](https://github.com/afterburn25/velvet_vixxen/actions/runs/39510626159). Saved package bytes were retrieved and compared literally at `2026-10-20T23:13:07.846261+00:00`. This guide describes the delivered owner workflow; [the final release record](releases/0.8.9-editorial-history.md) contains exact source, CI, merge and download evidence.
 
 ## Open an item's history
 
