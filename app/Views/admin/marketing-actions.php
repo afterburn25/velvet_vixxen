@@ -14,7 +14,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   if (in_array($action, ['save_post', 'save_banner', 'save_page'], true)) {
     $publicationForm = $_POST;
     $publicationFormCollection = ['save_post' => 'posts', 'save_banner' => 'banners', 'save_page' => 'landing_pages'][$action];
-    $savedPublication = $marketingStore->savePublication($publicationFormCollection, mm_publication_input($publicationFormCollection, $_POST));
+    $savedPublication = $marketingStore->savePublication($publicationFormCollection, mm_publication_input($publicationFormCollection, $_POST),
+      static fn(array $candidate) => mm_publication_authorize($candidate));
     $returnPublication = ['meta' => mm_publication_meta($publicationFormCollection), 'id' => $savedPublication['id']];
     $notice = $returnPublication['meta']['name'] . ' saved. ' . $savedPublication['visibility']['state'] . '.';
   }
@@ -26,11 +27,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $revision = $_POST['publication_revision'] ?? null;
     if (!is_string($revision)) throw new InvalidArgumentException('Reload the publication before changing it.');
     if ($action === 'delete_publication') {
-      $marketingStore->deletePublication($collection, $id, $revision);
+      $marketingStore->deletePublication($collection, $id, $revision,
+        static fn(array $candidate) => mm_publication_authorize($candidate, false));
       $notice = $meta['name'] . ' removed.';
     } else {
       if (!in_array($_POST['enabled'] ?? null, ['0', '1'], true)) throw new InvalidArgumentException('Choose a valid visibility setting.');
-      $savedPublication = $marketingStore->setPublicationEnabled($collection, $id, $_POST['enabled'] === '1', $revision);
+      $enablePublication = $_POST['enabled'] === '1';
+      $savedPublication = $marketingStore->setPublicationEnabled($collection, $id, $enablePublication, $revision,
+        static fn(array $candidate) => mm_publication_authorize($candidate, $enablePublication));
       $notice = $meta['name'] . ' updated. ' . $savedPublication['visibility']['state'] . '.';
     }
     $returnPublicationTab = $meta['tab'];
@@ -128,11 +132,15 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     if (in_array($collection, ['posts', 'banners', 'landing_pages'], true)) {
       $revision = $_POST['publication_revision'] ?? null;
       if (!is_string($revision)) throw new InvalidArgumentException('Reload the publication before removing it.');
-      $marketingStore->deletePublication($collection, $id, $revision);
+      $marketingStore->deletePublication($collection, $id, $revision,
+        static fn(array $candidate) => mm_publication_authorize($candidate, false));
     } else $marketingStore->delete($collection, $id);
     $notice='Item removed.';
   }
- }catch(Throwable $e){$notice='';$error=(!empty($campaignDraftSaved) ? 'The campaign draft was saved, but no new recipients were queued. ' : '') . $e->getMessage();}
+ }catch(Throwable $e){
+  if ((int) $e->getCode() === 403) { http_response_code(403); exit('Only the active site owner can change publications.'); }
+  $notice='';$error=(!empty($campaignDraftSaved) ? 'The campaign draft was saved, but no new recipients were queued. ' : '') . $e->getMessage();
+ }
 }
 if ($notice !== '') {
   flash('success', $notice);

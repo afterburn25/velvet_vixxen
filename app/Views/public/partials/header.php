@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once root_path('includes/marketing.php');
+velvet_marketing_private_response();
+
 $publicHeaderSettings = (array) app_store()->setting('site', []);
 $publicHeaderBrand = (string) ($publicHeaderSettings['brand_name'] ?? 'Nikki Wilder');
 $publicHeaderSubtitle = (string) ($publicHeaderSettings['brand_subtitle'] ?? 'The Velvet Vixxen');

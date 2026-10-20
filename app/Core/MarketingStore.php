@@ -60,38 +60,38 @@ final class MarketingStore
         });
     }
 
-    public function publishedPosts(?int $limit = null): array
+    public function publishedPosts(?int $limit = null, ?array $viewer = null): array
     {
         $now = time();
         $posts = array_values(array_filter($this->all()['posts'], static fn(mixed $post): bool => is_array($post)
-            && MarketingPublication::visibility('posts', $post, $now)['visible']));
+            && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)));
         usort($posts, static fn(array $a, array $b): int => (MarketingPublication::storedDate($b['publish_at'] ?? null)?->getTimestamp() ?? 0)
             <=> (MarketingPublication::storedDate($a['publish_at'] ?? null)?->getTimestamp() ?? 0));
         return $limit ? array_slice($posts, 0, $limit) : $posts;
     }
 
-    public function findPost(string $slug): ?array
+    public function findPost(string $slug, ?array $viewer = null): ?array
     {
-        foreach ($this->publishedPosts() as $post) {
+        foreach ($this->publishedPosts(null, $viewer) as $post) {
             if (($post['slug'] ?? '') === $slug) return $post;
         }
         return null;
     }
 
-    public function activeBanners(): array
+    public function activeBanners(?array $viewer = null): array
     {
-        return $this->activeWindow('banners');
+        return $this->activeWindow('banners', $viewer);
     }
 
-    public function activeLandingPage(string $slug): ?array
+    public function activeLandingPage(string $slug, ?array $viewer = null): ?array
     {
-        foreach ($this->activeWindow('landing_pages') as $page) {
+        foreach ($this->activeWindow('landing_pages', $viewer) as $page) {
             if (($page['slug'] ?? '') === $slug) return $page;
         }
         return null;
     }
 
-    /** Owner records retain their saved order; the first active banner is shown. */
+    /** Owner records retain saved order; public banners additionally filter by viewer. */
     public function publicationRecords(string $collection): array
     {
         MarketingPublication::collection($collection);
@@ -109,12 +109,28 @@ final class MarketingStore
         return $index === false ? null : MarketingPublication::describe($collection, $data[$collection][$index]);
     }
 
+    /** The caller must freshly authorize the active owner before this private saved read. */
+    public static function previewPublication(string $collection, string $id, ?string $root = null): ?array
+    {
+        MarketingPublication::collection($collection);
+        MarketingPublication::id($id);
+        $data = (new MarketingStorage($root))->peek();
+        if ($data === null) return null;
+        $record = null;
+        foreach ($data[$collection] as $candidate) {
+            if (!is_array($candidate) || ($candidate['id'] ?? '') !== $id) continue;
+            if ($record !== null) throw new \RuntimeException('Duplicate publication identities need review before editing.');
+            $record = $candidate;
+        }
+        return $record === null ? null : MarketingPublication::describe($collection, $record);
+    }
+
     /** Merge one validated editor under the existing fresh marketing-store lock. */
-    public function savePublication(string $collection, array $input): array
+    public function savePublication(string $collection, array $input, ?callable $authorize = null): array
     {
         MarketingPublication::collection($collection);
         $id = MarketingPublication::id($input['id'] ?? '', true);
-        return $this->update(function (array &$data) use ($collection, $input, $id): array {
+        return $this->update(function (array &$data) use ($collection, $input, $id, $authorize): array {
             $index = $id === '' ? false : $this->publicationIndex($data, $collection, $id);
             if ($id !== '' && $index === false) throw new \RuntimeException('This publication no longer exists. Reload before saving.');
             $existing = $index === false ? [] : $data[$collection][$index];
@@ -128,17 +144,18 @@ final class MarketingStore
             $record = array_replace($existing, $fields, ['id' => $id ?: $this->id(rtrim($collection, 's')),
                 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
+            if ($authorize !== null) $authorize($record);
             if ($index === false) $data[$collection][] = $record; else $data[$collection][$index] = $record;
             return MarketingPublication::describe($collection, $record);
         });
     }
 
     /** A safe withdrawal is allowed even if legacy dates need repair. */
-    public function setPublicationEnabled(string $collection, string $id, bool $enabled, string $revision): array
+    public function setPublicationEnabled(string $collection, string $id, bool $enabled, string $revision, ?callable $authorize = null): array
     {
         MarketingPublication::collection($collection);
         MarketingPublication::id($id);
-        return $this->update(function (array &$data) use ($collection, $id, $enabled, $revision): array {
+        return $this->update(function (array &$data) use ($collection, $id, $enabled, $revision, $authorize): array {
             $index = $this->publicationIndex($data, $collection, $id);
             if ($index === false) throw new \RuntimeException('This publication no longer exists. Reload before changing it.');
             $record = $data[$collection][$index];
@@ -149,19 +166,21 @@ final class MarketingStore
             if ($enabled && $visibility['problem'] !== null) throw new \InvalidArgumentException('Repair this publication before enabling it. ' . $visibility['problem']);
             $record['edit_version'] = (int) ($record['edit_version'] ?? 0) + 1;
             $record['updated_at'] = gmdate('c');
+            if ($authorize !== null) $authorize($record);
             $data[$collection][$index] = $record;
             return MarketingPublication::describe($collection, $record);
         });
     }
 
-    public function deletePublication(string $collection, string $id, string $revision): void
+    public function deletePublication(string $collection, string $id, string $revision, ?callable $authorize = null): void
     {
         MarketingPublication::collection($collection);
         MarketingPublication::id($id);
-        $this->update(function (array &$data) use ($collection, $id, $revision): void {
+        $this->update(function (array &$data) use ($collection, $id, $revision, $authorize): void {
             $index = $this->publicationIndex($data, $collection, $id);
             if ($index === false) throw new \RuntimeException('This publication no longer exists. Reload before removing it.');
             $this->requirePublicationRevision($data[$collection][$index], $revision);
+            if ($authorize !== null) $authorize($data[$collection][$index]);
             unset($data[$collection][$index]);
             $data[$collection] = array_values($data[$collection]);
         });
@@ -666,11 +685,11 @@ final class MarketingStore
         return ['counts' => $counts, 'deliveries' => $deliveries];
     }
 
-    private function activeWindow(string $collection): array
+    private function activeWindow(string $collection, ?array $viewer = null): array
     {
         $now = time();
         return array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
-            && MarketingPublication::visibility($collection, $item, $now)['visible']));
+            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer)));
     }
 
     private function id(string $prefix): string

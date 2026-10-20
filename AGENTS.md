@@ -1,7 +1,23 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- editorial-access-087:start -->
+## Current work — 0.8.7 Editorial access and owner previews, Build 20261020.8
+
+Integration advances the visible version from delivered **0.8.6** to **0.8.7**, starting at authoritative `main` `a8bf93d82129114f85df1e376db53e17603bf607` on `feature/0.8.7-editorial-access`. Implementation, local acceptance, exact-tree GitHub CI, merge and saved-download verification are in progress. Historical releases certify their own bytes only.
+
+This increment adds Public, Members and Selected tiers access to the existing posts, banners and landing pages, plus an independent active-owner preview of saved content. Members includes active verified free accounts. Selected tiers uses exact currently enabled plan IDs and eligible current subscriptions, without an inferred tier hierarchy. Publication timing still applies. Invalid restrictions hold access; absent legacy policies retain public behavior. Public filtering precedes listing limits, private fields and campaign-view recording. Saved-owner previews do not publish, collect marketing events or send email.
+
+Required acceptance covers both actual storage backends; fresh member, device, plan and subscription state; timing and invalid-policy boundaries; generic public denial; private caching; current-owner preview authorization; stale edit/CSRF/method checks; preserved unrelated records; and root/nested desktop/mobile flows. Every existing source, security, ownership, persistent-OPcache, MySQL, installer, HTTP, browser and package gate remains mandatory. The integrated local source/package gate passed on PHP 8.3.6, including 412 editorial-access assertions and all retained source, ownership, persistent-OPcache and package checks. Final actual-package file/MySQL browser acceptance, exact-tree GitHub CI, merge and saved-download verification remain pending.
+
+Full Fresh/Upgrade will carry **0.8.7 / Build 20261020.8**, with the exact approved 13/9 root directories and four root files. Unchanged entries retain their prior archive timestamps. The unchanged eleven-file unfinished-installer repair keeps **0.8.1 / repair Build 20261020.3**, its original hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version.
+
+The broader #9 roadmap remains open for editorial metadata, history/restore, calendar and post expiry; scheduled Composer scenes; durable referral attribution; analytics operations; campaign message preview/test-send, templates and tracking; missing notification workflows; and provider hooks. File and MySQL storage keep the same business rules. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+[Release and exact evidence](docs/releases/0.8.7-editorial-access.md) · [Editorial access guide](docs/EDITORIAL_ACCESS.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- editorial-access-087:end -->
+
 <!-- marketing-sql-086:start -->
-## Current release — 0.8.6 SQL marketing persistence, Build 20261020.7
+## Historical release — 0.8.6 SQL marketing persistence, Build 20261020.7
 
 **Version 0.8.6 is verified, merged into `main` through [PR #22](https://github.com/afterburn25/velvet_vixxen/pull/22) and delivered.** Merge `2a2bf4468c52304e08e246030d075527ab5972e3` completed at **2026-10-20T15:41:54Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796) passed. Release source `e4640e84a2c5417954f936f86ee993112c67bb37`, actual CI checkout `9eace0ec2802a8ea47ddba75748521f8bbfb5168` and the merge share the complete tree `8deae90664202b37199283ec0121169291771349`. Later documentation recording changes no executable, test, workflow or package bytes.
 
@@ -140,11 +156,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current released baseline: **0.8.6 — Build 20261020.7 SQL marketing persistence; verified, merged and delivered.**
+Current integration target: **0.8.7 — Build 20261020.8 editorial access and owner previews; final acceptance pending. Released baseline: 0.8.6.**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and contains PR #15 through PR #22. Start subsequent implementation from live `main` on a scoped feature branch. Current release evidence is `docs/releases/0.8.6-marketing-sql.md`; earlier records certify their historical releases only. The 0.8.6 SQL marketing persistence increment of #9 is complete, following 0.8.4 saved audiences and 0.8.5 publication editing. Broader editorial access/preview/metadata/history/calendar/post expiry, scene schedules, referral attribution, analytics operations, campaign templates/tracking, missing notification workflows and provider hooks remain open. File-mode sites retain file storage; indexed reporting and large-dataset performance are not claimed. Preserve all required gates and approved package roots.
+`main` is the authoritative integration destination. Continue the scoped 0.8.7 branch from the recorded live-main baseline; its current acceptance is in `docs/releases/0.8.7-editorial-access.md`. Prior evidence remains historical. Preserve every required gate and approved package root.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 

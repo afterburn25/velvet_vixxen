@@ -11,6 +11,15 @@
 - Enforce the rule against the latest committed verified delivery record, rejecting changed same-version packages even when only their build labels change. Permit an exact byte-identical rebuild of an already delivered release.
 - Keep an unchanged unfinished-installer overlay at its delivered repair version/build and hash; a new full-runtime release does not relabel that separate historical repair.
 
+## Editorial visibility and private saved previews (0.8.7)
+
+- Keep editorial access separate from media entitlements and newsletter audience/consent rules. Public, Members and Selected tiers apply to saved posts, banners and landing pages. Members includes active verified free accounts with a valid saved device session; selected tiers uses exact enabled plan IDs and current eligible subscriptions without an inferred hierarchy.
+- An absent legacy access field remains public. Explicit malformed restrictions, unsupported policy versions, empty tier selections and unavailable selected plans hold access until deliberately repaired. Current account, device, plan and subscription state is read for each public request; malformed nonempty dates cannot grant access.
+- Apply publication timing and access before listing limits, titles/excerpts, page metadata or campaign-view recording. Keep saved banner order and choose the first eligible banner. Send private/no-store headers before viewer-dependent HTML or generic denial responses.
+- Use a separate active-owner saved preview inside the existing admin dispatcher. Recheck the saved owner's active role, use the authoritative backend without initializing missing marketing data, and omit publication mutations, marketing events, outbound mail, tracking and share tokens. Public owner flags do not create a bypass.
+- Preserve locked publication revision/CSRF/method checks, immutable saved permalinks and unrelated fields. Recheck current owner and selected plan definitions inside the save lock. Keep safe withdrawal/deletion available when a policy needs repair. File and MySQL use the same policy and publication API; no new schema or automatic backend switch is needed.
+- Advance the visible release to 0.8.7 / Build 20261020.8 and retain all existing gates. The release is not complete until the changed source, actual-package file/MySQL HTTP and desktop/mobile flows, exact GitHub tree/artifacts, merge and saved downloads have passed their recorded acceptance.
+
 ## Add-on migration recovery (0.8.3)
 
 - Preflight the complete package migration plan and executable ownership boundary before migration SQL. New automatic migrations may add owned InnoDB objects; they may not rewrite retained data or adopt unrelated existing tables.

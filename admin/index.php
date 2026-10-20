@@ -2,6 +2,12 @@
 declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
+if (($_GET['page'] ?? null) === 'marketing-preview') {
+    // A saved preview is read-only and does not boot add-ons or dispatch actions.
+    require ROOT_PATH . '/includes/bootstrap.php';
+    require ROOT_PATH . '/app/Views/admin/marketing-preview.php';
+    exit;
+}
 require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
@@ -125,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMarketingStorageRequest) {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (!verify_csrf()) {
-            if ($page === 'mail-settings' || $isMediaRequest) http_response_code(419);
+            if ($page === 'mail-settings' || $isMediaRequest || $page === 'marketing') http_response_code(419);
             throw new RuntimeException('Your session token expired. Refresh the page and try again.');
         }
         $action = (string) ($_POST['action'] ?? '');

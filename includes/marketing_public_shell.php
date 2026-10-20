@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/bootstrap.php';
 require_once dirname(__DIR__) . '/includes/marketing.php';
+velvet_marketing_private_response();
 
 function velvet_marketing_public_header(string $title, string $description = ''): void
 {

@@ -1,3 +1,16 @@
+VELVET VIXXEN 0.8.7 — BUILD 20261020.8 IN PROGRESS
+
+Branch: feature/0.8.7-editorial-access
+Authoritative integration baseline: a8bf93d82129114f85df1e376db53e17603bf607
+This increment adds Public, Members and Selected tiers access to the existing posts, banners and landing pages, plus an independent active-owner preview of saved content. Members includes active verified free accounts. Selected tiers uses exact currently enabled plan IDs and eligible current subscriptions, without an inferred tier hierarchy. Publication timing still applies. Invalid restrictions hold access; absent legacy policies retain public behavior. Public filtering precedes listing limits, private fields and campaign-view recording. Saved-owner previews do not publish, collect marketing events or send email.
+Local acceptance, GitHub CI, merge and saved-download equality pending.
+Full Fresh/Upgrade: 0.8.7 / Build 20261020.8; approved 13/9 root directories and four root files.
+Unchanged unfinished-installer repair: 0.8.1 / repair Build 20261020.3; original delivered identity retained.
+Current evidence: docs/releases/0.8.7-editorial-access.md; owner guide: docs/EDITORIAL_ACCESS.md.
+The broader #9 roadmap remains open for editorial metadata, history/restore, calendar and post expiry; scheduled Composer scenes; durable referral attribution; analytics operations; campaign message preview/test-send, templates and tracking; missing notification workflows; and provider hooks. File and MySQL storage keep the same business rules. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+HISTORICAL RELEASE RECORD FOLLOWS
+
 VELVET VIXXEN 0.8.6 — BUILD 20261020.7 VERIFIED, MERGED AND DELIVERED
 
 Visible release version: 0.8.6; secondary build ID: 20261020.7.
