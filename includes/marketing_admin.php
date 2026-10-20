@@ -14,6 +14,30 @@ function mm_checked(mixed $value): bool
     return true;
 }
 
+function mm_publication_meta(string $collection): array
+{
+    return match (\Velvet\Core\MarketingPublication::collection($collection)) {
+        'posts' => ['tab' => 'posts', 'action' => 'save_post', 'edit' => 'edit_post', 'name' => 'Post', 'plural' => 'Posts', 'button' => 'Save Post'],
+        'banners' => ['tab' => 'banners', 'action' => 'save_banner', 'edit' => 'edit_banner', 'name' => 'Promotion Banner', 'plural' => 'Saved banners', 'button' => 'Save Banner'],
+        'landing_pages' => ['tab' => 'campaigns', 'action' => 'save_page', 'edit' => 'edit_page', 'name' => 'Campaign Landing Page', 'plural' => 'Saved landing pages', 'button' => 'Save Page'],
+    };
+}
+
+function mm_publication_input(string $collection, array $post): array
+{
+    $allowed = match ($collection) {
+        'posts' => ['title', 'slug', 'category', 'excerpt', 'body', 'status', 'publish_at'],
+        'banners' => ['text', 'url', 'starts_at', 'ends_at'],
+        'landing_pages' => ['title', 'slug', 'eyebrow', 'excerpt', 'body', 'cta_label', 'cta_url', 'starts_at', 'ends_at'],
+        default => throw new InvalidArgumentException('Choose a valid publication.'),
+    };
+    $input = array_intersect_key($post, array_flip($allowed));
+    $input['id'] = $post['id'] ?? '';
+    $input['expected_revision'] = $post['publication_revision'] ?? null;
+    if ($collection !== 'posts') $input['enabled'] = mm_checked($post['enabled'] ?? null);
+    return $input;
+}
+
 function mm_audience_rules(array $post): array
 {
     return \Velvet\Core\MarketingAudience::rules([

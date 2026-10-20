@@ -1,7 +1,23 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- publication-windows-085:start -->
+## Current work — 0.8.5 Publication-window editing, Build 20261020.6
+
+The next numbered release advances the visible version to **0.8.5** from verified, merged and delivered **0.8.4**. Integration starts at authoritative `main` commit `031fef7d46d283a135d3c3da5cd7a923aff6cada` on `feature/0.8.5-publication-release`. Final GitHub CI, merge and saved-download equality remain pending for this changed tree.
+
+Owners can reopen and edit saved posts, banners and landing pages, withdraw publication, disable promotions and delete posts while retaining stable IDs, existing permalinks, list order and unrelated marketing records. Locked revision checks include the site timezone. Strict date parsing rejects impossible dates, skipped daylight-saving times and invalid windows, preserves unchanged stored instants and holds malformed legacy dates out of public visibility. The banner list distinguishes the shown banner from later active banners waiting behind it. Private-reply email alerts now use generic notices without the private conversation subject or message body; the full reply remains on the site.
+
+The version-integrated source suite, all ten existing installed HTTP suites and actual packaged publication HTTP/desktop/mobile acceptance passed. The new publication source test passed 134 assertions; the extracted customer ZIP passed 105 owner/public HTTP assertions plus root-desktop and nested-mobile browser flows. Saved-audience acceptance is preserved. A separate actual-package owner-POST regression captures loopback SMTP and verifies generic private-reply notices for member and guest-booking paths, retained on-site content and no email for internal notes. Tests send zero external messages. All seven GitHub jobs must still pass against this exact integrated tree; previous releases certify their own source only.
+
+Full Fresh and Upgrade use **0.8.5 / Build 20261020.6**, preserving the exact approved 13/9 directories and four root files. Changed runtime entries advance from the exact prior Fresh archive; unchanged entries retain their historical timestamps. The unchanged eleven-file unfinished-installer repair retains **0.8.1 / Build 20261020.3**, its delivered hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version, including build-only relabeling.
+
+This increment edits the existing publication fields; it adds no post-expiry field, scene scheduler or background publication worker. Public visibility evaluates the stored window on reads. Marketing remains on its protected file store. Publication edits preserve consent, audiences, frozen campaign messages and queued recipients. The saved-audience and bounded publication-editing increments advance #9. Marketing SQL persistence, broader editorial audience/expiry/preview/history/calendar, scene activation/expiry, referral attribution, analytics and provider hooks remain open. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. No separate 0.9 milestone completion is claimed.
+
+[Release and exact evidence](docs/releases/0.8.5-publication-windows.md) · [Publication-window guide](docs/PUBLICATION_WINDOWS.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- publication-windows-085:end -->
+
 <!-- newsletter-audiences-084:start -->
-## Current release — 0.8.4 Newsletter audiences, Build 20261020.5
+## Historical release — 0.8.4 Newsletter audiences, Build 20261020.5
 
 **Version 0.8.4 is verified, merged into `main` through [PR #20](https://github.com/afterburn25/velvet_vixxen/pull/20) and delivered.** Merge `2afd71b9f4516d8c8d8200b4c1dcaf767f0cc5ea` completed at **2026-10-20T05:58:19Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39376462679) passed. Release source `b7a7559b7fe44c97d8604af24d56539bb009098b`, actual CI checkout `13b08ae2d8f8d9aa55b693cfb978abf9e6a12f70` and the merge share the complete tree `c2bd3b95d6e55f61254507e122ccc69cb9fd804f`. Later documentation recording changes no executable, test, workflow or package bytes.
 
@@ -108,11 +124,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current released baseline: **0.8.4 — Build 20261020.5 Newsletter audiences; verified, merged and delivered.**
+Current integration target: **0.8.5 — Build 20261020.6 Publication-window editing; final acceptance pending. Released baseline: 0.8.4.**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and contains PR #15 through PR #20. Start subsequent implementation from live `main` on a scoped feature branch. Current release evidence is `docs/releases/0.8.4-newsletter-audiences.md`; earlier records certify their historical releases only. The saved-audience increment of #9 is complete. Continue 0.8.5 publication-window editing; broader #9 remains open. Preserve all required gates and approved package roots.
+`main` is the authoritative integration destination. Start subsequent implementation from live `main` on a scoped feature branch. The current integrated work and pending acceptance are recorded in `docs/releases/0.8.5-publication-windows.md`; prior release evidence remains historical. Preserve every required gate and approved package root.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 

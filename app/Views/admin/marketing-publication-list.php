@@ -1,0 +1,44 @@
+<?php
+declare(strict_types=1);
+$publicationMeta = mm_publication_meta($publicationCollection);
+$publicationRows = $marketingStore->publicationRecords($publicationCollection);
+$shownBanner = false;
+?>
+<section class="marketing-card" data-publication-list="<?= velvet_marketing_escape($publicationCollection) ?>">
+  <h2><?= velvet_marketing_escape($publicationMeta['plural']) ?></h2>
+  <?php if ($publicationCollection === 'banners'): ?><p>The first active banner in this saved order is shown. Other active banners wait behind it. Edit its dates or disable it to show the next active banner; editing keeps this order.</p><?php endif; ?>
+  <?php if ($publicationRows === []): ?><p>No saved <?= $publicationCollection === 'landing_pages' ? 'landing pages' : $publicationCollection ?> yet.</p><?php endif; ?>
+  <table class="marketing-table marketing-publication-table"><tbody>
+  <?php foreach ($publicationRows as $publicationRow):
+    $publicationId = mm_form_text($publicationRow['id'] ?? '');
+    $publicationEnabled = \Velvet\Core\MarketingPublication::enabled($publicationCollection, $publicationRow);
+    $publicationState = $publicationRow['visibility']['state'];
+    if ($publicationCollection === 'banners' && $publicationRow['visibility']['visible']) {
+        $publicationState = $shownBanner ? 'Active · waiting behind the shown banner' : 'Active · shown now';
+        $shownBanner = true;
+    }
+    $publicationTitle = mm_form_text($publicationRow[$publicationCollection === 'banners' ? 'text' : 'title'] ?? 'Untitled publication');
+    $publicationUrl = $publicationCollection === 'banners' ? '' : base_url(($publicationCollection === 'posts' ? 'blog/post.php?slug=' : 'campaign/?slug=') . rawurlencode(mm_form_text($publicationRow['slug'] ?? '')));
+  ?>
+    <tr data-publication-id="<?= velvet_marketing_escape($publicationId) ?>">
+      <td><strong><?= velvet_marketing_escape($publicationTitle) ?></strong>
+        <p data-publication-state><?= velvet_marketing_escape($publicationState) ?></p>
+        <?php if ($publicationRow['visibility']['problem'] !== null): ?><p><?= velvet_marketing_escape($publicationRow['visibility']['problem']) ?> Public visibility is held until repaired.</p><?php endif; ?>
+        <?php foreach ($publicationCollection === 'posts' ? ['publish_at' => 'Publish'] : ['starts_at' => 'Start', 'ends_at' => 'End'] as $dateKey => $dateLabel):
+          try { $dateValue = \Velvet\Core\MarketingPublication::dateForForm($publicationRow[$dateKey] ?? null); }
+          catch (InvalidArgumentException) { $dateValue = 'Needs review'; }
+        ?><small><?= $dateLabel ?>: <?= velvet_marketing_escape($dateValue === '' ? 'Open' : str_replace('T', ' ', $dateValue)) ?></small><br><?php endforeach; ?>
+      </td>
+      <td>
+        <div class="marketing-publication-actions">
+          <a href="?page=marketing&amp;tab=<?= $publicationMeta['tab'] ?>&amp;<?= $publicationMeta['edit'] ?>=<?= rawurlencode($publicationId) ?>">Edit</a>
+          <?php if ($publicationUrl !== ''): ?><a href="<?= velvet_marketing_escape($publicationUrl) ?>">View</a><?php endif; ?>
+          <form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="set_publication_enabled"><input type="hidden" name="collection" value="<?= $publicationCollection ?>"><input type="hidden" name="id" value="<?= velvet_marketing_escape($publicationId) ?>"><input type="hidden" name="publication_revision" value="<?= $publicationRow['revision'] ?>"><input type="hidden" name="enabled" value="<?= $publicationEnabled ? '0' : '1' ?>"><button class="marketing-button"><?= $publicationCollection === 'posts' ? ($publicationEnabled ? 'Move to draft' : 'Publish') : ($publicationEnabled ? 'Disable' : 'Enable') ?></button></form>
+          <?php if ($publicationCollection === 'posts'): ?><form method="post"><?= csrf_field() ?><input type="hidden" name="action" value="delete_publication"><input type="hidden" name="collection" value="posts"><input type="hidden" name="id" value="<?= velvet_marketing_escape($publicationId) ?>"><input type="hidden" name="publication_revision" value="<?= $publicationRow['revision'] ?>"><button class="marketing-button">Delete</button></form><?php endif; ?>
+        </div>
+      </td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody></table>
+  <?php if ($publicationRows !== []): ?><p>Times shown in <?= velvet_marketing_escape(date_default_timezone_get()) ?>. Visibility updates on the next public request.</p><?php endif; ?>
+</section>
