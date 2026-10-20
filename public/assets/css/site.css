@@ -9,3 +9,28 @@
 .public-scene-button:focus-visible{outline:3px solid #fff;outline-offset:3px}
 .hero-content,.closing-content{pointer-events:none}
 .hero-content a,.hero-content button,.closing-content a,.closing-content button{pointer-events:auto}
+
+/* A saved scene is one design canvas, uniformly projected at the public width. */
+.visual-scene.scene-composed{display:block;min-height:0;padding:0}
+.scene-projection{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden}
+.scene-projection .hero-brand{font-size:clamp(4.8rem,calc(8.5 * var(--scene-vw)),9rem)}
+.scene-projection .hero-subtitle{font-size:clamp(.8rem,calc(1.4 * var(--scene-vw)),1.3rem)}
+.scene-projection .hero-content h1{font-size:clamp(1rem,calc(1.55 * var(--scene-vw)),1.45rem)}
+.scene-projection .hero-content p{font-size:clamp(.88rem,calc(1.25 * var(--scene-vw)),1.05rem)}
+.scene-projection .script-heading{font-size:clamp(3.3rem,calc(6 * var(--scene-vw)),6rem)}
+.hero-scene.scene-composed + .paper-section{margin-top:0}
+@media(max-width:760px){.scene-projection .hero-brand{font-size:clamp(4rem,calc(18 * var(--scene-vw)),6.3rem)}}
+
+/* Larger legal-footer text stays compact and wraps within the available width. */
+.legal-footer{min-height:0;padding:8px clamp(20px,4vw,70px);grid-template-columns:auto minmax(0,1fr) minmax(0,.65fr) auto;gap:4px 24px;font-size:1rem;line-height:1.4}
+.legal-footer>*{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.legal-footer .brand-lockup.compact .brand-script{font-size:2.6rem;line-height:1.05}
+.legal-footer .brand-sub{font-size:.8rem;line-height:1.35;margin-top:6px}
+.legal-footer nav,.legal-footer .legal-links{flex-wrap:wrap;gap:4px 16px;font-size:1rem;line-height:1.4}
+.legal-footer .signature{font-size:2.4rem;line-height:1.1;white-space:nowrap}
+.legal-footer .site-credit{grid-column:1/-1;margin:0;font-size:1rem;line-height:1.4;color:#d5c5ce}
+.legal-footer .site-credit a{color:#73baff;text-decoration:underline;text-decoration-thickness:.1em;text-underline-offset:.18em}
+.legal-footer .site-credit a:hover,.legal-footer .site-credit a:focus-visible{color:#add8ff}
+.legal-footer .site-credit a:focus-visible{outline:2px solid #add8ff;outline-offset:3px}
+@media(max-width:1120px){.legal-footer{grid-template-columns:auto minmax(0,1fr) auto}.legal-footer .legal-links{justify-self:end}}
+@media(max-width:760px){.legal-footer{grid-template-columns:minmax(0,1fr) auto;column-gap:16px}.legal-footer .signature{font-size:2rem}}

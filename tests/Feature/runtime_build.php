@@ -24,7 +24,7 @@ try {
     $assert(trim((string) file_get_contents($source . '/VERSION')) === VELVET_VIXXEN_VERSION, 'Visible runtime version differs from canonical VERSION.');
     $assert(VELVET_VIXXEN_ASSET_VERSION === VELVET_VIXXEN_VERSION . '-' . VELVET_VIXXEN_BUILD_ID, 'Browser assets do not identify the same canonical release/build.');
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
-        'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js',
+        'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
         'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php'];
@@ -67,6 +67,11 @@ try {
     $status = $service->inspect();
     $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'public/routes/api/upload.php', 'Missing organized upload handler must be identified.');
     copy($source . '/public/routes/api/upload.php', $fixture . '/public/routes/api/upload.php');
+    unlink($fixture . '/public/assets/js/scene-geometry.js');
+    $status = $service->inspect();
+    $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'public/assets/js/scene-geometry.js', 'Missing shared scene geometry must be identified.');
+    $reject(static fn() => $service->refreshPhpCache(), 'A missing scene dependency must block cache activation.');
+    copy($source . '/public/assets/js/scene-geometry.js', $fixture . '/public/assets/js/scene-geometry.js');
 
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);
@@ -86,6 +91,15 @@ try {
     unset($invalid['files']['public/routes/api/scene.php']);
     $write($invalid);
     $reject(static fn() => $service->inspect(), 'Manifest cannot omit the scene endpoint and claim a complete update.');
+    $invalid = $manifest;
+    unset($invalid['files']['public/assets/js/scene-geometry.js']);
+    $write($invalid);
+    $reject(static fn() => $service->inspect(), 'Current manifest cannot omit the shared scene geometry dependency.');
+    $invalid['version'] = '0.8.9';
+    $invalid['build_id'] = '20261020.10';
+    $write($invalid);
+    $legacy = $service->inspect();
+    $assert($legacy['files_match'] && !$legacy['running_build_matches'] && $legacy['version'] === '0.8.9', 'Older inventories must remain inspectable without a dependency introduced later.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');
     $reject(static fn() => $service->inspect(), 'Malformed manifest must fail readably.');
     unlink($fixture . '/includes/runtime-build.json');

@@ -1,6 +1,7 @@
 (() => {
   'use strict';
   const config = window.VELVET_CONFIG || {};
+  const geometry = window.VELVET_SCENE_GEOMETRY;
   const baseUrl = String(config.baseUrl || '').replace(/\/$/, '');
   const uploadBase = String(config.uploadBase || `${baseUrl}/uploads/`).replace(/\/?$/, '/');
   const publicRoutes = new Set((config.publicRoutes || []).map(route => String(route).replace(/^\/+|\/+$/g, '')));
@@ -22,7 +23,17 @@
     return `${baseUrl}/${normalized}`;
   };
 
-  const device = () => window.innerWidth <= 760 ? 'mobile' : (window.innerWidth <= 1120 ? 'tablet' : 'desktop');
+  const sceneProjections = new Map();
+  function projectScene(root) {
+    const projection = sceneProjections.get(root);
+    if (!projection) return;
+    const scale = geometry.scale(projection.device, root.getBoundingClientRect().width);
+    root.style.height = `${projection.frame.height * scale}px`;
+    projection.node.style.transform = `scale(${scale})`;
+  }
+  const sceneResizeObserver = typeof ResizeObserver === 'function'
+    ? new ResizeObserver((entries) => entries.forEach((entry) => projectScene(entry.target)))
+    : null;
 
   function buttonDestination(value) {
     if (typeof value !== 'string' || /[\u0000-\u0020\u007f\\]/.test(value)) return '';
@@ -103,9 +114,23 @@
     const scene = config.scenes?.[section];
     if (!root || !scene) return;
 
-    const targetDevice = device();
+    const targetDevice = geometry.device();
     const view = scene.devices?.[targetDevice] || scene.devices?.desktop || {layers: []};
-    if (view.height) root.style.minHeight = `${Number(view.height)}px`;
+    const frame = geometry.frame(section, targetDevice, view);
+    let projection = sceneProjections.get(root)?.node;
+    if (!projection) {
+      projection = document.createElement('div');
+      projection.className = 'scene-projection';
+      projection.append(...root.childNodes);
+      root.appendChild(projection);
+      root.classList.add('scene-composed');
+      sceneResizeObserver?.observe(root);
+    }
+    Object.assign(projection.style, {width: `${frame.width}px`, height: `${frame.height}px`});
+    projection.style.setProperty('--scene-vw', `${frame.width / 100}px`);
+    root.dataset.sceneDevice = targetDevice;
+    sceneProjections.set(root, {node: projection, frame, device: targetDevice});
+    projectScene(root);
 
     const bg = root.querySelector('.scene-background');
     const overlay = root.querySelector('.scene-overlay');

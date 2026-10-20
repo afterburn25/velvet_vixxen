@@ -111,9 +111,9 @@ REPAIR_TIMESTAMPS.update({
 })
 PRIOR_RELEASE_TIMESTAMPS = {
     '.htaccess': (2026, 10, 20, 2, 24, 0),
-    'VERSION': (2026, 10, 20, 19, 9, 10),
+    'VERSION': (2026, 10, 20, 21, 30, 0),
     'admin/addon-recovery.php': (2026, 10, 20, 5, 0, 0),
-    'admin/index.php': (2026, 10, 20, 17, 20, 22),
+    'admin/index.php': (2026, 10, 20, 21, 30, 0),
     'admin/repair.php': (2026, 10, 20, 2, 24, 0),
     'admin/update.php': (2026, 10, 20, 2, 24, 0),
     'app/Console/run_marketing.php': (2026, 10, 20, 2, 24, 0),
@@ -133,12 +133,13 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/MailSettingsService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/MarketingAccess.php': (2026, 10, 20, 17, 20, 22),
     'app/Core/MarketingAudience.php': (2026, 10, 20, 5, 20, 0),
+    'app/Core/MarketingHistory.php': (2026, 10, 20, 21, 30, 0),
     'app/Core/MarketingMetadata.php': (2026, 10, 20, 19, 9, 10),
-    'app/Core/MarketingPublication.php': (2026, 10, 20, 19, 9, 10),
+    'app/Core/MarketingPublication.php': (2026, 10, 20, 21, 30, 0),
     'app/Core/MarketingSqlRepository.php': (2026, 10, 20, 14, 16, 8),
     'app/Core/MarketingStorage.php': (2026, 10, 20, 17, 20, 22),
     'app/Core/MarketingStorageException.php': (2026, 10, 20, 14, 16, 8),
-    'app/Core/MarketingStore.php': (2026, 10, 20, 19, 9, 10),
+    'app/Core/MarketingStore.php': (2026, 10, 20, 21, 30, 0),
     'app/Core/MediaAdminService.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaStoreTrait.php': (2026, 10, 20, 19, 9, 10),
@@ -163,12 +164,13 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Views/admin/composer.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/mail-settings-actions.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/mail-settings.php': (2026, 10, 20, 2, 24, 0),
-    'app/Views/admin/marketing-actions.php': (2026, 10, 20, 17, 20, 22),
+    'app/Views/admin/marketing-actions.php': (2026, 10, 20, 21, 30, 0),
     'app/Views/admin/marketing-audiences.php': (2026, 10, 20, 5, 20, 0),
     'app/Views/admin/marketing-campaign-form.php': (2026, 10, 20, 5, 20, 0),
+    'app/Views/admin/marketing-history.php': (2026, 10, 20, 21, 30, 0),
     'app/Views/admin/marketing-preview.php': (2026, 10, 20, 19, 9, 10),
-    'app/Views/admin/marketing-publication-editor.php': (2026, 10, 20, 19, 9, 10),
-    'app/Views/admin/marketing-publication-list.php': (2026, 10, 20, 17, 20, 22),
+    'app/Views/admin/marketing-publication-editor.php': (2026, 10, 20, 21, 30, 0),
+    'app/Views/admin/marketing-publication-list.php': (2026, 10, 20, 21, 30, 0),
     'app/Views/admin/marketing-storage-actions.php': (2026, 10, 20, 14, 16, 8),
     'app/Views/admin/marketing-storage.php': (2026, 10, 20, 14, 16, 8),
     'app/Views/admin/marketing.php': (2026, 10, 20, 14, 16, 8),
@@ -186,10 +188,10 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'database/migrations/202610200015_marketing_sql_storage.php': (2026, 10, 20, 14, 16, 8),
     'includes/installation_recovery.php': (2026, 10, 19, 16, 0, 0),
     'includes/marketing.php': (2026, 10, 20, 19, 9, 10),
-    'includes/marketing_admin.php': (2026, 10, 20, 19, 9, 10),
+    'includes/marketing_admin.php': (2026, 10, 20, 21, 30, 0),
     'includes/marketing_public_shell.php': (2026, 10, 20, 19, 9, 10),
-    'includes/runtime-build.json': (2026, 10, 20, 19, 9, 10),
-    'includes/version.php': (2026, 10, 20, 19, 9, 10),
+    'includes/runtime-build.json': (2026, 10, 20, 21, 30, 0),
+    'includes/version.php': (2026, 10, 20, 21, 30, 0),
     'install/index.php': (2026, 10, 20, 2, 24, 0),
     'install/services/EmailAddress.php': (2026, 10, 20, 2, 24, 0),
     'install/services/FileSystemService.php': (2026, 10, 19, 0, 0, 0),
@@ -199,7 +201,7 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/assets/css/composer.css': (2026, 10, 20, 2, 24, 0),
     'public/assets/css/installer.css': (2026, 10, 19, 16, 0, 0),
     'public/assets/css/mail-settings.css': (2026, 10, 20, 2, 24, 0),
-    'public/assets/css/marketing.css': (2026, 10, 20, 19, 9, 10),
+    'public/assets/css/marketing.css': (2026, 10, 20, 21, 30, 0),
     'public/assets/css/media-admin-edit.css': (2026, 10, 20, 3, 48, 0),
     'public/assets/css/site-ux.css': (2026, 10, 20, 2, 24, 0),
     'public/assets/css/site.css': (2026, 10, 20, 2, 24, 0),
@@ -259,21 +261,20 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/routes/videos/watch.php': (2026, 10, 20, 2, 24, 0),
     'route.php': (2026, 10, 20, 2, 24, 0),
 }
-RELEASE_TIMESTAMP = (2026, 10, 20, 21, 30, 0)
+RELEASE_TIMESTAMP = (2026, 10, 20, 23, 38, 0)
 RELEASE_FILES = {
     'VERSION',
     'admin/index.php',
-    'app/Core/MarketingHistory.php',
-    'app/Core/MarketingPublication.php',
-    'app/Core/MarketingStore.php',
-    'app/Views/admin/marketing-actions.php',
-    'app/Views/admin/marketing-history.php',
-    'app/Views/admin/marketing-publication-editor.php',
-    'app/Views/admin/marketing-publication-list.php',
-    'includes/marketing_admin.php',
+    'app/Core/RuntimeInventoryService.php',
+    'app/Views/public/partials/footer.php',
     'includes/runtime-build.json',
     'includes/version.php',
-    'public/assets/css/marketing.css',
+    'public/assets/css/site.css',
+    'public/assets/js/composer.js',
+    'public/assets/js/media-center.js',
+    'public/assets/js/scene-geometry.js',
+    'public/assets/js/site.js',
+    'public/home.php',
 }
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in {
@@ -339,11 +340,11 @@ echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION
 
 
 def run() -> None:
-    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.8-build-20261020.9.json").read_text())
-    assert prior_release["source_commit"] == "0fb8be539368802f0f8d423da5d51def69120734"
-    assert prior_release["version"] == "0.8.8" and prior_release["build_id"] == "20261020.9"
-    assert prior_release["sha256"] == "a9f4a811139530f6f3c0fbb89182efe771de183769870c5accd98419cd8c4120"
-    assert prior_release["files"] == len(prior_release["entries"]) == 360, "Prior-release fixture must retain the exact delivered Fresh inventory"
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.9-build-20261020.10.json").read_text())
+    assert prior_release["source_commit"] == "c07c02bd0b6957cba4e0c9d6722765e262e37157"
+    assert prior_release["version"] == "0.8.9" and prior_release["build_id"] == "20261020.10"
+    assert prior_release["sha256"] == "7251336a4aee0acdf8ecf8167d77525e5b273992113ebe3451affe32e1862df3"
+    assert prior_release["files"] == len(prior_release["entries"]) == 362, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
@@ -509,8 +510,8 @@ def run() -> None:
                                != prior_release["entries"].get(name, {}).get("sha256")}
                     assert set(prior_release["entries"]) <= entries, "A previously delivered runtime file disappeared without an explicit removal review"
                     assert entries - set(prior_release["entries"]) == {
-                        "app/Core/MarketingHistory.php", "app/Views/admin/marketing-history.php",
-                    }, "The editorial-history release added runtime files outside its reviewed two-file scope"
+                        "public/assets/js/scene-geometry.js",
+                    }, "The Composer scale release added runtime files outside its reviewed shared-geometry scope"
                     assert changed == RELEASE_FILES, "Changed runtime files lack reviewed release timestamps, or unchanged files were relabeled: " + ", ".join(sorted(changed ^ RELEASE_FILES))
                     for entry in zipped.infolist():
                         prior = prior_release["entries"].get(entry.filename)
@@ -524,7 +525,7 @@ def run() -> None:
                     assert release["supported_from"] == compatibility["supported_from"] == expected_from, "Upgrade compatibility omitted a supported prior patch or current-version repair"
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries)
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
-                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES:
+                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                             if Path(relative).parts[0] not in package.PRESERVED_UPGRADE_ROOTS:
                                 assert relative in entries, "Upgrade is missing a required runtime repair dependency"
                                 assert zipped.read(relative) == fresh.read(relative), "Upgrade repair dependency differs from the complete fresh package"
@@ -632,7 +633,7 @@ def run() -> None:
         for kind, original in [("upgrade", full_files), ("fresh", package.runtime_files(source, "fresh"))]:
             # Rebuild an internally consistent inventory after removing a
             # dependency: even that incomplete package must fail the floor.
-            for omitted in EDITORIAL_RUNTIME_FILES:
+            for omitted in EDITORIAL_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                 broken = {name: content for name, content in original.items() if name != omitted}
                 broken[RUNTIME_BUILD_PATH] = package.runtime_build_manifest(broken)
                 try:
@@ -640,7 +641,7 @@ def run() -> None:
                 except ValueError as error:
                     assert "Required runtime source is missing" in str(error) and omitted in str(error)
                 else:
-                    raise AssertionError("An incomplete editorial runtime was accepted: " + omitted)
+                    raise AssertionError("An incomplete required runtime dependency was accepted: " + omitted)
             malformed_inventories = [
                 {**expected_inventory, "build_id": "20261019.4"},
                 {**expected_inventory, "schema": True},

@@ -1,5 +1,19 @@
 # Nikki Wilder — The Velvet Vixxen
 
+<!-- composer-geometry-0810:start -->
+## Candidate — 0.8.10 Scene scale and compact footer, Build 20261020.11
+
+**The requested Hero clipping correction is implemented and locally verified; source publication, required CI, merge and saved-download delivery remain pending.** The latest completed release is 0.8.9 / Build 20261020.10, merged through PR #25 and delivered. This candidate continues from authoritative main `029ce3defd149db453380b99326836e86929ddd6` on `fix/0.8.10-composer-hero-scale`.
+
+Composer and the public Hero/Visual Footer now share the 1440/900/390-pixel desktop/tablet/mobile design canvases. Public height equals the saved design height multiplied by available width/design width. Background crop, photos, live content, standalone buttons and pixel effects scale together, preserving existing scene data and intentional crops. No resave or layout migration is required; navigation remains outside the scene. The pink live-content box remains a positioning guide, with actual copy shown by Full Page Preview. Foreground masking and new depth controls remain separately pending.
+
+The owner's footer follow-up is included: larger bottom-footer type, 16px navigation/legal/credit text, a blue underlined Cajun Web Pro LLC link to `https://cajunwebpro.com/` that opens a new tab, and compact content-driven height with no minimum-height reservation, 8px vertical padding and 4px row gaps. Homepage and common public footers share these rules; existing responsive link visibility and scene data are preserved. The page reserves the visible fixed audio player's measured height plus 8px below its content, so the player cannot cover the footer credit; a hidden player reserves no space. The focused browser matrix also covers both footer renderers at six widths and actual new-tab navigation. The prior 1121px legal-footer overflow is now within the requested correction; unrelated 320px contact-card overflow remains separate.
+
+The complete local source/package suite, retained Composer controls/buttons and the focused actual-package browser matrix passed. The matrix checks Hero and Footer across 13 widths at both root and nested installations: **52 rendered comparisons**, including both sides of each breakpoint, real lower-edge pixels, saved/published scenes and unchanged scene data on resize. The original 0.8.9 package fails the same aspect-ratio assertion, reproducing the reported clipping. The frozen candidate has 363 Fresh / 322 Upgrade entries, 12 changed runtime entries and 351 unchanged Fresh entries, with the approved 13/9 root directories and four root files preserved. The footer follow-up checks its own text and wrapping without attributing unrelated contact-card overflow to the scene correction.
+
+All seven CI jobs remain required, including both PHP versions, real MySQL, foreign ownership, persistent OPcache, installed HTTP/browser suites and the added scale step. Completion still requires actual artifacts, source/CI/merge tree binding and saved-download byte verification. Use the [candidate release record](docs/releases/0.8.10-composer-geometry.md) and [Composer guide](docs/VISUAL_COMPOSER.md). Broader #9, actual-host #12/#13, production email and the separate 0.9 milestone remain open; payments remain sandbox-only. The unchanged unfinished-installer repair stays 0.8.1 / repair Build 20261020.3.
+<!-- composer-geometry-0810:end -->
+
 <!-- editorial-history-089:start -->
 ## Current release — 0.8.9 Editorial history and restore, Build 20261020.10
 

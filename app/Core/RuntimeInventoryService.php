@@ -100,11 +100,16 @@ class RuntimeInventoryService
             || !is_array($data['files'] ?? null) || count($data['files']) > 2000) {
             throw new RuntimeException('The update file inventory is invalid. Extract the complete Upgrade ZIP again.');
         }
-        foreach (['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
+        $requiredFiles = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
             'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js',
             'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
             'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
-            'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php'] as $required) {
+            'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php'];
+        // Older inventories remain inspectable; this dependency first shipped in 0.8.10.
+        if (version_compare($data['version'], '0.8.10', '>=')) {
+            $requiredFiles[] = 'public/assets/js/scene-geometry.js';
+        }
+        foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');
             }
