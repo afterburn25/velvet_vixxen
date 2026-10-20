@@ -99,82 +99,185 @@ final class AddonManager
         if ($activate && $manifest->requiresLicense() && !AddonLicenseClient::recordAllowsActivation($this->store->addonLicense($manifest->id()))) {
             throw new RuntimeException('Install this commercial add-on without activation, then enter and verify its license key before activating it.');
         }
-        $id = $manifest->id();
-        $current = $this->store->addon($id);
-        $currentPath = root_path('addons/installed/' . $id);
-        $this->store->logAddonActivity($id, 'package.install.started', ['version' => $manifest->version(), 'operation' => $review['operation']]);
-
-        $backup = null;
-        $oldPath = null;
-        $migrations = [];
-        $appliedMigrationKeys = [];
-        $newPath = root_path('addons/staging/install-' . $id . '-' . bin2hex(random_bytes(6)));
+        $lock = $this->lifecycleLock($manifest->id());
         try {
-            if ($current !== null && is_dir($currentPath)) {
-                $backup = $this->backup($current, 'pre-' . (string) $review['operation']);
-            }
+            return $this->installReviewed($token, $review, $manifest, $activate);
+        } finally { flock($lock, LOCK_UN); fclose($lock); }
+    }
+
+    /** The prior file tree stays available until the registry write succeeds. */
+    private function installReviewed(string $token, array $review, AddonManifest $manifest, bool $activate): array
+    {
+        $id = $manifest->id();
+        $this->assertNoPendingRecovery($id);
+        $current = $this->store->addon($id);
+        // A different request may have changed the installed version while this
+        // package was being reviewed. Recompute the operation under the lock.
+        $operation = $current === null ? 'install' : match (version_compare($manifest->version(), (string) $current['version'])) {
+            -1 => 'rollback', 0 => 'repair', default => 'update',
+        };
+        $currentPath = root_path('addons/installed/' . $id);
+        $this->store->logAddonActivity($id, 'package.install.started', ['version' => $manifest->version(), 'operation' => $operation]);
+        $backup = null;
+        $oldPath = root_path('addons/staging/old-' . $id . '-' . bin2hex(random_bytes(5)));
+        $migrations = [];
+        $currentMigrations = [];
+        $appliedMigrationKeys = [];
+        $removedMigrationKeys = [];
+        $newFilesActive = false;
+        $paused = false;
+        $newPath = root_path('addons/staging/install-' . $id . '-' . bin2hex(random_bytes(6)));
+        $lifecycle = new AddonMigrationRecovery($id, 'lifecycle');
+        $lifecycle->lock();
+        $intent = null;
+        $targetRecord = [
+                'id' => $id, 'name' => $manifest->name(), 'vendor' => $manifest->vendor(),
+                'version' => $manifest->version(), 'status' => $activate ? 'active' : 'installed',
+                'manifest' => $manifest->toArray(), 'permissions' => $manifest->permissions(),
+                'packageSha256' => (string) $review['packageSha256'],
+                'signatureStatus' => (string) ($review['signature']['status'] ?? 'unsigned'),
+                'installedPath' => 'addons/installed/' . $id, 'previousVersion' => $current['version'] ?? null,
+                'failureCount' => 0, 'lastError' => null,
+                'installedAt' => $current['installedAt'] ?? now_iso(),
+                'activatedAt' => $activate ? now_iso() : ($current['activatedAt'] ?? null),
+        ];
+        try {
             $this->extract((string) $review['packagePath'], $newPath);
             $this->validateExtracted($newPath, $manifest, (string) $review['packageSha256']);
             $migrations = $this->discoverMigrations($newPath);
-            if ($migrations !== []) {
-                if (!in_array('database.migrate', $manifest->permissions(), true)) {
-                    throw new RuntimeException('The package contains database migrations but did not request database.migrate permission.');
-                }
-                $appliedMigrationKeys = $this->store->applyAddonMigrations($id, $migrations);
+            if ($migrations !== [] && !in_array('database.migrate', $manifest->permissions(), true)) {
+                throw new RuntimeException('The package contains database migrations but did not request database.migrate permission.');
             }
+            $applied = $this->store->addonMigrations($id);
+            $targetIds = array_column($migrations, 'id');
+            $missing = array_values(array_diff(array_keys($applied), $targetIds));
+            $this->store->preflightAddonMigrations($id, $migrations);
+            if ($operation === 'rollback' && array_diff($targetIds, array_keys($applied)) !== []) {
+                throw new RuntimeException('A rollback package must use a subset of the already applied migration history.');
+            }
+            if ($missing !== []) {
+                if ($operation !== 'rollback' || !is_dir($currentPath)) {
+                    throw new RuntimeException('The package omits applied migrations. Retain migration history or explicitly restore a compatible older package.');
+                }
+                $currentMigrations = $this->discoverMigrations($currentPath);
+                $this->store->preflightAddonMigrations($id, $currentMigrations);
+                if (array_diff($missing, array_column($currentMigrations, 'id')) !== []) {
+                    throw new RuntimeException('The installed package is missing the migration definitions required for this rollback.');
+                }
+            }
+            if ($current !== null && is_dir($currentPath)) {
+                $backup = $this->backup($current, 'pre-' . $operation);
+            }
+            $definitions = [];
+            foreach (array_merge($currentMigrations, $migrations) as $migration) $definitions[$migration['id']] = $migration;
+            $targetChecksums = [];
+            foreach ($migrations as $migration) $targetChecksums[$migration['id']] = $migration['checksum'];
+            $intent = ['operation' => 'install', 'phase' => 'prepared', 'current' => $current, 'target' => $targetRecord,
+                'currentPath' => 'addons/installed/' . $id, 'newPath' => $this->relativePath($newPath), 'oldPath' => $this->relativePath($oldPath),
+                'priorFiles' => is_dir($currentPath) ? $this->fileHashes($currentPath) : [], 'targetFiles' => $this->fileHashes($newPath),
+                'migrations' => $definitions, 'initialLedger' => $applied, 'targetChecksums' => $targetChecksums,
+                'rollbackKeys' => $missing, 'backup' => $backup];
+            $lifecycle->write($intent);
+            if (($current['status'] ?? '') === 'active') {
+                $inactive = $current; $inactive['status'] = 'inactive';
+                $this->store->saveAddon($inactive);
+                $paused = true;
+            }
+            $intent['phase'] = 'migrating'; $lifecycle->write($intent);
+            if ($missing !== []) {
+                $this->store->rollbackAddonMigrationKeys($id, $currentMigrations, $missing);
+                $removedMigrationKeys = $missing;
+            }
+            if ($migrations !== []) $appliedMigrationKeys = $this->store->applyAddonMigrations($id, $migrations);
+            $intent['phase'] = 'migrated'; $lifecycle->write($intent);
 
             if (is_dir($currentPath)) {
-                $oldPath = root_path('addons/staging/old-' . $id . '-' . bin2hex(random_bytes(5)));
-                if (!@rename($currentPath, $oldPath)) {
-                    throw new RuntimeException('The current add-on files could not be moved into the update staging area.');
-                }
+                if (!@rename($currentPath, $oldPath)) throw new RuntimeException('The current add-on files could not be moved into the update staging area.');
             }
+            $intent['phase'] = 'prior_staged'; $lifecycle->write($intent);
             $this->ensureDirectory(dirname($currentPath), 0775);
-            if (!@rename($newPath, $currentPath)) {
-                if ($oldPath !== null && is_dir($oldPath)) @rename($oldPath, $currentPath);
-                throw new RuntimeException('The validated add-on files could not be activated.');
-            }
-            if ($oldPath !== null) $this->deleteTree($oldPath);
+            if (!@rename($newPath, $currentPath)) throw new RuntimeException('The validated add-on files could not be activated.');
+            $newFilesActive = true;
             $this->invalidateOpcodeCache($currentPath);
-
-            $record = $this->store->saveAddon([
-                'id' => $id,
-                'name' => $manifest->name(),
-                'vendor' => $manifest->vendor(),
-                'version' => $manifest->version(),
-                'status' => $activate ? 'active' : 'installed',
-                'manifest' => $manifest->toArray(),
-                'permissions' => $manifest->permissions(),
-                'packageSha256' => (string) $review['packageSha256'],
-                'signatureStatus' => (string) ($review['signature']['status'] ?? 'unsigned'),
-                'installedPath' => 'addons/installed/' . $id,
-                'previousVersion' => $current['version'] ?? null,
-                'failureCount' => 0,
-                'lastError' => null,
-                'installedAt' => $current['installedAt'] ?? now_iso(),
-                'activatedAt' => $activate ? now_iso() : ($current['activatedAt'] ?? null),
-            ]);
-            $this->store->logAddonActivity($id, 'package.installed', ['version' => $manifest->version(), 'operation' => $review['operation'], 'backup' => $backup['id'] ?? null]);
-            if ($activate) $this->store->logAddonActivity($id, 'addon.activated', ['version' => $manifest->version()]);
-            $this->cleanupReview($token);
-            return $record;
-        } catch (Throwable $e) {
-            if ($appliedMigrationKeys !== []) {
-                try {
-                    $this->store->rollbackAddonMigrationKeys($id, $migrations, $appliedMigrationKeys);
-                } catch (Throwable $rollbackError) {
-                    $this->store->logAddonActivity($id, 'package.migration.rollback_failed', ['error' => $rollbackError->getMessage()], 'error');
-                }
+            $intent['phase'] = 'files_active'; $lifecycle->write($intent);
+            $record = $this->store->saveAddon($targetRecord);
+        } catch (Throwable $error) {
+            $recoveryErrors = [];
+            $fileRecoveryIncomplete = false;
+            if ($newFilesActive && is_dir($currentPath) && !@rename($currentPath, $newPath)) {
+                $recoveryErrors[] = 'New package files could not be moved out of the active path.';
+                $fileRecoveryIncomplete = true;
             }
-            if (is_dir($newPath)) $this->deleteTree($newPath);
-            if (!is_dir($currentPath) && $oldPath !== null && is_dir($oldPath)) @rename($oldPath, $currentPath);
-            $this->store->logAddonActivity($id, 'package.install.failed', ['error' => $e->getMessage()], 'error');
-            throw $e;
+            if ($oldPath !== null && is_dir($oldPath)) {
+                if (is_dir($currentPath) || !@rename($oldPath, $currentPath)) {
+                    $recoveryErrors[] = 'Prior package files remain in the staging backup and could not be restored automatically.';
+                    $fileRecoveryIncomplete = true;
+                } else { $this->invalidateOpcodeCache($currentPath); }
+            }
+            if ($this->outcomeUnknown($error)) {
+                $recoveryErrors[] = 'The database operation has an unknown outcome. Preserve the package and database recovery records for review.';
+            } elseif ($appliedMigrationKeys !== []) {
+                try { $this->store->rollbackAddonMigrationKeys($id, $migrations, $appliedMigrationKeys); }
+                catch (Throwable $rollbackError) { $recoveryErrors[] = $rollbackError->getMessage(); }
+            }
+            if ($removedMigrationKeys !== []) {
+                // Recreating a dropped object cannot recover its former data.
+                // Keep the selected rollback held instead of claiming that an
+                // automatic up replay would restore the pre-rollback database.
+                $recoveryErrors[] = 'The explicit schema rollback committed before package activation failed. Restore the pre-change database backup before reactivating the prior package.';
+            }
+            if ($paused && $recoveryErrors === [] && !$this->store->hasPendingAddonMigrationRecovery($id)) {
+                try { $this->store->saveAddon($current); }
+                catch (Throwable $registryError) { $recoveryErrors[] = 'The prior add-on registry state could not be restored: ' . $registryError->getMessage(); }
+            }
+            $pending = $this->store->hasPendingAddonMigrationRecovery($id) || $recoveryErrors !== [];
+            if ($pending) {
+                if ($intent !== null) {
+                    $intent['phase'] = 'failed';
+                    $journal = (new AddonMigrationRecovery($id))->read();
+                    // A rollback journal can also belong to compensation after
+                    // a rejected update registry write. Only an explicitly
+                    // selected older package should finish that activation.
+                    $intent['recovery'] = $missing !== [] ? 'activate' : 'restore';
+                    if ($fileRecoveryIncomplete || $this->outcomeUnknown($error) || ($journal !== null && !in_array($journal['operation'] ?? '', ['compensate', 'rollback'], true))
+                        || !empty($journal['pendingStatement'])) $intent['recovery'] = 'manual';
+                    $intent['errors'] = $recoveryErrors;
+                    $lifecycle->write($intent);
+                }
+                if ($current !== null) {
+                    try {
+                        $current['status'] = 'quarantined';
+                        $current['lastError'] = 'Add-on migration or package recovery requires review.';
+                        $this->store->saveAddon($current);
+                    } catch (Throwable) { /* The migration recovery marker still blocks runtime boot. */ }
+                }
+            } else {
+                if (is_dir($newPath)) $this->deleteTree($newPath);
+                $lifecycle->clear();
+            }
+            $this->logActivitySafely($id, 'package.install.failed', ['error' => $error->getMessage(), 'recoveryRequired' => $pending, 'recoveryErrors' => $recoveryErrors], 'error');
+            if ($recoveryErrors !== []) throw new RuntimeException($error->getMessage() . ' Recovery is incomplete: ' . implode(' ', $recoveryErrors), 0, $error);
+            throw $error;
         }
+
+        // Audit or cleanup failures after this point cannot undo a committed
+        // registry change or leave the old version paired with new files.
+        $lifecycle->clear();
+        if ($oldPath !== null) $this->deleteTree($oldPath);
+        $this->logActivitySafely($id, 'package.installed', ['version' => $manifest->version(), 'operation' => $operation, 'backup' => $backup['id'] ?? null]);
+        if ($activate) $this->logActivitySafely($id, 'addon.activated', ['version' => $manifest->version()]);
+        $this->cleanupReview($token);
+        return $record;
     }
 
     public function activate(string $addonId): array
     {
+        return $this->withLifecycleLock($addonId, fn(): array => $this->activateLocked($addonId));
+    }
+
+    private function activateLocked(string $addonId): array
+    {
+        $this->assertNoPendingRecovery($addonId);
         $record = $this->requiredAddon($addonId);
         $manifest = AddonManifest::fromArray((array) $record['manifest']);
         $this->validateRelationships($manifest);
@@ -195,6 +298,11 @@ final class AddonManager
 
     public function deactivate(string $addonId): array
     {
+        return $this->withLifecycleLock($addonId, fn(): array => $this->deactivateLocked($addonId));
+    }
+
+    private function deactivateLocked(string $addonId): array
+    {
         $record = $this->requiredAddon($addonId);
         $record['status'] = 'inactive';
         $record = $this->store->saveAddon($record);
@@ -204,19 +312,73 @@ final class AddonManager
 
     public function uninstall(string $addonId, bool $purgeData = false): void
     {
+        $this->withLifecycleLock($addonId, fn() => $this->uninstallLocked($addonId, $purgeData));
+    }
+
+    private function uninstallLocked(string $addonId, bool $purgeData): void
+    {
+        $this->assertNoPendingRecovery($addonId);
         $record = $this->requiredAddon($addonId);
-        $root = root_path((string) $record['installedPath']);
-        $this->store->logAddonActivity($addonId, 'addon.uninstall.started', ['purgeData' => $purgeData]);
-        if (is_dir($root)) {
-            $this->backup($record, 'pre-uninstall');
-            if ($purgeData) {
-                $migrations = $this->discoverMigrations($root);
-                if ($migrations !== []) $this->store->rollbackAddonMigrations($addonId, $migrations, true);
+        $relativeRoot = 'addons/installed/' . $addonId;
+        if (($record['installedPath'] ?? '') !== $relativeRoot) throw new RuntimeException('The installed add-on path requires review before removal.');
+        $root = root_path($relativeRoot);
+        $migrations = is_dir($root) ? $this->discoverMigrations($root) : [];
+        $applied = $this->store->addonMigrations($addonId);
+        if ($purgeData) {
+            if (array_diff(array_keys($applied), array_column($migrations, 'id')) !== []) {
+                throw new RuntimeException('Cannot purge retained add-on data without its original migration definitions. Reinstall the compatible package first.');
             }
-            $this->deleteTree($root);
+            $this->store->preflightAddonMigrations($addonId, $migrations);
         }
-        $this->store->deleteAddon($addonId, $purgeData);
-        $this->store->logAddonActivity($addonId, 'addon.uninstalled', ['purgeData' => $purgeData]);
+        $this->store->logAddonActivity($addonId, 'addon.uninstall.started', ['purgeData' => $purgeData]);
+        $backup = is_dir($root) ? $this->backup($record, 'pre-uninstall') : null;
+        $definitions = [];
+        foreach ($migrations as $migration) $definitions[$migration['id']] = $migration;
+        $checksums = [];
+        if (!$purgeData) foreach ($applied as $key => $migration) $checksums[$key] = $migration['checksum'];
+        $lifecycle = new AddonMigrationRecovery($addonId, 'lifecycle'); $lifecycle->lock();
+        $intent = ['operation' => 'uninstall', 'phase' => 'prepared', 'current' => $record, 'currentPath' => $relativeRoot,
+            'priorFiles' => $this->fileHashes($root), 'migrations' => $definitions, 'initialLedger' => $applied,
+            'targetChecksums' => $checksums, 'purgeData' => $purgeData, 'backup' => $backup];
+        $lifecycle->write($intent);
+        $paused = false;
+        $schemaPurged = false;
+        try {
+            if (($record['status'] ?? '') === 'active') {
+                $inactive = $record; $inactive['status'] = 'inactive';
+                $this->store->saveAddon($inactive); $paused = true;
+            }
+            $intent['phase'] = 'migrating'; $lifecycle->write($intent);
+            if ($purgeData && $migrations !== []) {
+                $this->store->rollbackAddonMigrations($addonId, $migrations, true);
+                $schemaPurged = $applied !== [];
+            }
+            $intent['phase'] = 'migrated'; $lifecycle->write($intent);
+            $this->store->deleteAddon($addonId, $purgeData);
+        } catch (Throwable $error) {
+            $journal = (new AddonMigrationRecovery($addonId))->read();
+            $pending = $schemaPurged || $journal !== null || $this->outcomeUnknown($error);
+            if (!$pending && $paused) {
+                try { $this->store->saveAddon($record); }
+                catch (Throwable) { $pending = true; }
+            }
+            if ($pending) {
+                $intent['phase'] = 'failed';
+                $intent['recovery'] = $schemaPurged || $journal !== null ? 'uninstall' : 'restore';
+                if ($this->outcomeUnknown($error) || ($journal !== null && (($journal['operation'] ?? '') !== 'rollback' || !empty($journal['pendingStatement'])))) {
+                    $intent['recovery'] = 'manual';
+                }
+                $lifecycle->write($intent);
+                $inactive = $record; $inactive['status'] = 'quarantined'; $inactive['lastError'] = 'Add-on removal requires database recovery.';
+                try { $this->store->saveAddon($inactive); } catch (Throwable) { /* The durable recovery marker blocks activation. */ }
+            } else { $lifecycle->clear(); }
+            $this->logActivitySafely($addonId, 'addon.uninstall.failed', ['error' => $error->getMessage(), 'schemaPurged' => $schemaPurged], 'error');
+            throw $error;
+        }
+        $intent['phase'] = 'registry_removed'; $lifecycle->write($intent);
+        $this->deleteTree($root);
+        $lifecycle->clear();
+        $this->logActivitySafely($addonId, 'addon.uninstalled', ['purgeData' => $purgeData]);
     }
 
     public function rollbackLatest(string $addonId): array
@@ -227,7 +389,14 @@ final class AddonManager
         $backup = $backups[0];
         $path = root_path((string) $backup['path']);
         if (!is_file($path)) throw new RuntimeException('The selected add-on backup file is missing.');
+        $checksum = hash_file('sha256', $path);
+        if (!is_string($checksum) || !hash_equals((string) ($backup['checksum'] ?? ''), $checksum)) {
+            throw new RuntimeException('The selected add-on backup failed checksum verification.');
+        }
         $review = $this->stagePath($path, 'rollback-' . bin2hex(random_bytes(12)), false);
+        if (($review['manifest']['id'] ?? '') !== $addonId || ($review['manifest']['version'] ?? '') !== ($backup['version'] ?? '')) {
+            throw new RuntimeException('The selected backup does not match its recorded add-on and version.');
+        }
         return $this->install((string) $review['token'], true, ($record['status'] ?? '') === 'active');
     }
 
@@ -235,6 +404,160 @@ final class AddonManager
     {
         $this->store->setAddonsSafeMode($enabled);
         $this->store->logAddonActivity('', $enabled ? 'safe_mode.enabled' : 'safe_mode.disabled');
+    }
+
+    /** Only safe display metadata; SQL and private recovery paths never enter the page. */
+    public function pendingRecoveries(): array
+    {
+        $rows = [];
+        foreach (['lifecycle', 'migrations'] as $scope) {
+            foreach (glob(root_path('storage/backups/addons/' . $scope . '/*.json')) ?: [] as $path) {
+                if (is_link($path)) continue;
+                $record = json_decode((string) file_get_contents($path), true);
+                $id = is_array($record) ? (string) ($record['addonKey'] ?? '') : '';
+                if ($id === '' || basename($path) !== hash('sha256', $id) . '.json' || isset($rows[$id])) continue;
+                try { $journal = (new AddonMigrationRecovery($id))->read(); }
+                catch (Throwable) { $journal = ['operation' => 'invalid', 'pendingStatement' => true]; }
+                $retry = $scope === 'lifecycle' && ($record['phase'] ?? '') === 'failed'
+                    && in_array($record['recovery'] ?? '', ['restore', 'activate', 'uninstall'], true)
+                    && ($journal === null || (in_array($journal['operation'] ?? '', ['compensate', 'rollback'], true) && empty($journal['pendingStatement'])));
+                $message = $retry ? match ($record['recovery']) {
+                    'restore' => ($record['current'] ?? null) === null
+                        ? 'Finish reversing the incomplete installation. Existing site data and other add-ons are preserved.'
+                        : 'Retry recovery of the previously installed package. The add-on stays disabled until its database and files agree.',
+                    'activate' => 'Complete the selected rollback to version ' . (string) ($record['target']['version'] ?? '') . '. Data removed by the rollback requires a database backup to restore.',
+                    'uninstall' => !empty($record['purgeData']) ? 'Complete the selected add-on removal and purge. Already purged data requires a database backup to restore.' : 'Complete the selected add-on removal while retaining its data.',
+                } : 'The interrupted change needs database and package review. Preserve its recovery records and use a verified database backup; an uncertain SQL statement is never rerun automatically.';
+                $rows[$id] = ['addonKey' => $id, 'canRetry' => $retry, 'operation' => (string) ($record['operation'] ?? 'migration'),
+                    'targetVersion' => (string) ($record['target']['version'] ?? ''),
+                    'message' => $message];
+            }
+        }
+        return array_values($rows);
+    }
+
+    /** Resume a definite failed down boundary, never an unknown SQL or package outcome. */
+    public function recoverPending(string $addonId): string
+    {
+        return $this->withLifecycleLock($addonId, function () use ($addonId): string {
+            $lifecycle = new AddonMigrationRecovery($addonId, 'lifecycle'); $lifecycle->lock();
+            $intent = $lifecycle->read();
+            if ($intent === null || ($intent['phase'] ?? '') !== 'failed' || !in_array($intent['recovery'] ?? '', ['restore', 'activate', 'uninstall'], true)) {
+                throw new RuntimeException('This interrupted package change has an unknown outcome. Preserve its records for database and package review.');
+            }
+            $currentPath = $this->intentPath($intent, 'currentPath', 'addons/installed/' . $addonId, true);
+            $newPath = ($intent['operation'] ?? '') === 'install' ? $this->intentPath($intent, 'newPath', 'addons/staging/install-' . $addonId . '-') : null;
+            $oldPath = ($intent['operation'] ?? '') === 'install' ? $this->intentPath($intent, 'oldPath', 'addons/staging/old-' . $addonId . '-') : null;
+            if ($this->fileHashes($currentPath) !== (array) ($intent['priorFiles'] ?? [])) {
+                $intent['recovery'] = 'manual'; $lifecycle->write($intent);
+                throw new RuntimeException('The prior package files changed during recovery. Preserve them for review.');
+            }
+            if ($newPath !== null && $this->fileHashes($newPath) !== (array) ($intent['targetFiles'] ?? [])) {
+                $intent['recovery'] = 'manual'; $lifecycle->write($intent);
+                throw new RuntimeException('The reviewed package files changed during recovery. Preserve them for review.');
+            }
+            $current = $this->store->addon($addonId);
+            $prior = $intent['current'] ?? null;
+            if (($prior === null) !== ($current === null) || ($prior !== null && (($current['version'] ?? '') !== ($prior['version'] ?? '')
+                || ($current['packageSha256'] ?? '') !== ($prior['packageSha256'] ?? '')))) {
+                throw new RuntimeException('The add-on registry changed during recovery. Preserve the recorded package state for review.');
+            }
+            $journal = (new AddonMigrationRecovery($addonId))->read();
+            if ($journal !== null && (!in_array($journal['operation'] ?? '', ['compensate', 'rollback'], true) || !empty($journal['pendingStatement']))) {
+                throw new RuntimeException('A migration has an unknown statement outcome. Restore or reconcile a verified database backup before proceeding.');
+            }
+            $intent['phase'] = 'recovering'; $lifecycle->write($intent);
+            try {
+                if ($journal !== null) $this->store->recoverAddonMigrations($addonId, array_values((array) $intent['migrations']));
+                $ledger = $this->store->addonMigrations($addonId);
+                if ($intent['recovery'] === 'restore') {
+                    if ($ledger != (array) ($intent['initialLedger'] ?? [])) throw new RuntimeException('Recovered migration history does not match the preserved previous package.');
+                    if ($prior !== null) $this->store->saveAddon($prior);
+                    if ($newPath !== null) $this->deleteTree($newPath);
+                    $lifecycle->clear();
+                    $message = $prior === null ? 'Recovery completed. The incomplete installation was removed and existing site data was preserved.'
+                        : 'Recovery completed. The previous add-on package and its retained data are restored.';
+                } elseif ($intent['recovery'] === 'activate') {
+                    $this->assertTargetLedger($ledger, (array) ($intent['targetChecksums'] ?? []));
+                    $target = (array) ($intent['target'] ?? []);
+                    $manifest = AddonManifest::fromArray((array) ($target['manifest'] ?? []));
+                    if ($manifest->id() !== $addonId) throw new RuntimeException('Recovery package identity does not match the recorded add-on.');
+                    $this->validateRelationships($manifest);
+                    if (($target['status'] ?? '') === 'active' && $manifest->requiresLicense()
+                        && !AddonLicenseClient::recordAllowsActivation($this->store->addonLicense($addonId))) $target['status'] = 'installed';
+                    if ($oldPath === null || $newPath === null || file_exists($oldPath)) throw new RuntimeException('The prior package staging location is not available.');
+                    $priorMoved = false; $targetMoved = false;
+                    try {
+                        if (is_dir($currentPath)) {
+                            if (!rename($currentPath, $oldPath)) throw new RuntimeException('Could not preserve prior package files during recovery.');
+                            $priorMoved = true;
+                        }
+                        if (!rename($newPath, $currentPath)) throw new RuntimeException('Could not activate the verified recovery package.');
+                        $targetMoved = true;
+                        $this->invalidateOpcodeCache($currentPath);
+                        $this->store->saveAddon($target);
+                    } catch (Throwable $error) {
+                        if ($targetMoved && !@rename($currentPath, $newPath)) $intent['recovery'] = 'manual';
+                        if ($priorMoved && (is_dir($currentPath) || !@rename($oldPath, $currentPath))) $intent['recovery'] = 'manual';
+                        $this->invalidateOpcodeCache($currentPath);
+                        throw $error;
+                    }
+                    $lifecycle->clear(); $this->deleteTree($oldPath);
+                    $message = 'Recovery completed the selected rollback. Data removed by down SQL can only be restored from a database backup.';
+                } else {
+                    $this->assertTargetLedger($ledger, (array) ($intent['targetChecksums'] ?? []));
+                    $this->store->deleteAddon($addonId, !empty($intent['purgeData']));
+                    $this->deleteTree($currentPath); $lifecycle->clear();
+                    $message = 'Recovery completed the selected add-on removal. Purged data requires a database backup to restore.';
+                }
+            } catch (Throwable $error) {
+                $intent['phase'] = 'failed';
+                $journal = (new AddonMigrationRecovery($addonId))->read();
+                if ($this->outcomeUnknown($error) || !empty($journal['pendingStatement'])) $intent['recovery'] = 'manual';
+                $lifecycle->write($intent);
+                $this->logActivitySafely($addonId, 'package.recovery.failed', ['error' => $error->getMessage()], 'error');
+                throw $error;
+            }
+            $this->logActivitySafely($addonId, 'package.recovery.completed', ['operation' => $intent['recovery']]);
+            return $message;
+        });
+    }
+
+    private function assertTargetLedger(array $ledger, array $checksums): void
+    {
+        $actual = [];
+        foreach ($ledger as $id => $migration) $actual[$id] = $migration['checksum'];
+        ksort($actual); ksort($checksums);
+        if ($actual !== $checksums) throw new RuntimeException('The database migration history does not match the selected recovery package.');
+    }
+
+    private function intentPath(array $intent, string $key, string $prefix, bool $exact = false): string
+    {
+        $relative = (string) ($intent[$key] ?? '');
+        AddonManifest::safeRelativePath($relative);
+        if ($exact ? $relative !== $prefix : !str_starts_with($relative, $prefix)) throw new RuntimeException('Invalid recorded add-on recovery path.');
+        return root_path($relative);
+    }
+
+    private function relativePath(string $path): string
+    {
+        $root = rtrim(root_path(), '/') . '/';
+        if (!str_starts_with($path, $root)) throw new RuntimeException('Add-on recovery path escaped this installation.');
+        return substr($path, strlen($root));
+    }
+
+    private function fileHashes(string $root): array
+    {
+        if (is_link($root)) throw new RuntimeException('Symbolic links are not supported in add-on recovery.');
+        if (!is_dir($root)) return [];
+        $hashes = [];
+        $files = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS));
+        foreach ($files as $file) {
+            if ($file->isLink()) throw new RuntimeException('Symbolic links are not supported in add-on recovery.');
+            if ($file->isFile()) $hashes[substr($file->getPathname(), strlen($root) + 1)] = hash_file('sha256', $file->getPathname());
+        }
+        ksort($hashes);
+        return $hashes;
     }
 
     /** @return array<string,mixed> */
@@ -346,9 +669,9 @@ final class AddonManager
             $id = trim((string) ($data['id'] ?? ''));
             if ($id === '' || preg_match('/^[A-Za-z0-9_.-]+$/', $id) !== 1 || isset($seen[$id])) throw new RuntimeException('Invalid or duplicate add-on migration id: ' . $id);
             $seen[$id] = true;
-            $up = array_values(array_filter((array) ($data['up'] ?? []), 'is_string'));
-            $down = array_values(array_filter((array) ($data['down'] ?? []), 'is_string'));
-            if ($up === []) throw new RuntimeException('Add-on migration contains no up statements: ' . $id);
+            $up = $data['up'] ?? null;
+            $down = $data['down'] ?? null;
+            if (!is_array($up) || !is_array($down)) throw new RuntimeException('Add-on migration requires explicit up and down statement lists: ' . $id);
             $result[] = ['id' => $id, 'checksum' => hash('sha256', $raw), 'up' => $up, 'down' => $down];
         }
         return $result;
@@ -377,6 +700,51 @@ final class AddonManager
         $addon = $this->store->addon($addonId);
         if ($addon === null) throw new RuntimeException('The selected add-on is not installed.');
         return $addon;
+    }
+
+    /** @return resource */
+    private function lifecycleLock(string $addonId)
+    {
+        $directory = root_path('addons/staging');
+        $this->ensureDirectory($directory, 0775);
+        $path = $directory . '/lifecycle-' . hash('sha256', $addonId) . '.lock';
+        if (is_link($path)) throw new RuntimeException('Unsafe add-on lifecycle lock path.');
+        $handle = fopen($path, 'c');
+        if (!is_resource($handle) || !flock($handle, LOCK_EX | LOCK_NB)) {
+            if (is_resource($handle)) fclose($handle);
+            throw new RuntimeException('Another package operation is already running for this add-on.');
+        }
+        @chmod($path, 0640);
+        return $handle;
+    }
+
+    private function withLifecycleLock(string $addonId, callable $operation): mixed
+    {
+        $lock = $this->lifecycleLock($addonId);
+        try { return $operation(); }
+        finally { flock($lock, LOCK_UN); fclose($lock); }
+    }
+
+    private function assertNoPendingRecovery(string $addonId): void
+    {
+        if ($this->store->hasPendingAddonRecovery($addonId)) {
+            throw new RuntimeException('This add-on has pending migration recovery. Its files and recovery record must be preserved until the database is recovered.');
+        }
+    }
+
+    private function logActivitySafely(string $addonId, string $event, array $context = [], string $level = 'info'): void
+    {
+        try { $this->store->logAddonActivity($addonId, $event, $context, $level); }
+        catch (Throwable) { /* Do not reverse a completed lifecycle change because its audit write failed. */ }
+    }
+
+    private function outcomeUnknown(Throwable $error): bool
+    {
+        do {
+            if ($error instanceof \PDOException && (str_starts_with((string) $error->getCode(), '08')
+                || in_array((int) ($error->errorInfo[1] ?? 0), [2006, 2013, 2055], true))) return true;
+        } while (($error = $error->getPrevious()) !== null);
+        return false;
     }
 
     private function cleanupReview(string $token): void

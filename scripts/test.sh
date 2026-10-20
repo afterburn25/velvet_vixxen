@@ -8,6 +8,8 @@ done
 for required in app/bootstrap.php install/index.php public/router.php scripts/create_demo.php tests/smoke.php; do
   test -s "$required" || { echo "Required application source missing: $required" >&2; exit 1; }
 done
+# A changed release cannot reuse the last delivered visible version.
+python tests/Packaging/release_version.py
 # Scan the actual checkout before creating test runtime state.
 php tests/Security/repository_safety.php
 python tests/Installer/packaged_preflight.py

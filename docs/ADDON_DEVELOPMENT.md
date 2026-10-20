@@ -1,5 +1,9 @@
 # Velvet Vixxen Add-on Development
 
+## Current migration contract — 0.8.3
+
+Read [Add-on updates and recovery](ADDON_RECOVERY.md) before shipping database migrations. The package must request `database.migrate`; the complete plan is checked for applied checksums, table ownership and supported additive InnoDB changes. Keep applied migration bytes stable and supply matching down steps. Explicit rollback/purge can remove data; package backups do not substitute for a database backup. Uncertain SQL/package outcomes remain held. The earlier framework overview below is historical context; the recovery guide describes the current accepted migration behavior.
+
 Velvet Vixxen 0.6.0 extends the platform through validated ZIP packages without editing core files.
 
 ## Security boundary

@@ -1,3 +1,13 @@
+## 0.8.3 — Add-on migration recovery, Build 20261020.4 (in progress)
+
+- Preflight the whole migration batch and owned-table boundary; compensate only completed additive changes.
+- Align package files, migration ledger and selected version on update/rollback, with independent durable recovery across SQL, file and registry boundaries.
+- Add an active-owner/POST/CSRF-protected retry for definite recorded failures; hold uncertain outcomes for review.
+- Add actual packaged MySQL, HTTP and desktop/mobile recovery acceptance while preserving every existing release gate.
+- Enforce a visible-version increase for changed releases and preserve the unchanged installer repair's identity and exact bytes.
+
+See [the 0.8.3 release record](docs/releases/0.8.3-addon-recovery.md). Local full source, ten HTTP suites and packaged MySQL/desktop/mobile recovery passed. Final GitHub CI/merge/delivery are pending. Down SQL and purge can delete data and require a database backup to restore it. Broader #9 and actual-host #12/#13 remain open.
+
 ## 0.8.2 — Media Center, Build 20261020.3 (verified, merged and delivered)
 
 - Advance visible release numbers with each completed release; use canonical version metadata throughout the runtime and installer.
