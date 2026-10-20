@@ -1,6 +1,6 @@
 # Updating an installed Velvet Vixxen site
 
-Use the **Upgrade-from-0.8.x** package for an existing 0.8.0 or 0.8.1 installation. Version 0.8.1 now includes an owner-only **System → Database Updates** page and an equivalent command-line updater. They apply pending database migrations to the existing installation without rerunning the installer.
+Use the complete **0.8.5 / Build 20261020.6 Upgrade-from-0.8.x** package for an existing 0.8.x installation. Follow [Update Verification](UPDATE_VERIFICATION.md) to verify uploaded files and refresh running PHP. **System → Database Updates** and the equivalent CLI apply any pending database migrations without rerunning the installer.
 
 ## Prepare a verified backup
 
@@ -84,6 +84,6 @@ php app/Console/migrate.php --apply --backup-confirmed \
 
 An existing booking inquiry remains readable before migration 013 is applied. New submissions through the configurable builder are blocked with a pending-migration message until its snapshot table is available; the site does not reopen the installer or silently discard the submitted answers.
 
-## Verification evidence for this continuation
+## Historical 0.8.1 updater verification
 
 The local integration tests used **MariaDB 10.11.14** with PDO MySQL. They simulated the actual 12 → 14 migration upgrade and verified preservation of an existing booking, customer data, configuration bytes, installation-lock bytes, security keys, and customer uploads. They also exercised failed DDL without destructive rollback, completed-migration retention, reviewed retries, both concurrency locks, permission/path failures, and the real command-line updater. The test database was completely rolled back after the suite. GitHub's separate MySQL 8 CI job provides its own engine-specific result; local MariaDB evidence is not a claim that MySQL 8 was run locally.

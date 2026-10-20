@@ -1,17 +1,17 @@
 # Acceptance Record — Velvet Vixxen
 
 <!-- publication-windows-085:start -->
-## Current work — 0.8.5 Publication-window editing, Build 20261020.6
+## Current release — 0.8.5 Publication-window editing, Build 20261020.6
 
-The next numbered release advances the visible version to **0.8.5** from verified, merged and delivered **0.8.4**. Integration starts at authoritative `main` commit `031fef7d46d283a135d3c3da5cd7a923aff6cada` on `feature/0.8.5-publication-release`. Final GitHub CI, merge and saved-download equality remain pending for this changed tree.
+**Version 0.8.5 is verified, merged into `main` through [PR #21](https://github.com/afterburn25/velvet_vixxen/pull/21) and delivered.** Merge `9f782d4769ef31c73f21134ec2cb6ab7e29d8bd9` completed at **2026-10-20T13:33:24Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39378794728) passed. Release source `3368ffc41e63ded8c790ad1f8e4156349a4bc4ed`, actual CI checkout `32b876eed4746c383eeb001e808c8a418d30dff9` and the merge share the complete tree `1bfae06c9576f765c6f6a32d90cfd316b33e57ee`. Later documentation recording changes no executable, test, workflow or package bytes.
 
-Owners can reopen and edit saved posts, banners and landing pages, withdraw publication, disable promotions and delete posts while retaining stable IDs, existing permalinks, list order and unrelated marketing records. Locked revision checks include the site timezone. Strict date parsing rejects impossible dates, skipped daylight-saving times and invalid windows, preserves unchanged stored instants and holds malformed legacy dates out of public visibility. The banner list distinguishes the shown banner from later active banners waiting behind it. Private-reply email alerts now use generic notices without the private conversation subject or message body; the full reply remains on the site.
+Owners can reopen and edit saved posts, banners and landing pages, withdraw publication, disable promotions and delete posts while preserving IDs, existing permalinks, stored order and unrelated marketing data. Locked revision checks include the site timezone. Strict date parsing rejects impossible dates and invalid windows, holds malformed legacy dates out of public visibility and preserves unchanged stored instants. Banner precedence is visible in the owner list. Publication reads do not mutate campaign queues. Private-reply email alerts contain a generic notice without the private subject or message body; the full reply remains on the site.
 
-The version-integrated source suite, all ten existing installed HTTP suites and actual packaged publication HTTP/desktop/mobile acceptance passed. The new publication source test passed 134 assertions; the extracted customer ZIP passed 105 owner/public HTTP assertions plus root-desktop and nested-mobile browser flows. Saved-audience acceptance is preserved. A separate actual-package owner-POST regression captures loopback SMTP and verifies generic private-reply notices for member and guest-booking paths, retained on-site content and no email for internal notes. Tests send zero external messages. All seven GitHub jobs must still pass against this exact integrated tree; previous releases certify their own source only.
+The new source acceptance passed 134 assertions on both PHP versions. The actual extracted customer package passed 105 owner/public HTTP assertions and root-desktop/nested-mobile browser acceptance. The mandatory private-reply regression exercises actual owner POSTs and captures loopback SMTP at root and nested paths, preserving on-site replies while excluding private content from member/guest-booking emails and keeping internal notes out of email. Saved-audience source/HTTP/browser acceptance and every existing source, security, MySQL, ownership, persistent-OPcache, installer, ten-suite HTTP, add-on recovery, Media Center and browser gate remain required and passed. Exact observed runtime versions, checkout logs and artifact identities are in the linked CI record.
 
-Full Fresh and Upgrade use **0.8.5 / Build 20261020.6**, preserving the exact approved 13/9 directories and four root files. Changed runtime entries advance from the exact prior Fresh archive; unchanged entries retain their historical timestamps. The unchanged eleven-file unfinished-installer repair retains **0.8.1 / Build 20261020.3**, its delivered hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version, including build-only relabeling.
+Full Fresh and Upgrade carry **0.8.5 / Build 20261020.6** and preserve the exact approved 13/9 root directories and four root files. Both ZIPs and the separate manifest matched the gated artifact literally, then matched the saved/retrieved files at **2026-10-20 13:39:23 UTC**. The unchanged unfinished-installer overlay remains **0.8.1 / repair Build 20261020.3** with its original saved identity and SHA-256; it was also retrieved and compared literally, without being relabeled or replaced. Installed sites use the complete Upgrade.
 
-This increment edits the existing publication fields; it adds no post-expiry field, scene scheduler or background publication worker. Public visibility evaluates the stored window on reads. Marketing remains on its protected file store. Publication edits preserve consent, audiences, frozen campaign messages and queued recipients. The saved-audience and bounded publication-editing increments advance #9. Marketing SQL persistence, broader editorial audience/expiry/preview/history/calendar, scene activation/expiry, referral attribution, analytics and provider hooks remain open. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. No separate 0.9 milestone completion is claimed.
+The user-directed version rule is permanent: every changed completed release advances the visible version; build IDs remain secondary. The delivery-aware gate rejects changed same-version packages and permits exact rebuilds. The saved-audience and bounded publication-editing increments of #9 are complete. Marketing SQL persistence, broader editorial/scene scheduling, referral attribution and analytics remain separate open work. Actual customer-host #12/#13 and production email remain unverified; payments remain sandbox-only. Add-on PHP is not a complete sandbox, and no separate 0.9 milestone completion is claimed.
 
 [Release and exact evidence](docs/releases/0.8.5-publication-windows.md) · [Publication-window guide](docs/PUBLICATION_WINDOWS.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
 <!-- publication-windows-085:end -->
@@ -149,7 +149,7 @@ The routing audit also repaired old cleanup behavior that would remove the new e
 The runtime-only installed-site repair contains **67 files: 60 PHP, five JavaScript and two CSS**. The fresh and upgrade ZIPs contain matching runtime bytes. Configuration, storage, uploads, customer records, docs/tests/workflows/screenshots and installer state are excluded from the small repair. The earlier eight-file Installer Database Repair remains separate and byte-identical. The installed-site repair, complete fresh-install and upgrade downloads, and separate manifest were saved on 2026-10-19 after comparison with [runtime artifact 12214187647](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12214187647). [Browser evidence](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12212794646) stays outside every customer ZIP. Source/tests and progress are uploaded on the feature branch; issue #13 and PR #15 track this exact repair. See `docs/MEDIA_COMPOSER_REPAIR.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-media-composer-repair.json`. No deployment, merge or 0.9.0 work is claimed.
 <!-- media-composer-repair:end -->
 
-## Installer continuation with existing databases — 2026-10-19
+## Historical installer continuation with existing databases — 2026-10-19
 
 The newest executable source remains on `feature/0.8.1-site-ux-hero-library`. This continuation removes the blanket rejection of databases containing Velvet Vixxen tables. The actual installer now handles empty databases, unrelated existing tables, compatible partial schemas, complete schemas and missing migration history. It validates existing definitions and owner credentials, applies only missing work, and preserves existing records, settings, scenes, owner password hashes, installation identity and recoverable security keys. Historical migration bytes are unchanged.
 
@@ -159,7 +159,7 @@ The owner's additional layout correction removes the extra Folders rule/inset, a
 
 Local and GitHub verification are complete: the full PHP 8.3.6 source/JavaScript/security/ownership/OPcache/package suite passed; the actual packaged installer passed 922 assertions on MySQL 8.0.46; recovery passed 134 assertions; and real desktop/mobile browser installation, retry, layout and completion tests passed. The new SQL parser cases and original failing layout are retained or reproduced as meaningful regressions. Executable source, tests and workflow are uploaded as [`e5b04daa132521be69c943151f8112c7cd2017e8`](https://github.com/afterburn25/velvet_vixxen/commit/e5b04daa132521be69c943151f8112c7cd2017e8), tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`. All seven required jobs passed in [GitHub run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907), whose official conclusion is **completed / success**. This includes PHP 8.2.34/8.3.35 source suites, 922 actual-package MySQL installer assertions on each version, real installer desktop/mobile acceptance, seven HTTP suites, twelve application-browser suites and gated packaging. The downloaded GitHub ZIPs and manifest are byte-identical to the saved customer downloads. Matching repair, fresh-install, upgrade and separate checksum-manifest downloads were saved on 2026-10-19. See `docs/INSTALLER_DATABASE_REPAIR.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json` (repository-relative paths). Earlier folder/cache evidence remains historical in the test report and its release record. No 0.9.0 work or production deployment is included.
 
-### Current installer repair acceptance
+### Historical installer repair acceptance — 2026-10-19
 
 - [x] Reuse compatible empty, unrelated, partial, complete and ledgerless databases.
 - [x] Preserve existing owner, records, settings, scenes, keys and installation identity.
@@ -175,7 +175,7 @@ Local and GitHub verification are complete: the full PHP 8.3.6 source/JavaScript
 **Implementation branch:** `feature/0.8.1-site-ux-hero-library`  
 **Baseline documentation branch:** `feature/0.8.0-marketing-publishing-analytics`
 
-This file is the authoritative handoff for the user-facing work that was being discussed after the documented 0.8.0 Marketing, Publishing & Analytics milestone. Do not mark any item complete merely because an earlier chat response said it was built. Verify the executable source, running behavior, tests, and packaged artifact first.
+This file preserves the earlier 0.8.1 acceptance checklist and the current continuation at the top. After verified 0.8.5 delivery, continue broader marketing #9 from live `main`; the original handoff and old branch names below are historical. Verify executable source, behavior, required tests and exact package evidence before marking additional work complete.
 
 ## Earlier verified checkpoint — before the installer correction
 
@@ -189,7 +189,7 @@ Both packages were built from the exact verified runtime commit. Their byte hash
 
 - At the original handoff, GitHub documented a packaged `0.8.0 — Marketing, Publishing & Analytics` milestone without its complete engineering source. The implementation branch now contains checksum-verified recovered 0.8.1 source and actual subsequent feature work; the historical claim is not retroactively certified.
 - The 0.8.0 branch records runtime artifact metadata, including SHA-256 `ffe5126052ae6363e404a41992119efa52f03060afa9326e7c6523c2920e3993`, but the runtime ZIP itself is not committed to source control.
-- The latest executable source visible in GitHub must be inspected before coding. Do not assume `main` or any documentation-only branch contains the complete application.
+- Inspect live `main` and the latest verified release record before coding. `main` contains the authoritative integrated application; historical documentation-only and archive branches are not continuation targets.
 - Customer installation ZIPs must remain runtime-only. Repository docs, tests, SDK source, screenshots, GitHub workflows, development schema snapshots, and build tooling stay outside the customer ZIP.
 - Production credentials, member/customer records, private messages, booking/request data, identity documents, payment secrets, raw license keys, signing private keys, runtime logs, sessions, and private/paid media must never be committed.
 
@@ -357,15 +357,9 @@ Current Canva behavior should be treated as a manual bridge unless a real OAuth/
 - [x] PHP 8.2/8.3 source suite, JavaScript syntax, disposable MySQL 8 migration apply/verify/rollback, HTTP acceptance, repository-safety scan, desktop/mobile Playwright, and runtime-only package checks are green.
 - [x] Customer ZIP starts uninstalled and excludes GitHub/docs/tests/SDK/build artifacts and all runtime/private data.
 
-## Recommended delivery target
+## Current continuation target
 
-Continue the existing executable implementation branch:
-
-```text
-feature/0.8.1-site-ux-hero-library
-```
-
-Do not start 0.9.0 compliance work until the user-facing 0.8.1 continuation above is either implemented and verified or explicitly deferred by the user.
+Start a scoped branch from live `main` after the verified 0.8.5 delivery. Preserve the completed Media Center, add-on recovery, bounded newsletter audiences and publication-window editors. Continue the remaining concrete #9 capabilities identified in `docs/ROADMAP.md`; keep #12/#13 open for actual-host verification. Advance the visible version for each changed completed release. The separate 0.9 milestone requires its own implementation and acceptance.
 
 
 ## Earlier continuation final verification

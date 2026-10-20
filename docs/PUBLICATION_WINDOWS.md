@@ -1,6 +1,6 @@
 # Publication windows and saved promotion editors
 
-**Status: integrated 0.8.5 / Build 20261020.6; final GitHub CI, merge and delivery pending.** Local source and actual-package acceptance passed. [The numbered release record](releases/0.8.5-publication-windows.md) identifies the current verification state; this bounded increment does not complete the broader marketing roadmap.
+**Available in verified 0.8.5 / Build 20261020.6.** [PR #21](https://github.com/afterburn25/velvet_vixxen/pull/21) is merged; all seven required CI jobs passed and saved downloads match the gated artifact literally. [The numbered release record](releases/0.8.5-publication-windows.md) contains exact evidence. The broader marketing roadmap remains open.
 
 ## Open and edit saved content
 
@@ -54,4 +54,4 @@ Edits to other publications and new analytics events do not invalidate your form
 
 This increment uses the existing protected marketing store. It does not switch marketing data to SQL, add post-expiry fields, scene scheduling, referral attribution or provider connections. Publication edits preserve newsletter consent, saved audiences, queued addresses, frozen campaign content and unrelated marketing settings.
 
-Focused acceptance uses disposable stores and extracted customer packages with email disabled. It checks exact date boundaries and site-timezone conversion, valid legacy date compatibility, invalid-date visibility holds, stable identities and links, concurrent stale edits, owner and CSRF checks, banner precedence, and real desktop/mobile form interaction. Integrated release evidence belongs in the eventual 0.8.5 release record after root integration and CI.
+Focused acceptance uses disposable stores and extracted customer packages with email disabled. It checks exact date boundaries and site-timezone conversion, valid legacy date compatibility, invalid-date visibility holds, stable identities and links, concurrent stale edits, owner and CSRF checks, banner precedence, and real desktop/mobile form interaction. Integrated release evidence is recorded in [the 0.8.5 release record](releases/0.8.5-publication-windows.md).

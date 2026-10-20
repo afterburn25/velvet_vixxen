@@ -1,7 +1,17 @@
 # Copy-Paste Prompt for the Next Session
 
+<!-- publication-windows-085-current-prompt:start -->
+## Current prompt — continue from live main after 0.8.5 delivery
+
+Continue from live `main` on a scoped branch. Read the verified 0.8.5 / Build 20261020.6 source, CI, merge and saved-download record before changing the application. Preserve the completed Media Center #2, add-on recovery #7, bounded 0.8.4 source/date newsletter audiences and 0.8.5 publication-window editors. Continue the remaining concrete #9 capabilities in the current roadmap; actual-host #12/#13 remain open, production email remains unverified, payments remain sandbox-only and 0.9 requires separate acceptance. Full Fresh/Upgrade use 0.8.5 / Build 20261020.6; the unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3 with its existing identity. Preserve all required gates and exact approved package roots.
+
+Every changed completed release must advance the visible version. Build IDs remain secondary; exact byte-identical rebuilds are the only same-version exception. Use the committed delivery-aware version gate and preserve all seven required CI jobs.
+
+[Current release and exact evidence](docs/releases/0.8.5-publication-windows.md) · [Roadmap](docs/ROADMAP.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md).
+<!-- publication-windows-085-current-prompt:end -->
+
 <!-- owner-mail-settings:start -->
-## Current prompt — continue from main; media #2 next
+## Historical prompt — owner Email & SMTP, Build 20261020.2
 
 Continue Velvet Vixxen from live **`main`** on a new scoped branch. Owner Email & SMTP Build **20261020.2** is verified, merged and delivered: [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), merge `65bea278efacd59e8ba24401cc3fe7d47300a7d4` at **2026-10-20 03:10:04 UTC**. Read `AGENTS.md`, the current status/handoff, `docs/releases/0.8.1-owner-mail-settings.md`, its CI/delivery JSON records and `docs/EMAIL_SETTINGS.md`; inspect current GitHub before starting the next change. This block supersedes older continuation prompts below.
 
@@ -88,11 +98,7 @@ Use the following prompt in a new ChatGPT session:
 
 Continue development of **Nikki Wilder / The Velvet Vixxen** using GitHub repository **`afterburn25/velvet_vixxen`**.
 
-Before answering or coding, inspect the live repository. Start with implementation branch:
-
-```text
-feature/0.8.1-site-ux-hero-library
-```
+Before answering or coding, inspect live `main` and the current 0.8.5 release record, then create a scoped branch for the next concrete #9 increment. Do not restart from the historical 0.8.1 feature branch.
 
 Read these files in full:
 
@@ -105,13 +111,13 @@ docs/TEST_REPORT.md
 NEXT_SESSION_PROMPT.md
 ```
 
-Also inspect open GitHub issues, especially the issue titled **“Continue 0.8.1 Site UX, Hero Library, Booking Builder, Admin IA & Merch Store”**, plus existing source-import and release-gate issues.
+Also inspect the current open issues: broader marketing #9, actual-host #12/#13 and the ongoing release-evidence policy #3. Preserve the completed source import, Media Center #2, add-on recovery #7 and sender correction #10; do not repeat completed work because an old handoff listed it as pending.
 
 ## Critical truth boundary
 
 Do not rely on prior chat claims that something was built. Verify the actual executable source, current branches, files, tests, and artifacts. The original handoff documents a packaged 0.8.0 Marketing/Publishing/Analytics milestone, but complete executable 0.8.0 engineering source and full CI were still not imported/verified in GitHub at handoff time.
 
-First determine the newest branch or artifact that actually contains runnable application source. If the newest branch is documentation-only, locate/import the latest clean engineering source before implementing more features. Keep the public customer ZIP runtime-only and keep repository docs/tests/SDK/workflows outside that ZIP.
+Verify the live `main` source, latest release evidence and working tree before implementing another change. Source recovery and import are completed historical work. Keep customer ZIPs runtime-only, with repository docs, tests, SDK and workflows outside them.
 
 ## User-locked requirements
 
@@ -130,11 +136,11 @@ Preserve all of these decisions:
 
 ## Preserved existing-database installer and layout repair
 
-Continue from the latest executable feature branch. Installer/database/layout implementation and package source is `e5b04daa132521be69c943151f8112c7cd2017e8` (tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`); matching customer downloads were saved on 2026-10-19 and are byte-identical to the gated GitHub artifact. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) are completed/success. The installer now reuses compatible existing databases, preserves owner credentials/records/settings/scenes/keys/identity, resumes failed DDL and finalization, and keeps pending setup out of automatic recovery/public activation. The owner also required evenly aligned Server/Folders checks, removal of the extra Folders rule, and aligned Password/Confirm Password inputs. Those fixes and completion-state cleanup are part of this same repair.
+Preserve the historical installer/database/layout baseline, now included in live `main`. Its original implementation and package source was `e5b04daa132521be69c943151f8112c7cd2017e8` (tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`); matching customer downloads were saved on 2026-10-19 and are byte-identical to the gated GitHub artifact. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) are completed/success. The installer now reuses compatible existing databases, preserves owner credentials/records/settings/scenes/keys/identity, resumes failed DDL and finalization, and keeps pending setup out of automatic recovery/public activation. The owner also required evenly aligned Server/Folders checks, removal of the extra Folders rule, and aligned Password/Confirm Password inputs. Those fixes and completion-state cleanup are part of this same repair.
 
-Read the current `PROJECT_STATUS.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt` and `docs/releases/0.8.1-installer-database-repair.json` for actual source/CI/download status. The current Build 20261020.2 database repair is an 11-file runtime overlay (nine PHP, CSS and JavaScript), including all changed installer sender dependencies. Its `repair_build_id` does not change the installed runtime build. The earlier eight-file and one-file repair records are historical; consult `docs/releases/0.8.1-owner-mail-settings.md` for current evidence. Use `docs/INSTALLER_DATABASE_REPAIR.md` for the already-uploaded unfinished site. Preserve configuration, storage, uploads and database contents. A genuine incompatible schema or missing original key set requires a specific diagnosis; never restore the blanket empty-database requirement or silently overwrite an existing owner.
+Read current status, test and release records for verified source and download identities. The unchanged **0.8.1 / repair Build 20261020.3** unfinished-installer overlay contains 11 files and retains its saved identity and hash. The complete **0.8.5 / Build 20261020.6** Fresh/Upgrade packages are separate. Use `docs/INSTALLER_DATABASE_REPAIR.md` only for unfinished 0.8.1 setup and `docs/UPDATE_VERIFICATION.md` for an installed site. Preserve configuration, original owner/keys, uploads and database contents; incompatible schema or missing original keys require diagnosis, not destructive reinstallation.
 
-Keep the real packaged MySQL installer suite mandatory on PHP 8.2 and 8.3, and keep the real desktop/mobile installer browser flow alongside the existing seven HTTP/thirteen application-browser suites. Preserve the actual foreign-owner and persistent-OPcache package tests. A configured CI gate, intermediate archive or previous source commit is not evidence that the latest changes passed. Update every handoff and issue #13, commit/upload the work, and provide the corrected downloadable packages before a completed handoff.
+Keep the real packaged MySQL installer suite mandatory on PHP 8.2 and 8.3, and keep the real desktop/mobile installer browser flow alongside every currently required installed HTTP and application-browser suite. Preserve the actual foreign-owner and persistent-OPcache package tests. A configured CI gate, intermediate archive or previous source commit is not evidence that the latest changes passed. Update every handoff and issue #13, commit/upload the work, and provide the corrected downloadable packages before a completed handoff.
 
 ## Earlier verified continuation checkpoint
 
@@ -177,13 +183,9 @@ Do not claim completion without direct evidence. Required gates include:
 - Repository-safety and secret scans
 - Runtime-only customer ZIP exclusion checks
 
-Continue the existing implementation branch:
+Continue on a scoped branch from live `main`, preserving the verified 0.8.5 baseline and all existing release gates.
 
-```text
-feature/0.8.1-site-ux-hero-library
-```
-
-Update `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `INCOMPLETE_WORK.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md`, and the tracking issue as work lands. Commit code, tests, and evidence to GitHub. Do not move on to 0.9.0 until this user-facing continuation is verified or the user explicitly defers it.
+Update `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `INCOMPLETE_WORK.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md`, and the tracking issue as work lands. Commit code, tests, and evidence to GitHub. The separate 0.9 milestone requires its own implementation and acceptance; continue the remaining #9 scope from the verified baseline without reopening completed 0.8.1 work.
 
 At the beginning of your response to me, report:
 

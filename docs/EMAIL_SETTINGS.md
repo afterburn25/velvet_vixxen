@@ -1,8 +1,12 @@
 # Owner Email & SMTP Settings
 
-Build **20261020.2** adds **System → Email & SMTP** to the existing owner dashboard at `admin/?page=mail-settings`. This connection is shared by account email, booking notifications and configured newsletter campaign delivery. Each feature retains its own notification or delivery preferences.
+**Current runtime: 0.8.5 / Build 20261020.6.** Open **System → Email & SMTP** at `admin/?page=mail-settings` to manage the shared connection used by account email, booking notifications and newsletter campaigns. Each feature retains its own notification or delivery preferences. Private-reply alerts use the generic notices described below.
 
-This release is verified, merged into `main` through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), and delivered. All seven required CI jobs passed, and the four ZIPs plus separate manifest were saved, retrieved and compared byte for byte with the gated artifact. [The release record](releases/0.8.1-owner-mail-settings.md) gives the exact evidence. The affected customer's host and a production email provider have not been verified.
+The editor was introduced in the verified Build 20261020.2 owner-mail release through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17); [its release record](releases/0.8.1-owner-mail-settings.md) preserves that historical evidence. [The current 0.8.5 release record](releases/0.8.5-publication-windows.md) identifies the latest verified source and downloads. The affected customer host and production email service remain unverified.
+
+## Private-reply email alerts
+
+When the owner sends a member-facing reply, email contains a generic alert and an authenticated conversation link. The private conversation subject, message body and attachment names remain out of the email; the full reply remains in the protected on-site conversation. A guest booking notice links to the existing public booking form for follow-up and does not grant anonymous conversation access. Internal notes send no email. These notices use the installation’s configured mail transport.
 
 ## Save a connection
 
@@ -40,9 +44,9 @@ If the connection is disabled or incomplete, the test panel explains what needs 
 
 ## Install or update
 
-For an installed 0.8.x site, use the complete **Build-20261020.2 Upgrade** and follow [Update Verification](UPDATE_VERIFICATION.md): preserve installed configuration and content, verify uploaded runtime files, refresh the application's PHP when needed, and verify the running build. Do not run a Fresh installer over an existing installation.
+For an installed 0.8.x site, use the complete **0.8.5 / Build 20261020.6 Upgrade** and follow [Update Verification](UPDATE_VERIFICATION.md): preserve installed configuration and content, verify uploaded files, refresh running PHP and require the current build. Fresh setup is for a new installation.
 
-The **11-file Installer Database Repair** is for unfinished setup. Its filename and `repair_build_id` identify Build 20261020.2's installer repair revision; applying that overlay does not install the owner settings feature or advance an installed site's runtime build. See [the installer repair guide](INSTALLER_DATABASE_REPAIR.md).
+The unchanged **11-file 0.8.1 / repair Build 20261020.3 Installer Database Repair** is for unfinished 0.8.1 setup. It retains its saved identity and bytes; applying it does not install the owner settings feature or advance an installed runtime build. See [the installer repair guide](INSTALLER_DATABASE_REPAIR.md).
 
 ## Maintainer storage boundary
 

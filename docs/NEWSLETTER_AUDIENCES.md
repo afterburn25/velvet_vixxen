@@ -30,7 +30,7 @@ Open **Marketing & Publishing → Campaigns**. In the email campaign form, choos
 
 Eligibility always requires the existing newsletter confirmation, current consent and suppression checks. Selecting an audience never activates a pending contact, restores revoked consent or overrides an unsubscribe or suppression record. Member registration alone does not enroll a person in this newsletter list.
 
-**Preview Campaign Audience** shows the eligible count for the selected rules. It preserves the form inputs and saves nothing. The form keeps a revision for that exact selection and its eligible contact identities. If you then queue the campaign and the eligible recipient set changed, queueing is held until you refresh the preview. Unrelated analytics events do not invalidate that preview.
+**Preview Campaign Audience** shows the eligible count for the selected rules. It preserves the form inputs and saves nothing. The form keeps a revision for that exact selection and its eligible contact identities. If you then queue the campaign and the eligible recipient set changed, queueing is held until you refresh the preview. Unrelated analytics events do not invalidate that preview. Preview is optional. Queueing without a supplied preview still validates the selected audience and current recipient eligibility; reopening a form does not reuse an earlier preview.
 
 You can save a draft without queueing it. Its selected saved-audience revision remains part of the draft. If the audience is later edited, disabled or removed before the first queue, reopen the draft and select an available audience again. A stale selection never silently becomes the entire newsletter list.
 
