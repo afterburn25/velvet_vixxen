@@ -1,3 +1,13 @@
+VELVET VIXXEN 0.8.1 — BUILD 20261020.1 IN VERIFICATION
+
+Current branch: feature/0.8.1-group-buttons-campaign-delivery
+Base: actual PR15 main merge 31b303e407a869728f2a0548c9214273e35e2c02.
+New source: editable grouped buttons and bounded configured campaign delivery.
+Focused local source, extracted-package browser, localhost SMTP and package checks pass.
+Final GitHub PHP 8.2/8.3, MySQL, HTTP and browser gates, new merge and saved artifact remain pending.
+No customer-host deployment, production email, live payments or 0.9.0 is claimed.
+Historical manifests follow; see docs/releases/0.8.1-group-buttons-campaign-delivery.md.
+
 VELVET VIXXEN 0.8.1 — BUILD 20261019.6 ORGANIZED ROOT CORRECTION
 
 Status: source, all seven exact-tree CI jobs, gated artifacts and saved-download readback verified. The affected customer host remains unaccessed and unresolved.

@@ -1,38 +1,24 @@
 <?php
 declare(strict_types=1);
 
-if (PHP_SAPI !== 'cli') {
-    http_response_code(404);
-    exit;
-}
+if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 define('ROOT_PATH', dirname(__DIR__, 2));
-require_once ROOT_PATH . '/includes/marketing.php';
-$store = velvet_marketing_store();
-$data = $store->all();
-$now = time();
-$processed = 0;
-$outDir = ROOT_PATH . '/storage/private/marketing/outbox';
-if (!is_dir($outDir)) @mkdir($outDir, 0775, true);
-foreach ($data['campaign_queue'] as &$delivery) {
-    if (($delivery['status'] ?? '') !== 'queued') continue;
-    $eligible = false;
-    foreach ($data['contacts'] as $contact) {
-        if (($contact['email'] ?? '') === ($delivery['email'] ?? '') && ($contact['status'] ?? '') === 'active') { $eligible = true; break; }
-    }
-    if (!$eligible) { $delivery['status'] = 'suppressed'; continue; }
-    $campaign = null;
-    foreach ($data['campaigns'] as $candidate) {
-        if (($candidate['id'] ?? '') === ($delivery['campaign_id'] ?? '')) { $campaign = $candidate; break; }
-    }
-    if (!$campaign) { $delivery['status'] = 'failed'; $delivery['error'] = 'Campaign not found'; continue; }
-    $scheduled = strtotime((string) ($campaign['scheduled_at'] ?? '')) ?: 0;
-    if ($scheduled > $now) continue;
-    $payload = ['to'=>$delivery['email'],'subject'=>$campaign['subject'],'preheader'=>$campaign['preheader']??'','body'=>$campaign['body']??'','created_at'=>gmdate('c')];
-    $file = $outDir . '/' . $delivery['id'] . '.json';
-    file_put_contents($file, json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n", LOCK_EX);
-    @chmod($file, 0640);
-    $delivery['status'] = 'prepared'; $delivery['prepared_at'] = gmdate('c'); $processed++;
+require ROOT_PATH . '/app/bootstrap.php';
+require ROOT_PATH . '/includes/marketing.php';
+if (!is_installed()) { fwrite(STDERR, "Application is not installed.\n"); exit(1); }
+try {
+    $options = getopt('', ['limit:', 'campaign:']);
+    $limit = $options['limit'] ?? '10';
+    if (!is_string($limit) || !ctype_digit($limit)) throw new InvalidArgumentException('Use --limit=1 through --limit=25.');
+    $campaign = $options['campaign'] ?? null;
+    if ($campaign !== null && (!is_string($campaign) || trim($campaign) === '')) throw new InvalidArgumentException('A campaign ID is required.');
+    // The CLI needs no session mutex while waiting for a mail server.
+    if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
+    $service = new \App\Core\CampaignDeliveryService(app_config(), velvet_marketing_store(), new \App\Core\MailService(app_config(), app_store()));
+    $stats = $service->run((int) $limit, $campaign);
+    echo json_encode($stats, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR) . PHP_EOL;
+    exit($stats['unknown'] > 0 || $stats['failed'] > 0 ? 2 : 0);
+} catch (Throwable $error) {
+    fwrite(STDERR, 'Campaign run failed: ' . $error->getMessage() . PHP_EOL);
+    exit(1);
 }
-unset($delivery);
-$store->save($data);
-fwrite(STDOUT, "Prepared {$processed} marketing message(s).\n");

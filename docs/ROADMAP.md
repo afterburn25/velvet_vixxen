@@ -1,5 +1,34 @@
 # Velvet Vixxen Development Roadmap
 
+<!-- grouped-buttons-delivery:start -->
+## Current continuation — merged baseline; Build 20261020.1 implemented locally
+
+[PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15) was actually **merged into `main` at 2026-10-20 00:42:07 UTC**, commit `31b303e407a869728f2a0548c9214273e35e2c02`. Its tree `217ebf0c1d8ccf665b11b22f65c754c403c30309` contains the complete executable application and the verified Build 20261019.6 organized-root correction. Earlier unmerged statements below are historical. Source-import #1 and the imported/gated #5/#8/#11 scopes are closed; obsolete archive PR #4 was closed without merging old files.
+
+The active branch is **`feature/0.8.1-group-buttons-campaign-delivery`**, based on that exact merge. **Build 20261020.1** implements the owner's requested third button inside **Live Text + Buttons**, with numbered editable cards in the same right inspector, safe live links, add/remove/reorder, legacy account/trailer actions and preserved device/photo/standalone geometry. The bounded marketing increment now dispatches queued campaigns through the existing configured mail transport, with confirmation/consent/suppression, independent switches, scheduling, serialized claims, bounded batches, responsive pause/unsubscribe and safe retry/unknown-outcome handling.
+
+The full frozen-runtime **PHP 8.3.6 source suite and all eight HTTP suites pass**, including **139 group-button**, **127 existing button**, **41 campaign source** and **54 real localhost SMTP/HTTP assertions**. Focused packaged browser checks pass root/nested group Preview/Publish and desktop/tablet/mobile Booking links, plus desktop/mobile Campaign owner controls. Actual foreign-ownership, persistent PHP-cache and exact approved runtime package layout/dependency/exclusion checks also pass. All 406 frozen runtime/test/build files remained unchanged during final local verification. **The new build's final PHP 8.2/8.3/MySQL/HTTP/browser GitHub gates, merge and saved artifact are still pending.** The previous [run 39328060458](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458) verifies the merged baseline, not these new edits.
+
+The approved root folders and physical `route.php` dispatcher remain unchanged. The affected customer host remains unverified, #13/#12 stay open, payments remain sandbox-only and no 0.9.0 work is included. Broader marketing/SMTP editor, remaining Media Center/add-on database tests and sender-validation details are explicit roadmap work. See `docs/releases/0.8.1-group-buttons-campaign-delivery.md` for owner steps, exact scope and current evidence; `docs/ROADMAP.md` records the remaining issue gaps.
+<!-- grouped-buttons-delivery:end -->
+
+## Backlog reconciliation after the main merge — 2026-10-20
+
+The live GitHub audit closed source-import #1 and the imported/gated engineering milestones #5 (sandbox subscriptions/PPV), #8 (communications/booking) and #11 (Composer manipulation). Obsolete archive-only PR #4 was closed as superseded, without merging its old source tarball or archive workflow. Current source is the merged browsable application, not those historical documentation/archive branches.
+
+| Remaining item | Verified reason it stays open |
+| --- | --- |
+| #13 — requested 0.8.1 followup | Grouped-button Build 20261020.1 is in implementation/verification; the owner's actual hosted installation is still unverified. |
+| #9 — advanced marketing | The bounded campaign dispatch increment is underway. Audience segmentation, SQL-backed marketing records, editorial controls/history/calendar, automatic scene/media scheduling, registration/checkout attribution and analytics privacy/rollups/exports remain. |
+| #2 — Media Center details | The gallery editor still lacks caption/tag editing, playlist controls lack scheduling, and explicit MySQL media-record/order integration tests are absent. Existing source/file-store/browser media tests pass. |
+| #7 — add-on database gate | Add-on source/lifecycle/security/tasks are imported and gated, but actual MySQL add-on-owned migration apply/rollback is not covered by the current database runner. |
+| #10 — sender validation details | Ordinary Gmail/plus-address acceptance works. Strict CR/LF rejection and the requested SMTP-username sender fallback remain incomplete in the installer. |
+| #12 — hosted overwrite/recovery incident | Source, package and disposable-host remediation are verified; the owner's affected host has not been accessed. |
+| #3 — release evidence | Ongoing release policy; preserve every required gate and exact source/artifact evidence. |
+
+These findings are based on pinned merged source `31b303e407a869728f2a0548c9214273e35e2c02` and CI run `39328060458`. They do not retroactively mark every historical milestone checklist complete. No 0.9.0 work is included.
+
+
 <!-- root-layout-repair:start -->
 ## Root-layout regression — Build 20261019.5 rejected; Build 20261019.6 verified and delivered
 

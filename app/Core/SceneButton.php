@@ -5,11 +5,28 @@ namespace App\Core;
 
 use InvalidArgumentException;
 
-/** Validate live button layers without rewriting existing photo compositions. */
+/** Validate live buttons without rewriting existing photo compositions. */
 final class SceneButton
 {
+    public const MAX_CONTENT_BUTTONS = 8;
+
     public static function validateScene(array $scene): array
     {
+        // Missing contentButtons is the legacy automatic group, not an empty group.
+        if (array_key_exists('contentButtons', $scene)) {
+            $buttons = $scene['contentButtons'];
+            if (!is_array($buttons) || !array_is_list($buttons) || count($buttons) > self::MAX_CONTENT_BUTTONS) {
+                throw new InvalidArgumentException('The live text group can contain up to ' . self::MAX_CONTENT_BUTTONS . ' buttons.');
+            }
+            $ids = [];
+            foreach ($buttons as $index => $button) {
+                if (!is_array($button)) throw new InvalidArgumentException('The live group button is invalid.');
+                $button = self::validateContentButton($button);
+                if (isset($ids[$button['id']])) throw new InvalidArgumentException('Each live group button needs its own identity.');
+                $ids[$button['id']] = true;
+                $scene['contentButtons'][$index] = $button;
+            }
+        }
         foreach ((array) ($scene['devices'] ?? []) as $device => $view) {
             if (!is_array($view) || !is_array($view['layers'] ?? null)) continue;
             foreach ($view['layers'] as $index => $layer) {
@@ -18,6 +35,58 @@ final class SceneButton
             }
         }
         return $scene;
+    }
+
+    public static function defaultContentButtons(string $section): array
+    {
+        $account = ['id' => 'content-account', 'action' => 'account', 'label' => '', 'url' => '', 'style' => 'primary', 'newTab' => false];
+        return $section === 'footer' ? [$account] : [$account,
+            ['id' => 'content-trailer', 'action' => 'trailer', 'label' => '', 'url' => '', 'style' => 'glass', 'newTab' => false],
+        ];
+    }
+
+    /** Use automatic legacy actions until the owner first edits this scene's group. */
+    public static function contentButtons(array $scene, string $section): array
+    {
+        if (!array_key_exists('contentButtons', $scene)) return self::defaultContentButtons($section);
+        if (!is_array($scene['contentButtons']) || !array_is_list($scene['contentButtons'])) return [];
+        $buttons = [];
+        foreach (array_slice($scene['contentButtons'], 0, self::MAX_CONTENT_BUTTONS) as $button) {
+            if (!is_array($button)) continue;
+            try { $buttons[] = self::validateContentButton($button); } catch (InvalidArgumentException) {
+                // Never emit an unsafe destination from an older/imported composition.
+            }
+        }
+        return $buttons;
+    }
+
+    public static function validateContentButton(array $button): array
+    {
+        $id = $button['id'] ?? null;
+        if (!is_string($id) || !preg_match('/^[a-z0-9_-]{1,80}$/i', $id)) {
+            throw new InvalidArgumentException('The live group button identity is invalid.');
+        }
+        $action = $button['action'] ?? 'link';
+        if (!in_array($action, ['link', 'account', 'trailer'], true)) {
+            throw new InvalidArgumentException('Choose a website link, account button or trailer button.');
+        }
+        $label = self::text($button['label'] ?? '', 'label', 120);
+        $url = self::text($button['url'] ?? '', 'destination', 2048);
+        if ($action === 'link') {
+            if ($label === '') throw new InvalidArgumentException('Enter a label for the live group button.');
+            if (!self::validUrl((string) ($button['url'] ?? ''))) {
+                throw new InvalidArgumentException('Use a page on this site or a complete http:// or https:// button destination.');
+            }
+        } elseif ($url !== '') {
+            throw new InvalidArgumentException('Choose Website link to set a custom button destination.');
+        }
+        $style = $button['style'] ?? 'primary';
+        if (!in_array($style, ['primary', 'glass', 'ghost'], true)) {
+            throw new InvalidArgumentException('Choose a pink, glass or subtle button style.');
+        }
+        $newTab = $button['newTab'] ?? false;
+        if (!is_bool($newTab)) throw new InvalidArgumentException('The button new-tab setting is invalid.');
+        return ['id' => $id, 'action' => $action, 'label' => $label, 'url' => $url, 'style' => $style, 'newTab' => $newTab];
     }
 
     public static function validate(array $layer): array

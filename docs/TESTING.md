@@ -1,5 +1,24 @@
 # Testing — Velvet Vixxen 0.8.1
 
+## Build 20261020.1 grouped buttons and campaign delivery
+
+The required source suite now includes `tests/Feature/scene_group_buttons.php` (139 assertions) and `tests/Feature/campaign_delivery.php` (41 assertions including concurrent storage writers). The source matrix explicitly enables DOM for the actual public-HTML regression; the application adds no runtime extension requirement.
+
+`bash scripts/test_http.sh` now runs eight suites, including `tests/Http/campaign_delivery_http.py`. That new suite uses only reserved synthetic recipients and a server bound to 127.0.0.1. It tests real configured SMTP and HTTP actions, nested unsubscribe, schedules, independent switches, duplicate exclusion, retries, uncertain acknowledgement and concurrent unsubscribe/pause. Two PHP workers share the owner's real session so a held session lock cannot make the pause test pass incorrectly.
+
+Required packaged browser commands run directly, in addition to all thirteen existing application-browser suites:
+
+```bash
+python tests/Browser/composer_group_buttons_playwright.py
+python tests/Browser/campaign_delivery_playwright.py
+```
+
+Each builds/extracts the actual customer ZIP and serves physical files with no fallback router. Group acceptance clicks the actual canvas group and Button 3 inspector, edits real controls, manipulates all device layouts, retains Preview, publishes/restores, follows twelve public Booking links and two new-tab destinations, and rejects unsafe URLs. Campaign acceptance uses the real desktop/mobile owner form and queue controls, refresh idempotence and independent route switches; email stays disabled in that browser suite. Both retain actual screenshots and sanitized fixture evidence outside customer runtime ZIPs.
+
+All previous PHP 8.2/8.3, MySQL 8, foreign ownership, persistent PHP cache, installer/update, route, image, Booking Builder, admin-state, merchandise/PPV, secret and package gates remain required. Runtime artifact creation depends on those gates. A push and its PR now share a concurrency group scoped by workflow, source repository and branch, so a redundant run does not occupy a second full matrix; forks and main remain separate. See [GitHub's concurrency syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#concurrency) and [context definitions](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts).
+
+The current local and GitHub results belong in `docs/releases/0.8.1-group-buttons-campaign-delivery.md` and `docs/TEST_REPORT.md`. Prior runs remain historical and must not be substituted for the new checkout's release gates.
+
 <!-- root-layout-repair:start -->
 ## Root-layout regression — Build 20261019.5 rejected; Build 20261019.6 verified and delivered
 

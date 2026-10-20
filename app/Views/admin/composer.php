@@ -70,6 +70,11 @@ $composerData = [
     'uploadBase' => base_url('uploads/'),
     'sceneUrl' => base_url('api/scene.php'),
     'uploadUrl' => base_url('api/upload.php'),
+    'contentButtonDefaults' => [
+        'hero' => \App\Core\SceneButton::defaultContentButtons('hero'),
+        'footer' => \App\Core\SceneButton::defaultContentButtons('footer'),
+    ],
+    'maxContentButtons' => \App\Core\SceneButton::MAX_CONTENT_BUTTONS,
 ]; ?>
 <div id="visualComposer" class="composer-app">
   <div class="composer-toolbar">
@@ -151,7 +156,7 @@ $composerData = [
           <div class="snap-guides" data-snap-guides aria-hidden="true"></div>
           <div class="canvas-content-box" data-content-box tabindex="0" role="button" aria-label="Move the live text and button area">
             <span class="content-box-label">Live text + buttons</span>
-            <div class="content-box-preview" aria-hidden="true"><b>LIVE CONTENT</b><i></i><div><em>Button</em><em>Button</em></div></div>
+            <div class="content-box-preview" aria-hidden="true"><b>LIVE CONTENT</b><i></i><div data-content-button-previews></div></div>
             <span class="content-resize-handle nw" data-content-handle="nw"></span>
             <span class="content-resize-handle ne" data-content-handle="ne"></span>
             <span class="content-resize-handle sw" data-content-handle="sw"></span>
@@ -204,6 +209,13 @@ $composerData = [
             <label>Height %<input type="number" min="5" max="100" step=".1" data-control="contentHeight"></label>
           </div>
           <button class="mini-button full" type="button" data-action="reset-content">Reset content box</button>
+        </div>
+        <div class="control-group content-group-controls">
+          <h3>Buttons in this group</h3>
+          <p class="property-help">These buttons move with the live text. Labels, links and order are shared across devices; the box position and size stay separate for each layout.</p>
+          <button class="mini-button full" type="button" data-action="add-content-button">+ Add button to this group</button>
+          <p class="property-help" data-content-button-count></p>
+          <div data-content-buttons></div>
         </div>
       </div>
 

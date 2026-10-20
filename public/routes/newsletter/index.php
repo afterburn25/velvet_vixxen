@@ -2,6 +2,7 @@
 declare(strict_types=1);
 if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }
 require_once ROOT_PATH . '/includes/marketing_public_shell.php';
+if (empty(velvet_marketing_store()->settings()['newsletter_signup_enabled'])) { http_response_code(404); exit('Not found.'); }
 $message=''; $ok=false;
 if ($_SERVER['REQUEST_METHOD']==='POST') {
   try {
@@ -9,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     $result = velvet_marketing_store()->subscribe((string) ($_POST['email'] ?? ''), (string) ($_POST['name'] ?? ''), (string) ($_POST['source'] ?? 'newsletter'), !empty($_POST['consent']));
     $confirmation = base_url('newsletter/confirm.php?token=' . rawurlencode($result['token']));
     $mail = new \App\Core\MailService(app_config(), app_store());
-    $delivery = $mail->send(null, $result['contact']['email'], 'Confirm your Velvet Vixxen updates', 'newsletter_confirmation', "Confirm your email to receive updates: " . $confirmation . "\n\nIf you did not request updates, ignore this message.");
+    $delivery = ($result['contact']['status'] ?? '') === 'suppressed' ? ['status' => 'skipped'] : $mail->send(null, $result['contact']['email'], 'Confirm your Velvet Vixxen updates', 'newsletter_confirmation', "Confirm your email to receive updates: " . $confirmation . "\n\nIf you did not request updates, ignore this message.");
     velvet_marketing_store()->recordEvent('newsletter_signup', ['path' => '/newsletter/']);
     $message = ($delivery['status'] ?? '') === 'sent'
       ? 'Check your inbox for the confirmation link.'

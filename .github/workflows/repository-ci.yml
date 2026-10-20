@@ -11,7 +11,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: velvet-vixxen-${{ github.ref }}
+  # A push and its PR share one complete gate run. Forks and main stay separate.
+  group: ${{ github.workflow }}-${{ github.event.pull_request.head.repo.full_name || github.repository }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -39,6 +40,11 @@ jobs:
             route.php app/Support/public_routes.php public/routes/api/upload.php public/routes/api/scene.php
             app/Core/SceneButton.php public/assets/js/api-client.js
             tests/Unit/api_client.js tests/Unit/installation_urls.php tests/Feature/scene_buttons.php
+            app/Views/public/partials/scene-buttons.php tests/Feature/scene_group_buttons.php
+            tests/Browser/composer_group_buttons_playwright.py app/Core/CampaignDeliveryService.php
+            app/Core/MailDeliveryException.php tests/Feature/campaign_delivery.php
+            tests/Http/campaign_delivery_http.py tests/Http/campaign_delivery_fixture.php
+            tests/Browser/campaign_delivery_playwright.py
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
             tests/Browser/installed_update_playwright.py tests/Feature/runtime_build.php
@@ -67,7 +73,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium, dom
           coverage: none
       - uses: actions/setup-node@v4
         with:
@@ -187,6 +193,14 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/composer_actions_playwright.py
+      - name: Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/composer_group_buttons_playwright.py
+      - name: Use the real Campaign owner controls and independent public switches on desktop and mobile
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/campaign_delivery_playwright.py
       - name: Run real desktop and mobile browser suites in a disposable copy
         env:
           VELVET_BROWSER_TESTS: '1'

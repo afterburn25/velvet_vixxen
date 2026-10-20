@@ -14,6 +14,12 @@ $store = app_store();
 $member = current_member();
 $membershipPlans = $store->membershipPlans(true);
 $settings = (array) $store->setting('site', []);
+$newsletterVisible = (bool) ($settings['newsletter_enabled'] ?? true);
+if ($newsletterVisible) {
+    require_once root_path('includes/marketing.php');
+    try { $newsletterVisible = !empty(velvet_marketing_store()->settings()['newsletter_signup_enabled']); }
+    catch (Throwable) { $newsletterVisible = false; }
+}
 $brand = (string) ($settings['brand_name'] ?? 'Nikki Wilder');
 $subtitle = (string) ($settings['brand_subtitle'] ?? 'The Velvet Vixxen');
 $tagline = (string) ($settings['tagline'] ?? 'Bolder. Sexier. Closer.');
@@ -66,7 +72,7 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
     <div class="hero-subtitle"><?= e($subtitle) ?></div>
     <h1><?= e($tagline) ?></h1>
     <p><?= e($heroCopy) ?></p>
-    <div class="hero-buttons"><a class="button button--primary" href="<?= e($member?base_url('account/'):base_url('account/register.php')) ?>"><?= $member?'My Account':'Join Now' ?> <span>→</span></a><?php if ($trailerSrc !== ''): ?><button class="button button--glass" type="button" data-open-trailer><span class="play">▶</span> Watch Trailer</button><?php else: ?><a class="button button--glass" href="<?= e(base_url('videos/')) ?>"><span class="play">▶</span> Browse Videos</a><?php endif; ?></div>
+    <?php $sceneButtonSection = 'hero'; require root_path('app/Views/public/partials/scene-buttons.php'); ?>
   </div>
 </section>
 
@@ -107,7 +113,7 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
 
 <section class="visual-scene closing-scene" id="footerScene" data-scene="footer">
   <div class="scene-stage" aria-hidden="true"><img class="scene-background" alt=""><div class="scene-overlay"></div><div class="scene-layers"></div></div>
-  <div class="closing-content" id="about"><span class="script-heading">More Than<br>Just Content...</span><p>This is a place to be real, to connect, and to share my world with you. Thank you for being here and supporting my journey.</p><a class="button button--primary" href="<?=e($member?base_url('account/'):base_url('account/register.php'))?>"><?= $member?'Open My Library':'Join My World' ?></a></div>
+  <div class="closing-content" id="about"><span class="script-heading">More Than<br>Just Content...</span><p>This is a place to be real, to connect, and to share my world with you. Thank you for being here and supporting my journey.</p><?php $sceneButtonSection = 'footer'; require root_path('app/Views/public/partials/scene-buttons.php'); ?></div>
   <div class="closing-heart" aria-hidden="true">♡</div>
 </section>
 
@@ -116,7 +122,7 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
   <div class="membership-grid"><?php foreach(array_slice($membershipPlans,0,3) as $index=>$plan):?><article class="<?=$index===1?'featured':''?>"><span><?=e((string)$plan['billingInterval'])?></span><h3><?=e((string)$plan['name'])?></h3><p><?=e((string)$plan['description'])?></p><a class="button <?=$index===1?'button--primary':'button--ghost'?>" href="<?=e(base_url('membership/'))?>">View Plan</a></article><?php endforeach;?><?php if($membershipPlans===[]):?><article><span>Free</span><h3>Member Account</h3><p>Save favorites, track progress, and collect unlocked releases.</p><a class="button button--primary" href="<?=e(base_url('account/register.php'))?>">Create Account</a></article><?php endif;?></div></div>
 </section>
 
-<section class="contact-section" id="contact"><div class="content-wrap contact-grid"><article id="booking"><span class="eyebrow pink">Professional inquiries</span><h2>Booking &amp; Appearances</h2><p>Submit a private appearance, collaboration, interview, media, or event inquiry with optional protected reference files.</p><a class="button button--dark" href="<?= e(base_url('booking/')) ?>">Start a Private Inquiry</a></article><article><span class="eyebrow pink">Stay connected</span><h2>Never miss a drop.</h2><p>New songs, galleries, videos, appearances, and member-only offers delivered directly.</p><a class="button button--primary" href="<?= e(base_url('newsletter/')) ?>">Join the Mailing List</a></article></div></section>
+<section class="contact-section" id="contact"><div class="content-wrap contact-grid"><article id="booking"><span class="eyebrow pink">Professional inquiries</span><h2>Booking &amp; Appearances</h2><p>Submit a private appearance, collaboration, interview, media, or event inquiry with optional protected reference files.</p><a class="button button--dark" href="<?= e(base_url('booking/')) ?>">Start a Private Inquiry</a></article><?php if ($newsletterVisible): ?><article data-newsletter-invitation><span class="eyebrow pink">Stay connected</span><h2>Never miss a drop.</h2><p>New songs, galleries, videos, appearances, and member-only offers delivered directly.</p><a class="button button--primary" href="<?= e(base_url('newsletter/')) ?>">Join the Mailing List</a></article><?php endif; ?></div></section>
 </main>
 
 <footer class="legal-footer"><div class="brand-lockup compact"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></div><nav><a href="#top">Home</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="<?= e(base_url('about/')) ?>">About Me</a></nav><div class="legal-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">18+</a><a href="#">DMCA</a><a href="#">Support</a></div><span class="signature">Nikki ♡</span></footer>
