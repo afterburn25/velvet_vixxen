@@ -58,19 +58,22 @@ COMPOSER_REPAIR_FILES = {
     "app/Core/RuntimeBuildService.php", "app/Core/RuntimeInventoryService.php",
     "app/Core/RootLayoutService.php", "app/Support/functions.php",
     "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
+    "app/Core/MailService.php", "app/Core/MailDeliveryException.php",
+    "app/Core/CampaignDeliveryService.php", "app/Console/run_marketing.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
     "app/Views/admin/repair-backups.php",
     "app/Views/admin/repair-status.php",
     "app/Views/public/partials/footer.php", "public/home.php",
+    "app/Views/public/partials/scene-buttons.php", "app/Views/admin/marketing-actions.php",
     "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
     "includes/version.php", "includes/runtime-build.json", "public/routes/links/index.php", "public/routes/campaign/index.php",
-    "public/assets/css/site.css", "public/assets/css/composer.css",
+    "public/assets/css/site.css", "public/assets/css/composer.css", "public/assets/css/site-ux.css",
     "public/assets/js/api-client.js", "public/assets/js/admin.js",
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
     "public/assets/js/media-center.js",
 }
-BUILD_ID = "20261019.6"
+BUILD_ID = "20261020.1"
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
 VERIFIED_BASELINES = [
     "e5b04daa132521be69c943151f8112c7cd2017e8",
@@ -84,7 +87,7 @@ REPAIR_TIMESTAMPS = {
     for relative in REPAIR_FILES
 }
 REPAIR_TIMESTAMPS.update({
-    relative: (2026, 10, 19, 20, 50, 0) for relative in COMPOSER_REPAIR_FILES
+    relative: (2026, 10, 20, 0, 50, 0) for relative in COMPOSER_REPAIR_FILES
 })
 
 

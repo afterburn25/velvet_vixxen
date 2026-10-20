@@ -41,3 +41,14 @@ body.media-page>.media-main{width:100%;flex:1;min-height:0}
 .public-navigation .mobile-menu{flex-direction:column;align-items:center;justify-content:center;gap:5px}
 .public-navigation .mobile-menu span:not(.sr-only){width:24px;min-height:2px;flex:0 0 2px;margin:0}
 @media(max-width:1280px){.public-navigation .site-nav .mobile-account-nav{display:block}}
+
+/* Group actions remain real HTML and wrap within the owner's device-specific box. */
+.scene-content-buttons{display:flex;flex-wrap:wrap;flex-direction:row;align-items:stretch;gap:16px;min-width:0;flex-shrink:0}
+.scene-content-buttons:empty{display:none}
+.contact-grid>article:only-child{grid-column:1/-1}
+.scene-content-buttons.hero-buttons{flex-direction:row}
+.scene-content-buttons>.button{min-width:0;max-width:100%;padding:12px 24px;text-align:center;white-space:normal;overflow-wrap:anywhere}
+.scene-content-button-label{min-width:0;overflow-wrap:anywhere}
+.scene-content-buttons .play{flex-shrink:0}
+.closing-content>.scene-content-buttons>.button{flex:1 1 auto}
+@media(max-width:760px){.scene-content-buttons{gap:10px}.scene-content-buttons>.button{flex:1 1 135px;padding:12px 15px;font-size:.88rem}}

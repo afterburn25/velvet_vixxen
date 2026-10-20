@@ -21,6 +21,7 @@
   const uploadBase = String(seed.uploadBase || `${baseUrl}/uploads/`).replace(/\/?$/, '/');
   const assetUrls = {...(seed.assetUrls || {})};
   const brokenAssets = new Set();
+  const maxContentButtons = Number(seed.maxContentButtons || 8);
 
   let scenes = clone(seed.scenes || {});
   let media = Array.isArray(seed.media) ? clone(seed.media) : Object.values(clone(seed.media || {}));
@@ -42,6 +43,8 @@
     overlay: root.querySelector('[data-canvas-overlay]'),
     layers: root.querySelector('[data-canvas-layers]'),
     contentBox: root.querySelector('[data-content-box]'),
+    contentButtons: root.querySelector('[data-content-buttons]'),
+    contentButtonPreviews: root.querySelector('[data-content-button-previews]'),
     empty: root.querySelector('[data-canvas-empty]'),
     mediaList: root.querySelector('[data-media-list]'),
     mediaSearch: root.querySelector('[data-media-search]'),
@@ -208,6 +211,90 @@
   const currentView = () => currentScene().devices[device];
   const currentBackground = () => currentView().background;
   const selectedLayer = () => currentView().layers.find((layer) => layer.id === selectedId) || null;
+  const currentContentButtons = () => Array.isArray(currentScene().contentButtons)
+    ? currentScene().contentButtons : (seed.contentButtonDefaults?.[section] || []);
+
+  function editableContentButtons() {
+    if (!Array.isArray(currentScene().contentButtons)) currentScene().contentButtons = clone(currentContentButtons());
+    return currentScene().contentButtons;
+  }
+
+  function contentButtonLabel(button) {
+    if (String(button.label || '').trim()) return button.label;
+    if (button.action === 'account') return section === 'footer' ? 'Join My World' : 'Join Now';
+    if (button.action === 'trailer') return 'Watch Trailer';
+    return 'Button';
+  }
+
+  function renderContentButtonPreviews() {
+    el.contentButtonPreviews.replaceChildren();
+    currentContentButtons().forEach((button) => {
+      const preview = document.createElement('em');
+      preview.dataset.contentButtonPreview = button.id;
+      preview.className = `content-button-preview--${button.style}`;
+      preview.textContent = contentButtonLabel(button);
+      el.contentButtonPreviews.appendChild(preview);
+    });
+  }
+
+  function renderContentButtons() {
+    const buttons = currentContentButtons();
+    el.contentButtons.replaceChildren();
+    buttons.forEach((button, index) => {
+      const card = document.createElement('section');
+      card.className = 'content-button-card';
+      card.dataset.contentButtonId = button.id;
+      card.dataset.contentButtonIndex = String(index);
+      card.innerHTML = `<div class="content-button-heading"><h4>Button ${index + 1}</h4><div>
+        <button type="button" class="mini-button" data-content-button-action="up" aria-label="Move Button ${index + 1} earlier" ${index === 0 ? 'disabled' : ''}>↑</button>
+        <button type="button" class="mini-button" data-content-button-action="down" aria-label="Move Button ${index + 1} later" ${index === buttons.length - 1 ? 'disabled' : ''}>↓</button>
+        <button type="button" class="mini-button danger" data-content-button-action="remove" aria-label="Remove Button ${index + 1}">Remove</button>
+        </div></div>
+        <label>Button action<select data-content-button-field="action"><option value="link">Website link</option><option value="account">Join / My Account</option><option value="trailer">Trailer / Videos</option></select></label>
+        <label>Button label<input type="text" maxlength="120" data-content-button-field="label"></label>
+        <label>Destination<input type="text" maxlength="2048" data-content-button-field="url" placeholder="booking/ or https://example.com"></label>
+        <p class="property-help" data-content-button-help></p>
+        <label>Button style<select data-content-button-field="style"><option value="primary">Pink</option><option value="glass">Glass</option><option value="ghost">Subtle</option></select></label>
+        <label class="composer-check"><input type="checkbox" data-content-button-field="newTab"> Open in a new tab</label>`;
+      ['action', 'label', 'url', 'style'].forEach((field) => {
+        card.querySelector(`[data-content-button-field="${field}"]`).value = button[field] || '';
+      });
+      const label = card.querySelector('[data-content-button-field="label"]');
+      label.placeholder = button.action === 'link' ? 'Book with me' : `Automatic: ${contentButtonLabel({...button, label: ''})}`;
+      label.required = button.action === 'link';
+      const url = card.querySelector('[data-content-button-field="url"]');
+      url.disabled = button.action !== 'link';
+      url.required = button.action === 'link';
+      const newTab = card.querySelector('[data-content-button-field="newTab"]');
+      newTab.checked = button.newTab === true;
+      newTab.disabled = button.action === 'trailer';
+      card.querySelector('[data-content-button-help]').textContent = button.action === 'account'
+        ? 'Opens registration for guests and the account for signed-in members. Leave the label blank for automatic wording.'
+        : (button.action === 'trailer'
+          ? 'Plays the featured trailer when available, or opens Videos. Leave the label blank for automatic wording.'
+          : 'Page paths such as booking/ stay within this website. Complete http:// or https:// links open the address you enter.');
+      el.contentButtons.appendChild(card);
+    });
+    const add = root.querySelector('[data-action="add-content-button"]');
+    add.disabled = buttons.length >= maxContentButtons;
+    root.querySelector('[data-content-button-count]').textContent = `${buttons.length} of ${maxContentButtons} buttons in this group.`;
+    renderContentButtonPreviews();
+  }
+
+  function addContentButton() {
+    if (currentContentButtons().length >= maxContentButtons) return;
+    const buttons = editableContentButtons();
+    const button = {id: `content-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
+      action: 'link', label: `Button ${buttons.length + 1}`, url: 'booking/', style: 'primary', newTab: false};
+    buttons.push(button);
+    selectedId = null;
+    selectedTarget = 'content';
+    commitHistory();
+    activatePropertyTab('content');
+    render();
+    el.contentButtons.lastElementChild?.querySelector('[data-content-button-field="label"]')?.focus();
+    setStatus(`${button.label} added to the live text group on every device. Edit its label and destination in Text + Buttons.`);
+  }
 
   function setStatus(message, mode = 'ready') {
     el.status.classList.toggle('busy', mode === 'busy');
@@ -718,6 +805,7 @@
       Object.entries(bgMap).forEach(([key, value]) => setControlValue(key, value));
       setControlValue('sceneTitle', scene.title);
       updateContentPropertyReadout();
+      renderContentButtons();
     }
     renderBackgroundInfo();
     renderLayerStack();
@@ -1172,6 +1260,47 @@
     });
   });
 
+  el.contentButtons.addEventListener('input', (event) => {
+    const input = event.target.closest('[data-content-button-field]');
+    const card = input?.closest('[data-content-button-id]');
+    if (!card) return;
+    const button = editableContentButtons().find((entry) => entry.id === card.dataset.contentButtonId);
+    if (!button) return;
+    const field = input.dataset.contentButtonField;
+    button[field] = input.type === 'checkbox' ? input.checked : input.value;
+    if (field === 'action') {
+      button.url = button.action === 'link' ? 'booking/' : '';
+      if (button.action === 'link' && !button.label.trim()) button.label = `Button ${Number(card.dataset.contentButtonIndex) + 1}`;
+      if (button.action === 'trailer') button.newTab = false;
+    }
+    renderContentButtonPreviews();
+  });
+  el.contentButtons.addEventListener('change', (event) => {
+    const input = event.target.closest('[data-content-button-field]');
+    if (!input) return;
+    commitHistory();
+    if (input.dataset.contentButtonField === 'action') renderContentButtons();
+    setStatus('Live group button changed — save when ready.');
+  });
+  el.contentButtons.addEventListener('click', (event) => {
+    const control = event.target.closest('[data-content-button-action]');
+    const card = control?.closest('[data-content-button-id]');
+    if (!card) return;
+    const buttons = editableContentButtons();
+    const index = buttons.findIndex((button) => button.id === card.dataset.contentButtonId);
+    if (index < 0) return;
+    const action = control.dataset.contentButtonAction;
+    if (action === 'remove') buttons.splice(index, 1);
+    else {
+      const next = index + (action === 'up' ? -1 : 1);
+      if (next < 0 || next >= buttons.length) return;
+      [buttons[index], buttons[next]] = [buttons[next], buttons[index]];
+    }
+    commitHistory();
+    renderContentButtons();
+    setStatus(action === 'remove' ? 'Button removed from the live text group. Undo can restore it.' : 'Live group button order changed.');
+  });
+
   const layerControls = {
     layerX: 'x',
     layerY: 'y',
@@ -1242,6 +1371,10 @@
 
   function handleAction(action) {
     const layer = selectedLayer();
+    if (action === 'add-content-button') {
+      addContentButton();
+      return;
+    }
     if (action === 'add-button') {
       addButton();
       return;

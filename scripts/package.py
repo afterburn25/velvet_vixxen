@@ -59,14 +59,17 @@ COMPOSER_REPAIR_FILES = {
     "app/Core/RuntimeBuildService.php", "app/Core/RuntimeInventoryService.php",
     "app/Core/RootLayoutService.php", "app/Support/functions.php",
     "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
+    "app/Core/MailService.php", "app/Core/MailDeliveryException.php",
+    "app/Core/CampaignDeliveryService.php", "app/Console/run_marketing.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
     "app/Views/admin/repair-backups.php",
     "app/Views/admin/repair-status.php",
     "app/Views/public/partials/footer.php", "public/home.php",
+    "app/Views/public/partials/scene-buttons.php", "app/Views/admin/marketing-actions.php",
     "app/Views/admin/marketing.php", "includes/marketing.php", "includes/marketing_public_shell.php",
     "includes/version.php", RUNTIME_BUILD_PATH, "public/routes/links/index.php", "public/routes/campaign/index.php",
-    "public/assets/css/site.css", "public/assets/css/composer.css",
+    "public/assets/css/site.css", "public/assets/css/composer.css", "public/assets/css/site-ux.css",
     "public/assets/js/api-client.js", "public/assets/js/admin.js",
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
     "public/assets/js/media-center.js",
@@ -75,7 +78,7 @@ COMPOSER_REPAIR_FILES = {
 # correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
 INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
-COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 19, 20, 50, 0)
+COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 20, 0, 50, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",

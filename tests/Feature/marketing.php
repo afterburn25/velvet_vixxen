@@ -21,11 +21,11 @@ try {
     $assert(!$store->confirm('invalid-token'), 'Invalid confirmation token was accepted.');
     $assert($store->confirm($active['token']), 'Valid confirmation token was rejected.');
     $assert(!$store->confirm($active['token']), 'Confirmation token replay was accepted.');
-    $campaign = $store->upsert('campaigns', ['name' => 'Fixture campaign', 'status' => 'draft']);
+    $campaign = $store->upsert('campaigns', ['name' => 'Fixture campaign', 'body' => 'Fixture campaign message.', 'status' => 'draft']);
     $assert($store->queueCampaign($campaign['id']) === 1, 'Campaign included an unconfirmed contact or excluded a confirmed one.');
     $assert($store->unsubscribe($active['contact']['unsubscribe_token']), 'Valid unsubscribe token was rejected.');
     $assert(!$store->unsubscribe('invalid-token'), 'Invalid unsubscribe token was accepted.');
-    $second = $store->upsert('campaigns', ['name' => 'After unsubscribe', 'status' => 'draft']);
+    $second = $store->upsert('campaigns', ['name' => 'After unsubscribe', 'body' => 'Fixture followup message.', 'status' => 'draft']);
     $assert($store->queueCampaign($second['id']) === 0, 'Unsubscribed contact entered a new campaign queue.');
     $assert(count($store->all()['consents']) === 3, 'Consent grant/revocation history was not retained.');
 
