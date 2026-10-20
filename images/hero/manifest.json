@@ -1,0 +1,893 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "bedrooms",
+      "title": "Bedrooms & Suites"
+    },
+    {
+      "id": "kitchens",
+      "title": "Kitchens"
+    },
+    {
+      "id": "living-rooms",
+      "title": "Living Rooms & Penthouses"
+    },
+    {
+      "id": "entertainment",
+      "title": "Games & Cinema"
+    },
+    {
+      "id": "bars",
+      "title": "Private Bars & Lounges"
+    },
+    {
+      "id": "wellness",
+      "title": "Spa & Wellness"
+    },
+    {
+      "id": "interiors",
+      "title": "Signature Interiors"
+    },
+    {
+      "id": "outdoor-lounges",
+      "title": "Terraces & Gardens"
+    },
+    {
+      "id": "pools",
+      "title": "Pools & Waterfalls"
+    },
+    {
+      "id": "beach",
+      "title": "Beach & Cabanas"
+    },
+    {
+      "id": "travel",
+      "title": "Yacht, Jet & Mountain Retreats"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "magenta-penthouse-suite",
+      "title": "Magenta Penthouse Suite",
+      "category": "bedrooms",
+      "file": "images/hero/magenta-penthouse-suite.webp",
+      "thumbnail": "images/hero/thumbnails/magenta-penthouse-suite.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "magenta",
+        "penthouse",
+        "suite"
+      ]
+    },
+    {
+      "id": "romantic-candlelit-suite",
+      "title": "Romantic Candlelit Suite",
+      "category": "bedrooms",
+      "file": "images/hero/romantic-candlelit-suite.webp",
+      "thumbnail": "images/hero/thumbnails/romantic-candlelit-suite.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "romantic",
+        "candlelit",
+        "suite"
+      ]
+    },
+    {
+      "id": "rose-marble-master-suite",
+      "title": "Rose Marble Master Suite",
+      "category": "bedrooms",
+      "file": "images/hero/rose-marble-master-suite.webp",
+      "thumbnail": "images/hero/thumbnails/rose-marble-master-suite.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "rose",
+        "marble",
+        "master",
+        "suite"
+      ]
+    },
+    {
+      "id": "midnight-penthouse-kitchen",
+      "title": "Midnight Penthouse Kitchen",
+      "category": "kitchens",
+      "file": "images/hero/midnight-penthouse-kitchen.webp",
+      "thumbnail": "images/hero/thumbnails/midnight-penthouse-kitchen.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "midnight",
+        "penthouse",
+        "kitchen"
+      ]
+    },
+    {
+      "id": "sunset-chef-kitchen",
+      "title": "Sunset Chef Kitchen",
+      "category": "kitchens",
+      "file": "images/hero/sunset-chef-kitchen.webp",
+      "thumbnail": "images/hero/thumbnails/sunset-chef-kitchen.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "sunset",
+        "chef",
+        "kitchen"
+      ]
+    },
+    {
+      "id": "skyline-living-room",
+      "title": "Skyline Living Room",
+      "category": "living-rooms",
+      "file": "images/hero/skyline-living-room.webp",
+      "thumbnail": "images/hero/thumbnails/skyline-living-room.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "skyline",
+        "living",
+        "room"
+      ]
+    },
+    {
+      "id": "velvet-penthouse-lounge",
+      "title": "Velvet Penthouse Lounge",
+      "category": "living-rooms",
+      "file": "images/hero/velvet-penthouse-lounge.webp",
+      "thumbnail": "images/hero/thumbnails/velvet-penthouse-lounge.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "velvet",
+        "penthouse",
+        "lounge"
+      ]
+    },
+    {
+      "id": "magenta-billiards-room",
+      "title": "Magenta Billiards Room",
+      "category": "entertainment",
+      "file": "images/hero/magenta-billiards-room.webp",
+      "thumbnail": "images/hero/thumbnails/magenta-billiards-room.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "magenta",
+        "billiards",
+        "room"
+      ]
+    },
+    {
+      "id": "private-cocktail-bar",
+      "title": "Private Cocktail Bar",
+      "category": "bars",
+      "file": "images/hero/private-cocktail-bar.webp",
+      "thumbnail": "images/hero/thumbnails/private-cocktail-bar.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "private",
+        "cocktail",
+        "bar"
+      ]
+    },
+    {
+      "id": "art-deco-home-bar",
+      "title": "Art Deco Home Bar",
+      "category": "bars",
+      "file": "images/hero/art-deco-home-bar.webp",
+      "thumbnail": "images/hero/thumbnails/art-deco-home-bar.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "art",
+        "deco",
+        "home",
+        "bar"
+      ]
+    },
+    {
+      "id": "private-cinema",
+      "title": "Private Cinema",
+      "category": "entertainment",
+      "file": "images/hero/private-cinema.webp",
+      "thumbnail": "images/hero/thumbnails/private-cinema.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "private",
+        "cinema"
+      ]
+    },
+    {
+      "id": "rose-marble-spa",
+      "title": "Rose Marble Spa",
+      "category": "wellness",
+      "file": "images/hero/rose-marble-spa.webp",
+      "thumbnail": "images/hero/thumbnails/rose-marble-spa.webp",
+      "width": 1672,
+      "height": 940,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "rose",
+        "marble",
+        "spa"
+      ]
+    },
+    {
+      "id": "black-marble-bath",
+      "title": "Black Marble Bath",
+      "category": "wellness",
+      "file": "images/hero/black-marble-bath.webp",
+      "thumbnail": "images/hero/thumbnails/black-marble-bath.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "black",
+        "marble",
+        "bath"
+      ]
+    },
+    {
+      "id": "cedar-sauna-retreat",
+      "title": "Cedar Sauna Retreat",
+      "category": "wellness",
+      "file": "images/hero/cedar-sauna-retreat.webp",
+      "thumbnail": "images/hero/thumbnails/cedar-sauna-retreat.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Clear center foreground or aisle; keep live text toward the upper left. Adjust independently for each device.",
+      "modelZone": {
+        "x": 36,
+        "y": 28,
+        "width": 29,
+        "height": 68
+      },
+      "textZone": {
+        "x": 4,
+        "y": 12,
+        "width": 30,
+        "height": 62
+      },
+      "keywords": [
+        "cedar",
+        "sauna",
+        "retreat"
+      ]
+    },
+    {
+      "id": "couture-walk-in-closet",
+      "title": "Couture Walk-in Closet",
+      "category": "interiors",
+      "file": "images/hero/couture-walk-in-closet.webp",
+      "thumbnail": "images/hero/thumbnails/couture-walk-in-closet.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Clear center foreground or aisle; keep live text toward the upper left. Adjust independently for each device.",
+      "modelZone": {
+        "x": 36,
+        "y": 28,
+        "width": 29,
+        "height": 68
+      },
+      "textZone": {
+        "x": 4,
+        "y": 12,
+        "width": 30,
+        "height": 62
+      },
+      "keywords": [
+        "couture",
+        "walk",
+        "in",
+        "closet"
+      ]
+    },
+    {
+      "id": "midnight-music-studio",
+      "title": "Midnight Music Studio",
+      "category": "interiors",
+      "file": "images/hero/midnight-music-studio.webp",
+      "thumbnail": "images/hero/thumbnails/midnight-music-studio.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "midnight",
+        "music",
+        "studio"
+      ]
+    },
+    {
+      "id": "private-wine-cellar",
+      "title": "Private Wine Cellar",
+      "category": "interiors",
+      "file": "images/hero/private-wine-cellar.webp",
+      "thumbnail": "images/hero/thumbnails/private-wine-cellar.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "private",
+        "wine",
+        "cellar"
+      ]
+    },
+    {
+      "id": "grand-mansion-foyer",
+      "title": "Grand Mansion Foyer",
+      "category": "interiors",
+      "file": "images/hero/grand-mansion-foyer.webp",
+      "thumbnail": "images/hero/thumbnails/grand-mansion-foyer.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "grand",
+        "mansion",
+        "foyer"
+      ]
+    },
+    {
+      "id": "skyline-rooftop-lounge",
+      "title": "Skyline Rooftop Lounge",
+      "category": "outdoor-lounges",
+      "file": "images/hero/skyline-rooftop-lounge.webp",
+      "thumbnail": "images/hero/thumbnails/skyline-rooftop-lounge.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "skyline",
+        "rooftop",
+        "lounge"
+      ]
+    },
+    {
+      "id": "garden-firepit-lounge",
+      "title": "Garden Fire-pit Lounge",
+      "category": "outdoor-lounges",
+      "file": "images/hero/garden-firepit-lounge.webp",
+      "thumbnail": "images/hero/thumbnails/garden-firepit-lounge.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "garden",
+        "firepit",
+        "lounge"
+      ]
+    },
+    {
+      "id": "tropical-infinity-pool",
+      "title": "Tropical Infinity Pool",
+      "category": "pools",
+      "file": "images/hero/tropical-infinity-pool.webp",
+      "thumbnail": "images/hero/thumbnails/tropical-infinity-pool.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "tropical",
+        "infinity",
+        "pool"
+      ]
+    },
+    {
+      "id": "waterfall-pool-retreat",
+      "title": "Waterfall Pool Retreat",
+      "category": "pools",
+      "file": "images/hero/waterfall-pool-retreat.webp",
+      "thumbnail": "images/hero/thumbnails/waterfall-pool-retreat.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "waterfall",
+        "pool",
+        "retreat"
+      ]
+    },
+    {
+      "id": "private-beach-cabana",
+      "title": "Private Beach Cabana",
+      "category": "beach",
+      "file": "images/hero/private-beach-cabana.webp",
+      "thumbnail": "images/hero/thumbnails/private-beach-cabana.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "private",
+        "beach",
+        "cabana"
+      ]
+    },
+    {
+      "id": "sunset-beach-terrace",
+      "title": "Sunset Beach Terrace",
+      "category": "beach",
+      "file": "images/hero/sunset-beach-terrace.webp",
+      "thumbnail": "images/hero/thumbnails/sunset-beach-terrace.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "sunset",
+        "beach",
+        "terrace"
+      ]
+    },
+    {
+      "id": "oceanfront-outdoor-bar",
+      "title": "Oceanfront Outdoor Bar",
+      "category": "bars",
+      "file": "images/hero/oceanfront-outdoor-bar.webp",
+      "thumbnail": "images/hero/thumbnails/oceanfront-outdoor-bar.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "oceanfront",
+        "outdoor",
+        "bar"
+      ]
+    },
+    {
+      "id": "poolside-evening-bar",
+      "title": "Poolside Evening Bar",
+      "category": "bars",
+      "file": "images/hero/poolside-evening-bar.webp",
+      "thumbnail": "images/hero/thumbnails/poolside-evening-bar.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "poolside",
+        "evening",
+        "bar"
+      ]
+    },
+    {
+      "id": "sunset-penthouse-terrace",
+      "title": "Sunset Penthouse Terrace",
+      "category": "outdoor-lounges",
+      "file": "images/hero/sunset-penthouse-terrace.webp",
+      "thumbnail": "images/hero/thumbnails/sunset-penthouse-terrace.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "sunset",
+        "penthouse",
+        "terrace"
+      ]
+    },
+    {
+      "id": "superyacht-sunset-deck",
+      "title": "Superyacht Sunset Deck",
+      "category": "travel",
+      "file": "images/hero/superyacht-sunset-deck.webp",
+      "thumbnail": "images/hero/thumbnails/superyacht-sunset-deck.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "superyacht",
+        "sunset",
+        "deck"
+      ]
+    },
+    {
+      "id": "private-jet-cabin",
+      "title": "Private Jet Cabin",
+      "category": "travel",
+      "file": "images/hero/private-jet-cabin.webp",
+      "thumbnail": "images/hero/thumbnails/private-jet-cabin.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Clear center foreground or aisle; keep live text toward the upper left. Adjust independently for each device.",
+      "modelZone": {
+        "x": 36,
+        "y": 28,
+        "width": 29,
+        "height": 68
+      },
+      "textZone": {
+        "x": 4,
+        "y": 12,
+        "width": 30,
+        "height": 62
+      },
+      "keywords": [
+        "private",
+        "jet",
+        "cabin"
+      ]
+    },
+    {
+      "id": "mountain-lodge-retreat",
+      "title": "Mountain Lodge Retreat",
+      "category": "travel",
+      "file": "images/hero/mountain-lodge-retreat.webp",
+      "thumbnail": "images/hero/thumbnails/mountain-lodge-retreat.webp",
+      "width": 1672,
+      "height": 941,
+      "orientation": "landscape",
+      "placement": "Open foreground floor; place the cutout on the right and live text toward the left. Adjust the background for each device.",
+      "modelZone": {
+        "x": 55,
+        "y": 22,
+        "width": 38,
+        "height": 76
+      },
+      "textZone": {
+        "x": 5,
+        "y": 15,
+        "width": 42,
+        "height": 66
+      },
+      "keywords": [
+        "mountain",
+        "lodge",
+        "retreat"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Options -Indexes
+<FilesMatch "\.(?:php[0-9]?|phtml|phar|inc|cgi|pl|py|sh|bat|cmd|exe|com|js|html?)$">
+  Require all denied
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Content-Security-Policy "default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'none'; script-src 'none'; sandbox"
+</IfModule>

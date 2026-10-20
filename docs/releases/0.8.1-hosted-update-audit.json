@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "audit": "Real Apache and PHP-FPM routing audit of the previously delivered Media/Composer runtime",
+  "audit_date_utc": "2026-10-19",
+  "tested_distribution": {
+    "product": "Nikki Wilder / The Velvet Vixxen",
+    "version": "0.8.1",
+    "asset_version": "0.8.1-20261019.4",
+    "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+    "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+    "bytes": 7608429,
+    "source_commit": "db759342e401617c9933c13b81a147ad9f8fd515",
+    "runtime_commit": "723205b7bddad06d4f603b539aea1a777bdd2ae5",
+    "scope": "Exact previously delivered Fresh Install runtime bytes, configured only inside disposable local fixtures. This is evidence for the .4 runtime, not acceptance of the subsequent build 20261019.5 or its new owner cache-refresh endpoint."
+  },
+  "environment": {
+    "operating_system": "Ubuntu 24.04 amd64",
+    "apache_version": "2.4.58",
+    "apache_package_version": "2.4.58-1ubuntu8.15",
+    "php_version": "8.3.6",
+    "php_sapi": "fpm-fcgi",
+    "php_package_version": "8.3.6-0ubuntu0.24.04.10",
+    "runtime_provisioning": "Checksum-verified Ubuntu packages unpacked for isolated execution; no system installation.",
+    "apache_override_policy": "AllowOverride All; actual distributed .htaccess files retained.",
+    "php_opcode_cache": "disabled for this routing audit",
+    "fixture_storage_mode": "file",
+    "network_scope": "loopback only",
+    "fixture_data": "Synthetic owner account and generated geometric PNG; no customer records or owner photographs.",
+    "fixture_servers_stopped": true
+  },
+  "case_count": 4,
+  "cases": [
+    {
+      "configuration": "Apache SetHandler with mod_proxy_fcgi",
+      "installation": "domain root",
+      "case_label": "handler-root",
+      "observed_php_dispatch": "rewritten route.php with the installation prefix preserved in SCRIPT_NAME",
+      "public_fixture_http_statuses": {
+        "/api/scene.php?section=hero": 401,
+        "/api/upload.php": 401,
+        "/api/marketing-event.php": 405,
+        "/booking/": 200,
+        "/booking/index.php": 200,
+        "/login/": 200
+      },
+      "owner_scene_read_http_status": 200,
+      "owner_scene_read_ok": true,
+      "composer_add_button_present": true,
+      "served_asset_versions": [
+        "0.8.1-20261019.4"
+      ],
+      "draft_save_http_status": 200,
+      "publish_http_status": 200,
+      "image_upload_http_status": 200,
+      "uploaded_geometric_png_readback_bytes_match": true,
+      "uploaded_image_installation_prefix_preserved": true,
+      "missing_physical_api_negative_control": {
+        "entrypoint": "api/scene.php",
+        "entrypoint_removed_http_status": 401,
+        "entrypoint_removed_response": "application JSON authentication rejection",
+        "entrypoint_restored_http_status": 401,
+        "entrypoint_restored_response": "application JSON authentication rejection",
+        "restored_entrypoint_bytes_unchanged": true
+      },
+      "host_access_control_observations": {
+        "direct_protected_handler_http_status": 403,
+        "direct_private_php_fixture_url_http_status": 403,
+        "direct_private_php_fixture_response": "blocked by Apache",
+        "direct_private_runtime_json_fixture_url_http_status": 403,
+        "deliberately_seeded_obsolete_php_controller_http_status": 404,
+        "deliberately_seeded_obsolete_php_controller_executed": false,
+        "explanation": "Per-directory access rules and unconditional public routing were applied."
+      }
+    },
+    {
+      "configuration": "Apache SetHandler with mod_proxy_fcgi",
+      "installation": "two-level subdirectory",
+      "case_label": "handler-nested",
+      "observed_php_dispatch": "rewritten route.php with the installation prefix preserved in SCRIPT_NAME",
+      "public_fixture_http_statuses": {
+        "/api/scene.php?section=hero": 401,
+        "/api/upload.php": 401,
+        "/api/marketing-event.php": 405,
+        "/booking/": 200,
+        "/booking/index.php": 200,
+        "/login/": 200
+      },
+      "owner_scene_read_http_status": 200,
+      "owner_scene_read_ok": true,
+      "composer_add_button_present": true,
+      "served_asset_versions": [
+        "0.8.1-20261019.4"
+      ],
+      "draft_save_http_status": 200,
+      "publish_http_status": 200,
+      "image_upload_http_status": 200,
+      "uploaded_geometric_png_readback_bytes_match": true,
+      "uploaded_image_installation_prefix_preserved": true,
+      "missing_physical_api_negative_control": {
+        "entrypoint": "api/scene.php",
+        "entrypoint_removed_http_status": 401,
+        "entrypoint_removed_response": "application JSON authentication rejection",
+        "entrypoint_restored_http_status": 401,
+        "entrypoint_restored_response": "application JSON authentication rejection",
+        "restored_entrypoint_bytes_unchanged": true
+      },
+      "host_access_control_observations": {
+        "direct_protected_handler_http_status": 403,
+        "direct_private_php_fixture_url_http_status": 403,
+        "direct_private_php_fixture_response": "blocked by Apache",
+        "direct_private_runtime_json_fixture_url_http_status": 403,
+        "deliberately_seeded_obsolete_php_controller_http_status": 404,
+        "deliberately_seeded_obsolete_php_controller_executed": false,
+        "explanation": "Per-directory access rules and unconditional public routing were applied."
+      }
+    },
+    {
+      "configuration": "Apache blanket ProxyPassMatch with mod_proxy_fcgi",
+      "installation": "domain root",
+      "case_label": "proxypass-root",
+      "observed_php_dispatch": "physical API forwarder for explicit PHP URLs; rewritten route.php for friendly directory URLs",
+      "public_fixture_http_statuses": {
+        "/api/scene.php?section=hero": 401,
+        "/api/upload.php": 401,
+        "/api/marketing-event.php": 405,
+        "/booking/": 200,
+        "/booking/index.php": 200,
+        "/login/": 200
+      },
+      "owner_scene_read_http_status": 200,
+      "owner_scene_read_ok": true,
+      "composer_add_button_present": true,
+      "served_asset_versions": [
+        "0.8.1-20261019.4"
+      ],
+      "draft_save_http_status": 200,
+      "publish_http_status": 200,
+      "image_upload_http_status": 200,
+      "uploaded_geometric_png_readback_bytes_match": true,
+      "uploaded_image_installation_prefix_preserved": true,
+      "missing_physical_api_negative_control": {
+        "entrypoint": "api/scene.php",
+        "entrypoint_removed_http_status": 404,
+        "entrypoint_removed_response": "File not found.",
+        "entrypoint_restored_http_status": 401,
+        "entrypoint_restored_response": "application JSON authentication rejection",
+        "restored_entrypoint_bytes_unchanged": true
+      },
+      "host_access_control_observations": {
+        "direct_protected_handler_http_status": 401,
+        "direct_private_php_fixture_url_http_status": 200,
+        "direct_private_php_fixture_response": "empty response from PHP; no configuration contents returned",
+        "direct_private_runtime_json_fixture_url_http_status": 403,
+        "deliberately_seeded_obsolete_php_controller_http_status": 200,
+        "deliberately_seeded_obsolete_php_controller_executed": true,
+        "explanation": "The blanket PHP proxy mapping bypassed per-directory .htaccess rules for PHP requests; application authentication still protected the direct API handler."
+      }
+    },
+    {
+      "configuration": "Apache blanket ProxyPassMatch with mod_proxy_fcgi",
+      "installation": "two-level subdirectory",
+      "case_label": "proxypass-nested",
+      "observed_php_dispatch": "physical API forwarder for explicit PHP URLs; rewritten route.php for friendly directory URLs",
+      "public_fixture_http_statuses": {
+        "/api/scene.php?section=hero": 401,
+        "/api/upload.php": 401,
+        "/api/marketing-event.php": 405,
+        "/booking/": 200,
+        "/booking/index.php": 200,
+        "/login/": 200
+      },
+      "owner_scene_read_http_status": 200,
+      "owner_scene_read_ok": true,
+      "composer_add_button_present": true,
+      "served_asset_versions": [
+        "0.8.1-20261019.4"
+      ],
+      "draft_save_http_status": 200,
+      "publish_http_status": 200,
+      "image_upload_http_status": 200,
+      "uploaded_geometric_png_readback_bytes_match": true,
+      "uploaded_image_installation_prefix_preserved": true,
+      "missing_physical_api_negative_control": {
+        "entrypoint": "api/scene.php",
+        "entrypoint_removed_http_status": 404,
+        "entrypoint_removed_response": "File not found.",
+        "entrypoint_restored_http_status": 401,
+        "entrypoint_restored_response": "application JSON authentication rejection",
+        "restored_entrypoint_bytes_unchanged": true
+      },
+      "host_access_control_observations": {
+        "direct_protected_handler_http_status": 401,
+        "direct_private_php_fixture_url_http_status": 200,
+        "direct_private_php_fixture_response": "empty response from PHP; no configuration contents returned",
+        "direct_private_runtime_json_fixture_url_http_status": 403,
+        "deliberately_seeded_obsolete_php_controller_http_status": 200,
+        "deliberately_seeded_obsolete_php_controller_executed": true,
+        "explanation": "The blanket PHP proxy mapping bypassed per-directory .htaccess rules for PHP requests; application authentication still protected the direct API handler."
+      }
+    }
+  ],
+  "conclusions": [
+    "All four configurations reached the delivered owner API and passed actual draft save, publication, image upload, unchanged image readback, visible Add Button markup and the .4 asset identity.",
+    "The original exact File not found. response was reproduced by real PHP-FPM when the physical scene API file was absent under ProxyPassMatch. Restoring the delivered physical entrypoint recovered the protected API.",
+    "Normal SetHandler preserved the rewritten front-controller SCRIPT_NAME for both installation depths. The earlier synthetic original-SCRIPT_NAME router hypothesis did not reproduce under the normal configurations tested.",
+    "No application router or .htaccess change was made as a result of this audit.",
+    "Blanket ProxyPassMatch can bypass per-directory PHP access rules, as shown with a deliberately seeded obsolete controller. This is an observed fixture hosting configuration boundary, not a finding about the customer installation."
+  ],
+  "limits": [
+    "No production hosting was accessed, and the affected customer deployment remains unverified.",
+    "This audit used the exact .4 Fresh runtime in controlled fixtures; it did not apply the historical repair overlay to a customer host.",
+    "The .5 RuntimeBuildService and owner update/cache-refresh page were not part of the archive tested here.",
+    "OPcache activation behavior, retained browser behavior and MySQL persistence are outside this Apache routing evidence.",
+    "Real upload/save/publish operations were exercised over HTTP. No additional Playwright or full browser suite is claimed by this record.",
+    "No raw server traces, headers, session values, private state, absolute fixture paths or local server URLs are included."
+  ]
+}

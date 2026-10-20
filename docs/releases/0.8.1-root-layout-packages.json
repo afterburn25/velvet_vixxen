@@ -1,0 +1,172 @@
+{
+  "schema": 1,
+  "status": "passed",
+  "verified_at_utc": "2026-10-19 21:39:37 UTC",
+  "scope": "Local final runtime package production and independent archive audit against immutable Git source. Final CI artifact comparison and saved customer download verification are separate evidence; this record does not establish CI completion, merge, or deployment.",
+  "source_commit": "e58f9edd708fd42dee0e6c898170e67eb4a01a53",
+  "source_tree": "6fb51ba5e39dca476989d4ae73fb61790a2da50d",
+  "clean_checkout_at_build_start": true,
+  "all_324_packaged_source_entries_verified_against_immutable_git_blobs": true,
+  "concurrent_documentation_scope": "A new untracked docs/releases/0.8.1-root-layout-browser.json appeared after the clean build. The initial strict whole-tree audit stopped; the successful audit verified immutable source blobs directly. Documentation is not packaged.",
+  "official_build_command": "python3 scripts/package.py --output <temporary-output-directory>",
+  "official_package_regression": {
+    "command": "python3 tests/Packaging/runtime_packages.py",
+    "exit_code": 0,
+    "reproduced_all_four_archive_hashes": true,
+    "actual_build5_root_expansion_rejected": true,
+    "private_fixture_exclusions_and_overlay_preservation": true,
+    "archive_reproducibility_and_metadata": true
+  },
+  "independent_checks": {
+    "archive_integrity": true,
+    "every_entry_hash_matches_manifest": true,
+    "fresh_exact_13_root_directories": true,
+    "upgrade_exact_9_root_directories": true,
+    "fresh_upgrade_exact_4_root_files": true,
+    "all_25_retired_root_directories_absent": true,
+    "root_media_php_absent": true,
+    "no_duplicate_unsafe_symlink_or_directory_entries": true,
+    "all_entries_regular_0644": true,
+    "repository_docs_tests_sdk_screenshots_workflows_dev_files_excluded": true,
+    "installed_configuration_runtime_state_customer_uploads_and_private_key_headers_excluded": true,
+    "reviewed_private_defaults_empty": true,
+    "focused_79_file_overlay_matches_full_packages_and_metadata": true,
+    "unchanged_8_file_installer_overlay": true
+  },
+  "runtime_inventory": {
+    "path": "includes/runtime-build.json",
+    "sha256": "35041e440b89a1a77036234805febdf049ec30031b2b336f739074622d60625f",
+    "runtime_files": 283,
+    "complete_actual_upgrade_hash_map": true,
+    "identical_across_fresh_upgrade_composer_repair": true
+  },
+  "focused_repair_closure": [
+    {
+      "source_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+      "historical_upgrade_sha256": "e7f6c52d4d7de217b647e41f44827381cfe4a86c58b794947a5a0fd8bfa57028",
+      "changed_or_new_runtime_files": 39,
+      "omitted_dependencies": []
+    },
+    {
+      "source_commit": "db759342e401617c9933c13b81a147ad9f8fd515",
+      "historical_upgrade_sha256": "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6",
+      "changed_or_new_runtime_files": 29,
+      "omitted_dependencies": []
+    },
+    {
+      "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+      "historical_upgrade_sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+      "changed_or_new_runtime_files": 29,
+      "omitted_dependencies": []
+    }
+  ],
+  "manifest": {
+    "filename": "Velvet-Vixxen-0.8.1-Build-20261019.6-package-manifest.json",
+    "size_bytes": 80738,
+    "sha256": "491ca44849132a4bbd772940747b1957a82cc3ddd7a35ed76528abb85a8d67d4"
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+      "size_bytes": 7623825,
+      "sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795",
+      "files": 325,
+      "php_files": 176,
+      "javascript_files": 11,
+      "uncompressed_bytes": 8969262,
+      "root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ],
+      "root_files": [
+        ".htaccess",
+        "VERSION",
+        "index.php",
+        "route.php"
+      ]
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7468166,
+      "sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe",
+      "files": 284,
+      "php_files": 165,
+      "javascript_files": 11,
+      "uncompressed_bytes": 8662066,
+      "root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "database",
+        "images",
+        "includes",
+        "public",
+        "templates",
+        "vendor"
+      ],
+      "root_files": [
+        ".htaccess",
+        "VERSION",
+        "index.php",
+        "route.php"
+      ]
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8,
+      "php_files": 6,
+      "javascript_files": 1,
+      "uncompressed_bytes": 209048,
+      "root_directories": [
+        "app",
+        "includes",
+        "install",
+        "public"
+      ],
+      "root_files": []
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Media-Composer-Repair.zip",
+      "size_bytes": 183292,
+      "sha256": "fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d",
+      "files": 79,
+      "php_files": 69,
+      "javascript_files": 6,
+      "uncompressed_bytes": 565340,
+      "root_directories": [
+        "admin",
+        "app",
+        "includes",
+        "public"
+      ],
+      "root_files": [
+        ".htaccess",
+        "route.php"
+      ]
+    }
+  ],
+  "sanitization": {
+    "source_audit_sha256": "a10fa1e5fcf709bbac908e6bde77b486629bfc6b70bc5d2bd42961388c64359e",
+    "temporary_build_output_argument_redacted": true,
+    "absolute_machine_paths_removed": true,
+    "process_ids_included": false
+  },
+  "ci_artifact_and_saved_download_comparison": "Recorded separately from this local package-production audit."
+}

@@ -1,0 +1,220 @@
+{
+  "version": "0.8.1",
+  "correction": "Installer Folder Repair",
+  "branch": "feature/0.8.1-site-ux-hero-library",
+  "starting_commit": "349fd1a5128c9963e535f77b75890feaac5981b1",
+  "filesystem_service_sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+  "verification": {
+    "local_source_suite": "passed (integrated final PHP 8.3.6 source/ownership/OPcache/package suite)",
+    "real_foreign_ownership_packaged_preflight": "passed",
+    "original_nine_path_failure_reproduced": "passed; original ZIP rebuilt byte-for-byte",
+    "runtime_package_tests": "passed",
+    "new_github_ci": {
+      "required_suite_execution": "passed; complete archived execution logs and uploaded artifacts in both final runs",
+      "official_success_conclusion_observed": false,
+      "status_snapshot_utc": "2026-10-19T16:21:51Z",
+      "status_note": "Run/job metadata still reported queued/null after all archived executions and artifact uploads completed; the official conclusion is not inferred.",
+      "php_versions": [
+        "8.2.34",
+        "8.3.35"
+      ],
+      "mysql_version": "8.0.46",
+      "playwright_version": "1.62.0",
+      "chromium_version": "151.0.7922.34",
+      "http_suites": 7,
+      "browser_suites": 12,
+      "browser_evidence_files_per_run": 64,
+      "package_hashes_match_saved_downloads": true,
+      "runs": [
+        {
+          "id": 39283438479,
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479",
+          "event": "push",
+          "head_sha": "eed4c5efe1f3be9aa2522f247adcd2a5e84c509a",
+          "checkout_commit": "eed4c5efe1f3be9aa2522f247adcd2a5e84c509a",
+          "status_as_reported": "queued",
+          "conclusion_as_reported": null,
+          "jobs": [
+            {
+              "id": 118162673422,
+              "name": "Repository and executable source contract",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118162673422",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162910110,
+              "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118162910110",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162910183,
+              "name": "PHP 8.2 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118162910183",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162910303,
+              "name": "PHP 8.3 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118162910303",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162910441,
+              "name": "MySQL 8 installed upgrades, merchandise and booking transactions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118162910441",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118165895958,
+              "name": "Build verified fresh-install and upgrade ZIPs",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/job/118165895958",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": 12202711569,
+              "name": "chromium-browser-evidence",
+              "size_in_bytes": 48414812,
+              "digest": "sha256:e6789650e212a7f7aeb86edd9309f4fb8639fff9167fd8ea371450ccc6e27ad0",
+              "created_at": "2026-10-19T16:17:48Z",
+              "expires_at": "2026-11-02T16:17:45Z",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/artifacts/12202711569"
+            },
+            {
+              "id": 12202672412,
+              "name": "velvet-vixxen-runtime-packages",
+              "size_in_bytes": 14981993,
+              "digest": "sha256:f4819cfface8c84a702c0e671b88d61c64372f35db12dbdda42ef67ded2fedcc",
+              "created_at": "2026-10-19T16:18:28Z",
+              "expires_at": "2026-11-18T16:18:26Z",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479/artifacts/12202672412"
+            }
+          ]
+        },
+        {
+          "id": 39283445755,
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755",
+          "event": "pull_request",
+          "head_sha": "eed4c5efe1f3be9aa2522f247adcd2a5e84c509a",
+          "checkout_commit": "430dcbd7e3861432f21cddcf8df8d63ebefd081e",
+          "status_as_reported": "queued",
+          "conclusion_as_reported": null,
+          "jobs": [
+            {
+              "id": 118162699164,
+              "name": "Repository and executable source contract",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118162699164",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162988130,
+              "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118162988130",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162988214,
+              "name": "PHP 8.2 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118162988214",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162988283,
+              "name": "MySQL 8 installed upgrades, merchandise and booking transactions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118162988283",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118162988552,
+              "name": "PHP 8.3 source and package regressions",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118162988552",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            },
+            {
+              "id": 118166134986,
+              "name": "Build verified fresh-install and upgrade ZIPs",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/job/118166134986",
+              "execution": "passed in archived execution log; normal cleanup completed"
+            }
+          ],
+          "artifacts": [
+            {
+              "id": 12202911516,
+              "name": "velvet-vixxen-runtime-packages",
+              "size_in_bytes": 14981993,
+              "digest": "sha256:8b81794f242d9d0384fc7a9d25fa2ea888c75594bdeb6b5a6ed1e2531a8a61ea",
+              "created_at": "2026-10-19T16:18:43Z",
+              "expires_at": "2026-11-18T16:18:41Z",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12202911516"
+            },
+            {
+              "id": 12201869438,
+              "name": "chromium-browser-evidence",
+              "size_in_bytes": 48441282,
+              "digest": "sha256:0383f1ae958c2eb647519200bf511a1df1b99bb9fc4a20d853871d0b05d2c671",
+              "created_at": "2026-10-19T16:18:21Z",
+              "expires_at": "2026-11-02T16:18:19Z",
+              "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12201869438"
+            }
+          ]
+        }
+      ]
+    },
+    "persistent_http_opcache_overlay": "passed; real same-timestamp stale negative control, actual repair ZIP loads corrected source without restart",
+    "previous_runtime_ci": "Both 7764509 runs have complete successful archived suite logs; status metadata lagged. Predates the final OPcache regression and package timestamp correction."
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+      "size_bytes": 7576393,
+      "sha256": "3647aaff64eb33eb02b27a33f02e2cb812b08264b1b206d6f30fba6c09ec7762",
+      "files": 313,
+      "php_files": 166,
+      "javascript_files": 10
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7423931,
+      "sha256": "57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715",
+      "files": 272,
+      "php_files": 155,
+      "javascript_files": 10
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip",
+      "size_bytes": 6400,
+      "sha256": "5ff968c13fe43d6ab7c759c3c0dabcf28bda5018c2378f5b496664f692171ce3",
+      "files": 1,
+      "php_files": 1,
+      "javascript_files": 0,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete"
+    }
+  ],
+  "delivery": {
+    "status": "saved replacement repair/fresh downloads and separate manifest",
+    "date": "2026-10-19",
+    "repair_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip",
+    "fresh_download_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
+    "manifest_filename": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json",
+    "upgrade": "unchanged existing download; no replacement needed"
+  },
+  "runtime_service_commit": "776450964e5a1e9d26719d886d114ce3eef4037e",
+  "component_zip_timestamp": [
+    2026,
+    10,
+    19,
+    0,
+    0,
+    0
+  ],
+  "source_commit": "eed4c5efe1f3be9aa2522f247adcd2a5e84c509a",
+  "source_tree": "a0be19e15f58d4576d78e1b5a820317f5242acab"
+}

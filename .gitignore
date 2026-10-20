@@ -1,0 +1,43 @@
+# Installed configuration and local credentials are never source files.
+/config/*
+!/config/.htaccess
+!/config/app.example.php
+**/.env
+**/.env.*
+*.pem
+*.key
+
+# Track only shipped defaults and access-control sentinels in runtime trees.
+/storage/**
+!/storage/**/
+!/storage/**/.htaccess
+!/storage/defaults/data.json
+/uploads/**
+!/uploads/**/
+!/uploads/.htaccess
+!/uploads/index.html
+!/uploads/images/demo/**
+!/uploads/audio/demo/**
+!/uploads/videos/demo/**
+!/uploads/captions/demo/**
+/addons/installed/**
+!/addons/installed/.htaccess
+/addons/staging/**
+!/addons/staging/.htaccess
+/database/backups/**
+!/database/backups/.htaccess
+
+# Local verification, build outputs, and retained hosting recovery copies.
+/.vvx-*
+/artifacts/
+/build/
+/dist/
+/node_modules/
+**/__pycache__/
+**/.pytest_cache/
+*.log
+*.tmp
+*.tmp-*
+*.previous
+*.backup
+*.bak

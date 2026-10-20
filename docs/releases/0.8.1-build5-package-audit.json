@@ -1,0 +1,345 @@
+{
+  "schema": 1,
+  "product": "Velvet Vixxen",
+  "version": "0.8.1",
+  "build_id": "20261019.5",
+  "audited_at_utc": "2026-10-19T19:58:00Z",
+  "evidence_status": "The local file-map audit is complete; exact-tree GitHub CI, literal gated-artifact comparison and saved-download readback subsequently passed. See 0.8.1-installed-build-repair.json.",
+  "source_branch": "feature/0.8.1-site-ux-hero-library",
+  "source_parent_commit": "6b2130b6ec6f6d49bf95cab9f9bccaa4fad79f79",
+  "source_state": "Committed implementation 2bc178013c9c528f45a5d0447624f3cbaf4395f2; final source, gated artifact and saved downloads contain identical runtime bytes.",
+  "hosted_installation_verified": false,
+  "hosted_installation_status": "The owner-reported unchanged installation remains unresolved; the affected hosting account has not been accessed.",
+  "prior_saved_download_comparison": {
+    "method": "Root materialized the four saved downloads and hashed their exact bytes. This audit independently compared those hashes and sizes with the downloaded db759342 GitHub artifact and retained local source packages.",
+    "files": [
+      {
+        "saved_download_name": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip",
+        "bytes": 89030,
+        "sha256": "26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2",
+        "materialized_saved_download_matches_prior_source_and_ci": true,
+        "prior_local_source_package_matches_ci_bytes": true,
+        "files": 67
+      },
+      {
+        "saved_download_name": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip",
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+        "bytes": 7608429,
+        "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+        "materialized_saved_download_matches_prior_source_and_ci": true,
+        "prior_local_source_package_matches_ci_bytes": true,
+        "files": 362
+      },
+      {
+        "saved_download_name": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+        "artifact_filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip",
+        "bytes": 7452770,
+        "sha256": "234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6",
+        "materialized_saved_download_matches_prior_source_and_ci": true,
+        "prior_local_source_package_matches_ci_bytes": true,
+        "files": 321
+      },
+      {
+        "saved_download_name": "Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json",
+        "artifact_filename": "Velvet-Vixxen-0.8.1-package-manifest.json",
+        "bytes": 85338,
+        "sha256": "c88b2291e17f1146d9359b9c36b13f457e76a023d4c7a2da6011705de8445ff9",
+        "materialized_saved_download_matches_prior_source_and_ci": true,
+        "prior_local_source_package_matches_ci_bytes": true
+      }
+    ]
+  },
+  "prior_baseline_overlay_comparisons": [
+    {
+      "source_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+      "artifact_sha256": "6bd025cef2d15482214a9af9dd8384914aeb0998b21112c916fd275146450c35",
+      "artifact_bytes": 15045233,
+      "prior_fresh_package": {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+        "sha256": "0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca",
+        "bytes": 7587279,
+        "files": 314
+      },
+      "comparison_kind": "Extracted runtime file maps; no live hosting account or installed customer state accessed",
+      "added_count": 52,
+      "changed_count": 20,
+      "removed_count": 0,
+      "added_paths": [
+        "about/index.php",
+        "account/billing.php",
+        "account/forgot.php",
+        "account/index.php",
+        "account/library.php",
+        "account/login.php",
+        "account/logout.php",
+        "account/register.php",
+        "account/reset.php",
+        "account/security.php",
+        "account/verify.php",
+        "admin/update.php",
+        "api/addon-license.php",
+        "api/marketing-event.php",
+        "api/member-state.php",
+        "api/payment-webhook.php",
+        "api/scene.php",
+        "api/upload.php",
+        "app/Core/RuntimeBuildService.php",
+        "app/Core/SceneButton.php",
+        "app/Views/admin/update-status.php",
+        "blog/index.php",
+        "blog/post.php",
+        "booking/index.php",
+        "campaign/index.php",
+        "cart/index.php",
+        "checkout/index.php",
+        "checkout/success.php",
+        "collections/index.php",
+        "communication/download.php",
+        "create-account/index.php",
+        "extension/index.php",
+        "includes/runtime-build.json",
+        "join/index.php",
+        "links/index.php",
+        "login/index.php",
+        "media.php",
+        "membership/index.php",
+        "messages/index.php",
+        "music/index.php",
+        "newsletter/confirm.php",
+        "newsletter/index.php",
+        "newsletter/unsubscribe.php",
+        "photos/index.php",
+        "photos/view.php",
+        "public/assets/js/api-client.js",
+        "receipt/index.php",
+        "recover/index.php",
+        "requests/index.php",
+        "shop/index.php",
+        "videos/index.php",
+        "videos/watch.php"
+      ],
+      "changed_paths": [
+        "admin/index.php",
+        "app/Core/RepairBackupService.php",
+        "app/Core/Store.php",
+        "app/Support/functions.php",
+        "app/Views/admin/composer.php",
+        "app/Views/admin/marketing.php",
+        "app/Views/admin/media-library.php",
+        "app/Views/admin/navigation.php",
+        "includes/marketing.php",
+        "includes/marketing_public_shell.php",
+        "includes/version.php",
+        "public/assets/css/composer.css",
+        "public/assets/css/site.css",
+        "public/assets/js/admin.js",
+        "public/assets/js/composer.js",
+        "public/assets/js/marketing.js",
+        "public/assets/js/site.js",
+        "public/router.php",
+        "public/routes/campaign/index.php",
+        "public/routes/links/index.php"
+      ],
+      "removed_paths": [],
+      "repair_overlay_exactly_matches_current_fresh_runtime": true,
+      "upgrade_overlay_exactly_matches_current_fresh_runtime": true
+    },
+    {
+      "source_commit": "db759342e401617c9933c13b81a147ad9f8fd515",
+      "artifact_sha256": "7926d4ed85c6ae55c8dcfbfb9ca2690f2e46e0b0ccb92314cd98a0838c7d08de",
+      "artifact_bytes": 15167490,
+      "prior_fresh_package": {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip",
+        "sha256": "d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f",
+        "bytes": 7608429,
+        "files": 362
+      },
+      "comparison_kind": "Extracted runtime file maps; no live hosting account or installed customer state accessed",
+      "added_count": 4,
+      "changed_count": 3,
+      "removed_count": 0,
+      "added_paths": [
+        "admin/update.php",
+        "app/Core/RuntimeBuildService.php",
+        "app/Views/admin/update-status.php",
+        "includes/runtime-build.json"
+      ],
+      "changed_paths": [
+        "admin/index.php",
+        "app/Views/admin/navigation.php",
+        "includes/version.php"
+      ],
+      "removed_paths": [],
+      "repair_overlay_exactly_matches_current_fresh_runtime": true,
+      "upgrade_overlay_exactly_matches_current_fresh_runtime": true
+    }
+  ],
+  "current_provisional_packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+      "build_id": "20261019.5",
+      "size_bytes": 7629714,
+      "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+      "files": 366,
+      "php_files": 217,
+      "javascript_files": 11
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+      "build_id": "20261019.5",
+      "size_bytes": 7474055,
+      "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+      "files": 325,
+      "php_files": 206,
+      "javascript_files": 11
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8,
+      "php_files": 6,
+      "javascript_files": 1,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete"
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+      "build_id": "20261019.5",
+      "size_bytes": 111697,
+      "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+      "files": 72,
+      "php_files": 64,
+      "javascript_files": 5,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "installed",
+      "verified_source_commits": [
+        "e5b04daa132521be69c943151f8112c7cd2017e8",
+        "db759342e401617c9933c13b81a147ad9f8fd515"
+      ],
+      "unknown_baseline": "Use the complete Upgrade ZIP when the installed source build is unknown."
+    }
+  ],
+  "separate_package_manifest": {
+    "filename": "Velvet-Vixxen-0.8.1-Build-20261019.5-package-manifest.json",
+    "bytes": 87242,
+    "sha256": "e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5",
+    "inside_customer_zip": false
+  },
+  "generated_runtime_inventory": {
+    "path": "includes/runtime-build.json",
+    "schema": 1,
+    "listed_files": 324,
+    "bytes": 34945,
+    "sha256": "d35d744e74f15f92187989d7f871b0070efc7fba73570b178bbea899618ac2b9",
+    "scope": "Complete Upgrade runtime, excluding this inventory itself.",
+    "identical_bytes_in": [
+      "fresh",
+      "upgrade",
+      "composer-repair"
+    ],
+    "absent_from_installer_repair": true,
+    "written_into_source_repository": false,
+    "excludes": [
+      "config",
+      "storage",
+      "uploads",
+      "install",
+      "registry",
+      "customer records",
+      "private state",
+      "repository docs/tests/workflows/SDK/screenshots"
+    ]
+  },
+  "archive_metadata": {
+    "regular_file_mode": "0644",
+    "explicit_directory_entries": 0,
+    "changed_component_zip_timestamp_fields": [
+      2026,
+      10,
+      19,
+      19,
+      30,
+      0
+    ],
+    "installer_database_timestamp_fields_unchanged": [
+      2026,
+      10,
+      19,
+      16,
+      0,
+      0
+    ],
+    "installer_filesystem_timestamp_fields_unchanged": [
+      2026,
+      10,
+      19,
+      0,
+      0,
+      0
+    ],
+    "previous_installer_repair_name_bytes_and_hash_preserved": true
+  },
+  "local_verification": [
+    {
+      "command": "python3 tests/Packaging/runtime_packages.py",
+      "result": "PASS",
+      "coverage": "Build names/identity, complete shared generated inventory, stale-source regeneration, mixed-runtime and invalid-manifest rejection, exact reviewed repair dependencies, independent Upgrade hash map, private-state preservation, safe ZIP entries, timestamp metadata, reproducibility, symlink rejection, unchanged Installer Repair SHA."
+    },
+    {
+      "command": "python3 -m py_compile scripts/package.py tests/Packaging/runtime_packages.py tests/Browser/installer_existing_database_playwright.py",
+      "result": "PASS"
+    },
+    {
+      "command": "php -l includes/version.php; php -l admin/index.php; php -l tests/Installer/existing_database_mysql.php",
+      "result": "PASS"
+    },
+    {
+      "command": "git diff --check",
+      "result": "PASS"
+    },
+    {
+      "check": "Bytewise historical Fresh + current Repair/Upgrade overlay maps for both pinned prior artifacts",
+      "result": "PASS"
+    }
+  ],
+  "interpretation": [
+    "The prior saved downloads contain the actual prior repaired runtime; differing download aliases did not change their bytes.",
+    "Passive ZIP delivery alone does not establish that the active host replaced every file or began executing new PHP.",
+    "The new visible build identity and complete runtime inventory make partial replacement and stale execution distinguishable.",
+    "Use the complete Upgrade ZIP when an installed historical source build is unknown. A matching 0.8.1 core label alone does not establish small-repair compatibility.",
+    "These comparisons and provisional local hashes are not a claim of owner-server deployment or completed final CI."
+  ],
+  "intermediate_browser_verification": {
+    "suite": "tests/Browser/composer_actions_playwright.py",
+    "result": "PASS on the recorded intermediate package; this result is not relabeled as final-package certification.",
+    "test_file_sha256": "681663212fbc3d2f59680f932e84239384f14cc89b15d8d9458b565b6623d525",
+    "fresh_zip_sha256": "194a88816831fc652c607e7a1c23166f7f199988f2f5bb0b60b20bc7d857fa42",
+    "evidence_sha256": "366e7106a68f2c3819fbe166fefd26c96f3a73a6704ec09eec8313752c317510",
+    "php": "8.3.6",
+    "browser": "155.0.8059.84",
+    "cases": [
+      "root-desktop",
+      "root-mobile",
+      "nested-desktop",
+      "nested-mobile"
+    ],
+    "superseded_reason": "An empirical persistent-cache probe showed that cli-server can keep OPcache active with opcache.enable_cli=0. The final RuntimeBuildService guard applies that CLI-only option to PHP_SAPI cli, preserving active cli-server refresh.",
+    "final_exact_source_ci_status": "Pending; the workflow reruns acceptance on the committed final runtime.",
+    "changed_paths_verified_against_intermediate_package_manifest": [
+      "app/Core/RuntimeBuildService.php",
+      "includes/runtime-build.json"
+    ]
+  },
+  "source_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+  "release_verification_record": "docs/releases/0.8.1-installed-build-repair.json"
+}

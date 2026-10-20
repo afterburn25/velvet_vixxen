@@ -1,0 +1,1408 @@
+{
+  "php": "8.3.6",
+  "server": "php -S without any router script; PHP opcode caching explicitly disabled",
+  "physical_public_dispatchers": 1,
+  "protected_public_handlers": 42,
+  "registered_aliases": 87,
+  "pretty_url_scope": "Old pretty PHP paths require real web-server rewriting; this test uses canonical route.php selectors.",
+  "cases": {
+    "root": {
+      "registered_routes": {
+        "about": {
+          "handler": "about/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "about/index.php": {
+          "handler": "about/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "join": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "join/index.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "login": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "login/index.php": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "create-account": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "create-account/index.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "recover": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "recover/index.php": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/index.php": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/billing.php": {
+          "handler": "account/billing.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/forgot.php": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/library.php": {
+          "handler": "account/library.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/login.php": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/logout.php": {
+          "handler": "account/logout.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/register.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/reset.php": {
+          "handler": "account/reset.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/security.php": {
+          "handler": "account/security.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/verify.php": {
+          "handler": "account/verify.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "api/addon-license.php": {
+          "handler": "api/addon-license.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/marketing-event.php": {
+          "handler": "api/marketing-event.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/member-state.php": {
+          "handler": "api/member-state.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/payment-webhook.php": {
+          "handler": "api/payment-webhook.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/scene.php": {
+          "handler": "api/scene.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/upload.php": {
+          "handler": "api/upload.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "blog": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/index.php": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/post.php": {
+          "handler": "blog/post.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking/": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking/index.php": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign/": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign/index.php": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart/": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart/index.php": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/index.php": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/success.php": {
+          "handler": "checkout/success.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections/": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections/index.php": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "communication/download.php": {
+          "handler": "communication/download.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension/": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension/index.php": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links/": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links/index.php": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership/": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership/index.php": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages/": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages/index.php": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music/": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music/index.php": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/index.php": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/confirm.php": {
+          "handler": "newsletter/confirm.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/unsubscribe.php": {
+          "handler": "newsletter/unsubscribe.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/index.php": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/view.php": {
+          "handler": "photos/view.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt/": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt/index.php": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests/": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests/index.php": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop/": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop/index.php": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/index.php": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/watch.php": {
+          "handler": "videos/watch.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "media.php": {
+          "handler": "media.php",
+          "status": 403,
+          "application_executed": true,
+          "content_type": "text/plain; charset=utf-8"
+        }
+      },
+      "status_counts": {
+        "200": 50,
+        "302": 20,
+        "405": 3,
+        "401": 3,
+        "404": 10,
+        "403": 1
+      },
+      "short_alias_page_parity": true,
+      "native_missing_dispatcher_negative_control": true,
+      "retired_pretty_php_without_rewriting_returns_native_404": true,
+      "authenticated_member_pages": {
+        "account/": 200,
+        "account/index.php": 200,
+        "account/billing.php": 200,
+        "account/library.php": 200,
+        "account/security.php": 200,
+        "messages/": 200,
+        "requests/": 200
+      },
+      "member_state": true,
+      "owner_scene": true,
+      "default_member_return": true,
+      "requests_return": true,
+      "logout_return": true,
+      "scene_query_json_and_csrf": true,
+      "access_before_cleanup": {
+        "registered_gallery_access": true,
+        "signed_media_query_preserved": true,
+        "exact_private_bytes": true,
+        "signed_media_range": true,
+        "tampered_signature_rejected": true
+      },
+      "access_after_cleanup": {
+        "registered_gallery_access": true,
+        "signed_media_query_preserved": true,
+        "exact_private_bytes": true,
+        "signed_media_range": true,
+        "tampered_signature_rejected": true
+      },
+      "preserved_owner_and_installation": true,
+      "root_cleanup": {
+        "actual_owner_cleanup": true,
+        "nonowner_rejection": true,
+        "csrf_rejection": true,
+        "method_rejection": true,
+        "retired_known_files": 46,
+        "removed_empty_directories": 22,
+        "preserved_current_runtime_files": 283,
+        "custom_items_preserved_in_place": 3,
+        "reversible_nonexecuting_archive": true,
+        "installed_root_directories": [
+          "account",
+          "addons",
+          "admin",
+          "api",
+          "app",
+          "booking",
+          "config",
+          "database",
+          "images",
+          "includes",
+          "install",
+          "public",
+          "storage",
+          "templates",
+          "uploads",
+          "vendor"
+        ],
+        "registered_routes_after_cleanup": {
+          "about": 200,
+          "about/index.php": 200,
+          "join": 200,
+          "join/index.php": 200,
+          "login": 200,
+          "login/index.php": 200,
+          "create-account": 200,
+          "create-account/index.php": 200,
+          "recover": 200,
+          "recover/index.php": 200,
+          "account": 302,
+          "account/": 302,
+          "account/index.php": 302,
+          "account/billing.php": 302,
+          "account/forgot.php": 200,
+          "account/library.php": 302,
+          "account/login.php": 200,
+          "account/logout.php": 302,
+          "account/register.php": 200,
+          "account/reset.php": 200,
+          "account/security.php": 302,
+          "account/verify.php": 200,
+          "api/addon-license.php": 405,
+          "api/marketing-event.php": 405,
+          "api/member-state.php": 401,
+          "api/payment-webhook.php": 405,
+          "api/scene.php": 401,
+          "api/upload.php": 401,
+          "blog": 200,
+          "blog/": 200,
+          "blog/index.php": 200,
+          "blog/post.php": 404,
+          "booking": 200,
+          "booking/": 200,
+          "booking/index.php": 200,
+          "campaign": 404,
+          "campaign/": 404,
+          "campaign/index.php": 404,
+          "cart": 200,
+          "cart/": 200,
+          "cart/index.php": 200,
+          "checkout": 302,
+          "checkout/": 302,
+          "checkout/index.php": 302,
+          "checkout/success.php": 302,
+          "collections": 200,
+          "collections/": 200,
+          "collections/index.php": 200,
+          "communication/download.php": 404,
+          "extension": 404,
+          "extension/": 404,
+          "extension/index.php": 404,
+          "links": 200,
+          "links/": 200,
+          "links/index.php": 200,
+          "membership": 200,
+          "membership/": 200,
+          "membership/index.php": 200,
+          "messages": 302,
+          "messages/": 302,
+          "messages/index.php": 302,
+          "music": 200,
+          "music/": 200,
+          "music/index.php": 200,
+          "newsletter": 200,
+          "newsletter/": 200,
+          "newsletter/index.php": 200,
+          "newsletter/confirm.php": 200,
+          "newsletter/unsubscribe.php": 200,
+          "photos": 200,
+          "photos/": 200,
+          "photos/index.php": 200,
+          "photos/view.php": 404,
+          "receipt": 302,
+          "receipt/": 302,
+          "receipt/index.php": 302,
+          "requests": 302,
+          "requests/": 302,
+          "requests/index.php": 302,
+          "shop": 200,
+          "shop/": 200,
+          "shop/index.php": 200,
+          "videos": 200,
+          "videos/": 200,
+          "videos/index.php": 200,
+          "videos/watch.php": 404,
+          "media.php": 403
+        },
+        "repeat_cleanup_preserved_routes": true
+      }
+    },
+    "nested": {
+      "registered_routes": {
+        "about": {
+          "handler": "about/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "about/index.php": {
+          "handler": "about/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "join": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "join/index.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "login": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "login/index.php": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "create-account": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "create-account/index.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "recover": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "recover/index.php": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/index.php": {
+          "handler": "account/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/billing.php": {
+          "handler": "account/billing.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/forgot.php": {
+          "handler": "account/forgot.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/library.php": {
+          "handler": "account/library.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/login.php": {
+          "handler": "account/login.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/logout.php": {
+          "handler": "account/logout.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/register.php": {
+          "handler": "account/register.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/reset.php": {
+          "handler": "account/reset.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/security.php": {
+          "handler": "account/security.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "account/verify.php": {
+          "handler": "account/verify.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "api/addon-license.php": {
+          "handler": "api/addon-license.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/marketing-event.php": {
+          "handler": "api/marketing-event.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/member-state.php": {
+          "handler": "api/member-state.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/payment-webhook.php": {
+          "handler": "api/payment-webhook.php",
+          "status": 405,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/scene.php": {
+          "handler": "api/scene.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "api/upload.php": {
+          "handler": "api/upload.php",
+          "status": 401,
+          "application_executed": true,
+          "content_type": "application/json; charset=utf-8"
+        },
+        "blog": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/index.php": {
+          "handler": "blog/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "blog/post.php": {
+          "handler": "blog/post.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking/": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "booking/index.php": {
+          "handler": "booking/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign/": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "campaign/index.php": {
+          "handler": "campaign/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart/": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "cart/index.php": {
+          "handler": "cart/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/index.php": {
+          "handler": "checkout/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "checkout/success.php": {
+          "handler": "checkout/success.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections/": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "collections/index.php": {
+          "handler": "collections/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "communication/download.php": {
+          "handler": "communication/download.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension/": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "extension/index.php": {
+          "handler": "extension/index.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links/": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "links/index.php": {
+          "handler": "links/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership/": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "membership/index.php": {
+          "handler": "membership/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages/": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "messages/index.php": {
+          "handler": "messages/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music/": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "music/index.php": {
+          "handler": "music/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/index.php": {
+          "handler": "newsletter/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/confirm.php": {
+          "handler": "newsletter/confirm.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "newsletter/unsubscribe.php": {
+          "handler": "newsletter/unsubscribe.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/index.php": {
+          "handler": "photos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "photos/view.php": {
+          "handler": "photos/view.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt/": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "receipt/index.php": {
+          "handler": "receipt/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests/": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "requests/index.php": {
+          "handler": "requests/index.php",
+          "status": 302,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop/": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "shop/index.php": {
+          "handler": "shop/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/index.php": {
+          "handler": "videos/index.php",
+          "status": 200,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "videos/watch.php": {
+          "handler": "videos/watch.php",
+          "status": 404,
+          "application_executed": true,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        "media.php": {
+          "handler": "media.php",
+          "status": 403,
+          "application_executed": true,
+          "content_type": "text/plain; charset=utf-8"
+        }
+      },
+      "status_counts": {
+        "200": 50,
+        "302": 20,
+        "405": 3,
+        "401": 3,
+        "404": 10,
+        "403": 1
+      },
+      "short_alias_page_parity": true,
+      "native_missing_dispatcher_negative_control": true,
+      "retired_pretty_php_without_rewriting_returns_native_404": true,
+      "authenticated_member_pages": {
+        "account/": 200,
+        "account/index.php": 200,
+        "account/billing.php": 200,
+        "account/library.php": 200,
+        "account/security.php": 200,
+        "messages/": 200,
+        "requests/": 200
+      },
+      "member_state": true,
+      "owner_scene": true,
+      "default_member_return": true,
+      "requests_return": true,
+      "logout_return": true,
+      "scene_query_json_and_csrf": true,
+      "access_before_cleanup": {
+        "registered_gallery_access": true,
+        "signed_media_query_preserved": true,
+        "exact_private_bytes": true,
+        "signed_media_range": true,
+        "tampered_signature_rejected": true
+      },
+      "access_after_cleanup": {
+        "registered_gallery_access": true,
+        "signed_media_query_preserved": true,
+        "exact_private_bytes": true,
+        "signed_media_range": true,
+        "tampered_signature_rejected": true
+      },
+      "preserved_owner_and_installation": true,
+      "root_cleanup": {
+        "actual_owner_cleanup": true,
+        "nonowner_rejection": true,
+        "csrf_rejection": true,
+        "method_rejection": true,
+        "retired_known_files": 46,
+        "removed_empty_directories": 25,
+        "preserved_current_runtime_files": 283,
+        "custom_items_preserved_in_place": 0,
+        "reversible_nonexecuting_archive": true,
+        "installed_root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "config",
+          "database",
+          "images",
+          "includes",
+          "install",
+          "public",
+          "storage",
+          "templates",
+          "uploads",
+          "vendor"
+        ],
+        "registered_routes_after_cleanup": {
+          "about": 200,
+          "about/index.php": 200,
+          "join": 200,
+          "join/index.php": 200,
+          "login": 200,
+          "login/index.php": 200,
+          "create-account": 200,
+          "create-account/index.php": 200,
+          "recover": 200,
+          "recover/index.php": 200,
+          "account": 302,
+          "account/": 302,
+          "account/index.php": 302,
+          "account/billing.php": 302,
+          "account/forgot.php": 200,
+          "account/library.php": 302,
+          "account/login.php": 200,
+          "account/logout.php": 302,
+          "account/register.php": 200,
+          "account/reset.php": 200,
+          "account/security.php": 302,
+          "account/verify.php": 200,
+          "api/addon-license.php": 405,
+          "api/marketing-event.php": 405,
+          "api/member-state.php": 401,
+          "api/payment-webhook.php": 405,
+          "api/scene.php": 401,
+          "api/upload.php": 401,
+          "blog": 200,
+          "blog/": 200,
+          "blog/index.php": 200,
+          "blog/post.php": 404,
+          "booking": 200,
+          "booking/": 200,
+          "booking/index.php": 200,
+          "campaign": 404,
+          "campaign/": 404,
+          "campaign/index.php": 404,
+          "cart": 200,
+          "cart/": 200,
+          "cart/index.php": 200,
+          "checkout": 302,
+          "checkout/": 302,
+          "checkout/index.php": 302,
+          "checkout/success.php": 302,
+          "collections": 200,
+          "collections/": 200,
+          "collections/index.php": 200,
+          "communication/download.php": 404,
+          "extension": 404,
+          "extension/": 404,
+          "extension/index.php": 404,
+          "links": 200,
+          "links/": 200,
+          "links/index.php": 200,
+          "membership": 200,
+          "membership/": 200,
+          "membership/index.php": 200,
+          "messages": 302,
+          "messages/": 302,
+          "messages/index.php": 302,
+          "music": 200,
+          "music/": 200,
+          "music/index.php": 200,
+          "newsletter": 200,
+          "newsletter/": 200,
+          "newsletter/index.php": 200,
+          "newsletter/confirm.php": 200,
+          "newsletter/unsubscribe.php": 200,
+          "photos": 200,
+          "photos/": 200,
+          "photos/index.php": 200,
+          "photos/view.php": 404,
+          "receipt": 302,
+          "receipt/": 302,
+          "receipt/index.php": 302,
+          "requests": 302,
+          "requests/": 302,
+          "requests/index.php": 302,
+          "shop": 200,
+          "shop/": 200,
+          "shop/index.php": 200,
+          "videos": 200,
+          "videos/": 200,
+          "videos/index.php": 200,
+          "videos/watch.php": 404,
+          "media.php": 403
+        },
+        "repeat_cleanup_preserved_routes": true
+      }
+    }
+  },
+  "fresh_zip_sha256": "8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795",
+  "upgrade_zip_sha256": "7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe",
+  "fresh_root_directories": [
+    "addons",
+    "admin",
+    "app",
+    "config",
+    "database",
+    "images",
+    "includes",
+    "install",
+    "public",
+    "storage",
+    "templates",
+    "uploads",
+    "vendor"
+  ],
+  "upgrade_root_directories": [
+    "addons",
+    "admin",
+    "app",
+    "database",
+    "images",
+    "includes",
+    "public",
+    "templates",
+    "vendor"
+  ],
+  "evidence_status": "Local scoped acceptance. Final exact-source GitHub CI and saved replacement delivery remain pending."
+}

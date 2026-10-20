@@ -1,0 +1,209 @@
+{
+  "schema": 1,
+  "verified_at_utc": "2026-10-19T19:58:46Z",
+  "status": "local_acceptance_passed",
+  "scope": "Disposable file-mode historical upgrade acceptance. This record does not certify the affected customer host or a new GitHub CI run.",
+  "test": "tests/Browser/installed_update_playwright.py",
+  "ci_job": "http-browser",
+  "historical_commit": "e5b04daa132521be69c943151f8112c7cd2017e8",
+  "historical_fresh_sha256": "0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca",
+  "historical_reconstruction": "git archive of the pinned commit; that commit package.py; exact prior delivered ZIP SHA required; no fallback or skip",
+  "tested_upgrade_sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+  "build_id": "20261019.5",
+  "php": "8.3.6",
+  "chromium": "155.0.8059.84",
+  "runtime_packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Fresh-Install.zip",
+      "size_bytes": 7629714,
+      "sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+      "files": 366
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7474055,
+      "sha256": "080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d",
+      "files": 325
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "files": 8
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Media-Composer-Repair.zip",
+      "size_bytes": 111697,
+      "sha256": "13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572",
+      "files": 72
+    }
+  ],
+  "cases": [
+    {
+      "name": "root-cache",
+      "actual_opcache_enabled": true,
+      "enable_cli_flag": true,
+      "same_process_and_browser": true,
+      "old_asset_identity": "0.8.1-20261019.3",
+      "new_asset_identity": "0.8.1-20261019.5",
+      "owner_get_no_store": true,
+      "owner_form_post_303": true,
+      "mixed_files_block_refresh": true,
+      "unrelated_cache_preserved": true,
+      "state_preserved": true,
+      "security_checks": {
+        "anonymous_and_member_get_post_denied": true,
+        "demoted_owner_session_get_post_403": true,
+        "forbidden_method_405": true,
+        "missing_and_wrong_csrf_419": true,
+        "unknown_action_400": true
+      },
+      "post_refresh_actions": {
+        "add_button": true,
+        "preview_stays_open_with_saved_draft": true,
+        "publish_persists_public_button": true,
+        "public_button_booking_navigation": true,
+        "library_and_composer_uploads": true,
+        "exact_asset_bytes_and_browser_decode": true,
+        "normal_reload_preserves_layer": true,
+        "uncaught_javascript_errors": 0
+      },
+      "status_viewports": [
+        {
+          "device": "desktop",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        {
+          "device": "mobile",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      ]
+    },
+    {
+      "name": "nested-cache",
+      "actual_opcache_enabled": true,
+      "enable_cli_flag": false,
+      "same_process_and_browser": true,
+      "old_asset_identity": "0.8.1-20261019.3",
+      "new_asset_identity": "0.8.1-20261019.5",
+      "owner_get_no_store": true,
+      "owner_form_post_303": true,
+      "mixed_files_block_refresh": true,
+      "unrelated_cache_preserved": true,
+      "state_preserved": true,
+      "security_checks": {
+        "anonymous_and_member_get_post_denied": true,
+        "demoted_owner_session_get_post_403": true,
+        "forbidden_method_405": true,
+        "missing_and_wrong_csrf_419": true,
+        "unknown_action_400": true
+      },
+      "post_refresh_actions": {
+        "add_button": true,
+        "preview_stays_open_with_saved_draft": true,
+        "publish_persists_public_button": true,
+        "public_button_booking_navigation": true,
+        "library_and_composer_uploads": true,
+        "exact_asset_bytes_and_browser_decode": true,
+        "normal_reload_preserves_layer": true,
+        "uncaught_javascript_errors": 0
+      },
+      "status_viewports": [
+        {
+          "device": "desktop",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        {
+          "device": "mobile",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      ]
+    },
+    {
+      "name": "nested-cache-disabled",
+      "actual_opcache_enabled": false,
+      "enable_cli_flag": false,
+      "same_process_and_browser": true,
+      "old_asset_identity": "0.8.1-20261019.3",
+      "new_asset_identity": "0.8.1-20261019.5",
+      "owner_get_no_store": true,
+      "owner_form_post_303": true,
+      "mixed_files_block_refresh": true,
+      "unrelated_cache_preserved": true,
+      "state_preserved": true,
+      "security_checks": {},
+      "post_refresh_actions": {},
+      "status_viewports": [
+        {
+          "device": "desktop",
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 2
+        },
+        {
+          "device": "mobile",
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "centered": true,
+          "no_horizontal_overflow": true,
+          "summary_columns": 1
+        }
+      ]
+    }
+  ],
+  "evidence_json_sha256": "12744c022d2f46f8df12a1fde6d0489c7655f4a466ea489f58ff380f3ca86897",
+  "screenshots": [
+    "installed-update-nested-cache-disabled-last-page.png",
+    "installed-update-nested-cache-disabled-status-desktop.png",
+    "installed-update-nested-cache-disabled-status-mobile.png",
+    "installed-update-nested-cache-last-page.png",
+    "installed-update-nested-cache-preview.png",
+    "installed-update-nested-cache-status-desktop.png",
+    "installed-update-nested-cache-status-mobile.png",
+    "installed-update-root-cache-last-page.png",
+    "installed-update-root-cache-preview.png",
+    "installed-update-root-cache-status-desktop.png",
+    "installed-update-root-cache-status-mobile.png"
+  ],
+  "notes": [
+    "PHP and the authenticated browser context remain alive across extraction, inspection, refresh and action verification.",
+    "The active-cache negative controls require old PHP rendering the new JavaScript before owner refresh.",
+    "Nested cli-server cache remains active with enable_cli=0; opcache_get_status verifies actual state. opcache.enable=0 disables the final control.",
+    "The complete state file is byte-identical through verification and cache refresh; later intentional scene publication/uploads preserve owner/configuration/lock/original-file records.",
+    "The initial nested popup viewport mismatch was a corrected test-fixture issue; final popups inherit the case device from their browser context."
+  ]
+}

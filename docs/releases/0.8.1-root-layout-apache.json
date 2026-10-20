@@ -1,0 +1,635 @@
+{
+  "scope": "Actual extracted Build .6 package on disposable local Apache/FPM; no user deployment accessed.",
+  "source_state": "Exact extracted working-source package snapshot identified by SHA256 below. Parent subsequently disabled obsolete RepairBackupService cleanup methods; that later change was not included in this Apache snapshot. This is not a final-package, full CI, persistent-cache, or owner-host deployment claim.",
+  "build_id": "20261019.6",
+  "versions": {
+    "apache": "Server version: Apache/2.4.58 (Ubuntu)",
+    "php_fpm": "PHP 8.3.6 (fpm-fcgi) (built: Jul 16 2026 18:30:41)"
+  },
+  "package": {
+    "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Fresh-Install.zip",
+    "size_bytes": 7625267,
+    "sha256": "c3d80df5940bdf886c58ab7cad21d3233488e9651bbb11d5096e6bd695aa75e5",
+    "file_count": 325,
+    "root_directories": [
+      "addons",
+      "admin",
+      "app",
+      "config",
+      "database",
+      "images",
+      "includes",
+      "install",
+      "public",
+      "storage",
+      "templates",
+      "uploads",
+      "vendor"
+    ],
+    "root_files": [
+      ".htaccess",
+      "VERSION",
+      "index.php",
+      "route.php"
+    ],
+    "runtime_inventory_sha256": "8ae702a65dc7b7c93aa07314aef0aa579611ff44b1fbb8e118d61b1d23f1e09b"
+  },
+  "cache_scope": "PHP-FPM OPcache disabled here; persistent .5\u2192.6 cache activation is a separate browser regression.",
+  "router_scope": "Real Apache dispatch and physical route.php; auto_prepend records CGI metadata only and does not rewrite or dispatch.",
+  "private_path_scope": "SetHandler exercises package .htaccess. Bare ProxyPassMatch is a configuration negative control; two additional profiles use explicit virtual-host LocationMatch denial.",
+  "cases": [
+    {
+      "case": "handler-root",
+      "mode": "handler",
+      "installation_prefix": "",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 401,
+        "missing_file_response": false,
+        "works_via_actual_rewrite": true
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    },
+    {
+      "case": "handler-nested",
+      "mode": "handler",
+      "installation_prefix": "/nested/velvet",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 401,
+        "missing_file_response": false,
+        "works_via_actual_rewrite": true
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    },
+    {
+      "case": "proxypass-root",
+      "mode": "proxypass",
+      "installation_prefix": "",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 200,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 200,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 401,
+          "application_json": true
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 404,
+        "missing_file_response": true,
+        "works_via_actual_rewrite": false
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    },
+    {
+      "case": "proxypass-nested",
+      "mode": "proxypass",
+      "installation_prefix": "/nested/velvet",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 200,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 200,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 401,
+          "application_json": true
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 404,
+        "missing_file_response": true,
+        "works_via_actual_rewrite": false
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    },
+    {
+      "case": "proxypass-explicit-private-denial-root",
+      "mode": "proxypass-explicit-private-denial",
+      "installation_prefix": "",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 404,
+        "missing_file_response": true,
+        "works_via_actual_rewrite": false
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    },
+    {
+      "case": "proxypass-explicit-private-denial-nested",
+      "mode": "proxypass-explicit-private-denial",
+      "installation_prefix": "/nested/velvet",
+      "canonical_requests": [
+        {
+          "route": "api/scene.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "api/upload.php",
+          "status": 401,
+          "content_type": "application/json; charset=utf-8"
+        },
+        {
+          "route": "booking",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "login",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        },
+        {
+          "route": "about",
+          "status": 200,
+          "content_type": "text/html; charset=UTF-8"
+        }
+      ],
+      "private_paths": [
+        {
+          "path": "config/app.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "includes/bootstrap.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "public/routes/api/scene.php",
+          "status": 403,
+          "application_json": false
+        },
+        {
+          "path": "storage/defaults/data.json",
+          "status": 403,
+          "application_json": false
+        }
+      ],
+      "old_pretty_php": {
+        "status": 404,
+        "missing_file_response": true,
+        "works_via_actual_rewrite": false
+      },
+      "selector_refusal": {
+        "traversal": 404,
+        "duplicate": 404
+      },
+      "owner_login": true,
+      "composer_add_button": true,
+      "build": "20261019.6",
+      "owner_scene_read": 200,
+      "csrf_rejection": 419,
+      "draft_save": 200,
+      "draft_private": true,
+      "owner_full_page_preview": 200,
+      "publish": 200,
+      "published_scene_in_homepage": true,
+      "generated_booking_link": true,
+      "upload": 200,
+      "image_bytes_exact": true,
+      "thumbnail_status": 200,
+      "upload_prefix_preserved": true,
+      "update_inventory_complete": true,
+      "root_layout_organized": true,
+      "old_cleanup_action_redirect": 302,
+      "config_and_installation_identity_preserved": true,
+      "runtime_root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ]
+    }
+  ],
+  "cgi_verified_canonical_requests": 54,
+  "all_canonical_script_filenames_are_route_php": true,
+  "status": "passed",
+  "verified_at_utc": "2026-10-19 21:26:53 UTC",
+  "private_path_interpretation": "Bare ProxyPassMatch bypassed per-directory PHP-denial controls (config/app.php and includes/bootstrap.php executed with 200; this does not assert source or config values were disclosed). Canonical application authorization remained effective. Explicit virtual-host LocationMatch denial returned 403 for all four private test paths in root and nested installations.",
+  "verification_diagnostics": {
+    "php_fatals_warnings_parse_errors_notices": 0,
+    "no_runtime_source_edits_by_audit": true,
+    "test_servers_terminated": true
+  },
+  "evidence_status": "Local scoped acceptance. Final exact-source GitHub CI and saved replacement delivery remain pending."
+}

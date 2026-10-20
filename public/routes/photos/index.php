@@ -1,0 +1,11 @@
+<?php
+declare(strict_types=1);
+if (!defined('ROOT_PATH')) { define('ROOT_PATH', dirname(__DIR__, 3)); }require ROOT_PATH.'/app/bootstrap.php';if(!is_installed())redirect(base_url('install/'));
+use App\Core\MediaAccess;$pageTitle='Photos';$activeNav='photos';$galleries=app_store()->galleries(true);$member=current_member();require root_path('app/Views/public/partials/header.php');
+?>
+<section class="media-hero photo-hero"><div><span class="eyebrow pink">The private collection</span><h1>Photo galleries.</h1><p>Public previews, subscriber sets, complimentary access, rentals, and pay-per-view collections live together in one gallery experience.</p></div><div class="media-hero-orbit">◇</div></section>
+<section class="media-content-section"><div class="media-section-head"><div><span class="eyebrow pink">Published sets</span><h2>Explore the collection</h2></div><p>Sign in to see which releases are already included in your account.</p></div><div class="gallery-grid">
+<?php foreach($galleries as $gallery):$cover=(array)($gallery['coverAsset']??[]);$count=count((array)($gallery['items']??[]));$decision=entitlement_resolver()->resolve('gallery',$gallery,$member,false);?>
+<a class="gallery-card" href="<?=e(base_url('photos/view.php?slug='.rawurlencode((string)$gallery['slug'])))?>"><div class="gallery-cover"><img src="<?=e(media_thumbnail_src($cover))?>" alt="<?=e((string)$gallery['title'])?>"><span class="gallery-count"><?=e((string)$count)?> photos</span><?php if(!$decision['allowed']):?><span class="gallery-lock">◆</span><?php endif;?></div><div class="gallery-card-copy"><span class="access-pill <?=$decision['allowed']?'public':'locked'?>"><?=e($decision['allowed']?'Available':MediaAccess::label((string)$gallery['accessMode']))?></span><h2><?=e((string)$gallery['title'])?></h2><p><?=e((string)$gallery['description'])?></p><?php if(!$decision['allowed']):?><small><?=e((string)$decision['reason'])?></small><?php endif;?></div></a>
+<?php endforeach;?><?php if($galleries===[]):?><div class="empty-media-state"><span>◇</span><h3>No published galleries yet.</h3><p>Create a photo set from Admin → Galleries.</p></div><?php endif;?></div></section>
+<?php require root_path('app/Views/public/partials/footer.php'); ?>

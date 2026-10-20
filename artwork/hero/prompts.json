@@ -1,0 +1,302 @@
+[
+  {
+    "id": "magenta-penthouse-suite",
+    "title": "Magenta Penthouse Suite",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: standalone background photograph for a full-width live website Hero. Create one single coherent landscape photograph, ideally 16:9, of an opulent penthouse bedroom at blue hour with a low upholstered bed at the back-left, velvet magenta headboard, black marble, brass details and full-height skyline windows; leave a broad clear smoked-oak floor across the front and right. Architectural photography, realistic scale, eye-level viewpoint about 1.4m high, natural straight perspective and believable contact shadows. Rich elegant neon-pink/magenta/black Velvet Vixxen palette where appropriate, restrained highlights and warm luxury materials. Reserve uncluttered negative space for live website text on the left and a clear physically believable floor plane on the right for a separately positioned transparent cutout later. This image must remain completely PEOPLE-FREE. No people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, user interface, borders, panels or collage. The entire output is just this one room scene. Keep adequate scene detail and wide Hero composition.",
+    "masterSha256": "7b0dbd515c5b3c9026d4180fef19d1079ef831ce63d6aaf6bf6f605eded42307",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "55585afb29e3016c57fef2205048822cba2d64e3787bd17f028dffeeac200414"
+  },
+  {
+    "id": "romantic-candlelit-suite",
+    "title": "Romantic Candlelit Suite",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a romantic luxury hotel suite with champagne silk bedding at the back-right, tall dark curtains, a sculptural chandelier and a few candle lanterns; clear elegant stone floor in the center foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "3f740756b0db6ccd85e0c3e776622546dc46ef286aef3ffceb642cbc6740e98a",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "ff5565670b1c11d496c34a18190a9267a47241ccec80a56e7f048640b75c1574"
+  },
+  {
+    "id": "rose-marble-master-suite",
+    "title": "Rose Marble Master Suite",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a spacious designer master bedroom with rose marble accent wall, warm backlighting, black lacquer side tables and soft plum velvet bed; wide open foreground floor with subtle reflections. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "1531d9b00a553bf1b30d2cac1eb26b88424afafd0ccb26f0cb1ebc953bf58acf",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "b173308524d848ab30d2609b391915ef778faba1ff31bc1f7aafac597a9eabd2"
+  },
+  {
+    "id": "midnight-penthouse-kitchen",
+    "title": "Midnight Penthouse Kitchen",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a sophisticated penthouse kitchen with black marble island towards the rear, brushed brass fixtures, magenta under-cabinet accent lights and distant city lights through windows; unobstructed dark stone floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "dce166a95ade676bd230723495c1b312735227ac998c20b1d68c41a19a2acc89",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "2d0bb529cca50c6c8bf8b7bab592df7f069e677ec09f3eaeb783453d932e4c3b"
+  },
+  {
+    "id": "sunset-chef-kitchen",
+    "title": "Sunset Chef Kitchen",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an upscale chef kitchen in a coastal villa at golden hour, cream stone island at the back-left, walnut cabinetry, sculptural pendants and expansive terrace windows; wide open warm limestone floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "0b1cda6eeaa4c878e64106dd645f6df6c013af20f5c748cf64a6e846f7beacda",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "1e407e952d73f24add4217e36a8700265dc3a95eb1dfb0f0e73c2b11898bd360"
+  },
+  {
+    "id": "skyline-living-room",
+    "title": "Skyline Living Room",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a glamorous penthouse living room at dusk with low curved ivory sofa along the back-left, black marble fireplace on the left wall, magenta ambient accent and city skyline; clear polished floor on the right foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "8782f041f6fa7b1b4a9f8be6efa035c6b91ccf14514ca748dbd036a19aca4e03",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "adcf55eee9054c40d05d14c5d74622bec139931aa0a3b9695e6da1d9ca16d4d5"
+  },
+  {
+    "id": "velvet-penthouse-lounge",
+    "title": "Velvet Penthouse Lounge",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a double-height penthouse lounge with burgundy velvet seating placed near the far windows, brass floor lamps, dramatic dark ribbed walls and twilight city view; open warm wood floor center and right foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "081a86a7ee2e9689910dc820937e7e931d8ffaae6dc67e19fb7be43ee4a1e6c3",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "67fce0b3b4d8cef150c82ed78f107d304f559eb3edf55d40e8e2ce0e795458cd"
+  },
+  {
+    "id": "magenta-billiards-room",
+    "title": "Magenta Billiards Room",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a private designer billiards room with a black pool table with magenta felt in the back-left of the frame, sleek pendant over table, a dark lounge seating area near rear wall; large clear foreground walking area with realistic dark timber floor. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "03e0622467e3c3c9b4435a78fd1b1d4670bb2c7b99fe0a2b3f64cea2292f8c9d",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "e204dc8da712285024dadd7d6f784b449932a679016bc3b6cfcd92ccbe451fe6"
+  },
+  {
+    "id": "private-cocktail-bar",
+    "title": "Private Cocktail Bar",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an upscale private cocktail lounge with curved black marble bar and tasteful magenta accent lighting, brass shelving and unlabelled glass bottles deep in the background; leave elegant polished stone floor center and right foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "7ae900b3c662d300d609f23ec4f9e61410576cbd06ef1af67416440d8ffe09b2",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "297b3b30dd4e0427fef9cf118c8a8abbc381cd3e18c79886f3b174bf95cd3a77"
+  },
+  {
+    "id": "art-deco-home-bar",
+    "title": "Art Deco Home Bar",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an intimate expensive art deco home bar with jewel toned dark walls, walnut bar at the back-right, brass geometric details, understated pink accent lighting and a leather banquette at the left edge; open oak floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "15f4486b5861c3d50cdb0a54728fbab95af9a746b2899b69b77f74e1de17fc14",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "f02a1ce5c23995745ef85239428d35e0ab61b72b07d96e60f4f6bf6a74574222"
+  },
+  {
+    "id": "private-cinema",
+    "title": "Private Cinema",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a luxury private home theater with dark burgundy reclining chairs organized toward the rear sides, a large blank dark cinema screen along the back wall and subtle magenta aisle lighting; clear carpeted foreground floor. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "8e03da0618e157c7d9aca74f31744a17572c9141d67433da066f82c59a222b1b",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "98c1502e5bbe115421730ecfca5ba0db7d390dc2c700798fa85f0fe2cdc2b7dd"
+  },
+  {
+    "id": "rose-marble-spa",
+    "title": "Rose Marble Spa",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a luxury spa bathroom of pale rose marble and brass fixtures with sculptural bathtub at the rear-left, backlit mirrors without any reflection of people, soft indirect lighting and a distant garden; clear stone floor right foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "2f29fa862a120c60449fa9307dcb2c8b4d22e5b415c32f7c6cc5ce8bc0827a35",
+    "masterWidth": 1672,
+    "masterHeight": 940,
+    "runtimeSha256": "59a6a761a2fbb3148bb458b4d495bbb80591312b9a402a133b45784f308b09d3"
+  },
+  {
+    "id": "black-marble-bath",
+    "title": "Black Marble Bath",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an opulent black marble bathroom with freestanding oval tub along the back wall, brass faucet, magenta cove lighting and steam-free glass shower at one side; broad clear dry stone floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "18d7a3af4c63adb76c0861bab1e35f6e02f0d2c2023796780a8cc38430253e0f",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "efeba4eec4980bce8aaa7bf86a84d4f40baa502b4941359ecc92773716d1c7af"
+  },
+  {
+    "id": "cedar-sauna-retreat",
+    "title": "Cedar Sauna Retreat",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a spacious luxury cedar sauna with tiered wood benches along the back and left walls, warm concealed lighting and a glass wall onto a quiet forest; unobstructed timber floor across the foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "693985c2ad25c6a8aeab11b39e5ac5e13a7a544d6d397b16d778262df5784b87",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "400fa98c77b395a22bce7f029cc1c5d2156b287b6f3cd9e1845b7e8c51913399"
+  },
+  {
+    "id": "couture-walk-in-closet",
+    "title": "Couture Walk-in Closet",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a glamorous luxury walk-in dressing room with walnut and brass shelving, neatly hung unbranded clothing, backlit shoe shelves and a velvet ottoman far toward the back-left; clear pale marble floor foreground; no mannequin. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "8b785e77f1d0375d5eaf51a42c12b8f105e8a948e80375bbd8c13451d7ea7de7",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "593c141b20fa0ada12b836aded247b9cc82e09ded6cff6fc070bea64b66fd7af"
+  },
+  {
+    "id": "midnight-music-studio",
+    "title": "Midnight Music Studio",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a high-end private music recording studio with a mixing desk against the back-left wall, discreet speakers, dark acoustic panels, black grand piano towards far right and soft magenta LED accent; clear timber floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "ae977977063d6dd309559e131aea29cbfd50434919bdf0f730cd721ff6f4bc6a",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "fe79f3c4c5d32c363feea47a8324b5b324b8fcd1531857c7e45a62079f200182"
+  },
+  {
+    "id": "private-wine-cellar",
+    "title": "Private Wine Cellar",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a luxury contemporary wine cellar with sculptural walnut wine racks and warm backlighting, a narrow stone tasting console along the rear-left, dark ceiling and hundreds of unlabelled bottles; wide open stone floor center foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "9707b91954a8e805bae9bb19955867ce989dfec07017da79413ac4aecbbcaa68",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "1eb12d49ce8a776e8f025104c7c2f22f1060d4263292a106cac4d7c86f7b611e"
+  },
+  {
+    "id": "grand-mansion-foyer",
+    "title": "Grand Mansion Foyer",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an impressive mansion foyer with a sweeping stone staircase ascending along the rear-right, a sculptural chandelier, black and ivory marble and very restrained magenta accent lighting; broad unobstructed marble foreground floor. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "083299c1a3812635fbbbc3b64b7d416c24515288b512e53becaffc4e22d43f3d",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "ab9af81826fea27bba6e1b79f968192dfbe165027ed1ebe41f9bd83aaa854ffa"
+  },
+  {
+    "id": "skyline-rooftop-lounge",
+    "title": "Skyline Rooftop Lounge",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a private rooftop lounge at blue hour with low charcoal seating pushed to the perimeter, subtle magenta accent lighting, glass balustrade and distant city skyline; broad clear terrace paving foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "e98aa4d320a2011d30c4e386fa7349ef4c6f019379ed70da3f555d4346abf511",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "f19de94468ea01e1603c55e4fb1cb7e2ef1959d33f8d9a92767547aa65b71008"
+  },
+  {
+    "id": "garden-firepit-lounge",
+    "title": "Garden Fire-pit Lounge",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a luxury private garden at dusk with a low linear fire pit and comfortable stone-colored seating at the back-left, lush landscaping, discreet lanterns and warm firelight; clear stone terrace foreground and right. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "98ed21e5f5c833bd7e8d0c3386777f0ef1e686f2a8cb6c993f72f8a61d9bd871",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "207d00f2bf9f01d2d71d9dbc70c13bd78d0bcdf8e7ad5fbbb60aa02e15848dab"
+  },
+  {
+    "id": "tropical-infinity-pool",
+    "title": "Tropical Infinity Pool",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an exclusive tropical villa infinity pool at sunset, still turquoise water beyond a broad dry limestone pool deck, ocean horizon, palms near the edges, a few loungers at the far edge; broad open dry deck foreground for standing. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "be3898145ce4abf09574940e9590d8bb78c10674223b5c7e489a223b4bf7d421",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "9b6db76cc0e3cea669d7f477c028568c9e83077d539f932b5b48c280c65fe565"
+  },
+  {
+    "id": "waterfall-pool-retreat",
+    "title": "Waterfall Pool Retreat",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a luxury resort-style private waterfall swimming pool set in natural stone and tropical landscaping at blue hour; waterfall at the far rear, subtly illuminated turquoise pool in middle distance and clear dry stone deck across foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "213cb665355a64fdecf145f197883f48cd413e2bdc980d9045628d3c1f94b209",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "10b32f6d98638323ef933b1b889b3ddf65f13f625feea8f7ac2aed201651ba7c"
+  },
+  {
+    "id": "private-beach-cabana",
+    "title": "Private Beach Cabana",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an elegant private beach cabana at sunset, gauzy ivory curtains framing a lounge bed well in the back-left, calm ocean and pink horizon; open smooth sand and timber deck foreground without footprints. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "99643330d32b5b46256593f6983a6715eb01c70b0789c6ab206a61ad06c8a922",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "f569a85e62a5245eac0e0f84ed2b0aedf889939c3ce5a2a26bab291d7ad96d9a"
+  },
+  {
+    "id": "sunset-beach-terrace",
+    "title": "Sunset Beach Terrace",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a secluded luxury beach terrace overlooking calm sea at golden hour, a low sofa and linen parasol near the rear-right, natural stone and woven textures; broad open dry terrace floor foreground and left. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "8caadd43a4a6c677521f2b73dcda279fd10be6e3f6ec5ea07a3613b283ba3a20",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "dbf2a36d75f4024ed350b4323b3101ba7afcd11306bc70758bab2238b6cea610"
+  },
+  {
+    "id": "oceanfront-outdoor-bar",
+    "title": "Oceanfront Outdoor Bar",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an upscale private oceanfront outdoor bar at sunset with a curved pale stone counter along the back-left, brass taps, palms at the edges and distant ocean; broad clear travertine floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "569b349ae1caa6339b5501ab1002d26cabf3ab90b5e53ce8bc8bbc3d1673ef76",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "a9cd858df3c26b59c68d5b0f971dfb5c62547d3a8cc0888d530d64cc0749a9c7"
+  },
+  {
+    "id": "poolside-evening-bar",
+    "title": "Poolside Evening Bar",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a glamorous poolside private bar at dusk, dark stone bar counter with understated magenta underlighting at the rear-right, distant illuminated swimming pool and tropical greenery; clear dry slate terrace foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "31d06e3d98d1298ce63deee31f40cfd1aebc02d4631b8f6936f32b5fba1c0f42",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "9a8ef82a3d9fb381ea4c978146ad161c51271774a7a49ebbd977ab4586b8cf77"
+  },
+  {
+    "id": "sunset-penthouse-terrace",
+    "title": "Sunset Penthouse Terrace",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an expansive penthouse terrace in warm sunset light with a low modern sofa in the far left corner, bronze lanterns and glass railing over city rooftops; generous open stone terrace foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "37ecc2e685f44fef508f5b499ce3962e81f4b597e1abe4cb0ea22b8cd0fbf37c",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "17923fe715ccc20e1e443d0da186cb44a11b29fe42b23cf009d48f6d7d5fe635"
+  },
+  {
+    "id": "superyacht-sunset-deck",
+    "title": "Superyacht Sunset Deck",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a polished luxury superyacht aft deck at sunset, ivory upholstered lounge arranged toward the rear-left, chrome railings and open sea beyond, dark teak planking with convincing perspective; broad clear dry teak floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "75e09dc3e11ceb063a31e806ca5262b5138e2295728697e406104ee8d441b377",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "5a672508ffb22e60f706434398d769391b8310e5ff4cb3c40a8cac7f5d331bfe"
+  },
+  {
+    "id": "private-jet-cabin",
+    "title": "Private Jet Cabin",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of a spacious ultra-luxury private jet cabin with cream leather lounge seats along the rear sides, dark walnut accents, oval windows with soft sky light and tasteful warm lighting; wide open carpeted aisle and foreground space; no pilots or passengers. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "b61cff26cf81902b38f6489abb1524b5f5332764c25ece54c04c5c663b0b9976",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "45bcec8916325dd2a31ce147b6e1cd63169644bb6a4448a88c1b34a6ea8bfb09"
+  },
+  {
+    "id": "mountain-lodge-retreat",
+    "title": "Mountain Lodge Retreat",
+    "method": "Built-in image generation",
+    "prompt": "Use case: photorealistic-natural. Asset type: production background photograph for a live website Hero. Create ONE single coherent wide landscape photograph, 16:9, of an upscale mountain lodge interior at twilight, soaring timber beams, dramatic stone fireplace along the back-left, plush dark burgundy seating near distant windows and snowy alpine view; broad clear warm wood floor foreground. Architectural photography with realistic materials, correct scale, straight eye-level perspective about 1.4m high, believable lighting and contact shadows. Elegant polished upscale aesthetic with a harmonious neon-pink/magenta/black palette where appropriate, realistic subtle accents. Reserve quiet negative space for live website copy and a large clear floor/deck/ground plane for a separately positioned transparent photo layer later. The entire image must be PEOPLE-FREE: no people, body parts, silhouettes, mannequins, portraits of people, logos, text, watermarks, labels, interface, decorative borders, panels, contact sheets or collage. Output only this ONE scene, not a mockup. Keep foreground uncluttered, plausible floor perspective and full-width website composition.",
+    "masterSha256": "a1af38c2f4605296fa9106b3323e57d34e54c2ea039d47acf8b2f88f58adf7a1",
+    "masterWidth": 1672,
+    "masterHeight": 941,
+    "runtimeSha256": "99bfb544e97b9cc5bebd1f1feee298eaee1d0064be81e71d420eab1f2800c15e"
+  }
+]

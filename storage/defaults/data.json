@@ -1,0 +1,2113 @@
+{
+  "settings": {
+    "site": {
+      "brand_name": "Nikki Wilder",
+      "brand_subtitle": "The Velvet Vixxen",
+      "tagline": "Bolder. Sexier. Closer.",
+      "hero_copy": "Exclusive content, personal updates, and a closer connection. Welcome to my world.",
+      "age_gate_enabled": true,
+      "newsletter_enabled": true
+    },
+    "canva": {
+      "connection_status": "manual",
+      "note": "Add each Canva template edit URL, then import the finished export back into the website."
+    },
+    "commerce": {
+      "default_provider": "sandbox",
+      "tax_rate_percent": 0,
+      "store_enabled": true,
+      "allow_guest_browsing": true,
+      "receipt_footer": "Thank you for supporting Nikki Wilder."
+    },
+    "communications": {
+      "messagingEnabled": true,
+      "contentRequestsEnabled": true,
+      "bookingEnabled": true,
+      "memberAttachmentsEnabled": true,
+      "publicBookingAttachmentsEnabled": true,
+      "maxAttachmentMb": 10,
+      "allowedExtensions": [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "pdf",
+        "txt"
+      ],
+      "autoAcknowledgeBooking": true,
+      "autoAcknowledgeRequests": true,
+      "supportReplyName": "Nikki / Staff",
+      "bookingResponseDays": 3
+    }
+  },
+  "admins": {},
+  "media": {
+    "default-hero": {
+      "id": "default-hero",
+      "title": "Approved Pink Hero Background",
+      "type": "background",
+      "file": "images/defaults/hero-pink-room.jpg",
+      "thumbnail": "images/defaults/canva-hero-preview.jpg",
+      "width": 2400,
+      "height": 1000,
+      "tags": [
+        "hero",
+        "pink",
+        "approved"
+      ],
+      "createdAt": "2026-10-17T23:59:00Z"
+    },
+    "default-footer": {
+      "id": "default-footer",
+      "title": "Approved Pink Footer Background",
+      "type": "background",
+      "file": "images/defaults/footer-pink-room.jpg",
+      "thumbnail": "images/defaults/canva-footer-preview.jpg",
+      "width": 2400,
+      "height": 720,
+      "tags": [
+        "footer",
+        "pink",
+        "approved"
+      ],
+      "createdAt": "2026-10-17T23:59:00Z"
+    },
+    "demo-album-cover": {
+      "id": "demo-album-cover",
+      "title": "Midnight Pink cover",
+      "type": "poster",
+      "file": "images/demo/album-cover.jpg",
+      "thumbnail": "images/demo/album-cover.jpg",
+      "mime": "image/jpeg",
+      "size": 99033,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "cover"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-video-poster": {
+      "id": "demo-video-poster",
+      "title": "Velvet Feature poster",
+      "type": "poster",
+      "file": "images/demo/video-poster.jpg",
+      "thumbnail": "images/demo/video-poster.jpg",
+      "mime": "image/jpeg",
+      "size": 129683,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "video"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-gallery-1": {
+      "id": "demo-gallery-1",
+      "title": "Neon room 1",
+      "type": "gallery",
+      "file": "images/demo/gallery-1.jpg",
+      "thumbnail": "images/demo/gallery-1.jpg",
+      "mime": "image/jpeg",
+      "size": 105001,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "gallery"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-gallery-2": {
+      "id": "demo-gallery-2",
+      "title": "Neon room 2",
+      "type": "gallery",
+      "file": "images/demo/gallery-2.jpg",
+      "thumbnail": "images/demo/gallery-2.jpg",
+      "mime": "image/jpeg",
+      "size": 123835,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "gallery"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-gallery-3": {
+      "id": "demo-gallery-3",
+      "title": "Neon room 3",
+      "type": "gallery",
+      "file": "images/demo/gallery-3.jpg",
+      "thumbnail": "images/demo/gallery-3.jpg",
+      "mime": "image/jpeg",
+      "size": 118977,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "gallery"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-gallery-4": {
+      "id": "demo-gallery-4",
+      "title": "Neon room 4",
+      "type": "gallery",
+      "file": "images/demo/gallery-4.jpg",
+      "thumbnail": "images/demo/gallery-4.jpg",
+      "mime": "image/jpeg",
+      "size": 99801,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "gallery"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-gallery-5": {
+      "id": "demo-gallery-5",
+      "title": "Neon room 5",
+      "type": "gallery",
+      "file": "images/demo/gallery-5.jpg",
+      "thumbnail": "images/demo/gallery-5.jpg",
+      "mime": "image/jpeg",
+      "size": 130674,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "gallery"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-audio-1": {
+      "id": "demo-audio-1",
+      "title": "Velvet After Dark",
+      "type": "audio",
+      "file": "audio/demo/velvet-after-dark.mp3",
+      "thumbnail": "images/demo/album-cover.jpg",
+      "mime": "audio/mpeg",
+      "size": 72508,
+      "width": 0,
+      "height": 0,
+      "duration": 18.051,
+      "private": false,
+      "tags": [
+        "demo",
+        "music"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-audio-2": {
+      "id": "demo-audio-2",
+      "title": "Neon Heartbeat",
+      "type": "audio",
+      "file": "audio/demo/neon-heartbeat.mp3",
+      "thumbnail": "images/demo/album-cover.jpg",
+      "mime": "audio/mpeg",
+      "size": 80412,
+      "width": 0,
+      "height": 0,
+      "duration": 20.036,
+      "private": false,
+      "tags": [
+        "demo",
+        "music"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-audio-3": {
+      "id": "demo-audio-3",
+      "title": "Pink Room Dreams",
+      "type": "audio",
+      "file": "audio/demo/pink-room-dreams.mp3",
+      "thumbnail": "images/demo/album-cover.jpg",
+      "mime": "audio/mpeg",
+      "size": 64500,
+      "width": 0,
+      "height": 0,
+      "duration": 16.039,
+      "private": false,
+      "tags": [
+        "demo",
+        "music"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-video-trailer": {
+      "id": "demo-video-trailer",
+      "title": "Velvet Trailer",
+      "type": "video",
+      "file": "videos/demo/velvet-trailer.mp4",
+      "thumbnail": "images/demo/video-poster.jpg",
+      "mime": "video/mp4",
+      "size": 170099,
+      "width": 854,
+      "height": 480,
+      "duration": 6.0,
+      "private": false,
+      "tags": [
+        "demo",
+        "video"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-video-full": {
+      "id": "demo-video-full",
+      "title": "Velvet Feature",
+      "type": "video",
+      "file": "videos/demo/velvet-feature.mp4",
+      "thumbnail": "images/demo/video-poster.jpg",
+      "mime": "video/mp4",
+      "size": 290960,
+      "width": 854,
+      "height": 480,
+      "duration": 10.0,
+      "private": false,
+      "tags": [
+        "demo",
+        "video"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    },
+    "demo-caption": {
+      "id": "demo-caption",
+      "title": "Velvet Trailer captions",
+      "type": "caption",
+      "file": "captions/demo/velvet-trailer.vtt",
+      "thumbnail": "",
+      "mime": "text/vtt",
+      "size": 246,
+      "width": 0,
+      "height": 0,
+      "duration": null,
+      "private": false,
+      "tags": [
+        "demo",
+        "captions"
+      ],
+      "metadata": {},
+      "createdAt": "2026-10-18T04:30:00+00:00"
+    }
+  },
+  "templates": {
+    "hero-desktop": {
+      "id": "hero-desktop",
+      "title": "Homepage Hero — Desktop",
+      "category": "hero",
+      "device": "desktop",
+      "width": 2400,
+      "height": 1000,
+      "canvaUrl": "",
+      "preview": "images/defaults/canva-hero-preview.jpg",
+      "export": "",
+      "starterFile": "templates/canva/hero-desktop.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    },
+    "hero-tablet": {
+      "id": "hero-tablet",
+      "title": "Homepage Hero — Tablet",
+      "category": "hero",
+      "device": "tablet",
+      "width": 1600,
+      "height": 1400,
+      "canvaUrl": "",
+      "preview": "images/defaults/canva-hero-preview.jpg",
+      "export": "",
+      "starterFile": "templates/canva/hero-tablet.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    },
+    "hero-mobile": {
+      "id": "hero-mobile",
+      "title": "Homepage Hero — Mobile",
+      "category": "hero",
+      "device": "mobile",
+      "width": 1080,
+      "height": 1600,
+      "canvaUrl": "",
+      "preview": "images/defaults/canva-hero-preview.jpg",
+      "export": "",
+      "starterFile": "templates/canva/hero-mobile.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    },
+    "footer-desktop": {
+      "id": "footer-desktop",
+      "title": "Visual Footer — Desktop",
+      "category": "footer",
+      "device": "desktop",
+      "width": 2400,
+      "height": 720,
+      "canvaUrl": "",
+      "preview": "images/defaults/canva-footer-preview.jpg",
+      "export": "",
+      "starterFile": "templates/canva/footer-desktop.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    },
+    "gallery-cover": {
+      "id": "gallery-cover",
+      "title": "Gallery Cover",
+      "category": "gallery",
+      "device": "universal",
+      "width": 1600,
+      "height": 1200,
+      "canvaUrl": "",
+      "preview": "images/defaults/set-1.jpg",
+      "export": "",
+      "starterFile": "templates/canva/gallery-cover.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    },
+    "video-thumbnail": {
+      "id": "video-thumbnail",
+      "title": "Video Thumbnail",
+      "category": "video",
+      "device": "universal",
+      "width": 1920,
+      "height": 1080,
+      "canvaUrl": "",
+      "preview": "images/defaults/set-3.jpg",
+      "export": "",
+      "starterFile": "templates/canva/video-thumbnail.svg",
+      "updatedAt": "2026-10-17T23:59:00Z"
+    }
+  },
+  "scenes": {
+    "hero": {
+      "draft": {
+        "section": "hero",
+        "background": {
+          "src": "images/defaults/hero-pink-room.jpg",
+          "fit": "cover",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "brightness": 100,
+          "contrast": 100,
+          "saturation": 100,
+          "blur": 0,
+          "overlay": 24,
+          "overlayColor": "#080007"
+        },
+        "devices": {
+          "desktop": {
+            "height": 760,
+            "layers": []
+          },
+          "tablet": {
+            "height": 900,
+            "layers": []
+          },
+          "mobile": {
+            "height": 860,
+            "layers": []
+          }
+        },
+        "updatedAt": "2026-10-17T23:59:00Z"
+      },
+      "published": {
+        "section": "hero",
+        "background": {
+          "src": "images/defaults/hero-pink-room.jpg",
+          "fit": "cover",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "brightness": 100,
+          "contrast": 100,
+          "saturation": 100,
+          "blur": 0,
+          "overlay": 24,
+          "overlayColor": "#080007"
+        },
+        "devices": {
+          "desktop": {
+            "height": 760,
+            "layers": []
+          },
+          "tablet": {
+            "height": 900,
+            "layers": []
+          },
+          "mobile": {
+            "height": 860,
+            "layers": []
+          }
+        },
+        "updatedAt": "2026-10-17T23:59:00Z"
+      },
+      "versions": []
+    },
+    "footer": {
+      "draft": {
+        "section": "footer",
+        "background": {
+          "src": "images/defaults/footer-pink-room.jpg",
+          "fit": "cover",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "brightness": 88,
+          "contrast": 108,
+          "saturation": 105,
+          "blur": 0,
+          "overlay": 48,
+          "overlayColor": "#070006"
+        },
+        "devices": {
+          "desktop": {
+            "height": 420,
+            "layers": []
+          },
+          "tablet": {
+            "height": 520,
+            "layers": []
+          },
+          "mobile": {
+            "height": 620,
+            "layers": []
+          }
+        },
+        "updatedAt": "2026-10-17T23:59:00Z"
+      },
+      "published": {
+        "section": "footer",
+        "background": {
+          "src": "images/defaults/footer-pink-room.jpg",
+          "fit": "cover",
+          "x": 50,
+          "y": 50,
+          "zoom": 1,
+          "brightness": 88,
+          "contrast": 108,
+          "saturation": 105,
+          "blur": 0,
+          "overlay": 48,
+          "overlayColor": "#070006"
+        },
+        "devices": {
+          "desktop": {
+            "height": 420,
+            "layers": []
+          },
+          "tablet": {
+            "height": 520,
+            "layers": []
+          },
+          "mobile": {
+            "height": 620,
+            "layers": []
+          }
+        },
+        "updatedAt": "2026-10-17T23:59:00Z"
+      },
+      "versions": []
+    }
+  },
+  "audit": [],
+  "mediaCenter": {
+    "albums": {
+      "demo-album": {
+        "id": "demo-album",
+        "slug": "midnight-pink",
+        "title": "Midnight Pink",
+        "description": "A short original ambient demo collection for the working audio player. Replace these synthetic placeholders with your own songs in Admin.",
+        "coverAssetId": "demo-album-cover",
+        "coverAsset": {
+          "id": "demo-album-cover",
+          "title": "Midnight Pink cover",
+          "type": "poster",
+          "file": "images/demo/album-cover.jpg",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "image/jpeg",
+          "size": 99033,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "cover"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "public",
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      }
+    },
+    "tracks": {
+      "demo-track-1": {
+        "id": "demo-track-1",
+        "albumId": "demo-album",
+        "albumTitle": "Midnight Pink",
+        "slug": "velvet-after-dark",
+        "title": "Velvet After Dark",
+        "artist": "Nikki Wilder",
+        "description": "Original synthetic demo track.",
+        "audioAssetId": "demo-audio-1",
+        "audioAsset": {
+          "id": "demo-audio-1",
+          "title": "Velvet After Dark",
+          "type": "audio",
+          "file": "audio/demo/velvet-after-dark.mp3",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "audio/mpeg",
+          "size": 72508,
+          "width": 0,
+          "height": 0,
+          "duration": 18.051,
+          "private": false,
+          "tags": [
+            "demo",
+            "music"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "coverAssetId": "demo-album-cover",
+        "coverAsset": {
+          "id": "demo-album-cover",
+          "title": "Midnight Pink cover",
+          "type": "poster",
+          "file": "images/demo/album-cover.jpg",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "image/jpeg",
+          "size": 99033,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "cover"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "lyrics": "",
+        "status": "published",
+        "accessMode": "public",
+        "previewSeconds": 0,
+        "sortOrder": 10,
+        "duration": 18.051,
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      },
+      "demo-track-2": {
+        "id": "demo-track-2",
+        "albumId": "demo-album",
+        "albumTitle": "Midnight Pink",
+        "slug": "neon-heartbeat",
+        "title": "Neon Heartbeat",
+        "artist": "Nikki Wilder",
+        "description": "Original synthetic demo track.",
+        "audioAssetId": "demo-audio-2",
+        "audioAsset": {
+          "id": "demo-audio-2",
+          "title": "Neon Heartbeat",
+          "type": "audio",
+          "file": "audio/demo/neon-heartbeat.mp3",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "audio/mpeg",
+          "size": 80412,
+          "width": 0,
+          "height": 0,
+          "duration": 20.036,
+          "private": false,
+          "tags": [
+            "demo",
+            "music"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "coverAssetId": "demo-album-cover",
+        "coverAsset": {
+          "id": "demo-album-cover",
+          "title": "Midnight Pink cover",
+          "type": "poster",
+          "file": "images/demo/album-cover.jpg",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "image/jpeg",
+          "size": 99033,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "cover"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "lyrics": "",
+        "status": "published",
+        "accessMode": "registered",
+        "previewSeconds": 8,
+        "sortOrder": 20,
+        "duration": 20.036,
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      },
+      "demo-track-3": {
+        "id": "demo-track-3",
+        "albumId": "demo-album",
+        "albumTitle": "Midnight Pink",
+        "slug": "pink-room-dreams",
+        "title": "Pink Room Dreams",
+        "artist": "Nikki Wilder",
+        "description": "Original synthetic demo track.",
+        "audioAssetId": "demo-audio-3",
+        "audioAsset": {
+          "id": "demo-audio-3",
+          "title": "Pink Room Dreams",
+          "type": "audio",
+          "file": "audio/demo/pink-room-dreams.mp3",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "audio/mpeg",
+          "size": 64500,
+          "width": 0,
+          "height": 0,
+          "duration": 16.039,
+          "private": false,
+          "tags": [
+            "demo",
+            "music"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "coverAssetId": "demo-album-cover",
+        "coverAsset": {
+          "id": "demo-album-cover",
+          "title": "Midnight Pink cover",
+          "type": "poster",
+          "file": "images/demo/album-cover.jpg",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "image/jpeg",
+          "size": 99033,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "cover"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "lyrics": "",
+        "status": "published",
+        "accessMode": "subscription",
+        "previewSeconds": 8,
+        "sortOrder": 30,
+        "duration": 16.039,
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      }
+    },
+    "audioPlaylists": {
+      "demo-playlist": {
+        "id": "demo-playlist",
+        "slug": "velvet-vixxen-demo",
+        "title": "Velvet Vixxen Demo Playlist",
+        "description": "Three short original ambient demos for the persistent site-wide player.",
+        "coverAssetId": "demo-album-cover",
+        "coverAsset": {
+          "id": "demo-album-cover",
+          "title": "Midnight Pink cover",
+          "type": "poster",
+          "file": "images/demo/album-cover.jpg",
+          "thumbnail": "images/demo/album-cover.jpg",
+          "mime": "image/jpeg",
+          "size": 99033,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "cover"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "public",
+        "trackIds": [
+          "demo-track-1",
+          "demo-track-2",
+          "demo-track-3"
+        ],
+        "tracks": [
+          {
+            "id": "demo-track-1",
+            "albumId": "demo-album",
+            "albumTitle": "Midnight Pink",
+            "slug": "velvet-after-dark",
+            "title": "Velvet After Dark",
+            "artist": "Nikki Wilder",
+            "description": "Original synthetic demo track.",
+            "audioAssetId": "demo-audio-1",
+            "audioAsset": {
+              "id": "demo-audio-1",
+              "title": "Velvet After Dark",
+              "type": "audio",
+              "file": "audio/demo/velvet-after-dark.mp3",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "audio/mpeg",
+              "size": 72508,
+              "width": 0,
+              "height": 0,
+              "duration": 18.051,
+              "private": false,
+              "tags": [
+                "demo",
+                "music"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "coverAssetId": "demo-album-cover",
+            "coverAsset": {
+              "id": "demo-album-cover",
+              "title": "Midnight Pink cover",
+              "type": "poster",
+              "file": "images/demo/album-cover.jpg",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "image/jpeg",
+              "size": 99033,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "cover"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "lyrics": "",
+            "status": "published",
+            "accessMode": "public",
+            "previewSeconds": 0,
+            "sortOrder": 10,
+            "duration": 18.051,
+            "publishedAt": "2026-10-18T04:30:00+00:00",
+            "scheduledAt": null,
+            "createdAt": "2026-10-18T04:30:00+00:00",
+            "updatedAt": "2026-10-18T04:30:00+00:00"
+          },
+          {
+            "id": "demo-track-2",
+            "albumId": "demo-album",
+            "albumTitle": "Midnight Pink",
+            "slug": "neon-heartbeat",
+            "title": "Neon Heartbeat",
+            "artist": "Nikki Wilder",
+            "description": "Original synthetic demo track.",
+            "audioAssetId": "demo-audio-2",
+            "audioAsset": {
+              "id": "demo-audio-2",
+              "title": "Neon Heartbeat",
+              "type": "audio",
+              "file": "audio/demo/neon-heartbeat.mp3",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "audio/mpeg",
+              "size": 80412,
+              "width": 0,
+              "height": 0,
+              "duration": 20.036,
+              "private": false,
+              "tags": [
+                "demo",
+                "music"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "coverAssetId": "demo-album-cover",
+            "coverAsset": {
+              "id": "demo-album-cover",
+              "title": "Midnight Pink cover",
+              "type": "poster",
+              "file": "images/demo/album-cover.jpg",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "image/jpeg",
+              "size": 99033,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "cover"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "lyrics": "",
+            "status": "published",
+            "accessMode": "registered",
+            "previewSeconds": 8,
+            "sortOrder": 20,
+            "duration": 20.036,
+            "publishedAt": "2026-10-18T04:30:00+00:00",
+            "scheduledAt": null,
+            "createdAt": "2026-10-18T04:30:00+00:00",
+            "updatedAt": "2026-10-18T04:30:00+00:00"
+          },
+          {
+            "id": "demo-track-3",
+            "albumId": "demo-album",
+            "albumTitle": "Midnight Pink",
+            "slug": "pink-room-dreams",
+            "title": "Pink Room Dreams",
+            "artist": "Nikki Wilder",
+            "description": "Original synthetic demo track.",
+            "audioAssetId": "demo-audio-3",
+            "audioAsset": {
+              "id": "demo-audio-3",
+              "title": "Pink Room Dreams",
+              "type": "audio",
+              "file": "audio/demo/pink-room-dreams.mp3",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "audio/mpeg",
+              "size": 64500,
+              "width": 0,
+              "height": 0,
+              "duration": 16.039,
+              "private": false,
+              "tags": [
+                "demo",
+                "music"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "coverAssetId": "demo-album-cover",
+            "coverAsset": {
+              "id": "demo-album-cover",
+              "title": "Midnight Pink cover",
+              "type": "poster",
+              "file": "images/demo/album-cover.jpg",
+              "thumbnail": "images/demo/album-cover.jpg",
+              "mime": "image/jpeg",
+              "size": 99033,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "cover"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            },
+            "lyrics": "",
+            "status": "published",
+            "accessMode": "subscription",
+            "previewSeconds": 8,
+            "sortOrder": 30,
+            "duration": 16.039,
+            "publishedAt": "2026-10-18T04:30:00+00:00",
+            "scheduledAt": null,
+            "createdAt": "2026-10-18T04:30:00+00:00",
+            "updatedAt": "2026-10-18T04:30:00+00:00"
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      }
+    },
+    "galleries": {
+      "demo-gallery": {
+        "id": "demo-gallery",
+        "slug": "pink-paradise",
+        "title": "Pink Paradise",
+        "description": "A people-free demo gallery showing the working album, preview, and full-screen viewer experience. Upload your own approved photos from Admin.",
+        "coverAssetId": "demo-gallery-1",
+        "coverAsset": {
+          "id": "demo-gallery-1",
+          "title": "Neon room 1",
+          "type": "gallery",
+          "file": "images/demo/gallery-1.jpg",
+          "thumbnail": "images/demo/gallery-1.jpg",
+          "mime": "image/jpeg",
+          "size": 105001,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "gallery"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "public",
+        "standardPrice": null,
+        "subscriberPrice": null,
+        "rentalPrice": null,
+        "rentalHours": 0,
+        "currency": "USD",
+        "items": [
+          {
+            "assetId": "demo-gallery-1",
+            "caption": "Behind the velvet",
+            "sortOrder": 10,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-1",
+              "title": "Neon room 1",
+              "type": "gallery",
+              "file": "images/demo/gallery-1.jpg",
+              "thumbnail": "images/demo/gallery-1.jpg",
+              "mime": "image/jpeg",
+              "size": 105001,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-2",
+            "caption": "Vanity glow",
+            "sortOrder": 20,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-2",
+              "title": "Neon room 2",
+              "type": "gallery",
+              "file": "images/demo/gallery-2.jpg",
+              "thumbnail": "images/demo/gallery-2.jpg",
+              "mime": "image/jpeg",
+              "size": 123835,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-3",
+            "caption": "Mirror play",
+            "sortOrder": 30,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-3",
+              "title": "Neon room 3",
+              "type": "gallery",
+              "file": "images/demo/gallery-3.jpg",
+              "thumbnail": "images/demo/gallery-3.jpg",
+              "mime": "image/jpeg",
+              "size": 118977,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-4",
+            "caption": "Pink lounge",
+            "sortOrder": 40,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-4",
+              "title": "Neon room 4",
+              "type": "gallery",
+              "file": "images/demo/gallery-4.jpg",
+              "thumbnail": "images/demo/gallery-4.jpg",
+              "mime": "image/jpeg",
+              "size": 99801,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-5",
+            "caption": "After dark",
+            "sortOrder": 50,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-5",
+              "title": "Neon room 5",
+              "type": "gallery",
+              "file": "images/demo/gallery-5.jpg",
+              "thumbnail": "images/demo/gallery-5.jpg",
+              "mime": "image/jpeg",
+              "size": 130674,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00",
+        "previewCount": 5
+      },
+      "demo-gallery-vixxen": {
+        "id": "demo-gallery-vixxen",
+        "slug": "vixxen-nights",
+        "title": "Vixxen Nights",
+        "description": "A neon lounge collection demonstrating reusable covers, ordered photos, and a polished mobile viewer.",
+        "coverAssetId": "demo-gallery-2",
+        "coverAsset": {
+          "id": "demo-gallery-2",
+          "title": "Neon room 2",
+          "type": "gallery",
+          "file": "images/demo/gallery-2.jpg",
+          "thumbnail": "images/demo/gallery-2.jpg",
+          "mime": "image/jpeg",
+          "size": 123835,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "gallery"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "registered",
+        "standardPrice": null,
+        "subscriberPrice": null,
+        "rentalPrice": null,
+        "rentalHours": 0,
+        "currency": "USD",
+        "items": [
+          {
+            "assetId": "demo-gallery-2",
+            "caption": "Vanity glow",
+            "sortOrder": 10,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-2",
+              "title": "Neon room 2",
+              "type": "gallery",
+              "file": "images/demo/gallery-2.jpg",
+              "thumbnail": "images/demo/gallery-2.jpg",
+              "mime": "image/jpeg",
+              "size": 123835,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-4",
+            "caption": "Mirror play",
+            "sortOrder": 20,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-4",
+              "title": "Neon room 4",
+              "type": "gallery",
+              "file": "images/demo/gallery-4.jpg",
+              "thumbnail": "images/demo/gallery-4.jpg",
+              "mime": "image/jpeg",
+              "size": 99801,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-1",
+            "caption": "Pink lounge",
+            "sortOrder": 30,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-1",
+              "title": "Neon room 1",
+              "type": "gallery",
+              "file": "images/demo/gallery-1.jpg",
+              "thumbnail": "images/demo/gallery-1.jpg",
+              "mime": "image/jpeg",
+              "size": 105001,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-5",
+            "caption": "After dark",
+            "sortOrder": 40,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-5",
+              "title": "Neon room 5",
+              "type": "gallery",
+              "file": "images/demo/gallery-5.jpg",
+              "thumbnail": "images/demo/gallery-5.jpg",
+              "mime": "image/jpeg",
+              "size": 130674,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00",
+        "previewCount": 2
+      },
+      "demo-gallery-mirror": {
+        "id": "demo-gallery-mirror",
+        "slug": "mirror-play",
+        "title": "Mirror Play",
+        "description": "A warm candle-and-mirror demo set ready to be replaced with your own published collection.",
+        "coverAssetId": "demo-gallery-3",
+        "coverAsset": {
+          "id": "demo-gallery-3",
+          "title": "Neon room 3",
+          "type": "gallery",
+          "file": "images/demo/gallery-3.jpg",
+          "thumbnail": "images/demo/gallery-3.jpg",
+          "mime": "image/jpeg",
+          "size": 118977,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "gallery"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "subscription",
+        "standardPrice": null,
+        "subscriberPrice": null,
+        "rentalPrice": null,
+        "rentalHours": 0,
+        "currency": "USD",
+        "items": [
+          {
+            "assetId": "demo-gallery-3",
+            "caption": "Mirror play",
+            "sortOrder": 10,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-3",
+              "title": "Neon room 3",
+              "type": "gallery",
+              "file": "images/demo/gallery-3.jpg",
+              "thumbnail": "images/demo/gallery-3.jpg",
+              "mime": "image/jpeg",
+              "size": 118977,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-5",
+            "caption": "Pink lounge",
+            "sortOrder": 20,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-5",
+              "title": "Neon room 5",
+              "type": "gallery",
+              "file": "images/demo/gallery-5.jpg",
+              "thumbnail": "images/demo/gallery-5.jpg",
+              "mime": "image/jpeg",
+              "size": 130674,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-2",
+            "caption": "After dark",
+            "sortOrder": 30,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-2",
+              "title": "Neon room 2",
+              "type": "gallery",
+              "file": "images/demo/gallery-2.jpg",
+              "thumbnail": "images/demo/gallery-2.jpg",
+              "mime": "image/jpeg",
+              "size": 123835,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-4",
+            "caption": "Behind the velvet",
+            "sortOrder": 40,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-4",
+              "title": "Neon room 4",
+              "type": "gallery",
+              "file": "images/demo/gallery-4.jpg",
+              "thumbnail": "images/demo/gallery-4.jpg",
+              "mime": "image/jpeg",
+              "size": 99801,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00",
+        "previewCount": 1
+      },
+      "demo-gallery-lounge": {
+        "id": "demo-gallery-lounge",
+        "slug": "velvet-lounge",
+        "title": "Velvet Lounge",
+        "description": "A cinematic bedroom-and-boudoir placeholder set for testing gallery cards, covers, and ordering.",
+        "coverAssetId": "demo-gallery-4",
+        "coverAsset": {
+          "id": "demo-gallery-4",
+          "title": "Neon room 4",
+          "type": "gallery",
+          "file": "images/demo/gallery-4.jpg",
+          "thumbnail": "images/demo/gallery-4.jpg",
+          "mime": "image/jpeg",
+          "size": 99801,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "gallery"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "ppv",
+        "standardPrice": 14.99,
+        "subscriberPrice": 11.99,
+        "rentalPrice": null,
+        "rentalHours": 0,
+        "currency": "USD",
+        "items": [
+          {
+            "assetId": "demo-gallery-4",
+            "caption": "Pink lounge",
+            "sortOrder": 10,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-4",
+              "title": "Neon room 4",
+              "type": "gallery",
+              "file": "images/demo/gallery-4.jpg",
+              "thumbnail": "images/demo/gallery-4.jpg",
+              "mime": "image/jpeg",
+              "size": 99801,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-1",
+            "caption": "After dark",
+            "sortOrder": 20,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-1",
+              "title": "Neon room 1",
+              "type": "gallery",
+              "file": "images/demo/gallery-1.jpg",
+              "thumbnail": "images/demo/gallery-1.jpg",
+              "mime": "image/jpeg",
+              "size": 105001,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-5",
+            "caption": "Behind the velvet",
+            "sortOrder": 30,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-5",
+              "title": "Neon room 5",
+              "type": "gallery",
+              "file": "images/demo/gallery-5.jpg",
+              "thumbnail": "images/demo/gallery-5.jpg",
+              "mime": "image/jpeg",
+              "size": 130674,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-3",
+            "caption": "Vanity glow",
+            "sortOrder": 40,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-3",
+              "title": "Neon room 3",
+              "type": "gallery",
+              "file": "images/demo/gallery-3.jpg",
+              "thumbnail": "images/demo/gallery-3.jpg",
+              "mime": "image/jpeg",
+              "size": 118977,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00",
+        "previewCount": 1
+      },
+      "demo-gallery-after-dark": {
+        "id": "demo-gallery-after-dark",
+        "slug": "after-dark",
+        "title": "After Dark",
+        "description": "A late-night pink room demo collection showing how multiple published sets appear across the site.",
+        "coverAssetId": "demo-gallery-5",
+        "coverAsset": {
+          "id": "demo-gallery-5",
+          "title": "Neon room 5",
+          "type": "gallery",
+          "file": "images/demo/gallery-5.jpg",
+          "thumbnail": "images/demo/gallery-5.jpg",
+          "mime": "image/jpeg",
+          "size": 130674,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "gallery"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "rental",
+        "standardPrice": null,
+        "subscriberPrice": null,
+        "rentalPrice": 7.99,
+        "rentalHours": 48,
+        "currency": "USD",
+        "items": [
+          {
+            "assetId": "demo-gallery-5",
+            "caption": "After dark",
+            "sortOrder": 10,
+            "isPreview": true,
+            "asset": {
+              "id": "demo-gallery-5",
+              "title": "Neon room 5",
+              "type": "gallery",
+              "file": "images/demo/gallery-5.jpg",
+              "thumbnail": "images/demo/gallery-5.jpg",
+              "mime": "image/jpeg",
+              "size": 130674,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-3",
+            "caption": "Behind the velvet",
+            "sortOrder": 20,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-3",
+              "title": "Neon room 3",
+              "type": "gallery",
+              "file": "images/demo/gallery-3.jpg",
+              "thumbnail": "images/demo/gallery-3.jpg",
+              "mime": "image/jpeg",
+              "size": 118977,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-4",
+            "caption": "Vanity glow",
+            "sortOrder": 30,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-4",
+              "title": "Neon room 4",
+              "type": "gallery",
+              "file": "images/demo/gallery-4.jpg",
+              "thumbnail": "images/demo/gallery-4.jpg",
+              "mime": "image/jpeg",
+              "size": 99801,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          },
+          {
+            "assetId": "demo-gallery-2",
+            "caption": "Mirror play",
+            "sortOrder": 40,
+            "isPreview": false,
+            "asset": {
+              "id": "demo-gallery-2",
+              "title": "Neon room 2",
+              "type": "gallery",
+              "file": "images/demo/gallery-2.jpg",
+              "thumbnail": "images/demo/gallery-2.jpg",
+              "mime": "image/jpeg",
+              "size": 123835,
+              "width": 0,
+              "height": 0,
+              "duration": null,
+              "private": false,
+              "tags": [
+                "demo",
+                "gallery"
+              ],
+              "metadata": {},
+              "createdAt": "2026-10-18T04:30:00+00:00"
+            }
+          }
+        ],
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00",
+        "previewCount": 1
+      }
+    },
+    "videos": {
+      "demo-video": {
+        "id": "demo-video",
+        "slug": "welcome-to-the-velvet-vixxen",
+        "title": "Welcome to the Velvet Vixxen",
+        "description": "A short people-free neon demo showing the working video player, captions, poster, and Continue Watching foundation.",
+        "posterAssetId": "demo-video-poster",
+        "posterAsset": {
+          "id": "demo-video-poster",
+          "title": "Velvet Feature poster",
+          "type": "poster",
+          "file": "images/demo/video-poster.jpg",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "image/jpeg",
+          "size": 129683,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "trailerAssetId": "demo-video-trailer",
+        "trailerAsset": {
+          "id": "demo-video-trailer",
+          "title": "Velvet Trailer",
+          "type": "video",
+          "file": "videos/demo/velvet-trailer.mp4",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "video/mp4",
+          "size": 170099,
+          "width": 854,
+          "height": 480,
+          "duration": 6.0,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "fullAssetId": "demo-video-full",
+        "fullAsset": {
+          "id": "demo-video-full",
+          "title": "Velvet Feature",
+          "type": "video",
+          "file": "videos/demo/velvet-feature.mp4",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "video/mp4",
+          "size": 290960,
+          "width": 854,
+          "height": 480,
+          "duration": 10.0,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "captionAssetId": "demo-caption",
+        "captionAsset": {
+          "id": "demo-caption",
+          "title": "Velvet Trailer captions",
+          "type": "caption",
+          "file": "captions/demo/velvet-trailer.vtt",
+          "thumbnail": "",
+          "mime": "text/vtt",
+          "size": 246,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "captions"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "subscription",
+        "standardPrice": 19.99,
+        "subscriberPrice": 14.99,
+        "rentalPrice": null,
+        "rentalHours": 0,
+        "currency": "USD",
+        "duration": 10.0,
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T04:30:00+00:00",
+        "updatedAt": "2026-10-18T04:30:00+00:00"
+      },
+      "demo-video-ppv": {
+        "id": "demo-video-ppv",
+        "slug": "neon-confessions",
+        "title": "Neon Confessions",
+        "description": "A PPV demonstration release with a public trailer and protected full video.",
+        "posterAssetId": "demo-video-poster",
+        "posterAsset": {
+          "id": "demo-video-poster",
+          "title": "Velvet Feature poster",
+          "type": "poster",
+          "file": "images/demo/video-poster.jpg",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "image/jpeg",
+          "size": 129683,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "trailerAssetId": "demo-video-trailer",
+        "trailerAsset": {
+          "id": "demo-video-trailer",
+          "title": "Velvet Trailer",
+          "type": "video",
+          "file": "videos/demo/velvet-trailer.mp4",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "video/mp4",
+          "size": 170099,
+          "width": 854,
+          "height": 480,
+          "duration": 6.0,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "fullAssetId": "demo-video-full",
+        "fullAsset": {
+          "id": "demo-video-full",
+          "title": "Velvet Feature",
+          "type": "video",
+          "file": "videos/demo/velvet-feature.mp4",
+          "thumbnail": "images/demo/video-poster.jpg",
+          "mime": "video/mp4",
+          "size": 290960,
+          "width": 854,
+          "height": 480,
+          "duration": 10.0,
+          "private": false,
+          "tags": [
+            "demo",
+            "video"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "captionAssetId": "demo-caption",
+        "captionAsset": {
+          "id": "demo-caption",
+          "title": "Velvet Trailer captions",
+          "type": "caption",
+          "file": "captions/demo/velvet-trailer.vtt",
+          "thumbnail": "",
+          "mime": "text/vtt",
+          "size": 246,
+          "width": 0,
+          "height": 0,
+          "duration": null,
+          "private": false,
+          "tags": [
+            "demo",
+            "captions"
+          ],
+          "metadata": {},
+          "createdAt": "2026-10-18T04:30:00+00:00"
+        },
+        "status": "published",
+        "accessMode": "ppv",
+        "standardPrice": 17.99,
+        "subscriberPrice": 13.49,
+        "rentalPrice": 8.99,
+        "rentalHours": 48,
+        "currency": "USD",
+        "duration": 10.0,
+        "publishedAt": "2026-10-18T04:30:00+00:00",
+        "scheduledAt": null,
+        "createdAt": "2026-10-18T08:00:00+00:00",
+        "updatedAt": "2026-10-18T08:00:00+00:00",
+        "sortOrder": 20
+      }
+    }
+  },
+  "membershipPlans": {
+    "plan-vip": {
+      "id": "plan-vip",
+      "key": "velvet-vip",
+      "name": "Velvet VIP",
+      "description": "Subscriber access to selected premium photo galleries, videos, and songs, plus PPV savings.",
+      "billingInterval": "month",
+      "intervalCount": 1,
+      "price": 19.99,
+      "currency": "USD",
+      "trialDays": 0,
+      "ppvDiscountPercent": 10,
+      "benefits": [
+        "Selected premium galleries",
+        "Selected premium videos",
+        "Member-only music",
+        "10% discount on eligible PPV releases",
+        "Continue watching and member favorites"
+      ],
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": "2026-10-18T06:00:00+00:00",
+      "updatedAt": "2026-10-18T06:00:00+00:00"
+    },
+    "plan-all": {
+      "id": "plan-all",
+      "key": "all-access",
+      "name": "All Access",
+      "description": "The broadest subscription tier with every subscription release and a larger PPV discount.",
+      "billingInterval": "month",
+      "intervalCount": 1,
+      "price": 34.99,
+      "currency": "USD",
+      "trialDays": 0,
+      "ppvDiscountPercent": 20,
+      "benefits": [
+        "All subscription galleries",
+        "All subscription videos",
+        "All member music",
+        "20% discount on eligible PPV releases",
+        "Priority member updates"
+      ],
+      "isActive": true,
+      "sortOrder": 20,
+      "createdAt": "2026-10-18T06:00:00+00:00",
+      "updatedAt": "2026-10-18T06:00:00+00:00"
+    },
+    "plan-annual": {
+      "id": "plan-annual",
+      "key": "all-access-annual",
+      "name": "All Access Annual",
+      "description": "Annual All Access membership with the same included releases and PPV benefits.",
+      "billingInterval": "year",
+      "intervalCount": 1,
+      "price": 349.0,
+      "currency": "USD",
+      "trialDays": 0,
+      "ppvDiscountPercent": 20,
+      "benefits": [
+        "All subscription galleries",
+        "All subscription videos",
+        "All member music",
+        "20% discount on eligible PPV releases",
+        "Annual billing"
+      ],
+      "isActive": true,
+      "sortOrder": 30,
+      "createdAt": "2026-10-18T06:00:00+00:00",
+      "updatedAt": "2026-10-18T06:00:00+00:00"
+    }
+  },
+  "members": {},
+  "subscriptions": {},
+  "entitlements": {},
+  "memberMediaState": {},
+  "memberSessions": {},
+  "memberTokens": {},
+  "memberEvents": {},
+  "mailOutbox": {},
+  "contentAccessRules": {
+    "track:demo-track-3": [
+      "plan-vip",
+      "plan-all",
+      "plan-annual"
+    ],
+    "gallery:demo-gallery-mirror": [
+      "plan-vip",
+      "plan-all",
+      "plan-annual"
+    ],
+    "video:demo-video": [
+      "plan-vip",
+      "plan-all",
+      "plan-annual"
+    ]
+  },
+  "paymentProviders": {
+    "sandbox": {
+      "key": "sandbox",
+      "name": "Sandbox Test Gateway",
+      "enabled": true,
+      "testMode": true,
+      "supportsRecurring": true,
+      "settings": {
+        "webhookSecret": "",
+        "statementDescriptor": "VELVET TEST"
+      },
+      "sortOrder": 10,
+      "createdAt": "2026-10-18T08:00:00+00:00",
+      "updatedAt": "2026-10-18T08:00:00+00:00"
+    }
+  },
+  "coupons": {
+    "coupon-welcome10": {
+      "id": "coupon-welcome10",
+      "code": "WELCOME10",
+      "description": "10% off an eligible first test order.",
+      "discountType": "percent",
+      "value": 10,
+      "scope": "all",
+      "minimumSubtotal": 5,
+      "maximumDiscount": 25,
+      "usageLimit": 1000,
+      "perMemberLimit": 1,
+      "redemptionCount": 0,
+      "startsAt": null,
+      "endsAt": null,
+      "isActive": true,
+      "createdAt": "2026-10-18T08:00:00+00:00",
+      "updatedAt": "2026-10-18T08:00:00+00:00"
+    }
+  },
+  "couponRedemptions": {},
+  "orders": {},
+  "orderItems": {},
+  "paymentTransactions": {},
+  "paymentWebhookEvents": {},
+  "bundles": {
+    "bundle-neon-night": {
+      "id": "bundle-neon-night",
+      "slug": "neon-night-collection",
+      "title": "Neon Night Collection",
+      "description": "A bundled PPV photo gallery and video release at one combined price.",
+      "price": 24.99,
+      "subscriberPrice": 19.99,
+      "currency": "USD",
+      "isActive": true,
+      "sortOrder": 10,
+      "items": [
+        {
+          "itemType": "gallery",
+          "itemId": "demo-gallery-lounge",
+          "sortOrder": 10
+        },
+        {
+          "itemType": "video",
+          "itemId": "demo-video-ppv",
+          "sortOrder": 20
+        }
+      ],
+      "createdAt": "2026-10-18T08:00:00+00:00",
+      "updatedAt": "2026-10-18T08:00:00+00:00"
+    }
+  },
+  "addons": {},
+  "addonActivity": [],
+  "addonSettings": {},
+  "addonBackups": {},
+  "addonTasks": {},
+  "addonMigrations": {},
+  "addonLicenses": {},
+  "addonLicenseProducts": {},
+  "issuedAddonLicenses": {},
+  "addonLicenseActivations": {},
+  "addonReleases": {},
+  "addonUpdateChecks": {},
+  "addonLicenseTransactions": {},
+  "addonDownloadTokens": {},
+  "messageThreads": {},
+  "messages": {},
+  "messageAttachments": {},
+  "savedReplies": {
+    "reply-booking-thanks": {
+      "id": "reply-booking-thanks",
+      "title": "Booking — received",
+      "category": "booking",
+      "body": "Thank you for the inquiry. I am reviewing the details and will follow up with availability and next steps.",
+      "isActive": true,
+      "sortOrder": 10,
+      "createdAt": "2026-10-18T12:00:00+00:00",
+      "updatedAt": "2026-10-18T12:00:00+00:00"
+    },
+    "reply-request-review": {
+      "id": "reply-request-review",
+      "title": "Content request — reviewing",
+      "category": "content_request",
+      "body": "Thank you for the request. I am reviewing the scope, timing, and availability and will respond here with any questions or a quote.",
+      "isActive": true,
+      "sortOrder": 20,
+      "createdAt": "2026-10-18T12:00:00+00:00",
+      "updatedAt": "2026-10-18T12:00:00+00:00"
+    },
+    "reply-member-thanks": {
+      "id": "reply-member-thanks",
+      "title": "Member question — thank you",
+      "category": "member",
+      "body": "Thank you for reaching out. I received your message and will reply as soon as possible.",
+      "isActive": true,
+      "sortOrder": 30,
+      "createdAt": "2026-10-18T12:00:00+00:00",
+      "updatedAt": "2026-10-18T12:00:00+00:00"
+    }
+  },
+  "communicationBlocks": {},
+  "contentRequests": {},
+  "bookingRequests": {},
+  "requestAttachments": {},
+  "memberNotifications": {}
+}

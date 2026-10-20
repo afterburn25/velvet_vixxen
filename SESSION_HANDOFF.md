@@ -1,66 +1,101 @@
-# Session Handoff
+# Session Handoff — Velvet Vixxen
 
-## Current application build
+<!-- root-layout-repair:start -->
+## Root-layout regression — Build 20261019.5 rejected; Build 20261019.6 verified and delivered
 
-`0.3.0 — Media Center`
+The owner rejected the delivered build because it restored the old route folders at the website root. Actual ZIP comparison confirms **25 extra root directories and 46 forwarding PHP files** (45 inside those directories plus `media.php`). The regression was introduced in `723205b7bddad06d4f603b539aea1a777bdd2ae5` and retained in Build 20261019.5. Earlier passing tests verified that implementation but failed to enforce the user's approved directory requirement. Build .5 is rejected; the historical records below do not make it an acceptable organized-site release. Agent-authored exceptions for those root folders/files are superseded.
 
-The clean release archive was produced in the originating development session with SHA-256:
+**Build 20261019.6 restores the executable pre-regression layout.** Fresh ZIP directories are exactly `addons`, `admin`, `app`, `config`, `database`, `images`, `includes`, `install`, `public`, `storage`, `templates`, `uploads`, `vendor`; Upgrade excludes `config`, `install`, `storage`, `uploads`. Root files are exactly `.htaccess`, `VERSION`, `index.php`, `route.php`. Public implementations remain under `public/routes`, operational commands under `app/Console`. Generated public/API URLs use the existing physical dispatcher at root and subfolder installation paths, with query parameters, authentication, CSRF, entitlements and signed media preserved. Independent package gates reject the actual .5 root maps.
 
-```text
-d57461a60a5122ef023394d74db1b308982c5fb164b05459e1d0b4b81a4a2332
-```
+The newest executable source is **`e58f9edd708fd42dee0e6c898170e67eb4a01a53`**, tree **`6fb51ba5e39dca476989d4ae73fb61790a2da50d`**, on `feature/0.8.1-site-ux-hero-library`. **All seven jobs in [CI run 39328060458](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458) completed successfully.** Every checkout identifies PR test merge `893d61819f387f71e0ebb4de105a9bee3bd33168`, whose complete repository tree equals that source tree. Final documentation updates do not change runtime, tests, workflows or package bytes. This is not a merged PR.
 
-## Repository state
+Final gates passed PHP **8.2.34/8.3.35**, JavaScript/security/ownership/package checks, MySQL **8.0.46** migration apply/verify/rollback (14 migrations / 82 tables), existing-database installation (922 assertions per PHP version), installed update preservation, all seven HTTP suites and all 13 application-browser suites. The actual .5-to-.6 retained-browser/cache upgrade verifies the owner refresh, exact forwarding-file retirement, preservation of custom items, and real uploads, Add Button, retained Full Page Preview and publication. Root/nested routes and desktop/mobile layouts pass. The 30-background library, full/thumbnail image decoding, 90 public device renders, Booking Builder, About/admin/auth/navigation and merchandise/direct PPV regressions also pass. Scoped local Apache/FPM results and earlier intermediate runs remain separately recorded.
 
-- Repository: `afterburn25/velvet_vixxen`
-- Documentation/status branch: `main`
-- Prepared implementation branch: `feature/0.3.0-media-center`
-- Repository contract CI: passing on `main`
-- Full executable source import: still open in issue #1
-- Media Center tracking: issue #2
-- Release testing gate: issue #3
+The complete **Build-20261019.6 Upgrade** is the primary package for an existing installation. [The gated runtime artifact](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/artifacts/12226463391) was downloaded: all four ZIPs and its separate manifest match the frozen build literally. The four corrected customer downloads were saved and retrieved again; **every saved byte matches the gated artifact**, verified **2026-10-19 22:36:25 UTC**. The unchanged eight-file installer-only repair was not redelivered as a new root-layout fix. Customer ZIPs remain runtime-only.
 
-The approved visual direction remains the full-width neon-pink bedroom/studio concept with live HTML and open composition areas for transparent Nikki cutouts.
+To apply: extract the complete Upgrade into the existing website folder, sign in as the existing owner and open **`admin/repair.php`** directly. Verify all files, click **Refresh application PHP**, confirm running build **20261019.6**, then **Restore organized folders**. Only exact known old forwarding files are retired, with nonexecuting reversible archives; only empty old folders are removed. Custom/modified files, configuration, keys, accounts, database state and uploads are preserved. See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-root-layout-ci.json` and `docs/releases/0.8.1-root-layout-delivery.json`.
 
-## What is implemented in the packaged 0.3.0 build
+**The affected customer host has not been accessed or verified.** Source, CI and saved downloads do not establish that its update has been applied. Issue #13 stays open, PR #15 remains unmerged, payments stay sandbox-only and no 0.9.0 work is included. Earlier release blocks below are historical, not the current source or installation instructions.
+<!-- root-layout-repair:end -->
 
-- 0.2.2 single-page installer and organized application foundation
-- Media data/service layer supporting file-backed demo and MySQL production modes
-- Albums, tracks, audio playlists, galleries, videos, captions, media assets, access modes, scheduling, and pricing metadata
-- Persistent audio player with queue, shuffle, repeat, seek, volume, saved state, and Media Session integration
-- Gallery index/detail routes and full-screen keyboard/touch viewer
-- Video index/watch routes with poster, trailer/full selection, captions, saved playback position, and audio/video conflict handling
-- Administrator pages and real save flows for Music, Photo Galleries, and Videos
-- Signed private-media endpoint with expiration, HMAC verification, MIME handling, Range support, and traversal protection
-- Five people-free demonstration galleries, three synthetic demonstration songs, and one people-free demonstration video
-- Six migrations declaring 34 tables
-- PHP 8.2/8.3, MySQL 8, and Chromium CI definitions inside the packaged source
+<!-- installed-build-followup:start -->
+## Installed-update repair — Build 20261019.5 verified and delivered
 
-## Verified test evidence
+**The owner’s affected installation remains unresolved and has not been accessed.** Source, CI and download verification do not establish that the update is active on that host. The affected URL is still unavailable. Issue #13 remains open, PR #15 is unmerged, payments remain sandbox-only, and no 0.9.0 work is included.
 
-- `bash scripts/test.sh` passes
-- 60 PHP files pass syntax validation
-- 6 public JavaScript files pass syntax validation
-- Installer, migration manifest, Media Center, protected-media, organized-structure, and repository-safety tests pass
-- Real Chromium acceptance passes desktop/mobile public pages, persistent audio/queue, gallery lightbox, video playback page, owner login, and actual Track/Gallery/Video edit-save workflows
-- No browser console, page-script, or unexpected request failures were observed
-- Release archive integrity test passes
+The newest executable source is on `feature/0.8.1-site-ux-hero-library`: **`2bc178013c9c528f45a5d0447624f3cbaf4395f2`**, tree **`1b576e805d17b259a24e0d648e0568b54dc0bc37`**. The new runtime shows a distinct build ID, supplies a complete 324-file shared-runtime inventory, and adds active-owner/CSRF-protected **System → Update Status** / `admin/update.php`. It diagnoses missing/mixed files and refreshes only this site’s verified PHP. The previous upload, physical-route, Add Button, Preview and Publish implementations remain included. Existing configuration, keys, account records, database state and uploaded content are preserved.
 
-## Important boundary
+**All seven jobs in [PR run 39315788377](https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377) completed successfully.** Every actual checkout log identifies GitHub’s test merge `99396b2277d947a5f2cc47ef0e181d1c048891cd`. Its entire repository tree is identical to the source tree above, verified by both Git and the commit API; this is not a merged PR. The separate direct-push run remained pending at the 20:31:19 UTC audit and is not claimed as the completed release gate.
 
-The GitHub repository currently contains the authoritative roadmap, decisions, status, handoff, testing policy, issues, and a passing repository-contract workflow. It does **not yet contain the full 0.3.0 executable source tree**. Do not close issues #1 or #2 or merge a Media Center PR until the source is imported and its complete CI matrix passes.
+The final gates passed PHP **8.2.34/8.3.35** source/JavaScript/security/package suites; **MySQL 8.0.46** on both versions with 922 extracted-installer assertions per version, 32 installed-update checks, 12 booking transaction/snapshot checks and migration apply/verify/rollback; installer ownership/write and persistent-cache regressions; all seven HTTP and thirteen application-browser suites; actual packaged upload/routing/cleanup/Preview/Publish/button checks; and runtime-only archive exclusions/reproducibility. Browser execution used Playwright 1.62.0 / Chromium 151.0.7922.34, including 30 backgrounds, all full/thumbnail decodes, 90 public device renders, Booking Builder, About/admin/auth/navigation and merchandise/direct PPV.
 
-## Exact next task
+The new mandatory historical-update test reconstructs the exact prior delivered ZIP from pinned `e5b04daa`, warms old PHP, and keeps the same browser and server through actual Upgrade extraction. Both cached root/subfolder cases reproduce matching files on disk while the old Composer still runs and Preview/Publish emit no requests. The real owner refresh then passes Add Button, retained preview, persisted publication, public Booking navigation, both image upload forms and exact image readback/decode. The disabled-cache control, owner/member/demoted-owner/CSRF/method boundaries, mixed-file refusal, six desktop/mobile status layouts and private-state/unrelated-cache preservation also pass. Local final-runtime acceptance independently passed on PHP 8.3.6 / Chromium 155.0.8059.84.
 
-1. Import the clean 0.3.0 source tree into `feature/0.3.0-media-center`.
-2. Exclude generated screenshots, generated Canva packages, runtime configuration, secrets, logs, and private/paid media.
-3. Run source tests on PHP 8.2 and 8.3.
-4. Run the disposable MySQL 8 apply/verify/rollback test.
-5. Run Chromium desktop/mobile acceptance.
-6. Update `docs/TEST_REPORT.md` with GitHub run evidence.
-7. Open a pull request linked to issues #1, #2, and #3.
-8. Merge only after CI is green, then begin `0.4.0 — Members & Entitlements`.
+**The complete Upgrade is the primary download for an installed 0.8.1 site with an unknown earlier build.** `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip` contains 325 runtime entries, occupies 7,474,055 bytes and has SHA-256 `080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d`. The full Fresh ZIP, 72-file focused repair and separate manifest were also updated. The eight-file installer-only repair is unchanged and was not redelivered as a new Composer fix.
 
-## Required session start procedure
+[Runtime artifact 12219288424](https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/artifacts/12219288424) was downloaded and compared literally: all four ZIPs and the manifest match the frozen source-built files. The four new downloads were saved with their existing identities/version guards and retrieved again; every saved byte matches the gated artifact, verified **2026-10-19 20:30:12 UTC**. [Browser evidence 12219640705](https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/artifacts/12219640705) remains outside the customer ZIPs.
 
-Read `AGENTS.md`, `PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, and `docs/TESTING.md`; inspect recent commits, issues, pull requests, and CI; then run the existing tests before making changes.
+See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.json`, `docs/releases/0.8.1-installed-build-ci.json` and `docs/releases/0.8.1-installed-update-acceptance.json`. The separate Apache/FPM audit of the preceding .4 runtime and the earlier failed/intermediate test attempts remain recorded with their actual scopes. Preserve the unresolved hosted report until the owner’s served build and real actions are checked.
+<!-- installed-build-followup:end -->
+
+<!-- media-composer-repair:start -->
+## Historical Media, Composer buttons and public route repair — 2026-10-19
+
+The newest executable source is on `feature/0.8.1-site-ux-hero-library`. Runtime repairs were uploaded in commit `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final execution-verified test followup is `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, with identical runtime bytes. All seven jobs in [GitHub run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) are **completed / success**, with every checkout matching that exact source. The downloaded gated runtime artifact and its manifest are byte-identical to the saved customer downloads. Earlier installer and feature records below are historical evidence.
+
+The actual application now has **46 physical public entry points covering all 87 registered URLs**, including upload/scene APIs, account aliases, booking, checkout, content pages and existing signed-media URLs. Their protected implementations remain under `public/routes`. This removes the missing-file dependency on rewrites that caused the reported upload JSON errors and failed scene saves. Upload/save/publish/restore handle non-JSON failures readably. Full Page Preview retains a useful error tab instead of closing it if either draft save fails.
+
+The requested **Add Button** control adds separate live link layers with editable text, destinations, styles/colors, text size, corner radius and new-tab behavior. Buttons share the existing direct drag/free resize, numeric, keyboard, snapping, ordering, hide/lock, duplicate/delete, history and device layout controls. The public Hero/Footer renders keyboard-accessible links. Photo cutouts and the existing live text/button group remain independent. The server validates button data before writing; no database migration is needed.
+
+The routing audit also repaired old cleanup behavior that would remove the new entry points. Current forwarding files survive; obsolete controllers and unknown sibling files move to a protected private archive with their bytes preserved. Member login/Requests/logout destinations and marketing post links, stored local calls to action, banners and analytics requests now retain a nested installation's base path. Existing external HTTP(S) destinations remain usable.
+
+**Local verification has passed:** full PHP 8.3.6 source/JavaScript/security/ownership/OPcache/package suite; 127 button assertions; 90 installation-URL assertions; 371 repair-backup assertions; 566 public-route/path assertions; all seven existing HTTP suites; real packaged uploads at root/desktop and nested/mobile; and all 87 public routes before/after real owner cleanup at both installation paths. Negative controls reproduce missing entry points, the JSON parser error, the disappearing-preview cause, unsafe unvalidated buttons and the old cleanup removing 40 active entry points. All 13 application-browser suites also passed, including 30 distinct backgrounds, all 60 full/thumbnail image decodes, 90 published desktop/tablet/mobile renders and the 12-route public layout audit. Four actual packaged root/nested × desktop/mobile cases passed preview failure recovery, owner-only Hero/Footer drafts, publication/history, persistent live buttons, real Booking links, marketing posts/banners/campaigns and accepted analytics events. GitHub also passed PHP 8.2.34/8.3.35 source/package suites, MySQL 8.0.46 on both PHP versions, 922 extracted-installer assertions per version, 32 real upgrade checks, 12 booking transaction/snapshot checks, migration apply/verify/rollback, the real installer browser flow, all packaged acceptance cases, seven HTTP suites and thirteen application-browser suites. Safety, ownership, persistent PHP cache, archive exclusions and reproducibility remain mandatory and passed.
+
+The runtime-only installed-site repair contains **67 files: 60 PHP, five JavaScript and two CSS**. The fresh and upgrade ZIPs contain matching runtime bytes. Configuration, storage, uploads, customer records, docs/tests/workflows/screenshots and installer state are excluded from the small repair. The earlier eight-file Installer Database Repair remains separate and byte-identical. The installed-site repair, complete fresh-install and upgrade downloads, and separate manifest were saved on 2026-10-19 after comparison with [runtime artifact 12214187647](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12214187647). [Browser evidence](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12212794646) stays outside every customer ZIP. Source/tests and progress are uploaded on the feature branch; issue #13 and PR #15 track this exact repair. See `docs/MEDIA_COMPOSER_REPAIR.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-media-composer-repair.json`. No deployment, merge or 0.9.0 work is claimed.
+<!-- media-composer-repair:end -->
+
+## Installer continuation with existing databases — 2026-10-19
+
+The newest executable source remains on `feature/0.8.1-site-ux-hero-library`. This continuation removes the blanket rejection of databases containing Velvet Vixxen tables. The actual installer now handles empty databases, unrelated existing tables, compatible partial schemas, complete schemas and missing migration history. It validates existing definitions and owner credentials, applies only missing work, and preserves existing records, settings, scenes, owner password hashes, installation identity and recoverable security keys. Historical migration bytes are unchanged.
+
+A failed attempt keeps completed schema work and its pending configuration for retry. Pending configuration is not publicly installed until final verification succeeds, including a process interruption after the lock was written. Automatic recovery and installer retirement share the setup guard and cannot replace a pending checkpoint or move the installer while it is running. Existing completed installations remain protected; incompatible schema or missing original encryption keys produce specific preservation errors, never an instruction to erase the database.
+
+The owner's additional layout correction removes the extra Folders rule/inset, aligns Server/Folders headings and check cards, and aligns Password/Confirm Password fields despite the strength meter. Completion clears the spinner and page scroll lock. Installer CSS/JavaScript have their own updated cache query. The runtime repair contains **eight files: six PHP files, one stylesheet and one JavaScript file**, including the earlier folder correction. The fresh and upgrade packages are rebuilt; the earlier one-file Folder Repair ZIP does not contain this database/layout continuation.
+
+Local and GitHub verification are complete: the full PHP 8.3.6 source/JavaScript/security/ownership/OPcache/package suite passed; the actual packaged installer passed 922 assertions on MySQL 8.0.46; recovery passed 134 assertions; and real desktop/mobile browser installation, retry, layout and completion tests passed. The new SQL parser cases and original failing layout are retained or reproduced as meaningful regressions. Executable source, tests and workflow are uploaded as [`e5b04daa132521be69c943151f8112c7cd2017e8`](https://github.com/afterburn25/velvet_vixxen/commit/e5b04daa132521be69c943151f8112c7cd2017e8), tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`. All seven required jobs passed in [GitHub run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907), whose official conclusion is **completed / success**. This includes PHP 8.2.34/8.3.35 source suites, 922 actual-package MySQL installer assertions on each version, real installer desktop/mobile acceptance, seven HTTP suites, twelve application-browser suites and gated packaging. The downloaded GitHub ZIPs and manifest are byte-identical to the saved customer downloads. Matching repair, fresh-install, upgrade and separate checksum-manifest downloads were saved on 2026-10-19. See `docs/INSTALLER_DATABASE_REPAIR.md`, `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json` (repository-relative paths). Earlier folder/cache evidence remains historical in the test report and its release record. No 0.9.0 work or production deployment is included.
+
+Updated: 2026-10-19. Repository: `afterburn25/velvet_vixxen`.
+
+## Earlier verified continuation — before the installer correction
+
+The **0.8.1 user-facing engineering continuation is implemented and verified** on `feature/0.8.1-site-ux-hero-library`. Runtime source: [`ca527935e0737f55b0b79ea8d88539e0c44bf97c`](https://github.com/afterburn25/velvet_vixxen/commit/ca527935e0737f55b0b79ea8d88539e0c44bf97c); complete GitHub CI: [39213140477](https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477), **all six jobs passed**. PHP 8.2.34/8.3.35, JavaScript syntax, MySQL 8.0.46, installer/ownership/security, seven HTTP suites, twelve real Chromium suites and gated runtime packaging all passed. The library has 30 individual scenes and 30 thumbnails, with 90 successful published renders across desktop/tablet/mobile.
+
+This is the verified sandbox development milestone. Payments remain sandbox-only, actual owner content must be supplied by the owner, and production hosting/live-service certification is not claimed. PR #15 contains the feature branch; inspect its current merge state separately. No 0.9.0 implementation is included.
+
+Read `INCOMPLETE_WORK.md`, `SESSION_HANDOFF.md`, `PROJECT_STATUS.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md` and `NEXT_SESSION_PROMPT.md` in full. Inspect the live branch, current commit, [PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15), [issue #13](https://github.com/afterburn25/velvet_vixxen/issues/13), source-import issue #1 and release-gate issue #3. The original handoff and marketing branches were documentation-only. Do not replace the newer executable branch with those older records or assume main has been merged.
+
+## Delivered scope
+
+Composer direct dragging/extreme resizing/all-edge clipping and lower-edge crop; movable live text/button group; independent device layouts/background appearance; 30 individual luxury backgrounds and thumbnails; searchable library/drafts/publication/history; Booking Builder and immutable inquiry snapshots; shared sticky public navigation; About Me/editor; centered authentication/recovery pages; eight persistent Admin categories; merchandise/images/variants/stock/shipping/fulfillment; separate membership and direct PPV/rental checkout; manual Canva bridge; safe installed database updates.
+
+The earlier Composer/Admin correction preserves Composer handle nodes/focus, makes the MySQL rollback fixture work without elevated privileges, corrects About spacing/empty details layout, and saves native Admin category changes before the next browser task. Its meaningful timing regression fails against the pre-fix script and passes the exact final CI engine.
+
+## Earlier feature evidence and customer packages
+
+Both packages were built from the exact verified runtime commit. Their byte hashes match the gated GitHub CI build. The fresh package starts uninstalled; the upgrade omits config, storage, uploads and install. Neither contains repository docs, tests, SDK source, workflows, screenshots, artwork provenance/masters, installed records, credentials or private media. Exact package counts/hashes and artifact URLs are recorded in `RELEASE_MANIFEST.txt`, `docs/releases/0.8.1-site-ux.json` and `docs/TEST_REPORT.md`.
+
+Actual MySQL 8.0.46 CI verifies 14 migrations / 82 tables and the prior 12→14 installed-site upgrade. All seven HTTP and twelve actual Chromium browser suites pass in the same workflow. Local PHP 8.3.6/MariaDB 10.11.14/Chrome 155 results remain supplementary; MariaDB is never substituted for MySQL 8 evidence.
+
+## Continue without losing work
+
+The requested 0.8.1 implementation and acceptance checklist are complete. Start subsequent work from the live implementation branch and the owner's current instructions. Preserve source/tests/docs in GitHub as work lands. Inspect PR merge and artifact state before describing either; this handoff records a verified feature branch and packages, not an unobserved deployment. 0.9.0 has not been started.
+
+Owner workflows are in `docs/VISUAL_COMPOSER.md`, `docs/BOOKING_BUILDER.md`, `docs/MERCHANDISE.md`, `docs/CANVA_WORKFLOW.md` and `docs/UPGRADING.md`. Existing database sites use System → Database Updates after a verified backup; never rerun the fresh installer over them. File-storage mode reports no SQL migration needed.
+
+## Requirements to preserve
+
+Approved neon-pink/magenta/black design; no new mockups or placeholder people; owner transparent photos remain separate; one-page installer; no installation key; 12-character minimum owner/member passwords; safe 0755/0775, never 0777; organized folders; runtime-only customer ZIPs; sandbox payments. Never commit credentials, customer/member/booking records, private conversations/attachments, identity records, payment secrets, raw license keys, signing private keys, logs, sessions, runtime state or private/paid media.
+
+Test only marked disposable runtime copies/databases. Commands are in `docs/TESTING.md`. Never seed a demo in the source checkout or a real site. Upgrade packages omit config/storage/uploads/install. Recovery preserves valid active identity and unique/unknown backups; installed updates use reviewed plans, locks and operator backup acknowledgment.
+
+Actual owner photos, biography/statistics and catalog content have not been invented. Historical advanced marketing automation/audiences/attribution/retention/MySQL-persistence claims remain unverified gaps in `docs/SOURCE_RECOVERY.md`. Production email delivery, live payments and representative hosting certification remain outside this sandbox milestone.

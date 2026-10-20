@@ -1,0 +1,8 @@
+{
+  "README.md": "e4d50b86232f52bc2b4d61799b8d3f73079d931f037da31fa793b99f488ea123",
+  "addon.json": "847524ebcd3d775c63e1c06032031245b7c0f25e97ebe213be4328e6d61dfc7c",
+  "src/bootstrap.php": "efe07f3971a8f128b48024d899ea892ecd4e643c579efa8b023c71b12967fc0f",
+  "views/admin.php": "31fd08e81802ed01e5ba62003be7a683c58a9f432f864f3a171e97b13d503612",
+  "views/public.php": "bb920267e461f36bee0eca0f8be32c1017ff2e6a98d59f44d48af098b31a4b8f",
+  "views/widget.php": "2762dae11529cb4ea3296ac6c6a3f279bc3e4ad290ec2aa38541fa4ebac3ccb6"
+}

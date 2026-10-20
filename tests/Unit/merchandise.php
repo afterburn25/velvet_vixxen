@@ -1,0 +1,100 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__) . '/TestEnvironment.php';
+
+$env = velvet_test_environment('merchandise');
+$failures = [];
+$count = 0;
+$check = static function (bool $ok, string $message) use (&$failures, &$count): void { $count++; if (!$ok) $failures[] = $message; };
+$reject = static function (callable $operation, string $message) use ($check): void { try { $operation(); $check(false, $message); } catch (Throwable) { $check(true, $message); } };
+try {
+    $store = $env['store']; $commerce = $env['commerce'];
+    $member = $store->createMember(['displayName' => 'Merchandise Fixture', 'email' => 'merchandise@example.test', 'password' => 'FixtureMember12!', 'status' => 'active', 'emailVerifiedAt' => now_iso()]);
+    $other = $store->createMember(['displayName' => 'Other Fixture', 'email' => 'merch-other@example.test', 'password' => 'FixtureMember12!', 'status' => 'active', 'emailVerifiedAt' => now_iso()]);
+    $webhook = static function (array $order, string $eventId, string $type) use ($commerce): array {
+        $payload = json_encode(['event_id' => $eventId, 'type' => $type, 'order_number' => $order['orderNumber']], JSON_UNESCAPED_SLASHES);
+        return $commerce->handleWebhook('sandbox', $payload, hash_hmac('sha256', $payload, str_repeat('b', 64)));
+    };
+    $input = ['title' => 'Velvet Tee', 'description' => 'Soft cotton fixture', 'price' => '20.00', 'currency' => 'USD', 'status' => 'active', 'requiresShipping' => true, 'shippingPrice' => '3.00', 'variants' => [
+        ['label' => 'Rose / Medium', 'sku' => 'TEE-ROSE-M', 'options' => ['Size' => 'M', 'Color' => 'Rose'], 'stock' => 4],
+        ['label' => 'Black / Large', 'sku' => 'TEE-BLACK-L', 'price' => '24.00', 'options' => ['Size' => 'L', 'Color' => 'Black'], 'stock' => 0],
+    ]];
+    $product = $store->saveMerchandiseProduct($input);
+    $ownerSnapshot = array_replace($product, ['revision' => App\Core\MerchandiseService::revision($product)]);
+    $id = (string) $product['id']; $variant = (string) $product['variants'][0]['id'];
+    $check(count($store->merchandiseProducts(true)) === 1 && count($product['variants']) === 2, 'Published product or variants did not persist.');
+    $check($product['variants'][0]['options']['Size'] === 'M', 'Variant size was not persisted.');
+    $reject(fn() => $store->saveMerchandiseProduct(array_replace($input, ['title' => '', 'slug' => 'bad'])), 'Empty title was accepted.');
+    $reject(fn() => $store->saveMerchandiseProduct(array_replace($input, ['price' => '-1'])), 'Negative price was accepted.');
+    $reject(fn() => $store->saveMerchandiseProduct(array_replace($input, ['id' => $id, 'variants' => [['id' => 'foreign', 'label' => 'Bad', 'sku' => 'BAD', 'stock' => 1]]])), 'Foreign product variant was accepted.');
+    $reject(fn() => $store->saveMerchandiseProduct(array_replace($input, ['id' => $id, 'imageIds' => ['missing']])), 'Missing/private image reference was accepted.');
+    $reject(fn() => $store->saveMerchandiseProduct(array_replace($input, ['id' => $id, 'variants' => [array_replace($product['variants'][0], ['sku' => 'DUPLICATE-A']), array_replace($product['variants'][0], ['sku' => 'DUPLICATE-B'])]])), 'Duplicate variant IDs were accepted.');
+    $line = ['type' => 'merchandise', 'id' => $id, 'variantId' => $variant, 'quantity' => 2, 'mode' => 'purchase'];
+    $quote = $commerce->quote([$line], $member, 'WELCOME10');
+    $check($quote['subtotal'] === 40.0 && $quote['discountTotal'] === 4.0 && $quote['shippingTotal'] === 6.0 && $quote['grandTotal'] === 42.0, 'Quantity, discount or shipping arithmetic was incorrect.');
+    $reject(fn() => $commerce->quote([$line, ['type' => 'gallery', 'id' => 'demo-gallery-lounge']], $member), 'A mixed merchandise/PPV order was accepted.');
+    $reject(fn() => $commerce->quote([$line, ['type' => 'plan', 'id' => 'plan-vip']], $member), 'A mixed merchandise/subscription order was accepted.');
+    $reject(fn() => $commerce->quote([$line, $line], $member), 'Duplicate variant lines bypassed stock checks.');
+    $reject(fn() => $commerce->quote([array_replace($line, ['variantId' => $product['variants'][1]['id']])], $member), 'Sold-out variant was accepted.');
+    $reject(fn() => $commerce->quote([array_replace($line, ['quantity' => 5])], $member), 'Quantity above stock was accepted.');
+    $reject(fn() => $commerce->quote([array_replace($line, ['quantity' => '1.5'])], $member), 'Fractional quantity was accepted.');
+    $cart = $env['cart']; $cart->add('merchandise', $id, 'purchase', $variant, 2);
+    $reject(fn() => $cart->add('gallery', 'demo-gallery-lounge'), 'PPV was added to merchandise cart.');
+    $reject(fn() => $cart->add('plan', 'plan-vip'), 'Membership was added to merchandise cart.');
+    $intent = new App\Core\CheckoutIntent(); $token = $intent->start('gallery', 'demo-gallery-lounge', 'purchase');
+    $planToken = $intent->start('plan', 'plan-vip', 'subscribe');
+    $check($cart->count() === 2 && $intent->get($token)['items'][0]['type'] === 'gallery' && $intent->get($planToken)['items'][0]['type'] === 'plan', 'Direct checkouts changed the cart or each other.');
+    $intent->coupon($token, 'WELCOME10');
+    $check($intent->get($planToken)['coupon'] === '', 'Coupon leaked across checkout tabs.');
+    $shipping = ['name' => 'Fixture Customer', 'address1' => '1 Test Way', 'city' => 'Test City', 'region' => 'CA', 'postalCode' => '90210', 'country' => 'US'];
+    $reject(fn() => $commerce->checkout($member['id'], [$line], '', 'sandbox', ['sandboxResult' => 'success'], 'merch:no-address'), 'Shipping address was not required before payment.');
+    $check($store->orders($member['id']) === [], 'Invalid shipping created an order.');
+    $paid = $commerce->checkout($member['id'], [$line], 'WELCOME10', 'sandbox', ['sandboxResult' => 'success', 'shipping' => $shipping], 'merch:paid');
+    $order = $paid['order'];
+    $check($order['status'] === 'paid' && (float) $order['grandTotal'] === 42.0 && $order['items'][0]['quantity'] === 2, 'Merchandise order/quantity did not persist.');
+    $check($order['metadata']['shippingAddress']['postalCode'] === '90210' && $order['items'][0]['metadata']['sku'] === 'TEE-ROSE-M', 'Shipping and variant snapshots were not saved.');
+    $check($store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Paid order did not reserve stock exactly once.');
+    $reject(fn() => $store->saveMerchandiseProduct($ownerSnapshot), 'A stale owner edit restored stock that had already been sold.');
+    $check($store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Rejected stale edit changed available inventory.');
+    $check($store->entitlements($member['id'], false) === [] && $store->subscriptions($member['id']) === [], 'Merchandise created a digital entitlement/subscription.');
+    $again = $commerce->checkout($member['id'], [$line], 'WELCOME10', 'sandbox', ['sandboxResult' => 'success', 'shipping' => $shipping], 'merch:paid');
+    $check($again['order']['id'] === $order['id'] && $store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Retry duplicated an order or decremented stock twice.');
+    $reject(fn() => $commerce->checkout($other['id'], [$line], '', 'sandbox', ['shipping' => $shipping], 'merch:paid'), 'A member read another member checkout by idempotency key.');
+    $declined = $commerce->checkout($member['id'], [array_replace($line, ['quantity' => 1])], '', 'sandbox', ['sandboxResult' => 'decline', 'shipping' => $shipping], 'merch:decline');
+    $check($declined['order']['status'] === 'failed' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Decline did not release reserved stock.');
+    $processing = $commerce->checkout($member['id'], [array_replace($line, ['quantity' => 1])], '', 'sandbox', ['sandboxResult' => 'processing', 'shipping' => $shipping], 'merch:processing');
+    $check($processing['order']['status'] === 'processing' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 1, 'Processing payment did not reserve stock.');
+    $commerce->cancelMerchandiseOrder($processing['order']['id']);
+    $check($store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Cancelling pending sandbox order did not release stock.');
+    $cancelledEvent = $webhook($processing['order'], 'merch-cancelled-late-paid', 'order.paid');
+    $check($cancelledEvent['event']['status'] === 'ignored' && $store->order($processing['order']['id'])['status'] === 'cancelled' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'Late payment revived a cancelled order or reserved its stock again.');
+    $refunded = $commerce->refundOrder($order['id'], 'Fixture unshipped refund');
+    $check($refunded['status'] === 'refunded' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 4, 'Unshipped refund did not return stock.');
+    $reject(fn() => $commerce->refundOrder($order['id'], 'duplicate'), 'Duplicate refund was accepted.');
+    $check($store->merchandiseProduct($id)['variants'][0]['stock'] === 4, 'Duplicate refund increased stock twice.');
+    $webhook($order, 'merch-refunded-late-paid', 'order.paid');
+    $check($store->order($order['id'])['status'] === 'refunded' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 4, 'Late payment revived a refunded order.');
+    $shipped = $commerce->checkout($member['id'], [array_replace($line, ['quantity' => 1])], '', 'sandbox', ['sandboxResult' => 'success', 'shipping' => $shipping], 'merch:shipped')['order'];
+    $store->updateMerchandiseFulfillment($shipped['id'], 'shipped', 'FIXTURE-TRACKING');
+    $reject(fn() => $store->updateMerchandiseFulfillment($shipped['id'], 'pending'), 'Shipped order reverted to unshipped state.');
+    $commerce->refundOrder($shipped['id'], 'Fixture refund after shipping');
+    $check($store->merchandiseProduct($id)['variants'][0]['stock'] === 3, 'Shipped goods were automatically restocked on refund.');
+    $disputed = $commerce->checkout($member['id'], [array_replace($line, ['quantity' => 1])], '', 'sandbox', ['sandboxResult' => 'success', 'shipping' => $shipping], 'merch:disputed')['order'];
+    $webhook($disputed, 'merch-chargeback', 'order.chargeback');
+    $check($store->order($disputed['id'])['status'] === 'chargeback' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 3, 'Unshipped chargeback did not return stock.');
+    $webhook($disputed, 'merch-chargeback-repeated-report', 'order.chargeback');
+    $webhook($disputed, 'merch-chargeback-late-paid', 'order.paid');
+    $check($store->order($disputed['id'])['status'] === 'chargeback' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 3, 'Repeated chargeback or late paid event changed stock or revived the order.');
+    $asynchronous = $commerce->checkout($member['id'], [array_replace($line, ['quantity' => 1])], '', 'sandbox', ['sandboxResult' => 'processing', 'shipping' => $shipping], 'merch:async')['order'];
+    $webhook($asynchronous, 'merch-async-paid', 'order.paid');
+    $check($store->order($asynchronous['id'])['status'] === 'paid' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 2, 'A paid webhook changed already-reserved stock.');
+    $check(count($store->paymentTransactions($asynchronous['id'])) === 1 && $store->paymentTransactions($asynchronous['id'])[0]['status'] === 'paid', 'The paid webhook did not confirm the original charge.');
+    $commerce->refundOrder($asynchronous['id'], 'Refund after asynchronous sandbox confirmation');
+    $check($store->order($asynchronous['id'])['status'] === 'refunded' && $store->merchandiseProduct($id)['variants'][0]['stock'] === 3, 'A webhook-confirmed order could not be refunded normally.');
+    $store->deleteMerchandiseProduct($id);
+    $check($store->merchandiseProducts(true) === [] && $store->merchandiseProduct($id) === null, 'Deleted product remained purchasable.');
+    $check($store->order($order['id'])['items'][0]['metadata']['sku'] === 'TEE-ROSE-M', 'Product deletion changed historical order data.');
+} catch (Throwable $error) {
+    $failures[] = $error::class . ': ' . $error->getMessage() . "\n" . $error->getTraceAsString();
+} finally { velvet_test_cleanup($env); @unlink($env['dataPath'] . '.commerce.lock'); }
+velvet_finish_test('Merchandise catalog, isolated checkout and inventory (' . $count . ' assertions)', $failures);

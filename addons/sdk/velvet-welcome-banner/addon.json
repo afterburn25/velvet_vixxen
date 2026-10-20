@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "id": "velvet.welcome-banner",
+  "name": "Velvet Welcome Banner",
+  "vendor": "Velvet Vixxen",
+  "version": "1.0.0",
+  "description": "A safe starter add-on demonstrating admin pages, public routes, homepage widgets, settings, events, services, and scheduled tasks.",
+  "minimum_core_version": "0.6.0",
+  "maximum_core_version": "0.9.x",
+  "minimum_php_version": "8.2.0",
+  "bootstrap": "src/bootstrap.php",
+  "permissions": [
+    "admin.menu.register",
+    "admin.page.render",
+    "public.route.register",
+    "frontend.widget.register",
+    "events.subscribe",
+    "services.register",
+    "tasks.schedule",
+    "settings.read",
+    "settings.write"
+  ],
+  "dependencies": {},
+  "conflicts": {},
+  "license": "MIT",
+  "license_type": "free",
+  "homepage": "https://example.invalid/velvet-welcome-banner"
+}

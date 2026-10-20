@@ -1,0 +1,188 @@
+## 0.8.1 — Build 20261019.6 organized root correction (2026-10-19)
+
+- Reject Build 20261019.5 for reintroducing 25 root folders and 46 forwarding files against the approved layout.
+- Restore the exact original Fresh/Upgrade root allowlists and route generated page/API URLs through the single physical dispatcher with protected implementations under `public/routes`.
+- Add an owner-only repair entry that bypasses cached .5 update code, verifies the current runtime and retires only exact known forwarding files. Preserve custom siblings and all installed data; retain reversible nonexecuting archive records.
+- Disable the former broad root-archive action/API. Existing repair-backup inspection, missing-file recovery and verified duplicate deletion remain available.
+- Add actual rejected-ZIP upgrade/cleanup/browser tests and independent source/package root-directory guards. All seven final [CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458) passed against the complete tree of source `e58f9edd708fd42dee0e6c898170e67eb4a01a53`. The downloaded CI artifact, frozen build and all four saved replacement downloads match literally; see the root-layout CI/delivery records.
+
+## 0.8.1 — Installed-build verification and PHP cache refresh (Build 20261019.5, rejected layout)
+
+- Reopen the owner's unchanged-installation report; retain prior CI/download evidence without treating it as hosted deployment proof.
+- Show a distinct build ID in the owner interface and Fresh/Upgrade/Media repair filenames. Keep core compatibility version 0.8.1.
+- Generate a complete shared-runtime hash inventory and add owner-only Update Status with missing/mixed-file reporting.
+- Refresh only verified application PHP after owner/CSRF checks, including hosts that retain old compiled PHP after extraction. Preserve existing account, configuration, keys, database and uploaded content.
+- Exercise the actual historical installed package, retained browser session and persistent PHP cache; record real Apache/FPM missing-entrypoint checks separately.
+- All seven jobs in [PR run 39315788377](https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377) passed against the identical complete source tree of commit `2bc178013c9c528f45a5d0447624f3cbaf4395f2`. The gated archives and four saved replacement downloads were compared literally and match. See `docs/TEST_REPORT.md`. The owner's affected host remains unaccessed and unresolved.
+
+## 0.8.1 — Media, Composer buttons and public route repair (2026-10-19)
+
+- Restore physical public page/API entry points while retaining the protected implementation under `public/routes`, including account aliases and existing signed-media URLs.
+- Repair Library and Composer upload paths, parse non-JSON host errors readably, and preserve authenticated/CSRF-protected handler behavior.
+- Keep Full Page Preview open with an actionable error if saving fails; use the repaired scene API for Save Draft, Publish and Restore.
+- Add independent live button layers with labels, destinations, colors/styles, device-specific geometry and existing layer/history controls. Validate button data before saving.
+- Preserve the new route entry points during legacy cleanup; privately archive obsolete controllers and unknown sibling files without losing their bytes.
+- Keep member login returns, marketing links, banners, post links and campaign events inside root or subfolder installations as configured.
+- Extend actual-package no-rewrite routing/upload/action acceptance and add server/browser button tests. Build a runtime-only Media/Composer repair alongside fresh/upgrade packages.
+- All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed on source `db759342e401617c9933c13b81a147ad9f8fd515`; runtime repair/fresh/upgrade downloads and the separate manifest were saved after literal comparison with the gated artifact. Exact evidence is in `docs/TEST_REPORT.md`.
+
+## 0.8.1 — Existing-database installer and alignment repair (2026-10-19)
+
+- Continue compatible empty, unrelated, partial, complete and ledgerless databases using selective schema reconciliation without editing historical migration checksums.
+- Verify the existing owner login and preserve owner hashes, rows, settings, scenes, installation identity and original security keys; add only missing defaults and permissions.
+- Keep completed DDL/configuration available after failure, serialize setup/recovery/retirement, and activate pending setup only after final verification.
+- Remove the extra Folders rule/inset; align Server/Folders checks and Password/Confirm Password inputs. Refresh installer asset cache identity and clear loading/spinner/scroll-lock state after success.
+- Build an eight-file runtime repair overlay plus updated fresh/upgrade ZIPs. Add mandatory actual-package MySQL tests on PHP 8.2/8.3 and desktop/mobile HTTP/browser installer acceptance; retain ownership/OPcache and all prior feature gates.
+- Exact executed evidence and current delivery status are in `docs/TEST_REPORT.md` and `docs/releases/0.8.1-installer-database-repair.json`.
+
+## 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise (2026-10-19)
+
+## 0.8.1 — Timestamp-aware installer folder repair (2026-10-19)
+
+- Advance only the corrected installer service's ZIP timestamp in fresh and one-file repair distributions so a timestamp-preserving extraction reloads the changed service in PHP OPcache.
+- Add a mandatory persistent HTTP/OPcache regression with a demonstrated same-timestamp negative control and real repair-ZIP positive control.
+- Preserve identical corrected PHP bytes, safe modes, deterministic archives and the unchanged standard upgrade package.
+
+
+## 0.8.1 installer folder correction — 2026-10-19
+
+- Remove unused empty image/font/icon/template/seeds scaffolding from mandatory installer readiness.
+- Read-only packaged directories require presence/readability, without PHP write access or permission changes. Real missing application directories still block installation.
+- Add a fresh-ZIP regression under different panel/PHP ownership and a one-file repair distribution for unfinished installs. New verification is recorded in `docs/TEST_REPORT.md`.
+
+- Recover the checksum-verified 0.8.1 executable runtime into the repository and restore engineering tests/SDK.
+- Reconcile the separate 0.7.4 Visual Composer fixes with the newer router/recovery source.
+- Validate matching installation identities and prevent reinstall over retained configuration or keys.
+- Preserve active configuration and unique repair-backup data; add focused recovery regressions.
+- Build reproducible runtime-only fresh-install and state-preserving upgrade packages.
+- Require real source, database, HTTP, and browser checks instead of a passing missing-source skip.
+- Add direct Composer controls, 0.5–400% resizing, reachable handles, all-edge clipping/lower-edge crop, live text/button geometry and independent device backgrounds/layouts.
+- Bundle 30 standalone luxury backgrounds and thumbnails with a searchable validated library, draft previews and publication rollback.
+- Add Booking Form Builder with typed field management, client/server validation, live phone formatting and immutable inquiry snapshots.
+- Add dedicated About Me/editor, shared sticky public navigation, centered account/recovery layouts and persistent grouped administration.
+- Add merchandise products/images/variants/stock/shipping, merchandise-only cart, private delivery details and owner fulfillment/tracking. Protect stock from stale editor saves.
+- Separate membership and direct PPV/rental checkout from merchandise; preserve My Library and refund/chargeback revocation.
+- Add reviewed owner/CLI database updates for existing sites, with locks and no destructive automatic rollback on failed upgrade DDL.
+- Document and display Canva's manual saved-link/export/import workflow with separate cutouts and live functional content.
+- Centralize asset cache identity without changing the 0.8.1 compatibility version; render nonimage Media Library assets as file cards.
+- Preserve selected Composer resize/move nodes and keyboard focus through image loads and canvas resizing; correct About page margins and empty sidebar layout.
+- Save Admin category changes before navigation, preserve explicit collapsed active categories, and cover immediate refresh and keyboard activation.
+- Verify PHP 8.2/8.3, MySQL 8, all seven HTTP and twelve Chromium suites, repository safety and gated reproducible runtime packages in GitHub run 39213140477; record exact source/artifact hashes and upload the completed progress evidence.
+
+# Changelog
+
+## 0.8.0 — Marketing, Publishing & Analytics
+
+**Historical package-era claims:** this section records the earlier handoff and is not a certification of the recovered implementation. `docs/SOURCE_RECOVERY.md` identifies missing audiences/expiration, scheduled-scene automation, attribution/retention and MySQL marketing persistence. The verified baseline schema has 78 tables, not 75. Current results are in `docs/TEST_REPORT.md`.
+
+### Added
+
+- Blog, personal-update, and announcement publishing
+- Draft, scheduled, published, archived, and expiring editorial states
+- Public, registered-member, and subscriber visibility
+- Categories, tags, SEO metadata, featured images, and featured placement
+- Public Blog/Updates index and post pages
+- Newsletter single- and double-opt-in flows
+- Signed confirmation and unsubscribe tokens
+- Subscriber tags, segmentation, consent, suppression, campaign queues, and delivery-state tracking
+- Timed promotional banners and campaign landing pages
+- Scheduled Hero/Footer Visual Composer scenes
+- Lock-aware and idempotent marketing task runner
+- Link-in-bio page and click tracking
+- Referral clicks, order attribution, and attributed-revenue foundations
+- Same-origin first-party analytics and foreign-origin rejection
+- Marketing and Analytics administration
+- Posts, newsletter, referrals, and analytics CSV exports
+- Analytics and consent-record retention controls
+- Twelfth migration, bringing the declared schema to 75 tables
+
+### Changed
+
+- Homepage now supports active promotional banners, latest posts, and newsletter signup
+- Header/footer navigation now exposes Updates and Links
+- Registration and checkout preserve referral attribution
+- Built-in root image assets and uploaded image assets now resolve through the correct URL paths
+- Disabled marketing modules return 404, while unsubscribe remains available for safety and compliance
+- Public installation ZIP retains only runtime files and now includes `scripts/run_marketing.php`
+
+### Fixed
+
+- Scheduled file-store scene publication no longer overwrites a newly published scene with stale store data
+- MySQL scheduled-scene processing atomically claims `scheduled -> processing` before publication
+- Built-in post and campaign artwork no longer incorrectly resolves under `/uploads/images/`
+
+### Testing
+
+- 128 runtime PHP files passed syntax validation
+- 7 public JavaScript files passed syntax validation
+- Migration manifest passed: 12 migrations / 75 tables
+- Marketing file-store, Marketing HTTP, full-site HTTP smoke, and installer smoke suites passed
+- Extracted runtime ZIP passed integrity, checksum, clean-state, exclusions, and security checks
+
+### Limitations
+
+- Live local MySQL DDL execution remains CI-owned because PDO MySQL/MySQL/MariaDB was unavailable
+- Full interactive Playwright acceptance remains CI or representative-hosting work
+- Payment processing remains sandbox-only
+
+## 0.7.3 — Installer Verification & Simplified Setup Hotfix
+
+- Fixed stale OPcache/path-cache behavior during final configuration verification
+- Added exact configuration byte/hash verification and one-time verification loading
+- Simplified the installer to Database, Owner and Website, and Install sections
+- Collapsed detailed server/folder diagnostics unless attention is required
+
+## 0.7.2 — Installer Email Validation Hotfix
+
+- Accepted normalized valid email addresses containing pasted whitespace or common invisible Unicode characters
+- Stopped validating hidden sender/SMTP fields when outgoing email is configured later
+- Defaulted support and sender email to the owner email
+
+## 0.7.1 — Ownership-Safe Installer Hotfix
+
+- Added ownership-safe replacement of panel-owned runtime directories that PHP could read but not write
+- Preserved existing contents while creating PHP-owned writable replacements
+- Added all missing upload, storage, add-on, backup, cache, log, session, and temporary directories
+- Removed development-only docs/tests folder checks from the customer installer
+- Added ownership-safe `/install` retirement without `0777`
+
+## 0.7.0 — Messaging, Booking & Member Requests
+
+- Added private member-to-owner message threads with protected attachments
+- Added content-request intake, budgets, quotes, statuses, and owner/member replies
+- Added public and signed-in booking/appearance inquiry workflows
+- Added notifications, saved replies, communication blocks, owner queues, and settings
+- Added eleventh migration / 64 declared tables
+- Adopted the runtime-only public installation ZIP policy
+
+## 0.6.1 — Commercial Add-on Licensing & Remote Updates
+
+- Added commercial license products, issuance, activation, site limits, domain binding, encrypted local keys, offline grace, Ed25519-signed responses, release channels, protected downloads, remote update review, and rollback
+- Added tenth migration / 55 declared tables
+
+## 0.6.0 — Add-on Framework
+
+- Added validated add-on ZIP inspection, permissions, compatibility, dependencies, conflicts, checksums, signatures, migrations, backups, Safe Mode, lifecycle management, routes, widgets, events, filters, services, settings, and scheduled tasks
+- Added ninth migration / 48 declared tables
+
+## 0.5.0 — Subscriptions & PPV Commerce
+
+- Added Store, cart, sandbox checkout, subscriptions, PPV galleries/videos, rentals, bundles, coupons, receipts, billing, refunds, signed webhooks, and commerce administration
+- Added eighth migration / 44 declared tables
+
+## 0.4.0 — Members & Entitlements
+
+- Added registration, verification, login/recovery, device sessions, dashboard, My Library, plans, subscriptions, direct entitlements, unified access resolution, and synchronized media state
+- Added seventh migration / 38 declared tables
+
+## 0.3.0 — Media Center
+
+- Added persistent music player, albums/playlists, photo galleries/lightbox, video library/player, protected media, scheduling, and media administration
+
+## 0.2.2 — One-Page Browser Installer
+
+- Replaced the wizard with one responsive installer page while preserving no install key, 12-character minimum passwords, safe permissions, migrations, rollback, lock, and cleanup
+
+## 0.2.0–0.2.1 — Design, Composer, Canva & Installer Foundation
+
+- Added the approved homepage, Hero/Footer composer, Canva templates/import, owner login, age gate, browser installer, organized folders, and migration foundation

@@ -1,20 +1,22 @@
 # Security Policy
 
-Do not report exploitable security issues through a public issue. Contact the repository owner privately with the affected version, reproduction steps, impact, and any proposed mitigation.
+## Reporting
+
+Do not open a public issue containing an exploitable vulnerability, credentials, customer/identity/payment data, private media, private messages, or signing material. Contact the repository owner privately with the minimum evidence needed to reproduce the problem.
 
 ## Never commit
 
-- Database passwords or SMTP credentials
-- Payment-provider keys or webhook secrets
-- Canva OAuth secrets
-- Production application or media-signing keys
-- Performer identity documents or release records
-- Customer records, private messages, or payment data
-- Private or paid media
-- Runtime logs containing personal information
+- production database, SMTP, payment, webhook, storage, or licensing credentials;
+- generated application/media-signing secrets;
+- Ed25519 private signing keys;
+- customer, member, billing, identity, release, message, or device records;
+- private or paid media;
+- installed configuration, sessions, logs, cache, temporary files, add-on staging/quarantine runtime contents, or install/safe-mode locks.
 
-## Required security boundaries
+## Add-on boundary
 
-The application must preserve protected storage, signed media URLs, CSRF protection, secure password hashing, upload validation, strict installer locking, least-privilege administrative roles, safe migration handling, and add-on signature/permission checks.
+Add-ons are executable PHP. Package scanning, checksums, optional signatures, permission declarations, dependency checks, backups, safe mode, quarantine, and rollback reduce risk but do not fully sandbox untrusted code. Install only packages from trusted sources. Invalid signatures and blocking package findings must remain non-bypassable.
 
-The repository is public. Placeholder and approved non-private visual assets are acceptable; production data and private media are not.
+## Payment boundary
+
+The bundled provider is sandbox-only. Production payment collection must use an approved hosted/tokenized provider adapter. Raw card numbers must never be stored by Velvet Vixxen.

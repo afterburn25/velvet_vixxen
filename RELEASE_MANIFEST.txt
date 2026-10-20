@@ -1,0 +1,219 @@
+VELVET VIXXEN 0.8.1 — BUILD 20261019.6 ORGANIZED ROOT CORRECTION
+
+Status: source, all seven exact-tree CI jobs, gated artifacts and saved-download readback verified. The affected customer host remains unaccessed and unresolved.
+Build 20261019.5 is rejected for introducing 25 root folders and 46 forwarding files contrary to the approved layout. Historical verification below did not enforce that requirement.
+Branch: feature/0.8.1-site-ux-hero-library
+Executable source: e58f9edd708fd42dee0e6c898170e67eb4a01a53
+Source tree: 6fb51ba5e39dca476989d4ae73fb61790a2da50d
+Verified CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458
+CI conclusion: completed/success; all seven jobs
+Actual CI checkout: 893d61819f387f71e0ebb4de105a9bee3bd33168, GitHub PR test merge with an identical entire repository tree. PR remains unmerged.
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458/artifacts/12226463391
+Runtime artifact: 15296944 bytes; SHA-256 b591cb927fe7e8b6583faa83ec50b498c4b6193f30e18b5ec5e5460c0d2d4268
+Saved-download readback verification: 2026-10-19 22:36:25 UTC; all four corrected saved files exactly match gated bytes.
+Root files: .htaccess, VERSION, index.php, route.php
+Fresh directories: addons, admin, app, config, database, images, includes, install, public, storage, templates, uploads, vendor
+Upgrade directories: addons, admin, app, database, images, includes, public, templates, vendor
+Public implementations: public/routes; operational commands: app/Console
+Primary installed-site update: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.6-Upgrade-from-0.8.x.zip
+Upgrade: 284 runtime entries; 7,468,166 bytes; SHA-256 7d3a48c4b00b524b2c03453c6c0d760a1477cc56f37563a798901dc79c0330fe
+Fresh: 325 runtime entries; 7,623,825 bytes; SHA-256 8a6edc74ac0e4fd28236698a1becbe8be4f1b5d06181c30fbab188c0b5313795
+Media/Composer repair: 79 runtime entries; 183,292 bytes; SHA-256 fdce1c73957710e1ad1a811df728dbcd8ff3453600182aab9b0a0e09fdca180d
+Separate package manifest: 80,738 bytes; SHA-256 491ca44849132a4bbd772940747b1957a82cc3ddd7a35ed76528abb85a8d67d4
+The unchanged eight-file installer-only repair was not redelivered as a new root-layout fix.
+Existing-site repair: admin/repair.php -> Refresh application PHP -> Restore organized folders
+Preservation: only exact known old forwarding files retired; unknown/custom items and installed config/data/keys/uploads remain in place.
+Guide: docs/UPDATE_VERIFICATION.md
+Evidence: docs/releases/0.8.1-root-layout-ci.json, docs/releases/0.8.1-root-layout-delivery.json, and scoped local acceptance/package/browser/Apache/route records
+Customer ZIPs remain runtime-only; payments remain sandbox-only; no 0.9.0 work, merge or production deployment is claimed.
+
+HISTORICAL RECORDS FOLLOW — DO NOT USE BUILD .5 AS THE CURRENT ORGANIZED RELEASE
+
+VELVET VIXXEN 0.8.1 — BUILD 20261019.5 INSTALLED UPDATE REPAIR
+
+Status: source, all seven exact-tree CI jobs, gated artifacts and saved-download readback verified. The affected customer host remains unresolved and unaccessed.
+Branch: feature/0.8.1-site-ux-hero-library
+Executable source: 2bc178013c9c528f45a5d0447624f3cbaf4395f2
+Source tree: 1b576e805d17b259a24e0d648e0568b54dc0bc37
+Verified CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377
+CI conclusion: completed/success; all seven jobs, updated 2026-10-19T20:25:55Z
+Actual CI checkout: 99396b2277d947a5f2cc47ef0e181d1c048891cd, GitHub PR test merge with an identical entire repository tree. PR remains unmerged.
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/artifacts/12219288424
+Runtime artifact: 15,232,935 bytes; SHA-256 65f10e22fdfc0b0e4eed8e309e86dc0f99825af20c4cb366b14dbfb5a8104fbb
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39315788377/artifacts/12219640705
+Saved-download readback verification: 2026-10-19T20:30:12Z; four saved files exactly match gated bytes.
+Primary installed-site update: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261019.5-Upgrade-from-0.8.x.zip
+Upgrade: 325 runtime entries; 7,474,055 bytes; SHA-256 080e91477917171cf3bbc4438101507ac9bf9d597db61727797a82aa738b027d
+Fresh: 366 runtime entries; 7,629,714 bytes; SHA-256 dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9
+Media/Composer repair: 72 runtime entries; 111,697 bytes; SHA-256 13a3921a56649c6adc9d37e130fe1eb78807bf88c4436ae1d57c191f651f9572
+Separate package manifest: 87,242 bytes; SHA-256 e82d0aeeffe0d0d94e7d55a67be8a16e2d6a9bf26953d7036656571cf0d121f5
+The earlier eight-file installer-only repair is unchanged and was not redelivered as a new Composer fix.
+Implementation: explicit build identity, distinct filenames, 324-file runtime inventory and active-owner/CSRF-protected verified per-file PHP cache refresh.
+Guide: docs/UPDATE_VERIFICATION.md
+Evidence: docs/releases/0.8.1-installed-build-repair.json and docs/releases/0.8.1-installed-build-ci.json
+The separate direct-push run 39315780488 remained pending at the 20:31:19 UTC audit and is not claimed as the completed primary gate.
+Customer ZIPs remain runtime-only; configuration/data/keys/uploads are preserved; payments remain sandbox-only; no 0.9.0 work or production deployment.
+
+HISTORICAL RECORD FOLLOWS
+
+VELVET VIXXEN 0.8.1 — MEDIA, COMPOSER BUTTONS AND PUBLIC ROUTE REPAIR
+
+Status: all seven exact-source GitHub jobs completed/success. Downloaded gated ZIPs and manifest are byte-identical to the saved customer downloads.
+Branch: feature/0.8.1-site-ux-hero-library
+Source and execution-verified tests: db759342e401617c9933c13b81a147ad9f8fd515
+Source tree: c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7
+Runtime implementation commit: 723205b7bddad06d4f603b539aea1a777bdd2ae5
+Verified CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698
+CI conclusion: completed/success; run updated 2026-10-19T18:54:21Z
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12214187647
+Runtime artifact SHA-256: 7926d4ed85c6ae55c8dcfbfb9ca2690f2e46e0b0ccb92314cd98a0838c7d08de
+Runtime artifact bytes: 15167490
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698/artifacts/12212794646
+Customer repair/fresh/upgrade and separate manifest saved: 2026-10-19T18:57:50.594321+00:00
+Validation: PHP 8.2.34/8.3.35 source suites; MySQL 8.0.46 on both PHP versions; 922 extracted-installer assertions per version; 32 upgrade and 12 booking checks; 7 HTTP and 13 application-browser suites; actual packaged root/nested uploads/routes/cleanup/preview/publication/buttons/marketing; security, ownership, persistent cache and package exclusion/reproducibility gates.
+Routing: 46 physical public entrypoints, 87 registered URLs; protected implementations remain under public/routes.
+Repair scope: 67 runtime files, 60 PHP + 5 JavaScript + 2 CSS. Installed 0.8.1 only; no installer rerun or database migration.
+Changed component ZIP timestamps: 2026-10-19 18:00:00; regular file modes: 0644.
+Browser asset revision: 0.8.1-20261019.4
+The separate eight-file Installer Database Repair is unchanged from its earlier delivery.
+Guide: docs/MEDIA_COMPOSER_REPAIR.md
+Evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-media-composer-repair.json
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: d2050b907dd8f1917a0b08ef21bbd4652ecafadf07404e25cb44762eaebf889f
+Bytes: 7608429
+Runtime files: 362; PHP: 214; JavaScript: 11
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 234b7b4379e8418fb4d862d9eb5c4dd25081a6bb22188d30922488dbb24599c6
+Bytes: 7452770
+Runtime files: 321; PHP: 203; JavaScript: 11
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip
+SHA-256: 9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38
+Bytes: 51241
+Runtime files: 8; PHP: 6; JavaScript: 1
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Media-Composer-Repair.zip
+SHA-256: 26153425f5ea0b1102eaadc36087a634e31a91a8288176b52aa8570f8a0524a2
+Bytes: 89030
+Runtime files: 67; PHP: 60; JavaScript: 5
+
+Velvet-Vixxen-0.8.1-package-manifest.json
+SHA-256: c88b2291e17f1146d9359b9c36b13f457e76a023d4c7a2da6011705de8445ff9
+Bytes: 85338
+Separate engineering/checksum manifest; excluded from customer ZIPs.
+Established download aliases: fresh = Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip; manifest = Velvet-Vixxen-0.8.1-Site-UX-Package-Manifest.json. Alias files contain identical artifact bytes.
+
+No owner-server deployment or PR merge is claimed. Payments stay sandbox-only. No 0.9.0 work.
+
+Historical installer and earlier feature evidence follows.
+
+VELVET VIXXEN 0.8.1 — INSTALLER DATABASE AND LAYOUT REPAIR
+
+Status: all seven current GitHub jobs completed/success; PHP 8.2.34/8.3.35 source/package suites, 922 actual-package MySQL installer assertions on each version, 134 recovery assertions, real installer desktop/mobile acceptance, seven HTTP and twelve application-browser suites, and gated runtime packaging passed. Downloaded GitHub ZIPs and manifest are byte-identical to the saved repair/fresh/upgrade downloads.
+Branch: feature/0.8.1-site-ux-hero-library
+Source: e5b04daa132521be69c943151f8112c7cd2017e8
+Source tree: 3cf10b7ac74f66a59e2a86ddc20a19b567f3f570
+Verified exact-source CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207601981
+Browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907/artifacts/12207033000
+CI conclusion: completed/success; run updated 2026-10-19T17:40:05Z.
+Customer repair/fresh/upgrade and separate manifest saved: 2026-10-19.
+Starting source: 9ed1c2b899ec542ca05ea9d2b40f701d4c2548c3
+Repair scope: eight runtime files, six PHP + one CSS + one JavaScript. Includes the earlier folder correction.
+Changed component ZIP timestamps: 2026-10-19 16:00:00; unchanged FileSystemService timestamp: 2026-10-19 00:00:00.
+Installer CSS/JavaScript browser revision: installer=20261019.1
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 0914e0497355d67bfd861b64fa25233ab0c643ad1443dea88ae852f3b6d874ca
+Bytes: 7587279
+Runtime files: 314; PHP: 167; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: e7f6c52d4d7de217b647e41f44827381cfe4a86c58b794947a5a0fd8bfa57028
+Bytes: 7431620
+Runtime files: 273; PHP: 156; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip
+SHA-256: 9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38
+Bytes: 51241
+Runtime files: 8; PHP: 6; JavaScript: 1
+
+Use Installer-Database-Repair.zip in the existing unfinished 0.8.1 site folder. Keep its database/configuration/storage/uploads; setup reuses compatible tables and the existing owner login.
+Fresh ZIP starts uninstalled. Upgrade preserves config/storage/uploads/install exclusions and includes applicable Core/recovery/public asset changes.
+Runtime repair contents and user instructions: docs/INSTALLER_DATABASE_REPAIR.md
+Current evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-installer-database-repair.json
+Source, docs, tests, workflows, screenshots and all real site/private data remain outside customer ZIPs.
+
+--- HISTORICAL FOLDER/CACHE DELIVERY; SUPERSEDED FOR THE CURRENT DATABASE/LAYOUT ISSUE ---
+VELVET VIXXEN 0.8.1 — INSTALLER FOLDER AND PHP CACHE CORRECTION
+
+Status: complete successful archived execution logs for every required gate on PHP 8.2/8.3, MySQL, HTTP/browser and packaging; corrected repair/fresh downloads and separate manifest saved. Official run/job metadata remained queued/null at 2026-10-19 16:21:51 UTC; a successful workflow conclusion is not inferred.
+Final implementation/package source: eed4c5efe1f3be9aa2522f247adcd2a5e84c509a
+Final implementation source tree: a0be19e15f58d4576d78e1b5a820317f5242acab
+Final PR CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755
+Final direct-push CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39283438479
+Final runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12202911516
+Final browser evidence: https://github.com/afterburn25/velvet_vixxen/actions/runs/39283445755/artifacts/12201869438
+Corrected PHP service source: 776450964e5a1e9d26719d886d114ce3eef4037e
+Service ZIP timestamp in fresh and repair: 2026-10-19 00:00:00
+Prior full execution logs: https://github.com/afterburn25/velvet_vixxen/actions/runs/39278828940 (before OPcache regression; status metadata lagged completed logs)
+Branch: feature/0.8.1-site-ux-hero-library
+Starting source: 349fd1a5128c9963e535f77b75890feaac5981b1
+Corrected FileSystemService.php SHA-256: bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 3647aaff64eb33eb02b27a33f02e2cb812b08264b1b206d6f30fba6c09ec7762
+Bytes: 7576393
+Runtime files: 313; PHP: 166; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715
+Bytes: 7423931
+Runtime files: 272; PHP: 155; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Folder-Repair.zip
+SHA-256: 5ff968c13fe43d6ab7c759c3c0dabcf28bda5018c2378f5b496664f692171ce3
+Bytes: 6400
+Runtime files: 1; PHP: 1; JavaScript: 0
+
+Use the one-file Installer-Folder-Repair ZIP to resume an existing unfinished 0.8.1 installer. It contains only install/services/FileSystemService.php. The full fresh ZIP includes that correction. The ordinary upgrade is unchanged and does not include install. No configuration, storage, uploads or database data is included in the repair.
+
+Source/usage: docs/INSTALLER_FOLDER_REPAIR.md
+Evidence: docs/TEST_REPORT.md and docs/releases/0.8.1-installer-folder-repair.json
+
+--- PREVIOUS VERIFIED CONTINUATION RECORD (BEFORE THE REPORTED FOLDER DEFECT) ---
+
+VELVET VIXXEN 0.8.1 — VERIFIED SITE UX CONTINUATION
+
+Status: all required engineering gates passed; payments remain sandbox-only.
+Branch: feature/0.8.1-site-ux-hero-library
+Runtime source commit: ca527935e0737f55b0b79ea8d88539e0c44bf97c
+Runtime source tree: f9ad6dd825def2b525ce0992c1fb9a010344c8b9
+Asset build identity: 0.8.1-20261019.3
+Verified GitHub CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477
+Tracking: issue #13; PR #15. Merge/deployment state is separate.
+Schema: 14 migrations / 82 declared tables.
+Hero library: 30 standalone full images + 30 thumbnails; 90 published device renders passed.
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip
+SHA-256: 4f2e22ce4eb153a89b42180e15ee55ad7259f39712864e3f79756a47d0e27080
+Bytes: 7576019
+Runtime entries: 313; PHP: 166; JavaScript: 10
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip
+SHA-256: 57b2497758ba9ad24e89a597411f4e16017bfdc74caf141b3e5ecadc4db61715
+Bytes: 7423931
+Runtime entries: 272; PHP: 155; JavaScript: 10
+
+Runtime packages: https://github.com/afterburn25/velvet_vixxen/actions/runs/39213140477/artifacts/12168746591
+The Site-UX-named customer download copies have identical bytes to these GitHub artifact filenames.
+Build command: python3 scripts/package.py --output artifacts/runtime
+Structured evidence: docs/releases/0.8.1-site-ux.json
+Full test report: docs/TEST_REPORT.md
+Recovery provenance: docs/SOURCE_RECOVERY.md
+
+Fresh ZIP starts uninstalled. Upgrade excludes config, storage, uploads and install.
+Customer ZIP exclusions: repository documents, workflows, tests, SDK, screenshots, development tools, artwork provenance/masters, installed configuration, generated secrets, customer/member/booking records, private messages/attachments, identity records, logs/sessions and private/paid media.
+Owner content is supplied by the owner. Live payments, production mail delivery, advanced historical marketing claims and representative production-hosting certification are not certified by this sandbox milestone.
