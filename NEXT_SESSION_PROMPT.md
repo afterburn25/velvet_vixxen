@@ -1,5 +1,15 @@
 # Copy-Paste Prompt for the Next Session
 
+<!-- editorial-history-089-current-prompt:start -->
+## Current candidate — finish 0.8.9 history acceptance and delivery
+
+Resume `feature/0.8.9-editorial-history` from authoritative main `d3e9826440c27a176a0b55f55c46342e53f63a1c`. The history implementation is locally complete, and the PHP 8.3.6 source/package suite passed. The ten installed HTTP suites reported success. Read `docs/releases/0.8.9-editorial-history.md` and `docs/EDITORIAL_HISTORY.md`, then check live GitHub before making any source, CI, merge or delivery claim. The latest delivered release remains 0.8.8 until the new exact evidence is recorded.
+
+Finish acceptance against the actual 0.8.9 / Build 20261020.10 customer package: file/MySQL root/nested HTTP, actual desktop/mobile history flows, both PHP source/MySQL jobs and every retained gate. Verify the complete source/CI/merge tree, downloaded runtime/browser artifacts and saved-download bytes. Do not reuse 0.8.8 results as new evidence. History is private, retains 20 earlier states and restores draft/disabled with current revision, reference and owner checks. Preserve all existing features and approved 13/9 package roots. The 0.8.1 / repair Build 20261020.3 unfinished-installer repair remains unchanged.
+
+After this bounded increment is merged and delivered, separately scope calendar and explicit post expiry from broader #9. Keep the ongoing #3 version policy, actual-host #12/#13, production email, sandbox payments and separate 0.9 acceptance boundaries accurate. Every changed completed release advances its visible version; only literal byte-identical rebuilds may reuse one.
+<!-- editorial-history-089-current-prompt:end -->
+
 <!-- editorial-metadata-088-current-prompt:start -->
 ## Current prompt — continue from live main after 0.8.8
 

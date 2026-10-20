@@ -1,5 +1,17 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- editorial-history-089:start -->
+## Candidate — 0.8.9 Editorial history and restore, Build 20261020.10
+
+**The implementation and local source/package gates are complete; required CI, merge and saved-download delivery remain pending.** The latest verified, merged and delivered release is still 0.8.8 / Build 20261020.9. This candidate starts from authoritative main `d3e9826440c27a176a0b55f55c46342e53f63a1c` on `feature/0.8.9-editorial-history`.
+
+Existing posts, banners and landing pages now have private owner History, Review version and deliberate restore controls. Each retains its newest 20 earlier editorial states; restoration preserves current identity and always leaves a post draft or a banner/page disabled. Current references, revision and active ownership are rechecked. Read-only history does not initialize storage or record visits or email. Deletion removes attached history; calendar, explicit post expiry and deleted-item recovery remain separate.
+
+The local PHP 8.3.6 source suite passed, including 192 history assertions and the retained metadata/access/publication/storage gates. The ten installed HTTP suites reported success. The frozen package candidate has 362 Fresh / 321 Upgrade entries, exact approved 13/9 root directories, 13 changed runtime entries and 349 unchanged Fresh entries with preserved timestamps. Final file/MySQL browser and actual seven-job CI acceptance remain pending; no previous release evidence substitutes for them.
+
+Use the [candidate release record](docs/releases/0.8.9-editorial-history.md) and [owner guide](docs/EDITORIAL_HISTORY.md). Keep #3 and broader #9 open; actual-host #12/#13 and production email remain unverified, payments sandbox-only and the separate 0.9 milestone incomplete. The unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3.
+<!-- editorial-history-089:end -->
+
 <!-- editorial-metadata-088:start -->
 ## Current release — 0.8.8 Editorial metadata, Build 20261020.9
 

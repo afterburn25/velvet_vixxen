@@ -19,6 +19,21 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $returnPublication = ['meta' => mm_publication_meta($publicationFormCollection), 'id' => $savedPublication['id']];
     $notice = $returnPublication['meta']['name'] . ' saved. ' . $savedPublication['visibility']['state'] . '.';
   }
+  elseif ($action === 'restore_publication') {
+    $collection = $_POST['collection'] ?? null;
+    if (!is_string($collection)) throw new InvalidArgumentException('Choose a valid publication.');
+    $meta = mm_publication_meta($collection);
+    $id = \Velvet\Core\MarketingPublication::id($_POST['id'] ?? null);
+    $historyId = $_POST['history_id'] ?? null;
+    $revision = $_POST['publication_revision'] ?? null;
+    if (!is_string($historyId) || !is_string($revision)) throw new InvalidArgumentException('Open the saved version again before restoring it.');
+    $_GET[$meta['edit']] = $id;
+    $savedPublication = $marketingStore->restorePublication($collection, $id, $historyId, $revision,
+      static fn(array $candidate) => mm_publication_authorize($candidate));
+    $returnPublication = ['meta' => $meta, 'id' => $savedPublication['id']];
+    $notice = $meta['name'] . ' restored. ' . ($collection === 'posts' ? 'It is now a draft.' : 'It is now disabled.')
+      . ' Review the content, dates and access before publishing. The replaced version is in History.';
+  }
   elseif ($action === 'set_publication_enabled' || $action === 'delete_publication') {
     $collection = $_POST['collection'] ?? null;
     if (!is_string($collection)) throw new InvalidArgumentException('Choose a valid publication.');

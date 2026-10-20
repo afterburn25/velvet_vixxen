@@ -1,5 +1,16 @@
 # Architecture and Product Decisions
 
+## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, pending)
+
+- Add history to existing posts, banners and landing pages in their current marketing record/backend. Keep at most 20 earlier versions, newest first; capture the prior editorial state only when supported fields or visibility genuinely change. Creation and unchanged saves do not manufacture prior versions. Existing items begin retaining history on their first changed save after upgrade.
+- Snapshot only an allowlist of editorial fields. Exclude IDs, permalinks, creation identity, arbitrary unknown fields, private account data and nested history. Preserve the current record's identity, order and unknown fields during restoration. Store capture time in UTC and the captured site timezone; retain explicit date offsets and interpret legacy local dates in that recorded timezone.
+- Expose History and Review version only through the active-owner admin dispatcher, using saved-state-only reads, private/no-store/noindex/no-referrer responses and a final current-owner check after dependent reads. Public publication readers omit history. Reviewing is inert and creates no marketing events, messages, storage defaults or publication changes.
+- Restore only a server-held retained version under the existing marketing mutation lock and current revision check. Revalidate historical content, current eligible public images, related-post identities and selected tiers; recheck the active owner after reference reads. Refuse stale or invalid restoration without changing current content or history.
+- Force restored posts to draft and banners/pages to disabled. Review and explicit ordinary publication are separate owner actions. Preserve the replaced current editorial state as a new history entry when the restore changes it. A restore never requeues or sends campaign mail.
+- Keep malformed or oversized history intact and hold ordinary editing/restoration for review. Safe withdrawal to draft/disabled remains possible without resetting damaged history. Do not claim a new snapshot for a withdrawal that could not safely capture one.
+- Permanent deletion removes the item and its attached history. Deleted-item recovery, an editorial calendar and explicit post expiry remain separate work. No new database migration, backend cutover, public route or package-root exception is included.
+- Implement 0.8.9 / Build 20261020.10 as an acceptance candidate. Local source/package gates passed; final required acceptance, exact source/checkout/artifact evidence, merge and literal saved-download verification remain pending. Prior delivered releases retain their historical identities and evidence.
+
 ## 2026-10-20 — Bounded editorial metadata and current asset references
 
 - Keep metadata on the existing publication record in both file and MySQL marketing storage; add no schema migration or storage cutover.

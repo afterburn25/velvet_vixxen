@@ -1,5 +1,17 @@
 # Testing — Velvet Vixxen
 
+<!-- editorial-history-089:start -->
+## Candidate — 0.8.9 Editorial history and restore, Build 20261020.10
+
+**The implementation and local source/package gates are complete; required CI, merge and saved-download delivery remain pending.** The latest verified, merged and delivered release is still 0.8.8 / Build 20261020.9. This candidate starts from authoritative main `d3e9826440c27a176a0b55f55c46342e53f63a1c` on `feature/0.8.9-editorial-history`.
+
+Existing posts, banners and landing pages now have private owner History, Review version and deliberate restore controls. Each retains its newest 20 earlier editorial states; restoration preserves current identity and always leaves a post draft or a banner/page disabled. Current references, revision and active ownership are rechecked. Read-only history does not initialize storage or record visits or email. Deletion removes attached history; calendar, explicit post expiry and deleted-item recovery remain separate.
+
+The local PHP 8.3.6 source suite passed, including 192 history assertions and the retained metadata/access/publication/storage gates. The ten installed HTTP suites reported success. The frozen package candidate has 362 Fresh / 321 Upgrade entries, exact approved 13/9 root directories, 13 changed runtime entries and 349 unchanged Fresh entries with preserved timestamps. Final file/MySQL browser and actual seven-job CI acceptance remain pending; no previous release evidence substitutes for them.
+
+Use the [candidate release record](releases/0.8.9-editorial-history.md) and [owner guide](EDITORIAL_HISTORY.md). Keep #3 and broader #9 open; actual-host #12/#13 and production email remain unverified, payments sandbox-only and the separate 0.9 milestone incomplete. The unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3.
+<!-- editorial-history-089:end -->
+
 <!-- editorial-metadata-088:start -->
 ## Current release — 0.8.8 Editorial metadata, Build 20261020.9
 
@@ -170,6 +182,25 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 <!-- installed-build-followup:end -->
 
 Tests are mandatory release gates. Use PHP 8.2 or 8.3 with PDO MySQL, mbstring, fileinfo, OpenSSL, GD, Zip and sodium; Node for JavaScript syntax; Python with requests, BeautifulSoup and Playwright for HTTP/browser suites.
+
+## Pending 0.8.9 editorial history and restore acceptance
+
+The [editorial history owner guide](EDITORIAL_HISTORY.md) and [candidate release record](releases/0.8.9-editorial-history.md) define the implemented increment. The local PHP 8.3.6 source/package suite passed, including 192 history assertions; the ten installed HTTP suites reported success. The commands below remain required acceptance producers. Final file/MySQL browser and actual CI results must be recorded from the exact committed source before claiming merge or delivery complete.
+
+```bash
+bash scripts/test.sh
+python tests/Http/editorial_history_http.py --mode file
+python tests/Http/editorial_history_http.py --mode mysql
+python tests/Browser/editorial_history_playwright.py
+```
+
+The source harness runs `tests/Feature/editorial_history.php` in its marked disposable copy for release acceptance. Run the packaged HTTP/browser producers only against their marked disposable copies and explicitly disposable database. Use the existing `VELVET_TEST_DB_*` variables for real MySQL cases and `VELVET_SCREENSHOT_DIR` or `VELVET_HISTORY_EVIDENCE_DIR` for evidence. `VELVET_FRESH_PACKAGE` with `VELVET_EXPECTED_FRESH_SHA256` selects a frozen actual package. MariaDB results remain supplementary and cannot replace MySQL 8. All existing source, ownership, persistent-OPcache, installer, SQL, ten-suite HTTP, metadata/access and real desktop/mobile browser gates remain required.
+
+The new source and actual-package acceptance must cover existing posts, banners and landing pages; first changed-save capture; creation and no-op behavior; newest-first 20-entry retention; stable IDs/permalinks/order and unknown-field preservation; current content archived on a changed restore; draft/disabled restoration; stale-form and timezone changes; malformed history and safe withdrawal; bounded snapshots; and permanent deletion without invented recovery. Validate date offsets and captured timezone handling rather than relying only on printed labels.
+
+Exercise owner History links from both editor and list, Review version, the real restore POST and subsequent saved preview/public views at root and nested paths on desktop and mobile. The browser matrix covers file/MySQL storage at root desktop (1440 × 1000) and nested mobile (390 × 844). Test guest/member refusal, CSRF/method validation, arbitrary/missing version IDs, unavailable current images/related posts/tiers, escaped historical content, private caching, inert destinations and final current-owner checks after real blocked storage reads. Verify that rejected or read-only actions preserve current content/history, unrelated marketing fields, frozen campaigns, queue/consent/suppression records and media state, with zero SMTP activity.
+
+Acceptance must use the actual Fresh package and record its release/build, checksum, runtime versions, per-case assertion results and real screenshots. The producers write `editorial-history-http-evidence.json` and `editorial-history-browser-evidence.json`; screenshots use the `editorial-history-` prefix. The final release record must bind the committed producers to the actual seven-job CI checkout and downloaded artifacts. Existing 0.8.8 evidence remains historical and does not verify this increment.
 
 ## Source and packaging
 

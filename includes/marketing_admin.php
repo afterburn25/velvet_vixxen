@@ -141,6 +141,17 @@ function mm_publication_preview_url(string $collection, string $id): string
     return base_url('admin/?page=marketing-preview&collection=' . rawurlencode($collection) . '&id=' . rawurlencode($id));
 }
 
+function mm_publication_history_url(string $collection, string $id, ?string $version = null): string
+{
+    \Velvet\Core\MarketingPublication::collection($collection);
+    \Velvet\Core\MarketingPublication::id($id);
+    if ($version !== null && preg_match('/\A[a-f0-9]{32}\z/D', $version) !== 1) {
+        throw new InvalidArgumentException('Choose a saved version.');
+    }
+    return base_url('admin/?page=marketing-history&collection=' . rawurlencode($collection) . '&id=' . rawurlencode($id)
+        . ($version !== null ? '&version=' . rawurlencode($version) : ''));
+}
+
 function mm_audience_rules(array $post): array
 {
     return \Velvet\Core\MarketingAudience::rules([

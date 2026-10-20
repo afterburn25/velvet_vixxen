@@ -54,11 +54,11 @@ final class MarketingPublication
      * Preserve the stable local/absolute formats written by older versions.
      * Nonempty malformed values must never turn into an unrestricted window.
      */
-    public static function storedDate(mixed $value): ?DateTimeImmutable
+    public static function storedDate(mixed $value, ?string $timezone = null): ?DateTimeImmutable
     {
         if ($value === '' || $value === null) return null;
         if (!is_string($value) || strlen($value) > 35) throw new InvalidArgumentException('A saved publication date needs review.');
-        $zone = new DateTimeZone(date_default_timezone_get());
+        $zone = new DateTimeZone($timezone ?? date_default_timezone_get());
         $canonical = $value;
         if (preg_match('/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(Z|[+-](\d{2}):(\d{2}))\z/D', $value, $parts)) {
             if (isset($parts[2]) && ((int) $parts[2] > 14 || (int) $parts[3] > 59 || ((int) $parts[2] === 14 && (int) $parts[3] !== 0))) {

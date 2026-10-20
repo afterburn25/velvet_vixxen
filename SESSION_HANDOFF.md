@@ -1,5 +1,27 @@
 # Session Handoff — Velvet Vixxen
 
+## Continuation recovered from the Velvet Vixxen chat — 2026-10-20
+
+The owner moved continued development to a new chat. Live GitHub was checked: authoritative main is `d3e9826440c27a176a0b55f55c46342e53f63a1c`, with 0.8.8 / Build 20261020.9 delivered through PR #24. The exact staged 0.8.9 / Build 20261020.10 source, package candidate and local test evidence were recovered from the preceding chat; do not reimplement that work. Continue its GitHub publication, required CI, merge and package delivery. Independent review found no blocking defect and reran all 192 history source assertions successfully.
+
+The final local file-only candidate browser run passed at root desktop and nested mobile, with 2028 HTTP checks, 404 browser checks and 10 screenshots per case. It used PHP 8.3.6, Playwright 1.62.0 and Chromium 156.0.8078.47 against Fresh SHA-256 `7251336a4aee0acdf8ecf8167d77525e5b273992113ebe3451affe32e1862df3`. The required four-case file/MySQL CI matrix remains a separate pending gate.
+
+Carry forward the owner's latest Composer question: make a transparent model appear farther back in the room, specifically farther back on a bed. Current size/X/Y and layer-order controls can approximate distance; they do not separate furniture baked into a background. A dedicated depth-placement/foreground-occlusion increment remains pending, with no particular UI design approved or feature delivered. Preserve independent photo layers and Desktop/Tablet/Mobile layouts. Finish the recovered 0.8.9 release before starting another branch.
+
+Permanent constraints remain: advance the visible version for every changed delivery; merge tested work into main promptly; preserve the approved organized roots and design; deliver runtime-only Fresh/Upgrade packages; keep actual-host reports open until the affected installation is verified.
+
+<!-- editorial-history-089:start -->
+## Candidate — 0.8.9 Editorial history and restore, Build 20261020.10
+
+**The implementation and local source/package gates are complete; required CI, merge and saved-download delivery remain pending.** The latest verified, merged and delivered release is still 0.8.8 / Build 20261020.9. This candidate starts from authoritative main `d3e9826440c27a176a0b55f55c46342e53f63a1c` on `feature/0.8.9-editorial-history`.
+
+Existing posts, banners and landing pages now have private owner History, Review version and deliberate restore controls. Each retains its newest 20 earlier editorial states; restoration preserves current identity and always leaves a post draft or a banner/page disabled. Current references, revision and active ownership are rechecked. Read-only history does not initialize storage or record visits or email. Deletion removes attached history; calendar, explicit post expiry and deleted-item recovery remain separate.
+
+The local PHP 8.3.6 source suite passed, including 192 history assertions and the retained metadata/access/publication/storage gates. The ten installed HTTP suites reported success. The frozen package candidate has 362 Fresh / 321 Upgrade entries, exact approved 13/9 root directories, 13 changed runtime entries and 349 unchanged Fresh entries with preserved timestamps. Final file/MySQL browser and actual seven-job CI acceptance remain pending; no previous release evidence substitutes for them.
+
+Use the [candidate release record](docs/releases/0.8.9-editorial-history.md) and [owner guide](docs/EDITORIAL_HISTORY.md). Keep #3 and broader #9 open; actual-host #12/#13 and production email remain unverified, payments sandbox-only and the separate 0.9 milestone incomplete. The unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3.
+<!-- editorial-history-089:end -->
+
 <!-- editorial-metadata-088:start -->
 ## Current release — 0.8.8 Editorial metadata, Build 20261020.9
 
