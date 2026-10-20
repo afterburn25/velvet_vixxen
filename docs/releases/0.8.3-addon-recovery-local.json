@@ -4,7 +4,7 @@
   "build_id": "20261020.4",
   "baseline": "4073d3ee20e30a7e6fddfc6a18acca33cc82662f",
   "frozen_runtime_test_build_workflow_files": 476,
-  "freeze_sha256": "2681d7424c572aff391af4192fecc947cabc87fbc06e1dce2d2330a408c2bafb",
+  "freeze_sha256": "727a03d0b1902a2b25525d96cc1e975057f69e620bb59c96b18eb5692cb0dbd8",
   "source_suite": {
     "command": "bash scripts/test.sh",
     "status": "passed",
@@ -161,5 +161,17 @@
   ],
   "github_ci": "pending",
   "merge": "pending",
-  "saved_download_equality": "pending"
+  "saved_download_equality": "pending",
+  "first_attempt_freeze_sha256": "2681d7424c572aff391af4192fecc947cabc87fbc06e1dce2d2330a408c2bafb",
+  "ci_fixture_setup": {
+    "first_attempt_run_id": 39373570867,
+    "first_attempt_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39373570867",
+    "failure": "Both new MySQL jobs were blocked at the first fixture CREATE TRIGGER: error 1419, binary logging enabled and no SUPER privilege. No product recovery assertion failed at that point.",
+    "correction": "Immediately before the add-on gate, each disposable CI MySQL container enables and verifies log_bin_trust_function_creators through its fixture root account. Application and recovery commands continue using their schema-scoped velvet_test account. No runtime configuration or test assertion changes.",
+    "all_preexisting_workflow_steps_preserved": true,
+    "yaml_and_bash_syntax": "passed",
+    "repository_safety": "passed",
+    "runtime_test_build_package_bytes_unchanged": true,
+    "new_complete_github_run": "pending"
+  }
 }

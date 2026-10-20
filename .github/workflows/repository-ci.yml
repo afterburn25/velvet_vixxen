@@ -146,6 +146,16 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: php tests/Installer/existing_database_mysql.php
+      - name: Permit failure-injection triggers in the disposable MySQL service
+        # Only test fixtures create triggers; application connections retain their schema-scoped user.
+        env:
+          VVX_MYSQL_SERVICE: ${{ job.services.mysql.id }}
+          VVX_MYSQL_ROOT_PASSWORD: velvet_root_fixture
+        run: |
+          set -euo pipefail
+          test -n "$VVX_MYSQL_SERVICE"
+          fixture_setting="$(docker exec -e MYSQL_PWD="$VVX_MYSQL_ROOT_PASSWORD" "$VVX_MYSQL_SERVICE" mysql -uroot --batch --skip-column-names --execute='SET GLOBAL log_bin_trust_function_creators = 1; SELECT @@GLOBAL.log_bin_trust_function_creators;')"
+          test "$fixture_setting" = '1'
       - name: Apply, roll back and recover actual packaged add-on migrations in MySQL
         env:
           VELVET_TEST_DB_HOST: 127.0.0.1
@@ -242,6 +252,16 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/media_center_persistence_playwright.py
+      - name: Permit failure-injection triggers in the disposable MySQL service
+        # Only test fixtures create triggers; application connections retain their schema-scoped user.
+        env:
+          VVX_MYSQL_SERVICE: ${{ job.services.mysql.id }}
+          VVX_MYSQL_ROOT_PASSWORD: velvet_root_fixture
+        run: |
+          set -euo pipefail
+          test -n "$VVX_MYSQL_SERVICE"
+          fixture_setting="$(docker exec -e MYSQL_PWD="$VVX_MYSQL_ROOT_PASSWORD" "$VVX_MYSQL_SERVICE" mysql -uroot --batch --skip-column-names --execute='SET GLOBAL log_bin_trust_function_creators = 1; SELECT @@GLOBAL.log_bin_trust_function_creators;')"
+          test "$fixture_setting" = '1'
       - name: Recover a held add-on through the actual desktop and mobile owner controls
         env:
           VELVET_TEST_DB_HOST: 127.0.0.1
