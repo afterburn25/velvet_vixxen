@@ -15,8 +15,9 @@ final class MailService
     /** @param array<string,mixed> $metadata */
     public function send(?string $memberId, string $recipient, string $subject, string $template, string $body, array $metadata = []): array
     {
-        $recipient = strtolower(trim($recipient));
-        if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) throw new RuntimeException('A valid recipient email address is required.');
+        if (!EmailAddress::isValid($recipient)) throw new RuntimeException('A valid recipient email address without line breaks is required.');
+        if (EmailAddress::hasForbiddenControls($subject)) throw new RuntimeException('The email subject must not contain line breaks or control characters.');
+        $recipient = EmailAddress::normalize($recipient);
         $message = $this->store->queueMemberMail($memberId, $recipient, $subject, $template, $body, $metadata);
         $result = $this->deliver($recipient, $subject, $body);
         try {
@@ -33,17 +34,26 @@ final class MailService
     public function configurationProblem(): ?string
     {
         $mode = strtolower(trim((string) $this->config->get('mail.mode', 'disabled')));
-        if ($mode === '' || $mode === 'disabled') return 'Email delivery is disabled in this installation. Mail transport is configured during installation.';
+        if ($mode === '' || $mode === 'disabled') return 'Email delivery is disabled in this installation. Configure it in System → Email & SMTP.';
         if (!in_array($mode, ['php', 'smtp'], true)) return 'The configured email delivery mode is unsupported.';
-        $from = (string) $this->config->get('mail.from_email', $this->config->get('support_email', ''));
-        if (!filter_var($from, FILTER_VALIDATE_EMAIL)) return 'Configure a valid From email address before delivering campaigns.';
+        try {
+            $this->senderAddress();
+        } catch (RuntimeException $error) {
+            return $error->getMessage();
+        }
+        $fromName = $this->config->get('mail.from_name', 'Nikki Wilder');
+        if (!is_string($fromName) || EmailAddress::hasForbiddenControls($fromName)) return 'Configure a sender name without line breaks or control characters.';
         if ($mode === 'php' && !function_exists('mail')) return 'PHP mail() is unavailable on this server.';
         if ($mode === 'smtp') {
-            $host = trim((string) $this->config->get('mail.host', ''));
-            $port = (int) $this->config->get('mail.port', 587);
+            try { $host = MailSettingsService::normalizeHost($this->config->get('mail.host', '')); }
+            catch (RuntimeException) { return 'Configure a valid SMTP hostname or IP address.'; }
+            $port = $this->config->get('mail.port', 587);
             $encryption = strtolower(trim((string) $this->config->get('mail.encryption', 'tls')));
-            if ($host === '' || preg_match('/[\s\x00-\x1f\/\\\\]/', $host) || $port < 1 || $port > 65535
+            if ($host === '' || (!is_string($port) && !is_int($port)) || preg_match('/\A[0-9]{1,5}\z/D', (string) $port) !== 1 || (int) $port < 1 || (int) $port > 65535
                 || !in_array($encryption, ['none', 'tls', 'ssl'], true)) return 'SMTP is not fully configured.';
+            $username = $this->config->get('mail.username', '');
+            if (!is_string($username) || EmailAddress::hasForbiddenControls($username) || strlen($username) > 512
+                || !is_string($this->config->get('mail.password', ''))) return 'Configure valid SMTP credentials.';
         }
         return null;
     }
@@ -55,8 +65,9 @@ final class MailService
      */
     public function deliver(string $recipient, string $subject, string $body, ?callable $beforeSend = null): array
     {
-        $recipient = strtolower(trim($recipient));
-        if (!filter_var($recipient, FILTER_VALIDATE_EMAIL)) return ['status' => 'failed', 'lastError' => 'A valid recipient email address is required.', 'retryable' => false];
+        if (!EmailAddress::isValid($recipient)) return ['status' => 'failed', 'lastError' => 'A valid recipient email address without line breaks is required.', 'retryable' => false];
+        if (EmailAddress::hasForbiddenControls($subject)) return ['status' => 'failed', 'lastError' => 'The email subject must not contain line breaks or control characters.', 'retryable' => false];
+        $recipient = EmailAddress::normalize($recipient);
         if (($problem = $this->configurationProblem()) !== null) return ['status' => 'skipped', 'lastError' => $problem, 'retryable' => false];
         try {
             if (strtolower(trim((string) $this->config->get('mail.mode'))) === 'php') {
@@ -87,16 +98,13 @@ final class MailService
         if (!function_exists('mail')) {
             throw new MailDeliveryException('PHP mail() is unavailable.');
         }
-        $fromEmail = (string) $this->config->get('mail.from_email', $this->config->get('support_email', ''));
+        $fromEmail = $this->senderAddress();
         $fromName = (string) $this->config->get('mail.from_name', 'Nikki Wilder');
-        if (!filter_var($fromEmail, FILTER_VALIDATE_EMAIL)) {
-            throw new MailDeliveryException('The configured From email address is invalid.');
-        }
         $headers = [
             'MIME-Version: 1.0',
             'Content-Type: text/plain; charset=UTF-8',
             'Content-Transfer-Encoding: 8bit',
-            'From: ' . $this->encodeHeader($fromName) . ' <' . $fromEmail . '>',
+            'From: ' . $this->encodeDisplayName($fromName) . ' <' . $fromEmail . '>',
         ];
         $this->authorize($beforeSend);
         if (!@mail($recipient, $this->encodeHeader($subject), $body, implode("\r\n", $headers))) {
@@ -106,12 +114,12 @@ final class MailService
 
     private function sendSmtp(string $recipient, string $subject, string $body, ?callable $beforeSend = null): void
     {
-        $host = trim((string) $this->config->get('mail.host', ''));
+        $host = MailSettingsService::normalizeHost($this->config->get('mail.host', ''));
         $port = (int) $this->config->get('mail.port', 587);
         $encryption = strtolower(trim((string) $this->config->get('mail.encryption', 'tls')));
         $username = trim((string) $this->config->get('mail.username', ''));
         $password = (string) $this->config->get('mail.password', '');
-        $fromEmail = strtolower(trim((string) $this->config->get('mail.from_email', $this->config->get('support_email', ''))));
+        $fromEmail = $this->senderAddress();
         $fromName = trim((string) $this->config->get('mail.from_name', 'Nikki Wilder'));
         if ($host === '' || !filter_var($fromEmail, FILTER_VALIDATE_EMAIL)) {
             throw new MailDeliveryException('SMTP is not fully configured.');
@@ -123,7 +131,8 @@ final class MailService
         ]]);
         $errno = 0;
         $error = '';
-        $socket = @stream_socket_client($transport . $host . ':' . $port, $errno, $error, 15, STREAM_CLIENT_CONNECT, $context);
+        $socketHost = str_contains($host, ':') ? '[' . $host . ']' : $host;
+        $socket = @stream_socket_client($transport . $socketHost . ':' . $port, $errno, $error, 15, STREAM_CLIENT_CONNECT, $context);
         if (!is_resource($socket)) {
             throw new MailDeliveryException('Could not connect to the configured SMTP server.');
         }
@@ -150,7 +159,7 @@ final class MailService
             $this->authorize($beforeSend);
             $headers = [
                 'Date: ' . gmdate('D, d M Y H:i:s O'),
-                'From: ' . $this->encodeHeader($fromName) . ' <' . $fromEmail . '>',
+                'From: ' . $this->encodeDisplayName($fromName) . ' <' . $fromEmail . '>',
                 'To: <' . $recipient . '>',
                 'Subject: ' . $this->encodeHeader($subject),
                 'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . $hostname . '>',
@@ -209,8 +218,20 @@ final class MailService
 
     private function encodeHeader(string $value): string
     {
-        $value = str_replace(["\r", "\n"], '', $value);
         if (preg_match('/^[\x20-\x7E]+$/', $value)) return $value;
         return '=?UTF-8?B?' . base64_encode($value) . '?=';
+    }
+
+    private function encodeDisplayName(string $value): string
+    {
+        if (preg_match('/\A[A-Za-z0-9 ._-]+\z/D', $value)) return $value;
+        return '=?UTF-8?B?' . base64_encode($value) . '?=';
+    }
+
+    private function senderAddress(): string
+    {
+        $mode = strtolower(trim((string) $this->config->get('mail.mode', 'disabled')));
+        return MailSettingsService::resolveSender($this->config->get('mail.from_email', ''),
+            $mode === 'smtp' ? $this->config->get('mail.username', '') : '', $this->config->get('support_email', ''));
     }
 }

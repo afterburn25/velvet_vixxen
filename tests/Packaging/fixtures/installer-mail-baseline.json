@@ -1,0 +1,22 @@
+{
+  "source_commit": "6d9b5677d6374ddb1b6dd7a93c6d307f982b877a",
+  "changed_sender_dependencies": [
+    "install/index.php",
+    "install/services/EmailAddress.php",
+    "install/services/InstallerService.php",
+    "install/services/SmtpTester.php"
+  ],
+  "files": {
+    "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+    "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+    "includes/installation_recovery.php": "52ce3d42a00b5577d5ee121f7bc990bea124c6ffafa96df42c72f92d4897eea2",
+    "install/services/FileSystemService.php": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+    "install/services/InstallerService.php": "7496ad96051bf3b4cc3751cd00e8081c42a108d8356ca938f6d50ee4e98f44a2",
+    "install/views/single-page.php": "36fa9f51a030c2b31d432175d838f5ef02ff5fd55da37f32fe243b88ba825c2c",
+    "public/assets/css/installer.css": "7b499c5824aa5445054aa025507b1fe0b373bbc77039902bf503a70a3d6dd81f",
+    "public/assets/js/installer.js": "2b12ed66d231102c2451d8d74a297a9e3af408b58a04147627068676e59c598b",
+    "install/index.php": "d10c145256099648ec932bb1dc3ffa09bf9729742787cae07edad4749d37d7fc",
+    "install/services/EmailAddress.php": "5c0aec9e05029c59154675f5192d86f0e38e7f73ce88af025235907530c3558a",
+    "install/services/SmtpTester.php": "d663fd1e1a0cfea77f09e3242e257c76c58bf867f8f272751984fef2e3a9da71"
+  }
+}

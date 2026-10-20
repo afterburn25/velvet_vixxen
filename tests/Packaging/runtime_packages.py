@@ -21,6 +21,7 @@ REPAIR_FILES = {
     "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
     "includes/installation_recovery.php",
     "install/services/FileSystemService.php", "install/services/InstallerService.php",
+    "install/index.php", "install/services/EmailAddress.php", "install/services/SmtpTester.php",
     "install/views/single-page.php",
     "public/assets/css/installer.css",
     "public/assets/js/installer.js",
@@ -59,6 +60,10 @@ COMPOSER_REPAIR_FILES = {
     "app/Core/RootLayoutService.php", "app/Support/functions.php",
     "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
     "app/Core/MailService.php", "app/Core/MailDeliveryException.php",
+    "app/Core/MailSettingsService.php", "app/Core/EmailAddress.php",
+    "app/Support/mail_settings_admin.php", "app/Views/admin/mail-settings.php",
+    "app/Views/admin/mail-settings-actions.php", "app/Views/admin/communications.php",
+    "public/assets/css/mail-settings.css", "public/assets/js/mail-settings.js",
     "app/Core/CampaignDeliveryService.php", "app/Console/run_marketing.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
@@ -73,7 +78,7 @@ COMPOSER_REPAIR_FILES = {
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
     "public/assets/js/media-center.js",
 }
-BUILD_ID = "20261020.1"
+BUILD_ID = "20261020.2"
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
 VERIFIED_BASELINES = [
     "e5b04daa132521be69c943151f8112c7cd2017e8",
@@ -87,7 +92,13 @@ REPAIR_TIMESTAMPS = {
     for relative in REPAIR_FILES
 }
 REPAIR_TIMESTAMPS.update({
-    relative: (2026, 10, 20, 0, 50, 0) for relative in COMPOSER_REPAIR_FILES
+    relative: (2026, 10, 20, 2, 24, 0) for relative in COMPOSER_REPAIR_FILES
+})
+REPAIR_TIMESTAMPS.update({
+    relative: (2026, 10, 20, 2, 24, 0) for relative in {
+        "install/index.php", "install/services/EmailAddress.php",
+        "install/services/SmtpTester.php", "install/services/InstallerService.php",
+    }
 })
 
 
@@ -155,6 +166,7 @@ def run() -> None:
         second = package.build(source, work / "second", version)
         with patch.object(package, "INSTALLER_FILESYSTEM_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "INSTALLER_DATABASE_TIMESTAMP", LEGACY_TIMESTAMP), \
+                patch.object(package, "INSTALLER_MAIL_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "COMPOSER_REPAIR_TIMESTAMP", LEGACY_TIMESTAMP):
             legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
@@ -166,6 +178,17 @@ def run() -> None:
         assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
         assert package.PUBLIC_HANDLER_FILES == PUBLIC_HANDLER_FILES, "Organized public handlers differ from the reviewed route scope"
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
+        installer_baseline = json.loads((ROOT / "tests/Packaging/fixtures/installer-mail-baseline.json").read_text())
+        assert installer_baseline["source_commit"] == "6d9b5677d6374ddb1b6dd7a93c6d307f982b877a"
+        assert set(installer_baseline["files"]) == REPAIR_FILES
+        changed_installer = {
+            name for name, digest in installer_baseline["files"].items()
+            if hashlib.sha256((source / name).read_bytes()).hexdigest() != digest
+        }
+        assert changed_installer == set(installer_baseline["changed_sender_dependencies"]) == {
+            "install/index.php", "install/services/EmailAddress.php",
+            "install/services/InstallerService.php", "install/services/SmtpTester.php",
+        }, "Sender repair changed unrelated database/layout dependencies or omitted a required correction"
         with ZipFile(work / "first" / releases["upgrade"]["filename"]) as upgrade:
             expected_inventory = {
                 "schema": 1, "product": "Velvet Vixxen", "version": version, "build_id": BUILD_ID,
@@ -247,11 +270,13 @@ def run() -> None:
                     assert lock["installed"] and lock["installation_id"] == "test-installation"
                 elif release["kind"] == "installer-repair":
                     assert entries == REPAIR_FILES, "Installer repair must contain exactly the reviewed database and filesystem dependencies"
-                    assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip"
-                    assert release["files"] == len(REPAIR_FILES) and release["php_files"] == 6 and release["javascript_files"] == 1
-                    assert release["size_bytes"] == 51241 and release["sha256"] == "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38", "Previously delivered Installer Database Repair bytes changed"
+                    assert release["filename"] == f"Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-{BUILD_ID}-Installer-Database-Repair.zip"
+                    assert release["files"] == 11 == len(REPAIR_FILES) and release["php_files"] == 9 and release["javascript_files"] == 1
+                    assert release["repair_build_id"] == BUILD_ID, "New sender repair must have an explicit repair identity"
+                    assert release["sha256"] != "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38", "Sender correction was not included in the actual installer repair"
                     compatibility = json.loads(zipped.comment)
                     assert compatibility["kind"] == "installer-repair" and compatibility["version"] == "0.8.1"
+                    assert compatibility["repair_build_id"] == BUILD_ID
                     assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "incomplete", "Installer repair compatibility must stay limited to an unfinished 0.8.1 installation"
                     assert release["supported_from"] == ["0.8.1"] and release["installation_state"] == "incomplete"
 
@@ -351,7 +376,7 @@ def run() -> None:
             ({}, version),
             *[(dict((path, content) for path, content in repair_files.items() if path != omitted), version)
               for omitted in REPAIR_FILES],
-            ({**repair_files, "install/index.php": b"<?php /* extra file */\n"}, version),
+            ({**repair_files, "install/services/RequirementChecker.php": b"<?php /* extra file */\n"}, version),
             (repair_files, "0.8.0"),
             (repair_files, "0.8.2"),
         ]:
@@ -444,7 +469,7 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, byte-identical eight-file database/folder/layout repair, exact Media and Composer repair with update verification, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, exact Media and Composer repair with mail dependencies, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
     for release in first["packages"]:
         print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 

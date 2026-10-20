@@ -1,7 +1,24 @@
 # Acceptance Record — Velvet Vixxen 0.8.1 Continuation
 
+<!-- owner-mail-settings:start -->
+## Current acceptance — owner Email & SMTP, Build 20261020.2
+
+This slice is implemented on `feature/0.8.1-owner-mail-settings`; final release acceptance is unfinished. Main baseline is `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. See [the scoped release record](docs/releases/0.8.1-owner-mail-settings.md).
+
+- [x] Owner settings in **System → Email & SMTP**, protected save, password retention/clear and a saved-settings test to the current owner.
+- [x] Strict shared-contract runtime/installer email validation and explicit From → email-shaped SMTP username → owner fallback.
+- [x] Focused local evidence: 199 backend, 269 installer, 143 packaged installer and 168 HTTP assertions; two real packaged desktop/mobile browser cases with loopback mail only.
+- [x] Package definitions preserve exact roots, include runtime dependencies, name all four ZIPs with Build 20261020.2 and expand the unfinished-installer repair to 11 files. Its `repair_build_id` does not advance the installed build.
+- [x] Final local source/security/package (including foreign ownership and persistent OPcache) and all nine HTTP suites pass; final local ZIP sizes/hashes are recorded.
+- [ ] Complete and record the remaining final browser and MySQL release gates against final bytes.
+- [ ] Upload/review the exact source, verify the required GitHub jobs, merge into `main`, and record final source/tree/run/artifact identities.
+- [ ] Verify final package hashes and saved-download readback; distinguish release delivery from installation on the actual customer host.
+
+Next feature work is media **#2**, then **#7/#9**. Broader marketing, actual-host **#12/#13**, shared-host certification and production email verification remain incomplete. Payments remain sandbox-only. Historical checked items below do not close these current outstanding items.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 

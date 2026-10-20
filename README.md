@@ -1,6 +1,16 @@
 # Nikki Wilder — The Velvet Vixxen
 
-**Current verified build: 20261020.1, merged into `main` through [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16).** The requested third button inside Live Text + Buttons and bounded campaign delivery are implemented. All seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755) passed, and the saved customer downloads match the gated artifact byte for byte. Read [the owner workflow and evidence](docs/releases/0.8.1-group-buttons-campaign-delivery.md), [the complete Upgrade instructions](docs/UPDATE_VERIFICATION.md) and [the remaining roadmap](docs/ROADMAP.md). The affected customer host remains unverified; payments remain sandbox-only. Earlier build records below are historical.
+<!-- owner-mail-settings:start -->
+## Current continuation — owner Email & SMTP, Build 20261020.2
+
+The owner can configure a shared email connection from **System → Email & SMTP**, retain or clear a saved password, and test the saved settings with one message to the current owner. Saving sends nothing. Runtime and installer sender validation now reject unsafe headers and use a valid explicit From, then an email-shaped SMTP username, then the owner fallback. Read [the owner guide](docs/EMAIL_SETTINGS.md) and [release evidence](docs/releases/0.8.1-owner-mail-settings.md).
+
+**Implemented with final local source/package and all nine HTTP suites passing; required GitHub CI, merge and delivery pending.** Compatibility stays 0.8.1. All four ZIP names include Build 20261020.2 and preserve the exact approved roots. The complete Upgrade is primary for installed sites. The 11-file installer-only repair uses `repair_build_id` and does not advance an installed site's runtime build. The affected customer host and production email remain unverified; payments remain sandbox-only. See [Update Verification](docs/UPDATE_VERIFICATION.md) and [the remaining roadmap](docs/ROADMAP.md).
+<!-- owner-mail-settings:end -->
+
+## Historical verified release — Build 20261020.1
+
+**Build 20261020.1 was merged into `main` through [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16).** The requested third button inside Live Text + Buttons and bounded campaign delivery are implemented. All seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755) passed, and the saved customer downloads match the gated artifact byte for byte. Read [the owner workflow and evidence](docs/releases/0.8.1-group-buttons-campaign-delivery.md). This evidence certifies that earlier build; it does not replace the new build's required gates.
 
 ## Historical organized-root repair — Build 20261019.6
 
@@ -14,7 +24,7 @@ The repair retains working image uploads, Full Page Preview, publication and sep
 
 For the already-uploaded unfinished installer, use [Installer Database Repair](docs/INSTALLER_DATABASE_REPAIR.md). Setup now preserves and continues compatible existing databases, including previous attempts with partial tables or missing migration history. Existing owners authenticate with their current login; missing setup work completes without resetting their data, keys, scenes or settings. Server/Folders checks and the owner password fields are aligned, and completed setup clears its loading state.
 
-The runtime-only repair contains eight files, including the prior static-folder correction. Rebuilt fresh and upgrade ZIPs share the applicable corrected runtime bytes. [Current verification](docs/TEST_REPORT.md) and [package evidence](docs/releases/0.8.1-installer-database-repair.json) distinguish completed execution from pending CI or delivery. The older one-file folder repair is historical and does not include these changes.
+The current Build 20261020.2 installer-only repair contains 11 runtime files, including the earlier folder/database correction and all changed installer sender dependencies. Its `repair_build_id` identifies the overlay without changing the installed runtime build. [Current verification](docs/TEST_REPORT.md) and [the current release record](docs/releases/0.8.1-owner-mail-settings.md) distinguish local execution from pending CI/delivery. The [original eight-file evidence](docs/releases/0.8.1-installer-database-repair.json) and older one-file folder repair are historical.
 
 ## Current integration: 0.8.1 — Site UX, Hero Library, Booking Builder, Admin IA & Merchandise
 
@@ -31,6 +41,7 @@ Historical package/handoff claims were not treated as proof of implementation. [
 - [`docs/ROADMAP.md`](docs/ROADMAP.md): evidence-based roadmap.
 - [`docs/DECISIONS.md`](docs/DECISIONS.md): product and architecture requirements.
 - [`docs/TESTING.md`](docs/TESTING.md): executable validation commands.
+- [`docs/EMAIL_SETTINGS.md`](docs/EMAIL_SETTINGS.md): owner email connection, sender, password and test workflow.
 - [`docs/VISUAL_COMPOSER.md`](docs/VISUAL_COMPOSER.md), [`docs/BOOKING_BUILDER.md`](docs/BOOKING_BUILDER.md), [`docs/MERCHANDISE.md`](docs/MERCHANDISE.md): owner workflows.
 - [`docs/UPGRADING.md`](docs/UPGRADING.md): update existing installations safely.
 - [`docs/CANVA_WORKFLOW.md`](docs/CANVA_WORKFLOW.md): manual artwork export/import.
@@ -57,6 +68,6 @@ Customer ZIPs contain runtime files only. Development documentation, tests, SDK 
 
 ## Operating limits
 
-The payment adapter is sandbox-only. Marketing uses a protected file store and prepares an outbox; production campaign delivery and the previously proposed advanced automation are unfinished. Representative shared-hosting installation/upgrade certification remains a production-release gate; disposable ownership/write/install regressions pass for this milestone. The application is not labelled a production-certified 1.0 release.
+The payment adapter is sandbox-only. Marketing uses a protected file store, consent-aware queues and guarded dispatch through the configured mail transport; broader segmentation/SQL, editorial/calendar, scheduling, attribution, retention and bounce work remains incomplete. Production email-provider delivery and representative shared-hosting installation/upgrade certification remain unverified; local and CI fixtures do not establish deployment on the affected customer's host. The application is not labelled a production-certified 1.0 release.
 
 Never commit installed configuration, credentials, private customer/member/booking data, private messages, identity documents, generated keys, or private/paid media.

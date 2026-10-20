@@ -22,7 +22,7 @@ $marketingSettings = $marketingStore->settings();
     <form class="marketing-form" method="post"><?= csrf_field() ?><input type="hidden" name="action" value="save_marketing_settings">
       <label><input type="checkbox" name="newsletter_signup_enabled" value="1" style="width:auto" <?= !empty($marketingSettings['newsletter_signup_enabled']) ? 'checked' : '' ?>> Public newsletter signup and confirmation</label>
       <label><input type="checkbox" name="campaign_delivery_enabled" value="1" style="width:auto" <?= !empty($marketingSettings['campaign_delivery_enabled']) ? 'checked' : '' ?>> Campaign email delivery</label>
-      <p>These switches are independent. Unsubscribe is always available. Email uses the mail transport configured during installation and may remain disabled while you prepare campaigns.</p>
+      <p>These switches are independent. Unsubscribe is always available. Manage the shared connection in <a href="<?= e(base_url('admin/?page=mail-settings')) ?>">Email &amp; SMTP</a>. Email may remain disabled while you prepare campaigns.</p>
       <button class="marketing-button">Save Marketing Settings</button>
     </form>
     <form class="marketing-form" method="post"><?= csrf_field() ?><input type="hidden" name="action" value="run_campaign_batch">

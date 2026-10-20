@@ -12,6 +12,7 @@ done
 php tests/Security/repository_safety.php
 python tests/Installer/packaged_preflight.py
 python tests/Installer/packaged_opcache.py
+python tests/Installer/mail_smtp_capture.py
 WORK="$(python tests/copy_runtime.py)"
 cleanup() { python "$SOURCE_ROOT/tests/copy_runtime.py" --remove "$WORK"; }
 trap cleanup EXIT
@@ -32,13 +33,13 @@ PYCODE
 echo "== Application tests in a disposable copy =="
 php tests/smoke.php
 for test in \
-  tests/Installer/foundation.php tests/Installer/single_page.php tests/Installer/recovery.php \
+  tests/Installer/foundation.php tests/Installer/single_page.php tests/Installer/recovery.php tests/Installer/mail_validation.php \
   tests/Unit/hero_library.php tests/Unit/installation_urls.php tests/Feature/runtime_build.php tests/Feature/root_layout.php \
   tests/Unit/migrations.php tests/Unit/addon_manifest.php tests/Unit/addon_package.php \
   tests/Unit/media_access.php tests/Unit/media_store.php tests/Unit/member_auth.php \
   tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
   tests/Feature/media_center.php tests/Feature/members_entitlements.php tests/Feature/commerce.php \
-  tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php tests/Feature/campaign_delivery.php \
+  tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php tests/Feature/campaign_delivery.php tests/Feature/mail_settings.php \
   tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Feature/scene_buttons.php tests/Feature/scene_group_buttons.php tests/Security/protected_media.php tests/Security/member_security.php \
   tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php tests/Structure/public_routes.php; do
   php "$test"

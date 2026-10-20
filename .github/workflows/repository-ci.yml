@@ -45,6 +45,12 @@ jobs:
             app/Core/MailDeliveryException.php tests/Feature/campaign_delivery.php
             tests/Http/campaign_delivery_http.py tests/Http/campaign_delivery_fixture.php
             tests/Browser/campaign_delivery_playwright.py
+            app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
+            app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
+            public/assets/js/mail-settings.js public/assets/css/mail-settings.css
+            tests/Installer/mail_validation.php tests/Installer/mail_smtp_capture.py tests/Feature/mail_settings.php
+            tests/Http/mail_settings_http.py tests/Http/mail_settings_fixture.php tests/Browser/mail_settings_playwright.py
+            tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
             tests/Browser/installed_update_playwright.py tests/Feature/runtime_build.php
@@ -201,6 +207,10 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/campaign_delivery_playwright.py
+      - name: Configure email and test saved SMTP settings through the real packaged owner page
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/mail_settings_playwright.py
       - name: Run real desktop and mobile browser suites in a disposable copy
         env:
           VELVET_BROWSER_TESTS: '1'

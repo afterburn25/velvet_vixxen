@@ -40,8 +40,13 @@ INSTALLER_DATABASE_REPAIR_FILES = {
     "public/assets/css/installer.css",
     "public/assets/js/installer.js",
 }
+INSTALLER_MAIL_REPAIR_FILES = {
+    "install/index.php", "install/services/InstallerService.php",
+    "install/services/EmailAddress.php", "install/services/SmtpTester.php",
+}
 INSTALLER_REPAIR_FILES = {
     "install/services/FileSystemService.php", *INSTALLER_DATABASE_REPAIR_FILES,
+    *INSTALLER_MAIL_REPAIR_FILES,
 }
 COMPOSER_REPAIR_VERSION = "0.8.1"
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
@@ -60,6 +65,10 @@ COMPOSER_REPAIR_FILES = {
     "app/Core/RootLayoutService.php", "app/Support/functions.php",
     "app/Core/AddonLicenseClient.php", "app/Core/MarketingStore.php",
     "app/Core/MailService.php", "app/Core/MailDeliveryException.php",
+    "app/Core/MailSettingsService.php", "app/Core/EmailAddress.php",
+    "app/Support/mail_settings_admin.php", "app/Views/admin/mail-settings.php",
+    "app/Views/admin/mail-settings-actions.php", "app/Views/admin/communications.php",
+    "public/assets/css/mail-settings.css", "public/assets/js/mail-settings.js",
     "app/Core/CampaignDeliveryService.php", "app/Console/run_marketing.php",
     "app/Views/admin/composer.php", "app/Views/admin/media-library.php",
     "app/Views/admin/navigation.php", "app/Views/admin/update-status.php",
@@ -78,7 +87,8 @@ COMPOSER_REPAIR_FILES = {
 # correction: ZIP extraction restores the mtime that OPcache uses to notice changes.
 INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
-COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 20, 0, 50, 0)
+INSTALLER_MAIL_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
+COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -318,8 +328,10 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
     for kind, suffix in variants:
         files = _files_for_kind(source, kind, manifest)
         validate(files, kind, version)
-        identity = {} if kind == "installer-repair" else {"build_id": build_id}
-        build_tag = "" if kind == "installer-repair" else f"-Build-{build_id}"
+        # A new installer-only repair has its own explicit identity without
+        # claiming to update the installed site's complete runtime inventory.
+        identity = {"repair_build_id": build_id} if kind == "installer-repair" else {"build_id": build_id}
+        build_tag = f"-Build-{build_id}"
         filename = f"Nikki-Wilder-Velvet-Vixxen-{version}{build_tag}-{suffix}.zip"
         archive = output / filename
         compatibility = {
@@ -345,6 +357,8 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             for relative, content in files.items():
                 timestamp = (INSTALLER_FILESYSTEM_TIMESTAMP
                              if relative == "install/services/FileSystemService.php"
+                             else INSTALLER_MAIL_TIMESTAMP
+                             if relative in INSTALLER_MAIL_REPAIR_FILES
                              else INSTALLER_DATABASE_TIMESTAMP
                              if relative in INSTALLER_DATABASE_REPAIR_FILES
                              else COMPOSER_REPAIR_TIMESTAMP

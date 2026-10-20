@@ -1,7 +1,24 @@
 # Velvet Vixxen Development Roadmap
 
+<!-- owner-mail-settings:start -->
+## Current roadmap — Build 20261020.2 continuation
+
+The **owner Email & SMTP** slice is implemented on `feature/0.8.1-owner-mail-settings` from main `6d9b5677d6374ddb1b6dd7a93c6d307f982b877a`. Final local source/package and all nine HTTP suites pass, with focused browser evidence and final local ZIP hashes recorded. Remaining full release gates, new source/PR/CI, merge and delivery remain pending. See [the release record](releases/0.8.1-owner-mail-settings.md). Build 20261020.1 grouped buttons and guarded campaign dispatch are completed baseline work.
+
+| Work | Current boundary / next acceptance |
+| --- | --- |
+| Owner SMTP / sender slice of #9 and #10 | Owner settings, retained/cleared password, safe saved-settings test, strict headers and installer/runtime sender fallback implemented locally; finish release verification before reconciling GitHub issues. |
+| **Next: media #2** | Complete gallery caption/tag editing, playlist scheduling and actual MySQL media/order persistence acceptance. |
+| **Then: addons #7** | Prove addon-owned migration apply/rollback against real MySQL; preserve the existing addon lifecycle. |
+| **Then: remaining marketing #9** | Complete the remaining segmentation/SQL, editorial/calendar, scheduling, attribution, retention/rollups/exports and bounce work according to actual source evidence. The new connection editor does not complete that backlog. |
+| Actual-host #12/#13 | Verify the affected customer's deployed build and reported behavior; local or CI success does not close a host incident. |
+| Release evidence #3 | Keep exact source/tree, required CI, package/root inventory and saved-artifact readback evidence for each release. |
+
+Keep compatibility **0.8.1**, approved roots, all existing gates and sandbox-only payments. No 0.9.0 work is included. Earlier reconciliation and release sections below are historical snapshots.
+<!-- owner-mail-settings:end -->
+
 <!-- grouped-buttons-delivery:start -->
-## Current release — Build 20261020.1 verified, merged and delivered
+## Historical release — Build 20261020.1 verified, merged and delivered
 
 **The newest executable source is on `main`.** [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16) actually merged at **2026-10-20 01:35:24 UTC**, commit `0c4d6be5516c9c777c31524a33cd30c4d337f1d7`. Its complete tree equals tested source `9fcd355c6f7207287ab42babe04c80b3f3968a62`, tree `63b758a153a721a1aabf424aead6b9f01867820f`, from `feature/0.8.1-group-buttons-campaign-delivery`. The preceding PR #15 baseline is also actually merged at `31b303e407a869728f2a0548c9214273e35e2c02`. Later documentation-only recording does not change runtime, tests, workflow or package bytes. Earlier unmerged/source-recovery statements below are historical.
 
@@ -14,7 +31,7 @@
 Source-import #1 and imported/gated scopes #5/#8/#11 are closed; obsolete archive PR #4 is closed without merging. **#13/#12 remain open because the affected customer host has not been accessed or verified.** #9 still includes the owner SMTP editor, audiences/SQL/editorial/scheduling/attribution/analytics work; #2/#7/#10 retain the audited Media Center, add-on MySQL and sender-validation gaps. #3 remains the release-evidence policy. Resume from live `main` and the reconciled `docs/ROADMAP.md`; preserve the existing runtime and required gates. Payments remain sandbox-only and no 0.9.0 work is included. Detailed merge, test and delivery evidence is in `docs/releases/0.8.1-group-buttons-campaign-delivery.md` and its CI/delivery JSON records.
 <!-- grouped-buttons-delivery:end -->
 
-## Backlog reconciliation after the main merge — 2026-10-20
+## Historical backlog reconciliation after the Build 20261020.1 main merge — 2026-10-20
 
 The live GitHub audit closed source-import #1 and the imported/gated engineering milestones #5 (sandbox subscriptions/PPV), #8 (communications/booking) and #11 (Composer manipulation). Obsolete archive-only PR #4 was closed as superseded, without merging its old source tarball or archive workflow. Current source is the merged browsable application, not those historical documentation/archive branches.
 

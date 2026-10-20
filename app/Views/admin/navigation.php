@@ -8,7 +8,7 @@ $adminGroups = [
     'commerce' => ['Commerce', ['commerce', 'merchandise', 'orders', 'plans', 'coupons', 'bundles', 'payments']],
     'marketing' => ['Marketing', ['marketing']],
     'extensions' => ['Extensions', ['addons', 'licenses']],
-    'system' => ['System', ['update-status', 'database-updates', 'repair-backups']],
+    'system' => ['System', ['mail-settings', 'update-status', 'database-updates', 'repair-backups']],
 ];
 $adminAssigned = [];
 foreach ($adminGroups as [, $keys]) $adminAssigned = array_merge($adminAssigned, $keys);

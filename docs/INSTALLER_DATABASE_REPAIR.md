@@ -2,9 +2,11 @@
 
 Use this repair for an already-uploaded **unfinished Velvet Vixxen 0.8.1 installation**, including the error that lists existing `migrations`, `admins`, `settings`, `media_assets`, `scenes`, `scene_versions`, `canva_templates` and `audit_log` tables. The earlier folder-only repair does not contain the database continuation.
 
+The current **Build 20261020.2** overlay also includes the installer sender-validation correction and contains **11 files**. Its `repair_build_id` identifies this repair revision; it does not change an installed site's runtime inventory/build or install the owner Email & SMTP editor. Final local source/package/HTTP checks passed, while the new required GitHub CI and delivery remain pending in [the current release record](releases/0.8.1-owner-mail-settings.md).
+
 ## Continue the installation on the server
 
-1. Download `Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip`.
+1. Download the verified `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip` when its release verification and delivery are complete.
 2. Open the existing website folder in the hosting file manager: the folder containing `app`, `install`, `includes` and `public`.
 3. Upload and extract the repair ZIP into that folder. Allow the matching application files to be replaced; extraction also adds the new schema-reconciliation helper.
 4. Refresh the existing installer page. Its CSS and JavaScript use an updated cache identifier. Click **Run Checks**, keep the same database details, and continue installation.
@@ -20,13 +22,16 @@ The database can already contain unrelated tables, a previous partial attempt or
 | `app/Core/MigrationRunner.php` | Continue migration work without destructive automatic rollback. |
 | `app/Core/MigrationResumeSchema.php` | Inspect known schema definitions and apply only missing compatible changes. |
 | `includes/installation_recovery.php` | Preserve pending setup and serialize automatic recovery/installer retirement. |
-| `install/services/InstallerService.php` | Reuse the database, authenticate/preserve its owner, keep keys/defaults/identity and verify final activation. |
+| `install/services/InstallerService.php` | Reuse the database, authenticate/preserve its owner, keep keys/defaults/identity, validate sender settings and verify final activation. |
 | `install/services/FileSystemService.php` | Include the earlier packaged-folder/ownership correction. |
 | `install/views/single-page.php` | Explain existing-database support and load the revised installer assets. |
 | `public/assets/css/installer.css` | Remove the extra Folders rule/inset and align Server/Folders and password fields. |
 | `public/assets/js/installer.js` | Clear the loading spinner and scroll lock after successful installation. |
+| `install/index.php` | Validate the test-mail request and sender fallback before SMTP. |
+| `install/services/EmailAddress.php` | Validate and normalize safe pasted addresses without depending on a new installed runtime class. |
+| `install/services/SmtpTester.php` | Use the validated sender and safe SMTP connection settings. |
 
-The ZIP contains exactly those eight runtime files. Configuration, storage, uploads, customer records, migration source files, repository documents, tests, workflows, screenshots and secrets are outside the repair. Extract it over the existing site folder; do not delete the database or replace its configuration to address this error.
+The ZIP contains exactly those 11 runtime files: nine PHP files, one stylesheet and one JavaScript file. The four changed sender files are `install/index.php`, `InstallerService.php`, `EmailAddress.php` and `SmtpTester.php`; `InstallerService.php` was already part of the original eight-file overlay. Configuration, storage, uploads, customer records, migration source files, repository documents, tests, workflows, screenshots and secrets are outside the repair. Extract it over the unfinished site's existing folder; do not delete the database or replace its configuration to address this error. The [original eight-file evidence](releases/0.8.1-installer-database-repair.json) remains historical.
 
 ## Preservation and completion behavior
 
@@ -38,10 +43,10 @@ The pending marker remains in place through final database/configuration/lock ve
 
 ## New installations and installed-site updates
 
-The rebuilt `Nikki-Wilder-Velvet-Vixxen-0.8.1-Fresh-Install.zip` contains the same corrections and starts uninstalled. Its user-facing download may be named `Nikki-Wilder-Velvet-Vixxen-0.8.1-Site-UX-Fresh-Install.zip`; the bytes are identical.
+The current `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Fresh-Install.zip` contains the same corrections and starts uninstalled. Never run Fresh setup over an installed website.
 
-The rebuilt `Nikki-Wilder-Velvet-Vixxen-0.8.1-Upgrade-from-0.8.x.zip` preserves the normal exclusion of `config`, `storage`, `uploads` and `install`. It includes applicable Core/recovery/public asset corrections. Use this small repair ZIP for the unfinished installer reported here; use [UPGRADING.md](../UPGRADING.md) for an already installed website.
+The current `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.x.zip` preserves the normal exclusion of `config`, `storage`, `uploads` and `install`. It includes the complete installed runtime and owner settings dependencies. Use this small repair ZIP for unfinished setup; use [Update Verification](UPDATE_VERIFICATION.md) and [Upgrading](UPGRADING.md) for an already installed website.
 
 ## Evidence
 
-Current executed tests, exact source/CI provenance and package checksums are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the database-repair release record](releases/0.8.1-installer-database-repair.json). Required gates include actual packaged installation on MySQL 8 with PHP 8.2/8.3, real desktop/mobile browser continuation and layout checks, source/JavaScript/security, foreign-owner write tests, persistent OPcache repair, and runtime-only exclusion checks. Previous feature HTTP/browser suites remain mandatory. This guide describes the delivered application behavior; it does not claim the repair was applied to the owner's host.
+Current executed tests, source/CI status and package checksums are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the Build 20261020.2 release record](releases/0.8.1-owner-mail-settings.md). Required gates include actual packaged installation on MySQL 8 with PHP 8.2/8.3, real desktop/mobile browser continuation and layout checks, source/JavaScript/security, foreign-owner write tests, persistent OPcache repair, and runtime-only exclusion checks. Previous feature HTTP/browser suites remain mandatory. The original database/layout release evidence is retained as history; this guide does not claim the new repair has been delivered or applied to the owner's host.
