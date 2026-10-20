@@ -54,6 +54,13 @@ jobs:
             app/Views/admin/marketing-publication-list.php tests/Feature/publication_windows.php
             tests/Http/publication_windows_http.py tests/Http/publication_windows_fixture.php
             tests/Browser/publication_windows_playwright.py docs/PUBLICATION_WINDOWS.md
+            app/Core/MarketingStorage.php app/Core/MarketingSqlRepository.php app/Core/MarketingStorageException.php
+            database/migrations/202610200015_marketing_sql_storage.php
+            app/Support/marketing_storage_admin.php app/Views/admin/marketing-storage.php
+            app/Views/admin/marketing-storage-actions.php docs/MARKETING_STORAGE.md
+            tests/Feature/marketing_storage.php tests/Database/marketing_sql_mysql.php tests/Database/marketing_sql_worker.php
+            tests/Http/marketing_storage_fixture.php tests/Http/marketing_storage_http.py
+            tests/Browser/marketing_storage_playwright.py
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
             app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
@@ -70,6 +77,7 @@ jobs:
             tests/Packaging/release_version.py tests/Packaging/fixtures/release-0.8.2-build-20261020.3.json
             tests/Packaging/fixtures/release-0.8.3-build-20261020.4.json
             tests/Packaging/fixtures/release-0.8.4-build-20261020.5.json
+            tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -175,6 +183,15 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: php tests/Database/addon_migrations_mysql.php
+
+      - name: Preserve marketing records through an actual packaged MySQL move and concurrent delivery
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: php tests/Database/marketing_sql_mysql.php
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -295,6 +312,15 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/publication_windows_playwright.py
+      - name: Review and move marketing storage through actual packaged desktop and nested mobile owner pages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/marketing_storage_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

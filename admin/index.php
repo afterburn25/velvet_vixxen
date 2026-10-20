@@ -46,6 +46,31 @@ if ($page === 'update-status') {
     redirect(base_url('admin/repair.php'));
 }
 $user = app_auth()->user();
+$marketingStorageActions = ['preview_marketing_storage', 'migrate_marketing_storage'];
+$isMarketingStorageRequest = $page === 'marketing-storage'
+    || in_array(is_string($_POST['action'] ?? null) ? $_POST['action'] : '', $marketingStorageActions, true);
+$marketingStorageReview = null;
+if ($isMarketingStorageRequest) {
+    header('Cache-Control: no-store, private, max-age=0');
+    header('Pragma: no-cache');
+    require_once root_path('app/Support/marketing_storage_admin.php');
+    try {
+        vvx_marketing_storage_require_owner();
+    } catch (Throwable) {
+        http_response_code(403);
+        exit('Only the active site owner can manage marketing storage.');
+    }
+    if (!in_array((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'POST'], true)) {
+        header('Allow: GET, POST');
+        http_response_code(405);
+        exit('Method not allowed.');
+    }
+    if ($page !== 'marketing-storage') {
+        http_response_code(400);
+        exit('Open Marketing Storage to review or move marketing records.');
+    }
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') unset($_SESSION['_marketing_storage_review']);
+}
 $mediaPages = ['music', 'galleries', 'videos'];
 $mediaActions = ['save_album', 'save_track', 'save_audio_playlist', 'save_gallery', 'save_video', 'run_due_media'];
 $isMediaRequest = in_array($page, $mediaPages, true)
@@ -79,7 +104,25 @@ $addonUpdateService = addon_update_service();
 $addonReview = null;
 $repairService = new RepairBackupService(ROOT_PATH);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMarketingStorageRequest) {
+    try {
+        if (!verify_csrf()) {
+            http_response_code(419);
+            throw new RuntimeException('Your session token expired. Refresh the page and try again.');
+        }
+        require root_path('app/Views/admin/marketing-storage-actions.php');
+    } catch (Throwable $caught) {
+        unset($_SESSION['_marketing_storage_review']);
+        $marketingStorageReview = null;
+        if ((int) $caught->getCode() === 403) {
+            http_response_code(403);
+            exit('Only the active site owner can manage marketing storage.');
+        }
+        if (http_response_code() < 400) http_response_code(409);
+        $error = $caught instanceof RuntimeException && !$caught instanceof PDOException
+            ? $caught->getMessage() : 'The move could not be completed. Review the storage status and preview again.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         if (!verify_csrf()) {
             if ($page === 'mail-settings' || $isMediaRequest) http_response_code(419);
@@ -739,6 +782,7 @@ $pageTitles = [
     'licenses' => 'Add-on Licensing',
     'settings' => 'Site Settings',
     'mail-settings' => 'Email & SMTP',
+    'marketing-storage' => 'Marketing Storage',
     'update-status' => 'Update Status',
     'repair-backups' => 'Repair Backups',
     'database-updates' => 'Database Updates',
@@ -776,6 +820,7 @@ $nav = [
     'licenses' => ['⌁', 'Add-on Licensing'],
     'settings' => ['⚙', 'Site Settings'],
     'mail-settings' => ['✉', 'Email & SMTP'],
+    'marketing-storage' => ['▤', 'Marketing Storage'],
     'update-status' => ['✓', 'Update Status'],
     'repair-backups' => ['↺', 'Repair Backups'],
     'database-updates' => ['↑', 'Database Updates'],
@@ -797,6 +842,8 @@ $stats = $store->stats(); ?>
 require root_path('app/Views/admin/marketing.php'); ?>
 <?php elseif ($page === 'mail-settings'):
 require root_path('app/Views/admin/mail-settings.php'); ?>
+<?php elseif ($page === 'marketing-storage'):
+require root_path('app/Views/admin/marketing-storage.php'); ?>
 <?php elseif ($page === 'about'):
 require root_path('app/Views/admin/about.php'); ?>
 <?php elseif ($page === 'merchandise'):

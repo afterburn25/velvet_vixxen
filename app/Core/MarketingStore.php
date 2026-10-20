@@ -6,24 +6,21 @@ namespace Velvet\Core;
 require_once dirname(__DIR__) . '/Support/public_routes.php';
 require_once __DIR__ . '/MarketingAudience.php';
 require_once __DIR__ . '/MarketingPublication.php';
+require_once __DIR__ . '/MarketingStorage.php';
 
 final class MarketingStore
 {
-    private string $root;
-    private string $directory;
-    private string $dataFile;
+    private MarketingStorage $storage;
 
     public function __construct(?string $root = null)
     {
-        $this->root = $root ?: dirname(__DIR__, 2);
-        $this->directory = $this->root . '/storage/private/marketing';
-        $this->dataFile = $this->directory . '/data.json';
-        $this->ensureStorage();
+        $this->storage = new MarketingStorage($root);
+        $this->storage->initialize();
     }
 
     public function all(): array
     {
-        return $this->locked(LOCK_SH, fn(): array => $this->read());
+        return $this->storage->all();
     }
 
     /** Replace a previously read snapshot only if nobody has changed it. */
@@ -40,26 +37,13 @@ final class MarketingStore
     /** All mutations read fresh state while holding the same short-lived lock. */
     public function update(callable $operation): mixed
     {
-        return $this->locked(LOCK_EX, function () use ($operation): mixed {
-            $data = $this->read();
-            $before = $data;
-            $result = $operation($data);
-            if ($data !== $before) {
-                $data['meta']['revision'] = (int) ($before['meta']['revision'] ?? 0) + 1;
-                $data['meta']['updated_at'] = gmdate('c');
-                $this->write($data);
-            }
-            return $result;
-        });
+        return $this->storage->update($operation);
     }
 
     /** Network work uses its own mutex; unsubscribes and content edits stay writable. */
     public function withDeliveryLock(callable $operation): mixed
     {
-        $lock = $this->openLock('delivery.lock');
-        if (!flock($lock, LOCK_EX | LOCK_NB)) { fclose($lock); return null; }
-        try { return $operation(); }
-        finally { flock($lock, LOCK_UN); fclose($lock); }
+        return $this->storage->withDeliveryLock($operation);
     }
 
     public function settings(): array
@@ -687,82 +671,6 @@ final class MarketingStore
         $now = time();
         return array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
             && MarketingPublication::visibility($collection, $item, $now)['visible']));
-    }
-
-    private function ensureStorage(): void
-    {
-        if (!is_dir($this->directory) && !@mkdir($this->directory, 0775, true) && !is_dir($this->directory)) {
-            throw new \RuntimeException('Marketing storage directory could not be created.');
-        }
-        $this->locked(LOCK_EX, function (): void {
-            if (!is_file($this->dataFile)) $this->write($this->defaults());
-        });
-    }
-
-    private function openLock(string $name)
-    {
-        $path = $this->directory . '/' . $name;
-        if (is_link($path) || is_link($this->dataFile)) throw new \RuntimeException('Marketing storage cannot use symbolic links.');
-        $lock = @fopen($path, 'c+b');
-        if (!is_resource($lock)) throw new \RuntimeException('Marketing storage could not be locked.');
-        @chmod($path, 0640);
-        return $lock;
-    }
-
-    private function locked(int $mode, callable $operation): mixed
-    {
-        $lock = $this->openLock('data.lock');
-        if (!flock($lock, $mode)) { fclose($lock); throw new \RuntimeException('Marketing storage is busy.'); }
-        try { return $operation(); }
-        finally { flock($lock, LOCK_UN); fclose($lock); }
-    }
-
-    private function read(): array
-    {
-        $raw = @file_get_contents($this->dataFile);
-        $decoded = is_string($raw) ? json_decode($raw, true) : null;
-        if (!is_array($decoded)) throw new \RuntimeException('Marketing data could not be read. Existing records were preserved.');
-        $defaults = $this->defaults();
-        $data = array_replace($defaults, $decoded);
-        foreach (['meta', 'settings'] as $key) $data[$key] = array_replace($defaults[$key], (array) ($decoded[$key] ?? []));
-        foreach (['contacts', 'consents', 'suppressions', 'campaigns', 'campaign_queue', 'events', 'posts', 'banners', 'links', 'landing_pages', 'segments'] as $key) {
-            if (!is_array($data[$key])) throw new \RuntimeException('Marketing records are invalid. Existing data was preserved.');
-        }
-        foreach ($data['segments'] as $segment) if (!is_array($segment)) throw new \RuntimeException('Saved audience records are invalid. Existing data was preserved.');
-        return $data;
-    }
-
-    private function write(array $data): void
-    {
-        $encoded = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR) . "\n";
-        $temp = $this->directory . '/data.' . bin2hex(random_bytes(8)) . '.tmp';
-        if (@file_put_contents($temp, $encoded, LOCK_EX) !== strlen($encoded)) {
-            @unlink($temp);
-            throw new \RuntimeException('Marketing storage could not be written.');
-        }
-        @chmod($temp, 0640);
-        if (!@rename($temp, $this->dataFile)) {
-            @unlink($temp);
-            throw new \RuntimeException('Marketing storage could not be activated.');
-        }
-        @chmod($this->dataFile, 0640);
-        clearstatcache(true, $this->dataFile);
-    }
-
-    private function defaults(): array
-    {
-        return [
-            'meta' => ['version' => 2, 'revision' => 0, 'updated_at' => gmdate('c'), 'analytics_salt' => bin2hex(random_bytes(16))],
-            'settings' => ['newsletter_signup_enabled' => true, 'campaign_delivery_enabled' => true],
-            'suppressions' => [], 'posts' => [], 'banners' => [], 'landing_pages' => [],
-            'links' => [
-                ['id'=>'link-home','label'=>'Official Website','url'=>'/','enabled'=>true,'sort'=>10],
-                ['id'=>'link-membership','label'=>'Join the Velvet Club','url'=>'/membership/','enabled'=>true,'sort'=>20],
-                ['id'=>'link-booking','label'=>'Booking & Appearances','url'=>'/booking/','enabled'=>true,'sort'=>30],
-            ],
-            'referral_codes' => [], 'contacts' => [], 'segments' => [], 'campaigns' => [],
-            'campaign_queue' => [], 'events' => [], 'consents' => [],
-        ];
     }
 
     private function id(string $prefix): string

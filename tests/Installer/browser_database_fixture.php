@@ -110,7 +110,7 @@ $assert(($config['installed'] ?? false) === true && ($lock['installation_id'] ??
 $version = trim((string) file_get_contents($runtime . '/VERSION'));
 $assert($version === VELVET_VIXXEN_VERSION && ($config['version'] ?? '') === $version && ($lock['version'] ?? '') === $version,
     'Browser setup configuration, lock and executing runtime do not match the canonical package version.');
-$assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 14, 'Browser setup did not complete every migration.');
+$assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 15, 'Browser setup did not complete every migration.');
 $assert((int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn() === 1, 'Browser setup duplicated or omitted the owner account.');
 $assert(!is_dir($runtime . '/install'), 'Successful browser setup did not retire the public installer.');
 $assert(file_get_contents($runtime . '/uploads/existing-upload.bin') === 'Existing upload bytes remain unchanged.', 'Browser setup changed uploaded bytes.');

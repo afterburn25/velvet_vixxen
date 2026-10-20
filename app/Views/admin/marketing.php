@@ -9,6 +9,7 @@ $data=$marketingStore->all();$summary=$marketingStore->analyticsSummary(30);$tab
 ?>
 <nav class="marketing-tabs" aria-label="Marketing pages"><?php foreach(['overview','posts','banners','campaigns','audiences','links','newsletter','referrals'] as $t):?><a href="?page=marketing&amp;tab=<?= $t ?>" <?= $tab === $t ? 'aria-current="page"' : '' ?>><?= ucfirst($t) ?></a><?php endforeach;?></nav>
 <?php if($tab==='overview'):?><section class="marketing-stat-grid"><div class="marketing-stat"><strong><?= (int)$summary['unique_sessions'] ?></strong>Unique sessions</div><div class="marketing-stat"><strong><?= (int)($summary['counts']['page_view']??0) ?></strong>Page views</div><div class="marketing-stat"><strong><?= count($data['contacts']) ?></strong>Contacts</div><div class="marketing-stat"><strong><?= count($data['posts']) ?></strong>Posts</div></section><section class="marketing-card"><h2>Top pages — last 30 days</h2><table class="marketing-table"><tbody><?php foreach($summary['top_paths'] as $path=>$count):?><tr><td><?=velvet_marketing_escape((string)$path)?></td><td><?= (int)$count ?></td></tr><?php endforeach;?></tbody></table></section>
+<p><a class="marketing-button" href="<?= e(base_url('admin/?page=marketing-storage')) ?>">Manage Marketing Storage</a></p>
 <?php elseif($tab==='posts' || $tab==='banners'):
 $publicationCollection = $tab;
 ?>

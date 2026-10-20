@@ -1,0 +1,1095 @@
+{
+  "schema_version": 1,
+  "version": "0.8.6",
+  "build_id": "20261020.7",
+  "status": "local acceptance passed; final GitHub CI, merge and saved delivery pending",
+  "evidence_scope": "Local acceptance only. This record identifies the tested integrated working tree and exact local packages; it does not claim a published source commit, completed GitHub CI, merged source or saved-download delivery.",
+  "integration_baseline": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+  "previous_verified_source": "3368ffc41e63ded8c790ad1f8e4156349a4bc4ed",
+  "previous_delivery_version": "0.8.5",
+  "working_tree_tested": true,
+  "source_gate": {
+    "gate": "source",
+    "exit_code": 0,
+    "duration_seconds": 25.217,
+    "log": "/tmp/vvx-086-source.log",
+    "runner": "scripts/test.sh",
+    "status": "passed",
+    "scope": "Full local source, security, installer ownership, persistent OPcache, syntax, feature and runtime packaging runner on the integrated working tree before the final two SQL test files were integrated. The subsequent targeted lint and handoff hash checks below cover those two additions; this is not an exact final-tree GitHub CI claim.",
+    "final_result": "All non-database tests passed.",
+    "reported_count_lines": [
+      "Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+      "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+      "PASS installer recovery: 134 assertions (disposable fixtures only)",
+      "Installer mail validation passed (269 assertions).",
+      "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+      "PASS runtime build verification: 30 assertions",
+      "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+      "Migration manifest test passed (15 migrations, 84 tables).",
+      "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+      "Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+      "Newsletter audience source acceptance passed (149 assertions; disposable stores, no mail transport).",
+      "Publication window source acceptance passed (134 assertions).",
+      "Marketing storage source regressions passed (41 checks; read-only review, stable legacy normalization and SQL-required refusal).",
+      "Campaign source regressions passed (41 assertions, concurrent storage writers included).",
+      "Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+      "PASS repair backups: 87 assertions (disposable fixtures only)",
+      "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+      "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+      "PASS booking form builder: 54 assertions (disposable fixtures only)",
+      "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+      "Live text group buttons, legacy actions, safe public links and restorable publication passed: 139 assertions.",
+      "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions."
+    ],
+    "runtime_packages_verified": true,
+    "fresh_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+    "installer_repair_sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+    "package_ownership": {
+      "runtime_files": 356,
+      "php_uid": 65534,
+      "static_owner_uid": 0,
+      "read_only_parents": [
+        "images",
+        "public/assets",
+        "templates"
+      ]
+    },
+    "persistent_opcache": {
+      "php": "8.3.6",
+      "negative_control_requests": 3,
+      "corrected_requests": 2,
+      "same_process_repair_without_php_restart": true
+    },
+    "package_contract": "Exact Fresh 13 / Upgrade 9 root directories and four root files, complete runtime inventory, private exclusions, reproducibility, unchanged eleven-file repair, safe entry modes, dependency hashes and timestamps passed."
+  },
+  "targeted_post_source_checks": {
+    "scope": "Two final SQL test files integrated after the full source run; linted in the integrated root and verified byte-identical to the independently executed 402-check handoff.",
+    "php": "8.3.6",
+    "checks": [
+      {
+        "command": [
+          "php",
+          "-l",
+          "tests/Database/marketing_sql_mysql.php"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 0.065610679,
+        "stdout": "No syntax errors detected in tests/Database/marketing_sql_mysql.php\n",
+        "sha256": "55f783179755fce085259b40fd09f0a28fba4f4dbc816af9dffc9331ba189079"
+      },
+      {
+        "command": [
+          "php",
+          "-l",
+          "tests/Database/marketing_sql_worker.php"
+        ],
+        "exit_code": 0,
+        "duration_seconds": 0.074797526,
+        "stdout": "No syntax errors detected in tests/Database/marketing_sql_worker.php\n",
+        "sha256": "6ee2c7db6de37d4666595001194b42dcec81efa7f9094d5b783c43baf3ef71c9"
+      }
+    ],
+    "all_six_test_handoff_files_match_integrated_source": true,
+    "all_owner_handoff_files_match_integrated_source": true,
+    "all_frozen_runtime_and_reviewed_workflow_hashes_match_integrated_source": true,
+    "verified_file_count": 29,
+    "verified_files": {
+      "app/Core/MarketingStore.php": "34b4a528323b8be4c12141c89bbc794126b97f9cef090b62d50b160a1439ac78",
+      "app/Core/MarketingStorage.php": "74c60901971fc8a8bf5657c23243f0857cdbf3e70a8a74742d615c2bfc7e2ec8",
+      "app/Core/MarketingSqlRepository.php": "21267400e758721444be61ae1147766662f4c49f9501f1939f8a6526b4b1b511",
+      "app/Core/MarketingStorageException.php": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+      "database/migrations/202610200015_marketing_sql_storage.php": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c",
+      "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "install/services/InstallerService.php": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775",
+      "scripts/package.py": "00ca34cc58b674dd142744dbb0451ace063c0e01025e9d8e658442ad096353de",
+      "tests/Database/database_update_scenarios.php": "2cfae548167ff225760a6bb67b2a4709557f67d360cf113625f4789cfecadeeb",
+      "tests/Installer/existing_database_mysql.php": "511c9cc4c4549a372e56e852aa83dab04676270980d0e6a7aba13e047b0719d4",
+      "tests/Installer/browser_database_fixture.php": "69ef9cafa350a24391b35d3b31043c919797645d48a9d6a89a516a80cd7e75c9",
+      "tests/Feature/marketing_storage.php": "2b03feb73237ec192b84507b27e02b6a907cbc45bbb07648d6764dea6224a3f2",
+      "tests/Database/marketing_sql_mysql.php": "55f783179755fce085259b40fd09f0a28fba4f4dbc816af9dffc9331ba189079",
+      "tests/Database/marketing_sql_worker.php": "6ee2c7db6de37d4666595001194b42dcec81efa7f9094d5b783c43baf3ef71c9",
+      "admin/index.php": "e8f1c16bb161a6815a9a38fd3ebf690a455745093dc60ecbcfb6030b0913b294",
+      "app/Support/marketing_storage_admin.php": "7adf94417b199c4af03d95b66309eac11e52565e33bf801f34ff0120d5740141",
+      "app/Views/admin/marketing-storage-actions.php": "c32051e5a32219a8511a239a5b24ebc0319f004746f44fd2da131e64a59da0eb",
+      "app/Views/admin/marketing-storage.php": "0eacfc13a69fcf0f6fa4e9d0fa98528e299c6ed38a7f935b53fbaa69827f9cd3",
+      "app/Views/admin/navigation.php": "d4ee8b2996bc1e868ba803b87d4af22966d2023668537845ca10f680897a3a29",
+      "app/Views/admin/marketing.php": "6f742a9c5bec40e22bbd96f45248bee31bc09a192fa633c5de8dcebb7931731b",
+      "tests/Http/marketing_storage_fixture.php": "c5a5e4c1bcfc5d43d79f14935b9f4b9199210c66d5319c6cccf3b3c67f7bb9db",
+      "tests/Http/marketing_storage_http.py": "9d8a1d15364fe1a29bffe96fc9e2b5e3caf28ab1fe95c06f23e761b85cd7a6df",
+      "tests/Browser/marketing_storage_playwright.py": "4ed8a7a470c581897ef9e2c1cf7a85c7131e5bcc39e80ab18383dda4ee937ddc",
+      ".github/workflows/repository-ci.yml": "f78d115b9eda1058a7cc11db8dbdd51e55a3cb875538c83e42cd64c203024871",
+      "scripts/test.sh": "67b6d4169ab4227b441cb7a62bca190aedf8b35313544bace2f564fee3d4e096",
+      "scripts/test_http.sh": "8022e7aae46df63699aad7ced0c74a1e66bb1841ea5c9228d37117619bce16e3",
+      "tests/Packaging/runtime_packages.py": "3dbcb9ed9f668a38ae1328dbdfc901ae5f4e6ca0064c4695cbf936d6847e37bf",
+      "tests/Packaging/release_version.py": "8a8075bf97bd578483bd1e9b0542250a13dfb01cf682c2e60d5529c81010491d"
+    }
+  },
+  "shared_http_gate": {
+    "gate": "shared_http",
+    "exit_code": 0,
+    "duration_seconds": 26.927,
+    "log": "/tmp/vvx-086-shared-http.log",
+    "runner": "scripts/test_http.sh",
+    "status": "passed",
+    "existing_suites": 10,
+    "reported_results": [
+      "Members & Entitlements HTTP acceptance test passed.",
+      "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+      "Add-on HTTP acceptance passed.",
+      "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+      "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+      "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+      "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+      "Campaign SMTP/HTTP regressions passed (54 assertions; localhost capture only).",
+      "Mail settings HTTP: 168 assertions passed; real owner auth/save/revision/credentials, SMTP outcomes, one-use tests/cooldown and concurrent disable/demotion. External messages sent: 0.",
+      "Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access)."
+    ],
+    "scope": "All ten unchanged shared HTTP suites in disposable local fixtures. Loopback SMTP capture only; this does not certify production delivery."
+  },
+  "marketing_sql_gate": {
+    "command": "php tests/Database/marketing_sql_mysql.php",
+    "status": "passed",
+    "log": "/tmp/vvx-086-marketing-sql-corrected-trial.log",
+    "result": {
+      "suite": "marketing_sql_mysql",
+      "checks": 402,
+      "version": "0.8.6",
+      "mysql": "8.0.46-0ubuntu0.24.04.3",
+      "migrations": 15,
+      "declared_tables": 84,
+      "database_tables": 85,
+      "fresh_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+      "legacy_source_preserved": true,
+      "installation_id_length": 190,
+      "metadata_only_installation_setting": true,
+      "independent_roots": 2,
+      "concurrent_writers": 4,
+      "external_messages": 0
+    },
+    "php": "8.3.6",
+    "duration_seconds": null,
+    "duration_note": "The final supplied-package handoff preserves the passed result and complete log; no separate duration metadata was captured.",
+    "execution_scope": "Isolated test-agent worktree using the exact supplied final Fresh ZIP; all six acceptance files and all five runtime files were verified hash-identical in the integrated root.",
+    "handoff": {
+      "log_name": "vvx-086-tests-handoff.json",
+      "local_path": "/tmp/vvx-086-tests-handoff.json",
+      "bytes": 2757,
+      "sha256": "c73fa2641b5a3458e4e4762c2d5b0bb782748e5020591995c296ffe9e03f23af"
+    },
+    "reported_results": [
+      "PASS marketing SQL: actual Fresh dependency hashes, exact15/84 schema, read-only review and pre015 file compatibility",
+      "PASS marketing SQL: stable count-only review, stale-plan rejection, malformed/symlinked sources and orphan SQL preservation",
+      "PASS marketing SQL: later-batch/authority rollback, repeated owner authorization and actual disconnected commit fail closed",
+      "PASS marketing SQL: in-flight file edit excludes cutover, exact legacy snapshot retained, one authority, repeat no-op and cross-root readers",
+      "PASS marketing SQL: four independent writers across two roots retain all52 mutations; failed SQL update rolls back atomically",
+      "PASS marketing SQL: cross-root delivery exclusion, losing-worker immutability, short data locks and stopped-process recovery",
+      "PASS marketing SQL: original tokens, revocations, stale-save protection, frozen audiences/messages and unknown-delivery holds",
+      "PASS marketing SQL: real loopback SMTP permits concurrent unsubscribe/pause, transmits no canceled body and holds unknown acceptance",
+      "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back",
+      "Marketing SQL MySQL acceptance passed: {\"suite\":\"marketing_sql_mysql\",\"checks\":402,\"version\":\"0.8.6\",\"mysql\":\"8.0.46-0ubuntu0.24.04.3\",\"migrations\":15,\"declared_tables\":84,\"database_tables\":85,\"fresh_sha256\":\"356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06\",\"legacy_source_preserved\":true,\"installation_id_length\":190,\"metadata_only_installation_setting\":true,\"independent_roots\":2,\"concurrent_writers\":4,\"external_messages\":0}"
+    ],
+    "coverage": [
+      "Read-only aggregate review and legitimate pre-015 file compatibility; stable plans reject stale source, malformed files, symlinks and orphan SQL data.",
+      "Later-batch record trigger error and late authority-write trigger error roll back atomically. Owner authority is checked after locks and again immediately before commit.",
+      "A separate PDO connection kills the owned worker connection before its literal commit; failure preserves the original source and durable SQL-required intent, with no automatic file fallback.",
+      "All original collection keys and order, unknown fields, metadata timestamps, tokens, consent, suppression, frozen audiences and messages, queued recipients and every delivery outcome survive exact import and independent readback.",
+      "A selected-file write in a second runtime root holds the database data lock before activation; move remains blocked before first authorization, then subsequent operations use the shared SQL authority.",
+      "Two independent roots and four writers preserve all 52 mutations. An actual SQL update error rolls back without overwriting a concurrent state.",
+      "A database-wide delivery mutex prevents a losing worker from recovering or mutating the winning worker state; stopped-worker lock recovery distinguishes claimed from sending outcomes.",
+      "No SQL data transaction is held across SMTP. Actual loopback SMTP permits concurrent unsubscribe and pause, transmits no canceled message body and preserves unknown acceptance for review.",
+      "Stale snapshot saves cannot undo revocation. Missing state, authority or schema, record corruption, conflicting identities, guard mismatch, changed configuration and database outage fail closed after activation.",
+      "The full 190-character installation identity and normal metadata-only installation setting are accepted; explicit malformed, blank or conflicting secondary identities remain refused."
+    ],
+    "cleanup": "Owned root test schema proved empty; all extracted runtime and SMTP fixture files removed.",
+    "local_checks_not_substituted_for_future_ci": true
+  },
+  "existing_mysql_gates": {
+    "scope": "Existing integrated-checkout MySQL gates, isolated empty-origin backend test schema",
+    "started_at": "2026-10-20T14:21:19.060984+00:00",
+    "cwd": "/workspace/scratch/0218c4945941/velvet_vixxen",
+    "source_head": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "working_tree_tested": true,
+    "version": "0.8.6",
+    "php_cli": "PHP 8.3.6 (cli) (built: Jul 16 2026 18:30:41) (NTS)\nCopyright (c) The PHP Group\nZend Engine v4.3.6, Copyright (c) Zend Technologies\n    with Zend OPcache v8.3.6, Copyright (c), by Zend Technologies",
+    "python": "Python 3.12.14",
+    "source_hashes_before": {
+      "app/Core/MarketingStore.php": "34b4a528323b8be4c12141c89bbc794126b97f9cef090b62d50b160a1439ac78",
+      "app/Core/MarketingStorage.php": "74c60901971fc8a8bf5657c23243f0857cdbf3e70a8a74742d615c2bfc7e2ec8",
+      "app/Core/MarketingSqlRepository.php": "21267400e758721444be61ae1147766662f4c49f9501f1939f8a6526b4b1b511",
+      "app/Core/MarketingStorageException.php": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+      "database/migrations/202610200015_marketing_sql_storage.php": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c",
+      "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "install/services/InstallerService.php": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775",
+      "scripts/package.py": "00ca34cc58b674dd142744dbb0451ace063c0e01025e9d8e658442ad096353de"
+    },
+    "gates": [
+      {
+        "command": [
+          "php",
+          "tests/Database/migrations_mysql.php"
+        ],
+        "started_at": "2026-10-20T14:21:19.130154+00:00",
+        "finished_at": "2026-10-20T14:21:22.765998+00:00",
+        "duration_seconds": 3.612,
+        "exit_code": 0,
+        "log": "/tmp/vvx-086-existing-mysql-gates/01-migrations.log",
+        "log_sha256": "c703c18adf9850aff13ee23e58296d5faa8f0f6740e74170844e4f267f46b7fe",
+        "reported_counts": [
+          {
+            "count": 43,
+            "unit": "checks",
+            "reported_line": "Installed database update scenarios passed (43 checks; actual012→014→015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46-0ubuntu0.24.04.3)."
+          },
+          {
+            "count": 12,
+            "unit": "checks",
+            "reported_line": "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46-0ubuntu0.24.04.3)."
+          },
+          {
+            "count": 108,
+            "unit": "assertions",
+            "reported_line": "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46-0ubuntu0.24.04.3)."
+          }
+        ],
+        "reported_results": [
+          "Installed database update scenarios passed (43 checks; actual012→014→015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46-0ubuntu0.24.04.3).",
+          "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+          "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46-0ubuntu0.24.04.3).",
+          "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46-0ubuntu0.24.04.3).",
+          "MySQL migrations applied successfully (15 migrations, 84 declared tables).",
+          "MySQL migration rollback passed."
+        ],
+        "observed_package_hashes": [],
+        "package_hash_source": "Source-checkout gate; no customer ZIP is used.",
+        "database_before": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        },
+        "database_after": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        },
+        "observed_schema_counts": {
+          "migrations": 15,
+          "declared_tables": 84
+        }
+      },
+      {
+        "command": [
+          "php",
+          "tests/Installer/existing_database_mysql.php"
+        ],
+        "started_at": "2026-10-20T14:21:22.789968+00:00",
+        "finished_at": "2026-10-20T14:22:25.371512+00:00",
+        "duration_seconds": 62.563,
+        "exit_code": 0,
+        "log": "/tmp/vvx-086-existing-mysql-gates/02-existing-installer.log",
+        "log_sha256": "0c54a098d0080972f03bd6ec0b52224e7f6b32dcdf9c5ffce7d2001536cf64e1",
+        "reported_counts": [
+          {
+            "count": 971,
+            "unit": "assertions",
+            "reported_line": "Existing-database installer acceptance passed (971 assertions; PHP 8.3.6; MySQL 8.0.46-0ubuntu0.24.04.3; actual extracted customer package)."
+          }
+        ],
+        "reported_results": [
+          "PASS installer MySQL: empty database and working owner login",
+          "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+          "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+          "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+          "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+          "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+          "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+          "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+          "PASS installer MySQL: matching prior configuration restores existing keys",
+          "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+          "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+          "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+          "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+          "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+          "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+          "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+          "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+          "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+          "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+          "Existing-database installer acceptance passed (971 assertions; PHP 8.3.6; MySQL 8.0.46-0ubuntu0.24.04.3; actual extracted customer package)."
+        ],
+        "observed_package_hashes": [],
+        "package_hash_source": "Built and extracted by this suite; archive hash was not emitted or captured before cleanup.",
+        "database_before": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        },
+        "database_after": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        }
+      },
+      {
+        "command": [
+          "php",
+          "tests/Database/addon_migrations_mysql.php"
+        ],
+        "started_at": "2026-10-20T14:22:25.390778+00:00",
+        "finished_at": "2026-10-20T14:22:34.435715+00:00",
+        "duration_seconds": 9.022,
+        "exit_code": 0,
+        "log": "/tmp/vvx-086-existing-mysql-gates/03-addon-migrations.log",
+        "log_sha256": "9bc2f09f478fa5398cf177124867e92ab7c520e5d0d1c750db9f59d43ea0a6e5",
+        "reported_counts": [
+          {
+            "count": 34,
+            "unit": "assertions",
+            "reported_line": "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry"
+          },
+          {
+            "count": 183,
+            "unit": "assertions",
+            "reported_line": "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.3.6; MySQL 8.0.46-0ubuntu0.24.04.3."
+          }
+        ],
+        "reported_results": [
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.3.6; MySQL 8.0.46-0ubuntu0.24.04.3.",
+          "Add-on fixture database and extracted runtime cleanup passed."
+        ],
+        "observed_package_hashes": [],
+        "package_hash_source": "Built and extracted by this suite; archive hash was not emitted or captured before cleanup.",
+        "database_before": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        },
+        "database_after": {
+          "exit_code": 0,
+          "php": "8.3.6",
+          "mysql": "8.0.46-0ubuntu0.24.04.3",
+          "tables": 0,
+          "empty": true,
+          "error": ""
+        }
+      }
+    ],
+    "initial_database": {
+      "exit_code": 0,
+      "php": "8.3.6",
+      "mysql": "8.0.46-0ubuntu0.24.04.3",
+      "tables": 0,
+      "empty": true,
+      "error": ""
+    },
+    "finished_at": "2026-10-20T14:22:34.436462+00:00",
+    "source_hashes_after": {
+      "app/Core/MarketingStore.php": "34b4a528323b8be4c12141c89bbc794126b97f9cef090b62d50b160a1439ac78",
+      "app/Core/MarketingStorage.php": "74c60901971fc8a8bf5657c23243f0857cdbf3e70a8a74742d615c2bfc7e2ec8",
+      "app/Core/MarketingSqlRepository.php": "21267400e758721444be61ae1147766662f4c49f9501f1939f8a6526b4b1b511",
+      "app/Core/MarketingStorageException.php": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+      "database/migrations/202610200015_marketing_sql_storage.php": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c",
+      "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "install/services/InstallerService.php": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775",
+      "scripts/package.py": "00ca34cc58b674dd142744dbb0451ace063c0e01025e9d8e658442ad096353de"
+    },
+    "verified_source_unchanged": true,
+    "all_passed": true,
+    "build_id": "20261020.7",
+    "package_evidence_note": "The existing installer and add-on suites built and extracted their own customer Fresh ZIPs. Their output does not include the archive SHA-256, and no transient archive was captured before cleanup. These runs are not claimed as an independent literal recheck of the separately frozen Fresh archive.",
+    "configured_password_absent_from_logs": true
+  },
+  "packaged_browser_evidence": {
+    "status": "passed",
+    "scope": "Actual extracted final Fresh ZIP under php -S without a router script, with MySQL and independent readback; separate root desktop and nested mobile cases.",
+    "marketing_storage_package": {
+      "php": "8.3.6",
+      "playwright": "1.62.0",
+      "server": "php -S without any router script",
+      "cases": {
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "http": {
+            "checks": 141,
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "active_owner_csrf_method_and_page_guards": true,
+            "read_only_get_and_preview": true,
+            "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+            "all_record_fingerprint_stale_refusal": true,
+            "malformed_and_repeated_review_refusal": true,
+            "missing_schema_database_updates_path": true,
+            "source_sql_outbox_backups_unchanged_on_rejection": true
+          },
+          "browser": {
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "real_owner_post_actions": [
+              "apply_database_updates",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "save_link"
+            ],
+            "missing_schema_then_actual_database_update": true,
+            "review_counts_and_keyboard_focus": true,
+            "stale_browser_review_refused": true,
+            "exact_sql_import_and_independent_readback": true,
+            "refresh_and_replay_safe": true,
+            "ordinary_marketing_form_committed_to_sql": true,
+            "source_config_uploads_backups_and_outbox_preserved": true,
+            "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+            "smtp_connections": 0,
+            "smtp_messages": 0,
+            "record_counts_after_edit": {
+              "posts": 2,
+              "banners": 1,
+              "landing_pages": 1,
+              "links": 3,
+              "referral_codes": 1,
+              "contacts": 2,
+              "segments": 1,
+              "campaigns": 1,
+              "campaign_queue": 2,
+              "events": 1,
+              "consents": 2,
+              "suppressions": 1
+            },
+            "javascript_errors": [],
+            "geometry": {
+              "missing_schema": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Open Database Updates",
+                    "left": 321,
+                    "right": 575.3125,
+                    "width": 254.3125,
+                    "height": 44
+                  }
+                ]
+              },
+              "review": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Move to MySQL",
+                    "left": 321,
+                    "right": 1379,
+                    "width": 1058,
+                    "height": 44
+                  },
+                  {
+                    "text": "Cancel Review",
+                    "left": 321,
+                    "right": 1379,
+                    "width": 1058,
+                    "height": 44
+                  }
+                ]
+              },
+              "mysql": {
+                "content": 1440,
+                "viewport": 1440,
+                "controls": [
+                  {
+                    "text": "Open Marketing",
+                    "left": 321,
+                    "right": 501.515625,
+                    "width": 180.515625,
+                    "height": 44
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "http": {
+            "checks": 141,
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "active_owner_csrf_method_and_page_guards": true,
+            "read_only_get_and_preview": true,
+            "active_owner_rechecked_after_actual_move_waited_for_lock": true,
+            "all_record_fingerprint_stale_refusal": true,
+            "malformed_and_repeated_review_refusal": true,
+            "missing_schema_database_updates_path": true,
+            "source_sql_outbox_backups_unchanged_on_rejection": true
+          },
+          "browser": {
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "real_owner_post_actions": [
+              "apply_database_updates",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "preview_marketing_storage",
+              "migrate_marketing_storage",
+              "save_link"
+            ],
+            "missing_schema_then_actual_database_update": true,
+            "review_counts_and_keyboard_focus": true,
+            "stale_browser_review_refused": true,
+            "exact_sql_import_and_independent_readback": true,
+            "refresh_and_replay_safe": true,
+            "ordinary_marketing_form_committed_to_sql": true,
+            "source_config_uploads_backups_and_outbox_preserved": true,
+            "active_sql_loss_blocks_reads_and_writes_without_file_fallback": true,
+            "smtp_connections": 0,
+            "smtp_messages": 0,
+            "record_counts_after_edit": {
+              "posts": 2,
+              "banners": 1,
+              "landing_pages": 1,
+              "links": 3,
+              "referral_codes": 1,
+              "contacts": 2,
+              "segments": 1,
+              "campaigns": 1,
+              "campaign_queue": 2,
+              "events": 1,
+              "consents": 2,
+              "suppressions": 1
+            },
+            "javascript_errors": [],
+            "geometry": {
+              "missing_schema": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Open Database Updates",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              },
+              "review": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Move to MySQL",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  },
+                  {
+                    "text": "Cancel Review",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              },
+              "mysql": {
+                "content": 390,
+                "viewport": 390,
+                "controls": [
+                  {
+                    "text": "Open Marketing",
+                    "left": 35,
+                    "right": 355,
+                    "width": 320,
+                    "height": 44
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "version": "0.8.6",
+      "build_id": "20261020.7",
+      "fresh_zip_sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+      "archive_ui_matches_sources": true,
+      "browser": "155.0.8059.84"
+    },
+    "http_checks_per_case": {
+      "root-desktop": 141,
+      "nested-mobile": 141
+    },
+    "all_eight_screenshots_visually_inspected": true,
+    "further_changes_required": false,
+    "visual_review": "Owner acceptance agent inspected all eight screenshots covering database updates needed, aggregate review, SQL active and held SQL access in root desktop and nested mobile layouts. No further visual changes were required.",
+    "manifest": {
+      "log_name": "vvx-086-owner-final-manifest.json",
+      "local_path": "/tmp/vvx-086-owner-final-manifest.json",
+      "bytes": 3384,
+      "sha256": "a84f7c383d40e9c701c932c2126c187a4d76f7905059a67c8eca9776f6bd0e83"
+    },
+    "evidence_files": [
+      {
+        "log_name": "acceptance-output.log",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/acceptance-output.log",
+        "bytes": 6778,
+        "sha256": "a33bf35738fca2a6c35fe15df0e41af435bb3444d7278fde7af6af387d2bda44"
+      },
+      {
+        "log_name": "marketing-storage-browser-evidence.json",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-browser-evidence.json",
+        "bytes": 6489,
+        "sha256": "4a73ab651f8d7d26d8f7885eb1c2038be82d43bf8112a1695de633d5d862da02"
+      },
+      {
+        "log_name": "marketing-storage-nested-mobile-database-update-needed.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-nested-mobile-database-update-needed.png",
+        "bytes": 209965,
+        "sha256": "466fc4a60c95c97755a2fb27af0472ac3c7df63ebadb6ea74547b70ae46fdf69"
+      },
+      {
+        "log_name": "marketing-storage-nested-mobile-http.log",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-nested-mobile-http.log",
+        "bytes": 36402,
+        "sha256": "2d985c72fe0349f62d77ed3fca199537dbfcb34b32e73908d5dfb4312746996b"
+      },
+      {
+        "log_name": "marketing-storage-nested-mobile-mysql-active.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-nested-mobile-mysql-active.png",
+        "bytes": 363991,
+        "sha256": "6946cb5f506f3e1ac8b2a4f8656ab566b10adf192dc56788c4c3f8559585b95c"
+      },
+      {
+        "log_name": "marketing-storage-nested-mobile-review.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-nested-mobile-review.png",
+        "bytes": 361668,
+        "sha256": "59f6c014376e38f7ed7706e7af2979a02c9a18d55926672ca5c4508c5992ad7a"
+      },
+      {
+        "log_name": "marketing-storage-nested-mobile-sql-access-held.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-nested-mobile-sql-access-held.png",
+        "bytes": 178181,
+        "sha256": "db9f6869bf001c116b0bffb04f353c0e6a909fdda7bed88bd6ec9691296fe44b"
+      },
+      {
+        "log_name": "marketing-storage-root-desktop-database-update-needed.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-root-desktop-database-update-needed.png",
+        "bytes": 396064,
+        "sha256": "5814c823b70d76885163b4c1bdb426ed67b8f4c1b8348c3f7c0966d26524c124"
+      },
+      {
+        "log_name": "marketing-storage-root-desktop-http.log",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-root-desktop-http.log",
+        "bytes": 33994,
+        "sha256": "8ff87f7c49603098e32c31567e8b9d4679355a5f9b21a10506c3527253d8ef37"
+      },
+      {
+        "log_name": "marketing-storage-root-desktop-mysql-active.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-root-desktop-mysql-active.png",
+        "bytes": 658644,
+        "sha256": "9ef148dc3636f32fe0ba80d2ef70d7821bb2409ef33d84a87338e46334be77a1"
+      },
+      {
+        "log_name": "marketing-storage-root-desktop-review.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-root-desktop-review.png",
+        "bytes": 641104,
+        "sha256": "ea0412547d767dede6a30bdfe8a31738822fa171d919967fc8ec25302578088a"
+      },
+      {
+        "log_name": "marketing-storage-root-desktop-sql-access-held.png",
+        "local_path": "/tmp/vvx-086-owner-evidence-round2/marketing-storage-root-desktop-sql-access-held.png",
+        "bytes": 340709,
+        "sha256": "539f83dd56ffa5a303e4198e746300abf135ffb517e45f79498dd71ede19a317"
+      }
+    ]
+  },
+  "resolved_local_failures": [
+    {
+      "kind": "runtime installer compatibility",
+      "status": "resolved in final local source and final Fresh ZIP",
+      "scope": "Preliminary local actual-package owner acceptance; not GitHub CI.",
+      "preliminary_fresh_sha256": "340bec4e08cba65f6b51a3b480ca38b9bb20eddf83d6c5fc708f25343bc2da4d",
+      "failure": "The normal InstallerService writes metadata-only settings.installation containing version and installed_at, while installation_state carries the identity. The first adapter incorrectly required an installation_id in that metadata-only row and held valid freshly installed data.",
+      "correction": "Accept a metadata array without installation_id while validating every explicit identity and rejecting malformed, blank or conflicting values. Align the new state column and adapter identity length with the existing 190-character installer contract. Historical installer classes were unchanged and the fixture was not modified to invent an identity.",
+      "before_hashes": {
+        "app/Core/MarketingStorage.php": "b801a5f4d27edb109eb38c08beff11f5ad22fe3b17c83146b4d1c5dbc7286c23",
+        "database/migrations/202610200015_marketing_sql_storage.php": "623e471de81be1e3e3141e8c863e6e5d1f268660af346770c5a748c82bb87946"
+      },
+      "final_hashes": {
+        "app/Core/MarketingStorage.php": "74c60901971fc8a8bf5657c23243f0857cdbf3e70a8a74742d615c2bfc7e2ec8",
+        "database/migrations/202610200015_marketing_sql_storage.php": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c"
+      },
+      "verification": "Final Fresh 356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06 passed 402 SQL checks including normal metadata and 190-character identities, plus 141 owner HTTP checks in each actual-package desktop and mobile case.",
+      "log": {
+        "log_name": "acceptance-output.log",
+        "local_path": "/tmp/vvx-086-owner-evidence-round1/acceptance-output.log",
+        "bytes": 1918,
+        "sha256": "1a9c3edc0e09fadd542d5f268ccc039ef54e42ecf6116f0d3c5def8b055eb33e"
+      }
+    },
+    {
+      "kind": "test setup assertion",
+      "status": "resolved without changing runtime behavior",
+      "scope": "Initial local SQL acceptance setup; not GitHub CI.",
+      "failure": "The initial schema assertion counted 84 total tables, but the Fresh schema contains 84 declared application tables plus the migration ledger, for 85 database tables.",
+      "correction": "Count 84 declared tables and 85 total tables separately. The final actual-package SQL run reports both counts and passed 402 checks.",
+      "log": {
+        "log_name": "vvx-086-marketing-sql-first.log",
+        "local_path": "/tmp/vvx-086-marketing-sql-first.log",
+        "bytes": 518,
+        "sha256": "1dc9db9ee15b799942b3ebb7edf7f8711bbfa6394ad99aabb79c5abd52db41b1"
+      }
+    }
+  ],
+  "superseded_local_acceptance": {
+    "status": "superseded by the final 402-check supplied-package run",
+    "checks": 376,
+    "fresh_sha256": "340bec4e08cba65f6b51a3b480ca38b9bb20eddf83d6c5fc708f25343bc2da4d",
+    "scope": "Exploratory SQL run before the real installer metadata issue, maximum-length identity cases and in-flight file-write/cutover race were added; not certification of the final package.",
+    "log": {
+      "log_name": "vvx-086-marketing-sql-final-package-trial.log",
+      "local_path": "/tmp/vvx-086-marketing-sql-final-package-trial.log",
+      "bytes": 1516,
+      "sha256": "e0d9280402683bcbc1578e898c7f4e36a0845372fcaf940a978d20ef4d49bf49"
+    }
+  },
+  "package_summary": {
+    "version": "0.8.6",
+    "build_id": "20261020.7",
+    "source_base": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "source_identity_note": "Locally integrated working tree based on source_base; final source commit and exact-tree GitHub checkout are pending.",
+    "timestamp": [
+      2026,
+      10,
+      20,
+      14,
+      16,
+      8
+    ],
+    "packages": [
+      {
+        "kind": "fresh",
+        "version": "0.8.6",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Fresh-Install.zip",
+        "build_id": "20261020.7",
+        "size_bytes": 7720218,
+        "sha256": "356cf4df108ea0a7f83d4b01b31d3f0b3971c6cdbd6976ae3a5a28793c997d06",
+        "files": 356,
+        "php_files": 204,
+        "javascript_files": 12,
+        "supported_from": [],
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "config",
+          "database",
+          "images",
+          "includes",
+          "install",
+          "public",
+          "storage",
+          "templates",
+          "uploads",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ],
+        "archive_size_sha256_and_all_entry_hashes_rechecked": true
+      },
+      {
+        "kind": "upgrade",
+        "version": "0.8.6",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip",
+        "build_id": "20261020.7",
+        "size_bytes": 7562889,
+        "sha256": "31f0a67eb99dcee2861b945565a8ba610634f6376dbcd67bb12ec4b3f43eca8e",
+        "files": 315,
+        "php_files": 193,
+        "javascript_files": 12,
+        "supported_from": [
+          "0.8.0",
+          "0.8.1",
+          "0.8.2",
+          "0.8.3",
+          "0.8.4",
+          "0.8.5",
+          "0.8.6"
+        ],
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "database",
+          "images",
+          "includes",
+          "public",
+          "templates",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ],
+        "archive_size_sha256_and_all_entry_hashes_rechecked": true
+      },
+      {
+        "kind": "installer-repair",
+        "version": "0.8.1",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "repair_build_id": "20261020.3",
+        "size_bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "files": 11,
+        "php_files": 9,
+        "javascript_files": 1,
+        "supported_from": [
+          "0.8.1"
+        ],
+        "installation_state": "incomplete",
+        "root_directories": [
+          "app",
+          "includes",
+          "install",
+          "public"
+        ],
+        "root_files": [],
+        "archive_size_sha256_and_all_entry_hashes_rechecked": true
+      }
+    ],
+    "manifest": {
+      "filename": "Velvet-Vixxen-0.8.6-Build-20261020.7-package-manifest.json",
+      "bytes": 79143,
+      "sha256": "46a905da8cc8444232ec70e25d9c4b749f48aad978e6216c18befc66a4079446"
+    },
+    "verification": "Each final ZIP was read again and its size, complete archive hash and every entry hash matched the final manifest. The five frozen backend files and six owner runtime files in Fresh and Upgrade matched the integrated source literally.",
+    "installer_repair": "The unchanged eleven-file unfinished-installer repair retains version 0.8.1, repair Build 20261020.3 and its historical SHA-256. It is not relabeled as 0.8.6."
+  },
+  "frozen_runtime_hashes": {
+    "app/Core/MarketingStore.php": "34b4a528323b8be4c12141c89bbc794126b97f9cef090b62d50b160a1439ac78",
+    "app/Core/MarketingStorage.php": "74c60901971fc8a8bf5657c23243f0857cdbf3e70a8a74742d615c2bfc7e2ec8",
+    "app/Core/MarketingSqlRepository.php": "21267400e758721444be61ae1147766662f4c49f9501f1939f8a6526b4b1b511",
+    "app/Core/MarketingStorageException.php": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+    "database/migrations/202610200015_marketing_sql_storage.php": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c"
+  },
+  "integration_checks": {
+    "historical_migrations_001_through_014_unchanged": true,
+    "historical_migration_hashes": {
+      "database/migrations/202610170001_core.php": "710b6f6b79fae333f6350c1a29839acf2ca2514e3372d50abca28b1d6dcc27fc",
+      "database/migrations/202610170002_installation_and_roles.php": "6d12fdea88ae4270c60196e22acb5407e7301514443cc8cc639e7d6dfdef0ab0",
+      "database/migrations/202610170003_addon_foundation.php": "11f10fd1eb4d3493f8b0b600b878780ccff0be43d335ba8006ee8de063de1dd4",
+      "database/migrations/202610170004_media_and_commerce_foundation.php": "fdb254ca147c1e342df5e31ee3ea6300c6ad82aab7d1347f18c87735ccd5363a",
+      "database/migrations/202610180005_media_center.php": "1dd6926a4bf0e38ec7f63f453a601af102a6b551066fc5ea2b88a850af566871",
+      "database/migrations/202610180006_media_center_metadata.php": "bdadbfbfae1ea75e47f488482ab7ece1ba079f8527acd61adb9f094febd7deb6",
+      "database/migrations/202610180007_members_and_entitlements.php": "c7c2963f8e685a5f5d3cdb65477db4c16146f317c339eaebdd8ae97c39f04786",
+      "database/migrations/202610180008_subscriptions_and_ppv_commerce.php": "762e29dca53e4fda94b475cc7aba17a8080f03e19081ef163ddf5bb57fc2af34",
+      "database/migrations/202610180009_addon_framework.php": "897f1e1964069e59ac1997dd9083983c0ba70b704d35dc6e979be4f3813b98c2",
+      "database/migrations/202610180010_addon_licensing_updates.php": "9d5d5179813de4e287fc6c840c79efb4e65266046b80b0708be616deb5445147",
+      "database/migrations/202610180011_messaging_booking_requests.php": "ff6b261052eea696c3114feec7ad88ac199762fdc9d338dca8d8cd2644f50809",
+      "database/migrations/202610180012_marketing_publishing_analytics.php": "27d95b1be0202656379065cf63a29c4eeccf4d973e6076fb555b4b719855753a",
+      "database/migrations/202610190013_booking_form_builder.php": "a9b6f526e00c43954b7401ae2307ad1caca634aa18817bc7023d02a19cecacad",
+      "database/migrations/202610190014_merchandise.php": "00a943f0cef005b6bcd7bfac7ce47b0f6f550e0cae5ede05a64868e75453036a"
+    },
+    "installer_repair_classes_unchanged": true,
+    "installer_repair_source_hashes": {
+      "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "install/services/InstallerService.php": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775"
+    },
+    "all_final_package_manifest_hashes_verified": true,
+    "all_acceptance_handoff_files_match_integrated_source": true,
+    "only_file_written_for_this_evidence_task": "docs/releases/0.8.6-local-evidence.json"
+  },
+  "workflow": {
+    "schema_version": 1,
+    "status": "passed_source_wiring_review",
+    "observed_at": "2026-10-20T14:25:03.599597+00:00",
+    "scope": "Read-only source/workflow wiring review of the current local integration; no CI completion claim.",
+    "repository": "afterburn25/velvet_vixxen",
+    "base_commit": "5e8f56e864d163b7693ae10a10eb56fafd4abb3f",
+    "version": "0.8.6",
+    "expanded_jobs": [
+      "repository-contract",
+      "source-tests:8.2",
+      "source-tests:8.3",
+      "mysql-migrations:8.2",
+      "mysql-migrations:8.3",
+      "http-browser",
+      "runtime-packages"
+    ],
+    "preserved_gate_review": {
+      "all_existing_non_contract_steps_preserved_exactly": true,
+      "all_job_dependencies_matrices_and_services_preserved_exactly": true,
+      "only_condition_is_always_on_browser_artifact_upload": true,
+      "no_continue_on_error": true,
+      "installed_http_script_unchanged": true,
+      "added_source_suite_only": "tests/Feature/marketing_storage.php",
+      "new_sql_both_php_versions": "tests/Database/marketing_sql_mysql.php",
+      "new_sql_worker_required_source": "tests/Database/marketing_sql_worker.php",
+      "worker_completion_fails_on_timeout_nonzero_exit_stderr_or_invalid_json": true,
+      "new_owner_package_gate": "tests/Browser/marketing_storage_playwright.py",
+      "owner_http_runs_in_each_packaged_browser_case": true,
+      "owner_cases": [
+        "root-desktop",
+        "nested-mobile"
+      ],
+      "owner_requires_real_mysql_fixture": true,
+      "existing_private_reply_audience_publication_and_other_browser_gates_preserved": true,
+      "runtime_package_artifact_requires_all_source_mysql_browser_jobs": true,
+      "package_constants_match_independent_test": true,
+      "package_prior_delivery_fixture": "tests/Packaging/fixtures/release-0.8.5-build-20261020.6.json",
+      "visible_version_gate_mandatory": true,
+      "runtime_inventory_roots_timestamps_private_exclusions_reproducibility_installer_repair_gates_preserved": true
+    },
+    "reviewed_files": {
+      ".github/workflows/repository-ci.yml": "f78d115b9eda1058a7cc11db8dbdd51e55a3cb875538c83e42cd64c203024871",
+      "scripts/test.sh": "67b6d4169ab4227b441cb7a62bca190aedf8b35313544bace2f564fee3d4e096",
+      "scripts/test_http.sh": "8022e7aae46df63699aad7ced0c74a1e66bb1841ea5c9228d37117619bce16e3",
+      "scripts/package.py": "00ca34cc58b674dd142744dbb0451ace063c0e01025e9d8e658442ad096353de",
+      "tests/Packaging/runtime_packages.py": "3dbcb9ed9f668a38ae1328dbdfc901ae5f4e6ca0064c4695cbf936d6847e37bf",
+      "tests/Packaging/release_version.py": "8a8075bf97bd578483bd1e9b0542250a13dfb01cf682c2e60d5529c81010491d",
+      "tests/Feature/marketing_storage.php": "2b03feb73237ec192b84507b27e02b6a907cbc45bbb07648d6764dea6224a3f2",
+      "tests/Http/marketing_storage_fixture.php": "c5a5e4c1bcfc5d43d79f14935b9f4b9199210c66d5319c6cccf3b3c67f7bb9db",
+      "tests/Http/marketing_storage_http.py": "9d8a1d15364fe1a29bffe96fc9e2b5e3caf28ab1fe95c06f23e761b85cd7a6df",
+      "tests/Browser/marketing_storage_playwright.py": "4ed8a7a470c581897ef9e2c1cf7a85c7131e5bcc39e80ab18383dda4ee937ddc",
+      "tests/Database/database_update_scenarios.php": "2cfae548167ff225760a6bb67b2a4709557f67d360cf113625f4789cfecadeeb",
+      "tests/Installer/existing_database_mysql.php": "511c9cc4c4549a372e56e852aa83dab04676270980d0e6a7aba13e047b0719d4",
+      "tests/Installer/browser_database_fixture.php": "69ef9cafa350a24391b35d3b31043c919797645d48a9d6a89a516a80cd7e75c9",
+      "tests/Database/marketing_sql_mysql.php": "55f783179755fce085259b40fd09f0a28fba4f4dbc816af9dffc9331ba189079",
+      "tests/Database/marketing_sql_worker.php": "6ee2c7db6de37d4666595001194b42dcec81efa7f9094d5b783c43baf3ef71c9"
+    },
+    "pending_sql_files": {},
+    "notes": [
+      "All six final test-agent files integrated byte-identically to the frozen handoff. SQL worker review includes mandatory bounded completion/result assertions; intentional stopped-worker fixtures instead require data/lock recovery.",
+      "Prior 0.8.5 audit was consulted only for schema; it is not evidence for this changed release.",
+      "Exact GitHub source/test-merge tree, all seven checkout logs, step conclusions, runtime output and artifacts remain to be observed after publication.",
+      "SQL local supplied-ZIP acceptance count and CI default-builder acceptance count can differ by setup branch. Audit will record actual CI output counts without substituting local counts."
+    ]
+  },
+  "local_environment": {
+    "php": "8.3.6",
+    "mysql": "8.0.46-0ubuntu0.24.04.3",
+    "python": "3.12.14",
+    "playwright": "1.62.0",
+    "chromium": "155.0.8059.84",
+    "database_scope": "Separate disposable fixture schemas on local MySQL. The existing three MySQL gates ran sequentially on the backend schema, with zero tables proved before and after every gate.",
+    "smtp_scope": "Disposable loopback SMTP capture only; no external recipients or production credentials.",
+    "ci_php_matrix_pending": [
+      "8.2",
+      "8.3"
+    ]
+  },
+  "logs": [
+    {
+      "log_name": "vvx-086-source.log",
+      "local_path": "/tmp/vvx-086-source.log",
+      "bytes": 5142,
+      "sha256": "83ff5eba2e55498d026268b00ca8a8ae5e21f4ce20eba8091b001a9a40cca0e3"
+    },
+    {
+      "log_name": "vvx-086-shared-http.log",
+      "local_path": "/tmp/vvx-086-shared-http.log",
+      "bytes": 1032,
+      "sha256": "0cd8ef6051664d17ba0ceedcbb002b92a37f8966d2ed907149dd9526f3c971e9"
+    },
+    {
+      "log_name": "vvx-086-marketing-sql-corrected-trial.log",
+      "local_path": "/tmp/vvx-086-marketing-sql-corrected-trial.log",
+      "bytes": 1591,
+      "sha256": "1a1e900fc3dcb6b07f72a951339ef37f01c5ad0314f75498a63bd13d41559ad9"
+    },
+    {
+      "log_name": "acceptance-output.log",
+      "local_path": "/tmp/vvx-086-owner-evidence-round2/acceptance-output.log",
+      "bytes": 6778,
+      "sha256": "a33bf35738fca2a6c35fe15df0e41af435bb3444d7278fde7af6af387d2bda44"
+    },
+    {
+      "log_name": "acceptance-output.log",
+      "local_path": "/tmp/vvx-086-owner-evidence-round1/acceptance-output.log",
+      "bytes": 1918,
+      "sha256": "1a9c3edc0e09fadd542d5f268ccc039ef54e42ecf6116f0d3c5def8b055eb33e"
+    },
+    {
+      "log_name": "vvx-086-marketing-sql-first.log",
+      "local_path": "/tmp/vvx-086-marketing-sql-first.log",
+      "bytes": 518,
+      "sha256": "1dc9db9ee15b799942b3ebb7edf7f8711bbfa6394ad99aabb79c5abd52db41b1"
+    },
+    {
+      "log_name": "vvx-086-marketing-sql-final-package-trial.log",
+      "local_path": "/tmp/vvx-086-marketing-sql-final-package-trial.log",
+      "bytes": 1516,
+      "sha256": "e0d9280402683bcbc1578e898c7f4e36a0845372fcaf940a978d20ef4d49bf49"
+    },
+    {
+      "log_name": "summary.json",
+      "local_path": "/tmp/vvx-086-existing-mysql-gates/summary.json",
+      "bytes": 12695,
+      "sha256": "b5463a681964609e7f0fbcb322a6115684aa495e54d171dc764b1807b5045313"
+    },
+    {
+      "log_name": "01-migrations.log",
+      "local_path": "/tmp/vvx-086-existing-mysql-gates/01-migrations.log",
+      "bytes": 701,
+      "sha256": "c703c18adf9850aff13ee23e58296d5faa8f0f6740e74170844e4f267f46b7fe"
+    },
+    {
+      "log_name": "02-existing-installer.log",
+      "local_path": "/tmp/vvx-086-existing-mysql-gates/02-existing-installer.log",
+      "bytes": 2092,
+      "sha256": "0c54a098d0080972f03bd6ec0b52224e7f6b32dcdf9c5ffce7d2001536cf64e1"
+    },
+    {
+      "log_name": "03-addon-migrations.log",
+      "local_path": "/tmp/vvx-086-existing-mysql-gates/03-addon-migrations.log",
+      "bytes": 1471,
+      "sha256": "9bc2f09f478fa5398cf177124867e92ab7c520e5d0d1c750db9f59d43ea0a6e5"
+    }
+  ],
+  "external_messages_sent": 0,
+  "customer_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only",
+  "github_ci_status": "pending",
+  "merge_status": "pending",
+  "saved_delivery_status": "pending",
+  "observed_at": "2026-10-20 14:31:36 UTC"
+}

@@ -1,7 +1,23 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- marketing-sql-086:start -->
+## Current work — 0.8.6 SQL marketing persistence, Build 20261020.7
+
+Integration advances the visible version from delivered **0.8.5** to **0.8.6**, starting at authoritative `main` `5e8f56e864d163b7693ae10a10eb56fafd4abb3f` on `feature/0.8.6-marketing-sql`. Implementation and local acceptance are complete. Exact-tree GitHub CI, merge and saved-download verification are pending. Historical releases certify their own bytes only.
+
+The SQL marketing increment adds per-record MySQL persistence and a separate System → Marketing Storage owner page. Migration 015 creates two additive tables; it does not import records or change the active backend. The current active owner reviews aggregate counts, then explicitly moves the preserved marketing snapshot. Transactions, a source-bound review, installation authority, a local SQL-required intent and database-wide data/delivery locks protect the transition. Existing identifiers, tokens, consent, suppressions, saved audiences, frozen messages, queued recipients and delivery outcomes retain their meaning. The original file remains unchanged after activation.
+
+Local acceptance passed the full source/security/ownership/persistent-OPcache/package suite, all ten existing HTTP suites, 41 new source checks, 402 actual-package SQL checks, 971 existing-database installer assertions and the existing migration/add-on gates. Actual root-desktop/nested-mobile owner browser flows each passed 141 HTTP checks and verified the separate database update, stale review refusal, explicit move and subsequent SQL-backed Marketing save with zero SMTP activity. Every existing release gate remains mandatory. GitHub must independently execute the full integrated tree before release.
+
+Full Fresh/Upgrade carry **0.8.6 / Build 20261020.7**, with the exact approved 13/9 root directories and four root files. Unchanged entries retain their prior archive timestamps. The unchanged eleven-file unfinished-installer repair keeps **0.8.1 / repair Build 20261020.3**, its original hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version.
+
+File-mode sites retain file storage. SQL persistence still reconstructs a complete marketing snapshot for the existing business API; indexed reporting and large-dataset performance are not claimed. Moving storage queues or sends no email. Broader editorial access/preview/metadata/history/calendar/post expiry, scene schedules, referral attribution, analytics operations, campaign templates/tracking, missing notification workflows and provider hooks remain open under #9. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. The separate 0.9 milestone is not complete.
+
+[Release and exact evidence](docs/releases/0.8.6-marketing-sql.md) · [Marketing Storage guide](docs/MARKETING_STORAGE.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- marketing-sql-086:end -->
+
 <!-- publication-windows-085:start -->
-## Current release — 0.8.5 Publication-window editing, Build 20261020.6
+## Historical release — 0.8.5 Publication-window editing, Build 20261020.6
 
 **Version 0.8.5 is verified, merged into `main` through [PR #21](https://github.com/afterburn25/velvet_vixxen/pull/21) and delivered.** Merge `9f782d4769ef31c73f21134ec2cb6ab7e29d8bd9` completed at **2026-10-20T13:33:24Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39378794728) passed. Release source `3368ffc41e63ded8c790ad1f8e4156349a4bc4ed`, actual CI checkout `32b876eed4746c383eeb001e808c8a418d30dff9` and the merge share the complete tree `1bfae06c9576f765c6f6a32d90cfd316b33e57ee`. Later documentation recording changes no executable, test, workflow or package bytes.
 
@@ -124,11 +140,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current released baseline: **0.8.5 — Build 20261020.6 Publication-window editing; verified, merged and delivered.**
+Current integration target: **0.8.6 — Build 20261020.7 SQL marketing persistence; final acceptance pending. Released baseline: 0.8.5.**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and contains PR #15 through PR #21. Start subsequent implementation from live `main` on a scoped feature branch. Current release evidence is `docs/releases/0.8.5-publication-windows.md`; earlier records certify their historical releases only. The saved-audience and bounded publication-editing increments of #9 are complete. Marketing SQL persistence, broader editorial/scene scheduling, referral attribution and analytics remain separate open work. Preserve all required gates and approved package roots.
+`main` is the authoritative integration destination. Continue the scoped 0.8.6 branch from the recorded live-main baseline; its current acceptance is in `docs/releases/0.8.6-marketing-sql.md`. Prior evidence remains historical. Preserve every required gate and approved package root.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 
