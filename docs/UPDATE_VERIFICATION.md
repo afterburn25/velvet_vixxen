@@ -1,17 +1,17 @@
-# Update and verify Velvet Vixxen — 0.8.6 / Build 20261020.7
+# Update and verify Velvet Vixxen — 0.8.7 / Build 20261020.8
 
-Version **0.8.6**, Build **20261020.7**, adds SQL marketing persistence and an explicitly reviewed owner move. It includes the previously released publication editors, saved audiences, Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
+Version **0.8.7**, Build **20261020.8**, adds Public/Members/Selected tiers for posts, banners and landing pages, plus private saved-owner previews. It includes SQL marketing persistence, publication editors, saved audiences, Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39446912796) passed; [PR #22](https://github.com/afterburn25/velvet_vixxen/pull/22) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.6-marketing-sql.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39466086276) passed; [PR #23](https://github.com/afterburn25/velvet_vixxen/pull/23) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.7-editorial-access.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.6; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.7; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
-1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.6-Build-20261020.7-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
+1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.7-Build-20261020.8-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
 2. Sign in with the existing owner account and open **`admin/repair.php`** under this installation's URL. This entry remains usable when an older update page or PHP classes are cached. **System → Update Status** also opens this page.
-3. Require **Update files verified**, **Uploaded package: v0.8.6 · Build 20261020.7**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
-4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.7** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
+3. Require **Update files verified**, **Uploaded package: v0.8.7 · Build 20261020.8**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
+4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.8** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
 5. If the page detects forwarding files or empty route folders left by rejected Build .5, click **Restore organized folders** after file/build verification. The repair retires only the exact 46 known forwarding files and removes their 25 directories only when empty. Review its result and any custom or modified items preserved. If the page already reports that no retired compatibility files or folders remain, no folder-repair action is needed.
 6. Open Visual Composer and complete the grouped-button checks below, including a real image upload, the existing standalone **Add Button** action, retained **Full Page Preview**, and **Publish**.
 7. Open **Media Center**, edit and save a gallery caption/tag and its order, then reload and confirm exact retained photographs. Check playlist order and dates. Follow [the Media Center guide](MEDIA_CENTER.md) for stale-form recovery and the owner action or hosting scheduler that runs due publication.
@@ -94,7 +94,7 @@ Choose **Edit**, change the text, then use **Save Post**, **Save Banner** or **S
 
 Use a short window on a verification item to check before, during and after behavior. The start is included and the end is excluded. A blank start or end leaves that side open. **Ends** must be later than **Starts** when both are present; equal or reversed times must be refused without changing the saved item.
 
-Overlapping banners retain saved order: the first is **Active · shown now**; others are **Active · waiting behind the shown banner**. Editing keeps this order. Disable the shown banner to check the next active one, using a browser that has not dismissed the promotion.
+Overlapping banners retain saved order. The first active banner allowed for the current visitor is shown; later eligible banners wait behind it. The owner list distinguishes guest precedence from the order for eligible signed-in members. Editing keeps this order. Check both a guest browser and an eligible member, and disable the banner shown to that viewer to check the next eligible one. Use a browser that has not dismissed the promotion.
 
 ### Withdraw, restore and remove
 
@@ -111,6 +111,15 @@ Invalid nonempty saved dates hold the item out of public view as **Needs review*
 Valid older dates retain their meaning: absolute timestamps keep their instant, local dates use the site timezone, and date-only values mean local midnight. An unchanged valid date retains its saved instant, including during a repeated daylight-saving hour.
 
 See [Publication windows and saved promotion editors](PUBLICATION_WINDOWS.md) for the complete owner workflow.
+
+## Verify editorial access and saved-owner previews
+
+1. Open **Marketing & Publishing** and edit a saved post, banner or landing page. Under **Who can view this?**, choose **Public**, **Members** or **Selected tiers**. For selected tiers, choose at least one current enabled plan, then save. Members includes active verified free accounts. The rule takes effect with the publication's existing status and date window.
+2. Reload the editor and confirm the saved access mode and selected plans. Use a guest browser and the appropriate signed-in test accounts to check the public page. A hidden post is omitted from the listing; an ineligible detail or campaign request receives a generic not-found page. A more expensive plan does not automatically include another plan's editorial content.
+3. From the editor or list, choose **Preview Saved**. Confirm the saved content and status, including a draft or future publication. Unsaved form edits are not included. Preview links are inert, and **Back to Edit** returns to the editor. The preview does not publish or record a marketing visit.
+4. Verify that a free active verified member can see Members content but cannot see a Selected tiers item without an eligible selected subscription. Lost verification, revoked devices and deactivated accounts must remove restricted access on the next request. Disabled plans, expired subscriptions and ended grace periods remove the corresponding tier access; an otherwise active verified account retains Members access. A malformed or unavailable selected rule stays held until deliberately repaired.
+
+Use the [Editorial access guide](EDITORIAL_ACCESS.md) for the exact access, timing, cache and compatibility rules. These checks apply to both file storage and explicitly activated MySQL marketing storage; this update does not change the active backend.
 
 ## Private-reply email notices
 
@@ -141,7 +150,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.6 / Build 20261020.7** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.6-marketing-sql.md).
+Current **0.8.7 / Build 20261020.8** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.7-editorial-access.md).
 
 ### Historical baseline — Build 20261020.1
 

@@ -2,7 +2,7 @@
 
 ## Release status
 
-This guide describes the 0.8.7 / Build 20261020.8 integration. The complete local source/package suite passed; final HTTP/browser, GitHub and saved-download acceptance is pending. See the [release record](releases/0.8.7-editorial-access.md) for the current evidence.
+**Available in verified 0.8.7 / Build 20261020.8.** [PR #23](https://github.com/afterburn25/velvet_vixxen/pull/23) is merged; all seven required CI jobs passed and the saved downloads match the gated artifact literally. [The release record](releases/0.8.7-editorial-access.md) contains the exact evidence.
 
 ## Choose who can see a publication
 
@@ -46,7 +46,7 @@ The same rules apply to the protected file backend and the explicitly activated 
 
 The new source suite is mandatory in PHP 8.2 and 8.3. Both MySQL jobs run the actual-package HTTP access and preview cases at root and nested paths. The browser job additionally runs actual file/MySQL packages through desktop and mobile owner flows. Tests cover member and subscription boundaries, invalid policies and unavailable plans, fresh state, timing, generic denial, filtering before disclosure, caching, current-owner preview authorization, stale edits, request validation and preserved data. Preview checks assert no marketing events or SMTP messages.
 
-Every preceding source, installer, ownership, persistent OPcache, MySQL, HTTP, browser and package gate remains required. The current release record supplies actual results; this list is an acceptance contract until those results are recorded.
+Every preceding source, installer, ownership, persistent OPcache, MySQL, HTTP, browser and package gate remains required. The current release record supplies the executed results and exact source, CI, merge and saved-download identities.
 
 ## Remaining roadmap
 

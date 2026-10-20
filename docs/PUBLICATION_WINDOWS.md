@@ -32,9 +32,9 @@ The list reports **Draft**, **Disabled**, **Scheduled**, **Active**, **Ended**, 
 
 ## Understand which banner appears
 
-Saved banner order keeps its existing behavior: the **first active banner** is shown. Editing a banner does not move it to a different position. The owner list marks that banner **Active · shown now** and any overlapping active banners **Active · waiting behind the shown banner**.
+Saved banner order is preserved: the **first active banner eligible for the current visitor** is shown. Editing a banner does not move it to a different position. The owner list distinguishes **Active · shown now to guests**, **Active · waiting behind the shown banner for guests** and **Active · available to eligible members in this order**. Check guest and eligible member views when their access policies differ.
 
-To show the next active banner, disable the current one or adjust its dates. An expired, disabled, future or invalid banner does not block later active banners. A visitor who has dismissed the promotion may still have that dismissal remembered by their browser.
+To show the next eligible banner, disable the one shown to that visitor or adjust its dates. An expired, disabled, future, invalid or access-restricted banner does not block a later banner for an eligible visitor. A visitor who has dismissed the promotion may still have that dismissal remembered by their browser.
 
 ## Repair an invalid old date
 
@@ -52,6 +52,6 @@ Edits to other publications and new analytics events do not invalidate your form
 
 ## Scope and verification
 
-The original 0.8.5 increment used the protected marketing store and did not switch marketing data to SQL. In 0.8.6, the separate owner-reviewed [Marketing Storage](MARKETING_STORAGE.md) move adds per-record MySQL persistence. Publication edits retain the same behavior on both backends and preserve newsletter consent, saved audiences, queued addresses, frozen campaign content and unrelated marketing settings. Broader editorial access/preview/metadata/history/calendar/post expiry is the next open group; scene scheduling, referral attribution and provider connections also remain open.
+The original 0.8.5 increment used the protected marketing store and did not switch marketing data to SQL. In 0.8.6, the separate owner-reviewed [Marketing Storage](MARKETING_STORAGE.md) move adds per-record MySQL persistence. Publication edits retain the same behavior on both backends and preserve newsletter consent, saved audiences, queued addresses, frozen campaign content and unrelated marketing settings. In 0.8.7, [editorial access and private saved-owner previews](EDITORIAL_ACCESS.md) add Public/Members/Selected tiers policies and saved preview controls for posts, banners and landing pages. Metadata, history/restore, calendar and post expiry remain the next editorial work; scene scheduling, referral attribution and provider connections also remain open.
 
 Focused acceptance uses disposable stores and extracted customer packages with email disabled. It checks exact date boundaries and site-timezone conversion, valid legacy date compatibility, invalid-date visibility holds, stable identities and links, concurrent stale edits, owner and CSRF checks, banner precedence, and real desktop/mobile form interaction. Integrated release evidence is recorded in [the 0.8.5 release record](releases/0.8.5-publication-windows.md).

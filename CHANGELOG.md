@@ -1,8 +1,8 @@
-## 0.8.7 — Editorial access and owner previews, Build 20261020.8 (in progress)
+## 0.8.7 — Editorial access and owner previews, Build 20261020.8 (verified, merged and delivered)
 
 This increment adds Public, Members and Selected tiers access to the existing posts, banners and landing pages, plus an independent active-owner preview of saved content. Members includes active verified free accounts. Selected tiers uses exact currently enabled plan IDs and eligible current subscriptions, without an inferred tier hierarchy. Publication timing still applies. Invalid restrictions hold access; absent legacy policies retain public behavior. Public filtering precedes listing limits, private fields and campaign-view recording. Saved-owner previews do not publish, collect marketing events or send email.
 
-The integrated local source/package suite passed with 412 new editorial assertions. Final HTTP/browser acceptance, GitHub CI, merge and delivery are pending. See [the numbered release record](docs/releases/0.8.7-editorial-access.md).
+All seven [GitHub CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39466086276) passed; [PR #23](https://github.com/afterburn25/velvet_vixxen/pull/23) merged at 2026-10-20T17:57:08Z. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes at 2026-10-20 18:00:09 UTC.
 
 ## 0.8.6 — SQL marketing persistence, Build 20261020.7 (verified, merged and delivered)
 
