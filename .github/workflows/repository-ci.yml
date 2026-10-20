@@ -45,10 +45,15 @@ jobs:
             app/Core/MailDeliveryException.php tests/Feature/campaign_delivery.php
             tests/Http/campaign_delivery_http.py tests/Http/campaign_delivery_fixture.php
             tests/Browser/campaign_delivery_playwright.py
+            tests/Http/private_reply_email_http.py tests/Http/private_reply_email_fixture.php
             app/Core/MarketingAudience.php app/Views/admin/marketing-audiences.php
             app/Views/admin/marketing-campaign-form.php tests/Feature/marketing_audiences.php
             tests/Http/marketing_audiences_http.py tests/Http/marketing_audiences_fixture.php
             tests/Browser/marketing_audiences_playwright.py docs/NEWSLETTER_AUDIENCES.md
+            app/Core/MarketingPublication.php app/Views/admin/marketing-publication-editor.php
+            app/Views/admin/marketing-publication-list.php tests/Feature/publication_windows.php
+            tests/Http/publication_windows_http.py tests/Http/publication_windows_fixture.php
+            tests/Browser/publication_windows_playwright.py docs/PUBLICATION_WINDOWS.md
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
             app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
@@ -64,6 +69,7 @@ jobs:
             tests/Http/addon_recovery_http.py tests/Browser/addon_recovery_browser.py
             tests/Packaging/release_version.py tests/Packaging/fixtures/release-0.8.2-build-20261020.3.json
             tests/Packaging/fixtures/release-0.8.3-build-20261020.4.json
+            tests/Packaging/fixtures/release-0.8.4-build-20261020.5.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -227,6 +233,10 @@ jobs:
         run: python tests/Http/public_routes_packaged.py
       - name: Run installed HTTP suites in a disposable copy
         run: bash scripts/test_http.sh
+      - name: Keep private replies out of actual member and guest notification emails
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Http/private_reply_email_http.py
       - name: Verify packaged preview, publish and button destinations without rewrite assistance
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
@@ -281,6 +291,10 @@ jobs:
           VELVET_TEST_PYTHON: python
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: php tests/Database/addon_migrations_mysql.php --browser
+      - name: Edit publication windows through actual packaged owner and public pages
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/publication_windows_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

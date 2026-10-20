@@ -292,12 +292,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $recipient = (string) ($booking['contactEmail'] ?? '');
                 }
                 if ($recipient !== '') {
+                    $noticeBody = $memberId !== null
+                        ? "A new private reply is waiting in your account.\n\nSign in to the website to review your conversation and protected attachments:\n" . base_url('messages/?thread=' . rawurlencode($threadId))
+                        : "There is an update to your booking inquiry.\n\nPlease contact us through the website to follow up:\n" . base_url('booking/');
                     (new MailService(app_config(), $store))->send(
                         $memberId,
                         $recipient,
-                        'New private reply: ' . (string) $thread['subject'],
+                        'New private reply',
                         'communication.reply',
-                        "A new private reply is waiting.\n\nSubject: " . (string) $thread['subject'] . "\n\n" . (string) $message['body'] . "\n\nOpen the website to review the full conversation and protected attachments.",
+                        $noticeBody,
                         ['threadId' => $threadId]
                     );
                 }

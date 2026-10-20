@@ -7,13 +7,35 @@ $notice = '';
 
 require_once root_path('includes/marketing_admin.php');
 if($_SERVER['REQUEST_METHOD']==='POST'){
- try{$action=(string)($_POST['action']??'');
+ try{$action=$_POST['action']??'';
+  if (!is_string($action)) throw new InvalidArgumentException('Choose a valid marketing action.');
   if ($action === 'save_segment' && ($_POST['preview_segment'] ?? null) === '1') $action = 'preview_segment';
   if ($action === 'save_campaign' && ($_POST['preview_audience'] ?? null) === '1') $action = 'preview_campaign_audience';
-  if($action==='save_post'){$marketingStore->upsert('posts',['id'=>(string)($_POST['id']??''),'title'=>trim((string)($_POST['title']??'')),'slug'=>mm_slug((string)($_POST['slug']?:$_POST['title']??'')),'excerpt'=>trim((string)($_POST['excerpt']??'')),'body'=>trim((string)($_POST['body']??'')),'category'=>trim((string)($_POST['category']??'Update')),'status'=>(string)($_POST['status']??'draft'),'publish_at'=>(string)($_POST['publish_at']??gmdate('Y-m-d\TH:i'))]);$notice='Post saved.';}
-  elseif($action==='save_banner'){$marketingStore->upsert('banners',['id'=>(string)($_POST['id']??''),'text'=>trim((string)($_POST['text']??'')),'url'=>trim((string)($_POST['url']??'')),'enabled'=>!empty($_POST['enabled']),'starts_at'=>(string)($_POST['starts_at']??''),'ends_at'=>(string)($_POST['ends_at']??'')]);$notice='Banner saved.';}
+  if (in_array($action, ['save_post', 'save_banner', 'save_page'], true)) {
+    $publicationForm = $_POST;
+    $publicationFormCollection = ['save_post' => 'posts', 'save_banner' => 'banners', 'save_page' => 'landing_pages'][$action];
+    $savedPublication = $marketingStore->savePublication($publicationFormCollection, mm_publication_input($publicationFormCollection, $_POST));
+    $returnPublication = ['meta' => mm_publication_meta($publicationFormCollection), 'id' => $savedPublication['id']];
+    $notice = $returnPublication['meta']['name'] . ' saved. ' . $savedPublication['visibility']['state'] . '.';
+  }
+  elseif ($action === 'set_publication_enabled' || $action === 'delete_publication') {
+    $collection = $_POST['collection'] ?? null;
+    if (!is_string($collection)) throw new InvalidArgumentException('Choose a valid publication.');
+    $meta = mm_publication_meta($collection);
+    $id = \Velvet\Core\MarketingPublication::id($_POST['id'] ?? null);
+    $revision = $_POST['publication_revision'] ?? null;
+    if (!is_string($revision)) throw new InvalidArgumentException('Reload the publication before changing it.');
+    if ($action === 'delete_publication') {
+      $marketingStore->deletePublication($collection, $id, $revision);
+      $notice = $meta['name'] . ' removed.';
+    } else {
+      if (!in_array($_POST['enabled'] ?? null, ['0', '1'], true)) throw new InvalidArgumentException('Choose a valid visibility setting.');
+      $savedPublication = $marketingStore->setPublicationEnabled($collection, $id, $_POST['enabled'] === '1', $revision);
+      $notice = $meta['name'] . ' updated. ' . $savedPublication['visibility']['state'] . '.';
+    }
+    $returnPublicationTab = $meta['tab'];
+  }
   elseif($action==='save_link'){$marketingStore->upsert('links',['id'=>(string)($_POST['id']??''),'label'=>trim((string)($_POST['label']??'')),'url'=>trim((string)($_POST['url']??'')),'enabled'=>!empty($_POST['enabled']),'sort'=>(int)($_POST['sort']??0)]);$notice='Link saved.';}
-  elseif($action==='save_page'){$marketingStore->upsert('landing_pages',['id'=>(string)($_POST['id']??''),'title'=>trim((string)($_POST['title']??'')),'slug'=>mm_slug((string)($_POST['slug']?:$_POST['title']??'')),'eyebrow'=>trim((string)($_POST['eyebrow']??'Special Offer')),'excerpt'=>trim((string)($_POST['excerpt']??'')),'body'=>trim((string)($_POST['body']??'')),'cta_label'=>trim((string)($_POST['cta_label']??'Learn More')),'cta_url'=>trim((string)($_POST['cta_url']??'')),'enabled'=>!empty($_POST['enabled']),'starts_at'=>(string)($_POST['starts_at']??''),'ends_at'=>(string)($_POST['ends_at']??'')]);$notice='Campaign page saved.';}
   elseif($action==='save_referral'){$marketingStore->upsert('referral_codes',['id'=>(string)($_POST['id']??''),'code'=>strtoupper(preg_replace('/[^A-Za-z0-9_-]/','',(string)($_POST['code']??''))),'label'=>trim((string)($_POST['label']??'')),'enabled'=>!empty($_POST['enabled'])]);$notice='Referral code saved.';}
   elseif ($action === 'save_segment' || $action === 'preview_segment') {
     $segmentForm = $_POST;
@@ -99,11 +121,22 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $notice = $stats['busy'] ? 'Another campaign batch is running. No duplicate worker was started.'
       : ($stats['held'] ?: sprintf('Batch finished: %d accepted by the mail transport, %d failed, %d unknown, %d suppressed.', $stats['accepted'], $stats['failed'], $stats['unknown'], $stats['suppressed']));
   }
-  elseif($action==='delete'){ $marketingStore->delete((string)$_POST['collection'],(string)$_POST['id']);$notice='Item removed.'; }
+  elseif($action==='delete'){
+    $collection = $_POST['collection'] ?? null;
+    $id = $_POST['id'] ?? null;
+    if (!is_string($collection) || !is_string($id)) throw new InvalidArgumentException('Choose a saved item.');
+    if (in_array($collection, ['posts', 'banners', 'landing_pages'], true)) {
+      $revision = $_POST['publication_revision'] ?? null;
+      if (!is_string($revision)) throw new InvalidArgumentException('Reload the publication before removing it.');
+      $marketingStore->deletePublication($collection, $id, $revision);
+    } else $marketingStore->delete($collection, $id);
+    $notice='Item removed.';
+  }
  }catch(Throwable $e){$notice='';$error=(!empty($campaignDraftSaved) ? 'The campaign draft was saved, but no new recipients were queued. ' : '') . $e->getMessage();}
 }
 if ($notice !== '') {
   flash('success', $notice);
-  $returnTab = preg_replace('/[^a-z]/', '', (string) ($_GET['tab'] ?? 'overview')) ?: 'overview';
-  redirect(base_url('admin/?page=marketing&tab=' . $returnTab . (isset($returnSegment) ? '&edit_segment=' . rawurlencode($returnSegment) : '')));
+  $returnTab = $returnPublication['meta']['tab'] ?? $returnPublicationTab ?? (preg_replace('/[^a-z]/', '', is_string($_GET['tab'] ?? null) ? $_GET['tab'] : 'overview') ?: 'overview');
+  $returnEdit = isset($returnPublication) ? '&' . $returnPublication['meta']['edit'] . '=' . rawurlencode($returnPublication['id']) : (isset($returnSegment) ? '&edit_segment=' . rawurlencode($returnSegment) : '');
+  redirect(base_url('admin/?page=marketing&tab=' . $returnTab . $returnEdit));
 }

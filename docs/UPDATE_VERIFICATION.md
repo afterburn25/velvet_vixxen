@@ -1,17 +1,17 @@
-# Update and verify Velvet Vixxen — 0.8.4 / Build 20261020.5
+# Update and verify Velvet Vixxen — 0.8.5 / Build 20261020.6
 
-Version **0.8.4**, Build **20261020.5**, adds newsletter audiences. It includes the previously released Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
+Version **0.8.5**, Build **20261020.6**, adds publication-window editing. It includes the previously released Media Center, add-on recovery, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39376462679) passed; [PR #20](https://github.com/afterburn25/velvet_vixxen/pull/20) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.4-newsletter-audiences.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
+**Current evidence:** local 0.8.5 source and packaged acceptance passed; GitHub CI, merge and saved-download verification are pending. Use [the numbered release record](releases/0.8.5-publication-windows.md) for current evidence. Historical CI does not certify this changed runtime. The affected customer host remains unverified.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.4; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.5; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
-1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.4-Build-20261020.5-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
+1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.5-Build-20261020.6-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
 2. Sign in with the existing owner account and open **`admin/repair.php`** under this installation's URL. This entry remains usable when an older update page or PHP classes are cached. **System → Update Status** also opens this page.
-3. Require **Update files verified**, **Uploaded package: v0.8.4 · Build 20261020.5**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
-4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.5** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
+3. Require **Update files verified**, **Uploaded package: v0.8.5 · Build 20261020.6**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
+4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.6** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
 5. If the page detects forwarding files or empty route folders left by rejected Build .5, click **Restore organized folders** after file/build verification. The repair retires only the exact 46 known forwarding files and removes their 25 directories only when empty. Review its result and any custom or modified items preserved. If the page already reports that no retired compatibility files or folders remain, no folder-repair action is needed.
 6. Open Visual Composer and complete the grouped-button checks below, including a real image upload, the existing standalone **Add Button** action, retained **Full Page Preview**, and **Publish**.
 7. Open **Media Center**, edit and save a gallery caption/tag and its order, then reload and confirm exact retained photographs. Check playlist order and dates. Follow [the Media Center guide](MEDIA_CENTER.md) for stale-form recovery and the owner action or hosting scheduler that runs due publication.
@@ -75,6 +75,46 @@ For scheduled hosting execution, run `php app/Console/run_marketing.php --limit=
 
 See [Newsletter audiences](NEWSLETTER_AUDIENCES.md) for criteria, edit behavior and limits.
 
+## Verify saved posts, promotion banners and landing pages
+
+Open **Marketing & Publishing → Posts**, **Banners**, or the **Campaign Landing Page** area under **Campaigns** as the owner. Dates use the displayed site timezone. Visibility updates on the next public request; no publication cron job is needed.
+
+### Edit the same saved item
+
+Choose **Edit**, change the text, then use **Save Post**, **Save Banner** or **Save Page**. Confirm that saving and reloading reopen the same item without a duplicate. Posts and landing pages keep their **Slug** and **View** address. Verify saved paragraph breaks, banner **Link**, and landing-page **Button label** and **Button link**.
+
+### Check publication times and windows
+
+| Item | Owner controls | Expected public behavior |
+| --- | --- | --- |
+| Post | **Status**, **Publish at**, **Save Post** | `draft` stays hidden. A `published` post with a future date is **Scheduled** and becomes **Active** at that moment. A published post with a blank date is visible immediately. |
+| Banner | **Enabled**, **Starts**, **Ends**, **Save Banner** | Before the start it is **Scheduled**; from the start until the end it can be shown; at the end it is **Ended** and disappears. |
+| Landing page | **Enabled**, **Starts**, **Ends**, **Save Page** | Its **View** address is unavailable before the start and from the end onward. It is available during the enabled window. |
+
+Use a short window on a verification item to check before, during and after behavior. The start is included and the end is excluded. A blank start or end leaves that side open. **Ends** must be later than **Starts** when both are present; equal or reversed times must be refused without changing the saved item.
+
+Overlapping banners retain saved order: the first is **Active · shown now**; others are **Active · waiting behind the shown banner**. Editing keeps this order. Disable the shown banner to check the next active one, using a browser that has not dismissed the promotion.
+
+### Withdraw, restore and remove
+
+**Move to draft** hides a post; **Publish** honors its saved date, so a future post remains scheduled. **Disable** withdraws a banner or landing page; **Enable** honors its saved window, including an end that has passed. These controls retain content, links and dates.
+
+Use **Delete** on a disposable verification post and confirm that its row and **View** address are gone while other posts remain. Banners and landing pages have **Disable** as their visible withdrawal control.
+
+### Check stale edits and older dates
+
+Open an item in two tabs. Save in the first, then try saving or changing visibility from the older tab. It must refuse the stale request and preserve the newer version. The rejected editor keeps your attempted text; reload the current item before reapplying it. A site timezone change also requires reloading. Edits to other items do not invalidate the form.
+
+Invalid nonempty saved dates hold the item out of public view as **Needs review**. **Edit** shows the original value for repair. Enter a real local value in `YYYY-MM-DDTHH:MM` format, or deliberately clear it using the blank-date behavior above. Impossible dates, relative phrases and skipped daylight-saving times are refused. **Move to draft** or **Disable** remains available; publishing or enabling requires repaired dates.
+
+Valid older dates retain their meaning: absolute timestamps keep their instant, local dates use the site timezone, and date-only values mean local midnight. An unchanged valid date retains its saved instant, including during a repeated daylight-saving hour.
+
+See [Publication windows and saved promotion editors](PUBLICATION_WINDOWS.md) for the complete owner workflow.
+
+## Private-reply email notices
+
+Version **0.8.5 / Build 20261020.6** keeps private reply subjects, message bodies and attachment names out of notification emails. Member notices link to the conversation after sign-in. Guest booking notices ask the recipient to contact the site to follow up; they do not promise guest access to an authenticated conversation. The complete reply stays on the site, and internal notes send no email.
+
 ## Approved package layout
 
 | Variant | Allowed root directories | Root files |
@@ -88,7 +128,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.4 / Build 20261020.5** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.4-newsletter-audiences.md).
+Current **0.8.5 / Build 20261020.6** GitHub gates, merge and saved-download verification are pending. Final evidence will be recorded in [the release record](releases/0.8.5-publication-windows.md) after completion.
 
 ### Historical baseline — Build 20261020.1
 

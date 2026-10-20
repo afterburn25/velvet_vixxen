@@ -1,0 +1,358 @@
+{
+  "schema_version": 1,
+  "version": "0.8.5",
+  "build_id": "20261020.6",
+  "status": "local acceptance passed; final GitHub CI, merge and saved delivery pending",
+  "integration_baseline": "031fef7d46d283a135d3c3da5cd7a923aff6cada",
+  "previous_verified_source": "b7a7559b7fe44c97d8604af24d56539bb009098b",
+  "previous_delivery_version": "0.8.4",
+  "isolated_acceptance_baseline": "b7a7559b7fe44c97d8604af24d56539bb009098b",
+  "input_publication_patch": {
+    "path": "/tmp/vvx-publication-handoff.patch",
+    "sha256": "1d310ef8707e3c51e977bcadccd339796eb6ac044c1482564c337b1ca51b59cd",
+    "paths": 15
+  },
+  "frozen_integration_patch": {
+    "path": "/tmp/vvx-085-integration.patch",
+    "bytes": 254066,
+    "sha256": "c0ecb91d91801adb01d60fe8e843775cdc93fe6e7a37496e1b39479de98108d9"
+  },
+  "private_reply_correction": {
+    "delta_sha256": "bf11b671c07f3c11ce2eccf8b717d0aad1de505c17c081bc97b47086b080ed58",
+    "runtime_path": "admin/index.php",
+    "negative_control": {
+      "runtime_before_sha256": "80a6afb8dbb532e846128f6ba7718734fc10bba7c833883b7ee6c57e5393ea4a",
+      "exit_code": 1,
+      "failure": "Serialized member notice exposed: private subject, private body",
+      "scope": "Actual Fresh package with pre-fix admin/index.php; the SMTP assertion inspects decoded headers/body and raw DATA."
+    },
+    "preceding_unreleased_fresh_sha256": "c5ef3e26c51635090aed1277332ed26e2b2134a9be5ed9b2d29ab8c5bae900db",
+    "preceding_local_proof_superseded_for_release": true,
+    "final_package_privacy_proof": "Included in packaged_browser_evidence and bound to the final corrected Fresh hash."
+  },
+  "source_gate": {
+    "status": "passed",
+    "new_publication_assertions": 134,
+    "preserved_audience_assertions": 149,
+    "preserved_campaign_assertions": 41
+  },
+  "shared_http_gate": {
+    "status": "passed",
+    "suites": 10
+  },
+  "packaged_browser_evidence": {
+    "private_reply_package": {
+      "php": "8.3.6",
+      "cases": {
+        "root": {
+          "assertions": 50,
+          "member_and_guest_private_subject_body_absent": true,
+          "attachment_names_absent": true,
+          "in_site_content_and_protection_preserved": true,
+          "internal_notes_send_none": true,
+          "local_smtp_messages": 2,
+          "external_messages_sent": 0
+        },
+        "nested": {
+          "assertions": 50,
+          "member_and_guest_private_subject_body_absent": true,
+          "attachment_names_absent": true,
+          "in_site_content_and_protection_preserved": true,
+          "internal_notes_send_none": true,
+          "local_smtp_messages": 2,
+          "external_messages_sent": 0
+        }
+      },
+      "build_id": "20261020.6",
+      "fresh_zip_sha256": "66e565dda69938cdadc80cc8780860d6e339a00c1b632721e6d3107b2c3cede3"
+    },
+    "publication_package": {
+      "php": "8.3.6",
+      "playwright": "1.62.0",
+      "server": "php -S without router fallback",
+      "cases": {
+        "root-http": {
+          "assertions": 105,
+          "real_owner_http": true,
+          "stable_identity_permalink": true,
+          "site_timezone": "America/New_York",
+          "strict_dates_and_stale_rejections": true,
+          "public_before_during_after": true,
+          "explicit_banner_precedence": true,
+          "current_owner_csrf": true,
+          "frozen_campaigns_preserved": true,
+          "external_messages_sent": 0
+        },
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "stable_edit_permalink": true,
+          "stale_browser_form_preserved": true,
+          "publication_before_during_after": true,
+          "banner_precedence_disable": true,
+          "legacy_date_repair": true,
+          "no_horizontal_overflow_or_clipped_controls": true,
+          "frozen_campaigns_preserved": true,
+          "external_messages_sent": 0
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "stable_edit_permalink": true,
+          "stale_browser_form_preserved": true,
+          "publication_before_during_after": true,
+          "banner_precedence_disable": true,
+          "legacy_date_repair": true,
+          "no_horizontal_overflow_or_clipped_controls": true,
+          "frozen_campaigns_preserved": true,
+          "external_messages_sent": 0
+        }
+      },
+      "build_id": "20261020.6",
+      "fresh_zip_sha256": "66e565dda69938cdadc80cc8780860d6e339a00c1b632721e6d3107b2c3cede3",
+      "browser": "155.0.8059.84"
+    },
+    "audience_package": {
+      "php": "8.3.6",
+      "playwright": "1.62.0",
+      "server": "php -S without router fallback",
+      "cases": {
+        "root-http": {
+          "assertions": 44,
+          "real_owner_http": true,
+          "source_date_preview_exact": true,
+          "preview_staleness_preserves_queue": true,
+          "frozen_rules_after_edit_delete": true,
+          "explicit_append_only_requeue": true,
+          "current_owner_and_csrf": true,
+          "mail_mode": "disabled",
+          "external_messages_sent": 0
+        },
+        "root-desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 1000
+          },
+          "source_date_preview": true,
+          "stale_preview_retry": true,
+          "stale_segment_tab_rejected": true,
+          "queued_rules_survive_edit_delete": true,
+          "explicit_append_only_requeue": true,
+          "public_unsubscribe_suppresses_selected_delivery": true,
+          "no_horizontal_overflow_or_clipped_controls": true,
+          "mail_mode": "disabled",
+          "external_messages_sent": 0
+        },
+        "nested-mobile": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "source_date_preview": true,
+          "stale_preview_retry": true,
+          "stale_segment_tab_rejected": true,
+          "queued_rules_survive_edit_delete": true,
+          "explicit_append_only_requeue": true,
+          "public_unsubscribe_suppresses_selected_delivery": true,
+          "no_horizontal_overflow_or_clipped_controls": true,
+          "mail_mode": "disabled",
+          "external_messages_sent": 0
+        }
+      },
+      "build_id": "20261020.6",
+      "fresh_zip_sha256": "66e565dda69938cdadc80cc8780860d6e339a00c1b632721e6d3107b2c3cede3",
+      "browser": "155.0.8059.84"
+    }
+  },
+  "package_summary": {
+    "version": "0.8.5",
+    "build_id": "20261020.6",
+    "source_base": "b7a7559b7fe44c97d8604af24d56539bb009098b",
+    "timestamp": [
+      2026,
+      10,
+      20,
+      5,
+      46,
+      48
+    ],
+    "packages": [
+      {
+        "kind": "fresh",
+        "version": "0.8.5",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.5-Build-20261020.6-Fresh-Install.zip",
+        "build_id": "20261020.6",
+        "size_bytes": 7704480,
+        "sha256": "66e565dda69938cdadc80cc8780860d6e339a00c1b632721e6d3107b2c3cede3",
+        "files": 349,
+        "php_files": 197,
+        "javascript_files": 12,
+        "supported_from": [],
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "config",
+          "database",
+          "images",
+          "includes",
+          "install",
+          "public",
+          "storage",
+          "templates",
+          "uploads",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ],
+        "changed_timestamp_entries": 14,
+        "unchanged_timestamp_entries": 335,
+        "changed_runtime_files": [
+          "VERSION",
+          "admin/index.php",
+          "app/Core/MarketingPublication.php",
+          "app/Core/MarketingStore.php",
+          "app/Views/admin/marketing-actions.php",
+          "app/Views/admin/marketing-publication-editor.php",
+          "app/Views/admin/marketing-publication-list.php",
+          "app/Views/admin/marketing.php",
+          "includes/marketing_admin.php",
+          "includes/runtime-build.json",
+          "includes/version.php",
+          "public/assets/css/marketing.css",
+          "public/routes/blog/index.php",
+          "public/routes/blog/post.php"
+        ]
+      },
+      {
+        "kind": "upgrade",
+        "version": "0.8.5",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.5-Build-20261020.6-Upgrade-from-0.8.x.zip",
+        "build_id": "20261020.6",
+        "size_bytes": 7547143,
+        "sha256": "fda7c33c4a6eb021b2b580162f8f9ab6e6d96a44d3cf6177ac7c2f855e876278",
+        "files": 308,
+        "php_files": 186,
+        "javascript_files": 12,
+        "supported_from": [
+          "0.8.0",
+          "0.8.1",
+          "0.8.2",
+          "0.8.3",
+          "0.8.4",
+          "0.8.5"
+        ],
+        "root_directories": [
+          "addons",
+          "admin",
+          "app",
+          "database",
+          "images",
+          "includes",
+          "public",
+          "templates",
+          "vendor"
+        ],
+        "root_files": [
+          ".htaccess",
+          "VERSION",
+          "index.php",
+          "route.php"
+        ]
+      },
+      {
+        "kind": "installer-repair",
+        "version": "0.8.1",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "repair_build_id": "20261020.3",
+        "size_bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "files": 11,
+        "php_files": 9,
+        "javascript_files": 1,
+        "supported_from": [
+          "0.8.1"
+        ],
+        "installation_state": "incomplete",
+        "root_directories": [
+          "app",
+          "includes",
+          "install",
+          "public"
+        ],
+        "root_files": [],
+        "literally_identical_to_previous": true
+      }
+    ],
+    "manifest": {
+      "filename": "Velvet-Vixxen-0.8.5-Build-20261020.6-package-manifest.json",
+      "bytes": 77444,
+      "sha256": "0c52d8dcd377332ae2335f3a264b3d5cc66bc1f12c8621f26d1754e49b642f7a"
+    }
+  },
+  "workflow": {
+    "effective_jobs": 7,
+    "all_old_steps_and_matrices_preserved": true,
+    "generic_ten_suite_http_unchanged": true,
+    "both_disposable_mysql_trigger_setup_steps_preserved": true,
+    "audience_runner_preserved": true,
+    "publication_runner_mandatory_before_evidence_upload": true,
+    "independent_wiring_review": "mail_backend: no blocker",
+    "private_reply_package_runner_mandatory": true,
+    "independent_integrated_review": "github_audit verified all three privacy hashes, mandatory workflow and timestamp coverage; no blocker."
+  },
+  "local_environment": {
+    "php": "8.3.6",
+    "playwright": "1.62.0",
+    "browser": "155.0.8059.84",
+    "server": "php -S without router fallback"
+  },
+  "logs": [
+    {
+      "log_name": "vvx-085-source-private-notice.log",
+      "bytes": 5013,
+      "sha256": "a7c9154af80d0ad0e3c8caa4b49a72d8953e501be1c122734eba9de80b9767e2"
+    },
+    {
+      "log_name": "vvx-085-http-private-notice.log",
+      "bytes": 1032,
+      "sha256": "0cd8ef6051664d17ba0ceedcbb002b92a37f8966d2ed907149dd9526f3c971e9"
+    },
+    {
+      "log_name": "vvx-085-private-notice-smtp.log",
+      "bytes": 641,
+      "sha256": "da0ae195e8e2d97927a92c957812c91dfd9da18e83e28165dbae38feaea75c6b"
+    },
+    {
+      "log_name": "vvx-085-publication-private-notice.log",
+      "bytes": 345,
+      "sha256": "ca245e3cf5662f938bd5832b1b974c1eb501b03be5688a54af4659034b850ea3"
+    },
+    {
+      "log_name": "vvx-085-audience-private-notice.log",
+      "bytes": 349,
+      "sha256": "65144afedb4be5b30ae475a05d01343237130248ede30be3941b3158dc6253f8"
+    }
+  ],
+  "integration_checks": {
+    "frozen_handoff_bytes": "verified before documentation changes",
+    "visible_version_gate": "passed: 0.8.5 advanced from verified 0.8.4",
+    "actual_previous_source_pin": "b7a7559b7fe44c97d8604af24d56539bb009098b",
+    "runtime_package_contract": "passed after application to final 0.8.4 main; exact prepared bytes reproduced",
+    "generic_http_runner_unchanged": true
+  },
+  "visual_review": "Root inspected corrected final-package desktop post editing and nested-mobile overlapping banners. The version/build are visible, controls are usable, and no horizontal overflow or visual blocker was observed. Package browser proofs bind the final corrected Fresh hash.",
+  "external_messages_sent": 0,
+  "customer_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only",
+  "observed_at": "2026-10-20 06:08:35 UTC"
+}
