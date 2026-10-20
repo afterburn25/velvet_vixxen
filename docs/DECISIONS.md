@@ -1,5 +1,14 @@
 # Architecture and Product Decisions
 
+## Grouped actions and guarded campaign delivery (2026-10-20)
+
+- Store optional shared `scene.contentButtons` separately from per-device group geometry. Absence preserves automatic legacy Hero/Footer actions; an explicit empty list intentionally removes group buttons. The right inspector supports up to eight ordered live actions. Photo cutouts and independent button layers remain separate.
+- Validate destinations before persistence and again when rendering legacy content. Keep automatic account/trailer behavior, escaped live HTML, owner-only draft preview and published history. Local links use the existing physical dispatcher and installation prefix.
+- Campaign queueing freezes content and deduplicates normalized recipients. Current confirmed consent, suppression, schedule and enabled/paused state are checked again before body transmission; unsubscribe always remains available.
+- Preserve protected JSON for this bounded increment. Use separate worker and short fresh-state mutation locks, atomic replacement and revision guards; do not hold a user's PHP session lock across SMTP waits. Marketing SQL storage remains explicit roadmap work.
+- Treat transport acceptance, definite failure and unknown acknowledgement as distinct outcomes. Retry definite failures only through an explicit owner action with cooldown and attempt limits. Hold unknown or interrupted transmission without automatic resend; deliberate pre-transmission pauses do not spend an attempt.
+- Reuse the existing installation-configured mail transport. Independent signup/delivery switches do not configure SMTP. An owner SMTP editor and production transport verification remain separate work. Customer runtime layout, private-state exclusions and sandbox-only payments stay locked.
+
 ## Organized root and central public routing correction (2026-10-19)
 
 - The owner explicitly rejected the agent-authored physical root compatibility folders. Restore the pre-regression 13-directory fresh and nine-directory upgrade allowlists and four root files: `.htaccess`, `VERSION`, `index.php`, `route.php`.

@@ -2,6 +2,8 @@
 
 ## Build 20261020.1 grouped buttons and campaign delivery
 
+**Executed release evidence:** all seven [CI jobs in run 39352867755](https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755) passed against the complete source tree of `9fcd355c6f7207287ab42babe04c80b3f3968a62`; PR #16 is actually merged and saved downloads match the gated bytes. See the grouped-buttons CI/delivery records and current `docs/TEST_REPORT.md`. The earlier root-layout and installed-update blocks below are historical evidence, not the current branch or merge state.
+
 The required source suite now includes `tests/Feature/scene_group_buttons.php` (139 assertions) and `tests/Feature/campaign_delivery.php` (41 assertions including concurrent storage writers). The source matrix explicitly enables DOM for the actual public-HTML regression; the application adds no runtime extension requirement.
 
 `bash scripts/test_http.sh` now runs eight suites, including `tests/Http/campaign_delivery_http.py`. That new suite uses only reserved synthetic recipients and a server bound to 127.0.0.1. It tests real configured SMTP and HTTP actions, nested unsubscribe, schedules, independent switches, duplicate exclusion, retries, uncertain acknowledgement and concurrent unsubscribe/pause. Two PHP workers share the owner's real session so a held session lock cannot make the pause test pass incorrectly.

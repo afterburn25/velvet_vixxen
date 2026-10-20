@@ -1,0 +1,264 @@
+{
+  "repository": "afterburn25/velvet_vixxen",
+  "version": "0.8.1",
+  "build_id": "20261020.1",
+  "source_sha": "9fcd355c6f7207287ab42babe04c80b3f3968a62",
+  "source_tree": "63b758a153a721a1aabf424aead6b9f01867820f",
+  "source_branch": "feature/0.8.1-group-buttons-campaign-delivery",
+  "pr": 16,
+  "merge_sha": "0c4d6be5516c9c777c31524a33cd30c4d337f1d7",
+  "merged_at": "2026-10-20T01:35:24Z",
+  "checkout_sha": "5ccb46beadabe558b5bd4ccb907a8e6185532615",
+  "run_id": 39352867755,
+  "schema": 1,
+  "saved_readback_verified_at_utc": "2026-10-20T01:38:30.959852+00:00",
+  "artifact_id": 12234860155,
+  "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755/artifacts/12234860155",
+  "artifact_size_bytes": 15345732,
+  "artifact_sha256": "2d568b959d0fd2ffec167ce43fb76cc5bcf69f6d210fbfeae52b2d4a060a0f62",
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Fresh-Install.zip",
+      "size_bytes": 7638294,
+      "entries": 328,
+      "sha256": "912198e2379f17c81cb361d803df1f639fe2cb4cc32ba7ba4064b94d95fa5bfb",
+      "root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "config",
+        "database",
+        "images",
+        "includes",
+        "install",
+        "public",
+        "storage",
+        "templates",
+        "uploads",
+        "vendor"
+      ],
+      "root_files": [
+        ".htaccess",
+        "VERSION",
+        "index.php",
+        "route.php"
+      ],
+      "entry_change_counts_from_prior": {
+        "added": 3,
+        "removed": 0,
+        "changed": 16
+      }
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7482635,
+      "entries": 287,
+      "sha256": "720382aa2ee843d08608002c5b51462068b088c4dc84a100aea17fc60f3f1fa8",
+      "root_directories": [
+        "addons",
+        "admin",
+        "app",
+        "database",
+        "images",
+        "includes",
+        "public",
+        "templates",
+        "vendor"
+      ],
+      "root_files": [
+        ".htaccess",
+        "VERSION",
+        "index.php",
+        "route.php"
+      ],
+      "entry_change_counts_from_prior": {
+        "added": 3,
+        "removed": 0,
+        "changed": 16
+      }
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Installer-Database-Repair.zip",
+      "size_bytes": 51241,
+      "entries": 8,
+      "sha256": "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38",
+      "root_directories": [
+        "app",
+        "includes",
+        "install",
+        "public"
+      ],
+      "root_files": [],
+      "entry_change_counts_from_prior": {
+        "added": 0,
+        "removed": 0,
+        "changed": 0
+      }
+    },
+    {
+      "kind": "composer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Media-Composer-Repair.zip",
+      "size_bytes": 203887,
+      "entries": 86,
+      "sha256": "22ca30bb8930f50f582cee83329e17ab670941072b3f69b9f808515933706ea4",
+      "root_directories": [
+        "admin",
+        "app",
+        "includes",
+        "public"
+      ],
+      "root_files": [
+        ".htaccess",
+        "route.php"
+      ],
+      "entry_change_counts_from_prior": {
+        "added": 7,
+        "removed": 0,
+        "changed": 12
+      }
+    }
+  ],
+  "saved_downloads": [
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Upgrade-from-0.8.x.zip",
+      "size_bytes": 7482635,
+      "sha256": "720382aa2ee843d08608002c5b51462068b088c4dc84a100aea17fc60f3f1fa8",
+      "saved_bytes_equal_gated_artifact": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Fresh-Install.zip",
+      "size_bytes": 7638294,
+      "sha256": "912198e2379f17c81cb361d803df1f639fe2cb4cc32ba7ba4064b94d95fa5bfb",
+      "saved_bytes_equal_gated_artifact": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Media-Composer-Repair.zip",
+      "size_bytes": 203887,
+      "sha256": "22ca30bb8930f50f582cee83329e17ab670941072b3f69b9f808515933706ea4",
+      "saved_bytes_equal_gated_artifact": true
+    },
+    {
+      "filename": "Velvet-Vixxen-0.8.1-Build-20261020.1-package-manifest.json",
+      "size_bytes": 82236,
+      "sha256": "c8193e73682d29258142fc7ad6d92a3568e473adb2ddb843fea66f992beec60f",
+      "saved_bytes_equal_gated_artifact": true
+    }
+  ],
+  "all_four_saved_files_match_gated_artifact": true,
+  "runtime_literal_files_matching_public_source_commit": 327,
+  "generated_inventory_inputs": 286,
+  "repository_safety_scan": "passed",
+  "package_exclusions": {
+    "exact_fresh_13_directories_and_4_root_files": true,
+    "exact_upgrade_9_directories_and_4_root_files": true,
+    "safe_relative_paths_no_symlinks_or_duplicates": true,
+    "all_outer_archive_files_regular_0644": true,
+    "zip_crc_and_builder_manifest_hashes": true,
+    "no_repository_docs_tests_workflows_sdk_source_screenshots": true,
+    "no_installed_config_logs_sessions_backups_or_runtime_records": true,
+    "fresh_private_collections_empty_or_absent": [
+      "addonActivity",
+      "addonBackups",
+      "addonDownloadTokens",
+      "addonLicenseActivations",
+      "addonLicenseTransactions",
+      "addonLicenses",
+      "admins",
+      "audit",
+      "bookingRequests",
+      "campaignAttempts",
+      "campaignDeliveries",
+      "campaignRecipients",
+      "communicationBlocks",
+      "contentRequests",
+      "couponRedemptions",
+      "entitlements",
+      "issuedAddonLicenses",
+      "mailOutbox",
+      "memberEvents",
+      "memberMediaState",
+      "memberNotifications",
+      "memberSessions",
+      "memberTokens",
+      "members",
+      "messageAttachments",
+      "messageThreads",
+      "messages",
+      "newsletterContacts",
+      "orderItems",
+      "orders",
+      "paymentTransactions",
+      "paymentWebhookEvents",
+      "requestAttachments",
+      "subscriptions"
+    ],
+    "fresh_config_example_private_fields_empty": true,
+    "fresh_mail_disabled": true,
+    "fresh_only_approved_bundled_demo_uploads": true,
+    "upgrade_and_composer_repair_preserve_config_storage_uploads_install_by_exclusion": true,
+    "fresh_vs_upgrade_identical_common_entries": 287,
+    "composer_repair_vs_upgrade_identical_entries": 86,
+    "installer_repair_vs_fresh_identical_entries": 8,
+    "generated_inventory_identical_in_fresh_upgrade_composer_repair": true,
+    "generated_inventory_covers_all_upgrade_source_entries": 286,
+    "new_group_button_and_campaign_dependencies_in_focused_repair": [
+      "app/Core/CampaignDeliveryService.php",
+      "app/Core/MailDeliveryException.php",
+      "app/Core/MailService.php",
+      "app/Core/MarketingStore.php",
+      "app/Console/run_marketing.php",
+      "app/Views/public/partials/scene-buttons.php",
+      "app/Core/SceneButton.php",
+      "app/Views/admin/composer.php",
+      "public/assets/js/composer.js",
+      "public/assets/css/composer.css",
+      "public/assets/css/site-ux.css",
+      "app/Views/admin/marketing.php",
+      "app/Views/admin/marketing-actions.php"
+    ],
+    "fresh_upgrade_composer_repair_hashes_differ_from_verified_build_20261019_6": true,
+    "installer_repair_bytes_unchanged": true
+  },
+  "secret_signature_scan": {
+    "patterns": [
+      "aws_access_id",
+      "github_token",
+      "live_payment_secret",
+      "private_key_pem",
+      "slack_token"
+    ],
+    "outer_entries_scanned_including_repeated_variants": 709,
+    "nested_runtime_asset_files_scanned": 21,
+    "findings": 0,
+    "scope": "High-confidence credential signatures plus distribution path allowlists, empty install configuration, and empty private default collections; does not guarantee detection of arbitrary unknown secrets."
+  },
+  "bundled_runtime_help": [
+    {
+      "entry": "addons/packages/velvet-welcome-banner-1.0.0.zip",
+      "files": 7,
+      "bundled_help": [
+        "README.md"
+      ]
+    },
+    {
+      "entry": "addons/packages/velvet-welcome-banner-1.0.1.zip",
+      "files": 7,
+      "bundled_help": [
+        "README.md"
+      ]
+    },
+    {
+      "entry": "templates/canva/Nikki-Wilder-Canva-Starter-Kit.zip",
+      "files": 7,
+      "bundled_help": [
+        "README.md"
+      ]
+    }
+  ],
+  "installer_only_repair_redelivered": false,
+  "customer_host_verified": false,
+  "payments": "sandbox-only"
+}

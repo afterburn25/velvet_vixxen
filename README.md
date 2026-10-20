@@ -1,8 +1,8 @@
 # Nikki Wilder — The Velvet Vixxen
 
-**Current development:** PR #15 is merged into main. Build **20261020.1** on `feature/0.8.1-group-buttons-campaign-delivery` adds editable grouped buttons and bounded campaign delivery; local acceptance passes and final GitHub gates/merge are pending. Read [the current scope and owner workflow](docs/releases/0.8.1-group-buttons-campaign-delivery.md) and [the reconciled roadmap](docs/ROADMAP.md). The earlier Build .6 record below is historical.
+**Current verified build: 20261020.1, merged into `main` through [PR #16](https://github.com/afterburn25/velvet_vixxen/pull/16).** The requested third button inside Live Text + Buttons and bounded campaign delivery are implemented. All seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755) passed, and the saved customer downloads match the gated artifact byte for byte. Read [the owner workflow and evidence](docs/releases/0.8.1-group-buttons-campaign-delivery.md), [the complete Upgrade instructions](docs/UPDATE_VERIFICATION.md) and [the remaining roadmap](docs/ROADMAP.md). The affected customer host remains unverified; payments remain sandbox-only. Earlier build records below are historical.
 
-## Current organized-root repair — Build 20261019.6
+## Historical organized-root repair — Build 20261019.6
 
 **Build 20261019.5 is rejected:** its routing repair reintroduced 25 root folders and 46 forwarding PHP files contrary to the approved layout. Build **20261019.6** restores the exact original 13 Fresh / nine Upgrade root directories and four root files. Generated page/API URLs use the physical `route.php`; protected implementations remain under `public/routes`. The new owner page, `admin/repair.php`, verifies the uploaded runtime, refreshes this site's PHP and retires only exact known old forwarding files and empty folders while preserving custom items and installed data.
 

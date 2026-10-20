@@ -1,12 +1,25 @@
-VELVET VIXXEN 0.8.1 — BUILD 20261020.1 IN VERIFICATION
+VELVET VIXXEN 0.8.1 — BUILD 20261020.1 VERIFIED, MERGED AND DELIVERED
 
-Current branch: feature/0.8.1-group-buttons-campaign-delivery
-Base: actual PR15 main merge 31b303e407a869728f2a0548c9214273e35e2c02.
-New source: editable grouped buttons and bounded configured campaign delivery.
-Focused local source, extracted-package browser, localhost SMTP and package checks pass.
-Final GitHub PHP 8.2/8.3, MySQL, HTTP and browser gates, new merge and saved artifact remain pending.
-No customer-host deployment, production email, live payments or 0.9.0 is claimed.
-Historical manifests follow; see docs/releases/0.8.1-group-buttons-campaign-delivery.md.
+Integration branch: main
+Source: 9fcd355c6f7207287ab42babe04c80b3f3968a62
+Source/CI/merge tree: 63b758a153a721a1aabf424aead6b9f01867820f
+PR #16 actual merge: 0c4d6be5516c9c777c31524a33cd30c4d337f1d7 at 2026-10-20 01:35:24 UTC
+Required CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39352867755
+All seven jobs: completed/success; actual checkout 5ccb46beadabe558b5bd4ccb907a8e6185532615; complete tree equals source and merge.
+Runtime artifact 12234860155: 15345732 bytes; SHA-256 2d568b959d0fd2ffec167ce43fb76cc5bcf69f6d210fbfeae52b2d4a060a0f62
+Saved-download readback: 2026-10-20 01:38:30 UTC; all four saved files match the gated artifact literally.
+Fresh: 328 files; 7638294 bytes; SHA-256 912198e2379f17c81cb361d803df1f639fe2cb4cc32ba7ba4064b94d95fa5bfb
+Upgrade: 287 files; 7482635 bytes; SHA-256 720382aa2ee843d08608002c5b51462068b088c4dc84a100aea17fc60f3f1fa8
+Media/Composer repair: 86 files; 203887 bytes; SHA-256 22ca30bb8930f50f582cee83329e17ab670941072b3f69b9f808515933706ea4
+Separate manifest: 82236 bytes; SHA-256 c8193e73682d29258142fc7ad6d92a3568e473adb2ddb843fea66f992beec60f
+Fresh/Upgrade root directories: exact approved 13/9; root files: .htaccess, VERSION, index.php, route.php.
+Existing-site package: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.1-Upgrade-from-0.8.x.zip
+Owner procedure: admin/repair.php -> verify files -> Refresh application PHP -> require running 20261020.1 -> conditional old .5 folder cleanup.
+New features: editable third/additional grouped Composer actions and guarded configured campaign delivery.
+Unchanged installer-only repair was not redelivered. All runtime dependencies included; private installed state preserved by exclusion.
+Customer host and production mail remain unverified; payments sandbox-only; no 0.9.0 work.
+Evidence: docs/releases/0.8.1-group-buttons-campaign-delivery.md and grouped-buttons CI/delivery JSON records.
+Historical manifests follow.
 
 VELVET VIXXEN 0.8.1 — BUILD 20261019.6 ORGANIZED ROOT CORRECTION
 
