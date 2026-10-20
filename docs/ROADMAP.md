@@ -1,5 +1,15 @@
 # Velvet Vixxen Development Roadmap
 
+<!-- grouped-buttons-delivery:start -->
+## Current continuation — baseline merged; new work in progress
+
+[PR #15](https://github.com/afterburn25/velvet_vixxen/pull/15) was actually **merged into `main` at 2026-10-20 00:42:07 UTC**, commit `31b303e407a869728f2a0548c9214273e35e2c02`. Its tree `217ebf0c1d8ccf665b11b22f65c754c403c30309` contains the complete executable application and the verified Build 20261019.6 organized-root correction. The earlier statements below that PR #15 is unmerged are historical. The preceding executable gates remain [run 39328060458](https://github.com/afterburn25/velvet_vixxen/actions/runs/39328060458); they do not verify subsequent edits.
+
+The active branch is **`feature/0.8.1-group-buttons-campaign-delivery`**, created from that exact merge. The owner requested continued roadmap work, priority integration into main, and an additional button inside **Live Text + Buttons** that is editable in the group's right-hand inspector. The implementation in progress adds saved grouped actions while preserving legacy account/trailer behavior, separate button/photo layers, device geometry and Preview/Publish. The bounded marketing increment connects queued campaigns to the configured mail service with consent checks, serialized claims, bounded batches, delivery states and safe retry handling. Advanced marketing items remain separately tracked in issue #9.
+
+**Build 20261020.1 is in progress, not yet a verified customer release.** The new source must pass PHP 8.2/8.3, MySQL 8, ownership/cache, HTTP/browser, safety and runtime-only package gates before its merge and download are called complete. The exact approved root folders and physical `route.php` dispatcher are unchanged. The affected customer host remains unverified, issue #13 stays open, payments stay sandbox-only, and no 0.9.0 work is included. See `docs/releases/0.8.1-group-buttons-campaign-delivery.md` for current scope and evidence.
+<!-- grouped-buttons-delivery:end -->
+
 <!-- root-layout-repair:start -->
 ## Root-layout regression — Build 20261019.5 rejected; Build 20261019.6 verified and delivered
 
