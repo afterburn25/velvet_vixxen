@@ -1,21 +1,22 @@
-# Update and verify Velvet Vixxen — 0.8.2 / Build 20261020.3
+# Update and verify Velvet Vixxen — 0.8.3 / Build 20261020.4
 
-Version **0.8.2**, Build **20261020.3**, adds persistent gallery captions/tags, exact gallery removal/order, playlist ordering and dates, stale-form protection, bounded scheduled media publication and playlist access checks. It retains owner Email & SMTP settings, grouped Composer buttons, campaign delivery, the approved organized layout and the previous upload, Preview, Publish and installed-update repairs.
+Version **0.8.3**, Build **20261020.4**, adds guarded add-on-owned migration recovery, aligned package/schema rollback and durable holds across interrupted activation. It includes the released 0.8.2 Media Center, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed; [PR #18](https://github.com/afterburn25/velvet_vixxen/pull/18) is merged into `main`. The three ZIPs and manifest match the gated artifact and their saved/retrieved bytes literally. [The release record](releases/0.8.2-media-center.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
+**Current evidence:** local 0.8.3 source and packaged MySQL/HTTP/browser acceptance passed; GitHub CI, merge and saved-download verification are pending. Use [the numbered release record](releases/0.8.3-addon-recovery.md) for the actual current state. Historical 0.8.2 CI does not certify this changed runtime. The affected customer host remains unverified.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.2; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.3; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
-1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.2-Build-20261020.3-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
+1. Extract the contents of the complete **Nikki-Wilder-Velvet-Vixxen-0.8.3-Build-20261020.4-Upgrade-from-0.8.x.zip** into the existing active website folder. Replace matching application files. The archive has no enclosing product folder; an installation under a subfolder must receive the files inside that same subfolder.
 2. Sign in with the existing owner account and open **`admin/repair.php`** under this installation's URL. This entry remains usable when an older update page or PHP classes are cached. **System → Update Status** also opens this page.
-3. Require **Update files verified**, **Uploaded package: v0.8.2 · Build 20261020.3**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
-4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.3** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
+3. Require **Update files verified**, **Uploaded package: v0.8.3 · Build 20261020.4**, and **Files needing replacement: 0**. If files are missing or different, complete extraction of the same full Upgrade and reload. The page verifies the actual files against the package inventory; the archive filename alone does not establish what is installed.
+4. Click **Refresh application PHP**. After the page reloads, require **PHP running now: 20261020.4** and repeat the file checks above. If PHP caching is disabled, the page reports that condition after file verification; the running build must still match.
 5. If the page detects forwarding files or empty route folders left by rejected Build .5, click **Restore organized folders** after file/build verification. The repair retires only the exact 46 known forwarding files and removes their 25 directories only when empty. Review its result and any custom or modified items preserved. If the page already reports that no retired compatibility files or folders remain, no folder-repair action is needed.
 6. Open Visual Composer and complete the grouped-button checks below, including a real image upload, the existing standalone **Add Button** action, retained **Full Page Preview**, and **Publish**.
 7. Open **Media Center**, edit and save a gallery caption/tag and its order, then reload and confirm exact retained photographs. Check playlist order and dates. Follow [the Media Center guide](MEDIA_CENTER.md) for stale-form recovery and the owner action or hosting scheduler that runs due publication.
-8. Open **System → Email & SMTP** and verify the owner settings using the steps below. Then check the campaign controls if you use newsletter campaigns.
+8. Open **Add-ons** and review any recorded recovery hold. Follow [the Add-on recovery guide](ADDON_RECOVERY.md); an uncertain database outcome requires review, and schema rollback/purge cannot restore deleted data without a database backup.
+9. Open **System → Email & SMTP** and verify the owner settings using the steps below. Then check the campaign controls if you use newsletter campaigns.
 
 The Upgrade excludes `config`, `storage`, `uploads` and `install`. It does not reinstall the site, create a new owner, replace keys, run SQL or replace saved content. A ZIP overlay alone cannot remove folders from an earlier extraction; an installation still carrying the rejected .5 folders needs the verified owner repair action.
 
@@ -65,7 +66,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.2 / Build 20261020.3** source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates are being run against the changed tree. Final evidence will be recorded in [the 0.8.2 release record](releases/0.8.2-media-center.md) after it completes. Do not apply historical 0.8.1 CI results to this new release.
+Current **0.8.3 / Build 20261020.4** source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates are being run against the changed tree. Final evidence will be recorded in [the 0.8.3 release record](releases/0.8.3-addon-recovery.md) after it completes. Do not apply historical 0.8.1 CI results to this new release.
 
 ### Historical baseline — Build 20261020.1
 

@@ -4,6 +4,13 @@ declare(strict_types=1);
 use App\Core\AddonManager;
 use App\Core\AddonRuntime;
 
+$fixtureRoot = realpath(dirname(__DIR__, 2));
+if ($fixtureRoot === false
+    || !str_starts_with($fixtureRoot, rtrim(sys_get_temp_dir(), DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . 'vvx-test-')
+    || !is_file($fixtureRoot . '/.vvx-test-runtime')) {
+    throw new RuntimeException('Run the add-on lifecycle fixture only in a marked disposable copy from tests/copy_runtime.py.');
+}
+
 require dirname(__DIR__) . '/TestEnvironment.php';
 
 $environment = velvet_test_environment('addon-framework');
@@ -12,6 +19,15 @@ $root = $environment['root'];
 $failures = [];
 $addonId = 'velvet.welcome-banner';
 $installedPath = $root . '/addons/installed/' . $addonId;
+$recoveryLocks = array_map(
+    static fn (string $scope): string => $root . '/storage/backups/addons/' . $scope . '/' . hash('sha256', $addonId) . '.json.lock',
+    ['migrations', 'lifecycle']
+);
+foreach ($recoveryLocks as $lockPath) {
+    if (file_exists($lockPath) || is_link($lockPath)) {
+        throw new RuntimeException('The disposable add-on fixture already contains a recovery lock; preserve it for inspection.');
+    }
+}
 
 $delete = static function (string $path) use (&$delete): void {
     if (!file_exists($path)) return;
@@ -93,7 +109,7 @@ try {
     // File-mode migration registry and targeted rollback.
     $migrations = [[
         'id' => 'test_create_table', 'checksum' => hash('sha256', 'test_create_table'),
-        'up' => ['CREATE TABLE ignored_in_file_mode'], 'down' => ['DROP TABLE ignored_in_file_mode'],
+        'up' => ['CREATE TABLE ignored_in_file_mode (id INT PRIMARY KEY) ENGINE=InnoDB'], 'down' => ['DROP TABLE ignored_in_file_mode'],
     ]];
     $keys = $store->applyAddonMigrations($addonId, $migrations);
     if ($keys !== ['test_create_table'] || !isset($store->addonMigrations($addonId)['test_create_table'])) $failures[] = 'Add-on migration registry did not record a migration.';
@@ -120,6 +136,9 @@ try {
     foreach (glob($root . '/addons/staging/*') ?: [] as $path) {
         if (basename($path) !== '.gitkeep') $delete($path);
     }
+    // Runtime locks remain durable. Only this completed, disposable fixture's
+    // two previously absent lock files are removed before the repository scan.
+    foreach ($recoveryLocks as $lockPath) $delete($lockPath);
     velvet_test_cleanup($environment);
 }
 

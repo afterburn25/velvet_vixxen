@@ -54,6 +54,11 @@ jobs:
             public/assets/css/media-admin-edit.css tests/Feature/media_center_persistence.php
             tests/Database/media_center_mysql.php tests/Http/media_center_http.py tests/Http/media_center_fixture.php
             tests/Browser/media_center_persistence_playwright.py
+            admin/addon-recovery.php app/Core/AddonMigrationPlan.php app/Core/AddonMigrationRecovery.php
+            app/Core/AddonMigrationException.php tests/Database/addon_migrations_mysql.php
+            tests/Database/addon_lifecycle_worker.php tests/Http/addon_recovery_fixture.php
+            tests/Http/addon_recovery_http.py tests/Browser/addon_recovery_browser.py
+            tests/Packaging/release_version.py tests/Packaging/fixtures/release-0.8.2-build-20261020.3.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -141,6 +146,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: php tests/Installer/existing_database_mysql.php
+      - name: Apply, roll back and recover actual packaged add-on migrations in MySQL
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: php tests/Database/addon_migrations_mysql.php
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -229,6 +242,16 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/media_center_persistence_playwright.py
+      - name: Recover a held add-on through the actual desktop and mobile owner controls
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_TEST_PYTHON: python
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: php tests/Database/addon_migrations_mysql.php --browser
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

@@ -31,7 +31,7 @@ final class AddonRuntime
             return;
         }
         foreach ($this->store->addons() as $record) {
-            if (($record['status'] ?? '') !== 'active') {
+            if (($record['status'] ?? '') !== 'active' || $this->store->hasPendingAddonRecovery((string) ($record['addonKey'] ?? ''))) {
                 continue;
             }
             $this->bootAddon($record);

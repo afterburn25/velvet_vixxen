@@ -2,11 +2,20 @@
 
 ## Release versions advance with completed work (2026-10-19 America/Chicago)
 
-- The user explicitly directed that visible release versions increase from now on as completed work ships. The next release is 0.8.2; later releases continue 0.8.3, 0.8.4, or the appropriate next roadmap milestone.
+- The user explicitly directed that visible release versions increase from now on as completed work ships. The rule began with delivered 0.8.2; later completed releases advance to 0.8.3, 0.8.4, or the appropriate next roadmap milestone.
 - Date-based build IDs remain useful secondary diagnostics. They do not replace incrementing the release version.
 - Keep application, canonical VERSION, installer stamps, upgrade compatibility and new package names consistent. Avoid hard-coded current-version copies where the canonical value can be used safely.
 - Preserve prior release numbers, exact package hashes and pinned historical fixtures. Verify each new release before merging and delivering it.
 - The 0.9 privacy/protection/operations scope remains a separate milestone; finishing a 0.8.x release does not claim that work is complete.
+
+- Enforce the rule against the latest committed verified delivery record, rejecting changed same-version packages even when only their build labels change. Permit an exact byte-identical rebuild of an already delivered release.
+- Keep an unchanged unfinished-installer overlay at its delivered repair version/build and hash; a new full-runtime release does not relabel that separate historical repair.
+
+## Add-on migration recovery (0.8.3)
+
+- Preflight the complete package migration plan and executable ownership boundary before migration SQL. New automatic migrations may add owned InnoDB objects; they may not rewrite retained data or adopt unrelated existing tables.
+- MySQL DDL can commit independently. Persist exact statement progress and a separate lifecycle intent across SQL, files and registry activation. Keep prior files until activation commits and hold pending add-ons from activation/boot.
+- Retry only definite recorded failures after current-owner/POST/CSRF and exact package/registry/definition validation. Unknown outcomes require review. Explicit rollback and purge can delete values; a database backup is necessary to restore deleted data.
 
 ## Grouped actions and guarded campaign delivery (2026-10-20)
 

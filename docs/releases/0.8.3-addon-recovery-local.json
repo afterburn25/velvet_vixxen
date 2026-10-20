@@ -1,0 +1,165 @@
+{
+  "scope": "Executed local acceptance before GitHub CI; not production deployment",
+  "version": "0.8.3",
+  "build_id": "20261020.4",
+  "baseline": "4073d3ee20e30a7e6fddfc6a18acca33cc82662f",
+  "frozen_runtime_test_build_workflow_files": 476,
+  "freeze_sha256": "2681d7424c572aff391af4192fecc947cabc87fbc06e1dce2d2330a408c2bafb",
+  "source_suite": {
+    "command": "bash scripts/test.sh",
+    "status": "passed",
+    "php": "8.3.6",
+    "includes": [
+      "actual foreign-owner packaged installer",
+      "persistent OPcache negative control and actual repair",
+      "all PHP/JavaScript/Python syntax",
+      "existing feature/security/structure checks",
+      "reproducible runtime packages",
+      "visible version guard against verified delivery"
+    ],
+    "final_test_only_adjustment": "After this full source run, the MySQL fixture changed require to require_once for the already loaded canonical version. PHP syntax and the entire MySQL/HTTP/desktop/mobile command passed again; final GitHub CI must execute the exact frozen tree."
+  },
+  "http_suite": {
+    "command": "bash scripts/test_http.sh",
+    "status": "passed",
+    "suites": 10
+  },
+  "addon_mysql_http_browser": {
+    "command": "php tests/Database/addon_migrations_mysql.php --browser",
+    "status": "passed",
+    "mysql": "8.0.46-0ubuntu0.24.04.3",
+    "php": "8.3.6",
+    "lifecycle_assertions": 197,
+    "http_assertions": 34,
+    "database_and_extracted_runtime_cleanup": "passed",
+    "browser": {
+      "desktop": {
+        "php": "8.3.6",
+        "version": "0.8.3",
+        "build_id": "20261020.4",
+        "viewport": "desktop",
+        "dimensions": {
+          "width": 1440,
+          "height": 1000
+        },
+        "playwright": "1.62.0",
+        "fixture_only": true,
+        "screenshots": [
+          "addon-recovery-desktop-held.png",
+          "addon-recovery-desktop-blocked.png",
+          "addon-recovery-desktop-recovered.png"
+        ],
+        "browser": "155.0.8059.84",
+        "initial_button": {
+          "x": 337,
+          "y": 576.375,
+          "width": 257.96875,
+          "height": 44
+        },
+        "blocked_button": {
+          "x": 337,
+          "y": 647.375,
+          "width": 257.96875,
+          "height": 44
+        },
+        "checks": 33,
+        "status": "passed"
+      },
+      "mobile": {
+        "php": "8.3.6",
+        "version": "0.8.3",
+        "build_id": "20261020.4",
+        "viewport": "mobile",
+        "dimensions": {
+          "width": 390,
+          "height": 844
+        },
+        "playwright": "1.62.0",
+        "fixture_only": true,
+        "screenshots": [
+          "addon-recovery-mobile-held.png",
+          "addon-recovery-mobile-blocked.png",
+          "addon-recovery-mobile-recovered.png"
+        ],
+        "browser": "155.0.8059.84",
+        "initial_button": {
+          "x": 51,
+          "y": 399.75,
+          "width": 257.96875,
+          "height": 44
+        },
+        "blocked_button": {
+          "x": 51,
+          "y": 399.75,
+          "width": 257.96875,
+          "height": 44
+        },
+        "checks": 33,
+        "status": "passed"
+      }
+    }
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "version": "0.8.3",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.3-Build-20261020.4-Fresh-Install.zip",
+      "build_id": "20261020.4",
+      "size_bytes": 7684625,
+      "sha256": "74824f884c8dfd52875befc5d88e4ab25bfe44aaf72ca3551e30a982f1346a81",
+      "files": 343,
+      "php_files": 191,
+      "javascript_files": 12,
+      "supported_from": []
+    },
+    {
+      "kind": "upgrade",
+      "version": "0.8.3",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.3-Build-20261020.4-Upgrade-from-0.8.x.zip",
+      "build_id": "20261020.4",
+      "size_bytes": 7527272,
+      "sha256": "4a7cadaa8cb3e53e921cbcf122256f0a28d31413612993ce03004cb846e64cce",
+      "files": 302,
+      "php_files": 180,
+      "javascript_files": 12,
+      "supported_from": [
+        "0.8.0",
+        "0.8.1",
+        "0.8.2",
+        "0.8.3"
+      ]
+    },
+    {
+      "kind": "installer-repair",
+      "version": "0.8.1",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+      "repair_build_id": "20261020.3",
+      "size_bytes": 60065,
+      "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+      "files": 11,
+      "php_files": 9,
+      "javascript_files": 1,
+      "supported_from": [
+        "0.8.1"
+      ],
+      "installation_state": "incomplete"
+    }
+  ],
+  "manifest": {
+    "filename": "Velvet-Vixxen-0.8.3-Build-20261020.4-package-manifest.json",
+    "size_bytes": 75972,
+    "sha256": "3e90d3312b0e5cfea11da3a714fef7a215670c17cea7144f7aedcb441c4eb19a"
+  },
+  "log_sha256": {
+    "source": "8327d4f31fcbc404facc7e94b01e7caea7b6734b04a097a9f2acea6867b6c500",
+    "http": "0cd8ef6051664d17ba0ceedcbb002b92a37f8966d2ed907149dd9526f3c971e9",
+    "addon_mysql_http_browser": "52392aa501018376c987c814094f1d03e18557eab703c70c8caae3a4c66c7d0c"
+  },
+  "intermediate_findings_resolved": [
+    "Two durable fixture lock files triggered the final repository safety scan. The fixture now proves both paths were absent before the test and removes only its own locks; runtime locks and safety scanner are unchanged. The entire source suite then passed.",
+    "The integrated configuration loader already defines canonical version constants. The MySQL test now uses require_once and the full MySQL/HTTP/desktop/mobile command passes without PHP diagnostics."
+  ],
+  "github_ci": "pending",
+  "merge": "pending",
+  "saved_download_equality": "pending"
+}

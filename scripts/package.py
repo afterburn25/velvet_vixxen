@@ -33,6 +33,7 @@ PUBLIC_HANDLER_FILES = {"public/routes/" + relative for relative in {
     "videos/index.php", "videos/watch.php",
 }}
 INSTALLER_REPAIR_VERSION = "0.8.1"
+INSTALLER_REPAIR_BUILD_ID = "20261020.3"
 # The unfinished 0.8.1 overlay reads that installation's canonical version. It
 # never carries VERSION, includes/version.php, or an installed-runtime inventory.
 INSTALLER_DATABASE_REPAIR_FILES = {
@@ -86,17 +87,44 @@ INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
 INSTALLER_MAIL_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
 COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
-RELEASE_TIMESTAMP = (2026, 10, 20, 3, 48, 0)
+PRIOR_RELEASE_TIMESTAMPS = {
+    'VERSION': (2026, 10, 20, 3, 48, 0),
+    'admin/index.php': (2026, 10, 20, 3, 48, 0),
+    'app/Console/run_media.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/CommerceService.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaAdminService.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaStoreTrait.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MemberStoreTrait.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/Store.php': (2026, 10, 20, 3, 48, 0),
+    'app/Support/media_admin.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/addon-licensing.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/commerce.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/communications.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/media-center.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/members.php': (2026, 10, 20, 3, 48, 0),
+    'config/app.example.php': (2026, 10, 20, 3, 48, 0),
+    'includes/runtime-build.json': (2026, 10, 20, 3, 48, 0),
+    'includes/version.php': (2026, 10, 20, 3, 48, 0),
+    'install/services/InstallerService.php': (2026, 10, 20, 3, 48, 0),
+    'install/views/single-page.php': (2026, 10, 20, 3, 48, 0),
+    'public/assets/css/media-admin-edit.css': (2026, 10, 20, 3, 48, 0),
+    'public/assets/js/admin-media.js': (2026, 10, 20, 3, 48, 0),
+    'public/routes/music/index.php': (2026, 10, 20, 3, 48, 0),
+}
+RELEASE_TIMESTAMP = (2026, 10, 20, 5, 0, 0)
 RELEASE_FILES = {
-    "VERSION", "admin/index.php", "app/Console/run_media.php", "app/Core/CommerceService.php",
-    "app/Core/MediaAdminService.php", "app/Core/MediaInput.php", "app/Core/MediaStoreTrait.php", "app/Core/MemberStoreTrait.php", "app/Core/Store.php",
-    "app/Support/media_admin.php", "app/Views/admin/addon-licensing.php",
-    "app/Views/admin/commerce.php", "app/Views/admin/communications.php",
-    "app/Views/admin/media-center.php", "app/Views/admin/members.php",
-    "config/app.example.php", RUNTIME_BUILD_PATH, "includes/version.php",
-    "install/services/InstallerService.php", "install/views/single-page.php",
-    "public/assets/css/media-admin-edit.css", "public/assets/js/admin-media.js",
-    "public/routes/music/index.php",
+    'VERSION',
+    'admin/addon-recovery.php',
+    'app/Core/AddonManager.php',
+    'app/Core/AddonMigrationException.php',
+    'app/Core/AddonMigrationPlan.php',
+    'app/Core/AddonMigrationRecovery.php',
+    'app/Core/AddonRuntime.php',
+    'app/Core/AddonStoreTrait.php',
+    'app/Views/admin/addons.php',
+    'includes/runtime-build.json',
+    'includes/version.php',
 }
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
@@ -339,8 +367,9 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
         validate(files, kind, package_version)
         # A new installer-only repair has its own explicit identity without
         # claiming to update the installed site's complete runtime inventory.
-        identity = {"repair_build_id": build_id} if kind == "installer-repair" else {"build_id": build_id}
-        build_tag = f"-Build-{build_id}"
+        package_build = INSTALLER_REPAIR_BUILD_ID if kind == "installer-repair" else build_id
+        identity = {"repair_build_id": package_build} if kind == "installer-repair" else {"build_id": build_id}
+        build_tag = f"-Build-{package_build}"
         filename = f"Nikki-Wilder-Velvet-Vixxen-{package_version}{build_tag}-{suffix}.zip"
         archive = output / filename
         compatibility = {
@@ -359,6 +388,8 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             for relative, content in files.items():
                 timestamp = (RELEASE_TIMESTAMP
                              if relative in RELEASE_FILES
+                             else PRIOR_RELEASE_TIMESTAMPS[relative]
+                             if relative in PRIOR_RELEASE_TIMESTAMPS
                              else INSTALLER_FILESYSTEM_TIMESTAMP
                              if relative == "install/services/FileSystemService.php"
                              else INSTALLER_MAIL_TIMESTAMP

@@ -1,7 +1,23 @@
 # Acceptance Record — Velvet Vixxen
 
+<!-- addon-recovery-083:start -->
+## Current work — 0.8.3 Add-on migration recovery, Build 20261020.4
+
+The next numbered release advances the visible version to **0.8.3** from verified, merged and delivered **0.8.2**. Integration starts at authoritative `main` commit `4073d3ee20e30a7e6fddfc6a18acca33cc82662f` on `feature/0.8.3-addon-recovery`. Final GitHub CI, merge and saved-download equality remain pending for this changed tree.
+
+The add-on increment validates the whole migration batch and table ownership before migration SQL, records exact completed/failed progress, aligns explicit package rollback with the migration ledger and keeps previous files through registry activation. Separate durable lifecycle records hold an interrupted add-on disabled even after its SQL journal has cleared. The current active owner can retry only definite recorded recovery steps through a POST/CSRF-protected action; uncertain SQL, file or activation outcomes remain held for review.
+
+Actual integrated 0.8.3 Fresh-package acceptance passed **197 real-MySQL lifecycle assertions, 34 owner HTTP assertions and 33 checks on each desktop/mobile recovery flow**. All ten preserved installed HTTP suites passed. The full source/security/ownership/persistent-cache/package gate passed after narrowly cleaning the two lock files created by the disposable add-on fixture. Runtime locks and the safety scanner are unchanged. All seven required GitHub jobs still need to pass for this exact tree.
+
+Full Fresh and Upgrade use **0.8.3 / Build 20261020.4**, preserve the exact approved 13/9 directories and four root files, and retain prior timestamps for unchanged files. The unchanged unfinished-0.8.1 installer repair keeps **Build 20261020.3** and its exact delivered SHA-256; it is not renamed as a new fix. A new release gate compares the visible version with the latest verified delivery record and rejects changed same-version packages, including build-only relabeling. Exact historical rebuilds remain permitted.
+
+MySQL down SQL and purge can delete rows or values; restoring that data requires a verified database backup. Add-ons remain executable PHP and are not fully sandboxed. After verified #7, continue **0.8.4 newsletter audiences** and **0.8.5 publication-window editing** within broader #9. Marketing SQL migration, broader editorial/scheduling/attribution/analytics work, actual-host #12/#13 and production email remain open; payments remain sandbox-only. The separate 0.9 milestone is not claimed.
+
+[Release and exact evidence](docs/releases/0.8.3-addon-recovery.md) · [Add-on recovery guide](docs/ADDON_RECOVERY.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- addon-recovery-083:end -->
+
 <!-- media-center-082:start -->
-## Current release — 0.8.2 Media Center, Build 20261020.3
+## Historical release — 0.8.2 Media Center, Build 20261020.3
 
 **Version 0.8.2 is verified, merged into `main` through [PR #18](https://github.com/afterburn25/velvet_vixxen/pull/18) and delivered.** The merge is `e1dc2069ab62b9399a968dfd86602a5c30b9fcaf` at **2026-10-20T04:58:45Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed. Release source `91d5cee9d7625d4f0eaf111f5923695ae681fa58`, actual CI checkout `7cd686fad6a49cd794d7e566854faf28d414cb98` and the merge share the complete tree `e2e4a338593c8e78cd86d433bed262ee743fcb02`. Later documentation recording changes no executable, test, workflow or package bytes.
 

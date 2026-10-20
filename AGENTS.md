@@ -1,10 +1,26 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- addon-recovery-083:start -->
+## Current work — 0.8.3 Add-on migration recovery, Build 20261020.4
+
+The next numbered release advances the visible version to **0.8.3** from verified, merged and delivered **0.8.2**. Integration starts at authoritative `main` commit `4073d3ee20e30a7e6fddfc6a18acca33cc82662f` on `feature/0.8.3-addon-recovery`. Final GitHub CI, merge and saved-download equality remain pending for this changed tree.
+
+The add-on increment validates the whole migration batch and table ownership before migration SQL, records exact completed/failed progress, aligns explicit package rollback with the migration ledger and keeps previous files through registry activation. Separate durable lifecycle records hold an interrupted add-on disabled even after its SQL journal has cleared. The current active owner can retry only definite recorded recovery steps through a POST/CSRF-protected action; uncertain SQL, file or activation outcomes remain held for review.
+
+Actual integrated 0.8.3 Fresh-package acceptance passed **197 real-MySQL lifecycle assertions, 34 owner HTTP assertions and 33 checks on each desktop/mobile recovery flow**. All ten preserved installed HTTP suites passed. The full source/security/ownership/persistent-cache/package gate passed after narrowly cleaning the two lock files created by the disposable add-on fixture. Runtime locks and the safety scanner are unchanged. All seven required GitHub jobs still need to pass for this exact tree.
+
+Full Fresh and Upgrade use **0.8.3 / Build 20261020.4**, preserve the exact approved 13/9 directories and four root files, and retain prior timestamps for unchanged files. The unchanged unfinished-0.8.1 installer repair keeps **Build 20261020.3** and its exact delivered SHA-256; it is not renamed as a new fix. A new release gate compares the visible version with the latest verified delivery record and rejects changed same-version packages, including build-only relabeling. Exact historical rebuilds remain permitted.
+
+MySQL down SQL and purge can delete rows or values; restoring that data requires a verified database backup. Add-ons remain executable PHP and are not fully sandboxed. After verified #7, continue **0.8.4 newsletter audiences** and **0.8.5 publication-window editing** within broader #9. Marketing SQL migration, broader editorial/scheduling/attribution/analytics work, actual-host #12/#13 and production email remain open; payments remain sandbox-only. The separate 0.9 milestone is not claimed.
+
+[Release and exact evidence](docs/releases/0.8.3-addon-recovery.md) · [Add-on recovery guide](docs/ADDON_RECOVERY.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- addon-recovery-083:end -->
+
 ## User-directed release versioning — effective 2026-10-19 America/Chicago
 
-The user explicitly requires the visible release version to advance with each completed release. The first release under this rule is **0.8.2**, Build **20261020.3**, now verified, merged and delivered. Continue with **0.8.3** addon migration/recovery #7, followed by **0.8.4** newsletter audience controls within #9. Subsequent completed releases must advance to 0.8.3, 0.8.4, or the appropriate next milestone; build IDs are secondary identifiers and must not substitute for release increments. Update the canonical version, running application, installer metadata, upgrade compatibility, packaging and current guides together. Preserve historical release identities and hashes. A patch-version advance does not claim the separate 0.9 roadmap milestone is complete.
+The user explicitly requires the visible release version to advance with each completed release. Build IDs are secondary and must not substitute for release increments. Update the canonical version, running application, installer metadata, upgrade compatibility, packaging and current guides together. Preserve historical identities and hashes. `tests/Packaging/release_version.py` compares against committed verified delivery records: changed packages cannot reuse the latest delivered version, while an exact byte-identical rebuild remains allowed. Never weaken that gate or relabel an unchanged installer-only repair. A patch advance does not claim the separate 0.9 milestone is complete. The current continuation and its acceptance state are recorded above.
 
-0.8.2 source `91d5cee9d7625d4f0eaf111f5923695ae681fa58`, actual CI checkout `7cd686fad6a49cd794d7e566854faf28d414cb98` and merge `e1dc2069ab62b9399a968dfd86602a5c30b9fcaf` share tree `e2e4a338593c8e78cd86d433bed262ee743fcb02`. All seven [PR CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed, and all four saved files match the gated artifact literally. Exact evidence is in `docs/releases/0.8.2-media-center.md` and its CI/delivery JSON companions. Media #2 is complete; continue #7 and remaining #9 from live `main`, preserving approved package roots and every required gate. Earlier records below are historical.
+0.8.2 source `91d5cee9d7625d4f0eaf111f5923695ae681fa58`, actual CI checkout `7cd686fad6a49cd794d7e566854faf28d414cb98` and merge `e1dc2069ab62b9399a968dfd86602a5c30b9fcaf` share tree `e2e4a338593c8e78cd86d433bed262ee743fcb02`. All seven [PR CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39370771018) passed, and all four saved files match the gated artifact literally. Exact evidence is in `docs/releases/0.8.2-media-center.md` and its CI/delivery JSON companions. This is the historical first delivery under the version rule. Current continuation is recorded above; preserve approved package roots and every required gate.
 
 <!-- owner-mail-settings:start -->
 ## Historical continuation — Build 20261020.2 verified, merged and delivered
@@ -76,7 +92,7 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current released baseline: **0.8.2 — Build 20261020.3 Media Center; verified, merged and delivered**
+Current integration target: **0.8.3 — Build 20261020.4 Add-on migration recovery; final acceptance pending. Released baseline: 0.8.2.**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 

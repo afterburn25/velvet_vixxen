@@ -113,12 +113,20 @@ trait AddonStoreTrait
             return;
         }
         $pdo = $this->pdo();
-        $pdo->prepare('DELETE FROM addon_tasks WHERE addon_key = ?')->execute([$addonKey]);
-        if ($purgeData) {
-            $pdo->prepare('DELETE FROM addon_settings WHERE addon_key = ?')->execute([$addonKey]);
-            $pdo->prepare('DELETE FROM addon_migrations WHERE addon_key = ?')->execute([$addonKey]);
+        $ownsTransaction = !$pdo->inTransaction();
+        if ($ownsTransaction) $pdo->beginTransaction();
+        try {
+            $pdo->prepare('DELETE FROM addon_tasks WHERE addon_key = ?')->execute([$addonKey]);
+            if ($purgeData) {
+                $pdo->prepare('DELETE FROM addon_settings WHERE addon_key = ?')->execute([$addonKey]);
+                $pdo->prepare('DELETE FROM addon_migrations WHERE addon_key = ?')->execute([$addonKey]);
+            }
+            $pdo->prepare('DELETE FROM addons WHERE addon_key = ?')->execute([$addonKey]);
+            if ($ownsTransaction) $pdo->commit();
+        } catch (\Throwable $error) {
+            if ($ownsTransaction && $pdo->inTransaction()) $pdo->rollBack();
+            throw $error;
         }
-        $pdo->prepare('DELETE FROM addons WHERE addon_key = ?')->execute([$addonKey]);
     }
 
     /** @param array<string,mixed> $context */
@@ -333,80 +341,212 @@ trait AddonStoreTrait
         return $result;
     }
 
+    /** Validate all checksums and owned-table SQL before any migration in this package executes. */
+    public function preflightAddonMigrations(string $addonKey, array $migrations): void
+    {
+        AddonMigrationPlan::validate($addonKey, $migrations, $this->addonMigrations($addonKey), $this->mode === 'mysql' ? $this->pdo() : null);
+    }
+
+    public function hasPendingAddonMigrationRecovery(string $addonKey): bool
+    {
+        return is_file(root_path('storage/backups/addons/migrations/' . hash('sha256', $addonKey) . '.json'));
+    }
+
+    public function hasPendingAddonRecovery(string $addonKey): bool
+    {
+        return $this->hasPendingAddonMigrationRecovery($addonKey)
+            || is_file(root_path('storage/backups/addons/lifecycle/' . hash('sha256', $addonKey) . '.json'));
+    }
+
     /** @param list<array{id:string,checksum:string,up:list<string>,down:list<string>}> $migrations @return list<string> */
     public function applyAddonMigrations(string $addonKey, array $migrations): array
     {
+        $recovery = new AddonMigrationRecovery($addonKey);
+        $recovery->lock();
+        if ($recovery->read() !== null) throw new RuntimeException('This add-on has pending migration recovery. Recover the recorded operation before installing another package.');
         $applied = $this->addonMigrations($addonKey);
+        $plan = AddonMigrationPlan::validate($addonKey, $migrations, $applied, $this->mode === 'mysql' ? $this->pdo() : null);
         $batch = 1;
         foreach ($applied as $record) $batch = max($batch, (int) ($record['batch'] ?? 0) + 1);
         $keys = [];
-        foreach ($migrations as $migration) {
-            $id = (string) $migration['id'];
-            if (isset($applied[$id])) {
-                if (!hash_equals((string) $applied[$id]['checksum'], (string) $migration['checksum'])) {
-                    throw new RuntimeException('Add-on migration checksum mismatch: ' . $id);
+        $started = [];
+        try {
+            foreach ($plan as $id => $migration) {
+                if (isset($applied[$id])) continue;
+                $started[$id] = 0;
+                foreach ($migration['up'] as $index => $sql) {
+                    // DDL commits independently. Record intent before SQL and its
+                    // completed boundary afterwards; interrupted intent is held.
+                    $recovery->write(['operation' => 'apply', 'migrations' => $plan, 'started' => $started, 'current' => $id, 'pendingStatement' => $index]);
+                    if ($this->mode === 'mysql') $this->pdo()->exec(AddonMigrationPlan::executionSql($sql));
+                    $started[$id]++;
+                    $recovery->write(['operation' => 'apply', 'migrations' => $plan, 'started' => $started, 'current' => $id, 'pendingStatement' => null]);
                 }
-                continue;
+                $this->recordAddonMigration($addonKey, $migration, $batch);
+                $keys[] = $id;
             }
-            if ($this->mode === 'file') {
-                $data = $this->readFileStore();
-                $key = $addonKey . ':' . $id;
-                $data['addonMigrations'][$key] = ['addonKey'=>$addonKey,'migrationKey'=>$id,'checksum'=>$migration['checksum'],'batch'=>$batch,'executedAt'=>now_iso()];
-                $this->writeFileStore($data);
-            } else {
-                foreach ($migration['up'] as $sql) {
-                    if (trim($sql) !== '') $this->pdo()->exec($sql);
+            $recovery->clear();
+            return $keys;
+        } catch (\Throwable $error) {
+            $steps = [];
+            foreach (array_reverse($started, true) as $id => $count) {
+                if ($count > 0 || in_array($id, $keys, true)) $steps[] = ['migration' => AddonMigrationPlan::compensation($plan[$id], $count), 'completedUp' => $count, 'next' => 0];
+            }
+            $state = ['operation' => 'compensate', 'migrations' => $plan, 'steps' => $steps, 'position' => 0, 'pendingStatement' => false];
+            try {
+                if ($this->addonMigrationOutcomeUnknown($error)) {
+                    throw new RuntimeException('The database connection failed with an unknown statement outcome.');
                 }
-                $stmt = $this->pdo()->prepare('INSERT INTO addon_migrations (addon_key,migration_key,checksum,batch,executed_at) VALUES (?,?,?,?,NOW())');
-                $stmt->execute([$addonKey,$id,$migration['checksum'],$batch]);
+                $recovery->write($state);
+                $this->continueAddonMigrationRollback($addonKey, $recovery, $state);
+            } catch (\Throwable $rollbackError) {
+                throw new AddonMigrationException('Add-on migration failed and recovery is incomplete. The private recovery record and prior package were retained. Restore or recover the database before activation. ' . $error->getMessage(), true, $rollbackError);
             }
-            $keys[] = $id;
+            throw new AddonMigrationException('Add-on migration failed; this attempt\'s completed changes were rolled back. ' . $error->getMessage(), false, $error);
         }
-        return $keys;
+    }
+
+    /** Resume only a definite failed down statement, using the same reviewed migration definitions. */
+    public function recoverAddonMigrations(string $addonKey, array $migrations): void
+    {
+        $recovery = new AddonMigrationRecovery($addonKey);
+        $recovery->lock();
+        $state = $recovery->read();
+        if ($state === null) return;
+        $plan = AddonMigrationPlan::validate($addonKey, $migrations, $this->addonMigrations($addonKey));
+        foreach ((array) ($state['migrations'] ?? []) as $id => $migration) {
+            if (!isset($plan[$id]) || !hash_equals((string) $migration['checksum'], $plan[$id]['checksum']) || $migration !== $plan[$id]) {
+                throw new RuntimeException('Recovery requires the exact original add-on migration definitions: ' . $id);
+            }
+        }
+        if (($state['operation'] ?? '') === 'package_activation') {
+            throw new RuntimeException('Package activation failed after database or file changes committed. Restore or reconcile the recorded prior state from a verified backup before clearing recovery.');
+        }
+        if (!in_array($state['operation'] ?? '', ['compensate', 'rollback'], true) || !empty($state['pendingStatement'])) {
+            throw new RuntimeException('An interrupted add-on migration has an unknown statement outcome. Preserve its recovery record and restore or reconcile the database from a verified backup before proceeding.');
+        }
+        if (!isset($state['steps'], $state['position']) || !is_array($state['steps']) || !array_is_list($state['steps'])
+            || !is_int($state['position']) || $state['position'] < 0 || $state['position'] > count($state['steps'])) {
+            throw new RuntimeException('Invalid add-on recovery progress; preserve it for review.');
+        }
+        foreach ($state['steps'] as $step) {
+            $migration = $step['migration'] ?? [];
+            $id = $migration['id'] ?? '';
+            if (!isset($plan[$id]) || !is_int($step['next'] ?? null) || $step['next'] < 0 || $step['next'] > count((array) ($migration['down'] ?? []))) {
+                throw new RuntimeException('Invalid add-on recovery step; preserve it for review.');
+            }
+            $expected = $plan[$id];
+            if ($state['operation'] === 'compensate') {
+                if (!is_int($step['completedUp'] ?? null) || $step['completedUp'] < 0 || $step['completedUp'] > count($expected['up'])) {
+                    throw new RuntimeException('Invalid completed add-on migration boundary; preserve it for review.');
+                }
+                $expected = AddonMigrationPlan::compensation($expected, $step['completedUp']);
+            }
+            if ($migration !== $expected) throw new RuntimeException('Recovery SQL differs from the exact reviewed migration plan.');
+        }
+        try {
+            $this->continueAddonMigrationRollback($addonKey, $recovery, $state);
+        } catch (\Throwable $error) {
+            throw new AddonMigrationException('Add-on migration recovery is still incomplete; its progress was retained.', true, $error);
+        }
     }
 
     /** @param list<array{id:string,checksum:string,up:list<string>,down:list<string>}> $migrations */
     public function rollbackAddonMigrations(string $addonKey, array $migrations, bool $all = true): void
     {
         $applied = $this->addonMigrations($addonKey);
-        foreach (array_reverse($migrations) as $migration) {
-            $id = (string) $migration['id'];
-            if (!isset($applied[$id])) continue;
-            if ($this->mode === 'file') {
-                $data = $this->readFileStore();
-                unset($data['addonMigrations'][$addonKey . ':' . $id]);
-                $this->writeFileStore($data);
-            } else {
-                foreach ($migration['down'] as $sql) {
-                    if (trim($sql) !== '') $this->pdo()->exec($sql);
-                }
-                $this->pdo()->prepare('DELETE FROM addon_migrations WHERE addon_key = ? AND migration_key = ?')->execute([$addonKey,$id]);
+        $keys = array_keys($applied);
+        if (!$all) {
+            $keys = [];
+            foreach (array_reverse($migrations) as $migration) {
+                if (isset($applied[$migration['id']])) { $keys[] = $migration['id']; break; }
             }
-            if (!$all) break;
         }
+        $this->rollbackAddonMigrationKeys($addonKey, $migrations, $keys);
     }
-
 
     /** @param list<array{id:string,checksum:string,up:list<string>,down:list<string>}> $migrations @param list<string> $keys */
     public function rollbackAddonMigrationKeys(string $addonKey, array $migrations, array $keys): void
     {
         if ($keys === []) return;
-        $wanted = array_fill_keys(array_map('strval', $keys), true);
+        $recovery = new AddonMigrationRecovery($addonKey);
+        $recovery->lock();
+        if ($recovery->read() !== null) throw new RuntimeException('This add-on has pending migration recovery. Recover it before rolling back another package.');
         $applied = $this->addonMigrations($addonKey);
-        foreach (array_reverse($migrations) as $migration) {
-            $id = (string) $migration['id'];
-            if (!isset($wanted[$id], $applied[$id])) continue;
-            if ($this->mode === 'file') {
-                $data = $this->readFileStore();
-                unset($data['addonMigrations'][$addonKey . ':' . $id]);
-                $this->writeFileStore($data);
-            } else {
-                foreach ($migration['down'] as $sql) {
-                    if (trim($sql) !== '') $this->pdo()->exec($sql);
-                }
-                $this->pdo()->prepare('DELETE FROM addon_migrations WHERE addon_key = ? AND migration_key = ?')->execute([$addonKey, $id]);
-            }
+        $plan = AddonMigrationPlan::validate($addonKey, $migrations, $applied, $this->mode === 'mysql' ? $this->pdo() : null);
+        $wanted = array_fill_keys(array_map('strval', $keys), true);
+        foreach ($wanted as $id => $_) {
+            if (isset($applied[$id]) && !isset($plan[$id])) throw new RuntimeException('The installed package is missing an applied migration needed for rollback: ' . $id);
         }
+        $steps = [];
+        foreach (array_reverse($plan, true) as $id => $migration) {
+            if (isset($wanted[$id], $applied[$id])) $steps[] = ['migration' => $migration, 'next' => 0];
+        }
+        if ($steps === []) return;
+        $state = ['operation' => 'rollback', 'migrations' => $plan, 'steps' => $steps, 'position' => 0, 'pendingStatement' => false];
+        $recovery->write($state);
+        try {
+            $this->continueAddonMigrationRollback($addonKey, $recovery, $state);
+        } catch (\Throwable $error) {
+            throw new AddonMigrationException('Add-on rollback is incomplete. The ledger, prior files and private recovery progress were retained; recover the database before activation.', true, $error);
+        }
+    }
+
+    private function continueAddonMigrationRollback(string $addonKey, AddonMigrationRecovery $recovery, array &$state): void
+    {
+        while ($state['position'] < count($state['steps'])) {
+            $position = $state['position'];
+            $migration = $state['steps'][$position]['migration'];
+            for ($index = $state['steps'][$position]['next']; $index < count($migration['down']); $index++) {
+                $state['pendingStatement'] = true;
+                $recovery->write($state);
+                try {
+                    if ($this->mode === 'mysql') $this->pdo()->exec($migration['down'][$index]);
+                } catch (\Throwable $error) {
+                    // A normal MySQL statement rejection can be retried. Lost
+                    // connections and process interruption remain ambiguous.
+                    $state['pendingStatement'] = $this->addonMigrationOutcomeUnknown($error);
+                    $recovery->write($state);
+                    throw $error;
+                }
+                $state['steps'][$position]['next'] = $index + 1;
+                $state['pendingStatement'] = false;
+                $recovery->write($state);
+            }
+            $this->forgetAddonMigration($addonKey, $migration['id']);
+            $state['position']++;
+            $recovery->write($state);
+        }
+        $recovery->clear();
+    }
+
+    private function addonMigrationOutcomeUnknown(\Throwable $error): bool
+    {
+        return $error instanceof \PDOException && (str_starts_with((string) ($error->errorInfo[0] ?? $error->getCode()), '08')
+            || in_array((int) ($error->errorInfo[1] ?? 0), [2006, 2013, 2055], true));
+    }
+
+    private function recordAddonMigration(string $addonKey, array $migration, int $batch): void
+    {
+        if ($this->mode === 'file') {
+            $data = $this->readFileStore();
+            $data['addonMigrations'][$addonKey . ':' . $migration['id']] = ['addonKey' => $addonKey, 'migrationKey' => $migration['id'], 'checksum' => $migration['checksum'], 'batch' => $batch, 'executedAt' => now_iso()];
+            $this->writeFileStore($data);
+            return;
+        }
+        $this->pdo()->prepare('INSERT INTO addon_migrations (addon_key,migration_key,checksum,batch,executed_at) VALUES (?,?,?,?,NOW())')
+            ->execute([$addonKey, $migration['id'], $migration['checksum'], $batch]);
+    }
+
+    private function forgetAddonMigration(string $addonKey, string $id): void
+    {
+        if ($this->mode === 'file') {
+            $data = $this->readFileStore();
+            unset($data['addonMigrations'][$addonKey . ':' . $id]);
+            $this->writeFileStore($data);
+            return;
+        }
+        $this->pdo()->prepare('DELETE FROM addon_migrations WHERE addon_key = ? AND migration_key = ?')->execute([$addonKey, $id]);
     }
 
     public function addonsSafeMode(): bool

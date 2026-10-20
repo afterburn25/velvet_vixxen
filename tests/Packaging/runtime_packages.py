@@ -97,17 +97,44 @@ REPAIR_TIMESTAMPS = {
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in COMPOSER_REPAIR_FILES
 })
-RELEASE_TIMESTAMP = (2026, 10, 20, 3, 48, 0)
+PRIOR_RELEASE_TIMESTAMPS = {
+    'VERSION': (2026, 10, 20, 3, 48, 0),
+    'admin/index.php': (2026, 10, 20, 3, 48, 0),
+    'app/Console/run_media.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/CommerceService.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaAdminService.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MediaStoreTrait.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/MemberStoreTrait.php': (2026, 10, 20, 3, 48, 0),
+    'app/Core/Store.php': (2026, 10, 20, 3, 48, 0),
+    'app/Support/media_admin.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/addon-licensing.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/commerce.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/communications.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/media-center.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/members.php': (2026, 10, 20, 3, 48, 0),
+    'config/app.example.php': (2026, 10, 20, 3, 48, 0),
+    'includes/runtime-build.json': (2026, 10, 20, 3, 48, 0),
+    'includes/version.php': (2026, 10, 20, 3, 48, 0),
+    'install/services/InstallerService.php': (2026, 10, 20, 3, 48, 0),
+    'install/views/single-page.php': (2026, 10, 20, 3, 48, 0),
+    'public/assets/css/media-admin-edit.css': (2026, 10, 20, 3, 48, 0),
+    'public/assets/js/admin-media.js': (2026, 10, 20, 3, 48, 0),
+    'public/routes/music/index.php': (2026, 10, 20, 3, 48, 0),
+}
+RELEASE_TIMESTAMP = (2026, 10, 20, 5, 0, 0)
 RELEASE_FILES = {
-    "VERSION", "admin/index.php", "app/Console/run_media.php", "app/Core/CommerceService.php",
-    "app/Core/MediaAdminService.php", "app/Core/MediaInput.php", "app/Core/MediaStoreTrait.php", "app/Core/MemberStoreTrait.php", "app/Core/Store.php",
-    "app/Support/media_admin.php", "app/Views/admin/addon-licensing.php",
-    "app/Views/admin/commerce.php", "app/Views/admin/communications.php",
-    "app/Views/admin/media-center.php", "app/Views/admin/members.php",
-    "config/app.example.php", RUNTIME_BUILD_PATH, "includes/version.php",
-    "install/services/InstallerService.php", "install/views/single-page.php",
-    "public/assets/css/media-admin-edit.css", "public/assets/js/admin-media.js",
-    "public/routes/music/index.php",
+    'VERSION',
+    'admin/addon-recovery.php',
+    'app/Core/AddonManager.php',
+    'app/Core/AddonMigrationException.php',
+    'app/Core/AddonMigrationPlan.php',
+    'app/Core/AddonMigrationRecovery.php',
+    'app/Core/AddonRuntime.php',
+    'app/Core/AddonStoreTrait.php',
+    'app/Views/admin/addons.php',
+    'includes/runtime-build.json',
+    'includes/version.php',
 }
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in {
@@ -115,6 +142,7 @@ REPAIR_TIMESTAMPS.update({
         "install/services/SmtpTester.php", "install/services/InstallerService.php",
     }
 })
+REPAIR_TIMESTAMPS.update(PRIOR_RELEASE_TIMESTAMPS)
 REPAIR_TIMESTAMPS.update({relative: RELEASE_TIMESTAMP for relative in RELEASE_FILES})
 
 
@@ -172,11 +200,11 @@ echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION
 
 
 def run() -> None:
-    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.1-build-20261020.2.json").read_text())
-    assert prior_release["source_commit"] == "7b5966108d7e311ce11d95bafb06abef4e9e4442"
-    assert prior_release["version"] == "0.8.1" and prior_release["build_id"] == "20261020.2"
-    assert prior_release["sha256"] == "fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803"
-    assert prior_release["files"] == len(prior_release["entries"]) == 335, "Prior-release fixture must retain the exact delivered Fresh inventory"
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.2-build-20261020.3.json").read_text())
+    assert prior_release["source_commit"] == "91d5cee9d7625d4f0eaf111f5923695ae681fa58"
+    assert prior_release["version"] == "0.8.2" and prior_release["build_id"] == "20261020.3"
+    assert prior_release["sha256"] == "edbf843fe56f68fa453ac5ac455c7ceaa95590651e6685238bdab342e0bf10c4"
+    assert prior_release["files"] == len(prior_release["entries"]) == 339, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
@@ -238,19 +266,21 @@ def run() -> None:
                 patch.object(package, "INSTALLER_DATABASE_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "INSTALLER_MAIL_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "COMPOSER_REPAIR_TIMESTAMP", LEGACY_TIMESTAMP), \
-                patch.object(package, "RELEASE_TIMESTAMP", LEGACY_TIMESTAMP):
+                patch.object(package, "RELEASE_TIMESTAMP", LEGACY_TIMESTAMP), \
+                patch.object(package, "PRIOR_RELEASE_TIMESTAMPS", {name: LEGACY_TIMESTAMP for name in PRIOR_RELEASE_TIMESTAMPS}):
             legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
         assert first["build_id"] == BUILD_ID == second["build_id"], "Package build identity is missing or ambiguous"
         assert first["manifest_filename"] == f"Velvet-Vixxen-{version}-Build-{BUILD_ID}-package-manifest.json"
         assert json.loads((work / "first" / first["manifest_filename"]).read_text()) == first, "Separate manifest differs from the returned build inventory"
         assert (source / RUNTIME_BUILD_PATH).read_bytes() == stale_inventory, "Packaging wrote generated state back into its source checkout"
-        assert tuple(map(int, version.split("."))) > (0, 8, 1), "A completed release must advance the visible version beyond the historical 0.8.1 baseline"
+        assert tuple(map(int, version.split("."))) > tuple(map(int, prior_release["version"].split("."))), "A new release must advance the visible version beyond the exact previous delivered release"
         assert set(releases) == {"fresh", "upgrade", "installer-repair"}, "Require two full current-version distributions and the explicit 0.8.1 unfinished-installer overlay; no unsupported focused Media repair"
         assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
         assert package.PUBLIC_HANDLER_FILES == PUBLIC_HANDLER_FILES, "Organized public handlers differ from the reviewed route scope"
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
         assert package.RELEASE_FILES == RELEASE_FILES and package.RELEASE_TIMESTAMP == RELEASE_TIMESTAMP
+        assert package.PRIOR_RELEASE_TIMESTAMPS == PRIOR_RELEASE_TIMESTAMPS
         with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
             fresh.extractall(work / "current-version")
         current_identity = installer_identity(work / "current-version")
@@ -336,6 +366,7 @@ def run() -> None:
                     assert "config/app.example.php" in entries and "install/index.php" in entries
                     changed = {name for name in entries if hashlib.sha256(zipped.read(name)).hexdigest()
                                != prior_release["entries"].get(name, {}).get("sha256")}
+                    assert set(prior_release["entries"]) <= entries, "A previously delivered runtime file disappeared without an explicit removal review"
                     assert changed == RELEASE_FILES, "Changed runtime files lack reviewed release timestamps, or unchanged files were relabeled: " + ", ".join(sorted(changed ^ RELEASE_FILES))
                     for entry in zipped.infolist():
                         prior = prior_release["entries"].get(entry.filename)
@@ -368,13 +399,14 @@ def run() -> None:
                     assert lock["installed"] and lock["installation_id"] == "test-installation"
                 elif release["kind"] == "installer-repair":
                     assert entries == REPAIR_FILES, "Installer repair must contain exactly the reviewed database and filesystem dependencies"
-                    assert release["filename"] == f"Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-{BUILD_ID}-Installer-Database-Repair.zip"
+                    assert release["filename"] == "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip"
                     assert release["files"] == 11 == len(REPAIR_FILES) and release["php_files"] == 9 and release["javascript_files"] == 1
-                    assert release["repair_build_id"] == BUILD_ID, "New sender repair must have an explicit repair identity"
+                    assert release["repair_build_id"] == package.INSTALLER_REPAIR_BUILD_ID == "20261020.3", "Unchanged installer repair must retain its delivered identity"
+                    assert release["sha256"] == "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297", "Unchanged installer repair bytes were relabeled or rebuilt differently"
                     assert release["sha256"] != "9cf165faf4f324e4682875bcfde50300a42382467bca700dac0d4e4fd835fc38", "Sender correction was not included in the actual installer repair"
                     compatibility = json.loads(zipped.comment)
                     assert compatibility["kind"] == "installer-repair" and compatibility["version"] == "0.8.1"
-                    assert compatibility["repair_build_id"] == BUILD_ID
+                    assert compatibility["repair_build_id"] == "20261020.3"
                     assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "incomplete", "Installer repair compatibility must stay limited to an unfinished 0.8.1 installation"
                     assert release["supported_from"] == ["0.8.1"] and release["installation_state"] == "incomplete"
 

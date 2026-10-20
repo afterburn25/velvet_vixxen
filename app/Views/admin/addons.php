@@ -7,6 +7,9 @@ use App\Core\AddonManifest;
 $addons = $store->addons();
 $activity = $store->addonActivity(12);
 $safeMode = $store->addonsSafeMode();
+$recoveries = $addonManager->pendingRecoveries();
+$recoveryIds = array_fill_keys(array_column($recoveries, 'addonKey'), true);
+$recoveryError = flash('addon_recovery_error');
 $activeCount = count(array_filter($addons, static fn(array $row): bool => ($row['status'] ?? '') === 'active'));
 $inactiveCount = count(array_filter($addons, static fn(array $row): bool => in_array(($row['status'] ?? ''), ['installed','inactive'], true)));
 $attentionCount = count(array_filter($addons, static fn(array $row): bool => in_array(($row['status'] ?? ''), ['failed','quarantined'], true)));
@@ -19,6 +22,20 @@ $attentionCount = count(array_filter($addons, static fn(array $row): bool => in_
   </div>
 </section>
 <?php if ($safeMode): ?><div class="admin-alert error"><strong>Add-on Safe Mode is active.</strong> Installed packages remain registered, but optional add-on PHP code, routes, widgets, and admin pages will not load until Safe Mode is disabled.</div><?php endif; ?>
+<?php if ($recoveryError !== null): ?><div class="admin-alert error" role="alert"><?= e($recoveryError) ?></div><?php endif; ?>
+<?php if ($recoveries !== []): ?>
+<section class="admin-card" aria-labelledby="addon-recovery-heading">
+  <span class="admin-kicker">Changes needing attention</span><h2 id="addon-recovery-heading">Add-on recovery</h2>
+  <p>These add-ons stay disabled while their database and package state is unresolved. Recovery retries only recorded steps whose failure is known. A schema rollback or purge cannot restore deleted data; that requires a database backup.</p>
+  <?php foreach ($recoveries as $recovery): ?>
+  <div class="addon-warning"><strong><?= e((string) $recovery['addonKey']) ?></strong><p><?= e((string) $recovery['message']) ?></p>
+    <?php if ($recovery['canRetry']): ?>
+    <form method="post" action="<?= e(base_url('admin/addon-recovery.php')) ?>"><?= csrf_field() ?><input type="hidden" name="addon_id" value="<?= e((string) $recovery['addonKey']) ?>"><button class="admin-button secondary">Retry recorded recovery</button></form>
+    <?php endif; ?>
+  </div>
+  <?php endforeach; ?>
+</section>
+<?php endif; ?>
 <div class="addon-top-grid">
   <section class="admin-card addon-upload-card">
     <span class="admin-kicker">Install or update</span><h2>Upload an add-on ZIP</h2><p class="muted-copy">Packages are staged in a protected folder and inspected before any PHP code executes.</p>
@@ -72,9 +89,11 @@ $attentionCount = count(array_filter($addons, static fn(array $row): bool => in_
     <?php endif; ?>
   </div>
   <div class="addon-record-actions">
+    <?php if (isset($recoveryIds[(string) $addon['addonKey']])): ?><p class="muted-copy">Resolve the recorded recovery before changing this package.</p><?php else: ?>
     <?php if(($addon['status']??'')==='active'):?><form method="post"><?=csrf_field()?><input type="hidden" name="action" value="deactivate_addon"><input type="hidden" name="addon_id" value="<?=e((string)$addon['addonKey'])?>"><button class="mini-button">Deactivate</button></form><?php else:?><form method="post"><?=csrf_field()?><input type="hidden" name="action" value="activate_addon"><input type="hidden" name="addon_id" value="<?=e((string)$addon['addonKey'])?>"><button class="mini-button">Activate</button></form><?php endif;?>
     <?php if($backups!==[]):?><form method="post"><?=csrf_field()?><input type="hidden" name="action" value="rollback_addon"><input type="hidden" name="addon_id" value="<?=e((string)$addon['addonKey'])?>"><button class="mini-button">Rollback</button></form><?php endif;?>
     <form method="post" onsubmit="return confirm('Uninstall this add-on?');"><?=csrf_field()?><input type="hidden" name="action" value="uninstall_addon"><input type="hidden" name="addon_id" value="<?=e((string)$addon['addonKey'])?>"><button class="mini-button danger">Uninstall</button><label class="purge-check"><input type="checkbox" name="purge_data"><span>Purge data</span></label></form>
+    <?php endif; ?>
   </div>
 </article><?php endforeach; ?></div><?php endif; ?></section>
 
