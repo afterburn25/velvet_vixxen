@@ -1,7 +1,19 @@
 # Nikki Wilder — The Velvet Vixxen
 
+<!-- media-center-082:start -->
+## Current work — 0.8.2 Media Center, Build 20261020.3
+
+The user requires the visible release version to advance with each completed release. This branch advances to **0.8.2**, with **Build 20261020.3** as its secondary identity. Implementation continues from authoritative `main` baseline `7b5966108d7e311ce11d95bafb06abef4e9e4442` on `feature/0.8.2-media-center`.
+
+The increment covers exact gallery membership/order, caption and shared photo-tag editing, mobile ordering and unsaved removal undo, stale-form protection, ordered playlists with retained dates, bounded due media publication and playlist access checks. Local acceptance passed: the full source/security/ownership/OPcache/package suite, all ten HTTP suites, 116 focused file assertions, 108 real-MySQL assertions and 198 Media Center HTTP assertions. All four actual Fresh-package browser cases passed (file/MySQL at root desktop and nested mobile). GitHub CI, merge and saved-download equality remain pending for this frozen changed tree.
+
+The complete Fresh and Upgrade packages use **0.8.2 / Build 20261020.3** and preserve the approved 13/9 root directories and four root files. The unfinished-installer repair remains explicitly for incomplete **0.8.1** setup; the prior focused Media/Composer overlay is retired for new releases. Package checks require newer timestamps for every runtime file changed since the exact previous delivered Fresh archive.
+
+Read [the 0.8.2 release record](docs/releases/0.8.2-media-center.md) and [the Media Center guide](docs/MEDIA_CENTER.md) for the scope and owner workflow. After verified media #2, continue addon-owned real-MySQL migration acceptance **#7**, then remaining marketing **#9**. The media runner does not complete scene scheduling or expiry. Actual-host **#12/#13** and production mail remain unverified; payments stay sandbox-only. Older release records below preserve historical evidence and instructions.
+<!-- media-center-082:end -->
+
 <!-- owner-mail-settings:start -->
-## Current release — owner Email & SMTP, Build 20261020.2
+## Historical release — owner Email & SMTP, Build 20261020.2
 
 The owner can configure a shared email connection from **System → Email & SMTP**, retain or clear a saved password, and test the saved settings with one message to the current owner. Saving sends nothing. Runtime and installer sender validation reject unsafe headers and use a valid explicit From, then an email-shaped SMTP username, then the owner fallback. Read [the owner guide](docs/EMAIL_SETTINGS.md) and [release evidence](docs/releases/0.8.1-owner-mail-settings.md).
 

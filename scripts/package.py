@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build reproducible runtime installation, upgrade, and focused repair packages."""
+"""Build reproducible runtime installation, upgrade, and targeted installer repair packages."""
 from __future__ import annotations
 
 import argparse
@@ -33,6 +33,8 @@ PUBLIC_HANDLER_FILES = {"public/routes/" + relative for relative in {
     "videos/index.php", "videos/watch.php",
 }}
 INSTALLER_REPAIR_VERSION = "0.8.1"
+# The unfinished 0.8.1 overlay reads that installation's canonical version. It
+# never carries VERSION, includes/version.php, or an installed-runtime inventory.
 INSTALLER_DATABASE_REPAIR_FILES = {
     "app/Core/MigrationRunner.php", "app/Core/MigrationResumeSchema.php",
     "includes/installation_recovery.php",
@@ -48,15 +50,10 @@ INSTALLER_REPAIR_FILES = {
     "install/services/FileSystemService.php", *INSTALLER_DATABASE_REPAIR_FILES,
     *INSTALLER_MAIL_REPAIR_FILES,
 }
-COMPOSER_REPAIR_VERSION = "0.8.1"
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
-COMPOSER_REPAIR_BASELINES = [
-    "e5b04daa132521be69c943151f8112c7cd2017e8",
-    "db759342e401617c9933c13b81a147ad9f8fd515",
-    "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
-]
-# A separate installed-site overlay keeps Media, Composer and route corrections out of the
-# unfinished-installer repair and never ships configuration or uploaded media.
+# Preserve the historical dependency floor in full distributions. The former
+# installed-site overlay is retired; rebuild older releases from their pinned
+# source instead of claiming that this changed runtime matches their baselines.
 COMPOSER_REPAIR_FILES = {
     *PUBLIC_HANDLER_FILES, ".htaccess", "route.php", "admin/index.php", "admin/update.php",
     "admin/repair.php", "public/router.php", "app/Support/public_routes.php",
@@ -89,6 +86,18 @@ INSTALLER_FILESYSTEM_TIMESTAMP = (2026, 10, 19, 0, 0, 0)
 INSTALLER_DATABASE_TIMESTAMP = (2026, 10, 19, 16, 0, 0)
 INSTALLER_MAIL_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
 COMPOSER_REPAIR_TIMESTAMP = (2026, 10, 20, 2, 24, 0)
+RELEASE_TIMESTAMP = (2026, 10, 20, 3, 48, 0)
+RELEASE_FILES = {
+    "VERSION", "admin/index.php", "app/Console/run_media.php", "app/Core/CommerceService.php",
+    "app/Core/MediaAdminService.php", "app/Core/MediaInput.php", "app/Core/MediaStoreTrait.php", "app/Core/MemberStoreTrait.php", "app/Core/Store.php",
+    "app/Support/media_admin.php", "app/Views/admin/addon-licensing.php",
+    "app/Views/admin/commerce.php", "app/Views/admin/communications.php",
+    "app/Views/admin/media-center.php", "app/Views/admin/members.php",
+    "config/app.example.php", RUNTIME_BUILD_PATH, "includes/version.php",
+    "install/services/InstallerService.php", "install/views/single-page.php",
+    "public/assets/css/media-admin-edit.css", "public/assets/js/admin-media.js",
+    "public/routes/music/index.php",
+}
 APPROVED_UPLOADS = {
     "uploads/.htaccess", "uploads/index.html",
     "uploads/audio/demo/neon-heartbeat.mp3",
@@ -236,9 +245,7 @@ def required_files(kind: str, version: str) -> set[str]:
             raise ValueError("The installer database repair applies only to unfinished 0.8.1 installations")
         required = INSTALLER_REPAIR_FILES
     elif kind == "composer-repair":
-        if version != COMPOSER_REPAIR_VERSION:
-            raise ValueError("The Media and Composer repair requires a verified installed 0.8.1 baseline")
-        required = COMPOSER_REPAIR_FILES
+        raise ValueError("The focused Media and Composer repair is retired; use the complete Upgrade ZIP")
     else:
         required = ROOT_FILES | {
             "app/bootstrap.php", "includes/bootstrap.php", "includes/version.php",
@@ -248,6 +255,7 @@ def required_files(kind: str, version: str) -> set[str]:
         } | COMPOSER_REPAIR_FILES
         if kind == "fresh":
             required |= {"config/app.example.php", "install/index.php", "storage/defaults/data.json"} | INSTALLER_REPAIR_FILES
+        required |= {relative for relative in RELEASE_FILES if eligible(relative, kind)}
     return required
 
 
@@ -320,42 +328,38 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
     result: dict[str, object] = {
         "version": version, "build_id": build_id, "manifest_filename": manifest_filename, "packages": [],
     }
-    variants = [("fresh", "Fresh-Install"), ("upgrade", "Upgrade-from-0.8.x")]
-    if version == INSTALLER_REPAIR_VERSION:
-        variants.append(("installer-repair", "Installer-Database-Repair"))
-    if version == COMPOSER_REPAIR_VERSION:
-        variants.append(("composer-repair", "Media-Composer-Repair"))
-    for kind, suffix in variants:
+    major, minor, patch = map(int, version.split("."))
+    if (major, minor) != (0, 8):
+        raise ValueError("Upgrade compatibility must be reviewed before leaving the 0.8.x release series")
+    supported_upgrades = [f"0.8.{previous}" for previous in range(patch + 1)]
+    variants = [("fresh", "Fresh-Install", version), ("upgrade", "Upgrade-from-0.8.x", version),
+                ("installer-repair", "Installer-Database-Repair", INSTALLER_REPAIR_VERSION)]
+    for kind, suffix, package_version in variants:
         files = _files_for_kind(source, kind, manifest)
-        validate(files, kind, version)
+        validate(files, kind, package_version)
         # A new installer-only repair has its own explicit identity without
         # claiming to update the installed site's complete runtime inventory.
         identity = {"repair_build_id": build_id} if kind == "installer-repair" else {"build_id": build_id}
         build_tag = f"-Build-{build_id}"
-        filename = f"Nikki-Wilder-Velvet-Vixxen-{version}{build_tag}-{suffix}.zip"
+        filename = f"Nikki-Wilder-Velvet-Vixxen-{package_version}{build_tag}-{suffix}.zip"
         archive = output / filename
         compatibility = {
-            "supported_from": ["0.8.0", "0.8.1"] if kind == "upgrade" else [],
+            "supported_from": supported_upgrades if kind == "upgrade" else [],
         }
         if kind == "installer-repair":
             compatibility = {
                 "supported_from": [INSTALLER_REPAIR_VERSION],
                 "installation_state": "incomplete",
             }
-        elif kind == "composer-repair":
-            compatibility = {
-                "supported_from": [COMPOSER_REPAIR_VERSION],
-                "installation_state": "installed",
-                "verified_source_commits": COMPOSER_REPAIR_BASELINES,
-                "unknown_baseline": "Use the complete Upgrade ZIP when the installed source build is unknown.",
-            }
         with ZipFile(archive, "w", compression=ZIP_DEFLATED, compresslevel=9) as zipped:
             zipped.comment = json.dumps({
-                "product": "Velvet Vixxen", "version": version, "kind": kind,
+                "product": "Velvet Vixxen", "version": package_version, "kind": kind,
                 **identity, **compatibility,
             }, separators=(",", ":")).encode()
             for relative, content in files.items():
-                timestamp = (INSTALLER_FILESYSTEM_TIMESTAMP
+                timestamp = (RELEASE_TIMESTAMP
+                             if relative in RELEASE_FILES
+                             else INSTALLER_FILESYSTEM_TIMESTAMP
                              if relative == "install/services/FileSystemService.php"
                              else INSTALLER_MAIL_TIMESTAMP
                              if relative in INSTALLER_MAIL_REPAIR_FILES
@@ -375,12 +379,12 @@ def build(root: Path, output: Path, version: str) -> dict[str, object]:
             if set(zipped.namelist()) != set(files):
                 raise ValueError(f"Archive entry verification failed: {filename}")
         result["packages"].append({
-            "kind": kind, "filename": filename, **identity, "size_bytes": archive.stat().st_size,
+            "kind": kind, "version": package_version, "filename": filename, **identity, "size_bytes": archive.stat().st_size,
             "sha256": hashlib.sha256(archive.read_bytes()).hexdigest(),
             "files": len(files), "php_files": sum(name.endswith(".php") for name in files),
             "javascript_files": sum(name.endswith(".js") for name in files),
             "entry_sha256": {name: hashlib.sha256(data).hexdigest() for name, data in files.items()},
-            **(compatibility if kind in {"installer-repair", "composer-repair"} else {}),
+            **compatibility,
         })
     (output / manifest_filename).write_text(
         json.dumps(result, indent=2) + "\n"

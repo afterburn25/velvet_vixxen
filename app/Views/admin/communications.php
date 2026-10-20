@@ -12,7 +12,7 @@ $formatWhen = static function (?string $value): string {
 };
 ?>
 <section class="communication-admin-hero">
-  <div><span class="admin-kicker">0.8.1 Communication Center</span><h2>Private conversations, requests &amp; booking.</h2><p>Review member messages, professional inquiries, protected attachments, request quotes, and moderation controls from one private queue.</p></div>
+  <div><span class="admin-kicker"><?= e(VELVET_VIXXEN_VERSION) ?> Communication Center</span><h2>Private conversations, requests &amp; booking.</h2><p>Review member messages, professional inquiries, protected attachments, request quotes, and moderation controls from one private queue.</p></div>
   <div class="communication-admin-stats">
     <article><strong><?= e((string) $communicationStats['unreadThreads']) ?></strong><span>Unread threads</span></article>
     <article><strong><?= e((string) $communicationStats['openContentRequests']) ?></strong><span>Open requests</span></article>

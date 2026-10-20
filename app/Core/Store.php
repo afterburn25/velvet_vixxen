@@ -20,6 +20,10 @@ final class Store
     private readonly string $mode;
     private ?Database $database = null;
     private readonly string $filePath;
+    // Keep the first read of an ordinary read/modify/write operation. A nested
+    // read must not bless an older array after another request changed the file.
+    private ?string $fileReadDigest = null;
+    private bool $fileMutationActive = false;
 
     public function __construct(private readonly Config $config)
     {
@@ -342,7 +346,49 @@ final class Store
 
     public function replaceFileData(array $data): void
     {
-        $this->writeFileStore($data);
+        if ($this->fileMutationActive) {
+            throw new RuntimeException('Nested file data writes are not supported.');
+        }
+        $lock = $this->lockFileStore();
+        try {
+            $this->activateFileStore($data, null);
+            $this->fileReadDigest = null;
+        } finally {
+            flock($lock, LOCK_UN);
+            fclose($lock);
+        }
+    }
+
+    /**
+     * Apply one bounded change to fresh file data while all application writers
+     * share the same lock. The callback must change the supplied array only;
+     * calling another writer inside it would make rollback ambiguous.
+     */
+    public function mutateFileStore(callable $mutation): mixed
+    {
+        if ($this->mode !== 'file' || $this->fileMutationActive) {
+            throw new RuntimeException('This file data mutation is not available.');
+        }
+        $lock = $this->lockFileStore();
+        $this->fileMutationActive = true;
+        try {
+            $this->initializeFileStore();
+            [$data, $digest] = $this->loadFileStore();
+            $this->fileReadDigest = $digest;
+            $before = $data;
+            $result = $mutation($data);
+            if ($data !== $before) {
+                $this->activateFileStore($data, $digest);
+            }
+            return $result;
+        } finally {
+            $this->fileMutationActive = false;
+            // A caller holding an old array must read again before using a
+            // legacy writer; only this callback received the fresh snapshot.
+            $this->fileReadDigest = null;
+            flock($lock, LOCK_UN);
+            fclose($lock);
+        }
     }
 
     private function pdo(): PDO
@@ -355,31 +401,107 @@ final class Store
 
     private function readFileStore(): array
     {
-        if (!is_file($this->filePath)) {
-            $default = root_path('storage/defaults/data.json');
-            if (is_file($default)) {
-                $directory = dirname($this->filePath);
-                if (!is_dir($directory)) {
-                    mkdir($directory, 0755, true);
-                }
-                copy($default, $this->filePath);
+        $this->assertFileStorePath();
+        if (!is_file($this->filePath) && !$this->fileMutationActive) {
+            $lock = $this->lockFileStore();
+            try {
+                $this->initializeFileStore();
+            } finally {
+                flock($lock, LOCK_UN);
+                fclose($lock);
             }
         }
+        [$data, $digest] = $this->loadFileStore();
+        $this->fileReadDigest ??= $digest;
+        return $data;
+    }
+
+    /** @return array{0:array<string,mixed>,1:string} */
+    private function loadFileStore(): array
+    {
+        $this->assertFileStorePath();
         if (!is_file($this->filePath)) {
-            return $this->emptyFileStore();
+            return [$this->emptyFileStore(), 'missing'];
         }
-        $handle = fopen($this->filePath, 'rb');
+        $handle = @fopen($this->filePath, 'rb');
         if ($handle === false) {
             throw new RuntimeException('Unable to read file data store.');
         }
         try {
-            flock($handle, LOCK_SH);
-            $json = stream_get_contents($handle) ?: '{}';
+            if (!flock($handle, LOCK_SH)) {
+                throw new RuntimeException('Unable to read file data store.');
+            }
+            $json = stream_get_contents($handle);
             flock($handle, LOCK_UN);
         } finally {
             fclose($handle);
         }
-        return array_replace_recursive($this->emptyFileStore(), safe_json_decode($json, $this->emptyFileStore()));
+        if (!is_string($json)) {
+            throw new RuntimeException('Unable to read file data store.');
+        }
+        try {
+            $data = json_decode($json, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            throw new RuntimeException('File data is not valid JSON. Restore a verified backup before making changes.');
+        }
+        if (!is_array($data) || ($data !== [] && array_is_list($data))) {
+            throw new RuntimeException('File data has an invalid structure. Restore a verified backup before making changes.');
+        }
+        return [array_replace_recursive($this->emptyFileStore(), $data), hash('sha256', $json)];
+    }
+
+    /** Called only with the common write lock held. */
+    private function initializeFileStore(): void
+    {
+        $this->assertFileStorePath();
+        if (is_file($this->filePath)) {
+            return;
+        }
+        $default = root_path('storage/defaults/data.json');
+        if (!is_file($default)) {
+            return;
+        }
+        try {
+            $data = json_decode((string) file_get_contents($default), true, 512, JSON_THROW_ON_ERROR);
+        } catch (\JsonException) {
+            throw new RuntimeException('Default file data is invalid.');
+        }
+        if (!is_array($data)) {
+            throw new RuntimeException('Default file data is invalid.');
+        }
+        $this->activateFileStore($data, 'missing');
+    }
+
+    private function assertFileStorePath(): void
+    {
+        clearstatcache(true, $this->filePath);
+        if (is_link($this->filePath) || is_link(dirname($this->filePath)) || (file_exists($this->filePath) && !is_file($this->filePath))) {
+            throw new RuntimeException('File data storage must use a regular file and directory.');
+        }
+    }
+
+    /** @return resource */
+    private function lockFileStore()
+    {
+        $this->assertFileStorePath();
+        $directory = dirname($this->filePath);
+        if (!is_dir($directory) && !@mkdir($directory, 0755, true) && !is_dir($directory)) {
+            throw new RuntimeException('Unable to create storage directory.');
+        }
+        $path = $this->filePath . '.lock';
+        if (is_link($path) || (file_exists($path) && !is_file($path))) {
+            throw new RuntimeException('File data storage lock is not safe.');
+        }
+        $lock = @fopen($path, 'c+b');
+        if ($lock === false) {
+            throw new RuntimeException('Unable to lock file data storage.');
+        }
+        @chmod($path, 0640);
+        if (!flock($lock, LOCK_EX | LOCK_NB)) {
+            fclose($lock);
+            throw new RuntimeException('File data is being updated. Reload and try again.');
+        }
+        return $lock;
     }
 
     private function emptyFileStore(): array
@@ -402,19 +524,65 @@ final class Store
 
     private function writeFileStore(array $data): void
     {
-        $directory = dirname($this->filePath);
-        if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) {
-            throw new RuntimeException('Unable to create storage directory.');
+        if ($this->fileMutationActive) {
+            throw new RuntimeException('Nested file data writes are not supported.');
         }
-        $temp = $this->filePath . '.tmp';
-        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
-        if (file_put_contents($temp, $json, LOCK_EX) === false) {
+        if ($this->fileReadDigest === null) {
+            throw new RuntimeException('Reload file data before making changes.');
+        }
+        $lock = $this->lockFileStore();
+        try {
+            $this->activateFileStore($data, $this->fileReadDigest);
+            $this->fileReadDigest = null;
+        } finally {
+            flock($lock, LOCK_UN);
+            fclose($lock);
+        }
+    }
+
+    /** Called only with the sidecar lock held; null explicitly replaces data. */
+    private function activateFileStore(array $data, ?string $expectedDigest): void
+    {
+        $this->assertFileStorePath();
+        // Parsing also refuses to overwrite a corrupt existing store, including
+        // through the explicit replacement API. Recovery remains deliberate.
+        [, $currentDigest] = $this->loadFileStore();
+        if ($expectedDigest !== null && !hash_equals($expectedDigest, $currentDigest)) {
+            throw new RuntimeException('File data changed in another request. Reload and try again.');
+        }
+        $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR);
+        $temp = $this->filePath . '.tmp.' . bin2hex(random_bytes(12));
+        $handle = @fopen($temp, 'x+b');
+        if ($handle === false) {
             throw new RuntimeException('Unable to write data store.');
         }
-        @chmod($temp, 0640);
-        if (!@rename($temp, $this->filePath)) {
-            @unlink($temp);
-            throw new RuntimeException('Unable to activate data store.');
+        try {
+            @chmod($temp, 0640);
+            $written = 0;
+            while ($written < strlen($json)) {
+                $count = fwrite($handle, substr($json, $written));
+                if ($count === false || $count === 0) {
+                    throw new RuntimeException('Unable to write data store.');
+                }
+                $written += $count;
+            }
+            if (!fflush($handle)) {
+                throw new RuntimeException('Unable to write data store.');
+            }
+            // A manual/noncooperating change during the write must also survive.
+            [, $latestDigest] = $this->loadFileStore();
+            if (!hash_equals($currentDigest, $latestDigest)) {
+                throw new RuntimeException('File data changed in another request. Reload and try again.');
+            }
+            if (!@rename($temp, $this->filePath)) {
+                throw new RuntimeException('Unable to activate data store.');
+            }
+            clearstatcache(true, $this->filePath);
+        } finally {
+            fclose($handle);
+            if (is_file($temp)) {
+                @unlink($temp);
+            }
         }
     }
 }

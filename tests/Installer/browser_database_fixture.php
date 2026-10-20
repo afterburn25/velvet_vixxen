@@ -107,6 +107,9 @@ foreach ($before as $table => $state) {
 $config = \App\Core\Config::loadFresh($runtime . '/config/app.php');
 $lock = json_decode((string) file_get_contents($runtime . '/storage/install.lock'), true, 512, JSON_THROW_ON_ERROR);
 $assert(($config['installed'] ?? false) === true && ($lock['installation_id'] ?? '') === $config['installation_id'], 'Browser setup did not activate a verified configuration and lock.');
+$version = trim((string) file_get_contents($runtime . '/VERSION'));
+$assert($version === VELVET_VIXXEN_VERSION && ($config['version'] ?? '') === $version && ($lock['version'] ?? '') === $version,
+    'Browser setup configuration, lock and executing runtime do not match the canonical package version.');
 $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 14, 'Browser setup did not complete every migration.');
 $assert((int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn() === 1, 'Browser setup duplicated or omitted the owner account.');
 $assert(!is_dir($runtime . '/install'), 'Successful browser setup did not retire the public installer.');

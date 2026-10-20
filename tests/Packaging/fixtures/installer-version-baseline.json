@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "source_commit": "7b5966108d7e311ce11d95bafb06abef4e9e4442",
+  "version": "0.8.1",
+  "build_id": "20261020.2",
+  "version_source": "<?php\ndeclare(strict_types=1);\n\nconst VELVET_VIXXEN_VERSION = '0.8.1';\nconst VELVET_VIXXEN_BUILD_ID = '20261020.2';\n// Asset identity changes independently of the core/add-on compatibility version.\nconst VELVET_VIXXEN_ASSET_VERSION = '0.8.1-20261020.2';\n",
+  "files": {
+    "app/Core/MigrationResumeSchema.php": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+    "app/Core/MigrationRunner.php": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+    "includes/installation_recovery.php": "52ce3d42a00b5577d5ee121f7bc990bea124c6ffafa96df42c72f92d4897eea2",
+    "install/index.php": "3e7eef91bfc7eab9da6d844373898fbc5fafa77025279a62a93e26cb1ac22e07",
+    "install/services/EmailAddress.php": "a6f3d32630c8c006b9f7d1774f5d6d1df3e9e778b4f839912fbc596503e714a1",
+    "install/services/FileSystemService.php": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+    "install/services/InstallerService.php": "171636fc59296e8dbdfeb1b2666a7ce05fcf364bad02c671740efd36f741c026",
+    "install/services/SmtpTester.php": "9c56e66c47cf36e0ef6e9231092e7f658b0e082c11729d8a79c5cbad77cd9311",
+    "install/views/single-page.php": "36fa9f51a030c2b31d432175d838f5ef02ff5fd55da37f32fe243b88ba825c2c",
+    "public/assets/css/installer.css": "7b499c5824aa5445054aa025507b1fe0b373bbc77039902bf503a70a3d6dd81f",
+    "public/assets/js/installer.js": "2b12ed66d231102c2451d8d74a297a9e3af408b58a04147627068676e59c598b"
+  }
+}

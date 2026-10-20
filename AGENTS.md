@@ -1,7 +1,13 @@
 # Agent Instructions — Velvet Vixxen
 
+## User-directed release versioning — effective 2026-10-19 America/Chicago
+
+The user explicitly requires the visible release version to advance with each completed release. The next release is **0.8.2**, Build **20261020.3**, continuing Media Center issue **#2** from `main` commit `7b5966108d7e311ce11d95bafb06abef4e9e4442`. Subsequent completed releases must advance to 0.8.3, 0.8.4, or the appropriate next milestone; build IDs are secondary identifiers and must not substitute for release increments. Update the canonical version, running application, installer metadata, upgrade compatibility, packaging and current guides together. Preserve historical release identities and hashes. A patch-version advance does not claim the separate 0.9 roadmap milestone is complete.
+
+This current work is in progress on `feature/0.8.2-media-center`; its tests, CI, merge and downloads must be verified independently before release. The 0.8.1 records below are the verified baseline, not evidence for 0.8.2. Preserve all approved package roots and every required gate. Continue Media Center, addon migration acceptance #7 and remaining marketing #9 in scoped, verified releases.
+
 <!-- owner-mail-settings:start -->
-## Current continuation — Build 20261020.2 verified, merged and delivered
+## Historical continuation — Build 20261020.2 verified, merged and delivered
 
 **`main` is authoritative.** Owner **System → Email & SMTP** and strict installer/runtime sender handling are released through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), merged at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`. All seven jobs in [PR CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed. Release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual CI checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge share the complete tree `cef4014a6a07a3297be6be53641fbcc5ed267b57`. Compatibility remains **0.8.1**. Exact CI and delivery records are in `docs/releases/0.8.1-owner-mail-settings.md` and its `-ci.json` / `-delivery.json` companions.
 
@@ -70,11 +76,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current integration target: **0.8.1 — Build 20261020.2 owner Email & SMTP released; media #2 next**
+Current integration target: **0.8.2 — Build 20261020.3 Media Center; independent acceptance in progress**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and now contains PR #15, PR #16 and PR #17. Start subsequent implementation from live `main` on a scoped feature branch; the earlier site-UX, grouped-button and owner-mail branches are historical merged implementations. Current release evidence is `docs/releases/0.8.1-owner-mail-settings.md` and its CI/delivery JSON records; media #2 is the next acceptance target.
+`main` is the authoritative integration destination and now contains PR #15, PR #16 and PR #17. Start subsequent implementation from live `main` on a scoped feature branch; the earlier site-UX, grouped-button and owner-mail branches are historical merged implementations. Current release work is recorded in `docs/releases/0.8.2-media-center.md`; the 0.8.1 owner-mail CI/delivery JSON records certify only that historical baseline. Media #2 is the active acceptance target, followed by #7 and remaining #9.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 
@@ -111,7 +117,7 @@ The user requires the latest source and progress documents to be uploaded to Git
 
 ## Active continuation
 
-Read `INCOMPLETE_WORK.md` in full. Issue #13 is the active implementation scope. Complete source recovery, Composer, 30 standalone Hero scenes, Booking Builder, public navigation/About/auth, persistent admin categories, merchandise/direct PPV separation, and Canva clarity. Preserve all locked requirements and update progress documents and issue #13 as implementation lands. Do not advance to 0.9.0 until verified or explicitly deferred by the user.
+Read `INCOMPLETE_WORK.md` in full. Preserve the already merged and verified source recovery, Composer, 30 standalone Hero scenes, Booking Builder, public navigation/About/auth, persistent admin categories, merchandise/direct PPV separation, Canva clarity, grouped buttons and owner mail settings. Active implementation is Media Center #2, then addon migration acceptance #7 and remaining marketing #9. Keep #12/#13 open for actual hosted verification; do not repeat completed source work. Advance the visible version for each completed release. The separate 0.9 milestone remains incomplete until its own acceptance is fulfilled.
 
 Actual recovered marketing source is `app/Core/MarketingStore.php`; runtime public routes are under `public/routes`, and operational commands are under `app/Console`. Do not assume historical paths or advanced marketing descriptions exist in executable source.
 
@@ -147,7 +153,7 @@ Preserve the verified image-upload, Full Page Preview, Publish, folder-reorganiz
 
 Public implementations stay under `public/routes`. The owner has rejected the physical root compatibility files/folders. Preserve destinations through the central physical `route.php` dispatcher and real pretty-path rewrite aliases; keep the exact approved package root allowlist, including no root `media.php` or route/API folders. Never replace authentication, CSRF, entitlement or method checks with a permissive forwarding handler.
 
-Require extracted-package routing/upload/preview/publication acceptance without a synthetic missing-file fallback, in addition to the existing HTTP/browser suites. Preserve button/photo/content independence, device layouts, safe URL validation and restorable publications. Keep the new installed-site Media/Composer repair separate from the unfinished-installer repair, and upload executable source, tests, progress, issue #13 and exact download evidence.
+Require extracted-package routing/upload/preview/publication acceptance without a synthetic missing-file fallback, in addition to the existing HTTP/browser suites. Preserve button/photo/content independence, device layouts, safe URL validation and restorable publications. Use the complete Upgrade for installed sites. The former focused Media/Composer overlay is retired for 0.8.2 and later; historical packages remain reproducible with their pinned builders. Keep the unfinished-installer repair explicitly version-targeted and separate. Upload executable source, tests, progress and exact download evidence, preserving the actual-host issue boundary.
 
 ## Preserved installer baseline
 

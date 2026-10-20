@@ -5,7 +5,9 @@ from __future__ import annotations
 import importlib.util
 import hashlib
 import json
+import re
 import shutil
+import subprocess
 import tempfile
 from pathlib import Path
 from unittest.mock import patch
@@ -78,7 +80,8 @@ COMPOSER_REPAIR_FILES = {
     "public/assets/js/composer.js", "public/assets/js/site.js", "public/assets/js/marketing.js",
     "public/assets/js/media-center.js",
 }
-BUILD_ID = "20261020.2"
+VERSION = (ROOT / "VERSION").read_text().strip()
+BUILD_ID = re.search(r"const VELVET_VIXXEN_BUILD_ID = '([0-9.]+)';", (ROOT / "includes/version.php").read_text())[1]
 RUNTIME_BUILD_PATH = "includes/runtime-build.json"
 VERIFIED_BASELINES = [
     "e5b04daa132521be69c943151f8112c7cd2017e8",
@@ -94,19 +97,86 @@ REPAIR_TIMESTAMPS = {
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in COMPOSER_REPAIR_FILES
 })
+RELEASE_TIMESTAMP = (2026, 10, 20, 3, 48, 0)
+RELEASE_FILES = {
+    "VERSION", "admin/index.php", "app/Console/run_media.php", "app/Core/CommerceService.php",
+    "app/Core/MediaAdminService.php", "app/Core/MediaInput.php", "app/Core/MediaStoreTrait.php", "app/Core/MemberStoreTrait.php", "app/Core/Store.php",
+    "app/Support/media_admin.php", "app/Views/admin/addon-licensing.php",
+    "app/Views/admin/commerce.php", "app/Views/admin/communications.php",
+    "app/Views/admin/media-center.php", "app/Views/admin/members.php",
+    "config/app.example.php", RUNTIME_BUILD_PATH, "includes/version.php",
+    "install/services/InstallerService.php", "install/views/single-page.php",
+    "public/assets/css/media-admin-edit.css", "public/assets/js/admin-media.js",
+    "public/routes/music/index.php",
+}
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in {
         "install/index.php", "install/services/EmailAddress.php",
         "install/services/SmtpTester.php", "install/services/InstallerService.php",
     }
 })
+REPAIR_TIMESTAMPS.update({relative: RELEASE_TIMESTAMP for relative in RELEASE_FILES})
 
 
 def metadata(entry) -> tuple:
     return entry.date_time, entry.external_attr, entry.create_system, entry.compress_type
 
 
+def installer_identity(site: Path) -> dict:
+    """Execute the actual packaged view and version verification in a fresh PHP process.
+
+    The deliberately invalid DSN is rejected before networking. A successful
+    canonical-version check must reach that next verification stage, while the
+    wrong version must fail earlier. This does not substitute for MySQL install.
+    """
+    code = r'''
+define('ROOT_PATH', $argv[1]);
+$_SERVER['REQUEST_METHOD'] = 'GET';
+require ROOT_PATH . '/install/bootstrap.php';
+$installed = false; $lockData = []; $systemChecks = []; $fileResults = [];
+$requirementsReady = true; $installId = 'version-fixture';
+$baseGuess = 'http://127.0.0.1'; $error = ''; $notice = ''; $form = [];
+ob_start(); require ROOT_PATH . '/install/views/single-page.php'; $html = ob_get_clean();
+preg_match('/<span class="version-chip">Version ([^<]+)<\/span>/', $html, $match);
+$template = require ROOT_PATH . '/config/app.example.php';
+copy(ROOT_PATH . '/config/app.example.php', ROOT_PATH . '/config/app.php');
+$copiedTemplate = require ROOT_PATH . '/config/app.php';
+$service = new \Velvet\Installer\InstallerService(ROOT_PATH,
+    new \Velvet\Installer\InstallerLog(ROOT_PATH, 'version-fixture'));
+$verify = new ReflectionMethod($service, 'verifyBoot');
+$verify->setAccessible(true);
+$config = ['installed' => true, 'installation_id' => 'version-fixture',
+    'base_url' => 'http://127.0.0.1', 'db' => ['host' => 'invalid;host'],
+    'security' => ['app_key' => str_repeat('v', 48), 'signing_key' => str_repeat('v', 48), 'media_key' => str_repeat('v', 48)]];
+$messages = [];
+foreach (['0.0.0', VELVET_VIXXEN_VERSION] as $version) {
+    $config['version'] = $version;
+    file_put_contents(ROOT_PATH . '/config/app.php', "<?php\nreturn " . var_export($config, true) . ";\n");
+    try { $verify->invoke($service, $config); $messages[] = ''; }
+    catch (RuntimeException $error) { $messages[] = $error->getMessage(); }
+}
+echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION')),
+    'template_version' => $template['version'], 'copied_template_version' => $copiedTemplate['version'],
+    'runtime_version' => VELVET_VIXXEN_VERSION, 'build_id' => VELVET_VIXXEN_BUILD_ID,
+    'asset_version' => VELVET_VIXXEN_ASSET_VERSION, 'display_version' => $match[1] ?? '',
+    'wrong_version_rejected' => str_contains($messages[0], 'wrong application version'),
+    'canonical_version_verified' => str_contains($messages[1], 'could not reconnect')], JSON_THROW_ON_ERROR);
+'''
+    result = subprocess.run(["php", "-r", code, str(site)], text=True, capture_output=True, timeout=30)
+    assert result.returncode == 0, result.stderr + result.stdout
+    identity = json.loads(result.stdout)
+    assert identity["file_version"] == identity["runtime_version"] == identity["display_version"] == identity["template_version"] == identity["copied_template_version"], "The actual installer page or copied configuration template differs from the packaged canonical version"
+    assert identity["asset_version"] == f'{identity["runtime_version"]}-{identity["build_id"]}', "Executed PHP asset identity differs from its release/build"
+    assert identity["wrong_version_rejected"] and identity["canonical_version_verified"], "Installer startup verification still uses a pinned release instead of the site's canonical version"
+    return identity
+
+
 def run() -> None:
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.1-build-20261020.2.json").read_text())
+    assert prior_release["source_commit"] == "7b5966108d7e311ce11d95bafb06abef4e9e4442"
+    assert prior_release["version"] == "0.8.1" and prior_release["build_id"] == "20261020.2"
+    assert prior_release["sha256"] == "fbe0887efcd95cfd3bf7edecd705feffdd3e175fba575ba32688f557bb943803"
+    assert prior_release["files"] == len(prior_release["entries"]) == 335, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
@@ -167,17 +237,24 @@ def run() -> None:
         with patch.object(package, "INSTALLER_FILESYSTEM_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "INSTALLER_DATABASE_TIMESTAMP", LEGACY_TIMESTAMP), \
                 patch.object(package, "INSTALLER_MAIL_TIMESTAMP", LEGACY_TIMESTAMP), \
-                patch.object(package, "COMPOSER_REPAIR_TIMESTAMP", LEGACY_TIMESTAMP):
+                patch.object(package, "COMPOSER_REPAIR_TIMESTAMP", LEGACY_TIMESTAMP), \
+                patch.object(package, "RELEASE_TIMESTAMP", LEGACY_TIMESTAMP):
             legacy_dates = package.build(source, work / "legacy-dates", version)
         releases = {release["kind"]: release for release in first["packages"]}
         assert first["build_id"] == BUILD_ID == second["build_id"], "Package build identity is missing or ambiguous"
         assert first["manifest_filename"] == f"Velvet-Vixxen-{version}-Build-{BUILD_ID}-package-manifest.json"
         assert json.loads((work / "first" / first["manifest_filename"]).read_text()) == first, "Separate manifest differs from the returned build inventory"
         assert (source / RUNTIME_BUILD_PATH).read_bytes() == stale_inventory, "Packaging wrote generated state back into its source checkout"
-        assert set(releases) == {"fresh", "upgrade", "installer-repair", "composer-repair"}, "A required 0.8.1 runtime distribution is missing"
+        assert tuple(map(int, version.split("."))) > (0, 8, 1), "A completed release must advance the visible version beyond the historical 0.8.1 baseline"
+        assert set(releases) == {"fresh", "upgrade", "installer-repair"}, "Require two full current-version distributions and the explicit 0.8.1 unfinished-installer overlay; no unsupported focused Media repair"
         assert package.INSTALLER_REPAIR_FILES == REPAIR_FILES, "Installer repair dependencies differ from the reviewed allowlist"
         assert package.PUBLIC_HANDLER_FILES == PUBLIC_HANDLER_FILES, "Organized public handlers differ from the reviewed route scope"
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
+        assert package.RELEASE_FILES == RELEASE_FILES and package.RELEASE_TIMESTAMP == RELEASE_TIMESTAMP
+        with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
+            fresh.extractall(work / "current-version")
+        current_identity = installer_identity(work / "current-version")
+        assert current_identity["runtime_version"] == version and current_identity["build_id"] == BUILD_ID
         installer_baseline = json.loads((ROOT / "tests/Packaging/fixtures/installer-mail-baseline.json").read_text())
         assert installer_baseline["source_commit"] == "6d9b5677d6374ddb1b6dd7a93c6d307f982b877a"
         assert set(installer_baseline["files"]) == REPAIR_FILES
@@ -185,10 +262,18 @@ def run() -> None:
             name for name, digest in installer_baseline["files"].items()
             if hashlib.sha256((source / name).read_bytes()).hexdigest() != digest
         }
-        assert changed_installer == set(installer_baseline["changed_sender_dependencies"]) == {
+        assert set(installer_baseline["changed_sender_dependencies"]) == {
             "install/index.php", "install/services/EmailAddress.php",
             "install/services/InstallerService.php", "install/services/SmtpTester.php",
-        }, "Sender repair changed unrelated database/layout dependencies or omitted a required correction"
+        } <= changed_installer, "The historical sender corrections are missing from the current installer"
+        version_baseline = json.loads((ROOT / "tests/Packaging/fixtures/installer-version-baseline.json").read_text())
+        assert version_baseline["source_commit"] == "7b5966108d7e311ce11d95bafb06abef4e9e4442"
+        assert version_baseline["version"] == "0.8.1" and version_baseline["build_id"] == "20261020.2"
+        changed_version_dependencies = {
+            name for name, digest in version_baseline["files"].items()
+            if hashlib.sha256((source / name).read_bytes()).hexdigest() != digest
+        }
+        assert changed_version_dependencies == {"install/services/InstallerService.php", "install/views/single-page.php"}, "Canonical-version repair changed outside its reviewed installer dependencies"
         with ZipFile(work / "first" / releases["upgrade"]["filename"]) as upgrade:
             expected_inventory = {
                 "schema": 1, "product": "Velvet Vixxen", "version": version, "build_id": BUILD_ID,
@@ -208,15 +293,16 @@ def run() -> None:
             for baseline in baselines:
                 changed = {name for name, digest in expected_inventory["files"].items()
                            if baseline["entry_sha256"].get(name) != digest}
-                missing = sorted(changed - COMPOSER_REPAIR_FILES)
-                assert not missing, "Focused repair omits changed runtime dependencies from " + baseline["source_commit"] + ": " + ", ".join(missing)
+                assert "VERSION" in changed and changed - COMPOSER_REPAIR_FILES, "The old focused overlay must not be claimed as a complete cross-version upgrade"
         for release in first["packages"]:
             archive = work / "first" / release["filename"]
             assert archive.read_bytes() == (work / "second" / release["filename"]).read_bytes(), "Package is not reproducible"
             with ZipFile(archive) as zipped:
                 entries = set(zipped.namelist())
                 compatibility = json.loads(zipped.comment)
+                assert release["version"] == compatibility["version"]
                 if release["kind"] != "installer-repair":
+                    assert release["version"] == version
                     assert release["build_id"] == compatibility["build_id"] == BUILD_ID
                     assert f"-{version}-Build-{BUILD_ID}-" in release["filename"], "Customer ZIP filename hides its actual build"
                     assert zipped.read(RUNTIME_BUILD_PATH) == inventory_bytes, "Fresh/Upgrade/Repair inventories must have identical bytes"
@@ -248,7 +334,19 @@ def run() -> None:
                             assert entry.date_time == old.date_time == LEGACY_TIMESTAMP, "Focused repairs changed another component's timestamp"
                 if release["kind"] == "fresh":
                     assert "config/app.example.php" in entries and "install/index.php" in entries
+                    changed = {name for name in entries if hashlib.sha256(zipped.read(name)).hexdigest()
+                               != prior_release["entries"].get(name, {}).get("sha256")}
+                    assert changed == RELEASE_FILES, "Changed runtime files lack reviewed release timestamps, or unchanged files were relabeled: " + ", ".join(sorted(changed ^ RELEASE_FILES))
+                    for entry in zipped.infolist():
+                        prior = prior_release["entries"].get(entry.filename)
+                        if prior is not None:
+                            if entry.filename in changed:
+                                assert entry.date_time > tuple(prior["timestamp"]), "Changed PHP/assets would retain a stale delivered timestamp: " + entry.filename
+                            else:
+                                assert entry.date_time == tuple(prior["timestamp"]), "Unchanged runtime file timestamp differs from the prior delivery: " + entry.filename
                 elif release["kind"] == "upgrade":
+                    expected_from = [f"0.8.{patch}" for patch in range(int(version.split(".")[2]) + 1)]
+                    assert release["supported_from"] == compatibility["supported_from"] == expected_from, "Upgrade compatibility omitted a supported prior patch or current-version repair"
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries)
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
                         for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES:
@@ -290,6 +388,8 @@ def run() -> None:
                             assert metadata(zipped.getinfo(relative)) == metadata(fresh.getinfo(relative)), "Fresh and repair dependencies have different timestamps, permissions, or format"
                         fresh.extractall(incomplete)
                     unfinished_state = {
+                        "VERSION": (version_baseline["version"] + "\n").encode(),
+                        "includes/version.php": version_baseline["version_source"].encode(),
                         "config/app.php": b"<?php return ['installed'=>false,'fixture'=>'unfinished setup'];\n",
                         "storage/temp/installer-fixture.json": b'{"stage":"database","fixture":true}\n',
                         "uploads/images/owner-cutout.bin": b"PRIVATE UNFINISHED-INSTALL UPLOAD FIXTURE\n",
@@ -317,66 +417,18 @@ def run() -> None:
                     expected.update(current_dependencies)
                     assert after == expected, "Installer repair changed existing configuration, storage, uploads, application assets, database files, or other installer files"
                     assert not (incomplete / "storage/install.lock").exists(), "Repair unexpectedly installed or locked the unfinished site"
+                    old_identity = installer_identity(incomplete)
+                    assert old_identity["runtime_version"] == "0.8.1" and old_identity["build_id"] == "20261020.2", "Applying the installer-only overlay falsely advanced the unfinished site's runtime identity"
                 else:
-                    assert entries == COMPOSER_REPAIR_FILES, "Media and Composer repair must contain exactly its reviewed runtime dependencies"
-                    assert release["filename"] == f"Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-{BUILD_ID}-Media-Composer-Repair.zip"
-                    assert release["files"] == len(COMPOSER_REPAIR_FILES)
-                    assert release["php_files"] == sum(name.endswith(".php") for name in COMPOSER_REPAIR_FILES)
-                    assert release["javascript_files"] == sum(name.endswith(".js") for name in COMPOSER_REPAIR_FILES)
-                    compatibility = json.loads(zipped.comment)
-                    assert compatibility["kind"] == "composer-repair" and compatibility["version"] == "0.8.1"
-                    assert compatibility["supported_from"] == ["0.8.1"] and compatibility["installation_state"] == "installed", "Media and Composer repair compatibility must stay limited to installed 0.8.1 sites"
-                    assert release["supported_from"] == ["0.8.1"] and release["installation_state"] == "installed"
-                    assert release["verified_source_commits"] == compatibility["verified_source_commits"] == VERIFIED_BASELINES, "Repair compatibility must identify tested source baselines"
-                    assert release["unknown_baseline"] == compatibility["unknown_baseline"] and "complete Upgrade ZIP" in release["unknown_baseline"], "Unknown reused version labels need the complete upgrade guidance"
-                    assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries), "Media and Composer repair includes installer or installed state"
-
-                    # Deliver this repair to an existing site with its installer
-                    # retired. Organized dispatch/helpers must be restored while
-                    # every unrelated runtime/private file stays byte-identical.
-                    repaired_site = work / "composer-installed"
-                    with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh, \
-                            ZipFile(work / "first" / releases["upgrade"]["filename"]) as upgrade:
-                        current_dependencies = {relative: fresh.read(relative) for relative in COMPOSER_REPAIR_FILES}
-                        for relative, content in current_dependencies.items():
-                            assert zipped.read(relative) == content == upgrade.read(relative), "Media and Composer repair differs from fresh or upgrade source"
-                            assert metadata(zipped.getinfo(relative)) == metadata(fresh.getinfo(relative)) == metadata(upgrade.getinfo(relative)), "Media and Composer repair metadata differs from fresh or upgrade"
-                        fresh.extractall(repaired_site)
-                    shutil.rmtree(repaired_site / "install")
-                    for relative, content in protected.items():
-                        target = repaired_site / relative
-                        target.parent.mkdir(parents=True, exist_ok=True)
-                        target.write_bytes(content)
-                    for relative in COMPOSER_REPAIR_FILES:
-                        target = repaired_site / relative
-                        if relative in PUBLIC_HANDLER_FILES | {
-                            "public/assets/js/api-client.js", "app/Core/SceneButton.php", "admin/update.php",
-                            "app/Core/RuntimeBuildService.php", "app/Views/admin/update-status.php", RUNTIME_BUILD_PATH,
-                            "admin/repair.php", "app/Core/RootLayoutService.php", "app/Core/RuntimeInventoryService.php",
-                            "app/Views/admin/repair-status.php", "app/Support/public_routes.php",
-                        }:
-                            target.unlink()  # Missing or mixed organized dependencies must be supplied by the repair.
-                        elif relative.endswith(".js"):
-                            target.write_bytes(b"// prior Composer runtime fixture\n")
-                        elif relative.endswith(".css"):
-                            target.write_bytes(b"/* prior Composer stylesheet fixture */\n")
-                        else:
-                            target.write_bytes(b"<?php /* prior Composer runtime fixture */\n")
-                    before = {path.relative_to(repaired_site).as_posix(): path.read_bytes() for path in repaired_site.rglob("*") if path.is_file()}
-                    zipped.extractall(repaired_site)
-                    after = {path.relative_to(repaired_site).as_posix(): path.read_bytes() for path in repaired_site.rglob("*") if path.is_file()}
-                    expected = dict(before)
-                    expected.update(current_dependencies)
-                    assert after == expected, "Media and Composer repair changed configuration, storage, uploads, backups or unrelated application files"
-                    assert not (repaired_site / "install").exists(), "Media and Composer repair reintroduced the retired installer"
-                    assert all(after[relative] == content for relative, content in protected.items()), "Media and Composer repair altered installed/private state"
+                    raise AssertionError("An unsupported current-release distribution was emitted")
 
         repair_files = {relative: (source / relative).read_bytes() for relative in REPAIR_FILES}
+        package.validate(repair_files, "installer-repair", "0.8.1")
         for files, repair_version in [
-            ({}, version),
-            *[(dict((path, content) for path, content in repair_files.items() if path != omitted), version)
+            ({}, "0.8.1"),
+            *[(dict((path, content) for path, content in repair_files.items() if path != omitted), "0.8.1")
               for omitted in REPAIR_FILES],
-            ({**repair_files, "install/services/RequirementChecker.php": b"<?php /* extra file */\n"}, version),
+            ({**repair_files, "install/services/RequirementChecker.php": b"<?php /* extra file */\n"}, "0.8.1"),
             (repair_files, "0.8.0"),
             (repair_files, "0.8.2"),
         ]:
@@ -387,27 +439,21 @@ def run() -> None:
             else:
                 raise AssertionError("Invalid installer repair contents or version were accepted")
 
+        # The current source may not masquerade as a small installed-site
+        # overlay, either with its own version or with the old compatibility label.
         composer_files = package.runtime_files(source, "composer-repair")
-        for files, repair_version in [
-            ({}, version),
-            *[(dict((path, content) for path, content in composer_files.items() if path != omitted), version)
-              for omitted in COMPOSER_REPAIR_FILES],
-            ({**composer_files, "install/index.php": b"<?php /* extra installer */\n"}, version),
-            ({**composer_files, "config/app.php": b"<?php /* private installed configuration */\n"}, version),
-            (composer_files, "0.8.0"),
-            (composer_files, "0.8.2"),
-        ]:
+        for repair_version in [version, "0.8.1"]:
             try:
-                package.validate(files, "composer-repair", repair_version)
+                package.validate(composer_files, "composer-repair", repair_version)
             except ValueError:
                 pass
             else:
-                raise AssertionError("Invalid Media and Composer repair contents or version were accepted")
+                raise AssertionError("An unsupported Media/Composer cross-version repair was accepted")
 
         # A partial overwrite must never be certified by the inventory. Both
         # changed repair files and unchanged full-runtime dependencies matter.
         full_files = package.runtime_files(source, "upgrade")
-        for kind, original in [("upgrade", full_files), ("composer-repair", composer_files)]:
+        for kind, original in [("upgrade", full_files), ("fresh", package.runtime_files(source, "fresh"))]:
             malformed_inventories = [
                 {**expected_inventory, "build_id": "20261019.4"},
                 {**expected_inventory, "schema": True},
@@ -436,10 +482,10 @@ def run() -> None:
         dependency = source / "app/Core/UploadService.php"
         original_dependency = dependency.read_bytes()
         dependency.write_bytes(original_dependency + b"\n// Disposable inventory change fixture.\n")
-        updated_inventory = json.loads(package.runtime_files(source, "composer-repair")[RUNTIME_BUILD_PATH])
+        updated_inventory = json.loads(package.runtime_files(source, "upgrade")[RUNTIME_BUILD_PATH])
         expected_updated = json.loads(inventory_bytes)
         expected_updated["files"]["app/Core/UploadService.php"] = hashlib.sha256(dependency.read_bytes()).hexdigest()
-        assert updated_inventory == expected_updated, "Repair packaging reused a stale inventory after an unchanged dependency changed"
+        assert updated_inventory == expected_updated, "Full-runtime packaging reused a stale inventory after a dependency changed"
         dependency.write_bytes(original_dependency)
 
         version_source = source / "includes/version.php"
@@ -448,6 +494,7 @@ def run() -> None:
             original_version.replace(f"const VELVET_VIXXEN_BUILD_ID = '{BUILD_ID}';\n".encode(), b""),
             original_version.replace(f"'{version}-{BUILD_ID}'".encode(), b"'0.8.1-20261019.4'"),
             original_version.replace(f"const VELVET_VIXXEN_BUILD_ID = '{BUILD_ID}';".encode(), b"const VELVET_VIXXEN_BUILD_ID = '2026.5';"),
+            original_version.replace(f"const VELVET_VIXXEN_VERSION = '{version}';".encode(), b"const VELVET_VIXXEN_VERSION = '0.0.0';"),
         ]:
             version_source.write_bytes(invalid_version)
             try:
@@ -456,6 +503,20 @@ def run() -> None:
                 pass
             else:
                 raise AssertionError("A missing, inconsistent or malformed runtime build identity was accepted")
+        version_source.write_bytes(original_version)
+
+        # Advancing the canonical identifiers alone must carry through to an
+        # actual next-patch package, installer display and startup verification.
+        next_version = ".".join([*version.split(".")[:2], str(int(version.split(".")[2]) + 1)])
+        (source / "VERSION").write_text(next_version + "\n")
+        version_source.write_bytes(original_version.replace(version.encode(), next_version.encode()))
+        future = package.build(source, work / "next-version", next_version)
+        future_fresh = next(entry for entry in future["packages"] if entry["kind"] == "fresh")
+        with ZipFile(work / "next-version" / future_fresh["filename"]) as fresh:
+            fresh.extractall(work / "next-version-runtime")
+        assert installer_identity(work / "next-version-runtime")["runtime_version"] == next_version
+        assert next(entry for entry in future["packages"] if entry["kind"] == "installer-repair")["version"] == "0.8.1", "A patch increment relabeled the historical installer-repair target"
+        (source / "VERSION").write_text(version + "\n")
         version_source.write_bytes(original_version)
 
         # Refuse a source symlink even when the target would otherwise ship.
@@ -469,7 +530,7 @@ def run() -> None:
             assert "symlink" in str(error)
         else:
             raise AssertionError("Symlinked source was accepted")
-    print("Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, focused-repair dependency closure against three delivered baselines, distinct build identity and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, exact Media and Composer repair with mail dependencies, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
+    print("Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.")
     for release in first["packages"]:
         print(f"{release['kind']}: {release['size_bytes']} bytes, SHA-256 {release['sha256']}")
 

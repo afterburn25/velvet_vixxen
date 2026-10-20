@@ -30,8 +30,8 @@ final class MediaAdminService
             'description' => (string) ($post['description'] ?? ''),
             'coverAssetId' => $coverId,
             'status' => (string) ($post['status'] ?? 'draft'),
-            'publishedAt' => $this->nullableDate($post['published_at'] ?? null),
-            'scheduledAt' => $this->nullableDate($post['scheduled_at'] ?? null),
+            'publishedAt' => $this->dateField($post, 'published_at', $existing, 'publishedAt'),
+            'scheduledAt' => $this->dateField($post, 'scheduled_at', $existing, 'scheduledAt'),
         ]);
     }
 
@@ -68,25 +68,30 @@ final class MediaAdminService
             'accessMode' => (string) ($post['access_mode'] ?? 'public'),
             'previewSeconds' => (int) ($post['preview_seconds'] ?? 0),
             'sortOrder' => (int) ($post['sort_order'] ?? 100),
-            'publishedAt' => $this->nullableDate($post['published_at'] ?? null),
-            'scheduledAt' => $this->nullableDate($post['scheduled_at'] ?? null),
+            'publishedAt' => $this->dateField($post, 'published_at', $existing, 'publishedAt'),
+            'scheduledAt' => $this->dateField($post, 'scheduled_at', $existing, 'scheduledAt'),
         ]);
     }
 
     /** @param array<string,mixed> $post */
     public function saveAudioPlaylist(array $post): array
     {
+        $existing = $this->existing('playlist', $post['id'] ?? '');
+        if ($existing !== []) {
+            MediaInput::assertRevision($post['media_revision'] ?? null, $existing, 'playlist');
+        }
         return $this->store->saveAudioPlaylist([
-            'id' => (string) ($post['id'] ?? ''),
-            'title' => (string) ($post['title'] ?? ''),
-            'slug' => (string) ($post['slug'] ?? ''),
-            'description' => (string) ($post['description'] ?? ''),
-            'coverAssetId' => (string) ($post['cover_asset_id'] ?? ''),
-            'trackIds' => array_values(array_filter(array_map('strval', (array) ($post['track_ids'] ?? [])))),
-            'status' => (string) ($post['status'] ?? 'draft'),
-            'accessMode' => (string) ($post['access_mode'] ?? 'public'),
-            'publishedAt' => $this->nullableDate($post['published_at'] ?? null),
-            'scheduledAt' => $this->nullableDate($post['scheduled_at'] ?? null),
+            'id' => MediaInput::id($post['id'] ?? ''),
+            'title' => MediaInput::text($post['title'] ?? $existing['title'] ?? '', 190, 'Playlist title'),
+            'slug' => MediaInput::text($post['slug'] ?? $existing['slug'] ?? '', 190, 'Playlist slug'),
+            'description' => MediaInput::text($post['description'] ?? $existing['description'] ?? '', 20000, 'Playlist description', true),
+            'coverAssetId' => MediaInput::id($post['cover_asset_id'] ?? $existing['coverAssetId'] ?? ''),
+            'trackIds' => MediaInput::ids($post['track_ids'] ?? [], MediaInput::MAX_PLAYLIST_TRACKS, 'Playlist tracks'),
+            'status' => MediaInput::status($post['status'] ?? $existing['status'] ?? 'draft'),
+            'accessMode' => MediaInput::access($post['access_mode'] ?? $existing['accessMode'] ?? 'public'),
+            'publishedAt' => $this->dateField($post, 'published_at', $existing, 'publishedAt'),
+            'scheduledAt' => $this->dateField($post, 'scheduled_at', $existing, 'scheduledAt'),
+            ...($existing === [] ? [] : ['expectedRevision' => $post['media_revision']]),
         ]);
     }
 
@@ -94,9 +99,11 @@ final class MediaAdminService
     public function saveGallery(array $post, array $files): array
     {
         $existing = $this->existing('gallery', $post['id'] ?? '');
-        $items = [];
+        if ($existing !== []) {
+            MediaInput::assertRevision($post['media_revision'] ?? null, $existing, 'gallery');
+        }
         $existingByAsset = [];
-        foreach ((array) ($existing['items'] ?? []) as $index => $item) {
+        foreach ((array) ($existing['items'] ?? []) as $item) {
             $assetId = (string) ($item['assetId'] ?? '');
             if ($assetId === '') {
                 continue;
@@ -104,25 +111,77 @@ final class MediaAdminService
             $existingByAsset[$assetId] = [
                 'assetId' => $assetId,
                 'caption' => (string) ($item['caption'] ?? ''),
-                'sortOrder' => (int) ($item['sortOrder'] ?? (($index + 1) * 10)),
-                'isPreview' => !empty($item['isPreview']),
             ];
         }
-        $requestedOrder = json_decode((string) ($post['asset_order'] ?? '[]'), true);
-        if (is_array($requestedOrder)) {
-            foreach ($requestedOrder as $assetId) {
-                $assetId = (string) $assetId;
-                if (isset($existingByAsset[$assetId])) {
-                    $items[] = $existingByAsset[$assetId];
-                    unset($existingByAsset[$assetId]);
-                }
+        $requestedOrder = array_map('strval', array_keys($existingByAsset));
+        if (array_key_exists('asset_order', $post)) {
+            $rawOrder = $post['asset_order'];
+            if (!is_string($rawOrder) || strlen($rawOrder) > 25000 || !str_starts_with(ltrim($rawOrder), '[')) {
+                throw new RuntimeException('The gallery photo order is invalid. Reload the editor.');
+            }
+            try {
+                $requestedOrder = json_decode($rawOrder, true, 4, JSON_THROW_ON_ERROR);
+            } catch (\JsonException) {
+                throw new RuntimeException('The gallery photo order is invalid. Reload the editor.');
             }
         }
-        foreach ($existingByAsset as $item) {
+        $requestedOrder = MediaInput::ids($requestedOrder, MediaInput::MAX_GALLERY_ITEMS, 'Gallery photos');
+        $captions = MediaInput::itemFields($post['asset_captions'] ?? [], 'Photo captions');
+        $submittedTags = MediaInput::itemFields($post['asset_tags'] ?? [], 'Photo tags');
+        foreach (array_unique([...array_keys($captions), ...array_keys($submittedTags)]) as $assetId) {
+            if (!in_array((string) $assetId, $requestedOrder, true)) {
+                throw new RuntimeException('Photo details must belong to a photo retained in this gallery.');
+            }
+        }
+        $items = [];
+        $tags = [];
+        foreach ($requestedOrder as $assetId) {
+            if (!isset($existingByAsset[$assetId])) {
+                throw new RuntimeException('A selected photo does not belong to this gallery. Reload the editor.');
+            }
+            $item = $existingByAsset[$assetId];
+            if (array_key_exists($assetId, $captions)) {
+                $item['caption'] = MediaInput::caption($captions[$assetId]);
+            }
+            if (array_key_exists($assetId, $submittedTags)) {
+                $tags[$assetId] = MediaInput::tags($submittedTags[$assetId]);
+            }
             $items[] = $item;
         }
 
-        foreach ($this->normalizeMultipleFiles((array) ($files['photos'] ?? [])) as $upload) {
+        // Validate every editable value before accepting new uploads.
+        $record = [
+            'id' => MediaInput::id($post['id'] ?? ''),
+            'title' => MediaInput::text($post['title'] ?? $existing['title'] ?? '', 190, 'Gallery title'),
+            'slug' => MediaInput::text($post['slug'] ?? $existing['slug'] ?? '', 190, 'Gallery slug'),
+            'description' => MediaInput::text($post['description'] ?? $existing['description'] ?? '', 20000, 'Gallery description', true),
+            'status' => MediaInput::status($post['status'] ?? $existing['status'] ?? 'draft'),
+            'accessMode' => MediaInput::access($post['access_mode'] ?? $existing['accessMode'] ?? 'public'),
+            'standardPrice' => MediaInput::price($post['standard_price'] ?? $existing['standardPrice'] ?? null),
+            'subscriberPrice' => MediaInput::price($post['subscriber_price'] ?? $existing['subscriberPrice'] ?? null),
+            'rentalPrice' => MediaInput::price($post['rental_price'] ?? $existing['rentalPrice'] ?? null),
+            'rentalHours' => MediaInput::count($post['rental_hours'] ?? $existing['rentalHours'] ?? 0, 999999, 'Rental hours'),
+            'currency' => MediaInput::currency($post['currency'] ?? $existing['currency'] ?? 'USD'),
+            'previewCount' => MediaInput::count($post['preview_count'] ?? $existing['previewCount'] ?? 0, MediaInput::MAX_GALLERY_ITEMS, 'Preview count'),
+            'publishedAt' => $this->dateField($post, 'published_at', $existing, 'publishedAt'),
+            'scheduledAt' => $this->dateField($post, 'scheduled_at', $existing, 'scheduledAt'),
+            ...($existing === [] ? [] : ['expectedRevision' => $post['media_revision']]),
+        ];
+        if ($record['title'] === '') {
+            throw new RuntimeException('A title is required.');
+        }
+        if ($record['status'] === 'scheduled' && $record['scheduledAt'] === null) {
+            throw new RuntimeException('Choose a scheduled date before scheduling this gallery.');
+        }
+        $coverId = MediaInput::id($post['cover_asset_id'] ?? $existing['coverAssetId'] ?? '');
+        if ($coverId !== '' && $coverId !== (string) ($existing['coverAssetId'] ?? '') && !in_array($coverId, $requestedOrder, true)) {
+            throw new RuntimeException('Choose a photo from this gallery or upload a custom cover.');
+        }
+        $photoUploads = $this->normalizeMultipleFiles((array) ($files['photos'] ?? []));
+        if (count($items) + count($photoUploads) > MediaInput::MAX_GALLERY_ITEMS) {
+            throw new RuntimeException('A gallery can contain at most ' . MediaInput::MAX_GALLERY_ITEMS . ' photos.');
+        }
+        foreach ($photoUploads as $upload) {
             $asset = $this->storeAsset($this->uploads->upload($upload, 'gallery', true), 'gallery');
             $items[] = [
                 'assetId' => (string) $asset['id'],
@@ -135,37 +194,19 @@ final class MediaAdminService
             throw new RuntimeException('Upload at least one photo before saving the gallery.');
         }
 
-        $previewCount = max(0, min(count($items), (int) ($post['preview_count'] ?? 0)));
-        foreach ($items as $index => &$item) {
-            $item['sortOrder'] = ($index + 1) * 10;
-            $item['isPreview'] = $index < $previewCount;
+        if ($coverId === '' || (isset($existingByAsset[$coverId]) && !in_array($coverId, $requestedOrder, true))) {
+            $coverId = (string) $items[0]['assetId'];
         }
-        unset($item);
-
-        $coverId = (string) ($post['cover_asset_id'] ?? $existing['coverAssetId'] ?? $items[0]['assetId']);
         if ($this->hasUpload($files['cover'] ?? null)) {
             $cover = $this->storeAsset($this->uploads->upload((array) $files['cover'], 'poster', false), 'gallery-cover');
             $coverId = (string) $cover['id'];
         }
 
-        return $this->store->saveGallery([
-            'id' => (string) ($post['id'] ?? ''),
-            'title' => (string) ($post['title'] ?? ''),
-            'slug' => (string) ($post['slug'] ?? ''),
-            'description' => (string) ($post['description'] ?? ''),
+        return $this->store->saveGallery(array_merge($record, [
             'coverAssetId' => $coverId,
-            'status' => (string) ($post['status'] ?? 'draft'),
-            'accessMode' => (string) ($post['access_mode'] ?? 'public'),
-            'standardPrice' => $post['standard_price'] ?? null,
-            'subscriberPrice' => $post['subscriber_price'] ?? null,
-            'rentalPrice' => $post['rental_price'] ?? null,
-            'rentalHours' => (int) ($post['rental_hours'] ?? 0),
-            'currency' => (string) ($post['currency'] ?? 'USD'),
-            'previewCount' => $previewCount,
             'items' => $items,
-            'publishedAt' => $this->nullableDate($post['published_at'] ?? null),
-            'scheduledAt' => $this->nullableDate($post['scheduled_at'] ?? null),
-        ]);
+            'assetTags' => $tags,
+        ]));
     }
 
     /** @param array<string,mixed> $post @param array<string,mixed> $files */
@@ -217,25 +258,30 @@ final class MediaAdminService
             'rentalPrice' => $post['rental_price'] ?? null,
             'rentalHours' => (int) ($post['rental_hours'] ?? 0),
             'currency' => (string) ($post['currency'] ?? 'USD'),
-            'publishedAt' => $this->nullableDate($post['published_at'] ?? null),
-            'scheduledAt' => $this->nullableDate($post['scheduled_at'] ?? null),
+            'publishedAt' => $this->dateField($post, 'published_at', $existing, 'publishedAt'),
+            'scheduledAt' => $this->dateField($post, 'scheduled_at', $existing, 'scheduledAt'),
         ]);
     }
 
     /** @return array<string,mixed> */
     private function existing(string $type, mixed $id): array
     {
-        $id = (string) $id;
+        $id = MediaInput::id($id);
         if ($id === '') {
             return [];
         }
-        return match ($type) {
+        $existing = match ($type) {
             'album' => (array) ($this->store->album($id) ?? []),
             'track' => (array) ($this->store->track($id) ?? []),
             'gallery' => (array) ($this->store->gallery($id) ?? []),
+            'playlist' => (array) ($this->store->audioPlaylist($id) ?? []),
             'video' => (array) ($this->store->video($id) ?? []),
             default => [],
         };
+        if ($existing === [] || (string) ($existing['id'] ?? '') !== $id) {
+            throw new RuntimeException('The media item could not be found. Reload the editor.');
+        }
+        return $existing;
     }
 
     /** @param array<string,mixed> $asset @return array<string,mixed> */
@@ -245,14 +291,9 @@ final class MediaAdminService
         return $this->store->addMedia($asset);
     }
 
-    private function nullableDate(mixed $value): ?string
+    private function dateField(array $post, string $field, array $existing, string $stored): ?string
     {
-        $value = trim((string) $value);
-        if ($value === '') {
-            return null;
-        }
-        $time = strtotime($value);
-        return $time === false ? null : date('Y-m-d H:i:s', $time);
+        return array_key_exists($field, $post) ? MediaInput::date($post[$field]) : ($existing[$stored] ?? null);
     }
 
     private function hasUpload(mixed $file): bool

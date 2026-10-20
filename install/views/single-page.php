@@ -28,7 +28,7 @@ $visibleFileIssues = array_values(array_filter(
     $fileResults,
     static fn(array $row): bool => ($row['status'] ?? 'fail') !== 'pass',
 ));
-$version = defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : '0.8.1';
+$version = VELVET_VIXXEN_VERSION;
 $ownerEmailDefault = (string) ($form['admin_email'] ?? '');
 $supportEmailDefault = (string) ($form['support_email'] ?? $ownerEmailDefault);
 ?><!doctype html>

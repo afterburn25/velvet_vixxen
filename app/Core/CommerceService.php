@@ -189,7 +189,7 @@ final class CommerceService
             'subtotal' => $quote['subtotal'], 'discountTotal' => $quote['discountTotal'], 'taxTotal' => $quote['taxTotal'],
             'grandTotal' => $quote['grandTotal'], 'currency' => $quote['currency'], 'couponCode' => $quote['couponCode'],
             'providerKey' => $providerKey, 'idempotencyKey' => $idempotencyKey, 'billingEmail' => (string) $member['email'],
-            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => '0.8.1', 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending'],
+            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending'],
         ], $orderItems);
 
         try {

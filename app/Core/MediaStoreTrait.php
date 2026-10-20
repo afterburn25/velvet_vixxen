@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Core;
 
 use PDO;
+use DateTimeImmutable;
+use DateTimeZone;
 use RuntimeException;
 use Throwable;
 
@@ -18,7 +20,7 @@ trait MediaStoreTrait
         if ($this->mode === 'file') {
             $data = $this->readFileStore();
             $asset = $data['media'][$id] ?? null;
-            return is_array($asset) ? $asset : null;
+            return is_array($asset) && empty($asset['deletedAt']) ? $asset : null;
         }
         if (!ctype_digit($id)) {
             return null;
@@ -152,51 +154,95 @@ trait MediaStoreTrait
             $stmt->execute([(int) $row['id']]);
             $playlist['trackIds'] = array_map('strval', $stmt->fetchAll(PDO::FETCH_COLUMN));
             $playlist['tracks'] = array_values(array_filter(array_map(fn(string $trackId): ?array => $this->track($trackId), $playlist['trackIds'])));
+            $playlist['revision'] = MediaInput::revision($playlist, 'playlist');
             $result[] = $playlist;
         }
         return $result;
     }
 
+    public function audioPlaylist(string|int $identifier): ?array
+    {
+        foreach ($this->audioPlaylists(false) as $playlist) {
+            if ((string) $playlist['id'] === (string) $identifier || (string) $playlist['slug'] === (string) $identifier) {
+                return $playlist;
+            }
+        }
+        return null;
+    }
+
     /** @param array<string,mixed> $playlist */
     public function saveAudioPlaylist(array $playlist): array
     {
-        $playlist = $this->normalizeContent($playlist, 'playlist');
-        $playlist['trackIds'] = array_values(array_unique(array_filter(array_map('strval', (array) ($playlist['trackIds'] ?? [])))));
+        $id = MediaInput::id($playlist['id'] ?? '');
         if ($this->mode === 'file') {
-            $playlist['tracks'] = array_values(array_filter(array_map(fn(string $id): ?array => $this->track($id), $playlist['trackIds'])));
-            return $this->saveFileContent('audioPlaylists', $playlist);
+            return $this->mutateFileStore(function (array &$data) use ($playlist, $id): array {
+                $existing = isset($data['mediaCenter']['audioPlaylists'][$id])
+                    ? $this->hydrateFileMedia('audioPlaylists', $data['mediaCenter']['audioPlaylists'][$id], $data) : [];
+                $this->checkMediaRevision($playlist, $existing, 'playlist');
+                $saved = $this->normalizePlaylist($playlist, $existing);
+                foreach ($saved['trackIds'] as $trackId) {
+                    if (!is_array($data['mediaCenter']['tracks'][$trackId] ?? null)) {
+                        throw new RuntimeException('A selected playlist track could not be found.');
+                    }
+                }
+                $this->requireImageAsset($saved['coverAssetId'], (array) ($data['media'] ?? []), true);
+                $saved = $this->putMediaFileRecord($data, 'audioPlaylists', $saved);
+                return $this->hydrateFileMedia('audioPlaylists', $saved, $data);
+            });
         }
-        $pdo = $this->pdo();
-        $pdo->beginTransaction();
-        try {
-            $id = ctype_digit((string) ($playlist['id'] ?? '')) ? (int) $playlist['id'] : 0;
-            $values = [$playlist['slug'],$playlist['title'],$playlist['description'],$this->numericOrNull($playlist['coverAssetId'] ?? null),$playlist['status'],$playlist['accessMode'],$playlist['publishedAt'],$playlist['scheduledAt']];
-            if ($id > 0) {
+        return $this->mediaTransaction(function (PDO $pdo) use ($playlist, $id): array {
+            $existing = [];
+            if ($id !== '') {
+                $this->requireSqlMediaId($id);
+                $query = $pdo->prepare('SELECT * FROM audio_playlists WHERE id=? FOR UPDATE');
+                $query->execute([(int) $id]);
+                $row = $query->fetch();
+                if (!is_array($row)) {
+                    throw new RuntimeException('The playlist could not be found. Reload the editor.');
+                }
+                $items = $pdo->prepare('SELECT track_id FROM audio_playlist_items WHERE playlist_id=? ORDER BY sort_order FOR UPDATE');
+                $items->execute([(int) $id]);
+                $existing = [
+                    'id' => $id, 'slug' => $row['slug'], 'title' => $row['title'], 'description' => $row['description'] ?? '',
+                    'coverAssetId' => $row['cover_asset_id'] ? (string) $row['cover_asset_id'] : '',
+                    'status' => $row['status'], 'accessMode' => $row['access_mode'],
+                    'publishedAt' => $row['published_at'], 'scheduledAt' => $row['scheduled_at'],
+                    'trackIds' => array_map('strval', $items->fetchAll(PDO::FETCH_COLUMN)),
+                ];
+            }
+            $this->checkMediaRevision($playlist, $existing, 'playlist');
+            $saved = $this->normalizePlaylist($playlist, $existing);
+            if ($saved['trackIds'] !== []) {
+                foreach ($saved['trackIds'] as $trackId) {
+                    $this->requireSqlMediaId($trackId);
+                }
+                $trackIds = $saved['trackIds'];
+                sort($trackIds, SORT_NUMERIC);
+                $query = $pdo->prepare('SELECT id FROM audio_tracks WHERE id IN (' . implode(',', array_fill(0, count($trackIds), '?')) . ') ORDER BY id FOR UPDATE');
+                $query->execute($trackIds);
+                $found = array_map('strval', $query->fetchAll(PDO::FETCH_COLUMN));
+                if (array_diff($trackIds, $found) !== []) {
+                    throw new RuntimeException('A selected playlist track could not be found.');
+                }
+            }
+            $assets = $this->lockedMediaAssets([$saved['coverAssetId']]);
+            $this->requireImageAsset($saved['coverAssetId'], $assets, true);
+            $values = [$saved['slug'], $saved['title'], $saved['description'], $this->numericOrNull($saved['coverAssetId']), $saved['status'], $saved['accessMode'], $this->mediaSqlDate($saved['publishedAt']), $this->mediaSqlDate($saved['scheduledAt'])];
+            if ($id !== '') {
                 $stmt = $pdo->prepare('UPDATE audio_playlists SET slug=?,title=?,description=?,cover_asset_id=?,status=?,access_mode=?,published_at=?,scheduled_at=?,updated_at=NOW() WHERE id=?');
                 $stmt->execute([...$values,$id]);
                 $pdo->prepare('DELETE FROM audio_playlist_items WHERE playlist_id=?')->execute([$id]);
             } else {
                 $stmt = $pdo->prepare('INSERT INTO audio_playlists (slug,title,description,cover_asset_id,status,access_mode,published_at,scheduled_at,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,NOW(),NOW())');
                 $stmt->execute($values);
-                $id = (int) $pdo->lastInsertId();
+                $id = (string) $pdo->lastInsertId();
             }
             $insert = $pdo->prepare('INSERT INTO audio_playlist_items (playlist_id,track_id,sort_order,created_at) VALUES (?,?,?,NOW())');
-            foreach ($playlist['trackIds'] as $order => $trackId) {
-                if (ctype_digit($trackId)) {
-                    $insert->execute([$id,(int)$trackId,($order+1)*10]);
-                }
+            foreach ($saved['trackIds'] as $order => $trackId) {
+                $insert->execute([$id, (int) $trackId, ($order + 1) * 10]);
             }
-            $pdo->commit();
-            foreach ($this->audioPlaylists(false) as $saved) {
-                if ((string)$saved['id'] === (string)$id) {
-                    return $saved;
-                }
-            }
-            return array_merge($playlist,['id'=>(string)$id]);
-        } catch (Throwable $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
+            return $this->audioPlaylist($id) ?? array_merge($saved, ['id' => $id]);
+        });
     }
 
     /** @return list<array<string,mixed>> */
@@ -205,7 +251,7 @@ trait MediaStoreTrait
         if ($this->mode === 'file') {
             return $this->fileCollection('galleries', $publishedOnly);
         }
-        $where = $publishedOnly ? "WHERE g.status='published'" : '';
+        $where = "WHERE g.deleted_at IS NULL" . ($publishedOnly ? " AND g.status='published'" : '');
         $rows = $this->pdo()->query("SELECT g.*, c.file_path AS cover_file, c.thumbnail_path AS cover_thumbnail FROM photo_galleries g LEFT JOIN media_assets c ON c.id=g.cover_asset_id {$where} ORDER BY COALESCE(g.published_at,g.created_at) DESC,g.id DESC")->fetchAll();
         return array_map(fn(array $row): array => $this->mapGalleryRow($row, true), $rows);
     }
@@ -223,57 +269,84 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $gallery */
     public function saveGallery(array $gallery): array
     {
-        $gallery = $this->normalizeContent($gallery, 'gallery');
-        $gallery['standardPrice'] = $this->priceOrNull($gallery['standardPrice'] ?? null);
-        $gallery['subscriberPrice'] = $this->priceOrNull($gallery['subscriberPrice'] ?? null);
-        $gallery['rentalPrice'] = $this->priceOrNull($gallery['rentalPrice'] ?? null);
-        $gallery['rentalHours'] = max(0, (int) ($gallery['rentalHours'] ?? 0));
-        $gallery['currency'] = strtoupper(substr((string) ($gallery['currency'] ?? 'USD'), 0, 3));
-        $gallery['items'] = array_values((array) ($gallery['items'] ?? []));
-        $gallery['previewCount'] = max(0, min(count($gallery['items']), (int) ($gallery['previewCount'] ?? 0)));
+        $id = MediaInput::id($gallery['id'] ?? '');
         if ($this->mode === 'file') {
-            foreach ($gallery['items'] as $index => &$item) {
-                $assetId = (string) ($item['assetId'] ?? '');
-                $asset = $this->mediaAsset($assetId);
-                if (!$asset) {
-                    throw new RuntimeException('A gallery image could not be found.');
+            return $this->mutateFileStore(function (array &$data) use ($gallery, $id): array {
+                $existing = isset($data['mediaCenter']['galleries'][$id])
+                    ? $this->hydrateFileMedia('galleries', $data['mediaCenter']['galleries'][$id], $data) : [];
+                $this->checkMediaRevision($gallery, $existing, 'gallery');
+                [$saved, $tags] = $this->normalizeGallery($gallery, $existing, (array) ($data['media'] ?? []));
+                foreach ($tags as $assetId => $assetTags) {
+                    $data['media'][$assetId]['tags'] = $assetTags;
                 }
-                $item = array_merge(['assetId'=>$assetId,'caption'=>'','sortOrder'=>($index+1)*10,'isPreview'=>false],$item,['asset'=>$asset]);
-            }
-            unset($item);
-            if (empty($gallery['coverAssetId']) && isset($gallery['items'][0]['assetId'])) {
-                $gallery['coverAssetId'] = $gallery['items'][0]['assetId'];
-            }
-            $gallery['coverAsset'] = $this->mediaAsset((string) ($gallery['coverAssetId'] ?? ''));
-            return $this->saveFileContent('galleries', $gallery);
+                $saved = $this->putMediaFileRecord($data, 'galleries', $saved);
+                return $this->hydrateFileMedia('galleries', $saved, $data);
+            });
         }
-        $pdo = $this->pdo();
-        $pdo->beginTransaction();
-        try {
-            $id = ctype_digit((string) ($gallery['id'] ?? '')) ? (int) $gallery['id'] : 0;
-            $values = [$gallery['slug'],$gallery['title'],$gallery['description'],$this->numericOrNull($gallery['coverAssetId'] ?? null),$gallery['status'],$gallery['accessMode'],$gallery['standardPrice'],$gallery['subscriberPrice'],$gallery['rentalPrice'],$gallery['rentalHours'] ?: null,$gallery['currency'],$gallery['previewCount'],$gallery['publishedAt'],$gallery['scheduledAt']];
-            if ($id > 0) {
+        return $this->mediaTransaction(function (PDO $pdo) use ($gallery, $id): array {
+            $row = null;
+            $itemRows = [];
+            if ($id !== '') {
+                $this->requireSqlMediaId($id);
+                $query = $pdo->prepare('SELECT * FROM photo_galleries WHERE id=? AND deleted_at IS NULL FOR UPDATE');
+                $query->execute([(int) $id]);
+                $row = $query->fetch();
+                if (!is_array($row)) {
+                    throw new RuntimeException('The gallery could not be found. Reload the editor.');
+                }
+                $query = $pdo->prepare('SELECT * FROM photo_gallery_items WHERE gallery_id=? ORDER BY sort_order,id FOR UPDATE');
+                $query->execute([(int) $id]);
+                $itemRows = $query->fetchAll();
+            }
+            $requestedItems = $gallery['items'] ?? [];
+            if (!is_array($requestedItems) || !array_is_list($requestedItems) || count($requestedItems) > MediaInput::MAX_GALLERY_ITEMS) {
+                throw new RuntimeException('Gallery photos must be a bounded ordered list.');
+            }
+            $assetIds = [(string) ($row['cover_asset_id'] ?? '')];
+            foreach ($itemRows as $item) {
+                $assetIds[] = (string) $item['asset_id'];
+            }
+            foreach ($requestedItems as $item) {
+                if (!is_array($item)) {
+                    throw new RuntimeException('A gallery photo is invalid.');
+                }
+                $assetIds[] = MediaInput::id($item['assetId'] ?? '', false);
+            }
+            $assetIds[] = MediaInput::id($gallery['coverAssetId'] ?? '');
+            $assets = $this->lockedMediaAssets($assetIds);
+            $existing = [];
+            if (is_array($row)) {
+                $cover = $assets[(string) ($row['cover_asset_id'] ?? '')] ?? [];
+                $existing = $this->mapGalleryRow(array_merge($row, ['cover_file' => $cover['file'] ?? null, 'cover_thumbnail' => $cover['thumbnail'] ?? null]), false);
+                foreach ($itemRows as $item) {
+                    $asset = $assets[(string) $item['asset_id']] ?? null;
+                    if ($asset !== null) {
+                        $existing['items'][] = ['assetId' => (string) $item['asset_id'], 'caption' => $item['caption'] ?? '', 'sortOrder' => (int) $item['sort_order'], 'isPreview' => (bool) $item['is_preview'], 'asset' => $asset];
+                    }
+                }
+            }
+            $this->checkMediaRevision($gallery, $existing, 'gallery');
+            [$saved, $tags] = $this->normalizeGallery($gallery, $existing, $assets);
+            $values = [$saved['slug'], $saved['title'], $saved['description'], $this->numericOrNull($saved['coverAssetId']), $saved['status'], $saved['accessMode'], $saved['standardPrice'], $saved['subscriberPrice'], $saved['rentalPrice'], $saved['rentalHours'] ?: null, $saved['currency'], $saved['previewCount'], $this->mediaSqlDate($saved['publishedAt']), $this->mediaSqlDate($saved['scheduledAt'])];
+            if ($id !== '') {
                 $stmt=$pdo->prepare('UPDATE photo_galleries SET slug=?,title=?,description=?,cover_asset_id=?,status=?,access_mode=?,standard_price=?,subscriber_price=?,rental_price=?,rental_hours=?,currency=?,preview_count=?,published_at=?,scheduled_at=?,updated_at=NOW() WHERE id=?');
                 $stmt->execute([...$values,$id]);
                 $pdo->prepare('DELETE FROM photo_gallery_items WHERE gallery_id=?')->execute([$id]);
             } else {
                 $stmt=$pdo->prepare('INSERT INTO photo_galleries (slug,title,description,cover_asset_id,status,access_mode,standard_price,subscriber_price,rental_price,rental_hours,currency,preview_count,published_at,scheduled_at,created_at,updated_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),NOW())');
                 $stmt->execute($values);
-                $id=(int)$pdo->lastInsertId();
+                $id=(string)$pdo->lastInsertId();
             }
             $insert=$pdo->prepare('INSERT INTO photo_gallery_items (gallery_id,asset_id,caption,sort_order,is_preview,created_at,updated_at) VALUES (?,?,?,?,?,NOW(),NOW())');
-            foreach ($gallery['items'] as $index=>$item) {
-                $assetId=$this->numericOrNull($item['assetId']??null);
-                if ($assetId !== null) {
-                    $insert->execute([$id,$assetId,(string)($item['caption']??''),(int)($item['sortOrder']??(($index+1)*10)),!empty($item['isPreview'])?1:0]);
-                }
+            foreach ($saved['items'] as $item) {
+                $insert->execute([$id, (int) $item['assetId'], $item['caption'], $item['sortOrder'], $item['isPreview'] ? 1 : 0]);
             }
-            $pdo->commit();
-            return $this->gallery($id) ?? array_merge($gallery,['id'=>(string)$id]);
-        } catch (Throwable $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
+            $updateTags = $pdo->prepare('UPDATE media_assets SET tags_json=?,updated_at=NOW() WHERE id=? AND deleted_at IS NULL');
+            foreach ($tags as $assetId => $assetTags) {
+                $updateTags->execute([json_encode($assetTags, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR), (int) $assetId]);
+            }
+            return $this->gallery($id) ?? array_merge($saved, ['id' => $id]);
+        });
     }
 
     /** @return list<array<string,mixed>> */
@@ -333,11 +406,297 @@ trait MediaStoreTrait
         ];
     }
 
+    /**
+     * Publish only due, explicitly scheduled records. This is called by the
+     * owner POST action or CLI, never while rendering a public page.
+     * @return array{published:int,albums:int,tracks:int,playlists:int,galleries:int,videos:int}
+     */
+    public function publishDueMedia(int $limit = 100, ?DateTimeImmutable $now = null): array
+    {
+        if ($limit < 1 || $limit > 500) {
+            throw new RuntimeException('Publish between 1 and 500 media items per run.');
+        }
+        $now = ($now ?? new DateTimeImmutable('now'))->setTimezone(new DateTimeZone(date_default_timezone_get()));
+        $collections = ['albums' => 'albums', 'tracks' => 'tracks', 'audioPlaylists' => 'playlists', 'galleries' => 'galleries', 'videos' => 'videos'];
+        $empty = ['published' => 0, 'albums' => 0, 'tracks' => 0, 'playlists' => 0, 'galleries' => 0, 'videos' => 0];
+        if ($this->mode === 'file') {
+            return $this->mutateFileStore(function (array &$data) use ($limit, $now, $collections, $empty): array {
+                $due = [];
+                foreach ($collections as $collection => $type) {
+                    foreach ((array) ($data['mediaCenter'][$collection] ?? []) as $id => $record) {
+                        if (!is_array($record) || !empty($record['deletedAt']) || ($record['status'] ?? '') !== 'scheduled') {
+                            continue;
+                        }
+                        $when = $this->mediaDueTimestamp($record['scheduledAt'] ?? null, $record['publishedAt'] ?? null, $now);
+                        if ($when !== null) {
+                            $due[] = ['collection' => $collection, 'type' => $type, 'id' => (string) $id, 'when' => $when];
+                        }
+                    }
+                }
+                usort($due, static fn(array $a, array $b): int => ($a['when'] <=> $b['when']) ?: strcmp($a['type'] . ':' . $a['id'], $b['type'] . ':' . $b['id']));
+                $stats = $empty;
+                foreach (array_slice($due, 0, $limit) as $candidate) {
+                    $record = &$data['mediaCenter'][$candidate['collection']][$candidate['id']];
+                    $record['status'] = 'published';
+                    if (empty($record['publishedAt'])) {
+                        $record['publishedAt'] = $record['scheduledAt'];
+                    }
+                    $record['updatedAt'] = $now->format(DATE_ATOM);
+                    unset($record['revision']);
+                    unset($record);
+                    $stats[$candidate['type']]++;
+                    $stats['published']++;
+                }
+                return $stats;
+            });
+        }
+        return $this->mediaTransaction(function (PDO $pdo) use ($limit, $now, $empty): array {
+            $tables = ['albums' => 'audio_albums', 'tracks' => 'audio_tracks', 'playlists' => 'audio_playlists', 'galleries' => 'photo_galleries', 'videos' => 'videos'];
+            $nowSql = $now->format('Y-m-d H:i:s');
+            $due = [];
+            foreach ($tables as $type => $table) {
+                $deleted = in_array($type, ['galleries', 'videos'], true) ? ' AND deleted_at IS NULL' : '';
+                $query = $pdo->prepare("SELECT id,scheduled_at,published_at FROM {$table} WHERE status='scheduled' AND scheduled_at IS NOT NULL AND scheduled_at<=? AND (published_at IS NULL OR published_at<=?){$deleted} ORDER BY scheduled_at,id LIMIT " . $limit);
+                $query->execute([$nowSql, $nowSql]);
+                foreach ($query->fetchAll() as $row) {
+                    $when = $this->mediaDueTimestamp($row['scheduled_at'], $row['published_at'], $now);
+                    if ($when !== null) {
+                        $due[] = ['type' => $type, 'table' => $table, 'id' => (string) $row['id'], 'when' => $when, 'scheduledAt' => $row['scheduled_at'], 'publishedAt' => $row['published_at'], 'deleted' => $deleted];
+                    }
+                }
+            }
+            usort($due, static fn(array $a, array $b): int => ($a['when'] <=> $b['when']) ?: strcmp($a['type'] . ':' . $a['id'], $b['type'] . ':' . $b['id']));
+            $stats = $empty;
+            foreach (array_slice($due, 0, $limit) as $candidate) {
+                // Conditional update is the claim and publication in one step:
+                // concurrent workers or an intervening owner edit cannot reuse it.
+                $update = $pdo->prepare("UPDATE {$candidate['table']} SET status='published',published_at=COALESCE(published_at,scheduled_at),updated_at=? WHERE id=? AND status='scheduled' AND scheduled_at=? AND published_at <=> ? AND scheduled_at<=? AND (published_at IS NULL OR published_at<=?){$candidate['deleted']}");
+                $update->execute([$nowSql, (int) $candidate['id'], $candidate['scheduledAt'], $candidate['publishedAt'], $nowSql, $nowSql]);
+                if ($update->rowCount() === 1) {
+                    $stats[$candidate['type']]++;
+                    $stats['published']++;
+                }
+            }
+            return $stats;
+        });
+    }
+
+    private function mediaDueTimestamp(mixed $scheduled, mixed $published, DateTimeImmutable $now): ?int
+    {
+        try {
+            $scheduledAt = MediaInput::storedDate($scheduled);
+            $publishedAt = MediaInput::storedDate($published);
+        } catch (RuntimeException) {
+            // Malformed legacy dates never become permission to publish.
+            return null;
+        }
+        return $scheduledAt !== null && $scheduledAt <= $now && ($publishedAt === null || $publishedAt <= $now)
+            ? $scheduledAt->getTimestamp() : null;
+    }
+
+    private function mediaTransaction(callable $operation): mixed
+    {
+        $pdo = $this->pdo();
+        $ownsTransaction = !$pdo->inTransaction();
+        if ($ownsTransaction) {
+            $pdo->beginTransaction();
+        }
+        try {
+            $result = $operation($pdo);
+            if ($ownsTransaction) {
+                $pdo->commit();
+            }
+            return $result;
+        } catch (Throwable $error) {
+            if ($ownsTransaction && $pdo->inTransaction()) {
+                $pdo->rollBack();
+            }
+            throw $error;
+        }
+    }
+
+    private function requireSqlMediaId(string $id): void
+    {
+        if (!ctype_digit($id) || (int) $id < 1 || (string) (int) $id !== $id) {
+            throw new RuntimeException('A selected media item could not be found.');
+        }
+    }
+
+    /** Lock shared assets in a consistent order before checking gallery revisions. */
+    private function lockedMediaAssets(array $ids): array
+    {
+        $ids = array_values(array_unique(array_filter($ids, static fn(string $id): bool => $id !== '')));
+        foreach ($ids as $id) {
+            $this->requireSqlMediaId($id);
+        }
+        if ($ids === []) {
+            return [];
+        }
+        sort($ids, SORT_NUMERIC);
+        $query = $this->pdo()->prepare('SELECT * FROM media_assets WHERE deleted_at IS NULL AND id IN (' . implode(',', array_fill(0, count($ids), '?')) . ') ORDER BY id FOR UPDATE');
+        $query->execute($ids);
+        $assets = [];
+        foreach ($query->fetchAll() as $row) {
+            $assets[(string) $row['id']] = $this->mapMediaRow($row);
+        }
+        return $assets;
+    }
+
+    private function requireImageAsset(string $id, array $assets, bool $allowBlank = false): void
+    {
+        if ($allowBlank && $id === '') {
+            return;
+        }
+        $asset = $assets[$id] ?? null;
+        if (!is_array($asset) || !empty($asset['deletedAt']) || !str_starts_with((string) ($asset['mime'] ?? ''), 'image/')) {
+            throw new RuntimeException('A selected gallery or cover image could not be found.');
+        }
+    }
+
+    private function checkMediaRevision(array $input, array $existing, string $type): void
+    {
+        if (array_key_exists('expectedRevision', $input)) {
+            if ($existing === []) {
+                throw new RuntimeException('The media item could not be found. Reload the editor.');
+            }
+            MediaInput::assertRevision($input['expectedRevision'], $existing, $type);
+        }
+    }
+
+    /** @return array<string,mixed> */
+    private function normalizeMediaEdit(array $input, array $existing, string $type): array
+    {
+        $record = array_merge($existing, $input);
+        $record['title'] = MediaInput::text($record['title'] ?? '', 190, ucfirst($type) . ' title');
+        $record['slug'] = MediaInput::text($record['slug'] ?? '', 190, ucfirst($type) . ' slug');
+        $record['description'] = MediaInput::text($record['description'] ?? '', 20000, ucfirst($type) . ' description', true);
+        $record['status'] = MediaInput::status($record['status'] ?? 'draft');
+        $record['accessMode'] = MediaInput::access($record['accessMode'] ?? 'public');
+        $record['coverAssetId'] = MediaInput::id($record['coverAssetId'] ?? '');
+        $record['publishedAt'] ??= null;
+        $record['scheduledAt'] ??= null;
+        MediaInput::storedDate($record['publishedAt']);
+        MediaInput::storedDate($record['scheduledAt']);
+        if ($record['status'] === 'scheduled' && empty($record['scheduledAt'])) {
+            throw new RuntimeException('Choose a scheduled date before scheduling this ' . $type . '.');
+        }
+        $record = $this->normalizeContent($record, $type);
+        unset($record['expectedRevision'], $record['revision'], $record['coverAsset'], $record['tracks']);
+        return $record;
+    }
+
+    private function normalizePlaylist(array $input, array $existing): array
+    {
+        $playlist = $this->normalizeMediaEdit($input, $existing, 'playlist');
+        $playlist['trackIds'] = MediaInput::ids($playlist['trackIds'] ?? [], MediaInput::MAX_PLAYLIST_TRACKS, 'Playlist tracks');
+        return $playlist;
+    }
+
+    /** @return array{0:array<string,mixed>,1:array<string|int,list<string>>} */
+    private function normalizeGallery(array $input, array $existing, array $assets): array
+    {
+        $gallery = $this->normalizeMediaEdit($input, $existing, 'gallery');
+        $rawItems = $gallery['items'] ?? [];
+        if (!is_array($rawItems) || !array_is_list($rawItems) || $rawItems === [] || count($rawItems) > MediaInput::MAX_GALLERY_ITEMS) {
+            throw new RuntimeException('A gallery must contain between 1 and ' . MediaInput::MAX_GALLERY_ITEMS . ' photos.');
+        }
+        $gallery['standardPrice'] = MediaInput::price($gallery['standardPrice'] ?? null);
+        $gallery['subscriberPrice'] = MediaInput::price($gallery['subscriberPrice'] ?? null);
+        $gallery['rentalPrice'] = MediaInput::price($gallery['rentalPrice'] ?? null);
+        $gallery['rentalHours'] = MediaInput::count($gallery['rentalHours'] ?? 0, 999999, 'Rental hours');
+        $gallery['currency'] = MediaInput::currency($gallery['currency'] ?? 'USD');
+        $gallery['previewCount'] = min(count($rawItems), MediaInput::count($gallery['previewCount'] ?? 0, MediaInput::MAX_GALLERY_ITEMS, 'Preview count'));
+        $gallery['items'] = [];
+        $ids = [];
+        foreach ($rawItems as $index => $item) {
+            if (!is_array($item)) {
+                throw new RuntimeException('A gallery photo is invalid.');
+            }
+            $assetId = MediaInput::id($item['assetId'] ?? '', false);
+            if (in_array($assetId, $ids, true)) {
+                throw new RuntimeException('A gallery photo is repeated.');
+            }
+            $this->requireImageAsset($assetId, $assets);
+            $ids[] = $assetId;
+            $gallery['items'][] = ['assetId' => $assetId, 'caption' => MediaInput::caption($item['caption'] ?? ''), 'sortOrder' => ($index + 1) * 10, 'isPreview' => $index < $gallery['previewCount']];
+        }
+        $existingIds = array_map(static fn(array $item): string => (string) ($item['assetId'] ?? ''), (array) ($existing['items'] ?? []));
+        if ($gallery['coverAssetId'] === '' || (in_array($gallery['coverAssetId'], $existingIds, true) && !in_array($gallery['coverAssetId'], $ids, true))) {
+            $gallery['coverAssetId'] = $ids[0];
+        }
+        $this->requireImageAsset($gallery['coverAssetId'], $assets);
+        $tags = MediaInput::itemFields($input['assetTags'] ?? [], 'Photo tags');
+        foreach ($tags as $assetId => &$assetTags) {
+            if (!in_array((string) $assetId, $ids, true)) {
+                throw new RuntimeException('Photo tags must belong to a retained gallery photo.');
+            }
+            $assetTags = MediaInput::tags($assetTags);
+        }
+        unset($assetTags, $gallery['assetTags']);
+        return [$gallery, $tags];
+    }
+
+    private function mediaSqlDate(mixed $value): ?string
+    {
+        return MediaInput::storedDate($value)?->setTimezone(new DateTimeZone(date_default_timezone_get()))->format('Y-m-d H:i:s');
+    }
+
+    /** Only called inside mutateFileStore; it never writes another snapshot. */
+    private function putMediaFileRecord(array &$data, string $collection, array $record): array
+    {
+        $id = (string) ($record['id'] ?? '');
+        if ($id === '') {
+            $id = bin2hex(random_bytes(8));
+        }
+        $existing = (array) ($data['mediaCenter'][$collection][$id] ?? []);
+        $record['id'] = $id;
+        $record['createdAt'] = $existing['createdAt'] ?? $record['createdAt'] ?? now_iso();
+        $record['updatedAt'] = now_iso();
+        unset($record['revision'], $record['expectedRevision'], $record['assetTags'], $record['tracks'], $record['coverAsset']);
+        $data['mediaCenter'][$collection][$id] = $record;
+        return $record;
+    }
+
+    /** Hydrate current asset metadata instead of stale embedded file snapshots. */
+    private function hydrateFileMedia(string $collection, array $record, array $data): array
+    {
+        $asset = static function (string $id) use ($data): ?array {
+            $value = $data['media'][$id] ?? null;
+            return is_array($value) && empty($value['deletedAt']) ? $value : null;
+        };
+        $record['coverAsset'] = $asset((string) ($record['coverAssetId'] ?? ''));
+        if ($collection === 'galleries') {
+            $record['items'] = array_values((array) ($record['items'] ?? []));
+            foreach ($record['items'] as &$item) {
+                $item['asset'] = $asset((string) ($item['assetId'] ?? ''));
+            }
+            unset($item);
+            $record['revision'] = MediaInput::revision($record, 'gallery');
+        } elseif ($collection === 'audioPlaylists') {
+            $record['trackIds'] = array_map('strval', (array) ($record['trackIds'] ?? []));
+            $record['tracks'] = [];
+            foreach ($record['trackIds'] as $id) {
+                $track = $data['mediaCenter']['tracks'][$id] ?? null;
+                if (is_array($track)) {
+                    $track['audioAsset'] = $asset((string) ($track['audioAssetId'] ?? ''));
+                    $track['coverAsset'] = $asset((string) ($track['coverAssetId'] ?? ''));
+                    $record['tracks'][] = $track;
+                }
+            }
+            $record['revision'] = MediaInput::revision($record, 'playlist');
+        }
+        return $record;
+    }
+
     /** @return list<array<string,mixed>> */
     private function fileCollection(string $key, bool $publishedOnly): array
     {
         $data=$this->readFileStore();
         $rows=array_values((array)($data['mediaCenter'][$key]??[]));
+        $rows=array_values(array_filter($rows,static fn(array $row):bool=>empty($row['deletedAt'])));
+        if (in_array($key, ['galleries', 'audioPlaylists'], true)) {
+            $rows = array_map(fn(array $row): array => $this->hydrateFileMedia($key, $row, $data), $rows);
+        }
         if($publishedOnly){$rows=array_values(array_filter($rows,static fn(array $row):bool=>(string)($row['status']??'draft')==='published'));}
         usort($rows,static fn(array $a,array $b):int=>strcmp((string)($b['publishedAt']??$b['createdAt']??''),(string)($a['publishedAt']??$a['createdAt']??'')));
         return $rows;
@@ -411,7 +770,25 @@ trait MediaStoreTrait
     private function mapGalleryRow(array $row,bool $withItems): array
     {
         $gallery=['id'=>(string)$row['id'],'slug'=>$row['slug'],'title'=>$row['title'],'description'=>$row['description']??'','coverAssetId'=>$row['cover_asset_id']?(string)$row['cover_asset_id']:'','coverAsset'=>$row['cover_file']?['id'=>(string)$row['cover_asset_id'],'file'=>$row['cover_file'],'thumbnail'=>$row['cover_thumbnail']?:$row['cover_file']]:null,'status'=>$row['status'],'accessMode'=>$row['access_mode'],'standardPrice'=>$row['standard_price']!==null?(float)$row['standard_price']:null,'subscriberPrice'=>$row['subscriber_price']!==null?(float)$row['subscriber_price']:null,'rentalPrice'=>$row['rental_price']!==null?(float)$row['rental_price']:null,'rentalHours'=>(int)($row['rental_hours']??0),'currency'=>$row['currency'],'previewCount'=>(int)($row['preview_count']??0),'publishedAt'=>$row['published_at'],'scheduledAt'=>$row['scheduled_at'],'createdAt'=>$row['created_at'],'updatedAt'=>$row['updated_at'],'items'=>[]];
-        if($withItems){$stmt=$this->pdo()->prepare('SELECT i.*,m.title AS asset_title,m.file_path,m.thumbnail_path,m.mime_type,m.width,m.height FROM photo_gallery_items i JOIN media_assets m ON m.id=i.asset_id WHERE i.gallery_id=? ORDER BY i.sort_order,i.id');$stmt->execute([(int)$row['id']]);foreach($stmt->fetchAll() as $item){$gallery['items'][]=['assetId'=>(string)$item['asset_id'],'caption'=>$item['caption']??'','sortOrder'=>(int)$item['sort_order'],'isPreview'=>(bool)$item['is_preview'],'asset'=>['id'=>(string)$item['asset_id'],'title'=>$item['asset_title'],'file'=>$item['file_path'],'thumbnail'=>$item['thumbnail_path']?:$item['file_path'],'mime'=>$item['mime_type'],'width'=>(int)$item['width'],'height'=>(int)$item['height']]];}}
+        if ($withItems) {
+            $stmt = $this->pdo()->prepare('SELECT i.*,m.title AS asset_title,m.file_path,m.thumbnail_path,m.mime_type,m.width,m.height,m.tags_json,m.metadata_json FROM photo_gallery_items i JOIN media_assets m ON m.id=i.asset_id WHERE i.gallery_id=? AND m.deleted_at IS NULL ORDER BY i.sort_order,i.id');
+            $stmt->execute([(int) $row['id']]);
+            foreach ($stmt->fetchAll() as $item) {
+                $gallery['items'][] = [
+                    'assetId' => (string) $item['asset_id'], 'caption' => $item['caption'] ?? '',
+                    'sortOrder' => (int) $item['sort_order'], 'isPreview' => (bool) $item['is_preview'],
+                    'asset' => [
+                        'id' => (string) $item['asset_id'], 'title' => $item['asset_title'],
+                        'file' => $item['file_path'], 'thumbnail' => $item['thumbnail_path'] ?: $item['file_path'],
+                        'mime' => $item['mime_type'], 'width' => (int) $item['width'], 'height' => (int) $item['height'],
+                        'tags' => safe_json_decode((string) ($item['tags_json'] ?? '[]')),
+                        'metadata' => safe_json_decode((string) ($item['metadata_json'] ?? '{}')),
+                        'private' => str_starts_with((string) $item['file_path'], 'private:'),
+                    ],
+                ];
+            }
+            $gallery['revision'] = MediaInput::revision($gallery, 'gallery');
+        }
         return $gallery;
     }
 

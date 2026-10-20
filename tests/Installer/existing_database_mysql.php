@@ -67,6 +67,11 @@ try {
         $assert(($config['installed'] ?? false) === true, 'Final configuration is not installed.');
         $assert(($config['installer_pending'] ?? false) !== true, 'Successful final activation still has a pending installer marker.');
         $assert(($lock['installed'] ?? false) === true && $lock['installation_id'] === $config['installation_id'], 'Final lock and configuration identity differ.');
+        $version = trim((string) file_get_contents($runtime . '/VERSION'));
+        $assert($version === VELVET_VIXXEN_VERSION, 'Packaged VERSION and executing PHP version differ.');
+        $assert(($config['version'] ?? '') === $version && ($lock['version'] ?? '') === $version, 'Installer configuration or lock retained a pinned release version.');
+        $audit = json_decode((string) $pdo->query("SELECT context_json FROM audit_log WHERE action_key IN ('installation.completed','installation.resumed') ORDER BY id DESC LIMIT 1")->fetchColumn(), true, 512, JSON_THROW_ON_ERROR);
+        $assert(($audit['version'] ?? '') === $version, 'The completed/resumed installation audit has the wrong release version.');
         $assert(($result['owner_reused'] ?? null) === $ownerReused, 'Wrong owner reuse result.');
         $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 14, 'The complete migration ledger is missing entries.');
         $assert((int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn() === 1, 'Owner account was missing or duplicated.');
@@ -82,6 +87,10 @@ try {
     $result = vvx_installer_fixture_install($runtime, $payload);
     $assert(($result['database_mode'] ?? '') === 'created', 'Empty database did not take the creation path.');
     $assertInstalled($result, false);
+    $installation = json_decode((string) $pdo->query("SELECT setting_value FROM settings WHERE setting_key='installation'")->fetchColumn(), true, 512, JSON_THROW_ON_ERROR);
+    $identity = json_decode((string) $pdo->query("SELECT state_value FROM installation_state WHERE state_key='installation'")->fetchColumn(), true, 512, JSON_THROW_ON_ERROR);
+    $assert(($installation['version'] ?? '') === VELVET_VIXXEN_VERSION, 'A fresh installation setting has the wrong canonical release version.');
+    $assert(($identity['version'] ?? '') === VELVET_VIXXEN_VERSION, 'A fresh database installation identity has the wrong canonical release version.');
     echo "PASS installer MySQL: empty database and working owner login\n";
 
     $reset('unrelated existing table');

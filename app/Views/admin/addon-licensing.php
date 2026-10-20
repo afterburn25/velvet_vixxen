@@ -12,7 +12,7 @@ $activeIssued = count(array_filter($issuedLicenses, static fn(array $row): bool 
 $activeSites = count(array_filter($store->addonLicenseActivations(), static fn(array $row): bool => ($row['status']??'') === 'active'));
 ?>
 <section class="license-hub-hero">
-  <div><span class="admin-kicker">0.8.1 Commercial delivery</span><h2>Add-on Licensing &amp; Release Hub</h2><p>Issue commercial license keys, control site activations, publish signed update feeds, and deliver protected package downloads without disabling already-installed add-ons during a service outage.</p></div>
+  <div><span class="admin-kicker"><?= e(VELVET_VIXXEN_VERSION) ?> Commercial delivery</span><h2>Add-on Licensing &amp; Release Hub</h2><p>Issue commercial license keys, control site activations, publish signed update feeds, and deliver protected package downloads without disabling already-installed add-ons during a service outage.</p></div>
   <div class="license-hub-identity">
     <span class="addon-status-badge <?= $hubStatus['enabled']?'active':'failed' ?>"><?= $hubStatus['enabled']?'Signing online':'Needs attention' ?></span>
     <small>Ed25519 fingerprint</small><code><?= e($hubStatus['fingerprint'] ?: 'Unavailable') ?></code>

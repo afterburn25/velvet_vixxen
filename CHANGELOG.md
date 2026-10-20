@@ -1,3 +1,15 @@
+## 0.8.2 — Media Center, Build 20261020.3 (in progress)
+
+- Advance visible release numbers with each completed release; use canonical version metadata throughout the runtime and installer.
+- Edit gallery captions and shared photo tags; save exactly the retained photographs and their order, with mobile controls and undo before saving.
+- Preserve playlist playback order and scheduling dates; reject stale gallery/playlist forms without overwriting newer changes.
+- Apply related gallery/item/tag writes atomically in file storage and MySQL, and prevent common file-store writers from silently replacing concurrent changes.
+- Publish bounded due media through an active-owner/CSRF-protected action or explicit hosting CLI; preserve access/date rules and idempotency.
+- Enforce playlist access before offering its public queue, with each track's existing access/preview rules.
+- Preserve approved roots, verify changed upload timestamps against the exact previous Fresh archive, and use complete 0.8.2 Fresh/Upgrade packages. Keep the unfinished 0.8.1 installer repair explicitly targeted; retire the former focused Media/Composer overlay for new releases.
+
+Local source, ten HTTP suites, real MySQL and all four packaged browser cases passed; final GitHub CI, merge and delivery remain pending. See [the 0.8.2 release record](docs/releases/0.8.2-media-center.md). After Media Center #2, continue addon-owned MySQL migration acceptance #7 and remaining marketing #9.
+
 ## 0.8.1 — Build 20261020.2 owner Email & SMTP (2026-10-20)
 
 Verified, merged into `main` through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17) at **2026-10-20 03:10:04 UTC**, commit `65bea278efacd59e8ba24401cc3fe7d47300a7d4`, and delivered. All seven jobs in [CI run 39361581062](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed against the complete tree shared by release source `20384c93235749a6ae13b2686c34a37af5fec9bd`, actual checkout `77062d02579e93c573e8c7955a5362220199ac59` and the merge. All four ZIPs and the separate manifest were saved and retrieved again with exact equality to the gated artifact at **2026-10-20 03:11:47 UTC**. See [the release record](docs/releases/0.8.1-owner-mail-settings.md) and its CI/delivery JSON evidence.

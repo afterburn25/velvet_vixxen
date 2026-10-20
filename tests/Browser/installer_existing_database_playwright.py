@@ -89,7 +89,10 @@ with tempfile.TemporaryDirectory(prefix="vvx-installer-browser-") as temporary:
     packages = work / "packages"
     build = subprocess.run([sys.executable, str(SOURCE / "scripts/package.py"), "--output", str(packages)], capture_output=True, text=True)
     assert build.returncode == 0, build.stderr + build.stdout
-    fresh_package = next(entry for entry in json.loads(build.stdout)["packages"] if entry["kind"] == "fresh")
+    build_manifest = json.loads(build.stdout)
+    release_version = (SOURCE / "VERSION").read_text().strip()
+    assert build_manifest["version"] == release_version
+    fresh_package = next(entry for entry in build_manifest["packages"] if entry["kind"] == "fresh")
     archive = packages / fresh_package["filename"]
 
     def overlay_runtime():
@@ -151,6 +154,7 @@ with tempfile.TemporaryDirectory(prefix="vvx-installer-browser-") as temporary:
                 page.on("response", lambda response: errors.append(f"HTTP {response.status}: {response.url}") if response.status >= 500 else None)
                 response = page.goto(base + "/install/", wait_until="networkidle")
                 assert response and response.status == 200
+                expect(page.locator(".version-chip")).to_have_text(f"Version {release_version}")
                 assert_page_fits(page)
                 expect(page.locator("[data-install-button]")).to_be_enabled()
                 if not page.locator("#readiness").evaluate("element => element.open"):
@@ -227,6 +231,7 @@ with tempfile.TemporaryDirectory(prefix="vvx-installer-browser-") as temporary:
                 page.locator('[name="password"]').fill(OWNER_PASSWORD)
                 page.get_by_role("button", name="Sign in", exact=True).click()
                 expect(page.locator("[data-admin-navigation]")).to_be_attached()
+                expect(page.locator(".admin-topbar .admin-kicker")).to_contain_text(f"v{release_version} · Build {build_manifest['build_id']}")
                 assert "page=login" not in page.url, "New/existing owner could not log in after installation"
                 assert not errors, errors
                 print(f"PASS real {device} installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login", flush=True)

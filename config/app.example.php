@@ -5,7 +5,7 @@ return [
     'installed' => false,
     'installation_id' => '',
     'app_name' => 'Nikki Wilder — The Velvet Vixxen',
-    'version' => '0.8.1',
+    'version' => trim((string) file_get_contents(dirname(__DIR__) . '/VERSION')),
     'base_url' => '',
     'timezone' => 'America/Chicago',
     'currency' => 'USD',
