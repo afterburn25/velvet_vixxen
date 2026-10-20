@@ -2,11 +2,11 @@
 
 Use this repair for an already-uploaded **unfinished Velvet Vixxen 0.8.1 installation**, including the error that lists existing `migrations`, `admins`, `settings`, `media_assets`, `scenes`, `scene_versions`, `canva_templates` and `audit_log` tables. The earlier folder-only repair does not contain the database continuation.
 
-The current **Build 20261020.2** overlay also includes the installer sender-validation correction and contains **11 files**. Its `repair_build_id` identifies this repair revision; it does not change an installed site's runtime inventory/build or install the owner Email & SMTP editor. Final local source/package/HTTP checks passed, while the new required GitHub CI and delivery remain pending in [the current release record](releases/0.8.1-owner-mail-settings.md).
+The current **Build 20261020.2** overlay also includes the installer sender-validation correction and contains **11 files**. Its `repair_build_id` identifies this repair revision; it does not change an installed site's runtime inventory/build or install the owner Email & SMTP editor. The release is merged through [PR #17](https://github.com/afterburn25/velvet_vixxen/pull/17), all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39361581062) passed, and the saved repair was retrieved and compared byte for byte with the gated artifact at **2026-10-20 03:11:47 UTC**. See [the current release record](releases/0.8.1-owner-mail-settings.md) and [delivery evidence](releases/0.8.1-owner-mail-settings-delivery.json).
 
 ## Continue the installation on the server
 
-1. Download the verified `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip` when its release verification and delivery are complete.
+1. Download the verified `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Installer-Database-Repair.zip`.
 2. Open the existing website folder in the hosting file manager: the folder containing `app`, `install`, `includes` and `public`.
 3. Upload and extract the repair ZIP into that folder. Allow the matching application files to be replaced; extraction also adds the new schema-reconciliation helper.
 4. Refresh the existing installer page. Its CSS and JavaScript use an updated cache identifier. Click **Run Checks**, keep the same database details, and continue installation.
@@ -49,4 +49,4 @@ The current `Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.2-Upgrade-from-0.8.
 
 ## Evidence
 
-Current executed tests, source/CI status and package checksums are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the Build 20261020.2 release record](releases/0.8.1-owner-mail-settings.md). Required gates include actual packaged installation on MySQL 8 with PHP 8.2/8.3, real desktop/mobile browser continuation and layout checks, source/JavaScript/security, foreign-owner write tests, persistent OPcache repair, and runtime-only exclusion checks. Previous feature HTTP/browser suites remain mandatory. The original database/layout release evidence is retained as history; this guide does not claim the new repair has been delivered or applied to the owner's host.
+Current executed tests, source/CI status and package checksums are in [TEST_REPORT.md](TEST_REPORT.md), [RELEASE_MANIFEST.txt](../RELEASE_MANIFEST.txt) and [the Build 20261020.2 release record](releases/0.8.1-owner-mail-settings.md). Required gates passed, including actual packaged installation on MySQL 8 with PHP 8.2/8.3, real desktop/mobile browser continuation and layout checks, source/JavaScript/security, foreign-owner write tests, persistent OPcache repair, and runtime-only exclusion checks. Previous feature HTTP/browser suites remain mandatory. The original database/layout release evidence is retained as history. The current repair is verified and delivered; application to the affected owner's host and its behavior there remain unverified.
