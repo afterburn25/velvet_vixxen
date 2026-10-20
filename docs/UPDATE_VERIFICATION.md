@@ -2,7 +2,7 @@
 
 Version **0.8.3**, Build **20261020.4**, adds guarded add-on-owned migration recovery, aligned package/schema rollback and durable holds across interrupted activation. It includes the released 0.8.2 Media Center, owner Email & SMTP, Composer, campaigns and organized-layout fixes. The unchanged unfinished-installer repair retains its separate **0.8.1 / Build 20261020.3** identity.
 
-**Current evidence:** local 0.8.3 source and packaged MySQL/HTTP/browser acceptance passed; GitHub CI, merge and saved-download verification are pending. Use [the numbered release record](releases/0.8.3-addon-recovery.md) for the actual current state. Historical 0.8.2 CI does not certify this changed runtime. The affected customer host remains unverified.
+**Current evidence:** all seven [required CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39374591561) passed; [PR #19](https://github.com/afterburn25/velvet_vixxen/pull/19) is merged into `main`. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes literally. [The release record](releases/0.8.3-addon-recovery.md) contains exact identities and evidence. The affected customer host has not been accessed or verified.
 
 Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains part of 0.8.3; its historical CI/delivery records remain available.
 
@@ -66,7 +66,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-Current **0.8.3 / Build 20261020.4** source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates are being run against the changed tree. Final evidence will be recorded in [the 0.8.3 release record](releases/0.8.3-addon-recovery.md) after it completes. Do not apply historical 0.8.1 CI results to this new release.
+Current **0.8.3 / Build 20261020.4** passed all required source, database, HTTP, actual packaged browser, security, ownership, persistent OPcache and package gates. Exact CI, merge and saved-delivery evidence is recorded in [the release record](releases/0.8.3-addon-recovery.md).
 
 ### Historical baseline — Build 20261020.1
 

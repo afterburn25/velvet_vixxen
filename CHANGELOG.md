@@ -1,4 +1,4 @@
-## 0.8.3 — Add-on migration recovery, Build 20261020.4 (in progress)
+## 0.8.3 — Add-on migration recovery, Build 20261020.4 (verified, merged and delivered)
 
 - Preflight the whole migration batch and owned-table boundary; compensate only completed additive changes.
 - Align package files, migration ledger and selected version on update/rollback, with independent durable recovery across SQL, file and registry boundaries.
@@ -6,7 +6,7 @@
 - Add actual packaged MySQL, HTTP and desktop/mobile recovery acceptance while preserving every existing release gate.
 - Enforce a visible-version increase for changed releases and preserve the unchanged installer repair's identity and exact bytes.
 
-See [the 0.8.3 release record](docs/releases/0.8.3-addon-recovery.md). Local full source, ten HTTP suites and packaged MySQL/desktop/mobile recovery passed. Final GitHub CI/merge/delivery are pending. Down SQL and purge can delete data and require a database backup to restore it. Broader #9 and actual-host #12/#13 remain open.
+See [the 0.8.3 release record](docs/releases/0.8.3-addon-recovery.md). Local full source, ten HTTP suites and packaged MySQL/desktop/mobile recovery passed. All seven [GitHub CI jobs](https://github.com/afterburn25/velvet_vixxen/actions/runs/39374591561) passed; [PR #19](https://github.com/afterburn25/velvet_vixxen/pull/19) merged at 2026-10-20T05:39:13Z. Customer ZIPs and the manifest match the gated artifact and saved/retrieved bytes at 2026-10-20 05:40:00 UTC. Down SQL and purge can delete data and require a database backup to restore it. Broader #9 and actual-host #12/#13 remain open.
 
 ## 0.8.2 — Media Center, Build 20261020.3 (verified, merged and delivered)
 
