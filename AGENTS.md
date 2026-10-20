@@ -1,7 +1,23 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- newsletter-audiences-084:start -->
+## Current work — 0.8.4 Newsletter audiences, Build 20261020.5
+
+The next numbered release advances the visible version to **0.8.4** from verified, merged and delivered **0.8.3**. Integration starts at authoritative `main` commit `65c5657b19a24fc1477c207bfeab3345049d13ac` on `feature/0.8.4-audience-release`. Final GitHub CI, merge and saved-download equality remain pending for this changed tree.
+
+Owners can save revision-checked newsletter audiences using exact signup sources and confirmation-date bounds, preview currently eligible recipients and select an audience when drafting a campaign. Preview is optional; queueing reevaluates current eligibility and rejects a supplied stale preview. The first queue freezes audience identity/rules, message content and recipient identities; explicit later requeue appends newly eligible matches using those frozen rules. Current consent and suppression remain enforced immediately before delivery.
+
+The version-integrated source suite, all ten existing installed HTTP suites and actual packaged audience HTTP/desktop/mobile acceptance passed. The new audience source test passed 149 assertions; the extracted customer ZIP passed 44 owner HTTP assertions plus root-desktop and nested-mobile browser flows. Tests use disabled mail and send zero external messages. All seven GitHub jobs must still pass against this exact integrated tree; previous releases certify their own source only.
+
+Full Fresh and Upgrade use **0.8.4 / Build 20261020.5**, preserving the exact approved 13/9 directories and four root files. Changed runtime entries advance from the exact prior Fresh archive; unchanged entries retain their historical timestamps. The unchanged eleven-file unfinished-installer repair retains **0.8.1 / Build 20261020.3**, its delivered hash and saved identity. The permanent release gate rejects changed packages under an already delivered visible version, including build-only relabeling.
+
+Audience storage remains the existing protected file store, including when the main application uses MySQL. Signup source is a recorded filter value, not a trusted membership, purchase or referral attribute. Preview does not queue or send mail. Queueing does not certify configured production mail or inbox delivery. Continue 0.8.5 publication-window editing after this release. Broader #9 remains open for marketing SQL persistence, editorial/scene scheduling, referral attribution, analytics and provider hooks. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only. No separate 0.9 milestone completion is claimed.
+
+[Release and exact evidence](docs/releases/0.8.4-newsletter-audiences.md) · [Newsletter audience guide](docs/NEWSLETTER_AUDIENCES.md) · [Apply and verify the Upgrade](docs/UPDATE_VERIFICATION.md). Older release records below remain historical.
+<!-- newsletter-audiences-084:end -->
+
 <!-- addon-recovery-083:start -->
-## Current release — 0.8.3 Add-on migration recovery, Build 20261020.4
+## Historical release — 0.8.3 Add-on migration recovery, Build 20261020.4
 
 **Version 0.8.3 is verified, merged into `main` through [PR #19](https://github.com/afterburn25/velvet_vixxen/pull/19) and delivered.** Merge `dcb229532ce55e4783b477d51bc3ffbe3f7fcfa7` completed at **2026-10-20T05:39:13Z**. All seven jobs in [the required CI run](https://github.com/afterburn25/velvet_vixxen/actions/runs/39374591561) passed. Release source `9a21c2eb4e2032c6e81afb03092003918a63b272`, actual CI checkout `fe32a113e4465540c6a8b11730ace07240661880` and the merge share the complete tree `526c8f22fa1c79873b4d3106c48c2280c6c5755d`. Later documentation recording changes no executable, test, workflow or package bytes.
 
@@ -92,11 +108,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current released baseline: **0.8.3 — Build 20261020.4 Add-on migration recovery; verified, merged and delivered.**
+Current integration target: **0.8.4 — Build 20261020.5 Newsletter audiences; final acceptance pending. Released baseline: 0.8.3.**
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration destination and contains PR #15 through PR #19. Start subsequent implementation from live `main` on a scoped feature branch. Current release evidence is `docs/releases/0.8.3-addon-recovery.md`; earlier records certify their historical releases only. Add-on migration/recovery issue #7 is complete. Continue 0.8.4 saved newsletter audiences and 0.8.5 publication-window editing under broader #9. Preserve all required gates and approved package roots.
+`main` is the authoritative integration destination. Start subsequent implementation from live `main` on a scoped feature branch. The current integrated work and pending acceptance are recorded in `docs/releases/0.8.4-newsletter-audiences.md`; prior release evidence remains historical. Preserve every required gate and approved package root.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 

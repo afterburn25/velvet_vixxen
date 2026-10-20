@@ -45,6 +45,10 @@ jobs:
             app/Core/MailDeliveryException.php tests/Feature/campaign_delivery.php
             tests/Http/campaign_delivery_http.py tests/Http/campaign_delivery_fixture.php
             tests/Browser/campaign_delivery_playwright.py
+            app/Core/MarketingAudience.php app/Views/admin/marketing-audiences.php
+            app/Views/admin/marketing-campaign-form.php tests/Feature/marketing_audiences.php
+            tests/Http/marketing_audiences_http.py tests/Http/marketing_audiences_fixture.php
+            tests/Browser/marketing_audiences_playwright.py docs/NEWSLETTER_AUDIENCES.md
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
             app/Views/admin/mail-settings.php app/Views/admin/mail-settings-actions.php
             public/assets/js/mail-settings.js public/assets/css/mail-settings.css
@@ -59,6 +63,7 @@ jobs:
             tests/Database/addon_lifecycle_worker.php tests/Http/addon_recovery_fixture.php
             tests/Http/addon_recovery_http.py tests/Browser/addon_recovery_browser.py
             tests/Packaging/release_version.py tests/Packaging/fixtures/release-0.8.2-build-20261020.3.json
+            tests/Packaging/fixtures/release-0.8.3-build-20261020.4.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -234,6 +239,10 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/campaign_delivery_playwright.py
+      - name: Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/marketing_audiences_playwright.py
       - name: Configure email and test saved SMTP settings through the real packaged owner page
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
