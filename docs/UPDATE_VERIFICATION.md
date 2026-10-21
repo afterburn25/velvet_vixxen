@@ -1,4 +1,19 @@
-# Update and verify Velvet Vixxen — 0.8.14 / Build 20261021.3
+# Update and verify Velvet Vixxen
+
+## 0.9.0 / Build 20261021.4 candidate procedure
+
+This procedure describes the current engineering candidate. Final combined CI, merge and customer download verification are still pending; the verified delivered baseline remains 0.8.14. The historical procedures below retain their original release evidence.
+
+1. Keep a recoverable backup of the active files and database. Preserve `config`, `storage`, `uploads`, installation identity, owner account and encryption keys.
+2. Extract the complete matching **0.9.0 / Build 20261021.4 Upgrade** into the active installation directory, replacing matching application files. There is no enclosing product folder. Keep an existing subfolder installation in that same subfolder.
+3. Open **`admin/repair-current.php` directly** under that installation URL. The new physical entry reaches the current authentication guard even if the older `admin/repair.php` and authentication classes remain cached. Follow [Administrator security](ADMIN_SECURITY.md) for this boundary.
+4. If **Complete the update** appears with HTTP503, finish extracting the entire matching Upgrade before continuing. The current entry verifies all runtime files before authentication. Sign in with the existing owner password and the current authenticator or recovery code when enabled. An expired recent confirmation requires the current password/factor again.
+5. Require **Update files verified**, **Uploaded package: v0.9.0 · Build 20261021.4**, and **Files needing replacement: 0**. Choose **Refresh application PHP** deliberately. After reload, require **PHP running now: 20261021.4** and repeat the inventory checks. Reload public/admin pages with asset revision **0.9.0-20261021.4**.
+6. Review **System → Database Updates**. This candidate adds migration 016 for marketing measurements and 017 for private journals; an older pre-015 installation also needs its existing marketing-storage migration. Apply only through the current owner's reviewed workflow. Extraction and ordinary page reads do not migrate SQL or activate an independent marketing-storage move.
+7. Use **Restore organized folders** only for the exact detected retired Build 20261019.5 forwarders. For `.vvx-private-repair-*` root copies, use the separate **System → Repair Backups → Move Root Backups to Private Storage** action. Those copies can contain actual uploads or configuration. Delete only a freshly verified duplicate through that tool; preserve missing, different, custom or unreadable content.
+8. Review retained Composer depth/foreground, scheduled scenes, Menus, public pages, media, member and commerce behavior. Configure security, workers, backup recovery, protected delivery, age/location controls, published policies and privacy retention deliberately using their current guides. Verify actual host/CDN denial and approved live services separately.
+
+The Upgrade preserves installed configuration, storage and uploads. The separate unfinished-installer repair remains **0.8.1 / repair Build 20261020.3**, byte-identical and intended only for its unfinished setup state. No local or GitHub acceptance report proves that this customer host has been updated.
 
 <!-- scene-schedules-0814:start -->
 ## Current 0.8.14 complete Upgrade procedure

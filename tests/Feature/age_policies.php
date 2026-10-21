@@ -84,7 +84,7 @@ try {
     $server = ['REQUEST_METHOD' => 'POST', 'REMOTE_ADDR' => '192.0.2.10'];
     $service = new AgeAccess($config); $assert($service->decision([], $server) === 'allowed' && $service->settings()['mode'] === 'disabled', 'Default-off age policy blocked legacy behavior.');
     $assert($state->read('age_requests') === [], 'Reading age status initialized rate storage.');
-    $input = ['mode' => 'required', 'minimum_age' => '18', 'session_minutes' => '60', 'sdk_id' => '11111111-2222-4333-8444-555555555555', 'api_key' => 'synthetic-age-provider-key',
+    $input = ['mode' => 'required', 'minimum_age' => '18', 'session_minutes' => '60', 'sdk_id' => '11111111-2222-4333-8444-555555555555', 'api_key' => bin2hex(random_bytes(24)),
         'clear_api_key' => false, 'geographic_enabled' => false, 'country_header' => 'HTTP_CF_IPCOUNTRY', 'trusted_proxies' => '', 'blocked_countries' => '', 'reviewed_rules' => true];
     $reject(fn() => $service->saveConfiguration($input, $config->revision(), $owner, $guard), 'Age required enabled before protected media.', 409);
     $protection = new ProtectionRecords($config, $state, new ProtectionUploads($config, static fn(): int => 403));

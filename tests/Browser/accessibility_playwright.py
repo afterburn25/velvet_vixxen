@@ -15,21 +15,31 @@ spec=importlib.util.spec_from_file_location('accessibility_package',ROOT/'tests/
 depth=importlib.util.module_from_spec(spec);spec.loader.exec_module(depth)
 http=depth._base;check=http.check
 PUBLIC=['','about','music','photos','videos','membership','shop','collections','booking','account/login.php',
-        'account/register.php','cart','blog','newsletter','links','privacy/choices.php','reports']
+        'account/register.php','cart','blog','newsletter','links','privacy/choices.php','reports','age','policies',
+        'policies/?document=terms','policies/?document=privacy','policies/?document=adults',
+        'policies/?document=dmca','policies/?document=support']
 ADMIN=['dashboard','composer','security','mail-settings','menus','scene-schedules','marketing&tab=overview',
        'marketing&tab=posts','marketing&tab=campaigns','marketing&tab=deleted','marketing&tab=analytics',
-       'marketing&tab=notifications','marketing&tab=provider','operations','protection','members','payments','booking-form','media']
-MEMBER=['account','account/library.php','account/billing.php','account/security.php','messages','requests']
+       'marketing&tab=notifications','marketing&tab=provider','operations','protection','policies','policies&tab=access','privacy',
+       'members','payments','booking-form','media']
+MEMBER=['account','account/library.php','account/billing.php','account/security.php','account/privacy.php','messages','requests']
 RUNTIME=['public/assets/js/site.js','public/assets/js/admin.js','public/assets/js/admin-ux.js','public/assets/js/navigation.js','public/home.php',
          'public/routes/messages/index.php','public/routes/account/security.php',
          'public/assets/css/site-ux.css','public/assets/css/admin-ux.css','admin/index.php','app/Views/admin/login.php','app/Views/admin/security.php',
-         'app/Views/admin/marketing-publication-editor.php','app/Views/admin/marketing-analytics.php','app/Views/admin/operations.php']
+         'app/Views/admin/marketing-publication-editor.php','app/Views/admin/marketing-analytics.php','app/Views/admin/operations.php',
+         'app/Views/admin/privacy.php','app/Views/admin/policies.php','app/Views/public/access.php',
+         'public/routes/account/privacy.php','public/routes/age/index.php','public/routes/policies/index.php',
+         'public/assets/css/policies.css','public/assets/css/protection-public.css',
+         'public/assets/css/member-privacy.css','public/assets/css/privacy-admin.css']
 TAGS=['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']
 
 
 def run_case(browser,case,viewport,engine,evidence):
     seeded=subprocess.run([case['php'],str(ROOT/'tests/Http/accessibility_fixture.php'),str(case['site'])],text=True,capture_output=True,timeout=20)
     check(seeded.returncode==0 and json.loads(seeded.stdout)['seeded'] is True,'Accessible media fixture failed: '+seeded.stderr[:1000])
+    seed_report=json.loads(seeded.stdout)
+    check(seed_report['published_policies']==5,'The actual public policy views were not populated.')
+    check((case['mode']=='mysql')==bool(seed_report['mysql_version']),'The actual database version was not recorded.')
     start=http.checks;context=browser.new_context(viewport=viewport,reduced_motion='reduce');page=context.new_page()
     errors=[];page.on('pageerror',lambda error:errors.append(str(error)))
     rows=[];shots=[];keyboard=[]
@@ -121,6 +131,7 @@ def run_case(browser,case,viewport,engine,evidence):
         check(not errors,'Browser JavaScript errors: '+repr(errors))
         check(case['capture'].connections==0,'Read-only accessibility review sent mail.')
         return {'checks':http.checks-start,'pages':rows,'keyboard':keyboard,'screenshots':shots,'violations':violations,
+            'mysql_version':seed_report['mysql_version'],'published_policies':seed_report['published_policies'],
             'performance':{'scope':'isolated PHP server and installed stock/editorial fixture; no production latency claim',
                 'samples':len(timings),'median_response_ms':statistics.median(timings),'p95_response_ms':p95,'max_response_ms':max(timings),
                 'budgets':{'document_bytes':2_000_000,'p95_response_ms':5000,'maximum_response_ms':10000}},

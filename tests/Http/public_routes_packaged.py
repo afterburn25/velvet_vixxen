@@ -49,11 +49,13 @@ def route_inventory() -> dict[str, str]:
     pairs = re.findall(r"'([^']+)'\s*=>\s*'([^']+)'", block[1])
     routes = dict(pairs)
     require(len(routes) == len(pairs), 'Duplicate registered public URLs are not permitted.')
-    require(len(routes) == 94 and len(set(routes.values())) == 47, 'Registered aliases or protected handlers were removed.')
+    require(len(routes) == 102 and len(set(routes.values())) == 51, 'Registered aliases or protected handlers were removed.')
     baseline = json.loads((ROOT / 'tests/Fixtures/public-routes-0.8.14.json').read_text())
     require(baseline['source_commit'] == '91f796767e2f5a844e9733703e92c965a99803cc' and len(baseline['routes']) == 87, 'The retained routing baseline changed.')
-    additions = {name: name for name in ('api/mail-events.php', 'campaign/click.php', 'privacy/choices.php')}
+    additions = {name: name for name in ('api/mail-events.php', 'campaign/click.php', 'privacy/choices.php', 'account/privacy.php', 'communication/privacy-download.php')}
     additions.update({'protected-asset.php': 'protected-asset.php', 'reports': 'reports/index.php', 'reports/': 'reports/index.php', 'reports/index.php': 'reports/index.php'})
+    additions.update({'age': 'age/index.php', 'age/': 'age/index.php', 'age/index.php': 'age/index.php',
+                      'policies': 'policies/index.php', 'policies/': 'policies/index.php', 'policies/index.php': 'policies/index.php'})
     require(routes == baseline['routes'] | additions, 'A retained route changed or an unreviewed handler was introduced.')
     return routes
 

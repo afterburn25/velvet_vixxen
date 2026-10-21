@@ -2,6 +2,12 @@
 declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
+if (($_GET['page'] ?? null) === 'privacy'
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'privacy_'))) {
+    require ROOT_PATH . '/includes/bootstrap.php';
+    require ROOT_PATH . '/app/Views/admin/privacy.php';
+    exit;
+}
 if (($_GET['page'] ?? null) === 'operations'
     || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'operations_'))) {
     require ROOT_PATH . '/includes/bootstrap.php';
@@ -1147,6 +1153,7 @@ $pageTitles = [
     'galleries' => 'Photo Galleries',
     'videos' => 'Videos',
     'members' => 'Members',
+    'privacy' => 'Member privacy',
     'plans' => 'Membership Plans',
     'entitlements' => 'Entitlements',
     'commerce' => 'Commerce Dashboard',
@@ -1191,6 +1198,7 @@ $nav = [
     'galleries' => ['◇', 'Photo Galleries'],
     'videos' => ['▶', 'Videos'],
     'members' => ['♙', 'Members'],
+    'privacy' => ['◇', 'Member privacy'],
     'plans' => ['♛', 'Membership Plans'],
     'entitlements' => ['◆', 'Entitlements'],
     'commerce' => ['$', 'Commerce'],

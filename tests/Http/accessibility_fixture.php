@@ -32,7 +32,8 @@ require $root . '/includes/autoload.php';
 require $root . '/app/Support/functions.php';
 $config = new App\Core\Config($root . '/config/app.php');
 $store = new App\Core\Store($config);
-if (!$store->findAdminByEmail('owner@example.test') || $store->video('accessibility-preview-fixture')) {
+$owner = $store->findAdminByEmail('owner@example.test');
+if (!$owner || $store->video('accessibility-preview-fixture')) {
     throw new RuntimeException('The reserved owner or empty accessibility media identity is unavailable.');
 }
 $site = (array) $store->setting('site', []);
@@ -56,4 +57,17 @@ $video = $store->saveVideo(['slug' => 'accessibility-preview-fixture', 'title' =
     'status' => 'published', 'accessMode' => 'public', 'currency' => 'USD',
     'publishedAt' => gmdate('Y-m-d H:i:s'), 'duration' => 6]);
 if (!$video || empty($video['captionAsset'])) throw new RuntimeException('Actual stored media relationships were not preserved.');
-echo json_encode(['seeded' => true, 'mode' => $store->mode(), 'video_id' => $video['id']], JSON_THROW_ON_ERROR);
+$policies = new App\Core\PublicPolicies($config);
+// CLI fixture seeding is restricted above to this owned loopback installation.
+// Dedicated policy acceptance separately exercises real current-owner forms.
+$privileged = static function () use ($policies, $owner): void { $policies->requireOwner($owner); };
+foreach (App\Core\PublicPolicies::DOCUMENTS as $name => $title) {
+    $record = $policies->read($name, $owner);
+    if ($record['published'] !== null || $record['draft']['body'] !== '') throw new RuntimeException('The policy fixture identity is already populated.');
+    $policies->save($name, ['title' => $title, 'body' => "Accessibility fixture for " . $title . ".\n\nThis isolated test text exercises a published policy. It does not describe a production policy or determine legal requirements."], $record['revision'], $owner, $privileged);
+    $record = $policies->read($name, $owner);
+    $policies->publish($name, $record['revision'], true, $owner, $privileged);
+}
+echo json_encode(['seeded' => true, 'mode' => $store->mode(), 'video_id' => $video['id'],
+    'published_policies' => count(App\Core\PublicPolicies::DOCUMENTS),
+    'mysql_version' => isset($pdo) ? (string) $pdo->query('SELECT VERSION()')->fetchColumn() : null], JSON_THROW_ON_ERROR);

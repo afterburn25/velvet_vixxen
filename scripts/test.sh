@@ -45,6 +45,7 @@ for test in \
   tests/Feature/post_expiry.php tests/Feature/editorial_calendar.php tests/Feature/scene_schedules.php \
   tests/Feature/admin_security.php tests/Feature/config_updates.php tests/Feature/private_state.php tests/Feature/editorial_recovery.php \
   tests/Feature/campaign_messages.php tests/Feature/marketing_attribution.php tests/Feature/notifications.php tests/Feature/mail_provider.php tests/Feature/operations.php tests/Feature/protection_records.php \
+  tests/Feature/age_policies.php tests/Feature/member_privacy_store.php tests/Feature/member_privacy.php tests/Feature/repair_access.php \
   tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Feature/scene_buttons.php tests/Feature/scene_group_buttons.php tests/Feature/scene_depth.php tests/Security/protected_media.php tests/Security/member_security.php \
   tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php tests/Structure/public_routes.php; do
   php "$test"

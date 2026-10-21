@@ -392,6 +392,24 @@ def denied_requests(site: Path, base: str, context, restricted, restricted_csrf:
 def partial_uploads_refused(site: Path, base: str, context, preserved: dict, csrf: str) -> dict:
     endpoint = base + '/admin/repair.php'
     failures = []
+    # Exercise parse failure before either entry can cache a complete controller.
+    # This must remain a native recovery response even with PHP errors displayed.
+    controller = site / 'app/Support/repair_entry.php'
+    controller_bytes = controller.read_bytes()
+    controller.write_bytes(b'<?php\ndeclare(strict_types=1);\nif (\n')
+    try:
+        for entry in ['repair.php', 'repair-current.php']:
+            for method in ['get', 'post']:
+                target = base + '/admin/' + entry
+                result = context.request.get(target) if method == 'get' else context.request.post(
+                    target, form={'_csrf': csrf, 'action': 'refresh_php_cache'}, max_redirects=0)
+                require(result.status == 503 and 'data-update-status="incomplete"' in result.text()
+                        and 'Complete the update' in result.text() and 'app/Support/repair_entry.php' in result.text()
+                        and 'Refresh application PHP' not in result.text() and 'Parse error' not in result.text(),
+                        f'Truncated controller did not safely refuse {method.upper()} through {entry}.')
+        unchanged(site, preserved, 'Truncated controller refusal')
+    finally:
+        controller.write_bytes(controller_bytes)
     # Run before any successful repair preflight; even old authenticated sessions
     # cannot make incomplete uploads refresh authentication or application PHP.
     for relative in ['app/Core/RepairAccess.php', 'app/Core/Auth.php', 'app/Core/AdminSecurityStoreTrait.php',
@@ -442,7 +460,8 @@ def partial_uploads_refused(site: Path, base: str, context, preserved: dict, csr
     finally:
         inventory_path.write_bytes(raw)
     unchanged(site, preserved, 'Rejected update operations')
-    return {'missing_files_get_post_native_503': failures, 'mixed_file_get_post_native_503': True,
+    return {'truncated_controller_both_entries_get_post_native_503': True,
+            'missing_files_get_post_native_503': failures, 'mixed_file_get_post_native_503': True,
             'current_inventory_floor_get_post_native_503': True, 'customer_state_exactly_preserved': True}
 
 

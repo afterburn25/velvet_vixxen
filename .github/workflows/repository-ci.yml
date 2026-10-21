@@ -121,56 +121,71 @@ jobs:
             admin/repair.php app/Core/RuntimeInventoryService.php app/Core/RootLayoutService.php
             app/Views/admin/repair-status.php tests/Feature/root_layout.php
             tests/Fixtures/root-layout-build5.json tests/Packaging/fixtures/historical-runtime-layouts.json
-            public/routes/account/login.php public/routes/booking/index.php
-            app/Console/run_analytics.php app/Console/run_mail_events.php app/Console/run_notifications.php
-            app/Core/AdminSecurity.php app/Core/AdminSecurityStoreTrait.php app/Core/CampaignMessage.php
-            app/Core/CampaignTestService.php app/Core/MailProviderService.php app/Core/MarketingAnalytics.php
-            app/Core/MarketingAnalyticsTrait.php app/Core/MarketingAttribution.php app/Core/MarketingAttributionAdminTrait.php
-            app/Core/MarketingAttributionBridge.php app/Core/MarketingAttributionTrait.php app/Core/MarketingBusinessStoreTrait.php
-            app/Core/MarketingCampaignMessages.php app/Core/MarketingMeasurementSqlRepository.php app/Core/MarketingPrivacy.php
-            app/Core/MarketingProviderEvents.php app/Core/MarketingRecovery.php app/Core/NotificationDiscovery.php
-            app/Core/NotificationProviderEvents.php app/Core/NotificationService.php app/Core/NotificationStoreTrait.php
-            app/Core/PrivateState.php app/Core/SendGridSignature.php app/Core/Totp.php
-            app/Support/marketing_recovery_admin.php app/Views/admin/campaign-message-preview.php app/Views/admin/login.php
-            app/Views/admin/marketing-analytics.php app/Views/admin/marketing-attribution.php app/Views/admin/marketing-deleted-actions.php
-            app/Views/admin/marketing-deleted.php app/Views/admin/marketing-email-brand.php app/Views/admin/marketing-link-bio.php
-            app/Views/admin/marketing-measurement-actions.php app/Views/admin/marketing-notifications-actions.php app/Views/admin/marketing-notifications.php
-            app/Views/admin/marketing-provider-actions.php app/Views/admin/marketing-provider.php app/Views/admin/security-actions.php
-            app/Views/admin/security.php database/migrations/202610210016_marketing_measurements.php database/migrations/202610210017_private_state.php
-            docs/CAMPAIGN_MESSAGES.md docs/MAIL_PROVIDER_EVENTS.md docs/MARKETING_ATTRIBUTION.md
-            docs/NOTIFICATIONS.md public/assets/css/marketing-deleted.css public/assets/css/security-admin.css
-            public/routes/api/mail-events.php public/routes/campaign/click.php public/routes/privacy/choices.php
-            tests/Browser/accessibility_playwright.py tests/Http/accessibility_fixture.php tests/Fixtures/public-routes-0.8.14.json tests/Browser/admin_security_playwright.py tests/Browser/campaign_messages_playwright.py
-            tests/Browser/editorial_recovery_playwright.py tests/Browser/mail_provider_playwright.py tests/Browser/marketing_attribution_playwright.py
-            tests/Browser/notifications_playwright.py tests/Browser/package-lock.json tests/Browser/package.json
-            tests/Database/marketing_attribution_mysql.php tests/Database/member_dates.php tests/Feature/admin_security.php
-            tests/Feature/campaign_messages.php tests/Feature/config_updates.php tests/Feature/editorial_recovery.php
-            tests/Feature/mail_provider.php tests/Feature/marketing_attribution.php tests/Feature/notifications.php
-            tests/Feature/private_state.php tests/Http/admin_security_fixture.php tests/Http/admin_security_http.py
-            tests/Http/campaign_messages_fixture.php tests/Http/campaign_messages_http.py tests/Http/editorial_recovery_fixture.php
-            tests/Http/editorial_recovery_http.py tests/Http/mail_provider_fixture.php tests/Http/mail_provider_http.py
-            tests/Http/marketing_attribution_fixture.php tests/Http/marketing_attribution_http.py tests/Http/notifications_fixture.php
-            tests/Http/notifications_http.py tests/Packaging/fixtures/release-0.8.14-build-20261021.3.json
-            app/Console/operations.php app/Console/run_backups.php app/Core/BackupArchive.php
-            app/Core/BackupDatabase.php app/Core/BackupJobs.php app/Core/BackupRestore.php
-            app/Core/BackupService.php app/Core/OperationsFiles.php app/Core/OperationsGate.php
-            app/Core/PrivateMediaResponse.php app/Core/ProtectionDelivery.php app/Core/ProtectionRecords.php
-            app/Core/ProtectionResources.php app/Core/ProtectionStoreTrait.php app/Core/ProtectionUploads.php
-            app/Docs/BACKUP_OPERATIONS.md app/Support/operations_admin.php app/Support/protection_admin.php
-            app/Views/admin/operations.php app/Views/admin/protection-actions.php app/Views/admin/protection.php
-            docs/ADMIN_SECURITY.md docs/BACKUP_OPERATIONS.md docs/ROAD_TO_1_0.md public/assets/css/operations.css
-            public/assets/css/protection-public.css public/assets/css/protection.css public/routes/protected-asset.php
-            public/routes/reports/index.php tests/Browser/operations_playwright.py tests/Browser/protection_records_playwright.py
-            tests/Database/operations_mysql.php tests/Feature/operations.php tests/Feature/protection_records.php
-            tests/Http/apache_status_http.py tests/Http/operations_fixture.php tests/Http/operations_http.py
-            tests/Http/protection_records_fixture.php tests/Http/protection_records_http.py
-            tests/Database/operations_ci_fixture.php tests/Feature/operations_ci_fixture.php tests/Database/OPERATIONS_CI.md)
+            public/routes/account/login.php public/routes/booking/index.php)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing required source or handoff file: $file"; exit 1; }
           done
           grep -q 'afterburn25/velvet_vixxen' PROJECT_STATUS.md
           grep -Eq '12(-character| or more characters)' docs/DECISIONS.md
           grep -Eq 'single (simplified )?responsive browser page' docs/DECISIONS.md
+      - name: Require the additional integrated security privacy and operations sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          required=(app/Console/run_analytics.php app/Console/run_mail_events.php app/Console/run_notifications.php app/Core/AdminSecurity.php
+            app/Core/AdminSecurityStoreTrait.php app/Core/CampaignMessage.php app/Core/CampaignTestService.php app/Core/MailProviderService.php
+            app/Core/MarketingAnalytics.php app/Core/MarketingAnalyticsTrait.php app/Core/MarketingAttribution.php
+            app/Core/MarketingAttributionAdminTrait.php app/Core/MarketingAttributionBridge.php app/Core/MarketingAttributionTrait.php
+            app/Core/MarketingBusinessStoreTrait.php app/Core/MarketingCampaignMessages.php app/Core/MarketingMeasurementSqlRepository.php
+            app/Core/MarketingPrivacy.php app/Core/MarketingProviderEvents.php app/Core/MarketingRecovery.php app/Core/NotificationDiscovery.php
+            app/Core/NotificationProviderEvents.php app/Core/NotificationService.php app/Core/NotificationStoreTrait.php app/Core/PrivateState.php
+            app/Core/SendGridSignature.php app/Core/Totp.php app/Support/marketing_recovery_admin.php app/Views/admin/campaign-message-preview.php
+            app/Views/admin/login.php app/Views/admin/marketing-analytics.php app/Views/admin/marketing-attribution.php
+            app/Views/admin/marketing-deleted-actions.php app/Views/admin/marketing-deleted.php app/Views/admin/marketing-email-brand.php
+            app/Views/admin/marketing-link-bio.php app/Views/admin/marketing-measurement-actions.php
+            app/Views/admin/marketing-notifications-actions.php app/Views/admin/marketing-notifications.php
+            app/Views/admin/marketing-provider-actions.php app/Views/admin/marketing-provider.php app/Views/admin/security-actions.php
+            app/Views/admin/security.php database/migrations/202610210016_marketing_measurements.php
+            database/migrations/202610210017_private_state.php docs/CAMPAIGN_MESSAGES.md docs/MAIL_PROVIDER_EVENTS.md docs/MARKETING_ATTRIBUTION.md
+            docs/NOTIFICATIONS.md public/assets/css/marketing-deleted.css public/assets/css/security-admin.css public/routes/api/mail-events.php
+            public/routes/campaign/click.php public/routes/privacy/choices.php tests/Browser/accessibility_playwright.py
+            tests/Http/accessibility_fixture.php tests/Fixtures/public-routes-0.8.14.json tests/Browser/admin_security_playwright.py
+            tests/Browser/campaign_messages_playwright.py tests/Browser/editorial_recovery_playwright.py tests/Browser/mail_provider_playwright.py
+            tests/Browser/marketing_attribution_playwright.py tests/Browser/notifications_playwright.py tests/Browser/package-lock.json
+            tests/Browser/package.json tests/Database/marketing_attribution_mysql.php tests/Database/member_dates.php
+            tests/Feature/admin_security.php tests/Feature/campaign_messages.php tests/Feature/config_updates.php
+            tests/Feature/editorial_recovery.php tests/Feature/mail_provider.php tests/Feature/marketing_attribution.php
+            tests/Feature/notifications.php tests/Feature/private_state.php tests/Http/admin_security_fixture.php tests/Http/admin_security_http.py
+            tests/Http/campaign_messages_fixture.php tests/Http/campaign_messages_http.py tests/Http/editorial_recovery_fixture.php
+            tests/Http/editorial_recovery_http.py tests/Http/mail_provider_fixture.php tests/Http/mail_provider_http.py
+            tests/Http/marketing_attribution_fixture.php tests/Http/marketing_attribution_http.py tests/Http/notifications_fixture.php
+            tests/Http/notifications_http.py tests/Packaging/fixtures/release-0.8.14-build-20261021.3.json app/Console/operations.php
+            app/Console/run_backups.php app/Core/BackupArchive.php app/Core/BackupDatabase.php app/Core/BackupJobs.php app/Core/BackupRestore.php
+            app/Core/BackupService.php app/Core/OperationsFiles.php app/Core/OperationsGate.php app/Core/PrivateMediaResponse.php
+            app/Core/ProtectionDelivery.php app/Core/ProtectionRecords.php app/Core/ProtectionResources.php app/Core/ProtectionStoreTrait.php
+            app/Core/ProtectionUploads.php app/Docs/BACKUP_OPERATIONS.md app/Support/operations_admin.php app/Support/protection_admin.php
+            app/Views/admin/operations.php app/Views/admin/protection-actions.php app/Views/admin/protection.php docs/ADMIN_SECURITY.md
+            docs/BACKUP_OPERATIONS.md docs/ROAD_TO_1_0.md public/assets/css/operations.css public/assets/css/protection-public.css
+            public/assets/css/protection.css public/routes/protected-asset.php public/routes/reports/index.php tests/Browser/operations_playwright.py
+            tests/Browser/protection_records_playwright.py tests/Database/operations_mysql.php tests/Feature/operations.php
+            tests/Feature/protection_records.php tests/Http/apache_status_http.py tests/Http/operations_fixture.php tests/Http/operations_http.py
+            tests/Http/protection_records_fixture.php tests/Http/protection_records_http.py tests/Database/operations_ci_fixture.php
+            tests/Feature/operations_ci_fixture.php tests/Database/OPERATIONS_CI.md admin/repair-current.php app/Console/run_privacy.php
+            app/Core/AgeAccess.php app/Core/GeographicPolicy.php app/Core/MarketingPrivacyErasure.php app/Core/MemberPrivacyArchive.php
+            app/Core/MemberPrivacyDomains.php app/Core/MemberPrivacyProjection.php app/Core/MemberPrivacyService.php
+            app/Core/MemberPrivacyStoreTrait.php app/Core/PrivateCommunicationFile.php app/Core/PublicPolicies.php app/Core/RepairAccess.php
+            app/Core/YotiAgeProvider.php app/Docs/MEMBER_PRIVACY.md app/Support/member_privacy.php app/Support/policies_admin.php
+            app/Support/repair_entry.php app/Views/admin/policies-actions.php app/Views/admin/policies.php app/Views/admin/privacy.php
+            app/Views/admin/repair-current-status.php app/Views/admin/repair-signin.php app/Views/public/access.php
+            app/Views/public/partials/legal-links.php docs/PROTECTION_AND_AGE.md includes/age_access.php public/assets/css/member-privacy.css
+            public/assets/css/policies.css public/assets/css/privacy-admin.css public/routes/account/privacy.php public/routes/age/index.php
+            public/routes/communication/privacy-download.php public/routes/policies/index.php tests/Browser/age_policies_playwright.py
+            tests/Feature/age_policies.php tests/Feature/member_privacy.php tests/Feature/member_privacy_store.php tests/Feature/repair_access.php
+            tests/Http/age_policies_fixture.php tests/Http/age_policies_http.py tests/Http/installed_update_security_fixture.php
+            tests/Http/member_privacy_fixture.php tests/Http/member_privacy_http.py tests/Browser/member_privacy_playwright.py)
+          for file in "${required[@]}"; do
+            test -s "$file" || { echo "Missing integrated source or acceptance file: $file"; exit 1; }
+          done
 
   source-tests:
     name: PHP ${{ matrix.php }} source and package regressions
@@ -931,9 +946,87 @@ jobs:
           path: artifacts/operations/
           if-no-files-found: error
 
+  privacy-access-runtime:
+    name: Privacy and access / ${{ matrix.feature }} / ${{ matrix.engine }}
+    needs: repository-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        feature: [member_privacy, age_policies]
+        engine: [mysql-8.0, mariadb-10.11]
+        include:
+          - engine: mysql-8.0
+            image: mysql:8.0
+            health: mysqladmin ping --silent
+          - engine: mariadb-10.11
+            image: mariadb:10.11
+            health: healthcheck.sh --connect --innodb_initialized
+    services:
+      database:
+        image: ${{ matrix.image }}
+        env:
+          MYSQL_DATABASE: velvet_privacy_test
+          MYSQL_USER: velvet_test
+          MYSQL_PASSWORD: velvet_test_fixture
+          MYSQL_ROOT_PASSWORD: velvet_root_fixture
+          MARIADB_DATABASE: velvet_privacy_test
+          MARIADB_USER: velvet_test
+          MARIADB_PASSWORD: velvet_test_fixture
+          MARIADB_ROOT_PASSWORD: velvet_root_fixture
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="${{ matrix.health }}"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+    env:
+      VELVET_TEST_DB_ENGINE: ${{ matrix.engine }}
+      VELVET_TEST_DB_HOST: 127.0.0.1
+      VELVET_TEST_DB_PORT: '3306'
+      VELVET_TEST_DB_NAME: velvet_privacy_test
+      VELVET_TEST_DB_USER: velvet_test
+      VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+      VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/privacy-access
+      VELVET_APACHE_BINARY: /usr/sbin/apache2
+      VELVET_APACHE_MODULES: /usr/lib/apache2/modules
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium, dom
+          coverage: none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install real Apache and matching PHP handler with pinned browser tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends apache2-bin libapache2-mod-php8.3
+          sudo systemctl stop apache2
+          python -m pip install requests==2.32.5 beautifulsoup4==4.14.3 pillow==11.3.0 playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Verify complete member inventory and atomic core closure on the actual engine
+        if: matrix.feature == 'member_privacy'
+        run: php tests/Feature/member_privacy_store.php --mysql
+      - name: Verify configured policy or reviewed privacy boundaries on the actual engine
+        run: php tests/Feature/${{ matrix.feature }}.php --mysql
+      - name: Verify actual file and SQL Apache root and nested request boundaries
+        run: python tests/Http/${{ matrix.feature }}_http.py --mode both
+      - name: Review actual desktop and mobile workflows including no JavaScript
+        run: python tests/Browser/${{ matrix.feature }}_playwright.py --mode both
+      - name: Upload actual privacy and access acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: privacy-access-${{ matrix.feature }}-${{ matrix.engine }}-evidence
+          path: artifacts/privacy-access/
+          if-no-files-found: error
+          retention-days: 14
+
   runtime-packages:
     name: Build verified fresh-install and upgrade ZIPs
-    needs: [source-tests, mysql-migrations, http-browser, safeguards-browser, accessibility, mariadb-compatibility, protection-runtime, operations-recovery]
+    needs: [source-tests, mysql-migrations, http-browser, safeguards-browser, accessibility, mariadb-compatibility, protection-runtime, operations-recovery, privacy-access-runtime]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
