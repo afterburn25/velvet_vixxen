@@ -34,7 +34,7 @@ final class MarketingHistory
     {
         MarketingPublication::collection($collection);
         $keys = match ($collection) {
-            'posts' => ['title', 'category', 'excerpt', 'body', 'status', 'publish_at', 'access'],
+            'posts' => ['title', 'category', 'excerpt', 'body', 'status', 'publish_at', 'expires_at', 'access'],
             'banners' => ['text', 'url', 'enabled', 'starts_at', 'ends_at', 'access'],
             'landing_pages' => ['title', 'eyebrow', 'excerpt', 'body', 'cta_label', 'cta_url', 'enabled', 'starts_at', 'ends_at', 'access'],
         };
@@ -178,8 +178,9 @@ final class MarketingHistory
         };
         $fields = array_replace($defaults, MarketingMetadata::defaults($collection), $snapshot);
         $fields['access'] = MarketingAccess::policy($snapshot);
-        $dates = $collection === 'posts' ? ['publish_at'] : ['starts_at', 'ends_at'];
+        $dates = $collection === 'posts' ? ['publish_at', 'expires_at'] : ['starts_at', 'ends_at'];
         foreach ($dates as $key) {
+            if ($key === 'expires_at' && !array_key_exists($key, $fields)) continue;
             $value = $fields[$key];
             $date = MarketingPublication::storedDate($value, $entry['timezone']);
             // Explicit offsets retain their original exact representation and instant.
@@ -195,6 +196,9 @@ final class MarketingHistory
         $validated = MarketingPublication::fields($collection, $input, $context);
         // Unknown current data remains authoritative but is never copied into history.
         $projected = array_replace(self::withoutHistory($current), $validated);
+        // A version from before optional expiration existed has no expiration.
+        // Do not inherit a newer bound when reviewing or restoring that version.
+        if ($collection === 'posts' && !array_key_exists('expires_at', $validated)) unset($projected['expires_at']);
         unset($projected['revision'], $projected['visibility']);
         return $projected;
     }

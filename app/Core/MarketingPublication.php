@@ -104,14 +104,15 @@ final class MarketingPublication
         try {
             MarketingAccess::policy($record);
             $start = self::storedDate($record[$collection === 'posts' ? 'publish_at' : 'starts_at'] ?? null)?->getTimestamp();
-            $end = $collection === 'posts' ? null : self::storedDate($record['ends_at'] ?? null)?->getTimestamp();
+            $end = self::storedDate($record[$collection === 'posts' ? 'expires_at' : 'ends_at'] ?? null)?->getTimestamp();
             if ($start !== null && $end !== null && $end <= $start) throw new InvalidArgumentException('The end must be after the start.');
             $result['start'] = $start;
             $result['end'] = $end;
             if ($collection === 'posts' && !in_array($record['status'] ?? 'draft', ['draft', 'published'], true)) throw new InvalidArgumentException('Choose draft or published.');
             if ($collection !== 'posts' && !in_array($record['enabled'] ?? false, [true, false, 1, 0, '1', '0'], true)) throw new InvalidArgumentException('The enabled setting needs review.');
             $result['state'] = !self::enabled($collection, $record) ? ($collection === 'posts' ? 'Draft' : 'Disabled')
-                : ($start !== null && $now < $start ? 'Scheduled' : ($end !== null && $now >= $end ? 'Ended' : 'Active'));
+                : ($start !== null && $now < $start ? 'Scheduled'
+                    : ($end !== null && $now >= $end ? ($collection === 'posts' ? 'Expired' : 'Ended') : 'Active'));
             $result['visible'] = $result['state'] === 'Active';
         } catch (InvalidArgumentException $error) {
             $result['problem'] = $error->getMessage();
@@ -177,10 +178,13 @@ final class MarketingPublication
             $key = $collection === 'banners' ? 'url' : 'cta_url';
             $result[$key] = self::url($input[$key] ?? $previous[$key] ?? '');
         }
-        foreach ($collection === 'posts' ? ['publish_at'] : ['starts_at', 'ends_at'] as $key) {
+        foreach ($collection === 'posts' ? ['publish_at', 'expires_at'] : ['starts_at', 'ends_at'] as $key) {
             if (!array_key_exists($key, $input)) {
+                // Adding optional expiration must not rewrite untouched legacy
+                // posts, including their history snapshots, with a new field.
+                if ($key === 'expires_at' && !array_key_exists($key, $previous)) continue;
                 self::storedDate($previous[$key] ?? null);
-                $result[$key] = $previous[$key] ?? '';
+                $result[$key] = $key === 'expires_at' ? $previous[$key] : ($previous[$key] ?? '');
                 continue;
             }
             $result[$key] = self::formDate($input[$key]) ?? '';

@@ -232,6 +232,7 @@ final class MarketingStore
             $fields = MarketingHistory::snapshot($collection, MarketingHistory::project($collection, $previous, $review['selected']));
             if ($collection === 'posts') $fields['status'] = 'draft'; else $fields['enabled'] = false;
             $record = array_replace($previous, $fields, ['edit_version' => (int) ($previous['edit_version'] ?? 0) + 1, 'updated_at' => gmdate('c')]);
+            if ($collection === 'posts' && !array_key_exists('expires_at', $fields)) unset($record['expires_at']);
             $this->validateMetadataReferences($collection, $fields, $record, $data);
             $record = MarketingHistory::capture($collection, $previous, $record, 'restore');
             // Media/tier resolution may wait. The final current-owner callback is

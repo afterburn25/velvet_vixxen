@@ -1,5 +1,17 @@
 # Acceptance Record — Velvet Vixxen
 
+<!-- editorial-calendar-0813:start -->
+## In progress — 0.8.13 Publishing calendar and post expiration, Build 20261021.2
+
+The current bounded continuation is [issue #30](https://github.com/afterburn25/velvet_vixxen/issues/30), under broader marketing issue #9, on `feature/0.8.13-editorial-calendar` from verified main `327b631db3fe4bd4952de6d0e987947bf84e7d36`. It adds an owner-only monthly calendar/agenda for saved editorial, media and campaign dates and retained Hero/Footer publication history, plus optional explicit post expiration. Opening the calendar must not initialize publishing data, publish content, run jobs, record analytics or send mail. Composer has publication history but no automatic scene scheduler; that remains separate work.
+
+The implementation is being verified. Required CI, source/checkout/merge tree identity, downloaded CI artifact binding and complete saved Upgrade/Fresh delivery are **pending**. Do not describe 0.8.13 as merged, delivered or installed until those records are complete. The existing 74 required configured steps must remain in order; four expanded calendar HTTP/browser steps bring the required total to 78 across seven jobs. Post-expiry and calendar source assertions join the retained source aggregate.
+
+The approved design, complete package roots, prior scale/footer/menu/depth behavior and all existing gates remain required. The separate unfinished-installer repair stays byte-identical at 0.8.1 / repair Build 20261020.3. Keep #3 ongoing, broader #9 open, actual-host #12/#13 and production email unverified, payments sandbox-only and the separate 0.9 milestone incomplete. This work does not access or update the customer host.
+
+[Calendar guide](docs/EDITORIAL_CALENDAR.md) · [Current release record](docs/releases/0.8.13-editorial-calendar.md). Earlier release blocks preserve historical evidence and their then-current continuation notes.
+<!-- editorial-calendar-0813:end -->
+
 <!-- composer-depth-0812:start -->
 ## Current release — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
 

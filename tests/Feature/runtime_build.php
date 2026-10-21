@@ -26,6 +26,21 @@ try {
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
         'app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js',
+        'app/Core/MarketingCalendar.php',
+        'app/Views/admin/media-center.php',
+        'app/Core/MarketingPublication.php',
+        'app/Core/MarketingHistory.php',
+        'app/Core/MarketingStorage.php',
+        'app/Core/MarketingStore.php',
+        'app/Core/Store.php',
+        'app/Views/admin/marketing.php',
+        'app/Views/admin/marketing-calendar.php',
+        'app/Views/admin/marketing-publication-editor.php',
+        'app/Views/admin/marketing-publication-list.php',
+        'app/Views/admin/marketing-history.php',
+        'includes/marketing.php',
+        'includes/marketing_admin.php',
+        'public/assets/css/marketing-calendar.css',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
         'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php',
@@ -101,6 +116,31 @@ try {
         copy($source . '/' . $dependency, $fixture . '/' . $dependency);
     }
 
+    $calendarDependencies = [
+        'app/Core/MarketingCalendar.php',
+        'app/Views/admin/media-center.php',
+        'app/Core/MarketingPublication.php',
+        'app/Core/MarketingHistory.php',
+        'app/Core/MarketingStorage.php',
+        'app/Core/MarketingStore.php',
+        'app/Core/Store.php',
+        'app/Views/admin/marketing.php',
+        'app/Views/admin/marketing-calendar.php',
+        'app/Views/admin/marketing-publication-editor.php',
+        'app/Views/admin/marketing-publication-list.php',
+        'app/Views/admin/marketing-history.php',
+        'includes/marketing.php',
+        'includes/marketing_admin.php',
+        'public/assets/css/marketing-calendar.css',
+    ];
+    foreach ($calendarDependencies as $dependency) {
+        unlink($fixture . '/' . $dependency);
+        $status = $service->inspect();
+        $assert(!$status['files_match'] && $status['problems'][0]['path'] === $dependency, 'Missing calendar dependency must be identified: ' . $dependency);
+        $reject(static fn() => $service->refreshPhpCache(), 'Missing calendar dependencies must block cache activation.');
+        copy($source . '/' . $dependency, $fixture . '/' . $dependency);
+    }
+
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);
     $assert(!$service->inspect()['files_match'], 'A linked runtime file must not be read as a verified replacement.');
@@ -167,6 +207,19 @@ try {
     $write($beforeDepth);
     $legacyDepth = $service->inspect();
     $assert($legacyDepth['files_match'] && !$legacyDepth['running_build_matches'] && $legacyDepth['version'] === '0.8.11', 'A pre-depth inventory remains inspectable without later masking dependencies.');
+    foreach ($calendarDependencies as $dependency) {
+        $incomplete = $manifest;
+        unset($incomplete['files'][$dependency]);
+        $write($incomplete);
+        $reject(static fn() => $service->inspect(), 'Current inventory cannot omit calendar dependency: ' . $dependency);
+    }
+    $beforeCalendar = $manifest;
+    foreach ($calendarDependencies as $dependency) unset($beforeCalendar['files'][$dependency]);
+    $beforeCalendar['version'] = '0.8.12';
+    $beforeCalendar['build_id'] = '20261021.1';
+    $write($beforeCalendar);
+    $legacyCalendar = $service->inspect();
+    $assert($legacyCalendar['files_match'] && !$legacyCalendar['running_build_matches'] && $legacyCalendar['version'] === '0.8.12', 'A pre-calendar inventory remains inspectable without the later calendar dependency floor.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');
     $reject(static fn() => $service->inspect(), 'Malformed manifest must fail readably.');
     unlink($fixture . '/includes/runtime-build.json');

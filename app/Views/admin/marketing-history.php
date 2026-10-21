@@ -66,15 +66,15 @@ if ($historyCollection !== 'banners') {
 if ($historyCollection === 'posts') $historyLabels['related_post_ids'] = 'Related updates';
 $historyLabels['access'] = 'Who can view this?';
 $historyLabels += $historyCollection === 'posts'
-    ? ['status' => 'Saved status', 'publish_at' => 'Publish at']
+    ? ['status' => 'Saved status', 'publish_at' => 'Publish at', 'expires_at' => 'Expires at']
     : ['enabled' => 'Saved visibility', 'starts_at' => 'Starts', 'ends_at' => 'Ends'];
 $historyField = static function (array $record, ?array $presentation, string $key) use ($historyCollection, $historyCatalog, $historyRelatedTitles): string {
     if ($key === 'access') return mm_publication_access_summary(\Velvet\Core\MarketingAccess::describe($record, $historyCatalog['available_plan_ids']), $historyCatalog);
     if ($key === 'enabled') return \Velvet\Core\MarketingPublication::enabled($historyCollection, $record) ? 'Enabled' : 'Disabled';
-    if (in_array($key, ['publish_at', 'starts_at', 'ends_at'], true)) {
+    if (in_array($key, ['publish_at', 'expires_at', 'starts_at', 'ends_at'], true)) {
         try {
             $date = \Velvet\Core\MarketingPublication::dateForForm($record[$key] ?? null);
-            return $date !== '' ? str_replace('T', ' ', $date) : 'Open';
+            return $date !== '' ? str_replace('T', ' ', $date) : ($key === 'expires_at' ? 'No expiry' : 'Open');
         } catch (Throwable) { return 'Needs review'; }
     }
     $value = $presentation['values'][$key] ?? $record[$key] ?? '';

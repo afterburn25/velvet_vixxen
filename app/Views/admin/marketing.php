@@ -3,12 +3,22 @@ declare(strict_types=1);
 require_once root_path('includes/marketing.php');
 require_once root_path('includes/marketing_admin.php');
 velvet_marketing_require_owner();
-$marketingStore = velvet_marketing_store();
-$segments = $marketingStore->segments();
-$data=$marketingStore->all();$summary=$marketingStore->analyticsSummary(30);$tab=preg_replace('/[^a-z]/','',(string)($_GET['tab']??'overview'))?:'overview';
+$marketingTabs = ['overview', 'calendar', 'posts', 'banners', 'campaigns', 'audiences', 'links', 'newsletter', 'referrals'];
+// Match the controller's exact calendar route; never turn an unguarded alias
+// such as calendar1 into a request for the private preloaded calendar view.
+$tab = is_string($_GET['tab'] ?? null) && in_array($_GET['tab'], $marketingTabs, true) ? $_GET['tab'] : 'overview';
+// Calendar data was read and authorized before output. Viewing it must never
+// initialize marketing storage, create defaults, publish content or send mail.
+if ($tab !== 'calendar') {
+    $marketingStore = velvet_marketing_store();
+    $segments = $marketingStore->segments();
+    $data = $marketingStore->all();
+    $summary = $marketingStore->analyticsSummary(30);
+}
 ?>
-<nav class="marketing-tabs" aria-label="Marketing pages"><?php foreach(['overview','posts','banners','campaigns','audiences','links','newsletter','referrals'] as $t):?><a href="?page=marketing&amp;tab=<?= $t ?>" <?= $tab === $t ? 'aria-current="page"' : '' ?>><?= ucfirst($t) ?></a><?php endforeach;?></nav>
-<?php if($tab==='overview'):?><section class="marketing-stat-grid"><div class="marketing-stat"><strong><?= (int)$summary['unique_sessions'] ?></strong>Unique sessions</div><div class="marketing-stat"><strong><?= (int)($summary['counts']['page_view']??0) ?></strong>Page views</div><div class="marketing-stat"><strong><?= count($data['contacts']) ?></strong>Contacts</div><div class="marketing-stat"><strong><?= count($data['posts']) ?></strong>Posts</div></section><section class="marketing-card"><h2>Top pages — last 30 days</h2><table class="marketing-table"><tbody><?php foreach($summary['top_paths'] as $path=>$count):?><tr><td><?=velvet_marketing_escape((string)$path)?></td><td><?= (int)$count ?></td></tr><?php endforeach;?></tbody></table></section>
+<nav class="marketing-tabs" aria-label="Marketing pages"><?php foreach($marketingTabs as $t):?><a href="?page=marketing&amp;tab=<?= $t ?>" <?= $tab === $t ? 'aria-current="page"' : '' ?>><?= ucfirst($t) ?></a><?php endforeach;?></nav>
+<?php if($tab==='calendar'): require root_path('app/Views/admin/marketing-calendar.php'); ?>
+<?php elseif($tab==='overview'):?><section class="marketing-stat-grid"><div class="marketing-stat"><strong><?= (int)$summary['unique_sessions'] ?></strong>Unique sessions</div><div class="marketing-stat"><strong><?= (int)($summary['counts']['page_view']??0) ?></strong>Page views</div><div class="marketing-stat"><strong><?= count($data['contacts']) ?></strong>Contacts</div><div class="marketing-stat"><strong><?= count($data['posts']) ?></strong>Posts</div></section><section class="marketing-card"><h2>Top pages — last 30 days</h2><table class="marketing-table"><tbody><?php foreach($summary['top_paths'] as $path=>$count):?><tr><td><?=velvet_marketing_escape((string)$path)?></td><td><?= (int)$count ?></td></tr><?php endforeach;?></tbody></table></section>
 <p><a class="marketing-button" href="<?= e(base_url('admin/?page=marketing-storage')) ?>">Manage Marketing Storage</a></p>
 <?php elseif($tab==='posts' || $tab==='banners'):
 $publicationCollection = $tab;

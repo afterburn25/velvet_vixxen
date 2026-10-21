@@ -33,10 +33,10 @@ $publicationListCatalog = mm_publication_access_catalog();
         <p data-publication-access><?= velvet_marketing_escape(mm_publication_access_summary($publicationRowAccess, $publicationListCatalog)) ?></p>
         <?php if (!$publicationRowAccess['valid']): ?><p data-editorial-access-problem><?= velvet_marketing_escape($publicationRowAccess['problem'] ?? 'Access needs review.') ?> Visibility stays restricted until repaired.</p><?php endif; ?>
         <?php if ($publicationRow['visibility']['problem'] !== null): ?><p><?= velvet_marketing_escape($publicationRow['visibility']['problem']) ?> Public visibility is held until repaired.</p><?php endif; ?>
-        <?php foreach ($publicationCollection === 'posts' ? ['publish_at' => 'Publish'] : ['starts_at' => 'Start', 'ends_at' => 'End'] as $dateKey => $dateLabel):
+        <?php foreach ($publicationCollection === 'posts' ? ['publish_at' => 'Publish', 'expires_at' => 'Expires'] : ['starts_at' => 'Start', 'ends_at' => 'End'] as $dateKey => $dateLabel):
           try { $dateValue = \Velvet\Core\MarketingPublication::dateForForm($publicationRow[$dateKey] ?? null); }
           catch (InvalidArgumentException) { $dateValue = 'Needs review'; }
-        ?><small><?= $dateLabel ?>: <?= velvet_marketing_escape($dateValue === '' ? 'Open' : str_replace('T', ' ', $dateValue)) ?></small><br><?php endforeach; ?>
+        ?><small><?= $dateLabel ?>: <?= velvet_marketing_escape($dateValue === '' ? ($dateKey === 'expires_at' ? 'No expiry' : 'Open') : str_replace('T', ' ', $dateValue)) ?></small><br><?php endforeach; ?>
       </td>
       <td>
         <div class="marketing-publication-actions">

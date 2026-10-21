@@ -1,3 +1,15 @@
+<!-- editorial-calendar-0813:start -->
+VELVET VIXXEN 0.8.13 — BUILD 20261021.2 IN PROGRESS
+PUBLISHING CALENDAR AND EXPLICIT POST EXPIRATION
+
+Issue: https://github.com/afterburn25/velvet_vixxen/issues/30
+Baseline main: 327b631db3fe4bd4952de6d0e987947bf84e7d36
+Source, required CI, actual artifact identity, merge and saved-download readback: pending.
+Required workflow: seven jobs / 78 configured steps, retaining all 74 prior steps in order.
+No live host upload or verification is established. Installer repair remains unchanged.
+See docs/releases/0.8.13-editorial-calendar.md and docs/EDITORIAL_CALENDAR.md.
+<!-- editorial-calendar-0813:end -->
+
 <!-- composer-depth-0812:start -->
 VELVET VIXXEN 0.8.12 — BUILD 20261021.1 VERIFIED, MERGED AND DELIVERED
 COMPOSER PHOTO DEPTH AND FOREGROUND FURNITURE

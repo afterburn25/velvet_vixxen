@@ -20,7 +20,7 @@ History begins when an existing item is changed after this upgrade. The first su
 
 | Item | Content available for restoration |
 | --- | --- |
-| Post | Title, category, excerpt, body, publication date, access policy, public byline, tags, featured-image reference and description, search fields and ordered related-post selections. |
+| Post | Title, category, excerpt, body, publication date, optional expiration (from 0.8.13), access policy, public byline, tags, featured-image reference and description, search fields and ordered related-post selections. |
 | Banner | Text, destination, start/end dates and access policy. |
 | Campaign landing page | Title, eyebrow, excerpt, body, button label/destination, start/end dates, access policy, featured-image reference and description, and search fields. |
 
@@ -56,6 +56,6 @@ File storage and active MySQL marketing storage use the same history and restora
 
 Publication history contains only supported editorial fields. It does not copy account details, arbitrary stored fields, newsletter contacts, consent, suppressions, frozen messages, delivery queues or outcomes. Public publication readers do not return private history.
 
-Deleting a post permanently removes that post and its attached history. To retain the content and its versions, move it to draft instead. **Deleted-item recovery, complete site backups, a content calendar and explicit post expiry are outside this increment.** Composer scene history remains a separate existing feature.
+Deleting a post permanently removes that post and its attached history. To retain the content and its versions, move it to draft instead. **Deleted-item recovery and complete site backups remain outside this feature.** The subsequent 0.8.13 [publishing calendar and explicit post expiration](EDITORIAL_CALENDAR.md) increment is in acceptance. A restored older post snapshot without an expiration does not inherit a newer bound. Composer scene history remains a separate existing feature.
 
 The related [metadata](EDITORIAL_METADATA.md), [access and saved-preview](EDITORIAL_ACCESS.md), [publication-window](PUBLICATION_WINDOWS.md) and [Marketing Storage](MARKETING_STORAGE.md) guides describe the rules that remain in effect. [Update verification](UPDATE_VERIFICATION.md) describes installation checks; source and package tests do not establish that the customer's actual host has been updated.

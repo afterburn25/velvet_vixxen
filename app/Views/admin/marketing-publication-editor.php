@@ -3,7 +3,7 @@ declare(strict_types=1);
 $publicationMeta = mm_publication_meta($publicationCollection);
 $publicationSubmitted = isset($publicationForm) && ($publicationFormCollection ?? '') === $publicationCollection;
 $publicationValues = ['id' => '', 'publication_revision' => '', 'title' => '', 'slug' => '', 'category' => 'Update',
-    'excerpt' => '', 'body' => '', 'status' => 'draft', 'publish_at' => date('Y-m-d\TH:i'),
+    'excerpt' => '', 'body' => '', 'status' => 'draft', 'publish_at' => date('Y-m-d\TH:i'), 'expires_at' => '',
     'text' => '', 'url' => '', 'eyebrow' => 'Special Offer', 'cta_label' => 'Join Now', 'cta_url' => '/membership/',
     'enabled' => true, 'starts_at' => '', 'ends_at' => ''];
 $publicationSaved = null;
@@ -22,7 +22,7 @@ if ($publicationSubmitted) {
     $publicationValues['enabled'] = ($publicationForm['enabled'] ?? null) === '1';
 }
 $publicationDateFields = [];
-foreach ($publicationCollection === 'posts' ? ['publish_at' => 'Publish at'] : ['starts_at' => 'Starts', 'ends_at' => 'Ends'] as $key => $label) {
+foreach ($publicationCollection === 'posts' ? ['publish_at' => 'Publish at', 'expires_at' => 'Expires at (optional)'] : ['starts_at' => 'Starts', 'ends_at' => 'Ends'] as $key => $label) {
     $value = $publicationValues[$key] ?? '';
     $invalid = false;
     try {
@@ -219,7 +219,7 @@ if (!velvet_marketing_is_owner()) {
     <?php else: ?>
       <label class="marketing-publication-checkbox"><input type="checkbox" name="enabled" value="1" <?= !empty($publicationValues['enabled']) ? 'checked' : '' ?>> Enabled</label>
     <?php endif; ?>
-    <p>Dates use <strong><?= velvet_marketing_escape(date_default_timezone_get()) ?></strong>. <?= $publicationCollection === 'posts' ? 'A published post with a blank date is visible immediately; a draft stays hidden.' : 'Blank dates leave that end of the window open. The start is included; the end is excluded and must be after the start.' ?></p>
+    <p>Dates use <strong><?= velvet_marketing_escape(date_default_timezone_get()) ?></strong>. <?= $publicationCollection === 'posts' ? 'A published post with a blank Publish at date is visible immediately. Leave Expires at blank to keep it available. An expiry must be after the publish date; the post becomes unavailable at that exact time. A draft stays hidden.' : 'Blank dates leave that end of the window open. The start is included; the end is excluded and must be after the start.' ?></p>
     <?php foreach ($publicationDateFields as $key => $dateField): ?>
       <label><?= $dateField['label'] ?><input type="<?= $dateField['invalid'] ? 'text' : 'datetime-local' ?>" name="<?= $key ?>" value="<?= velvet_marketing_escape($dateField['value']) ?>" <?= $dateField['invalid'] ? 'aria-invalid="true"' : 'step="1"' ?>></label>
       <?php if ($dateField['invalid']): ?><p class="marketing-notice" role="alert">This date is invalid. Enter YYYY-MM-DDTHH:MM or deliberately clear it before saving. Invalid saved dates hold public visibility.</p><?php endif; ?>
