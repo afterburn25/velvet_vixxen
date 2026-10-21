@@ -73,7 +73,7 @@ newly generated password.
           --health-timeout=5s
           --health-retries=12
     env:
-      VVX_OPERATIONS_CI_DIR: ${{ runner.temp }}/vvx-operations-ci-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index }}
+      VVX_OPERATIONS_CI_NAME: vvx-operations-ci-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index }}
       VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/operations
     steps:
       - uses: actions/checkout@v4
@@ -87,7 +87,7 @@ newly generated password.
           python-version: '3.12'
       - name: Install retained HTTP and browser dependencies
         run: |
-          python -m pip install requests beautifulsoup4 playwright==1.62.0
+          python -m pip install requests beautifulsoup4 pillow==11.3.0 playwright==1.62.0
           python -m playwright install --with-deps chromium
       - name: Check owned Operations fixture guards
         run: php tests/Feature/operations_ci_fixture.php
@@ -97,7 +97,9 @@ newly generated password.
         run: |
           set -euo pipefail
           umask 077
+          VVX_OPERATIONS_CI_DIR="$RUNNER_TEMP/$VVX_OPERATIONS_CI_NAME"
           php tests/Database/operations_ci_fixture.php prepare "$VVX_OPERATIONS_CI_DIR" "$VVX_ENGINE" 3306
+          printf 'VVX_OPERATIONS_CI_DIR=%s\n' "$VVX_OPERATIONS_CI_DIR" >> "$GITHUB_ENV"
       - name: Provision only this disposable service's new fixture pair
         env:
           VVX_SERVICE: ${{ job.services.database.id }}
