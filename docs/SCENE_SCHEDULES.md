@@ -5,9 +5,9 @@ Version 0.8.14 adds deliberate scheduling for saved Visual Composer scenes. The 
 ## Schedule a scene
 
 1. Compose the scene using the existing independent backgrounds, photos, buttons, depth and foreground controls. Review its Desktop, Tablet and Mobile layouts.
-2. Click **Schedule** in Composer. This saves the current drafts and opens the scheduling page for the selected section. Alternatively, use **Save Draft**, then open **Scene schedules** from the sidebar.
+2. Click **Schedule** in Composer. This saves both current Hero and Visual Footer drafts and opens the scheduling page for the selected section. Alternatively, use **Save Draft**, then open **Scene schedules** from the sidebar.
 3. Check the saved draft title. Enter **Starts at** in the displayed site timezone.
-4. Optionally enter **Ends at** and choose what happens afterward: **Keep this scene live** or **Restore the previous scene**.
+4. Optionally fill **Ends at (optional)** and choose **After the end time**: **Keep this scene live** or **Restore the previous scene**.
 5. Click **Schedule saved draft**. The page displays the saved schedule and its status. The publishing calendar also shows its start and end dates.
 
 Scheduling takes a fixed copy of the saved scene, including all device layouts, separate photo layers, depth, foreground outlines and live buttons. Later draft edits do not change that copy. Save, cancel and create a new schedule to choose a different composition or dates. Opening the editor or calendar does not execute a scheduled change.
@@ -30,7 +30,7 @@ Use the host's PHP executable and the full installed website directory. The work
 
 Changes take effect when the worker runs. With a once-per-minute cron, a due change normally waits until the next check. If cron is paused, the current live scene remains until a later check. The page's saved states distinguish a scheduled date from a change that has actually run. A claim left by an interrupted process becomes recoverable after its 60-second lease; a later run either completes the still-applicable change or records why it was skipped, superseded or held.
 
-The JSON command result reports activations, expirations, skips, held work, superseded work, recovered claims and busy sections. A busy section means another file-store update still held the lock after a bounded wait; its schedule stays intact for the next check. Exit code 0 indicates the bounded run completed without held work; code 2 indicates a held schedule needing owner review; code 1 indicates an invalid command or storage failure. Production monitoring should retain failed-run output privately.
+The JSON command result reports activations, expirations, skips, held work, superseded work, recovered claims and busy sections. A busy section means another file-store update still held the lock after a bounded wait; its schedule stays intact for the next check. The owner page explains: “Another update is finishing. Check due scenes again in a moment.” Exit code 0 indicates the bounded run completed without held work; code 2 indicates a held schedule needing owner review; code 1 indicates an invalid command or storage failure. Production monitoring should retain failed-run output privately.
 
 ## End, cancellation and manual changes
 
@@ -39,8 +39,8 @@ The JSON command result reports activations, expirations, skips, held work, supe
 | No end time | The runner publishes the scene once, records completion, and leaves it live until a later publication. |
 | End time + Keep this scene live | The runner records the schedule's end and keeps that scene live. |
 | End time + Restore the previous scene | The runner restores the scene that preceded the scheduled publication, provided the scheduled scene is still the current publication. |
-| Cancel a schedule before its start | The scheduled copy never goes live. The current scene is preserved. |
-| Cancel an active schedule | The current live scene stays in place; its automatic return is cancelled. |
+| **Cancel schedule** before its start | The scheduled copy never goes live. The current scene is preserved. |
+| **Cancel return to previous scene** on an active return schedule, or **Cancel schedule** on an active keep schedule | The current live scene stays in place; its automatic return is cancelled. |
 | Publish or restore manually in Composer | The manual publication supersedes that section's pending activation or automatic return. |
 | Edit or save a draft | The current publication and scheduled copy are preserved. |
 

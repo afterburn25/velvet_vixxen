@@ -68,13 +68,15 @@ Use `booking/`, `membership/` or another site-relative destination for this webs
 
 Button layers have independent width and height and use the existing drag, resize, keyboard, numeric, snap, ordering, hide/lock, duplicate/delete and undo/redo controls. Positions and dimensions are separate for desktop, tablet and mobile. **Copy to other devices** copies the entire selected layout, including buttons. Hero/Footer clipping applies to buttons as well as photos. The existing live headline/description/button group remains independently movable.
 
-## Save, preview, publish, and restore
+## Save, preview, schedule, publish, and restore
 
 Give the composition a title so published versions are easier to identify.
 
 **Save Draft** saves the current Hero or Footer composition. The public site continues to use its published version. **Full Page Preview** first saves both in-memory Hero and Footer drafts sequentially, then opens the owner preview with those drafts. It does not publish either scene. If the browser blocks the new window, the status explains that the drafts were saved and asks the owner to allow the preview window. If saving fails, the preview tab remains open with a readable explanation and the admin shows the error. Upload, save, publish and restore also handle a host's non-JSON response without showing a raw JSON parsing exception.
 
-**Publish** updates the live composition and adds a persistent version. The **Versions** tab shows titles and publication times. **Restore and publish** returns the selected section to a prior published version and creates a new publication entry. Restoring one section does not restore the other section. File-store history retains the latest 20 published versions.
+**Schedule** saves both in-memory Hero and Visual Footer drafts sequentially, then opens **Scene schedules** for the selected section. Review the saved title and enter dates there; this action does not publish. See [Scheduled Hero and Visual Footer scenes](SCENE_SCHEDULES.md) for fixed snapshots, optional end behavior, cancellation and due execution.
+
+**Publish** updates the live composition and adds a persistent version. The **Versions** tab shows titles and publication times. **Restore and publish** returns the selected section to a prior published version and creates a new publication entry. Restoring one section does not restore the other section. A manual publication or restore supersedes that section's pending scheduled activation or automatic return. File-store history retains the latest 20 published versions.
 
 Undo/redo tracks up to 60 editing snapshots during the current page session across both sections. Reloading clears that local undo history; saved drafts and published versions remain persistent.
 

@@ -1,7 +1,44 @@
-CANDIDATE 0.8.14 / Build 20261021.3 — Scheduled Composer scenes
-Baseline main: b3e310c3da8084b13dd3ddd8d5dc653f374d5969
-Branch: feature/0.8.14-scene-schedules; scope: issue #32 under #9
-Final required CI, merge and saved-download evidence pending. Preserve historical records below.
+<!-- scene-schedules-0814:start -->
+VELVET VIXXEN 0.8.14 — BUILD 20261021.3 VERIFIED, MERGED AND DELIVERED
+SCHEDULED HOMEPAGE HERO AND VISUAL FOOTER SCENES
+
+Issue: https://github.com/afterburn25/velvet_vixxen/issues/32
+Source: e339a230757ad9fb7529bf0c1fc73e9f60af446a
+Actual seven-job CI checkout: 16a7a2567d5091d001f4247be4c09449ce281cb3
+Final PR #33 merge: f8c3ae2e2278049ad5480e69498013832e9063b7
+Equal complete Git tree: 4d293926da098c147bca81eaee8f47a2b2f0f89d
+Merged at: 2026-10-21T17:07:02Z
+Required CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39632889974
+All seven required jobs / 82 configured steps passed; prior 78 steps retained unchanged and in order.
+Runtime artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39632889974/artifacts/12364581278
+Runtime artifact ID 12364581278; 15508943 bytes; SHA-256 9be61c5a8f0e4e5fc47e31cf41ec4cbd31eab0f648ed90a149b6a8525afffad2
+Browser artifact ID 12363138134; SHA-256 6e2e489b319b244eca9631d48f60c0917d004bd43c7f55fc168ddf97ec2c8094
+Literal saved-download read-back: 2026-10-21T17:09:54.040414+00:00
+
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+  60065 bytes; saved version 2; SHA-256 f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297
+
+Nikki-Wilder-Velvet-Vixxen-0.8.14-Build-20261021.3-Fresh-Install.zip
+  7817167 bytes; saved version 21; SHA-256 5365f363d4448ad40201a3db9e59f3b1c8573031126c6bbab16ababa22be84fb
+
+Nikki-Wilder-Velvet-Vixxen-0.8.14-Build-20261021.3-Upgrade-from-0.8.x.zip
+  7659907 bytes; saved version 18; SHA-256 cb69f18caabe9107149806a40b49f7955bd0d78eda886fe8cb0e261d6fcba1b7
+
+Velvet-Vixxen-0.8.14-Build-20261021.3-package-manifest.json
+  85798 bytes; saved version 21; SHA-256 5e035d92b7ba677c838953f0eeb02f727bb0f12e1702668e54533b161c49315f
+
+All four files match the actual gated artifact and saved read-back literally.
+Runtime entries: Fresh 385; Upgrade 344.
+Delta from 0.8.13: 19 changed entries including seven new; 366 unchanged; none removed.
+Installed sites use the complete Upgrade. No new migration; approved package roots retained.
+Unfinished-installer repair remains byte-identical at 0.8.1 / repair Build 20261020.3.
+Scheduled Hero/Footer snapshots and explicit keep/restore end policies are delivered.
+Due execution requires the explicit owner action or CLI runner; hosting cron is not configured by this package.
+Prior calendar/expiration, menus/footer/scale/depth and editorial history behavior is retained.
+Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only; 0.9 remains incomplete.
+Release and exact evidence: docs/releases/0.8.14-scene-schedules.md and its CI/delivery JSON companions.
+Older records below remain historical and retain their original bytes.
+<!-- scene-schedules-0814:end -->
 
 <!-- editorial-calendar-0813:start -->
 VELVET VIXXEN 0.8.13 — BUILD 20261021.2 VERIFIED, MERGED AND DELIVERED

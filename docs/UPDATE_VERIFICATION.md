@@ -1,4 +1,23 @@
-# Update and verify Velvet Vixxen — 0.8.13 / Build 20261021.2
+# Update and verify Velvet Vixxen — 0.8.14 / Build 20261021.3
+
+<!-- scene-schedules-0814:start -->
+## Current 0.8.14 complete Upgrade procedure
+
+**Verified, merged and delivered.** [PR #33](https://github.com/afterburn25/velvet_vixxen/pull/33) completes [issue #32](https://github.com/afterburn25/velvet_vixxen/issues/32). Merge completed at `2026-10-21T17:07:02Z`; literal saved-download read-back completed at `2026-10-21T17:09:54.040414+00:00`. Earlier procedures below retain their historical release identities. Use this procedure, or a later verified release, for the current complete Upgrade.
+
+1. Keep a recoverable backup of the active site files and database. Preserve `config`, `storage`, `uploads`, the owner account, installation identity and keys.
+2. Extract **Nikki-Wilder-Velvet-Vixxen-0.8.14-Build-20261021.3-Upgrade-from-0.8.x.zip** into the existing active website folder and replace matching application files. The archive has no enclosing product folder; a subfolder installation receives files in that same subfolder.
+3. Sign in as the existing owner and open **System → Update Status** (`admin/repair.php`) under that installation's URL. Require **Update files verified**, **Uploaded package: v0.8.14 · Build 20261021.3**, and **Files needing replacement: 0**. Complete extraction of the same full Upgrade if files differ.
+4. Choose **Refresh application PHP**. After reload require **PHP running now: 20261021.3** and repeat the file checks. Reload the admin/public pages with asset revision **0.8.14-20261021.3**; inspect the site's browser/hosting/CDN cache if old responses persist after file and PHP checks pass.
+5. Use **Restore organized folders** only when the page detects the exact retired forwarding files/folders from rejected Build 20261019.5. It preserves modified/custom entries and removes known directories only when empty; no action is needed without detected retired entries.
+6. Open **Site & Design → Scene schedules** and inspect **Homepage Hero** and **Visual Footer**, the saved draft title and displayed site timezone. Follow [Scheduled Hero and Visual Footer scenes](SCENE_SCHEDULES.md) when deliberately scheduling content. **Schedule** in Composer saves both drafts, then opens the selected section. **Schedule saved draft** freezes that saved composition. Opening either page or **Marketing & Publishing → Calendar** does not publish it.
+7. Enter **Starts at**, optionally **Ends at (optional)**, and choose **After the end time** deliberately. **Run due scenes now** checks both sections and can publish due schedules; use it only when ready for their changes. Unattended operation requires the host's cron configuration described in the owner guide. The package does not configure or verify that host service.
+8. Preserve and review the existing Menus, per-device Composer layouts, compact footer, depth/foreground, public pages, calendar, post expiration and history/restore workflows. For older pending database/marketing updates or add-on recovery holds, use the existing owner-reviewed workflows. This increment adds no database migration.
+
+Complete Fresh/Upgrade packages contain **385 / 344 runtime entries**. The separate unfinished-installer repair remains **0.8.1 / repair Build 20261020.3**, unchanged at 11 files. Use it only for unfinished 0.8.1 setup, never as the installed-site Upgrade. Production email, live payment approval and actual-host #12/#13 remain unverified; payments remain sandbox-only. The saved-package proofs establish the delivered bytes, not deployment on a customer host.
+
+[Release record](releases/0.8.14-scene-schedules.md) · [CI evidence](releases/0.8.14-scene-schedules-ci.json) · [Saved-delivery evidence](releases/0.8.14-scene-schedules-delivery.json)
+<!-- scene-schedules-0814:end -->
 
 <!-- editorial-calendar-0813:start -->
 ## Current 0.8.13 complete Upgrade procedure
@@ -54,7 +73,7 @@ Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, exp
 
 # Historical 0.8.11 installation instructions and retained feature checks
 
-**Historical release identity below:** the following text records 0.8.11 / Build 20261020.12. Use the current 0.8.13 complete Upgrade procedure above for archive/build checks. The retained feature checklists remain useful where their behavior still applies.
+**Historical release identity below:** the following text records 0.8.11 / Build 20261020.12. Use the current 0.8.14 complete Upgrade procedure above for archive/build checks. The retained feature checklists remain useful where their behavior still applies.
 
 Version **0.8.11**, Build **20261020.12**, adds the owner Menus editor for Header/Footer links and submenus. It also keeps short-page footers at the viewport bottom and removes unnecessary small scroll ranges. It includes the preceding Composer scale and larger compact footer corrections, along with the previously delivered application features. No new migration is needed. The unfinished-installer repair retains its separate **0.8.1 / repair Build 20261020.3** identity.
 

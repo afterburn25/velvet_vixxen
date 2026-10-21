@@ -4,7 +4,7 @@
 
 In the owner admin, open **Marketing & Publishing → Calendar**. Choose a month and content type, or use **Previous**, **This month** and **Next**. Select a day with events to jump to its agenda. Every date is displayed in the configured site timezone, shown above the calendar. The agenda includes seconds and the timezone abbreviation so repeated daylight-saving times can be distinguished.
 
-The calendar combines saved dates for posts, banners, landing pages, galleries, videos, albums, tracks, playlists and email campaigns. It also shows the retained publication history for Hero and Visual Footer scenes. Each entry includes its current saved state and a link to the appropriate existing editor when its identity is valid. The **Without a date or needing review** section keeps undated drafts and malformed records visible for review, regardless of the selected month. Calendar months are limited to January 1970 through December 9998.
+The calendar combines saved dates for posts, banners, landing pages, galleries, videos, albums, tracks, playlists and email campaigns. It also shows retained publication history and saved schedule start/end dates for Hero and Visual Footer scenes. Saved schedule states distinguish planned dates from changes that have actually run. Each entry includes its current saved state and a link to the appropriate existing editor when its identity is valid. The **Without a date or needing review** section keeps undated drafts and malformed records visible for review, regardless of the selected month. Calendar months are limited to January 1970 through December 9998.
 
 ## What a date means
 
@@ -14,7 +14,7 @@ The calendar combines saved dates for posts, banners, landing pages, galleries, 
 | Banners and landing pages | Start and end | Existing enabled state, publication windows and access rules still apply. |
 | Albums, tracks, playlists, galleries and videos | Saved publication and scheduled dates | The calendar reports saved/current state. Scheduled media still uses the existing media publication runner; opening the calendar does not run it. |
 | Email campaigns | Saved scheduled dates | Draft, paused and queued states remain distinct. A date does not establish that delivery occurred. Opening the calendar does not queue or send mail. |
-| Hero and Visual Footer | Retained publication timestamps; undated draft indicators | These are existing publication-history entries, limited to the newest 20 per section. Automatic scene activation or expiration is separate unfinished work. |
+| Hero and Visual Footer | Saved schedule start/end dates; retained publication timestamps; undated draft indicators | Schedule entries show current saved states and open Scene schedules. A date alone does not prove activation or return: the explicit owner action or scene runner performs due changes. Retained publication history is limited to the newest 20 per section. See [Scheduled scenes](SCENE_SCHEDULES.md). |
 
 Status describes the item **now**, including a draft or paused item with a future date. It is not a reconstruction of what its status was on a historical calendar day. Invalid or conflicting dates are marked for review instead of silently appearing as valid schedules. Separate entries can describe publication and expiration for one item.
 
@@ -37,6 +37,6 @@ The calendar is an owner-only read-only page with private, non-cacheable respons
 
 ## Upgrade and scope
 
-This feature belongs to **0.8.13 / Build 20261021.2**. Install the complete Upgrade on an existing 0.8.x site and follow [Update Verification](UPDATE_VERIFICATION.md). No new database migration is required. File storage and the existing explicit owner-reviewed MySQL marketing move retain their respective behavior.
+The calendar and post-expiration feature was introduced in **0.8.13 / Build 20261021.2**; **0.8.14 / Build 20261021.3** adds saved Composer schedule dates and states. Install the current complete Upgrade on an existing 0.8.x site and follow [Update Verification](UPDATE_VERIFICATION.md). No new database migration is required. File storage and the existing explicit owner-reviewed MySQL marketing move retain their respective behavior.
 
-This increment does not add automatic Composer scene schedules, deleted-content recovery, historical state reconstruction, drag-to-reschedule actions, production-email certification or large-dataset reporting guarantees. See [the current release record](releases/0.8.13-editorial-calendar.md), [publication windows](PUBLICATION_WINDOWS.md) and [editorial history](EDITORIAL_HISTORY.md).
+The 0.8.13 calendar increment did not execute Composer scene schedules. The separate [0.8.14 scene scheduler](SCENE_SCHEDULES.md) now provides deliberate activation/return; the calendar remains read-only. Deleted-content recovery, historical state reconstruction, drag-to-reschedule actions, production-email certification and large-dataset reporting guarantees remain outside these increments. See the [calendar release record](releases/0.8.13-editorial-calendar.md), [scene-schedule release record](releases/0.8.14-scene-schedules.md), [publication windows](PUBLICATION_WINDOWS.md) and [editorial history](EDITORIAL_HISTORY.md).
