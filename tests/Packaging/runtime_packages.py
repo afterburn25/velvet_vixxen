@@ -109,6 +109,10 @@ REPAIR_TIMESTAMPS = {
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in COMPOSER_REPAIR_FILES
 })
+DEPTH_RUNTIME_FILES = {
+    'app/Core/SceneDepth.php',
+    'public/assets/js/scene-depth.js',
+}
 MENU_RUNTIME_FILES = {
     'admin/index.php',
     'app/Core/MenuService.php',
@@ -132,9 +136,9 @@ MENU_RUNTIME_FILES = {
 }
 PRIOR_RELEASE_TIMESTAMPS = {
     '.htaccess': (2026, 10, 20, 2, 24, 0),
-    'VERSION': (2026, 10, 20, 23, 38, 0),
+    'VERSION': (2026, 10, 21, 0, 41, 28),
     'admin/addon-recovery.php': (2026, 10, 20, 5, 0, 0),
-    'admin/index.php': (2026, 10, 20, 23, 38, 0),
+    'admin/index.php': (2026, 10, 21, 0, 41, 28),
     'admin/repair.php': (2026, 10, 20, 2, 24, 0),
     'admin/update.php': (2026, 10, 20, 2, 24, 0),
     'app/Console/run_marketing.php': (2026, 10, 20, 2, 24, 0),
@@ -165,18 +169,21 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaStoreTrait.php': (2026, 10, 20, 19, 9, 10),
     'app/Core/MemberStoreTrait.php': (2026, 10, 20, 17, 20, 22),
+    'app/Core/MenuService.php': (2026, 10, 21, 0, 41, 28),
+    'app/Core/MenuStoreTrait.php': (2026, 10, 21, 0, 41, 28),
     'app/Core/MigrationResumeSchema.php': (2026, 10, 19, 16, 0, 0),
     'app/Core/MigrationRunner.php': (2026, 10, 19, 16, 0, 0),
     'app/Core/RepairBackupService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/RootLayoutService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/RuntimeBuildService.php': (2026, 10, 20, 2, 24, 0),
-    'app/Core/RuntimeInventoryService.php': (2026, 10, 20, 23, 38, 0),
+    'app/Core/RuntimeInventoryService.php': (2026, 10, 21, 0, 41, 28),
     'app/Core/SceneButton.php': (2026, 10, 20, 2, 24, 0),
-    'app/Core/Store.php': (2026, 10, 20, 19, 9, 10),
+    'app/Core/Store.php': (2026, 10, 21, 0, 41, 28),
     'app/Support/functions.php': (2026, 10, 20, 2, 24, 0),
     'app/Support/mail_settings_admin.php': (2026, 10, 20, 2, 24, 0),
     'app/Support/marketing_storage_admin.php': (2026, 10, 20, 14, 16, 8),
     'app/Support/media_admin.php': (2026, 10, 20, 3, 48, 0),
+    'app/Support/menu_admin.php': (2026, 10, 21, 0, 41, 28),
     'app/Support/public_routes.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/addon-licensing.php': (2026, 10, 20, 3, 48, 0),
     'app/Views/admin/addons.php': (2026, 10, 20, 5, 0, 0),
@@ -198,12 +205,16 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Views/admin/media-center.php': (2026, 10, 20, 3, 48, 0),
     'app/Views/admin/media-library.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/members.php': (2026, 10, 20, 3, 48, 0),
-    'app/Views/admin/navigation.php': (2026, 10, 20, 14, 16, 8),
+    'app/Views/admin/menus-actions.php': (2026, 10, 21, 0, 41, 28),
+    'app/Views/admin/menus.php': (2026, 10, 21, 0, 41, 28),
+    'app/Views/admin/navigation.php': (2026, 10, 21, 0, 41, 28),
     'app/Views/admin/repair-backups.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/repair-status.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/update-status.php': (2026, 10, 20, 2, 24, 0),
-    'app/Views/public/partials/footer.php': (2026, 10, 20, 23, 38, 0),
-    'app/Views/public/partials/header.php': (2026, 10, 20, 19, 9, 10),
+    'app/Views/public/partials/footer.php': (2026, 10, 21, 0, 41, 28),
+    'app/Views/public/partials/header.php': (2026, 10, 21, 0, 41, 28),
+    'app/Views/public/partials/menu-items.php': (2026, 10, 21, 0, 41, 28),
+    'app/Views/public/partials/navigation.php': (2026, 10, 21, 0, 41, 28),
     'app/Views/public/partials/scene-buttons.php': (2026, 10, 20, 2, 24, 0),
     'config/app.example.php': (2026, 10, 20, 3, 48, 0),
     'database/migrations/202610200015_marketing_sql_storage.php': (2026, 10, 20, 14, 16, 8),
@@ -211,8 +222,8 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'includes/marketing.php': (2026, 10, 20, 19, 9, 10),
     'includes/marketing_admin.php': (2026, 10, 20, 21, 30, 0),
     'includes/marketing_public_shell.php': (2026, 10, 20, 19, 9, 10),
-    'includes/runtime-build.json': (2026, 10, 20, 23, 38, 0),
-    'includes/version.php': (2026, 10, 20, 23, 38, 0),
+    'includes/runtime-build.json': (2026, 10, 21, 0, 41, 28),
+    'includes/version.php': (2026, 10, 21, 0, 41, 28),
     'install/index.php': (2026, 10, 20, 2, 24, 0),
     'install/services/EmailAddress.php': (2026, 10, 20, 2, 24, 0),
     'install/services/FileSystemService.php': (2026, 10, 19, 0, 0, 0),
@@ -224,7 +235,9 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/assets/css/mail-settings.css': (2026, 10, 20, 2, 24, 0),
     'public/assets/css/marketing.css': (2026, 10, 20, 21, 30, 0),
     'public/assets/css/media-admin-edit.css': (2026, 10, 20, 3, 48, 0),
-    'public/assets/css/site-ux.css': (2026, 10, 20, 2, 24, 0),
+    'public/assets/css/menu-admin.css': (2026, 10, 21, 0, 41, 28),
+    'public/assets/css/navigation.css': (2026, 10, 21, 0, 41, 28),
+    'public/assets/css/site-ux.css': (2026, 10, 21, 0, 41, 28),
     'public/assets/css/site.css': (2026, 10, 20, 23, 38, 0),
     'public/assets/js/admin-media.js': (2026, 10, 20, 3, 48, 0),
     'public/assets/js/admin.js': (2026, 10, 20, 2, 24, 0),
@@ -235,9 +248,11 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/assets/js/marketing-editorial.js': (2026, 10, 20, 19, 9, 10),
     'public/assets/js/marketing.js': (2026, 10, 20, 2, 24, 0),
     'public/assets/js/media-center.js': (2026, 10, 20, 23, 38, 0),
+    'public/assets/js/menu-admin.js': (2026, 10, 21, 0, 41, 28),
+    'public/assets/js/navigation.js': (2026, 10, 21, 0, 41, 28),
     'public/assets/js/scene-geometry.js': (2026, 10, 20, 23, 38, 0),
-    'public/assets/js/site.js': (2026, 10, 20, 23, 38, 0),
-    'public/home.php': (2026, 10, 20, 23, 38, 0),
+    'public/assets/js/site.js': (2026, 10, 21, 0, 41, 28),
+    'public/home.php': (2026, 10, 21, 0, 41, 28),
     'public/router.php': (2026, 10, 20, 2, 24, 0),
     'public/routes/about/index.php': (2026, 10, 20, 2, 24, 0),
     'public/routes/account/billing.php': (2026, 10, 20, 2, 24, 0),
@@ -283,29 +298,20 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/routes/videos/watch.php': (2026, 10, 20, 2, 24, 0),
     'route.php': (2026, 10, 20, 2, 24, 0),
 }
-RELEASE_TIMESTAMP = (2026, 10, 21, 0, 41, 28)
+RELEASE_TIMESTAMP = (2026, 10, 21, 5, 46, 42)
 RELEASE_FILES = {
     'VERSION',
     'admin/index.php',
-    'app/Core/MenuService.php',
-    'app/Core/MenuStoreTrait.php',
     'app/Core/RuntimeInventoryService.php',
+    'app/Core/SceneDepth.php',
     'app/Core/Store.php',
-    'app/Support/menu_admin.php',
-    'app/Views/admin/menus-actions.php',
-    'app/Views/admin/menus.php',
-    'app/Views/admin/navigation.php',
+    'app/Views/admin/composer.php',
     'app/Views/public/partials/footer.php',
-    'app/Views/public/partials/header.php',
-    'app/Views/public/partials/menu-items.php',
-    'app/Views/public/partials/navigation.php',
     'includes/runtime-build.json',
     'includes/version.php',
-    'public/assets/css/menu-admin.css',
-    'public/assets/css/navigation.css',
-    'public/assets/css/site-ux.css',
-    'public/assets/js/menu-admin.js',
-    'public/assets/js/navigation.js',
+    'public/assets/css/composer.css',
+    'public/assets/js/composer.js',
+    'public/assets/js/scene-depth.js',
     'public/assets/js/site.js',
     'public/home.php',
 }
@@ -373,11 +379,11 @@ echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION
 
 
 def run() -> None:
-    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.10-build-20261020.11.json").read_text())
-    assert prior_release["source_commit"] == "3357cb048a25d134f1702a48113ecde9025c16ed"
-    assert prior_release["version"] == "0.8.10" and prior_release["build_id"] == "20261020.11"
-    assert prior_release["sha256"] == "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9"
-    assert prior_release["files"] == len(prior_release["entries"]) == 363, "Prior-release fixture must retain the exact delivered Fresh inventory"
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.11-build-20261020.12.json").read_text())
+    assert prior_release["source_commit"] == "d2b87559d9bccb3c6a3a3ac1fa732f9dd364f84c"
+    assert prior_release["version"] == "0.8.11" and prior_release["build_id"] == "20261020.12"
+    assert prior_release["sha256"] == "1528f6c966918a5bae0f4beabb75085480fe595cf8a869b6546acfb830d5abfe"
+    assert prior_release["files"] == len(prior_release["entries"]) == 373, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
@@ -526,6 +532,7 @@ def run() -> None:
                     assert PUBLIC_HANDLER_FILES <= entries, "Consolidated public handler was removed along with a root forwarding file"
                     assert EDITORIAL_RUNTIME_FILES <= entries, "Editorial history or a retained access/metadata dependency is missing from a full package"
                     assert MENU_RUNTIME_FILES <= entries, "The menu editor or a public navigation dependency is missing from a full package"
+                    assert DEPTH_RUNTIME_FILES <= entries, "Scene depth validation or shared foreground rendering is missing from a full package"
                 assert zipped.testzip() is None, "Archive integrity failure"
                 assert all(not Path(name).is_absolute() and ".." not in Path(name).parts for name in entries), "Unsafe archive path"
                 assert all(entry.create_system == 3 and entry.external_attr >> 16 == 0o100644 for entry in zipped.infolist()), "Runtime ZIP entries must be regular files with safe 0644 permissions"
@@ -545,17 +552,9 @@ def run() -> None:
                                != prior_release["entries"].get(name, {}).get("sha256")}
                     assert set(prior_release["entries"]) <= entries, "A previously delivered runtime file disappeared without an explicit removal review"
                     assert entries - set(prior_release["entries"]) == {
-                        'app/Core/MenuService.php',
-                        'app/Core/MenuStoreTrait.php',
-                        'app/Support/menu_admin.php',
-                        'app/Views/admin/menus-actions.php',
-                        'app/Views/admin/menus.php',
-                        'app/Views/public/partials/menu-items.php',
-                        'public/assets/css/menu-admin.css',
-                        'public/assets/css/navigation.css',
-                        'public/assets/js/menu-admin.js',
-                        'public/assets/js/navigation.js',
-                    }, "The menu release added runtime files outside its reviewed editor/public-navigation scope"
+                        'app/Core/SceneDepth.php',
+                        'public/assets/js/scene-depth.js',
+                    }, "The scene depth release added runtime files outside its reviewed validation/rendering scope"
                     assert changed == RELEASE_FILES, "Changed runtime files lack reviewed release timestamps, or unchanged files were relabeled: " + ", ".join(sorted(changed ^ RELEASE_FILES))
                     for entry in zipped.infolist():
                         prior = prior_release["entries"].get(entry.filename)
@@ -569,7 +568,7 @@ def run() -> None:
                     assert release["supported_from"] == compatibility["supported_from"] == expected_from, "Upgrade compatibility omitted a supported prior patch or current-version repair"
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries)
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
-                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
+                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                             if Path(relative).parts[0] not in package.PRESERVED_UPGRADE_ROOTS:
                                 assert relative in entries, "Upgrade is missing a required runtime repair dependency"
                                 assert zipped.read(relative) == fresh.read(relative), "Upgrade repair dependency differs from the complete fresh package"
@@ -677,7 +676,7 @@ def run() -> None:
         for kind, original in [("upgrade", full_files), ("fresh", package.runtime_files(source, "fresh"))]:
             # Rebuild an internally consistent inventory after removing a
             # dependency: even that incomplete package must fail the floor.
-            for omitted in EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
+            for omitted in EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                 broken = {name: content for name, content in original.items() if name != omitted}
                 broken[RUNTIME_BUILD_PATH] = package.runtime_build_manifest(broken)
                 try:

@@ -1,5 +1,19 @@
 # Testing — Velvet Vixxen
 
+<!-- composer-depth-0812:start -->
+## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+
+The unchanged `b1b93447f6165e3838da3b864f81b3e0e34599be` baseline passed `scripts/test.sh` and reproduced the prior 0.8.11 packages exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and the retained ownership, OPcache, security and package gates. The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts**, and retained Composer actions pass all **four desktop/mobile root/nested cases**. New depth browser and MySQL HTTP acceptance, all **seven required CI jobs and 74 configured required steps**, actual CI artifact verification, merge and saved-download read-back remain pending. These local results do not certify a delivered 0.8.12 release.
+
+The candidate adds `tests/Feature/scene_depth.php`, `tests/Http/composer_depth_http.py` and `tests/Browser/composer_depth_playwright.py` to the retained release gates. Source acceptance covers strict optional-field validation and rejects malformed depth, perspective and polygon data before mutation. HTTP acceptance must cover file/MySQL persistence, owner boundaries, invalid submissions, draft/preview/publication and restore. Actual-package browser acceptance must exercise real controls and pointer drawing, direct/numeric point editing, depth-aware movement/resize/alignment, device independence, background transforms, foreground pixels and public/editor agreement at root and nested paths.
+
+Retain the existing Composer controls/buttons/scale, menus/footer placement, PHP 8.2/8.3, real MySQL, ownership, persistent OPcache, installer/update, HTTP/browser and package gates. Actual CI success, reviewed artifact bytes, merge identity and saved-download read-back belong in the final release evidence; planned coverage is not a passed test.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 

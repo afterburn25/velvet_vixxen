@@ -139,6 +139,7 @@ $publicMenuInstance = 'footer';
 <?php require root_path('app/Views/public/partials/player.php'); ?>
 <script>window.VELVET_CONFIG=<?= json_encode(['baseUrl'=>base_url(),'uploadBase'=>base_url('uploads/'),'scenes'=>$publicScenes,'ageGate'=>(bool)($settings['age_gate_enabled']??true),'csrfToken'=>csrf_token(),...public_route_config(),'member'=>$member?['id'=>(string)$member['id'],'displayName'=>(string)$member['displayName']]:null], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?>;</script>
 <script src="<?= e(asset_url('js/scene-geometry.js')) ?>" defer></script>
+<script src="<?= e(asset_url('js/scene-depth.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/site.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/navigation.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/media-center.js')) ?>" defer></script>

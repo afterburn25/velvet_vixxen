@@ -25,6 +25,7 @@ try {
     $assert(VELVET_VIXXEN_ASSET_VERSION === VELVET_VIXXEN_VERSION . '-' . VELVET_VIXXEN_BUILD_ID, 'Browser assets do not identify the same canonical release/build.');
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
+        'app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
         'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php',
@@ -91,6 +92,15 @@ try {
     $reject(static fn() => $service->refreshPhpCache(), 'Missing menu dependencies must block cache activation.');
     copy($source . '/public/assets/js/menu-admin.js', $fixture . '/public/assets/js/menu-admin.js');
 
+    $depthDependencies = ['app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js'];
+    foreach ($depthDependencies as $dependency) {
+        unlink($fixture . '/' . $dependency);
+        $status = $service->inspect();
+        $assert(!$status['files_match'] && $status['problems'][0]['path'] === $dependency, 'Missing scene depth dependency must be identified: ' . $dependency);
+        $reject(static fn() => $service->refreshPhpCache(), 'Missing scene depth dependencies must block cache activation.');
+        copy($source . '/' . $dependency, $fixture . '/' . $dependency);
+    }
+
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);
     $assert(!$service->inspect()['files_match'], 'A linked runtime file must not be read as a verified replacement.');
@@ -144,6 +154,19 @@ try {
     $write($beforeMenus);
     $legacyMenus = $service->inspect();
     $assert($legacyMenus['files_match'] && !$legacyMenus['running_build_matches'] && $legacyMenus['version'] === '0.8.10', 'A pre-menu inventory remains inspectable without later menu dependencies.');
+    foreach ($depthDependencies as $dependency) {
+        $incomplete = $manifest;
+        unset($incomplete['files'][$dependency]);
+        $write($incomplete);
+        $reject(static fn() => $service->inspect(), 'Current inventory cannot omit scene depth dependency: ' . $dependency);
+    }
+    $beforeDepth = $manifest;
+    foreach ($depthDependencies as $dependency) unset($beforeDepth['files'][$dependency]);
+    $beforeDepth['version'] = '0.8.11';
+    $beforeDepth['build_id'] = '20261020.12';
+    $write($beforeDepth);
+    $legacyDepth = $service->inspect();
+    $assert($legacyDepth['files_match'] && !$legacyDepth['running_build_matches'] && $legacyDepth['version'] === '0.8.11', 'A pre-depth inventory remains inspectable without later masking dependencies.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');
     $reject(static fn() => $service->inspect(), 'Malformed manifest must fail readably.');
     unlink($fixture . '/includes/runtime-build.json');

@@ -57,6 +57,7 @@ namespace {
     $required = [
         'admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
+        'app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
         'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php',

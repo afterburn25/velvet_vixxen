@@ -163,6 +163,10 @@ $composerData = [
             <span class="content-resize-handle se" data-content-handle="se"></span>
           </div>
           <div class="selection-overlay" data-selection-overlay></div>
+          <div class="foreground-editor" data-foreground-editor hidden>
+            <svg aria-hidden="true" preserveAspectRatio="none"><polygon class="foreground-outline"/><polyline class="foreground-open-outline"/></svg>
+            <div class="foreground-handles"></div>
+          </div>
           <div class="canvas-empty" data-canvas-empty>Drag an image here or choose Add Button</div>
         </div>
       </div>
@@ -195,6 +199,32 @@ $composerData = [
           <label>Blur <output data-output="bgBlur">0px</output><input type="range" min="0" max="20" data-control="bgBlur"></label>
           <label>Dark overlay <output data-output="overlay">25%</output><input type="range" min="0" max="90" data-control="overlay"></label>
           <label>Overlay color<input type="color" data-control="overlayColor"></label>
+        </div>
+        <div class="control-group scene-perspective-controls">
+          <h3>Depth direction · this device</h3>
+          <p class="property-help">Choose the point farther into the room. A photo moves toward this point and gets smaller as its Depth in scene increases.</p>
+          <div class="control-grid">
+            <label>Room depth X %<input type="number" min="0" max="100" step=".1" data-control="perspectiveX"></label>
+            <label>Room depth Y %<input type="number" min="0" max="100" step=".1" data-control="perspectiveY"></label>
+          </div>
+        </div>
+        <div class="control-group foreground-controls">
+          <h3>Foreground furniture · this device</h3>
+          <p class="property-help">Outline the part of the bed or furniture that should cover a photo. Click around its edge, then Finish outline. In Layers, choose Place behind foreground for each photo you want behind it.</p>
+          <label class="composer-check"><input type="checkbox" data-control="foregroundEnabled"> Show foreground furniture</label>
+          <div class="foreground-actions">
+            <button type="button" class="mini-button" data-action="foreground-draw">Draw outline</button>
+            <button type="button" class="mini-button" data-action="foreground-clear">Clear outline</button>
+            <button type="button" class="mini-button" data-action="foreground-finish" hidden>Finish outline</button>
+            <button type="button" class="mini-button" data-action="foreground-undo-point" hidden>Undo point</button>
+            <button type="button" class="mini-button" data-action="foreground-cancel" hidden>Cancel outline</button>
+          </div>
+          <p class="property-help foreground-status" data-foreground-status role="status" aria-live="polite"></p>
+          <details class="foreground-point-details" data-foreground-point-details hidden>
+            <summary>Edit outline points</summary>
+            <p class="property-help">Drag the numbered points on the canvas, or enter coordinates as percentages of the original background image.</p>
+            <div class="foreground-points" data-foreground-points></div>
+          </details>
         </div>
       </div>
 
@@ -244,6 +274,14 @@ $composerData = [
             <label>Width %<input type="number" min=".5" max="400" step=".5" data-control="layerWidth"></label>
             <label data-button-only hidden>Height %<input type="number" min=".5" max="400" step=".5" data-control="layerHeight"></label>
             <label>Rotation<input type="number" min="-180" max="180" step="1" data-control="layerRotation"></label>
+          </div>
+          <div class="control-group layer-depth-controls" data-photo-only>
+            <h3>Photo depth · this device</h3>
+            <label>Depth in scene <output data-output="layerDepth">0</output><input type="range" min="0" max="100" step="1" data-control="layerDepth"></label>
+            <div class="depth-range-labels" aria-hidden="true"><span>Near</span><span>Far</span></div>
+            <button type="button" class="mini-button full" data-action="layer-depth-reset">Reset depth</button>
+            <label class="composer-check"><input type="checkbox" data-control="layerBehindForeground"> Place behind foreground</label>
+            <p class="property-help">Depth moves and scales this photo into the room. Draw the furniture outline in Background to let the bed or furniture cover part of it.</p>
           </div>
           <div class="control-group">
             <label>Layer width <output data-output="layerScale">34%</output><input type="range" min=".5" max="400" step=".5" data-control="layerScale"></label>

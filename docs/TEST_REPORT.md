@@ -1,5 +1,23 @@
 # Velvet Vixxen — Current Test Evidence
 
+<!-- composer-depth-0812:start -->
+## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+
+### Executed so far
+
+The unchanged restored main `b1b93447f6165e3838da3b864f81b3e0e34599be` passed `scripts/test.sh`, and its rebuilt 0.8.11 packages match the previously delivered bytes exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and retained ownership, persistent OPcache, security and packaging gates. JavaScript syntax checking for the edited Composer and PHP lint for its view pass.
+
+The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts** at root/nested installations; retained Composer actions pass all **four desktop/mobile root/nested cases**. The current package candidate has **375 Fresh / 334 Upgrade runtime entries**, **14 changed entries including two new**, **361 unchanged Fresh entries** and no removals. These are local candidate results; they do not establish a verified CI artifact or customer delivery.
+
+### Still required for the candidate
+
+New depth MySQL HTTP and actual-package browser acceptance, remaining retained application gates, all **seven required CI jobs and 74 configured required steps**, review of the actual CI browser/runtime artifacts, final source/checkout/merge identity and saved-download literal read-back remain pending. No 0.8.12 CI run, merge or saved-delivery success is claimed by this interim report. Earlier blocks are evidence for their own releases.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 

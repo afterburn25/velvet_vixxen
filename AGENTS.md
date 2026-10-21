@@ -1,5 +1,19 @@
 # Agent Instructions — Velvet Vixxen
 
+<!-- composer-depth-0812:start -->
+## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+
+This bounded increment implements the carried-forward request to place an independent transparent photo farther into a room or onto a bed, with selected foreground furniture covering it. Keep the current design, shared Composer/public scale, per-device layouts, separate photos/buttons, undo/redo, preview, publish and restore. Optional photo depth and foreground placement, a per-view depth direction and an image-anchored furniture outline extend the existing scene JSON without a migration. Untouched scenes retain absent optional fields and their previous appearance.
+
+The unchanged `b1b93447f6165e3838da3b864f81b3e0e34599be` baseline passed `scripts/test.sh` and reproduced the prior 0.8.11 packages exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and the retained ownership, OPcache, security and package gates. The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts**, and retained Composer actions pass all **four desktop/mobile root/nested cases**. New depth browser and MySQL HTTP acceptance, all **seven required CI jobs and 74 configured required steps**, actual CI artifact verification, merge and saved-download read-back remain pending. These local results do not certify a delivered 0.8.12 release.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+
+Continue from this candidate and [the depth guide](docs/COMPOSER_DEPTH.md); do not reimplement the delivered 0.8.10 scale/footer or 0.8.11 menus/page-layout work. Update completion claims only from the final candidate's exact evidence.
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 

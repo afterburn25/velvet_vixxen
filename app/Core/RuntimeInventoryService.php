@@ -125,6 +125,13 @@ class RuntimeInventoryService
                 'public/assets/js/navigation.js',
             ]);
         }
+        // Depth and foreground masking first ship in 0.8.12.
+        if (version_compare($data['version'], '0.8.12', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, [
+                'app/Core/SceneDepth.php',
+                'public/assets/js/scene-depth.js',
+            ]);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

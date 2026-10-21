@@ -42,7 +42,7 @@ for test in \
   tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
   tests/Feature/media_center.php tests/Feature/media_center_persistence.php tests/Feature/members_entitlements.php tests/Feature/commerce.php tests/Feature/navigation_menus.php \
   tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php tests/Feature/marketing_audiences.php tests/Feature/publication_windows.php tests/Feature/marketing_storage.php tests/Feature/editorial_access.php tests/Feature/editorial_metadata.php tests/Feature/editorial_history.php tests/Feature/campaign_delivery.php tests/Feature/mail_settings.php \
-  tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Feature/scene_buttons.php tests/Feature/scene_group_buttons.php tests/Security/protected_media.php tests/Security/member_security.php \
+  tests/Feature/repair_backups.php tests/Feature/database_updates.php tests/Feature/site_ux.php tests/Feature/booking_form.php tests/Feature/scene_buttons.php tests/Feature/scene_group_buttons.php tests/Feature/scene_depth.php tests/Security/protected_media.php tests/Security/member_security.php \
   tests/Security/payment_webhook.php tests/Security/addon_security.php tests/Structure/organized.php tests/Structure/public_routes.php; do
   php "$test"
 done

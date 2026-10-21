@@ -2,6 +2,7 @@
   'use strict';
   const config = window.VELVET_CONFIG || {};
   const geometry = window.VELVET_SCENE_GEOMETRY;
+  const depth = window.VELVET_SCENE_DEPTH;
   const baseUrl = String(config.baseUrl || '').replace(/\/$/, '');
   const uploadBase = String(config.uploadBase || `${baseUrl}/uploads/`).replace(/\/?$/, '/');
   const publicRoutes = new Set((config.publicRoutes || []).map(route => String(route).replace(/^\/+|\/+$/g, '')));
@@ -136,20 +137,28 @@
     const overlay = root.querySelector('.scene-overlay');
     const layerRoot = root.querySelector('.scene-layers');
     const content = root.querySelector(section === 'hero' ? '.hero-content' : '.closing-content');
-    const settings = {...(scene.background || {}), ...(view.background || {})};
+    const settings = {src: `images/defaults/${section === 'hero' ? 'hero' : 'footer'}-pink-room.jpg`, ...(scene.background || {}), ...(view.background || {})};
 
     if (bg) {
-      bg.src = resolveAsset(settings.src);
       bg.style.objectFit = settings.fit || 'cover';
       bg.style.objectPosition = `${Number(settings.x ?? 50)}% ${Number(settings.y ?? 50)}%`;
       bg.style.transform = `scale(${Number(settings.zoom ?? 1)})`;
       bg.style.transformOrigin = `${Number(settings.x ?? 50)}% ${Number(settings.y ?? 50)}%`;
       Object.assign(bg.style, {inset: '0', width: '100%', height: '100%'});
       bg.style.filter = `brightness(${Number(settings.brightness ?? 100)}%) contrast(${Number(settings.contrast ?? 100)}%) saturate(${Number(settings.saturation ?? 100)}%) blur(${Number(settings.blur ?? 0)}px)`;
+      bg.onload = renderLayers;
       bg.onerror = () => {
         bg.onerror = null;
+        bg.dataset.fallbackApplied = '1';
+        renderLayers();
         bg.src = `${baseUrl}/images/defaults/${section === 'hero' ? 'hero-pink-room.jpg' : 'footer-pink-room.jpg'}`;
       };
+      const source = resolveAsset(settings.src);
+      if (bg.dataset.sceneSource !== source) {
+        bg.dataset.sceneSource = source;
+        bg.dataset.fallbackApplied = '0';
+        bg.src = source;
+      }
     }
 
     if (overlay) {
@@ -174,30 +183,36 @@
       });
     }
 
-    if (layerRoot) {
+    function renderLayers() {
+      if (!layerRoot) return;
       // Keep every photo above the artwork, even after repeated Move Back actions.
       layerRoot.style.zIndex = '1';
       layerRoot.style.isolation = 'isolate';
       layerRoot.replaceChildren();
+      const stage = root.querySelector('.scene-stage');
+      const foreground = depth.createForeground(view, settings, bg, overlay, frame,
+        stage ? getComputedStyle(stage).backgroundColor : '#150711');
+      const stack = depth.createStack(layerRoot, foreground);
       [...(view.layers || [])]
         .sort((a, b) => Number(a.z ?? 1) - Number(b.z ?? 1))
         .forEach((layer) => {
           if (layer.visible === false) return;
           const isButton = layer.type === 'button';
+          const projected = depth.project(layer, view);
           const wrap = document.createElement(isButton ? 'a' : 'div');
           wrap.className = 'public-scene-layer';
           wrap.dataset.layerId = String(layer.id || '');
-          wrap.style.left = `${Number(layer.x ?? 50)}%`;
-          wrap.style.top = `${Number(layer.y ?? 50)}%`;
-          wrap.style.width = `${Number(layer.width ?? 30)}%`;
+          wrap.style.left = `${projected.x}%`;
+          wrap.style.top = `${projected.y}%`;
+          wrap.style.width = `${projected.width}%`;
           wrap.style.opacity = String(Number(layer.opacity ?? 100) / 100);
           wrap.style.zIndex = String(Number(layer.z ?? 1));
           const sx = layer.flipX ? -1 : 1;
           const sy = layer.flipY ? -1 : 1;
           wrap.style.transform = `translate(-50%,-50%) rotate(${Number(layer.rotation ?? 0)}deg) scale(${sx},${sy})`;
-          wrap.style.filter = `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0)}px ${Number(layer.shadowY ?? 18)}px ${Number(layer.shadowBlur ?? 24)}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
+          wrap.style.filter = `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0) * projected.scale}px ${Number(layer.shadowY ?? 18) * projected.scale}px ${Number(layer.shadowBlur ?? 24) * projected.scale}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
           if (isButton) {
-            if (renderButton(wrap, layer)) layerRoot.appendChild(wrap);
+            if (renderButton(wrap, layer)) stack.front.appendChild(wrap);
             return;
           }
           const img = document.createElement('img');
@@ -210,14 +225,14 @@
             img.style.webkitMaskImage = img.style.maskImage;
           }
           wrap.appendChild(img);
-          layerRoot.appendChild(wrap);
+          (layer.behindForeground === true ? stack.rear : stack.front).appendChild(wrap);
         });
-      const stage = root.querySelector('.scene-stage');
       if (stage) {
         if (layerRoot.querySelector('.public-scene-button')) stage.removeAttribute('aria-hidden');
         else stage.setAttribute('aria-hidden', 'true');
       }
     }
+    renderLayers();
   }
 
   let resizeTimer;
