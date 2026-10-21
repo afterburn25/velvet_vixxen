@@ -31,8 +31,9 @@ if (isset($marketingPageMetadata) && is_array($marketingPageMetadata)) {
 <link rel="stylesheet" href="<?= e(asset_url('css/member.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('css/commerce.css')) ?>">
 <link rel="stylesheet" href="<?= e(asset_url('css/communication.css')) ?>">
-<link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"><?php if (!empty($marketingLayout)): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/site-ux.css')) ?>"></head>
-<body class="media-page<?= !empty($authLayout) ? ' auth-page' : '' ?><?= !empty($marketingLayout) ? ' marketing-page' : '' ?><?= !empty($hidePersistentPlayer) ? ' media-page--video' : '' ?>">
+<link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"><?php if (!empty($marketingLayout)): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/site-ux.css')) ?>">
+<link rel="stylesheet" href="<?= e(asset_url('css/navigation.css')) ?>"></head>
+<body class="public-page media-page<?= !empty($authLayout) ? ' auth-page' : '' ?><?= !empty($marketingLayout) ? ' marketing-page' : '' ?><?= !empty($hidePersistentPlayer) ? ' media-page--video' : '' ?>">
 <div class="age-gate" id="ageGate" hidden>
   <div class="age-gate__backdrop"></div>
   <section class="age-gate__card" role="dialog" aria-modal="true" aria-labelledby="ageTitle">

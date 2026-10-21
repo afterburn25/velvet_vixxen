@@ -91,10 +91,17 @@ jobs:
             tests/Packaging/fixtures/release-0.8.7-build-20261020.8.json
             tests/Packaging/fixtures/release-0.8.8-build-20261020.9.json
             tests/Packaging/fixtures/release-0.8.9-build-20261020.10.json
+            tests/Packaging/fixtures/release-0.8.10-build-20261020.11.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
             public/assets/js/scene-geometry.js tests/Browser/composer_scale_playwright.py
+            app/Core/MenuService.php app/Core/MenuStoreTrait.php app/Support/menu_admin.php
+            app/Views/admin/menus.php app/Views/admin/menus-actions.php
+            app/Views/public/partials/menu-items.php public/assets/css/menu-admin.css
+            public/assets/js/menu-admin.js public/assets/css/navigation.css public/assets/js/navigation.js
+            tests/Feature/navigation_menus.php tests/Database/navigation_menus_mysql.php
+            tests/Http/menus_http.py tests/Http/menus_fixture.php tests/Browser/menus_playwright.py docs/MENUS.md
             tests/Browser/installed_update_playwright.py tests/Feature/runtime_build.php
             admin/update.php app/Core/RuntimeBuildService.php app/Views/admin/update-status.php
             admin/repair.php app/Core/RuntimeInventoryService.php app/Core/RootLayoutService.php
@@ -233,6 +240,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/editorial_history_http.py --mode mysql
+      - name: Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/menus_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -393,6 +408,19 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/editorial_history_playwright.py
+      - name: Preserve saved menu order, targets and access through actual packaged file requests
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Http/menus_http.py --mode file
+      - name: Edit and navigate nested menus through actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/menus_playwright.py --mode both
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

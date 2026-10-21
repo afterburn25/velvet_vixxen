@@ -1,7 +1,17 @@
 # Copy-Paste Prompt for the Next Session
 
+<!-- navigation-menus-0811-current-prompt:start -->
+## Current prompt — finish the implemented 0.8.11 Menus release
+
+Read live main and the completed 0.8.10 release, CI and delivery records. Composer/public scene scale, larger compact footer and blue new-tab designer credit are delivered in 0.8.10; do not reimplement them. The active owner request is **0.8.11 / Build 20261020.12 Menus**, on `feature/0.8.11-menu-editor`, continuing from main `35dceb4a8d197ce23ea866e2e382f2bc14ace629`. The same candidate also implements the latest short-page bottom-footer and unnecessary-scroll requests. Its final frozen source/package, 945-assertion HTTP and four-case browser acceptance passed, including 88 separate footer-placement observations and 16 additional layout PNGs. Read `docs/MENUS.md` and `docs/releases/0.8.11-menus.md`.
+
+Finish all seven required CI jobs/70 steps, inspect actual checkout/artifact evidence, verify full source/checkout/merge tree equality, merge, and save/retrieve the exact customer files. Preserve all 66 previous required steps and exact 13/9 package roots. Do not treat prior-release or local success as the final CI gate. Current source Fresh `1528f6c9…d5abfe` and Upgrade `d61cdc2d…91c37f` are frozen; use full hashes in the release record. The unchanged installer repair stays 0.8.1 / repair Build 20261020.3.
+
+No customer-host upload or automatic deployment has been established. Actual-host #12/#13, production email, sandbox-only payments and the separate 0.9 milestone retain their boundaries. Depth/foreground masking, calendar, explicit post expiry and broader #9 remain separate work. Every changed completed release advances the visible version.
+<!-- navigation-menus-0811-current-prompt:end -->
+
 <!-- composer-geometry-0810-current-prompt:start -->
-## Current prompt — continue from delivered 0.8.10 into the Menus candidate
+## Historical prompt — continue from delivered 0.8.10 into the Menus candidate
 
 Read live `main` and `docs/releases/0.8.10-composer-geometry.md` with its CI/delivery JSON companions. Version **0.8.10 / Build 20261020.11** is verified, merged through PR #26 at `a98847d032a50eabfbd117ade9cdce63de5c25c3` and delivered. Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual seven-job checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and the merge share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. All seven required jobs and 66 configured steps passed in run 39517748806. Actual browser-artifact acceptance covers 52 scene comparisons, 24 footer layouts, eight new-tab clicks, eight empty-catalogue observations and 34 decoded PNGs. Saved downloads were retrieved and compared literally at `2026-10-21T00:25:31.617514+00:00`. Preserve the completed scene/footer behavior and its existing scene data; do not repeat this correction or the completed 0.8.9 history work.
 

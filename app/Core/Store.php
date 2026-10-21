@@ -16,6 +16,7 @@ final class Store
     use AddonLicensingStoreTrait;
     use CommunicationStoreTrait;
     use BookingFormStoreTrait;
+    use MenuStoreTrait;
 
     private readonly string $mode;
     private ?Database $database = null;

@@ -71,11 +71,18 @@ if (!is_array($gallery) || (float) ($gallery['standardPrice'] ?? 0) <= 0) {
 }
 
 $header = (string) file_get_contents($root . '/app/Views/public/partials/navigation.php');
-foreach (["'shop' => ['Store', 'shop/']", 'base_url($path)', "base_url('cart/')", 'cart_service()->count()'] as $needle) {
+foreach (["base_url('cart/')", 'cart_service()->count()'] as $needle) {
     if (!str_contains($header, $needle)) {
         fwrite(STDERR, "Public header is missing commerce navigation behavior: {$needle}\n");
         exit(1);
     }
+}
+require_once $root . '/app/Core/MenuService.php';
+$shopLinks = array_values(array_filter(App\Core\MenuService::defaults('header'),
+    static fn(array $item): bool => $item['label'] === 'Store' && $item['url'] === 'shop/'));
+if (count($shopLinks) !== 1) {
+    fwrite(STDERR, "The original public header must retain its Store destination.\n");
+    exit(1);
 }
 
 echo "Subscriptions & PPV Commerce feature test passed.\n";

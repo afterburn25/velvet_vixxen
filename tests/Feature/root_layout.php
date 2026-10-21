@@ -60,6 +60,17 @@ namespace {
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
         'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php',
+        'app/Core/MenuService.php',
+        'app/Core/MenuStoreTrait.php',
+        'app/Support/menu_admin.php',
+        'app/Views/admin/menus-actions.php',
+        'app/Views/admin/menus.php',
+        'app/Views/public/partials/menu-items.php',
+        'public/assets/css/menu-admin.css',
+        'public/assets/css/navigation.css',
+        'public/assets/css/site-ux.css',
+        'public/assets/js/menu-admin.js',
+        'public/assets/js/navigation.js',
     ];
     $freshRoots = ['addons', 'admin', 'app', 'config', 'database', 'images', 'includes', 'install', 'public', 'storage', 'templates', 'uploads', 'vendor'];
     $newRoot = static function (string $name, bool $seedOld = true) use ($source, $fixtures, $old, $required, $write, $freshRoots): string {

@@ -1,3 +1,23 @@
+Candidate release: 0.8.11 / Build 20261020.12 — Editable navigation menus
+State: final local source/package, HTTP and browser acceptance passed; source publication, required CI, merge and saved-download delivery pending.
+Base: 35dceb4a8d197ce23ea866e2e382f2bc14ace629
+Branch: feature/0.8.11-menu-editor
+Runtime delta: 23 changed entries, including 10 new; 350 unchanged Fresh entries; no removals.
+Fresh 373 / Upgrade 332 entries; exact 13/9 root directories and four root files; changed ZIP timestamp 2026-10-21 00:41:28 UTC.
+Scope: owner-editable Header/Footer menus, short-page footer placement and removal of unnecessary vertical scroll.
+Acceptance: source PHP 8.3.6; menu file 183/MySQL 179; pinned HTTP 945; browser 4 cases/72 layouts/28 tab-window-modifier clicks/4 script-free fallbacks/44 menu PNGs; separate footer 88 observations/56 fitting/32 long/16 PNGs.
+Required CI: 7 jobs/70 configured steps; all 66 prior configured steps retained in order.
+Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Fresh-Install.zip
+Bytes: 7774486; SHA-256: 1528f6c966918a5bae0f4beabb75085480fe595cf8a869b6546acfb830d5abfe
+Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Upgrade-from-0.8.x.zip
+Bytes: 7617199; SHA-256: d61cdc2dc8ed4a951f9f324e863d61f51439ce83b3cdc7a1b01f79d00191c37f
+Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+Bytes: 60065; SHA-256: f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297
+Velvet-Vixxen-0.8.11-Build-20261020.12-package-manifest.json
+Bytes: 83028; SHA-256: b91de7c359e34d75ea5b05e336effc6f197165fb79c3cd6008d0f2eb3b4b837d
+Evidence: docs/releases/0.8.11-menus.md
+Latest completed release and historical records follow.
+
 VELVET VIXXEN 0.8.10 — BUILD 20261020.11 VERIFIED, MERGED AND DELIVERED
 
 Source: 3357cb048a25d134f1702a48113ecde9025c16ed

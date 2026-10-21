@@ -242,19 +242,6 @@
     });
   }
 
-  const menuButton = document.getElementById('mobileMenu');
-  const nav = document.getElementById('primaryNav');
-  menuButton?.addEventListener('click', () => {
-    const open = nav?.classList.toggle('open') || false;
-    menuButton.setAttribute('aria-expanded', String(open));
-    document.body.classList.toggle('menu-open', open);
-  });
-  nav?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuButton?.setAttribute('aria-expanded', 'false');
-    document.body.classList.remove('menu-open');
-  }));
-
   const modal = document.getElementById('trailerModal');
   const trailerVideo = modal?.querySelector('video');
   const closeTrailer = () => { if (!modal) return; modal.hidden = true; trailerVideo?.pause(); };

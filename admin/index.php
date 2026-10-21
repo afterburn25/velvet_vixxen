@@ -58,6 +58,36 @@ if ($page === 'update-status') {
     redirect(base_url('admin/repair.php'));
 }
 $user = app_auth()->user();
+$menuActions = ['menu_save', 'menu_reset'];
+$isMenuRequest = $page === 'menus'
+    || in_array(is_string($_POST['action'] ?? null) ? $_POST['action'] : '', $menuActions, true);
+$menuAttemptedJson = null;
+$menuAttemptedRevision = null;
+if ($isMenuRequest) {
+    header('Cache-Control: no-store, private, max-age=0');
+    header('Pragma: no-cache');
+    require_once root_path('app/Support/menu_admin.php');
+    try {
+        vvx_menu_require_owner();
+    } catch (Throwable) {
+        http_response_code(403);
+        exit('Only the active site owner can manage menus.');
+    }
+    if (!in_array((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'POST'], true)) {
+        header('Allow: GET, POST');
+        http_response_code(405);
+        exit('Method not allowed.');
+    }
+    if ($page !== 'menus') {
+        http_response_code(400);
+        exit('Open Menus to change the public navigation.');
+    }
+    try { $menuLocation = vvx_menu_request_location(); }
+    catch (Throwable) {
+        http_response_code(400);
+        exit('Choose the Header or Footer menu.');
+    }
+}
 $marketingStorageActions = ['preview_marketing_storage', 'migrate_marketing_storage'];
 $isMarketingStorageRequest = $page === 'marketing-storage'
     || in_array(is_string($_POST['action'] ?? null) ? $_POST['action'] : '', $marketingStorageActions, true);
@@ -116,7 +146,27 @@ $addonUpdateService = addon_update_service();
 $addonReview = null;
 $repairService = new RepairBackupService(ROOT_PATH);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMarketingStorageRequest) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMenuRequest) {
+    // Keep the owner edit available even if its form token has expired.
+    $menuAttemptedJson = is_string($_POST['menu_json'] ?? null) ? $_POST['menu_json'] : null;
+    $menuAttemptedRevision = is_string($_POST['revision'] ?? null) ? $_POST['revision'] : null;
+    try {
+        if (!verify_csrf()) {
+            http_response_code(419);
+            throw new RuntimeException('Your session token expired. Refresh the page and try again.');
+        }
+        require root_path('app/Views/admin/menus-actions.php');
+    } catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) {
+            http_response_code(403);
+            exit('Only the active site owner can manage menus.');
+        }
+        if (http_response_code() < 400) http_response_code($caught instanceof InvalidArgumentException ? 422 : 409);
+        $error = (($caught instanceof RuntimeException && !$caught instanceof PDOException)
+            || $caught instanceof InvalidArgumentException)
+            ? $caught->getMessage() : 'The menu could not be saved. Reload the saved menu before trying again.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMarketingStorageRequest) {
     try {
         if (!verify_csrf()) {
             http_response_code(419);
@@ -769,6 +819,7 @@ $success = flash('success');
 $pageTitles = [
     'dashboard' => 'Dashboard',
     'composer' => 'Visual Composer',
+    'menus' => 'Menus',
     'about' => 'About Me',
     'merchandise' => 'Merchandise',
     'marketing' => 'Marketing & Publishing',
@@ -807,6 +858,7 @@ $title = $pageTitles[$page] ?? 'Page not found';
 $nav = [
     'dashboard' => ['⌂', 'Dashboard'],
     'composer' => ['✦', 'Visual Composer'],
+    'menus' => ['☷', 'Menus'],
     'about' => ['♡', 'About Me'],
     'merchandise' => ['▱', 'Merchandise'],
     'marketing' => ['↗', 'Marketing & Publishing'],
@@ -842,7 +894,7 @@ foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
@@ -858,6 +910,8 @@ require root_path('app/Views/admin/mail-settings.php'); ?>
 require root_path('app/Views/admin/marketing-storage.php'); ?>
 <?php elseif ($page === 'about'):
 require root_path('app/Views/admin/about.php'); ?>
+<?php elseif ($page === 'menus'):
+require root_path('app/Views/admin/menus.php'); ?>
 <?php elseif ($page === 'merchandise'):
 require root_path('app/Views/admin/merchandise.php'); ?>
 <?php elseif ($page === 'composer'):
@@ -893,4 +947,4 @@ require root_path('app/Views/admin/database-updates.php'); ?>
 $site = (array)$store->setting('site',[]); ?>
 <form method="post" class="settings-grid"><?= csrf_field() ?><input type="hidden" name="action" value="save_site_settings"><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Brand</span><h2>Public site text</h2></div></div><label>Brand name<input name="brand_name" value="<?= e((string)($site['brand_name']??'Nikki Wilder')) ?>" required></label><label>Brand subtitle<input name="brand_subtitle" value="<?= e((string)($site['brand_subtitle']??'The Velvet Vixxen')) ?>" required></label><label>Hero tagline<input name="tagline" value="<?= e((string)($site['tagline']??'Bolder. Sexier. Closer.')) ?>" required></label><label>Hero supporting copy<textarea name="hero_copy" rows="4"><?= e((string)($site['hero_copy']??'')) ?></textarea></label></section><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Public behavior</span><h2>Homepage options</h2></div></div><label class="toggle-row"><input type="checkbox" name="age_gate_enabled" <?= !empty($site['age_gate_enabled'])?'checked':'' ?>><span><b>18+ entry confirmation</b><small>Show the age-confirmation dialog to new visitors.</small></span></label><label class="toggle-row"><input type="checkbox" name="newsletter_enabled" <?= !empty($site['newsletter_enabled'])?'checked':'' ?>><span><b>Newsletter form</b><small>Display the public email subscription panel.</small></span></label><div class="settings-note"><strong>Canva API status:</strong><span>Manual template-link and export import workflow is active. OAuth synchronization remains a future integration milestone because it requires your Canva developer credentials.</span></div><button class="admin-button primary full">Save Settings</button></section></form>
 <?php else: ?><div class="admin-card"><h2>Page not found</h2></div><?php endif; ?>
-</main></div><script src="<?= e(asset_url('js/api-client.js')) ?>" defer></script><script src="<?= e(asset_url('js/admin.js')) ?>" defer></script><?php if ($page === 'composer'): ?><script src="<?= e(asset_url('js/scene-geometry.js')) ?>" defer></script><script src="<?= e(asset_url('js/composer.js')) ?>" defer></script><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><script src="<?= e(asset_url('js/admin-media.js')) ?>" defer></script><?php endif; ?><?php if ($page === 'mail-settings'): ?><script src="<?= e(asset_url('js/mail-settings.js')) ?>" defer></script><?php endif; ?><script src="<?= e(asset_url('js/admin-ux.js')) ?>" defer></script></body></html>
+</main></div><script src="<?= e(asset_url('js/api-client.js')) ?>" defer></script><script src="<?= e(asset_url('js/admin.js')) ?>" defer></script><?php if ($page === 'composer'): ?><script src="<?= e(asset_url('js/scene-geometry.js')) ?>" defer></script><script src="<?= e(asset_url('js/composer.js')) ?>" defer></script><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><script src="<?= e(asset_url('js/admin-media.js')) ?>" defer></script><?php endif; ?><?php if ($page === 'mail-settings'): ?><script src="<?= e(asset_url('js/mail-settings.js')) ?>" defer></script><?php endif; ?><?php if ($page === 'menus'): ?><script src="<?= e(asset_url('js/menu-admin.js')) ?>" defer></script><?php endif; ?><script src="<?= e(asset_url('js/admin-ux.js')) ?>" defer></script></body></html>
