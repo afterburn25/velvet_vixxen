@@ -15,13 +15,48 @@ if (($_GET['page'] ?? null) === 'marketing-history') {
     exit;
 }
 $isEditorialCalendar = ($_GET['page'] ?? null) === 'marketing' && ($_GET['tab'] ?? null) === 'calendar';
-// Calendar reads do not boot add-ons, dispatch actions or initialize publishing data.
-require ROOT_PATH . ($isEditorialCalendar ? '/includes/bootstrap.php' : '/app/bootstrap.php');
+// Load the session before resolving a remembered page. Calendar and schedule
+// reads must not boot extensions, including a return to the remembered page.
+require ROOT_PATH . '/includes/bootstrap.php';
+$requestedAdminPage = $_GET['page'] ?? ($_SESSION['admin_last_pages'][(string) ($_SESSION['admin']['id'] ?? '')] ?? 'dashboard');
+$isSceneScheduleRequest = $requestedAdminPage === 'scene-schedules'
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'scene_schedule_'));
+$skipAdminExtensions = $isEditorialCalendar || $isSceneScheduleRequest;
+if (!$skipAdminExtensions) require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
 use App\Core\MediaAdminService;
 use App\Core\MailService;
 use App\Core\RepairBackupService;
+
+if ($isSceneScheduleRequest) {
+    header('Cache-Control: no-store, private, max-age=0');
+    header('Pragma: no-cache');
+    header('X-Robots-Tag: noindex, nofollow');
+    header('Referrer-Policy: no-referrer');
+    require_once ROOT_PATH . '/app/Support/scene_schedule_admin.php';
+    try {
+        if (!is_installed()) throw new RuntimeException('Installation is unavailable.');
+        vvx_scene_schedule_require_owner();
+    } catch (Throwable) {
+        http_response_code(403);
+        exit('Only the active site owner can manage scene schedules.');
+    }
+    if (!in_array((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'POST'], true)) {
+        header('Allow: GET, POST');
+        http_response_code(405);
+        exit('Method not allowed.');
+    }
+    if ($requestedAdminPage !== 'scene-schedules') {
+        http_response_code(400);
+        exit('Open Scene schedules to schedule or run a scene change.');
+    }
+    try { $sceneScheduleSection = vvx_scene_schedule_section(); }
+    catch (Throwable) {
+        http_response_code(400);
+        exit('Choose the Homepage Hero or Visual Footer scene.');
+    }
+}
 
 if ($isEditorialCalendar) {
     require_once ROOT_PATH . '/includes/marketing.php';
@@ -177,14 +212,33 @@ if ($page === 'mail-settings') {
     }
 }
 $store = app_store();
-$addonManager = $isEditorialCalendar ? null : addon_manager();
-$licenseHub = $isEditorialCalendar ? null : addon_license_hub();
-$licenseClient = $isEditorialCalendar ? null : addon_license_client();
-$addonUpdateService = $isEditorialCalendar ? null : addon_update_service();
+$addonManager = $skipAdminExtensions ? null : addon_manager();
+$licenseHub = $skipAdminExtensions ? null : addon_license_hub();
+$licenseClient = $skipAdminExtensions ? null : addon_license_client();
+$addonUpdateService = $skipAdminExtensions ? null : addon_update_service();
 $addonReview = null;
-$repairService = $isEditorialCalendar ? null : new RepairBackupService(ROOT_PATH);
+$repairService = $skipAdminExtensions ? null : new RepairBackupService(ROOT_PATH);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMenuRequest) {
+$sceneScheduleAttempted = null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSceneScheduleRequest) {
+    if (($_POST['action'] ?? null) === 'scene_schedule_create') $sceneScheduleAttempted = vvx_scene_schedule_attempt();
+    try {
+        if (!verify_csrf()) {
+            http_response_code(419);
+            throw new RuntimeException('Your session token expired. Reload this page and try again.');
+        }
+        require root_path('app/Views/admin/scene-schedules-actions.php');
+    } catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) {
+            http_response_code(403);
+            exit('Only the active site owner can manage scene schedules.');
+        }
+        if (http_response_code() < 400) http_response_code($caught instanceof InvalidArgumentException ? 422 : 409);
+        $error = (($caught instanceof RuntimeException && !$caught instanceof PDOException)
+            || $caught instanceof InvalidArgumentException)
+            ? $caught->getMessage() : 'The schedule could not be saved. Reload the saved scene before trying again.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMenuRequest) {
     // Keep the owner edit available even if its form token has expired.
     $menuAttemptedJson = is_string($_POST['menu_json'] ?? null) ? $_POST['menu_json'] : null;
     $menuAttemptedRevision = is_string($_POST['revision'] ?? null) ? $_POST['revision'] : null;
@@ -853,10 +907,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMenuRequest) {
     }
 }
 
+if ($isSceneScheduleRequest) {
+    try {
+        $sceneScheduleSnapshot = $store->sceneSchedule($sceneScheduleSection);
+        vvx_scene_schedule_require_owner();
+    } catch (Throwable $caught) {
+        http_response_code((int) $caught->getCode() === 403 ? 403 : 503);
+        exit((int) $caught->getCode() === 403
+            ? 'Only the active site owner can manage scene schedules.'
+            : 'The saved scene schedules could not be read. Your scenes were not changed. Check storage and reload this page.');
+    }
+}
+
 $success = flash('success');
 $pageTitles = [
     'dashboard' => 'Dashboard',
     'composer' => 'Visual Composer',
+    'scene-schedules' => 'Scene schedules',
     'menus' => 'Menus',
     'about' => 'About Me',
     'merchandise' => 'Merchandise',
@@ -888,7 +955,7 @@ $pageTitles = [
     'repair-backups' => 'Repair Backups',
     'database-updates' => 'Database Updates',
 ];
-foreach (($isEditorialCalendar ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
+foreach (($skipAdminExtensions ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
     $pageTitles[$addonPageKey] = (string) $addonPage['label'];
 }
 if (isset($pageTitles[$page])) $_SESSION['admin_last_pages'][(string) $user['id']] = $page;
@@ -896,6 +963,7 @@ $title = $pageTitles[$page] ?? 'Page not found';
 $nav = [
     'dashboard' => ['⌂', 'Dashboard'],
     'composer' => ['✦', 'Visual Composer'],
+    'scene-schedules' => ['◷', 'Scene schedules'],
     'menus' => ['☷', 'Menus'],
     'about' => ['♡', 'About Me'],
     'merchandise' => ['▱', 'Merchandise'],
@@ -927,7 +995,7 @@ $nav = [
     'repair-backups' => ['↺', 'Repair Backups'],
     'database-updates' => ['↑', 'Database Updates'],
 ];
-foreach (($isEditorialCalendar ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
+foreach (($skipAdminExtensions ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
     $nav[$addonPageKey] = [(string)$addonPage['icon'], (string)$addonPage['label']];
 }
 if ($page === 'marketing' && !velvet_marketing_is_owner()) {
@@ -936,7 +1004,7 @@ if ($page === 'marketing' && !velvet_marketing_is_owner()) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
@@ -958,6 +1026,8 @@ require root_path('app/Views/admin/menus.php'); ?>
 require root_path('app/Views/admin/merchandise.php'); ?>
 <?php elseif ($page === 'composer'):
 require root_path('app/Views/admin/composer.php'); ?>
+<?php elseif ($page === 'scene-schedules'):
+require root_path('app/Views/admin/scene-schedules.php'); ?>
 <?php elseif (in_array($page, ['music', 'galleries', 'videos'], true)):
 require root_path('app/Views/admin/media-center.php'); ?>
 <?php elseif (in_array($page, ['members', 'plans', 'entitlements'], true)):

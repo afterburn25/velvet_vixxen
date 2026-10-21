@@ -152,6 +152,18 @@ class RuntimeInventoryService
                 'public/assets/css/marketing-calendar.css',
             ]);
         }
+        // Scene scheduling first ships in 0.8.14; prior inventories keep their own floor.
+        if (version_compare($data['version'], '0.8.14', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, [
+                'app/Core/SceneSchedule.php',
+                'app/Core/SceneScheduleStoreTrait.php',
+                'app/Console/run_scenes.php',
+                'app/Support/scene_schedule_admin.php',
+                'app/Views/admin/scene-schedules-actions.php',
+                'app/Views/admin/scene-schedules.php',
+                'public/assets/css/scene-schedules.css',
+            ]);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

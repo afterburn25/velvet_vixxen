@@ -44,7 +44,7 @@ $calendarActionLabel = static fn(string $action): string => ucfirst(str_replace(
       <input type="hidden" name="page" value="marketing">
       <input type="hidden" name="tab" value="calendar">
       <label>Month<input type="month" name="month" min="1970-01" max="9998-12" value="<?= velvet_marketing_escape($editorialCalendar['month']) ?>" required></label>
-      <label>Content type<select name="type"><?php foreach ($calendarTypes as $typeKey => $typeLabel): ?><option value="<?= velvet_marketing_escape($typeKey) ?>" <?= $calendarSelectedType === $typeKey ? 'selected' : '' ?>><?= velvet_marketing_escape($typeLabel) ?></option><?php endforeach; ?></select></label>
+      <label><span id="calendar-type-label">Content type</span><select name="type" aria-labelledby="calendar-type-label"><?php foreach ($calendarTypes as $typeKey => $typeLabel): ?><option value="<?= velvet_marketing_escape($typeKey) ?>" <?= $calendarSelectedType === $typeKey ? 'selected' : '' ?>><?= velvet_marketing_escape($typeLabel) ?></option><?php endforeach; ?></select></label>
       <button class="marketing-button" type="submit">Show calendar</button>
     </form>
     <div class="marketing-calendar-monthbar">

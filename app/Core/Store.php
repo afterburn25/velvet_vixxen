@@ -17,6 +17,7 @@ final class Store
     use CommunicationStoreTrait;
     use BookingFormStoreTrait;
     use MenuStoreTrait;
+    use SceneScheduleStoreTrait;
 
     private readonly string $mode;
     private ?Database $database = null;
@@ -141,8 +142,8 @@ final class Store
         if ($this->mode === 'file') {
             $data = $this->readFileStore();
             $scene = $data['scenes'][$section] ?? [];
-            if ($publishedOnly && isset($scene['published'])) {
-                return (array) $scene['published'];
+            if ($publishedOnly) {
+                return (array) ($scene['published'] ?? []);
             }
             return (array) ($scene['draft'] ?? $scene['published'] ?? []);
         }
@@ -157,53 +158,22 @@ final class Store
         return $json !== false ? safe_json_decode((string) $json) : [];
     }
 
-    public function saveScene(string $section, array $scene, bool $publish = false, ?int $adminId = null): int|string
+    public function saveScene(string $section, array $scene, bool $publish = false, ?int $adminId = null, ?array $ownerIdentity = null): int|string
     {
+        $section = SceneSchedule::section($section);
         $scene = SceneButton::validateScene($scene);
         $scene = SceneDepth::validateScene($scene, $section);
         $scene['section'] = $section;
         $scene['updatedAt'] = now_iso();
-        if ($this->mode === 'file') {
-            $data = $this->readFileStore();
-            $current = $data['scenes'][$section] ?? ['draft' => [], 'published' => [], 'versions' => []];
-            $current['draft'] = $scene;
-            if ($publish) {
-                $current['published'] = $scene;
-                $current['versions'][] = [
-                    'id' => bin2hex(random_bytes(6)),
-                    'publishedAt' => now_iso(),
-                    'scene' => $scene,
-                ];
-                $current['versions'] = array_slice($current['versions'], -20);
-            }
-            $data['scenes'][$section] = $current;
-            $this->writeFileStore($data);
-            return (string) ($current['versions'][array_key_last($current['versions'])]['id'] ?? 'draft');
-        }
-        $pdo = $this->pdo();
-        $pdo->beginTransaction();
-        try {
-            $status = $publish ? 'published' : 'draft';
-            if (!$publish) {
-                $delete = $pdo->prepare("DELETE FROM scenes WHERE section_key = ? AND status = 'draft'");
-                $delete->execute([$section]);
-            }
-            $stmt = $pdo->prepare('INSERT INTO scenes (section_key, status, scene_json, created_by, created_at, updated_at) VALUES (?, ?, ?, ?, NOW(), NOW())');
-            $stmt->execute([$section, $status, json_encode($scene, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $adminId]);
-            $id = (int) $pdo->lastInsertId();
-            if ($publish) {
-                $pdo->prepare("DELETE FROM scenes WHERE section_key = ? AND status = 'draft'")->execute([$section]);
-                $copy = $pdo->prepare('INSERT INTO scenes (section_key, status, scene_json, created_by, created_at, updated_at) VALUES (?, \'draft\', ?, ?, NOW(), NOW())');
-                $copy->execute([$section, json_encode($scene, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $adminId]);
-                $version = $pdo->prepare('INSERT INTO scene_versions (scene_id, section_key, scene_json, created_by, created_at) VALUES (?, ?, ?, ?, NOW())');
-                $version->execute([$id, $section, json_encode($scene, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), $adminId]);
-            }
-            $pdo->commit();
-            return $id;
-        } catch (Throwable $e) {
-            $pdo->rollBack();
-            throw $e;
-        }
+        $result = $this->mutateSceneSection($section, $ownerIdentity,
+            function (array &$state, array &$scenes, ?array &$data, ?PDO $pdo) use ($section, $scene, $publish, $adminId): int|string {
+                $id = $this->writeSceneAtomic($section, $scene, $publish, true, $adminId, $scenes, $pdo);
+                if ($publish && $state['schedule'] !== null) {
+                    $this->finishSceneSchedule($state, 'superseded', 'A manual publication replaced this schedule. Automatic activation or return was cancelled.', time());
+                }
+                return $id;
+            });
+        return $result['result'];
     }
 
     public function sceneVersions(string $section, int $limit = 20): array
@@ -221,13 +191,13 @@ final class Store
         ], $stmt->fetchAll());
     }
 
-    public function restoreScene(string $section, string|int $versionId, ?int $adminId = null): array
+    public function restoreScene(string $section, string|int $versionId, ?int $adminId = null, ?array $ownerIdentity = null): array
     {
         $versions = $this->sceneVersions($section, 50);
         foreach ($versions as $version) {
             if ((string) ($version['id'] ?? '') === (string) $versionId) {
                 $scene = (array) ($version['scene'] ?? []);
-                $this->saveScene($section, $scene, true, $adminId);
+                $this->saveScene($section, $scene, true, $adminId, $ownerIdentity);
                 return $scene;
             }
         }
@@ -435,12 +405,12 @@ final class Store
      * share the same lock. The callback must change the supplied array only;
      * calling another writer inside it would make rollback ambiguous.
      */
-    public function mutateFileStore(callable $mutation): mixed
+    public function mutateFileStore(callable $mutation, bool $waitForLock = false): mixed
     {
         if ($this->mode !== 'file' || $this->fileMutationActive) {
             throw new RuntimeException('This file data mutation is not available.');
         }
-        $lock = $this->lockFileStore();
+        $lock = $this->lockFileStore($waitForLock);
         $this->fileMutationActive = true;
         try {
             $this->initializeFileStore();
@@ -552,7 +522,7 @@ final class Store
     }
 
     /** @return resource */
-    private function lockFileStore()
+    private function lockFileStore(bool $waitForLock = false)
     {
         $this->assertFileStorePath();
         $directory = dirname($this->filePath);
@@ -568,11 +538,14 @@ final class Store
             throw new RuntimeException('Unable to lock file data storage.');
         }
         @chmod($path, 0640);
-        if (!flock($lock, LOCK_EX | LOCK_NB)) {
-            fclose($lock);
-            throw new RuntimeException('File data is being updated. Reload and try again.');
-        }
-        return $lock;
+        $deadline = microtime(true) + ($waitForLock ? 2.0 : 0.0);
+        do {
+            if (flock($lock, LOCK_EX | LOCK_NB)) return $lock;
+            if (!$waitForLock || microtime(true) >= $deadline) break;
+            usleep(10000);
+        } while (true);
+        fclose($lock);
+        throw new RuntimeException('File data is being updated. Reload and try again.', 409);
     }
 
     private function emptyFileStore(): array

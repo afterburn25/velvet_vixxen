@@ -31,7 +31,7 @@
   const library = seed.library || {scenes: [], categories: [], warnings: [], unavailable: []};
   let assetsTab = library.scenes?.length ? 'library' : 'media';
   let saving = false;
-  let section = 'hero';
+  let section = seed.initialSection === 'footer' ? 'footer' : 'hero';
   let device = 'desktop';
   let selectedId = null;
   let selectedTarget = 'none';
@@ -1852,6 +1852,10 @@
       previewDrafts();
       return;
     }
+    if (action === 'schedule') {
+      scheduleDrafts();
+      return;
+    }
     if (action === 'save' || action === 'publish') {
       runSave(action);
       return;
@@ -1944,7 +1948,7 @@
   }
 
   function updateSaveControls() {
-    root.querySelectorAll('[data-action="save"], [data-action="publish"], [data-action="preview"], [data-restore-version]').forEach((button) => {
+    root.querySelectorAll('[data-action="save"], [data-action="publish"], [data-action="preview"], [data-action="schedule"], [data-restore-version]').forEach((button) => {
       button.disabled = saving || foregroundBusy();
       button.title = foregroundBusy() ? 'Finish or cancel the foreground outline first.' : '';
     });
@@ -1981,6 +1985,22 @@
     } catch (error) {
       setStatus(error.message, 'error');
     } finally {
+      setSaving(false);
+    }
+  }
+
+  async function scheduleDrafts() {
+    if (saving || foregroundBusy()) return;
+    const targetSection = section;
+    const drafts = clone(scenes);
+    setSaving(true);
+    setStatus('Saving both drafts before choosing your schedule…', 'busy');
+    try {
+      await saveScene('save', 'hero', drafts.hero);
+      await saveScene('save', 'footer', drafts.footer);
+      window.location.assign(`${baseUrl}/admin/?page=scene-schedules&section=${targetSection}`);
+    } catch (error) {
+      setStatus(error.message, 'error');
       setSaving(false);
     }
   }

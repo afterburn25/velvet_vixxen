@@ -30,6 +30,10 @@ final class MarketingCalendar
         [$month, $type] = self::selection($month, $type, $now);
         $marketing = (new MarketingStorage(defined('ROOT_PATH') ? ROOT_PATH : null))->peek() ?? [];
         $records = $store->calendarRecords();
+        $schedules = $store->sceneScheduleCalendarRecords();
+        foreach (['hero', 'footer'] as $section) {
+            $records['scenes'][$section]['schedules'] = $schedules[$section] ?? [];
+        }
         return self::build($marketing, $records['media'], $records['scenes'], $month, $type, $now);
     }
 
@@ -44,7 +48,7 @@ final class MarketingCalendar
                 'This calendar reads saved dates and current states. Opening it does not publish content, queue recipients or send email.',
                 'Scheduled media needs Publish Due or the configured media worker. Both its scheduled date and publish date must be due.',
                 'Campaign dates are plans. Drafts must be queued, paused campaigns stay paused, and queued delivery still requires the email runner and current consent checks.',
-                'Hero and Footer show retained publication history and saved drafts. Automatic Composer scheduling, activation and expiry are separately pending.',
+                'Composer scheduling runs only through Run due scenes now or the configured scene worker. Scheduled start and end dates are plans; their saved states show what has run. Publication history and saved drafts remain separate.',
             ]];
 
         foreach (['posts', 'landing_pages', 'banners'] as $collection) {
@@ -150,8 +154,45 @@ final class MarketingCalendar
                 if (($saved['draft'] ?? false) === true) {
                     self::append($result, ['key' => 'scenes:' . $section . ':draft', 'source_id' => $section,
                         'type' => 'scenes', 'type_label' => self::TYPES['scenes'], 'title' => $title,
-                        'state' => 'Draft', 'detail' => 'Saved Composer draft. Publish deliberately in Composer; there is no automatic scene schedule.',
+                        'state' => 'Draft', 'detail' => 'Saved Composer draft. Publish in Composer or create a separate schedule from this saved draft.',
                         'edit_path' => 'admin/?page=composer', 'edit_label' => 'Open Composer'], 'draft', null, $zone);
+                }
+                [$scheduleRows, $scheduleCounts] = self::records(is_array($saved) ? ($saved['schedules'] ?? []) : [], true);
+                foreach ($scheduleRows as $index => $row) {
+                    $base = self::record('scenes', 'scene-schedules-' . $section, $row, $scheduleCounts, $index,
+                        $row['snapshotTitle'] ?? $title, true);
+                    $base['edit_label'] = 'Open scene schedule';
+                    $base['edit_path'] = $base['edit_path'] !== '' ? 'admin/?page=scene-schedules&section=' . $section : '';
+                    try {
+                        if ($base['edit_path'] === '' || ($row['section'] ?? null) !== $section) {
+                            $base['edit_path'] = '';
+                            throw new InvalidArgumentException('The saved schedule identity or scene section needs review.');
+                        }
+                        $start = MarketingPublication::storedDate($row['startsAt'] ?? null);
+                        $end = MarketingPublication::storedDate($row['endsAt'] ?? null);
+                        if ($start === null || ($end !== null && $end <= $start)) {
+                            throw new InvalidArgumentException('The saved scene schedule dates need review.');
+                        }
+                        $policy = $row['returnPolicy'] ?? null;
+                        if (!in_array($policy, ['keep', 'restore_previous'], true) || ($policy === 'restore_previous' && $end === null)) {
+                            throw new InvalidArgumentException('The saved scene return choice needs review.');
+                        }
+                        $base['state'] = match ($row['status'] ?? null) {
+                            'scheduled' => $start <= $now ? 'Due — awaiting scene runner' : 'Scheduled',
+                            'processing' => 'In progress',
+                            'active' => $end !== null && $end <= $now ? 'Live — awaiting end processing' : 'Live · awaiting end time',
+                            'completed' => 'Completed', 'expired' => 'Ended', 'cancelled' => 'Cancelled',
+                            'superseded' => 'Replaced by a manual publication', 'skipped' => 'Skipped', 'held' => 'Needs attention',
+                            default => throw new InvalidArgumentException('The saved scene schedule state needs review.'),
+                        };
+                        $base['detail'] = $policy === 'restore_previous'
+                            ? 'Scheduled copy of a saved draft. At the end, return to the previous live scene only if no later manual publication replaced it.'
+                            : 'Scheduled copy of a saved draft. Keep the scheduled scene after its end; later manual publications take precedence.';
+                        self::append($result, $base, 'scene_start', $start, $zone);
+                        if ($end !== null) self::append($result, $base, 'scene_end', $end, $zone);
+                    } catch (InvalidArgumentException $error) {
+                        self::review($result, $base, $error->getMessage());
+                    }
                 }
             }
         }

@@ -26,6 +26,13 @@ try {
     $files = ['admin/update.php', 'admin/index.php', 'app/Core/RuntimeBuildService.php', 'includes/version.php',
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
         'app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js',
+        'app/Core/SceneSchedule.php',
+        'app/Core/SceneScheduleStoreTrait.php',
+        'app/Console/run_scenes.php',
+        'app/Support/scene_schedule_admin.php',
+        'app/Views/admin/scene-schedules-actions.php',
+        'app/Views/admin/scene-schedules.php',
+        'public/assets/css/scene-schedules.css',
         'app/Core/MarketingCalendar.php',
         'app/Views/admin/media-center.php',
         'app/Core/MarketingPublication.php',
@@ -113,6 +120,23 @@ try {
         $status = $service->inspect();
         $assert(!$status['files_match'] && $status['problems'][0]['path'] === $dependency, 'Missing scene depth dependency must be identified: ' . $dependency);
         $reject(static fn() => $service->refreshPhpCache(), 'Missing scene depth dependencies must block cache activation.');
+        copy($source . '/' . $dependency, $fixture . '/' . $dependency);
+    }
+
+    $scheduleDependencies = [
+        'app/Core/SceneSchedule.php',
+        'app/Core/SceneScheduleStoreTrait.php',
+        'app/Console/run_scenes.php',
+        'app/Support/scene_schedule_admin.php',
+        'app/Views/admin/scene-schedules-actions.php',
+        'app/Views/admin/scene-schedules.php',
+        'public/assets/css/scene-schedules.css',
+    ];
+    foreach ($scheduleDependencies as $dependency) {
+        unlink($fixture . '/' . $dependency);
+        $status = $service->inspect();
+        $assert(!$status['files_match'] && $status['problems'][0]['path'] === $dependency, 'Missing scene scheduling dependency must be identified: ' . $dependency);
+        $reject(static fn() => $service->refreshPhpCache(), 'Missing scene scheduling dependencies must block cache activation.');
         copy($source . '/' . $dependency, $fixture . '/' . $dependency);
     }
 
@@ -220,6 +244,19 @@ try {
     $write($beforeCalendar);
     $legacyCalendar = $service->inspect();
     $assert($legacyCalendar['files_match'] && !$legacyCalendar['running_build_matches'] && $legacyCalendar['version'] === '0.8.12', 'A pre-calendar inventory remains inspectable without the later calendar dependency floor.');
+    foreach ($scheduleDependencies as $dependency) {
+        $incomplete = $manifest;
+        unset($incomplete['files'][$dependency]);
+        $write($incomplete);
+        $reject(static fn() => $service->inspect(), 'Current inventory cannot omit a scheduling dependency: ' . $dependency);
+    }
+    $beforeSchedules = $manifest;
+    foreach ($scheduleDependencies as $dependency) unset($beforeSchedules['files'][$dependency]);
+    $beforeSchedules['version'] = '0.8.13';
+    $beforeSchedules['build_id'] = '20261021.2';
+    $write($beforeSchedules);
+    $legacySchedules = $service->inspect();
+    $assert($legacySchedules['files_match'] && !$legacySchedules['running_build_matches'] && $legacySchedules['version'] === '0.8.13', 'A pre-scheduling inventory remains inspectable without the new dependency floor.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');
     $reject(static fn() => $service->inspect(), 'Malformed manifest must fail readably.');
     unlink($fixture . '/includes/runtime-build.json');

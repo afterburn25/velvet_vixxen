@@ -1,3 +1,8 @@
+CANDIDATE 0.8.14 / Build 20261021.3 — Scheduled Composer scenes
+Baseline main: b3e310c3da8084b13dd3ddd8d5dc653f374d5969
+Branch: feature/0.8.14-scene-schedules; scope: issue #32 under #9
+Final required CI, merge and saved-download evidence pending. Preserve historical records below.
+
 <!-- editorial-calendar-0813:start -->
 VELVET VIXXEN 0.8.13 — BUILD 20261021.2 VERIFIED, MERGED AND DELIVERED
 PUBLISHING CALENDAR AND EXPLICIT POST EXPIRATION

@@ -126,6 +126,15 @@ CALENDAR_RUNTIME_FILES = {
     'includes/marketing_admin.php',
     'public/assets/css/marketing-calendar.css',
 }
+SCENE_SCHEDULE_RUNTIME_FILES = {
+    'app/Core/SceneSchedule.php',
+    'app/Core/SceneScheduleStoreTrait.php',
+    'app/Console/run_scenes.php',
+    'app/Support/scene_schedule_admin.php',
+    'app/Views/admin/scene-schedules-actions.php',
+    'app/Views/admin/scene-schedules.php',
+    'public/assets/css/scene-schedules.css',
+}
 DEPTH_RUNTIME_FILES = {
     'app/Core/SceneDepth.php',
     'public/assets/js/scene-depth.js',
@@ -153,9 +162,9 @@ MENU_RUNTIME_FILES = {
 }
 PRIOR_RELEASE_TIMESTAMPS = {
     '.htaccess': (2026, 10, 20, 2, 24, 0),
-    'VERSION': (2026, 10, 21, 5, 46, 42),
+    'VERSION': (2026, 10, 21, 8, 37, 20),
     'admin/addon-recovery.php': (2026, 10, 20, 5, 0, 0),
-    'admin/index.php': (2026, 10, 21, 5, 46, 42),
+    'admin/index.php': (2026, 10, 21, 8, 37, 20),
     'admin/repair.php': (2026, 10, 20, 2, 24, 0),
     'admin/update.php': (2026, 10, 20, 2, 24, 0),
     'app/Console/run_marketing.php': (2026, 10, 20, 2, 24, 0),
@@ -175,13 +184,14 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/MailSettingsService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/MarketingAccess.php': (2026, 10, 20, 17, 20, 22),
     'app/Core/MarketingAudience.php': (2026, 10, 20, 5, 20, 0),
-    'app/Core/MarketingHistory.php': (2026, 10, 20, 21, 30, 0),
+    'app/Core/MarketingCalendar.php': (2026, 10, 21, 8, 37, 20),
+    'app/Core/MarketingHistory.php': (2026, 10, 21, 8, 37, 20),
     'app/Core/MarketingMetadata.php': (2026, 10, 20, 19, 9, 10),
-    'app/Core/MarketingPublication.php': (2026, 10, 20, 21, 30, 0),
+    'app/Core/MarketingPublication.php': (2026, 10, 21, 8, 37, 20),
     'app/Core/MarketingSqlRepository.php': (2026, 10, 20, 14, 16, 8),
     'app/Core/MarketingStorage.php': (2026, 10, 20, 17, 20, 22),
     'app/Core/MarketingStorageException.php': (2026, 10, 20, 14, 16, 8),
-    'app/Core/MarketingStore.php': (2026, 10, 20, 21, 30, 0),
+    'app/Core/MarketingStore.php': (2026, 10, 21, 8, 37, 20),
     'app/Core/MediaAdminService.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaInput.php': (2026, 10, 20, 3, 48, 0),
     'app/Core/MediaStoreTrait.php': (2026, 10, 20, 19, 9, 10),
@@ -193,10 +203,10 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Core/RepairBackupService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/RootLayoutService.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/RuntimeBuildService.php': (2026, 10, 20, 2, 24, 0),
-    'app/Core/RuntimeInventoryService.php': (2026, 10, 21, 5, 46, 42),
+    'app/Core/RuntimeInventoryService.php': (2026, 10, 21, 8, 37, 20),
     'app/Core/SceneButton.php': (2026, 10, 20, 2, 24, 0),
     'app/Core/SceneDepth.php': (2026, 10, 21, 5, 46, 42),
-    'app/Core/Store.php': (2026, 10, 21, 5, 46, 42),
+    'app/Core/Store.php': (2026, 10, 21, 8, 37, 20),
     'app/Support/functions.php': (2026, 10, 20, 2, 24, 0),
     'app/Support/mail_settings_admin.php': (2026, 10, 20, 2, 24, 0),
     'app/Support/marketing_storage_admin.php': (2026, 10, 20, 14, 16, 8),
@@ -212,15 +222,16 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'app/Views/admin/mail-settings.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/marketing-actions.php': (2026, 10, 20, 21, 30, 0),
     'app/Views/admin/marketing-audiences.php': (2026, 10, 20, 5, 20, 0),
+    'app/Views/admin/marketing-calendar.php': (2026, 10, 21, 8, 37, 20),
     'app/Views/admin/marketing-campaign-form.php': (2026, 10, 20, 5, 20, 0),
-    'app/Views/admin/marketing-history.php': (2026, 10, 20, 21, 30, 0),
+    'app/Views/admin/marketing-history.php': (2026, 10, 21, 8, 37, 20),
     'app/Views/admin/marketing-preview.php': (2026, 10, 20, 19, 9, 10),
-    'app/Views/admin/marketing-publication-editor.php': (2026, 10, 20, 21, 30, 0),
-    'app/Views/admin/marketing-publication-list.php': (2026, 10, 20, 21, 30, 0),
+    'app/Views/admin/marketing-publication-editor.php': (2026, 10, 21, 8, 37, 20),
+    'app/Views/admin/marketing-publication-list.php': (2026, 10, 21, 8, 37, 20),
     'app/Views/admin/marketing-storage-actions.php': (2026, 10, 20, 14, 16, 8),
     'app/Views/admin/marketing-storage.php': (2026, 10, 20, 14, 16, 8),
-    'app/Views/admin/marketing.php': (2026, 10, 20, 14, 16, 8),
-    'app/Views/admin/media-center.php': (2026, 10, 20, 3, 48, 0),
+    'app/Views/admin/marketing.php': (2026, 10, 21, 8, 37, 20),
+    'app/Views/admin/media-center.php': (2026, 10, 21, 8, 37, 20),
     'app/Views/admin/media-library.php': (2026, 10, 20, 2, 24, 0),
     'app/Views/admin/members.php': (2026, 10, 20, 3, 48, 0),
     'app/Views/admin/menus-actions.php': (2026, 10, 21, 0, 41, 28),
@@ -238,10 +249,10 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'database/migrations/202610200015_marketing_sql_storage.php': (2026, 10, 20, 14, 16, 8),
     'includes/installation_recovery.php': (2026, 10, 19, 16, 0, 0),
     'includes/marketing.php': (2026, 10, 20, 19, 9, 10),
-    'includes/marketing_admin.php': (2026, 10, 20, 21, 30, 0),
+    'includes/marketing_admin.php': (2026, 10, 21, 8, 37, 20),
     'includes/marketing_public_shell.php': (2026, 10, 20, 19, 9, 10),
-    'includes/runtime-build.json': (2026, 10, 21, 5, 46, 42),
-    'includes/version.php': (2026, 10, 21, 5, 46, 42),
+    'includes/runtime-build.json': (2026, 10, 21, 8, 37, 20),
+    'includes/version.php': (2026, 10, 21, 8, 37, 20),
     'install/index.php': (2026, 10, 20, 2, 24, 0),
     'install/services/EmailAddress.php': (2026, 10, 20, 2, 24, 0),
     'install/services/FileSystemService.php': (2026, 10, 19, 0, 0, 0),
@@ -251,6 +262,7 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/assets/css/composer.css': (2026, 10, 21, 5, 46, 42),
     'public/assets/css/installer.css': (2026, 10, 19, 16, 0, 0),
     'public/assets/css/mail-settings.css': (2026, 10, 20, 2, 24, 0),
+    'public/assets/css/marketing-calendar.css': (2026, 10, 21, 8, 37, 20),
     'public/assets/css/marketing.css': (2026, 10, 20, 21, 30, 0),
     'public/assets/css/media-admin-edit.css': (2026, 10, 20, 3, 48, 0),
     'public/assets/css/menu-admin.css': (2026, 10, 21, 0, 41, 28),
@@ -317,26 +329,27 @@ PRIOR_RELEASE_TIMESTAMPS = {
     'public/routes/videos/watch.php': (2026, 10, 20, 2, 24, 0),
     'route.php': (2026, 10, 20, 2, 24, 0),
 }
-RELEASE_TIMESTAMP = (2026, 10, 21, 8, 37, 20)
+RELEASE_TIMESTAMP = (2026, 10, 21, 16, 0, 0)
 RELEASE_FILES = {
     'VERSION',
     'admin/index.php',
+    'app/Console/run_scenes.php',
     'app/Core/MarketingCalendar.php',
-    'app/Core/MarketingHistory.php',
-    'app/Core/MarketingPublication.php',
-    'app/Core/MarketingStore.php',
     'app/Core/RuntimeInventoryService.php',
+    'app/Core/SceneSchedule.php',
+    'app/Core/SceneScheduleStoreTrait.php',
     'app/Core/Store.php',
+    'app/Support/scene_schedule_admin.php',
+    'app/Views/admin/composer.php',
     'app/Views/admin/marketing-calendar.php',
-    'app/Views/admin/marketing-history.php',
-    'app/Views/admin/marketing-publication-editor.php',
-    'app/Views/admin/marketing-publication-list.php',
-    'app/Views/admin/marketing.php',
-    'app/Views/admin/media-center.php',
-    'includes/marketing_admin.php',
+    'app/Views/admin/navigation.php',
+    'app/Views/admin/scene-schedules-actions.php',
+    'app/Views/admin/scene-schedules.php',
     'includes/runtime-build.json',
     'includes/version.php',
-    'public/assets/css/marketing-calendar.css',
+    'public/assets/css/scene-schedules.css',
+    'public/assets/js/composer.js',
+    'public/routes/api/scene.php',
 }
 REPAIR_TIMESTAMPS.update({
     relative: (2026, 10, 20, 2, 24, 0) for relative in {
@@ -402,11 +415,11 @@ echo json_encode(['file_version' => trim(file_get_contents(ROOT_PATH . '/VERSION
 
 
 def run() -> None:
-    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.12-build-20261021.1.json").read_text())
-    assert prior_release["source_commit"] == "a52747b1b20d8530b328255af740d72821eab70f"
-    assert prior_release["version"] == "0.8.12" and prior_release["build_id"] == "20261021.1"
-    assert prior_release["sha256"] == "23bbe898ab8b280f311e80f1b87e713413bd47de1c27a031b81199367c4d88b1"
-    assert prior_release["files"] == len(prior_release["entries"]) == 375, "Prior-release fixture must retain the exact delivered Fresh inventory"
+    prior_release = json.loads((ROOT / "tests/Packaging/fixtures/release-0.8.13-build-20261021.2.json").read_text())
+    assert prior_release["source_commit"] == "79a8d305e58e849c7489ba557f3cf10cffc8504d"
+    assert prior_release["version"] == "0.8.13" and prior_release["build_id"] == "20261021.2"
+    assert prior_release["sha256"] == "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3"
+    assert prior_release["files"] == len(prior_release["entries"]) == 378, "Prior-release fixture must retain the exact delivered Fresh inventory"
     historical = json.loads((ROOT / "tests/Packaging/fixtures/historical-runtime-layouts.json").read_text())
     assert historical["schema"] == 1
     baselines = historical["upgrade_baselines"]
@@ -483,6 +496,7 @@ def run() -> None:
         assert package.COMPOSER_REPAIR_FILES == COMPOSER_REPAIR_FILES, "Media and Composer repair dependencies differ from the reviewed allowlist"
         assert package.EDITORIAL_RUNTIME_FILES == EDITORIAL_RUNTIME_FILES, "Editorial history/access/metadata dependencies differ from the reviewed allowlist"
         assert package.CALENDAR_RUNTIME_FILES == CALENDAR_RUNTIME_FILES, "Calendar dependencies differ from the reviewed allowlist"
+        assert package.SCENE_SCHEDULE_RUNTIME_FILES == SCENE_SCHEDULE_RUNTIME_FILES, "Scene schedule dependencies differ from the reviewed allowlist"
         assert package.RELEASE_FILES == RELEASE_FILES and package.RELEASE_TIMESTAMP == RELEASE_TIMESTAMP
         assert package.PRIOR_RELEASE_TIMESTAMPS == PRIOR_RELEASE_TIMESTAMPS
         assert package.MENU_RUNTIME_FILES == MENU_RUNTIME_FILES
@@ -557,6 +571,7 @@ def run() -> None:
                     assert EDITORIAL_RUNTIME_FILES <= entries, "Editorial history or a retained access/metadata dependency is missing from a full package"
                     assert MENU_RUNTIME_FILES <= entries, "The menu editor or a public navigation dependency is missing from a full package"
                     assert DEPTH_RUNTIME_FILES <= entries, "Scene depth validation or shared foreground rendering is missing from a full package"
+                    assert CALENDAR_RUNTIME_FILES | SCENE_SCHEDULE_RUNTIME_FILES <= entries, "Calendar or scene schedule dependencies are missing from a full package"
                 assert zipped.testzip() is None, "Archive integrity failure"
                 assert all(not Path(name).is_absolute() and ".." not in Path(name).parts for name in entries), "Unsafe archive path"
                 assert all(entry.create_system == 3 and entry.external_attr >> 16 == 0o100644 for entry in zipped.infolist()), "Runtime ZIP entries must be regular files with safe 0644 permissions"
@@ -575,11 +590,7 @@ def run() -> None:
                     changed = {name for name in entries if hashlib.sha256(zipped.read(name)).hexdigest()
                                != prior_release["entries"].get(name, {}).get("sha256")}
                     assert set(prior_release["entries"]) <= entries, "A previously delivered runtime file disappeared without an explicit removal review"
-                    assert entries - set(prior_release["entries"]) == {
-                        'app/Core/MarketingCalendar.php',
-                        'app/Views/admin/marketing-calendar.php',
-                        'public/assets/css/marketing-calendar.css',
-                    }, "The calendar release added runtime files outside its reviewed scope"
+                    assert entries - set(prior_release["entries"]) == SCENE_SCHEDULE_RUNTIME_FILES, "The scene schedule release added runtime files outside its reviewed scope"
                     assert changed == RELEASE_FILES, "Changed runtime files lack reviewed release timestamps, or unchanged files were relabeled: " + ", ".join(sorted(changed ^ RELEASE_FILES))
                     for entry in zipped.infolist():
                         prior = prior_release["entries"].get(entry.filename)
@@ -593,7 +604,7 @@ def run() -> None:
                     assert release["supported_from"] == compatibility["supported_from"] == expected_from, "Upgrade compatibility omitted a supported prior patch or current-version repair"
                     assert not any(Path(name).parts[0] in package.PRESERVED_UPGRADE_ROOTS for name in entries)
                     with ZipFile(work / "first" / releases["fresh"]["filename"]) as fresh:
-                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | CALENDAR_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
+                        for relative in REPAIR_FILES | COMPOSER_REPAIR_FILES | EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | CALENDAR_RUNTIME_FILES | SCENE_SCHEDULE_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                             if Path(relative).parts[0] not in package.PRESERVED_UPGRADE_ROOTS:
                                 assert relative in entries, "Upgrade is missing a required runtime repair dependency"
                                 assert zipped.read(relative) == fresh.read(relative), "Upgrade repair dependency differs from the complete fresh package"
@@ -701,7 +712,7 @@ def run() -> None:
         for kind, original in [("upgrade", full_files), ("fresh", package.runtime_files(source, "fresh"))]:
             # Rebuild an internally consistent inventory after removing a
             # dependency: even that incomplete package must fail the floor.
-            for omitted in EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | CALENDAR_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
+            for omitted in EDITORIAL_RUNTIME_FILES | MENU_RUNTIME_FILES | DEPTH_RUNTIME_FILES | CALENDAR_RUNTIME_FILES | SCENE_SCHEDULE_RUNTIME_FILES | {"public/assets/js/scene-geometry.js"}:
                 broken = {name: content for name, content in original.items() if name != omitted}
                 broken[RUNTIME_BUILD_PATH] = package.runtime_build_manifest(broken)
                 try:

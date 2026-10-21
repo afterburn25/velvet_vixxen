@@ -1,7 +1,19 @@
 # Copy-Paste Prompt for the Next Session
 
+<!-- scene-schedules-0814:start -->
+## Current candidate — 0.8.14 Scheduled Composer scenes, Build 20261021.3
+
+Continue from verified 0.8.13 `main` (`b3e310c3da8084b13dd3ddd8d5dc653f374d5969`). The recovered chat decisions and live GitHub agree that history/restore, Composer/public scale, compact footer, editable menus, depth/foreground furniture, calendar and post expiration are already delivered. Preserve those capabilities and the exact approved package roots. Every changed completed release advances the visible version; merge tested work to main and deliver complete runtime-only Upgrade/Fresh ZIPs.
+
+The scoped continuation is [#32](https://github.com/afterburn25/velvet_vixxen/issues/32): fixed saved Hero/Footer snapshots with activation and optional end dates, explicit keep/restore-previous policy, fresh-owner and stale-state guards, cancellation, atomic claim/recovery, bounded CLI/owner execution and read-only calendar integration. Automatic changes preserve newer drafts; manual publication supersedes pending automatic work. No new database migration is required. The candidate is being verified; final CI, merge and saved-delivery evidence are not yet claimed.
+
+The previously stale 0.8.11 next-session prompt is now historical. Resume this candidate only from its current branch and release record, or from a later verified main merge. Keep #3/#9 open and preserve actual-host #12/#13 boundaries; production mail is unverified, payments sandbox-only and 0.9 incomplete.
+
+[Owner guide](docs/SCENE_SCHEDULES.md) · [Release record](docs/releases/0.8.14-scene-schedules.md)
+<!-- scene-schedules-0814:end -->
+
 <!-- navigation-menus-0811-current-prompt:start -->
-## Current prompt — continue from verified 0.8.11 menus and public page layout
+## Historical prompt — verified 0.8.11 menus and public page layout
 
 Read live `main`, `docs/MENUS.md` and `docs/releases/0.8.11-menus.md` with its CI/delivery JSON companions. The requested **0.8.11 / Build 20261020.12** menu editor and public-page footer layout are verified, merged through PR #27 at `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` and delivered. Source `d2b87559d9bccb3c6a3a3ac1fa732f9dd364f84c`, actual seven-job CI checkout `ef343c9963e952c4230965c6cd37b01daa9da4bf` and final merge `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` share complete tree `27d08c36c4b160a05753ae055b70934646e990ce`. All seven jobs and 70 required steps passed in run 39524928930. Actual menu browser acceptance has four file/MySQL root/nested cases, 72 layouts, 28 link-opening observations, four script-free fallbacks and 44 decoded screenshots. Its footer-placement matrix independently has 88 observations: 56 fitting pages without document scrolling, 32 long pages with scrolling, and 16 separate PNGs. Retained Composer acceptance independently has 52/24/8/8 observations and 34 decoded screenshots. Saved-download literal read-back completed at `2026-10-21T01:55:10.007674+00:00`.
 

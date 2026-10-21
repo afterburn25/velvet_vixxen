@@ -37,7 +37,7 @@ try {
             throw new RuntimeException('Choose a version to restore.');
         }
         // File-store IDs may contain only digits and leading zeroes; keep their identity.
-        $scene = app_store()->restoreScene($section, (string) $versionId, app_auth()->id());
+        $scene = app_store()->restoreScene($section, (string) $versionId, app_auth()->id(), app_auth()->user());
         app_store()->audit(app_auth()->id(), 'scene.restored', ['section' => $section, 'version' => $versionId]);
         json_response(['ok' => true, 'scene' => $scene, 'versions' => app_store()->sceneVersions($section), 'message' => 'Published version restored.']);
     }
@@ -46,7 +46,7 @@ try {
         throw new RuntimeException('Composition data is missing.');
     }
     $publish = $action === 'publish';
-    $id = app_store()->saveScene($section, $scene, $publish, app_auth()->id());
+    $id = app_store()->saveScene($section, $scene, $publish, app_auth()->id(), app_auth()->user());
     app_store()->audit(app_auth()->id(), $publish ? 'scene.published' : 'scene.saved', ['section' => $section, 'record' => $id]);
     json_response([
         'ok' => true,
