@@ -1,0 +1,4413 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "observed_at": "2026-10-21T00:28:20.136704+00:00",
+  "repository": "afterburn25/velvet_vixxen",
+  "version": "0.8.10",
+  "build_id": "20261020.11",
+  "release": {
+    "version": "0.8.10",
+    "build_id": "20261020.11"
+  },
+  "pull_request": {
+    "number": 26,
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/26",
+    "base_sha": "029ce3defd149db453380b99326836e86929ddd6",
+    "source_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "source_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "test_merge_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+    "test_merge_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "test_merge_parents": [
+      "029ce3defd149db453380b99326836e86929ddd6",
+      "3357cb048a25d134f1702a48113ecde9025c16ed"
+    ],
+    "final_merge_sha": "a98847d032a50eabfbd117ade9cdce63de5c25c3",
+    "final_merge_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "trees_equal": true,
+    "merged": true,
+    "merged_at": "2026-10-21T00:23:10Z"
+  },
+  "release_run": {
+    "id": 39517748806,
+    "event": "pull_request",
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806",
+    "attempt": 1,
+    "status": "completed",
+    "conclusion": "success",
+    "requested_head_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "created_at": "2026-10-20T23:51:59Z",
+    "updated_at": "2026-10-21T00:21:05Z",
+    "required_job_count": 7,
+    "explicit_required_step_count": 66,
+    "jobs": [
+      {
+        "id": 118954373345,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:29Z",
+        "completed_at": "2026-10-20T23:53:34Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:30Z",
+            "completed_at": "2026-10-20T23:53:30Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:30Z",
+            "completed_at": "2026-10-20T23:53:32Z"
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:53:32Z",
+            "completed_at": "2026-10-20T23:53:32Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:53:32Z",
+            "completed_at": "2026-10-20T23:53:32Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T23:53:32Z",
+            "completed_at": "2026-10-20T23:53:32Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954373345",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [],
+        "actual_checkout_log_line_number": 121,
+        "evidence_lines": [],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954373345",
+          "size_bytes": 20810,
+          "sha256": "831225641937ebd31a656033e4aec84030565b42c2e2aba3c432e1ac2f787452"
+        }
+      },
+      {
+        "id": 118954411469,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:36Z",
+        "completed_at": "2026-10-20T23:58:12Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:37Z",
+            "completed_at": "2026-10-20T23:53:38Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:38Z",
+            "completed_at": "2026-10-20T23:54:10Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:54:10Z",
+            "completed_at": "2026-10-20T23:54:11Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T23:54:11Z",
+            "completed_at": "2026-10-20T23:54:14Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T23:54:14Z",
+            "completed_at": "2026-10-20T23:54:15Z"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:54:15Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T23:54:18Z",
+            "completed_at": "2026-10-20T23:55:04Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T23:55:04Z",
+            "completed_at": "2026-10-20T23:55:04Z"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T23:55:04Z",
+            "completed_at": "2026-10-20T23:55:13Z"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T23:55:13Z",
+            "completed_at": "2026-10-20T23:55:18Z"
+          },
+          {
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T23:55:18Z",
+            "completed_at": "2026-10-20T23:55:20Z"
+          },
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T23:55:20Z",
+            "completed_at": "2026-10-20T23:56:12Z"
+          },
+          {
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T23:56:12Z",
+            "completed_at": "2026-10-20T23:57:01Z"
+          },
+          {
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-20T23:57:01Z",
+            "completed_at": "2026-10-20T23:58:09Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26,
+            "started_at": "2026-10-20T23:58:09Z",
+            "completed_at": "2026-10-20T23:58:09Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27,
+            "started_at": "2026-10-20T23:58:09Z",
+            "completed_at": "2026-10-20T23:58:10Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28,
+            "started_at": "2026-10-20T23:58:10Z",
+            "completed_at": "2026-10-20T23:58:10Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29,
+            "started_at": "2026-10-20T23:58:10Z",
+            "completed_at": "2026-10-20T23:58:10Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411469",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [
+          "8.3.35"
+        ],
+        "actual_checkout_log_line_number": 219,
+        "evidence_lines": [
+          "Installed database update scenarios passed (43 checks; actual012\u2192014\u2192015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46).",
+          "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+          "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+          "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "MySQL migration rollback passed.",
+          "PASS installer MySQL: empty database and working owner login",
+          "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+          "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+          "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+          "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+          "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+          "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+          "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+          "PASS installer MySQL: matching prior configuration restores existing keys",
+          "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+          "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+          "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+          "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+          "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+          "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+          "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+          "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+          "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+          "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+          "Existing-database installer acceptance passed (971 assertions; PHP 8.3.35; MySQL 8.0.46; actual extracted customer package).",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.3.35; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "PASS marketing SQL: actual Fresh dependency hashes, exact15/84 schema, read-only review and pre015 file compatibility",
+          "PASS marketing SQL: stable count-only review, stale-plan rejection, malformed/symlinked sources and orphan SQL preservation",
+          "PASS marketing SQL: later-batch/authority rollback, repeated owner authorization and actual disconnected commit fail closed",
+          "PASS marketing SQL: in-flight file edit excludes cutover, exact legacy snapshot retained, one authority, repeat no-op and cross-root readers",
+          "PASS marketing SQL: four independent writers across two roots retain all52 mutations; failed SQL update rolls back atomically",
+          "PASS marketing SQL: cross-root delivery exclusion, losing-worker immutability, short data locks and stopped-process recovery",
+          "PASS marketing SQL: original tokens, revocations, stale-save protection, frozen audiences/messages and unknown-delivery holds",
+          "PASS marketing SQL: real loopback SMTP permits concurrent unsubscribe/pause, transmits no canceled body and holds unknown acceptance",
+          "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back",
+          "Marketing SQL MySQL acceptance passed: {\"suite\":\"marketing_sql_mysql\",\"checks\":401,\"version\":\"0.8.10\",\"mysql\":\"8.0.46\",\"migrations\":15,\"declared_tables\":84,\"database_tables\":85,\"fresh_sha256\":\"b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9\",\"legacy_source_preserved\":true,\"installation_id_length\":190,\"metadata_only_installation_setting\":true,\"independent_roots\":2,\"concurrent_writers\":4,\"external_messages\":0}",
+          "Editorial access actual-package HTTP acceptance passed.",
+          "Editorial metadata actual-package HTTP acceptance passed.",
+          "Editorial history actual-package HTTP acceptance passed."
+        ],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411469",
+          "size_bytes": 140697,
+          "sha256": "f8387eeb2c2be1c24391ef32e2c4d4d1871c5df5eb98c1f24903263642dd5ec8"
+        }
+      },
+      {
+        "id": 118954411481,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:36Z",
+        "completed_at": "2026-10-20T23:54:20Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:37Z",
+            "completed_at": "2026-10-20T23:53:38Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:38Z",
+            "completed_at": "2026-10-20T23:53:39Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:53:39Z",
+            "completed_at": "2026-10-20T23:53:41Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T23:53:41Z",
+            "completed_at": "2026-10-20T23:53:42Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T23:53:42Z",
+            "completed_at": "2026-10-20T23:53:42Z"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:53:42Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T23:54:18Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T23:54:18Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T23:54:18Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T23:54:18Z",
+            "completed_at": "2026-10-20T23:54:18Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411481",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [
+          "8.3.35"
+        ],
+        "actual_checkout_log_line_number": 124,
+        "evidence_lines": [
+          "Visible release version passed: 0.8.10; last delivered 0.8.9; advanced.",
+          "Repository security scan passed.",
+          "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+          "Smoke test passed.",
+          "Installer foundation test passed.",
+          "Single-page installer test passed.",
+          "PASS installer recovery: 134 assertions (disposable fixtures only)",
+          "Installer mail validation passed (269 assertions).",
+          "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+          "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+          "PASS runtime build verification: 34 assertions",
+          "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+          "Migration manifest test passed (15 migrations, 84 tables).",
+          "Add-on manifest test passed.",
+          "Add-on package test passed.",
+          "Media access test passed.",
+          "Media store test passed.",
+          "Member authentication test passed.",
+          "Entitlement resolver test passed.",
+          "Subscriptions & PPV commerce test passed.",
+          "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+          "Add-on licensing, signature and encrypted-storage regressions passed.",
+          "Media Center feature test passed.",
+          "Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "Members & Entitlements feature test passed.",
+          "Subscriptions & PPV Commerce feature test passed.",
+          "Add-on framework feature test passed.",
+          "Communications, request and booking regressions passed.",
+          "Marketing consent, publishing, campaign and analytics regressions passed.",
+          "Newsletter audience source acceptance passed (149 assertions; disposable stores, no mail transport).",
+          "Publication window source acceptance passed (134 assertions).",
+          "Marketing storage source regressions passed (41 checks; read-only review, stable legacy normalization and SQL-required refusal).",
+          "Editorial access source acceptance passed (412 assertions; strict policies, fresh members, preservation, locked authorization and read-only saved preview).",
+          "Editorial metadata source acceptance passed (173 assertions; strict saved metadata, safe public images, current related visibility, preservation and locked authorization).",
+          "Editorial history source acceptance passed (192 assertions; bounded private versions, safe restore, retained identity, fresh references, stale edits and read-only review).",
+          "Campaign source regressions passed (41 assertions, concurrent storage writers included).",
+          "Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "PASS repair backups: 87 assertions (disposable fixtures only)",
+          "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+          "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+          "PASS booking form builder: 54 assertions (disposable fixtures only)",
+          "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+          "Protected media test passed.",
+          "Member security test passed.",
+          "Payment webhook security test passed.",
+          "Add-on security test passed.",
+          "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+          "Repository security scan passed.",
+          "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "All non-database tests passed."
+        ],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411481",
+          "size_bytes": 24672,
+          "sha256": "773e91f4920a65da768ab6184ac78a3c0517271b439faf1767ed5abede26cd58"
+        }
+      },
+      {
+        "id": 118954411510,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:36Z",
+        "completed_at": "2026-10-21T00:20:52Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:37Z",
+            "completed_at": "2026-10-20T23:53:38Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:38Z",
+            "completed_at": "2026-10-20T23:54:03Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:54:03Z",
+            "completed_at": "2026-10-20T23:54:04Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T23:54:04Z",
+            "completed_at": "2026-10-20T23:54:07Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T23:54:07Z",
+            "completed_at": "2026-10-20T23:54:07Z"
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:54:07Z",
+            "completed_at": "2026-10-20T23:54:35Z"
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T23:54:35Z",
+            "completed_at": "2026-10-20T23:54:56Z"
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T23:54:56Z",
+            "completed_at": "2026-10-20T23:55:12Z"
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T23:55:12Z",
+            "completed_at": "2026-10-20T23:56:03Z"
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T23:56:03Z",
+            "completed_at": "2026-10-20T23:56:15Z"
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T23:56:15Z",
+            "completed_at": "2026-10-20T23:56:43Z"
+          },
+          {
+            "name": "Keep private replies out of actual member and guest notification emails",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T23:56:43Z",
+            "completed_at": "2026-10-20T23:56:48Z"
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T23:56:48Z",
+            "completed_at": "2026-10-20T23:58:01Z"
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-20T23:58:01Z",
+            "completed_at": "2026-10-20T23:59:13Z"
+          },
+          {
+            "name": "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-10-20T23:59:13Z",
+            "completed_at": "2026-10-21T00:00:10Z"
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-10-21T00:00:10Z",
+            "completed_at": "2026-10-21T00:00:36Z"
+          },
+          {
+            "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-10-21T00:00:36Z",
+            "completed_at": "2026-10-21T00:01:11Z"
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-10-21T00:01:11Z",
+            "completed_at": "2026-10-21T00:01:30Z"
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-10-21T00:01:30Z",
+            "completed_at": "2026-10-21T00:05:56Z"
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-10-21T00:05:56Z",
+            "completed_at": "2026-10-21T00:07:46Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-10-21T00:07:46Z",
+            "completed_at": "2026-10-21T00:07:46Z"
+          },
+          {
+            "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-10-21T00:07:46Z",
+            "completed_at": "2026-10-21T00:08:07Z"
+          },
+          {
+            "name": "Edit publication windows through actual packaged owner and public pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-10-21T00:08:07Z",
+            "completed_at": "2026-10-21T00:09:00Z"
+          },
+          {
+            "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24,
+            "started_at": "2026-10-21T00:09:00Z",
+            "completed_at": "2026-10-21T00:09:34Z"
+          },
+          {
+            "name": "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25,
+            "started_at": "2026-10-21T00:09:34Z",
+            "completed_at": "2026-10-21T00:13:01Z"
+          },
+          {
+            "name": "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26,
+            "started_at": "2026-10-21T00:13:01Z",
+            "completed_at": "2026-10-21T00:16:34Z"
+          },
+          {
+            "name": "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27,
+            "started_at": "2026-10-21T00:16:34Z",
+            "completed_at": "2026-10-21T00:20:40Z"
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28,
+            "started_at": "2026-10-21T00:20:40Z",
+            "completed_at": "2026-10-21T00:20:50Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 54,
+            "started_at": "2026-10-21T00:20:50Z",
+            "completed_at": "2026-10-21T00:20:50Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 55,
+            "started_at": "2026-10-21T00:20:50Z",
+            "completed_at": "2026-10-21T00:20:50Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 56,
+            "started_at": "2026-10-21T00:20:50Z",
+            "completed_at": "2026-10-21T00:20:50Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 57,
+            "started_at": "2026-10-21T00:20:50Z",
+            "completed_at": "2026-10-21T00:20:50Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411510",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Keep private replies out of actual member and guest notification emails",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          },
+          {
+            "name": "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15
+          },
+          {
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16
+          },
+          {
+            "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17
+          },
+          {
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18
+          },
+          {
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19
+          },
+          {
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21
+          },
+          {
+            "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22
+          },
+          {
+            "name": "Edit publication windows through actual packaged owner and public pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23
+          },
+          {
+            "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24
+          },
+          {
+            "name": "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25
+          },
+          {
+            "name": "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26
+          },
+          {
+            "name": "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27
+          },
+          {
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [
+          "8.3.35"
+        ],
+        "actual_checkout_log_line_number": 242,
+        "evidence_lines": [
+          "PASS real desktop installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+          "PASS real mobile installer: existing MySQL data, aligned Server/Folders and password inputs before/after Run Checks, one-page AJAX form, 12-character owner password, preserved state, verified cleanup and owner login",
+          "Existing-database desktop/mobile installer browser acceptance passed (real packaged PHP, MySQL 8, Playwright and Chromium).",
+          "Packaged media upload root-desktop: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+          "Packaged media upload nested-mobile: PASS (real endpoint, authenticated uploads, rejection, retry, draft/publish and decoded public image).",
+          "Packaged no-rewrite Media Library and Composer upload acceptance passed at root/desktop and nested/mobile.",
+          "Historical installed update root-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Historical installed update nested-cache: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Historical installed update nested-cache-disabled: PASS (same process/browser, complete overlay, owner verification and cache activation).",
+          "Installed-update acceptance passed: exact historical ZIP; root/nested persistent OPcache; cache-disabled refresh; desktop/mobile layout; real Preview, Publish and uploads. Chromium 151.0.7922.34.",
+          "Packaged public routing root: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+          "Packaged public routing nested: PASS (87 aliases through one physical dispatcher, 42 protected handlers; real owner removal of 46 old root files, query/auth/CSRF/media guards and preserved custom items).",
+          "Members & Entitlements HTTP acceptance test passed.",
+          "Subscriptions & PPV Commerce HTTP acceptance test passed.",
+          "Add-on HTTP acceptance passed.",
+          "Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.",
+          "Booking builder HTTP passed: owner/CSRF boundaries, custom validation, snapshots, upload privacy and spam limits.",
+          "Merchandise owner CRUD/upload, stock, isolated PPV/cart checkout, shipping, order privacy, fulfillment and refund HTTP acceptance passed.",
+          "Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.",
+          "Campaign SMTP/HTTP regressions passed (54 assertions; localhost capture only).",
+          "Media Center HTTP acceptance passed (198 assertions; persistence, stale/invalid forms, owner boundaries, publication and access).",
+          "Packaged private reply email root: {\"assertions\": 50, \"member_and_guest_private_subject_body_absent\": true, \"attachment_names_absent\": true, \"in_site_content_and_protection_preserved\": true, \"internal_notes_send_none\": true, \"local_smtp_messages\": 2, \"external_messages_sent\": 0}",
+          "Packaged private reply email nested: {\"assertions\": 50, \"member_and_guest_private_subject_body_absent\": true, \"attachment_names_absent\": true, \"in_site_content_and_protection_preserved\": true, \"internal_notes_send_none\": true, \"local_smtp_messages\": 2, \"external_messages_sent\": 0}",
+          "Actual packaged private reply email privacy passed. External messages sent: 0.",
+          "Packaged Composer actions root-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions root-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions nested-desktop: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer actions nested-mobile: PASS (real preview, failure/retry, draft isolation, Publish, CTA navigation, and marketing links/beacon).",
+          "Packaged Composer preview/Publish and marketing actions passed for root/nested desktop/mobile without rewritten test routes.",
+          "Packaged Composer scale root: PASS (Hero/Footer, 13 viewport widths, lower-edge pixels, drafts/publication; compact homepage/common footers and real new-tab credit).",
+          "Packaged Composer scale nested: PASS (Hero/Footer, 13 viewport widths, lower-edge pixels, drafts/publication; compact homepage/common footers and real new-tab credit).",
+          "Actual-package Composer/public scale and compact legal-footer acceptance passed at root and nested paths.",
+          "Campaign delivery UI root-desktop: PASS (real owner forms, queue/pause/resume, disabled-mail hold, independent switches, disabled signup and available unsubscribe).",
+          "Campaign delivery UI nested-mobile: PASS (real owner forms, queue/pause/resume, disabled-mail hold, independent switches, disabled signup and available unsubscribe).",
+          "Campaign desktop/mobile owner and public-switch acceptance passed with disabled mail in actual root/nested customer packages.",
+          "Newsletter audiences root-http: PASS (actual customer package; disabled mail).",
+          "Newsletter audiences root-desktop: PASS (actual customer package; disabled mail).",
+          "Newsletter audiences nested-mobile: PASS (actual customer package; disabled mail).",
+          "Newsletter audience owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+          "Mail settings root-desktop: PASS (actual package, owner forms, credentials, local SMTP test, no overflow).",
+          "Mail settings nested-mobile: PASS (actual package, owner forms, credentials, local SMTP test, no overflow).",
+          "Mail settings desktop/mobile acceptance passed in actual root/nested packages. External messages sent: 0.",
+          "Media Center browser acceptance test passed.",
+          "Members & Entitlements browser acceptance test passed.",
+          "Subscriptions & PPV Commerce browser acceptance test passed.",
+          "Add-on Playwright acceptance passed.",
+          "Interactive desktop/mobile booking, private messaging and newsletter flows passed.",
+          "Booking builder browser passed: owner CRUD/order/toggles, linked choices, live phone formatting, inline validation and preserved answers on desktop/mobile.",
+          "Merchandise browser passed: owner CRUD/images/dynamic variants, desktop/mobile cart/shipping/payment, direct PPV isolation, stock and fulfillment.",
+          "Composer recovery acceptance passed: drag, resize, 0.5\u2013400% persistence, live text/buttons, per-device placement, background pan, undo/redo, draft isolation, and public image URLs.",
+          "Expanded Composer acceptance passed: independent device backgrounds, real uploads, all-edge drag/crop, reachable off-frame resize, aspect ratio, extreme positions, lock/hide/order, snapping, draft preview, and published-version rollback.",
+          "Hero Library acceptance passed: 30 distinct real scenes, every full image and thumbnail decoded, category/search/placement metadata, immediate draft selection, and 90 published public renders across desktop/tablet/mobile.",
+          "Composer live button acceptance passed: add/edit/style, drag/free resize, clipping, history/layer controls, independent devices, safe live Hero/Footer links and real publication/restore.",
+          "About Me owner editing/escaping, persistent admin categories/current page, sticky navigation and centered auth layouts passed at desktop/tablet/mobile widths.",
+          "Public layout audit passed: 12 routes at desktop/mobile, navigation, images, viewport fit and guest/member account access.",
+          "Media Center file-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center file-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center mysql-root-desktop: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center mysql-nested-mobile: PASS (actual ZIP/forms, exact committed data, schedules and access).",
+          "Media Center packaged acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on recovery browser desktop: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence artifacts/browser",
+          "PASS add-on recovery browser mobile: 33 checks; actual packaged owner UI, known failed down retry, retained MySQL rows, keyboard focus and usable controls; Chromium 151.0.7922.34; evidence artifacts/browser",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 197 assertions; PHP 8.3.35; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "Publication windows root-http: PASS (actual customer package; disabled mail).",
+          "Publication windows root-desktop: PASS (actual customer package; disabled mail).",
+          "Publication windows nested-mobile: PASS (actual customer package; disabled mail).",
+          "Publication window owner HTTP and packaged desktop/mobile acceptance passed. External messages sent: 0.",
+          "Marketing Storage root-desktop: PASS (actual ZIP/MySQL/owner POSTs, preserved records, zero SMTP).",
+          "Marketing Storage nested-mobile: PASS (actual ZIP/MySQL/owner POSTs, preserved records, zero SMTP).",
+          "Marketing Storage packaged acceptance passed: MySQL root-desktop and nested-mobile cases.",
+          "Editorial access actual-package browser acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+          "Editorial metadata actual-package browser acceptance passed: four file/MySQL root-desktop/nested-mobile cases.",
+          "Editorial history actual-package browser acceptance passed: four file/MySQL root-desktop/nested-mobile cases."
+        ],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411510",
+          "size_bytes": 510987,
+          "sha256": "0247a0442c46d13ad7f07bb3f2f07a249bb0197ec760899da20defe11ca843af"
+        }
+      },
+      {
+        "id": 118954411522,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:37Z",
+        "completed_at": "2026-10-20T23:54:22Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:38Z",
+            "completed_at": "2026-10-20T23:53:39Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:39Z",
+            "completed_at": "2026-10-20T23:53:40Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:53:40Z",
+            "completed_at": "2026-10-20T23:53:43Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T23:53:43Z",
+            "completed_at": "2026-10-20T23:53:44Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T23:53:44Z",
+            "completed_at": "2026-10-20T23:53:44Z"
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:53:44Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T23:54:19Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T23:54:19Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T23:54:19Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T23:54:19Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411522",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [
+          "8.2.34"
+        ],
+        "actual_checkout_log_line_number": 124,
+        "evidence_lines": [
+          "Visible release version passed: 0.8.10; last delivered 0.8.9; advanced.",
+          "Repository security scan passed.",
+          "PASS packaged installer: real fresh ZIP, foreign-owner 0755 static assets, initial probe plus two rechecks, unchanged asset hashes/modes/owners, runtime ownership repair preserves data, incomplete repair restores originals, required write failures and missing runtime assets block installation.",
+          "PASS packaged OPcache repair: real cached legacy class; same-mtime corrected bytes remain stale; actual repair ZIP advances mtime and loads corrected manifest on the next HTTP request without restarting PHP.",
+          "Packaged installer SMTP capture passed (143 assertions; root and nested paths; loopback only).",
+          "API response handling passed (15 checks; plain missing-file errors, host HTML, upload limits, session errors and valid JSON results).",
+          "Smoke test passed.",
+          "Installer foundation test passed.",
+          "Single-page installer test passed.",
+          "PASS installer recovery: 134 assertions (disposable fixtures only)",
+          "Installer mail validation passed (269 assertions).",
+          "Hero library tests passed: metadata, real-image validation, counts, malformed manifests, missing files, path confinement, and placement zones.",
+          "Installation-scoped member returns and marketing destinations passed: 136 assertions.",
+          "PASS runtime build verification: 34 assertions",
+          "PASS safe root-layout repair: 692 assertions (literal rejected Build .5 files and disposable fixtures)",
+          "Migration manifest test passed (15 migrations, 84 tables).",
+          "Add-on manifest test passed.",
+          "Add-on package test passed.",
+          "Media access test passed.",
+          "Media store test passed.",
+          "Member authentication test passed.",
+          "Entitlement resolver test passed.",
+          "Subscriptions & PPV commerce test passed.",
+          "Merchandise catalog, isolated checkout and inventory (45 assertions) passed.",
+          "Add-on licensing, signature and encrypted-storage regressions passed.",
+          "Media Center feature test passed.",
+          "Media Center file persistence passed (116 assertions; exact membership/captions/tags, stale edits and due publication).",
+          "Members & Entitlements feature test passed.",
+          "Subscriptions & PPV Commerce feature test passed.",
+          "Add-on framework feature test passed.",
+          "Communications, request and booking regressions passed.",
+          "Marketing consent, publishing, campaign and analytics regressions passed.",
+          "Newsletter audience source acceptance passed (149 assertions; disposable stores, no mail transport).",
+          "Publication window source acceptance passed (134 assertions).",
+          "Marketing storage source regressions passed (41 checks; read-only review, stable legacy normalization and SQL-required refusal).",
+          "Editorial access source acceptance passed (412 assertions; strict policies, fresh members, preservation, locked authorization and read-only saved preview).",
+          "Editorial metadata source acceptance passed (173 assertions; strict saved metadata, safe public images, current related visibility, preservation and locked authorization).",
+          "Editorial history source acceptance passed (192 assertions; bounded private versions, safe restore, retained identity, fresh references, stale edits and read-only review).",
+          "Campaign source regressions passed (41 assertions, concurrent storage writers included).",
+          "Mail settings regressions passed (199 assertions; concurrent writers and header controls included).",
+          "PASS repair backups: 87 assertions (disposable fixtures only)",
+          "PASS database updates: 13 assertions (disposable file-storage/CLI fixtures only)",
+          "About Me persistence, validation and public-image boundaries passed: 21 assertions.",
+          "PASS booking form builder: 54 assertions (disposable fixtures only)",
+          "Scene button persistence, URL validation, device geometry and history passed: 127 assertions.",
+          "Protected media test passed.",
+          "Member security test passed.",
+          "Payment webhook security test passed.",
+          "Add-on security test passed.",
+          "Repository structure test passed: strict runtime/engineering root directories and two PHP entry files.",
+          "Organized public dispatch and path safety passed: one physical dispatcher, 42 protected handlers, 87 registered URLs, 836 assertions.",
+          "Repository security scan passed.",
+          "Runtime packages passed: exact 13-folder Fresh/9-folder Upgrade root layout, rejection of actual Build .5 root expansion, retired unsupported cross-version Media overlay, distinct canonical release/build identities and filenames, identical complete generated runtime inventory with stale/mixed/invalid rejection, clean fresh install, protected upgrade overlay, exact eleven-file sender/database/folder repair, separate historical-version repair support boundaries, matching dependencies and advanced timestamps, safe 0644 entries, reproducibility, archive integrity, and symlink rejection.",
+          "All non-database tests passed."
+        ],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411522",
+          "size_bytes": 24671,
+          "sha256": "3ae2dae8392564abe20d1f0dd2788bd9f1c188472c4408ddbc7908398ae73a22"
+        }
+      },
+      {
+        "id": 118954411557,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-20T23:53:36Z",
+        "completed_at": "2026-10-20T23:58:32Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-20T23:53:37Z",
+            "completed_at": "2026-10-20T23:53:38Z"
+          },
+          {
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-20T23:53:38Z",
+            "completed_at": "2026-10-20T23:54:12Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-20T23:54:12Z",
+            "completed_at": "2026-10-20T23:54:13Z"
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-20T23:54:13Z",
+            "completed_at": "2026-10-20T23:54:16Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-20T23:54:16Z",
+            "completed_at": "2026-10-20T23:54:16Z"
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-10-20T23:54:16Z",
+            "completed_at": "2026-10-20T23:54:19Z"
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-10-20T23:54:19Z",
+            "completed_at": "2026-10-20T23:55:10Z"
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-10-20T23:55:10Z",
+            "completed_at": "2026-10-20T23:55:10Z"
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-20T23:55:10Z",
+            "completed_at": "2026-10-20T23:55:19Z"
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-20T23:55:19Z",
+            "completed_at": "2026-10-20T23:55:25Z"
+          },
+          {
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-20T23:55:25Z",
+            "completed_at": "2026-10-20T23:55:28Z"
+          },
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-10-20T23:55:28Z",
+            "completed_at": "2026-10-20T23:56:26Z"
+          },
+          {
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-10-20T23:56:26Z",
+            "completed_at": "2026-10-20T23:57:19Z"
+          },
+          {
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-10-20T23:57:19Z",
+            "completed_at": "2026-10-20T23:58:29Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 26,
+            "started_at": "2026-10-20T23:58:29Z",
+            "completed_at": "2026-10-20T23:58:29Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 27,
+            "started_at": "2026-10-20T23:58:29Z",
+            "completed_at": "2026-10-20T23:58:30Z"
+          },
+          {
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28,
+            "started_at": "2026-10-20T23:58:30Z",
+            "completed_at": "2026-10-20T23:58:30Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 29,
+            "started_at": "2026-10-20T23:58:30Z",
+            "completed_at": "2026-10-20T23:58:30Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411557",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          },
+          {
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6
+          },
+          {
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7
+          },
+          {
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8
+          },
+          {
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9
+          },
+          {
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10
+          },
+          {
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11
+          },
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12
+          },
+          {
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13
+          },
+          {
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [
+          "8.2.34"
+        ],
+        "actual_checkout_log_line_number": 220,
+        "evidence_lines": [
+          "Installed database update scenarios passed (43 checks; actual012\u2192014\u2192015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server 8.0.46).",
+          "MySQL merchandise CRUD, quantity/shipping checkout, inventory, retry, refund and order snapshots passed.",
+          "Database booking form scenarios passed (12 checks, atomic rollback and immutable snapshots; server 8.0.46).",
+          "Media Center MySQL persistence passed (108 assertions; separate connection verifies committed rows, captions/tags/order and due publication; server 8.0.46).",
+          "MySQL migration rollback passed.",
+          "PASS installer MySQL: empty database and working owner login",
+          "PASS installer MySQL: unrelated existing tables and uploaded/private files preserved",
+          "PASS installer MySQL: interrupted core tables complete without deleting existing rows",
+          "PASS installer MySQL: existing owner/hash, keys, identity, content, orders, bookings and repeated completed attempt preserved",
+          "PASS installer MySQL: interrupted installed=true/pending configuration plus matching lock resumes and clears only after verification",
+          "PASS installer MySQL: ledgerless full schema resumes with current order status and customized sandbox provider unchanged",
+          "PASS installer MySQL: compatible existing database is adopted after owner authentication",
+          "PASS installer MySQL: wrong password, another account, disabled owner and non-owner role cannot change setup",
+          "PASS installer MySQL: matching prior configuration restores existing keys",
+          "PASS installer MySQL: encrypted existing records cannot silently lose their original keys",
+          "PASS installer MySQL: mismatched saved database or installation identity stops without writes",
+          "PASS installer MySQL: failed finalization retains DDL, data and keys; a new-session retry completes safely",
+          "PASS installer MySQL: interrupted settings/plans/media/templates/scenes complete once without overwriting natural-key matches",
+          "PASS installer MySQL: site file lock and cross-site database lock serialize real installer instances",
+          "PASS installer MySQL: checksum drift, unknown migrations and incompatible existing schema fail without mutation",
+          "PASS installer MySQL: partial caption column/index/foreign-key ALTER resumes without changing existing rows or ledger records",
+          "PASS installer MySQL: old order ENUM expands while every existing status, order field and ledger record remains unchanged",
+          "PASS installer MySQL: incompatible named index uniqueness is rejected before any mutation",
+          "PASS installer MySQL: incompatible named foreign-key delete action is rejected before any mutation",
+          "Existing-database installer acceptance passed (971 assertions; PHP 8.2.34; MySQL 8.0.46; actual extracted customer package).",
+          "PASS add-on MySQL: real package install, checksum/batch ledger and idempotent repair",
+          "PASS add-on MySQL: v1 to v2 to v1 aligns files, schema, ledger and retained rows",
+          "PASS add-on MySQL: full preflight, permission, missing history, down definitions and owned-table boundaries",
+          "PASS add-on MySQL: a later SQL error reverses both its partial work and earlier completed migrations",
+          "PASS add-on MySQL: partial compensation preserves pre-existing columns and their values",
+          "PASS add-on MySQL: actual ledger/registry write failures preserve prior files, schema and data",
+          "PASS add-on recovery HTTP: 34 assertions; real owner, stale role, inactive account, method, CSRF and exact down retry",
+          "PASS add-on MySQL: failed compensation is held, durable, non-bootable and resumable without repeating successful down SQL",
+          "PASS add-on MySQL: committed down SQL is not falsely presented as an automatic data restore after activation failure",
+          "PASS add-on MySQL: registry-failure compensation resumes toward the previous package, not the rejected target",
+          "PASS add-on MySQL: killed activation remains disabled with prior files retained after the SQL journal is cleared",
+          "PASS add-on MySQL: preserved uninstall/reinstall and explicit owned-table purge",
+          "PASS add-on MySQL: a definite failed purge step resumes only its original recorded removal",
+          "Add-on MySQL lifecycle acceptance passed: 183 assertions; PHP 8.2.34; MySQL 8.0.46.",
+          "Add-on fixture database and extracted runtime cleanup passed.",
+          "PASS marketing SQL: actual Fresh dependency hashes, exact15/84 schema, read-only review and pre015 file compatibility",
+          "PASS marketing SQL: stable count-only review, stale-plan rejection, malformed/symlinked sources and orphan SQL preservation",
+          "PASS marketing SQL: later-batch/authority rollback, repeated owner authorization and actual disconnected commit fail closed",
+          "PASS marketing SQL: in-flight file edit excludes cutover, exact legacy snapshot retained, one authority, repeat no-op and cross-root readers",
+          "PASS marketing SQL: four independent writers across two roots retain all52 mutations; failed SQL update rolls back atomically",
+          "PASS marketing SQL: cross-root delivery exclusion, losing-worker immutability, short data locks and stopped-process recovery",
+          "PASS marketing SQL: original tokens, revocations, stale-save protection, frozen audiences/messages and unknown-delivery holds",
+          "PASS marketing SQL: real loopback SMTP permits concurrent unsubscribe/pause, transmits no canceled body and holds unknown acceptance",
+          "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back",
+          "Marketing SQL MySQL acceptance passed: {\"suite\":\"marketing_sql_mysql\",\"checks\":401,\"version\":\"0.8.10\",\"mysql\":\"8.0.46\",\"migrations\":15,\"declared_tables\":84,\"database_tables\":85,\"fresh_sha256\":\"b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9\",\"legacy_source_preserved\":true,\"installation_id_length\":190,\"metadata_only_installation_setting\":true,\"independent_roots\":2,\"concurrent_writers\":4,\"external_messages\":0}",
+          "Editorial access actual-package HTTP acceptance passed.",
+          "Editorial metadata actual-package HTTP acceptance passed.",
+          "Editorial history actual-package HTTP acceptance passed."
+        ],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118954411557",
+          "size_bytes": 140755,
+          "sha256": "e2651384d5447fad5fe37d79a78c55cc9391a4bfaad4e17231fcc4f0a5e11a68"
+        }
+      },
+      {
+        "id": 118963747256,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-21T00:20:54Z",
+        "completed_at": "2026-10-21T00:21:04Z",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-10-21T00:20:55Z",
+            "completed_at": "2026-10-21T00:20:56Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-10-21T00:20:56Z",
+            "completed_at": "2026-10-21T00:20:58Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-10-21T00:20:58Z",
+            "completed_at": "2026-10-21T00:20:58Z"
+          },
+          {
+            "name": "Build separate runtime packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-10-21T00:20:58Z",
+            "completed_at": "2026-10-21T00:20:59Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-10-21T00:20:59Z",
+            "completed_at": "2026-10-21T00:21:01Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-10-21T00:21:01Z",
+            "completed_at": "2026-10-21T00:21:01Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-10-21T00:21:01Z",
+            "completed_at": "2026-10-21T00:21:01Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-10-21T00:21:01Z",
+            "completed_at": "2026-10-21T00:21:01Z"
+          }
+        ],
+        "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118963747256",
+        "checkout_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+        "checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+        "checkout_tree_equals_source": true,
+        "required_step_conclusions": [
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3
+          },
+          {
+            "name": "Build separate runtime packages",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5
+          }
+        ],
+        "all_required_steps_successful": true,
+        "php_versions": [],
+        "actual_checkout_log_line_number": 123,
+        "evidence_lines": [],
+        "log": {
+          "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/job/118963747256",
+          "size_bytes": 19283,
+          "sha256": "2aa78f75d72c947ca1728d83cf3def63cd9cab6521c9e28e767a024b4b837d02"
+        }
+      }
+    ]
+  },
+  "superseded_failed_run": {
+    "run_id": 39517350963,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517350963",
+    "source_sha": "36fa15ac4a75b3063e419654821da86b1f86a8ad",
+    "source_tree": "8e1957d2b25b6a8742a1fe7d8e1b0ec3708b7fe2",
+    "accepted": false,
+    "cause": "Retained editorial HTTP harness pins 0.8.9 / Build20261020.10 while runtime source is0.8.10 / Build20261020.11. Packaging correctly rejects the mismatch.",
+    "failure_location": "tests/Http/editorial_access_http.py:38,803,812",
+    "replacement_source_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "replacement_run_id": 39517748806,
+    "runtime_changed_by_correction": false,
+    "jobs": [
+      {
+        "id": 118952642903,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "php_versions": [
+          "8.3.35"
+        ],
+        "checkout_shas": [
+          "522fa66963c768885bbfb3796aeff79dc77afb65"
+        ],
+        "mysql_versions": [
+          "8.0.46"
+        ],
+        "failed_steps": [
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 12
+          }
+        ],
+        "log_sha256": "2b88140dc5e929f888ef6572d2161b36dcc5a28f58e5c97d5371e6a6754c6293"
+      },
+      {
+        "id": 118952642913,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "php_versions": [
+          "8.2.34"
+        ],
+        "checkout_shas": [
+          "522fa66963c768885bbfb3796aeff79dc77afb65"
+        ],
+        "mysql_versions": [
+          "8.0.46"
+        ],
+        "failed_steps": [
+          {
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 12
+          }
+        ],
+        "log_sha256": "5aa48c6201808b2a4842a28360f51c2858c6bd6d7a8fe1f3555f5e4978403d93"
+      }
+    ]
+  },
+  "counts_observed": {
+    "required_jobs_successful": 7,
+    "actual_checkout_logs_verified": 7,
+    "configured_required_steps_successful": 66,
+    "scene_comparisons": 52,
+    "legal_footer_layouts": 24,
+    "actual_new_tab_clicks": 8,
+    "empty_catalogue_observations": 8,
+    "focused_pngs_decoded_and_bound_to_artifact": 34,
+    "history_browser": {
+      "file-root-desktop": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "file-nested-mobile": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-root-desktop": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-nested-mobile": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      }
+    }
+  },
+  "runtime_versions_observed": {
+    "php_source_versions": {
+      "PHP 8.3 source and package regressions": [
+        "8.3.35"
+      ],
+      "PHP 8.2 source and package regressions": [
+        "8.2.34"
+      ]
+    },
+    "browser_php": "8.3.35",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "mysql_versions": [
+      "8.0.46"
+    ]
+  },
+  "artifacts": [
+    {
+      "id": 12310968133,
+      "name": "velvet-vixxen-runtime-packages",
+      "size_in_bytes": 15381047,
+      "expired": false,
+      "created_at": "2026-10-21T00:21:01Z",
+      "expires_at": "2026-11-20T00:20:59Z",
+      "updated_at": "2026-10-21T00:21:01Z",
+      "digest": "sha256:bb25d96ed99e150665b6c66044e2c0a31fadecccb93f0f08b0cba806270b9926",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/artifacts/12310968133",
+      "workflow_run": {
+        "id": 39517748806,
+        "head_branch": "fix/0.8.10-composer-hero-scale",
+        "head_sha": "3357cb048a25d134f1702a48113ecde9025c16ed"
+      }
+    },
+    {
+      "id": 12310468594,
+      "name": "chromium-browser-evidence",
+      "size_in_bytes": 250160814,
+      "expired": false,
+      "created_at": "2026-10-21T00:20:49Z",
+      "expires_at": "2026-11-04T00:20:40Z",
+      "updated_at": "2026-10-21T00:20:49Z",
+      "digest": "sha256:149e12122d2dc1891482adc2324213cdf7c5a809f00d39a99b8c4db44390b914",
+      "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/artifacts/12310468594",
+      "workflow_run": {
+        "id": 39517748806,
+        "head_branch": "fix/0.8.10-composer-hero-scale",
+        "head_sha": "3357cb048a25d134f1702a48113ecde9025c16ed"
+      }
+    }
+  ],
+  "runtime_package_artifact": {
+    "status": "verified",
+    "artifact_id": 12310968133,
+    "build_job_id": 118963747256,
+    "actual_build_summary": {
+      "version": "0.8.10",
+      "build_id": "20261020.11",
+      "manifest_filename": "Velvet-Vixxen-0.8.10-Build-20261020.11-package-manifest.json",
+      "packages": [
+        {
+          "kind": "fresh",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Fresh-Install.zip",
+          "version": "0.8.10",
+          "build_id": "20261020.11",
+          "sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+          "files": 363
+        },
+        {
+          "kind": "upgrade",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Upgrade-from-0.8.x.zip",
+          "version": "0.8.10",
+          "build_id": "20261020.11",
+          "sha256": "ccde0a4845449c5001bff42a91a9dfffea7500d8e9fe398ae10c3830ff621cec",
+          "files": 322
+        },
+        {
+          "kind": "installer-repair",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "version": "0.8.1",
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+          "files": 11
+        }
+      ]
+    },
+    "download_verification": {
+      "run_id": 39517748806,
+      "artifact_id": 12310968133,
+      "artifact_sha256": "bb25d96ed99e150665b6c66044e2c0a31fadecccb93f0f08b0cba806270b9926",
+      "artifact_bytes": 15381047,
+      "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/artifacts/12310968133",
+      "source_commit": "3357cb048a25d134f1702a48113ecde9025c16ed",
+      "verified_at": "2026-10-21T00:22:25.826813+00:00",
+      "files": [
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Upgrade-from-0.8.x.zip",
+          "bytes": 7595369,
+          "sha256": "ccde0a4845449c5001bff42a91a9dfffea7500d8e9fe398ae10c3830ff621cec",
+          "gated_bytes_equal_local": true
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "bytes": 60065,
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+          "gated_bytes_equal_local": true
+        },
+        {
+          "filename": "Velvet-Vixxen-0.8.10-Build-20261020.11-package-manifest.json",
+          "bytes": 80812,
+          "sha256": "404520a15367d416fdd68402df8314e0ca54e50d1b5f34bd17be56ab4d2a02b7",
+          "gated_bytes_equal_local": true
+        },
+        {
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Fresh-Install.zip",
+          "bytes": 7752665,
+          "sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+          "gated_bytes_equal_local": true
+        }
+      ],
+      "comparison": "Literal bytes, exact filename set, sizes and SHA-256; all four files match the frozen candidate."
+    },
+    "all_downloaded_files_match_frozen_source": true
+  },
+  "browser_evidence": {
+    "status": "passed",
+    "job_id": 118954411510,
+    "artifact_id": 12310468594,
+    "artifact_sha256": "149e12122d2dc1891482adc2324213cdf7c5a809f00d39a99b8c4db44390b914",
+    "fresh_zip_sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+    "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+    "focused_actual_package_summary": {
+      "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+      "php": "8.3.35",
+      "server": "php -S without any router script",
+      "cases": {
+        "root": {
+          "actual_uploads": true,
+          "save_preview_publish_reload": true,
+          "independent_hero_footer_devices": true,
+          "normalized_photo_background_content_and_button_geometry": true,
+          "public_copy_wrap_and_crop_invariant": true,
+          "visible_lower_edge_pixel": true,
+          "viewport_changes_preserve_saved_scene_data": true,
+          "scene_bounds_clipped_to_viewport": true,
+          "unrelated_page_overflow_diagnostics": [],
+          "cases": [
+            {
+              "section": "hero",
+              "viewport_width": 1440,
+              "device": "desktop",
+              "frame": {
+                "width": 1440,
+                "height": 760
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1440,
+              "device": "desktop",
+              "frame": {
+                "width": 1440,
+                "height": 420
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1920,
+              "device": "desktop",
+              "frame": {
+                "width": 1920,
+                "height": 1013.328125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1920,
+              "device": "desktop",
+              "frame": {
+                "width": 1920,
+                "height": 560
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1280,
+              "device": "desktop",
+              "frame": {
+                "width": 1280,
+                "height": 675.546875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1280,
+              "device": "desktop",
+              "frame": {
+                "width": 1280,
+                "height": 373.328125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1121,
+              "device": "desktop",
+              "frame": {
+                "width": 1121,
+                "height": 591.625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1121,
+              "device": "desktop",
+              "frame": {
+                "width": 1121,
+                "height": 326.953125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1120,
+              "device": "tablet",
+              "frame": {
+                "width": 1120,
+                "height": 1120
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1120,
+              "device": "tablet",
+              "frame": {
+                "width": 1120,
+                "height": 647.109375
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 900,
+              "device": "tablet",
+              "frame": {
+                "width": 900,
+                "height": 900
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 900,
+              "device": "tablet",
+              "frame": {
+                "width": 900,
+                "height": 520
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1024,
+              "device": "tablet",
+              "frame": {
+                "width": 1024,
+                "height": 1024
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1024,
+              "device": "tablet",
+              "frame": {
+                "width": 1024,
+                "height": 591.640625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 768,
+              "device": "tablet",
+              "frame": {
+                "width": 768,
+                "height": 768
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 768,
+              "device": "tablet",
+              "frame": {
+                "width": 768,
+                "height": 443.71875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 761,
+              "device": "tablet",
+              "frame": {
+                "width": 761,
+                "height": 761
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 761,
+              "device": "tablet",
+              "frame": {
+                "width": 761,
+                "height": 439.6875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 760,
+              "device": "mobile",
+              "frame": {
+                "width": 760,
+                "height": 1675.890625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 760,
+              "device": "mobile",
+              "frame": {
+                "width": 760,
+                "height": 1208.203125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 390,
+              "device": "mobile",
+              "frame": {
+                "width": 390,
+                "height": 860
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 390,
+              "device": "mobile",
+              "frame": {
+                "width": 390,
+                "height": 620
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 430,
+              "device": "mobile",
+              "frame": {
+                "width": 430,
+                "height": 948.203125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 430,
+              "device": "mobile",
+              "frame": {
+                "width": 430,
+                "height": 683.578125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 320,
+              "device": "mobile",
+              "frame": {
+                "width": 320,
+                "height": 705.640625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 320,
+              "device": "mobile",
+              "frame": {
+                "width": 320,
+                "height": 508.703125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            }
+          ],
+          "legal_footer": {
+            "cases": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "height": 193.65625,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 390,
+                "height": 132.71875,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 760,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 900,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1121,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "height": 193.65625,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 390,
+                "height": 132.71875,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 760,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 900,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 1121,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              }
+            ],
+            "new_tab_clicks": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              }
+            ],
+            "larger_text_blue_underlined_credit": true,
+            "compact_intrinsic_height": true,
+            "homepage_and_common_renderer": true,
+            "own_footer_bounds_and_wrapping": true,
+            "empty_catalogue_cases": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "height": 193.65625,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "height": 110.328125,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "height": 193.65625,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "height": 110.328125,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              }
+            ]
+          }
+        },
+        "nested": {
+          "actual_uploads": true,
+          "save_preview_publish_reload": true,
+          "independent_hero_footer_devices": true,
+          "normalized_photo_background_content_and_button_geometry": true,
+          "public_copy_wrap_and_crop_invariant": true,
+          "visible_lower_edge_pixel": true,
+          "viewport_changes_preserve_saved_scene_data": true,
+          "scene_bounds_clipped_to_viewport": true,
+          "unrelated_page_overflow_diagnostics": [],
+          "cases": [
+            {
+              "section": "hero",
+              "viewport_width": 1440,
+              "device": "desktop",
+              "frame": {
+                "width": 1440,
+                "height": 760
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1440,
+              "device": "desktop",
+              "frame": {
+                "width": 1440,
+                "height": 420
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1920,
+              "device": "desktop",
+              "frame": {
+                "width": 1920,
+                "height": 1013.328125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1920,
+              "device": "desktop",
+              "frame": {
+                "width": 1920,
+                "height": 560
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1280,
+              "device": "desktop",
+              "frame": {
+                "width": 1280,
+                "height": 675.546875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1280,
+              "device": "desktop",
+              "frame": {
+                "width": 1280,
+                "height": 373.328125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1121,
+              "device": "desktop",
+              "frame": {
+                "width": 1121,
+                "height": 591.625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1121,
+              "device": "desktop",
+              "frame": {
+                "width": 1121,
+                "height": 326.953125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1120,
+              "device": "tablet",
+              "frame": {
+                "width": 1120,
+                "height": 1120
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1120,
+              "device": "tablet",
+              "frame": {
+                "width": 1120,
+                "height": 647.109375
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 900,
+              "device": "tablet",
+              "frame": {
+                "width": 900,
+                "height": 900
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 900,
+              "device": "tablet",
+              "frame": {
+                "width": 900,
+                "height": 520
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 1024,
+              "device": "tablet",
+              "frame": {
+                "width": 1024,
+                "height": 1024
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 1024,
+              "device": "tablet",
+              "frame": {
+                "width": 1024,
+                "height": 591.640625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 768,
+              "device": "tablet",
+              "frame": {
+                "width": 768,
+                "height": 768
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 768,
+              "device": "tablet",
+              "frame": {
+                "width": 768,
+                "height": 443.71875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 761,
+              "device": "tablet",
+              "frame": {
+                "width": 761,
+                "height": 761
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 761,
+              "device": "tablet",
+              "frame": {
+                "width": 761,
+                "height": 439.6875
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 760,
+              "device": "mobile",
+              "frame": {
+                "width": 760,
+                "height": 1675.890625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 760,
+              "device": "mobile",
+              "frame": {
+                "width": 760,
+                "height": 1208.203125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 390,
+              "device": "mobile",
+              "frame": {
+                "width": 390,
+                "height": 860
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 390,
+              "device": "mobile",
+              "frame": {
+                "width": 390,
+                "height": 620
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 430,
+              "device": "mobile",
+              "frame": {
+                "width": 430,
+                "height": 948.203125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 430,
+              "device": "mobile",
+              "frame": {
+                "width": 430,
+                "height": 683.578125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "hero",
+              "viewport_width": 320,
+              "device": "mobile",
+              "frame": {
+                "width": 320,
+                "height": 705.640625
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            },
+            {
+              "section": "footer",
+              "viewport_width": 320,
+              "device": "mobile",
+              "frame": {
+                "width": 320,
+                "height": 508.703125
+              },
+              "lower_marker_rgba": [
+                39,
+                240,
+                106,
+                255
+              ]
+            }
+          ],
+          "legal_footer": {
+            "cases": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "height": 193.65625,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 390,
+                "height": 132.71875,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 760,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 900,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1121,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "height": 193.65625,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 390,
+                "height": 132.71875,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 760,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    32
+                  ],
+                  "navigation": [],
+                  "legal": [],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 900,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 1121,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "height": 110.328125,
+                "fonts": {
+                  "brand": [
+                    41.6
+                  ],
+                  "subtitle": [
+                    12.8
+                  ],
+                  "signature": [
+                    38.4
+                  ],
+                  "navigation": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "legal": [
+                    16,
+                    16,
+                    16,
+                    16,
+                    16
+                  ],
+                  "credit": [
+                    16
+                  ]
+                },
+                "min_height": 0,
+                "credit": {
+                  "href": "https://cajunwebpro.com/",
+                  "target": "_blank",
+                  "rel": "noopener noreferrer",
+                  "color": "rgb(115, 186, 255)",
+                  "decoration": "underline",
+                  "font": 16
+                },
+                "contained_and_without_overlap": true,
+                "clear_of_fixed_audio_player": true
+              }
+            ],
+            "new_tab_clicks": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "url": "https://cajunwebpro.com/",
+                "opener_page_preserved": true,
+                "noopener": true,
+                "external_request_fulfilled_locally": true
+              }
+            ],
+            "larger_text_blue_underlined_credit": true,
+            "compact_intrinsic_height": true,
+            "homepage_and_common_renderer": true,
+            "own_footer_bounds_and_wrapping": true,
+            "empty_catalogue_cases": [
+              {
+                "renderer": "homepage",
+                "width": 320,
+                "height": 193.65625,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "homepage",
+                "width": 1440,
+                "height": 110.328125,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "common",
+                "width": 320,
+                "height": 193.65625,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              },
+              {
+                "renderer": "common",
+                "width": 1440,
+                "height": 110.328125,
+                "server_track_count": 0,
+                "player_hidden": true,
+                "body_padding_bottom": 0
+              }
+            ]
+          }
+        }
+      },
+      "fresh_zip_sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+      "browser": "151.0.7922.34",
+      "status": "passed"
+    },
+    "focused_artifact_audit": {
+      "observed_at": "2026-10-21T00:22:28.930619+00:00",
+      "summary_status": "passed",
+      "fresh_zip_sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+      "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+      "php": "8.3.35",
+      "chromium": "151.0.7922.34",
+      "comparisons": 52,
+      "case_counts": {
+        "root": 26,
+        "nested": 26
+      },
+      "viewport_widths": [
+        320,
+        390,
+        430,
+        760,
+        761,
+        768,
+        900,
+        1024,
+        1120,
+        1121,
+        1280,
+        1440,
+        1920
+      ],
+      "footer_layouts": 24,
+      "footer_case_counts": {
+        "root": 12,
+        "nested": 12
+      },
+      "new_tab_clicks": 8,
+      "empty_catalogue_observations": 8,
+      "decoded_png_count": 34,
+      "screenshots": [
+        {
+          "filename": "composer-scale-nested-footer-desktop.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 408170,
+          "sha256": "ff37575f0783eb9b29f024148c11cd41527f64a7f50d61399f38e5f8821c6cfa"
+        },
+        {
+          "filename": "composer-scale-nested-footer-mobile.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 418102,
+          "sha256": "16f7098e49bccf8dffbbdc79e3ebe8ea146fd9fe418c3495baadf416500fa007"
+        },
+        {
+          "filename": "composer-scale-nested-footer-preview.png",
+          "width": 1680,
+          "height": 491,
+          "bytes": 158022,
+          "sha256": "182da8d9d96da06bed64d5ce4e9cbed2545c289ff2390e501e10a3e9cfcad0d2"
+        },
+        {
+          "filename": "composer-scale-nested-footer-tablet.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 417336,
+          "sha256": "54ef5ce220f78c2afb28ec4dcd4e9117646e48ba87990ce888ad6871ac4bde01"
+        },
+        {
+          "filename": "composer-scale-nested-hero-desktop.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 413323,
+          "sha256": "f6b99608fc055401b56dd35e250b868f458d5fa36755f86f1ea4618bb3658e92"
+        },
+        {
+          "filename": "composer-scale-nested-hero-mobile.png",
+          "width": 1680,
+          "height": 1219,
+          "bytes": 420600,
+          "sha256": "d7c0a652480f8f16484602fa35a06e0c608f4881b3a7dbf4083fbbb1a74048dc"
+        },
+        {
+          "filename": "composer-scale-nested-hero-preview.png",
+          "width": 1680,
+          "height": 887,
+          "bytes": 222907,
+          "sha256": "b8fb4d2f30b653ccbf406db4b029477024b74cf6d39e11b43cbfb228ae8271f8"
+        },
+        {
+          "filename": "composer-scale-nested-hero-tablet.png",
+          "width": 1680,
+          "height": 1159,
+          "bytes": 419899,
+          "sha256": "cb416b5e8cf43074353780b0a828bd9901921a7e3ffa74bd23e66d36fd835789"
+        },
+        {
+          "filename": "composer-scale-nested-legal-footer-common-1440.png",
+          "width": 1440,
+          "height": 111,
+          "bytes": 42211,
+          "sha256": "8df9158277a56b1e65dccc8228dc64414bfe2f06af20e0a69015d4e6bb8568a5"
+        },
+        {
+          "filename": "composer-scale-nested-legal-footer-common-320.png",
+          "width": 320,
+          "height": 194,
+          "bytes": 25976,
+          "sha256": "1f374391b7828b423ffcb006288421df386a5c18246196213ce610abe5fa8219"
+        },
+        {
+          "filename": "composer-scale-nested-legal-footer-homepage-1440.png",
+          "width": 1440,
+          "height": 112,
+          "bytes": 38627,
+          "sha256": "94dd2f7c469ea2c53ad9c4e32fe9b616d4625db410e68ce1fc52be856817a288"
+        },
+        {
+          "filename": "composer-scale-nested-legal-footer-homepage-320.png",
+          "width": 320,
+          "height": 195,
+          "bytes": 26006,
+          "sha256": "5c389caab06c0fb4c62e5f48750f46620e37c6ef1a5856c6024e041266dcd142"
+        },
+        {
+          "filename": "composer-scale-nested-public-1440.png",
+          "width": 1440,
+          "height": 3863,
+          "bytes": 1829552,
+          "sha256": "95b4c0cd434bd4fea10f0191c9cae01c92c720b1eb62d580d18f1c909e1c26b4"
+        },
+        {
+          "filename": "composer-scale-nested-public-1920.png",
+          "width": 1920,
+          "height": 4256,
+          "bytes": 2188226,
+          "sha256": "0a2a73cb5ef947c4cff09d4db20942573c0bd83ca6e957b2ee11625708c2ee21"
+        },
+        {
+          "filename": "composer-scale-nested-public-320.png",
+          "width": 320,
+          "height": 6340,
+          "bytes": 929274,
+          "sha256": "3d6e2e4d45d4f6bdc62dd3d5449e2f23797d69350572c53ceccc64cff3828e52"
+        },
+        {
+          "filename": "composer-scale-nested-public-390.png",
+          "width": 390,
+          "height": 6134,
+          "bytes": 1068052,
+          "sha256": "58c8bb01dfc704039049b483963ea5949e7eb94e45fa63f4d8b659c419629c13"
+        },
+        {
+          "filename": "composer-scale-nested-public-900.png",
+          "width": 900,
+          "height": 4868,
+          "bytes": 1711089,
+          "sha256": "3163e36510ceddc06f956af97917146a88394abdc6838e0a7fb4df38ae3a6854"
+        },
+        {
+          "filename": "composer-scale-root-footer-desktop.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 408170,
+          "sha256": "ff37575f0783eb9b29f024148c11cd41527f64a7f50d61399f38e5f8821c6cfa"
+        },
+        {
+          "filename": "composer-scale-root-footer-mobile.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 418102,
+          "sha256": "16f7098e49bccf8dffbbdc79e3ebe8ea146fd9fe418c3495baadf416500fa007"
+        },
+        {
+          "filename": "composer-scale-root-footer-preview.png",
+          "width": 1680,
+          "height": 491,
+          "bytes": 158022,
+          "sha256": "182da8d9d96da06bed64d5ce4e9cbed2545c289ff2390e501e10a3e9cfcad0d2"
+        },
+        {
+          "filename": "composer-scale-root-footer-tablet.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 417336,
+          "sha256": "54ef5ce220f78c2afb28ec4dcd4e9117646e48ba87990ce888ad6871ac4bde01"
+        },
+        {
+          "filename": "composer-scale-root-hero-desktop.png",
+          "width": 1680,
+          "height": 1134,
+          "bytes": 413323,
+          "sha256": "f6b99608fc055401b56dd35e250b868f458d5fa36755f86f1ea4618bb3658e92"
+        },
+        {
+          "filename": "composer-scale-root-hero-mobile.png",
+          "width": 1680,
+          "height": 1219,
+          "bytes": 420600,
+          "sha256": "d7c0a652480f8f16484602fa35a06e0c608f4881b3a7dbf4083fbbb1a74048dc"
+        },
+        {
+          "filename": "composer-scale-root-hero-preview.png",
+          "width": 1680,
+          "height": 887,
+          "bytes": 222907,
+          "sha256": "b8fb4d2f30b653ccbf406db4b029477024b74cf6d39e11b43cbfb228ae8271f8"
+        },
+        {
+          "filename": "composer-scale-root-hero-tablet.png",
+          "width": 1680,
+          "height": 1159,
+          "bytes": 419899,
+          "sha256": "cb416b5e8cf43074353780b0a828bd9901921a7e3ffa74bd23e66d36fd835789"
+        },
+        {
+          "filename": "composer-scale-root-legal-footer-common-1440.png",
+          "width": 1440,
+          "height": 111,
+          "bytes": 42211,
+          "sha256": "8df9158277a56b1e65dccc8228dc64414bfe2f06af20e0a69015d4e6bb8568a5"
+        },
+        {
+          "filename": "composer-scale-root-legal-footer-common-320.png",
+          "width": 320,
+          "height": 194,
+          "bytes": 25976,
+          "sha256": "1f374391b7828b423ffcb006288421df386a5c18246196213ce610abe5fa8219"
+        },
+        {
+          "filename": "composer-scale-root-legal-footer-homepage-1440.png",
+          "width": 1440,
+          "height": 112,
+          "bytes": 38627,
+          "sha256": "94dd2f7c469ea2c53ad9c4e32fe9b616d4625db410e68ce1fc52be856817a288"
+        },
+        {
+          "filename": "composer-scale-root-legal-footer-homepage-320.png",
+          "width": 320,
+          "height": 195,
+          "bytes": 26006,
+          "sha256": "5c389caab06c0fb4c62e5f48750f46620e37c6ef1a5856c6024e041266dcd142"
+        },
+        {
+          "filename": "composer-scale-root-public-1440.png",
+          "width": 1440,
+          "height": 3863,
+          "bytes": 1829552,
+          "sha256": "95b4c0cd434bd4fea10f0191c9cae01c92c720b1eb62d580d18f1c909e1c26b4"
+        },
+        {
+          "filename": "composer-scale-root-public-1920.png",
+          "width": 1920,
+          "height": 4256,
+          "bytes": 2188226,
+          "sha256": "0a2a73cb5ef947c4cff09d4db20942573c0bd83ca6e957b2ee11625708c2ee21"
+        },
+        {
+          "filename": "composer-scale-root-public-320.png",
+          "width": 320,
+          "height": 6340,
+          "bytes": 929274,
+          "sha256": "3d6e2e4d45d4f6bdc62dd3d5449e2f23797d69350572c53ceccc64cff3828e52"
+        },
+        {
+          "filename": "composer-scale-root-public-390.png",
+          "width": 390,
+          "height": 6134,
+          "bytes": 1068052,
+          "sha256": "58c8bb01dfc704039049b483963ea5949e7eb94e45fa63f4d8b659c419629c13"
+        },
+        {
+          "filename": "composer-scale-root-public-900.png",
+          "width": 900,
+          "height": 4868,
+          "bytes": 1711089,
+          "sha256": "3163e36510ceddc06f956af97917146a88394abdc6838e0a7fb4df38ae3a6854"
+        }
+      ],
+      "review_note": "All PNGs decoded. Contact sheets generated for root visual review; visual review completion is recorded separately."
+    },
+    "retained_editorial_history_summary": {
+      "file-root-desktop": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "file-nested-mobile": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-root-desktop": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-nested-mobile": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      }
+    },
+    "root_visual_review": {
+      "status": "passed",
+      "reviewed_at": "2026-10-21T00:23:08.033315+00:00",
+      "reviewer": "root",
+      "artifact_id": 12310468594,
+      "artifact_sha256": "149e12122d2dc1891482adc2324213cdf7c5a809f00d39a99b8c4db44390b914",
+      "fresh_zip_sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+      "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+      "decoded_png_count": 34,
+      "contact_sheets_reviewed": [
+        "qa-contact-previews.png",
+        "qa-contact-editors.png",
+        "qa-contact-public.png",
+        "qa-contact-footers.png"
+      ],
+      "full_images_reviewed": [
+        "composer-scale-root-public-1920.png",
+        "composer-scale-root-public-320.png",
+        "composer-scale-root-legal-footer-homepage-320.png",
+        "composer-scale-root-legal-footer-homepage-1440.png"
+      ],
+      "findings": [
+        "Reviewed actual downloaded CI contact sheets for Composer editors, full previews, public pages and legal footers in root and nested installations.",
+        "Public scene captures retain the intentional lower-edge green marker and proportional fixture placement across desktop and phone layouts; full previews agree with the corresponding editor scenes.",
+        "The desktop legal footer has larger readable navigation and credit in a compact row; the narrow footer wraps the brand and credit without clipped text.",
+        "The designer credit is visibly blue and underlined in both inspected full-size legal-footer captures. The quantitative artifact audit separately binds real click behavior and player clearance."
+      ]
+    }
+  },
+  "source_wiring_review": {
+    "status": "passed",
+    "source_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "workflow_sha256": "baaaad45ae82809023c48ac48c175df7616e815237b08b318dae70ae28681a2f",
+    "expanded_job_count": 7,
+    "explicit_required_step_count": 66,
+    "all_previous_jobs_steps_matrices_dependencies_services_preserved": true,
+    "new_scale_browser_gate_required": true,
+    "no_continue_on_error": true
+  },
+  "required_step_contract": {
+    "workflow_sha256": "baaaad45ae82809023c48ac48c175df7616e815237b08b318dae70ae28681a2f",
+    "path": ".github/workflows/repository-ci.yml",
+    "source_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "source_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "run_id": 39517748806,
+    "jobs": {
+      "Repository and executable source contract": [
+        "Run actions/checkout@v4",
+        "Require documentation and executable source"
+      ],
+      "PHP 8.2 source and package regressions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-node@v4",
+        "Run actions/setup-python@v5",
+        "Run mandatory source and packaging suites in disposable copies"
+      ],
+      "PHP 8.3 source and package regressions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-node@v4",
+        "Run actions/setup-python@v5",
+        "Run mandatory source and packaging suites in disposable copies"
+      ],
+      "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+        "Verify real packaged installer on existing and interrupted MySQL databases",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+        "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+        "Install packaged HTTP acceptance dependencies",
+        "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+        "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+        "Capture and restore private editorial history through actual packaged MySQL requests"
+      ],
+      "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+        "Verify real packaged installer on existing and interrupted MySQL databases",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+        "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+        "Install packaged HTTP acceptance dependencies",
+        "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+        "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+        "Capture and restore private editorial history through actual packaged MySQL requests"
+      ],
+      "Installed HTTP and Chromium desktop/mobile acceptance": [
+        "Run actions/checkout@v4",
+        "Run shivammathur/setup-php@v2",
+        "Run actions/setup-python@v5",
+        "Install browser acceptance dependencies",
+        "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+        "Verify packaged media uploads without rewrite assistance at root and nested paths",
+        "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+        "Verify every packaged public route and cleanup preservation without rewrite assistance",
+        "Run installed HTTP suites in a disposable copy",
+        "Keep private replies out of actual member and guest notification emails",
+        "Verify packaged preview, publish and button destinations without rewrite assistance",
+        "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+        "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+        "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+        "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+        "Configure email and test saved SMTP settings through the real packaged owner page",
+        "Run real desktop and mobile browser suites in a disposable copy",
+        "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+        "Permit failure-injection triggers in the disposable MySQL service",
+        "Recover a held add-on through the actual desktop and mobile owner controls",
+        "Edit publication windows through actual packaged owner and public pages",
+        "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+        "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+        "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+        "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+        "Upload real browser evidence"
+      ],
+      "Build verified fresh-install and upgrade ZIPs": [
+        "Run actions/checkout@v4",
+        "Run actions/setup-python@v5",
+        "Build separate runtime packages",
+        "Run actions/upload-artifact@v4"
+      ]
+    },
+    "job_count": 7,
+    "configured_step_count": 66
+  },
+  "independent_source_tree_verification": {
+    "status": "passed",
+    "source_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "source_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "test_merge_sha": "1055db0049e6825bddf284e460bbdd45ce64c268",
+    "test_merge_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "final_merge_sha": "a98847d032a50eabfbd117ade9cdce63de5c25c3",
+    "final_merge_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "full_trees_equal": true,
+    "scope": "Complete Git tree identities, seven actual checkout logs and literal downloaded-package comparisons."
+  },
+  "validation_summary": {
+    "required_jobs_successful": 7,
+    "actual_checkout_logs_verified": 7,
+    "configured_required_steps_successful": 66,
+    "scene_comparisons": 52,
+    "legal_footer_layouts": 24,
+    "actual_new_tab_clicks": 8,
+    "empty_catalogue_observations": 8,
+    "focused_pngs_decoded_and_bound_to_artifact": 34,
+    "history_browser": {
+      "file-root-desktop": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "file-nested-mobile": {
+        "http_checks": 2028,
+        "browser_checks": 404,
+        "mysql_version": null,
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-root-desktop": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      },
+      "mysql-nested-mobile": {
+        "http_checks": 2253,
+        "browser_checks": 428,
+        "mysql_version": "8.0.46",
+        "screenshots": 10,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0,
+        "stale_second_tab_restore_refused": true
+      }
+    },
+    "source_test_merge_and_final_merge_full_trees_equal": true,
+    "missing_required_steps": [],
+    "skipped_required_steps": [],
+    "failed_required_steps": [],
+    "artifacts_bound_to_run_and_source": true,
+    "artifact_metadata_and_upload_logs_agree": true,
+    "saved_download_bytes_equal_gated_artifact": true
+  },
+  "merge": {
+    "sha": "a98847d032a50eabfbd117ade9cdce63de5c25c3",
+    "merged": true,
+    "merged_at": "2026-10-21T00:23:10Z",
+    "tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/26",
+    "pr_number": 26,
+    "head_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "base_sha": "029ce3defd149db453380b99326836e86929ddd6",
+    "parents": [
+      "029ce3defd149db453380b99326836e86929ddd6",
+      "3357cb048a25d134f1702a48113ecde9025c16ed"
+    ],
+    "main_sha_observed": "a98847d032a50eabfbd117ade9cdce63de5c25c3"
+  },
+  "finalized_at": "2026-10-21T00:25:31.617514+00:00",
+  "notes": [
+    "The accepted run is the complete replacement PR run for corrected source; the earlier failed run is explicitly excluded.",
+    "Public evidence lines express browser artifact locations relative to the checkout; referenced log hashes bind the original unmodified logs.",
+    "The superseded failure was a retained test expected-version pin. Packaging rejected the mismatch before the editorial HTTP matrix; the two-file correction changed no runtime or package bytes.",
+    "The 52 scene comparisons, 24 legal-footer layouts, eight new-tab clicks and eight empty-catalogue observations come from the actual browser artifact, bound to the exact Fresh and test source hashes.",
+    "All 34 focused PNGs were decoded and matched the downloaded artifact; root separately reviewed the recorded contact sheets and full-size captures.",
+    "The unchanged unfinished-installer repair remains 0.8.1 / repair Build20261020.3 and saved version2.",
+    "No customer-host deployment or separate post-merge CI certification is implied."
+  ],
+  "boundaries": {
+    "actual_host_verified": false,
+    "production_email_verified": false,
+    "payments": "sandbox-only",
+    "post_merge_ci_claimed": false
+  }
+}

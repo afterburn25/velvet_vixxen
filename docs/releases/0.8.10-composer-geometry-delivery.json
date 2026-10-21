@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "version": "0.8.10",
+  "build_id": "20261020.11",
+  "source_commit": "3357cb048a25d134f1702a48113ecde9025c16ed",
+  "source_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+  "pr": {
+    "sha": "a98847d032a50eabfbd117ade9cdce63de5c25c3",
+    "merged": true,
+    "merged_at": "2026-10-21T00:23:10Z",
+    "tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/26",
+    "pr_number": 26,
+    "head_sha": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "base_sha": "029ce3defd149db453380b99326836e86929ddd6",
+    "parents": [
+      "029ce3defd149db453380b99326836e86929ddd6",
+      "3357cb048a25d134f1702a48113ecde9025c16ed"
+    ],
+    "main_sha_observed": "a98847d032a50eabfbd117ade9cdce63de5c25c3"
+  },
+  "ci_run_id": 39517748806,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806",
+  "actual_ci_checkout": "1055db0049e6825bddf284e460bbdd45ce64c268",
+  "ci_checkout_tree": "6dbfc18ffd1aded1015b5691559b6acc0870ab3c",
+  "gated_artifact_verification": {
+    "run_id": 39517748806,
+    "artifact_id": 12310968133,
+    "artifact_sha256": "bb25d96ed99e150665b6c66044e2c0a31fadecccb93f0f08b0cba806270b9926",
+    "artifact_bytes": 15381047,
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806/artifacts/12310968133",
+    "source_commit": "3357cb048a25d134f1702a48113ecde9025c16ed",
+    "verified_at": "2026-10-21T00:22:25.826813+00:00",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Upgrade-from-0.8.x.zip",
+        "bytes": 7595369,
+        "sha256": "ccde0a4845449c5001bff42a91a9dfffea7500d8e9fe398ae10c3830ff621cec",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.10-Build-20261020.11-package-manifest.json",
+        "bytes": 80812,
+        "sha256": "404520a15367d416fdd68402df8314e0ca54e50d1b5f34bd17be56ab4d2a02b7",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Fresh-Install.zip",
+        "bytes": 7752665,
+        "sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+        "gated_bytes_equal_local": true
+      }
+    ],
+    "comparison": "Literal bytes, exact filename set, sizes and SHA-256; all four files match the frozen candidate."
+  },
+  "saved_download_verification": {
+    "verified_at": "2026-10-21T00:25:31.617514+00:00",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Upgrade-from-0.8.x.zip",
+        "bytes": 7595369,
+        "sha256": "ccde0a4845449c5001bff42a91a9dfffea7500d8e9fe398ae10c3830ff621cec",
+        "saved_version_number": 14,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.10-Build-20261020.11-Fresh-Install.zip",
+        "bytes": 7752665,
+        "sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+        "saved_version_number": 17,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.10-Build-20261020.11-package-manifest.json",
+        "bytes": 80812,
+        "sha256": "404520a15367d416fdd68402df8314e0ca54e50d1b5f34bd17be56ab4d2a02b7",
+        "saved_version_number": 17,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "saved_version_number": 2,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": true
+      }
+    ]
+  },
+  "focused_browser_binding": {
+    "artifact_id": 12310468594,
+    "artifact_sha256": "149e12122d2dc1891482adc2324213cdf7c5a809f00d39a99b8c4db44390b914",
+    "fresh_zip_sha256": "b37a3a5f5a11e91b6d90288aae1ac52040e7350efc9cb4119b74452b2688cdd9",
+    "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+    "scene_comparisons": 52,
+    "footer_layouts": 24,
+    "new_tab_clicks": 8,
+    "empty_catalogue_observations": 8,
+    "decoded_png_count": 34
+  },
+  "affected_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only"
+}

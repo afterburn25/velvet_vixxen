@@ -1,15 +1,20 @@
 # Architecture and Product Decisions
 
-## 2026-10-20 — Shared Composer/public scene geometry (0.8.10 candidate)
+## 2026-10-20 — Shared Composer/public scene geometry (0.8.10, verified)
 
 - The owner reported that photos visible in Composer were cut off by the actual Hero. The original package reproduces a fixed 760px public height at 1680px width while Composer represents a 1440×760 canvas.
 - Preserve the existing per-device design canvases and stored coordinates. Uniformly project the whole public scene into its actual width, with displayed height equal to saved height × actual width/design width. This also preserves background fitting and scales live typography, controls and effects together.
 - Keep the public navigation outside the scene and stop the following paper section from overlapping the composed Hero's lower edge. Keep intended edge cropping; do not alter stored owner layouts, source images or publication state.
 - Share the geometry helper between editor/public entry points and require it in package/update inventories starting at 0.8.10. Earlier inventories remain inspectable with their own identity.
 - Require the focused actual-package root/nested 52-comparison matrix, the failing original-package control, retained Composer/browser gates and all seven required CI jobs. Local success does not establish merge, saved delivery or actual-host installation.
-- The later owner footer request is part of this same unreleased increment: enlarge bottom-footer type while removing fixed minimum height and reducing padding; add a clearly blue underlined Cajun Web Pro credit opening a new tab on homepage/common renderers. Preserve existing mobile link visibility and allow content-driven wrapping. Verify 24 footer layouts and eight locally fulfilled new-tab clicks in the same packaged browser step.
+- The later owner footer request is part of the delivered 0.8.10 increment: enlarge bottom-footer type while removing fixed minimum height and reducing padding; add a clearly blue underlined Cajun Web Pro credit opening a new tab on homepage/common renderers. Preserve existing mobile link visibility and allow content-driven wrapping. Verify 24 footer layouts and eight locally fulfilled new-tab clicks in the same packaged browser step.
 - A real packaged phone click exposed the fixed player covering the homepage credit. Track actual player height/visibility and reserve clearance below page content without increasing the footer element. Verify real pointer hits, new tabs and hidden-player empty-catalogue responses.
+- Delivered 0.8.10 / Build 20261020.11 after all seven jobs and 66 required steps passed in run 39517748806. Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual CI checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and PR #26 merge `a98847d032a50eabfbd117ade9cdce63de5c25c3` share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. The actual browser artifact verifies 52/24/8/8 focused observations and 34 decoded PNGs; saved-download literal read-back passed at `2026-10-21T00:25:31.617514+00:00`. See [the release record](releases/0.8.10-composer-geometry.md).
 - Foreground masking/depth controls and unrelated contact-card overflow remain separately scoped. This correction does not complete broader marketing #9 or the 0.9 milestone.
+
+## Current continuation — 0.8.11 Menus candidate in progress
+
+The newest user-directed increment is **0.8.11 Menus**, on `feature/0.8.11-menu-editor`: owner controls to edit, add, remove and reorder menu items, add submenus, and choose same-tab, new-tab or requested new-window navigation. It is a separate candidate in progress, not a completed or delivered release. Its own required CI, merge and saved-download evidence remain pending; 0.8.10 acceptance does not certify changed 0.8.11 bytes.
 
 ## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, verified)
 
@@ -20,7 +25,7 @@
 - Force restored posts to draft and banners/pages to disabled. Review and explicit ordinary publication are separate owner actions. Preserve the replaced current editorial state as a new history entry when the restore changes it. A restore never requeues or sends campaign mail.
 - Keep malformed or oversized history intact and hold ordinary editing/restoration for review. Safe withdrawal to draft/disabled remains possible without resetting damaged history. Do not claim a new snapshot for a withdrawal that could not safely capture one.
 - Permanent deletion removes the item and its attached history. Deleted-item recovery, an editorial calendar and explicit post expiry remain separate work. No new database migration, backend cutover, public route or package-root exception is included.
-- Delivered 0.8.9 / Build 20261020.10 after all seven jobs and 65 configured required steps passed in run 39510626159. Source `c07c02bd0b6957cba4e0c9d6722765e262e37157`, actual CI checkout `f22982b761358e12db2cacde64a0ce283ce7a6e2` and PR #25 merge `ca638ef486846d37c80606d5a012f07f23299dae` share tree `99ecb497aa99006568152c058c9b9c447625c16a`. Literal saved-download read-back passed at `2026-10-20T23:13:07.846261+00:00`; see [the release record](releases/0.8.9-editorial-history.md). Prior releases retain their historical identities and evidence. The separate 0.8.10 Composer geometry correction has passed local acceptance but awaits CI, merge and delivery; depth/masking remains pending.
+- Delivered 0.8.9 / Build 20261020.10 after all seven jobs and 65 configured required steps passed in run 39510626159. Source `c07c02bd0b6957cba4e0c9d6722765e262e37157`, actual CI checkout `f22982b761358e12db2cacde64a0ce283ce7a6e2` and PR #25 merge `ca638ef486846d37c80606d5a012f07f23299dae` share tree `99ecb497aa99006568152c058c9b9c447625c16a`. Literal saved-download read-back passed at `2026-10-20T23:13:07.846261+00:00`; see [the release record](releases/0.8.9-editorial-history.md). Prior releases retain their historical identities and evidence. At that 0.8.9 delivery, the separate 0.8.10 correction was awaiting its own CI, merge and delivery. Its completed evidence is now recorded above; depth/masking remains pending.
 
 ## 2026-10-20 — Bounded editorial metadata and current asset references
 

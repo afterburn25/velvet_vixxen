@@ -1,10 +1,16 @@
-## 0.8.10 — Scene scale and compact footer (acceptance candidate)
+## 0.8.10 — Scene scale and compact footer, Build 20261020.11 (2026-10-20)
 
-- Share canonical device geometry between Visual Composer and the public Hero/Visual Footer, including background crop, photos, live copy, buttons and pixel effects. Correct the lower-edge clipping caused by a fixed public height at wider viewport widths.
-- Preserve existing saved layouts, device independence, intentional crops, uploads, Save Draft, Full Page Preview and Publish. Existing layouts need no resave.
-- Add actual-package root/nested browser regression coverage for both scenes at 13 widths, with a failing original-package control, retained controls/buttons coverage and mandatory CI execution.
-- Increase bottom-footer text, remove unnecessary minimum height/padding, and add a blue underlined Cajun Web Pro credit that opens a new tab on homepage and common public pages.
-- Advance visible version to 0.8.10 / Build 20261020.11. Complete local acceptance passed; required CI, source/merge binding, actual artifact verification and saved-download delivery remain pending. See [the release record](docs/releases/0.8.10-composer-geometry.md).
+Verified, merged through [PR #26](https://github.com/afterburn25/velvet_vixxen/pull/26) at `a98847d032a50eabfbd117ade9cdce63de5c25c3` and delivered. Visual Composer and the public Hero/Visual Footer now share canonical device geometry, including background crop, photos, live copy, buttons and pixel effects. The proportional frame corrects the reported lower-edge clipping. Existing saved layouts, device independence, intentional crops, uploads, Save Draft, Full Page Preview and Publish remain intact; existing scenes need no resave.
+
+Bottom-footer text is larger, with 16px navigation/legal/credit text, no fixed minimum height, 8px vertical padding and 4px row gaps. The blue underlined Cajun Web Pro credit opens a new tab on homepage/common pages. A visible audio player reserves its actual height plus 8px below page content so ordinary clicks can reach the credit; a hidden player reserves zero space.
+
+All seven required CI jobs and 66 configured steps passed in [run 39517748806](https://github.com/afterburn25/velvet_vixxen/actions/runs/39517748806). Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and the merge share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. The downloaded focused browser artifact verifies 52 Hero/Footer comparisons across 13 widths and root/nested paths, 24 footer layouts, eight real new-tab clicks, eight empty-catalogue observations and 34 decoded PNGs. Contact sheets and representative full-size images were reviewed; retained source/security/ownership/OPcache/MySQL/HTTP/browser/package gates passed. The original-package negative control remains recorded as a local reproduction.
+
+Fresh/Upgrade contain 363/322 runtime entries, 12 changed entries and 351 unchanged Fresh entries, preserving the approved roots. The ZIPs, separate manifest and unchanged 0.8.1 repair matched the gated artifact and saved/read-back bytes at `2026-10-21T00:25:31.617514+00:00`. [Exact release, CI and delivery evidence](docs/releases/0.8.10-composer-geometry.md).
+
+The newest user-directed increment is **0.8.11 Menus**, on `feature/0.8.11-menu-editor`: owner controls to edit, add, remove and reorder menu items, add submenus, and choose same-tab, new-tab or requested new-window navigation. It is a separate candidate in progress, not a completed or delivered release. Its own required CI, merge and saved-download evidence remain pending; 0.8.10 acceptance does not certify changed 0.8.11 bytes.
+
+Actual-host #12/#13, production email, broader #9 and separate 0.9 acceptance remain open; payments remain sandbox-only. Dedicated depth placement and foreground masking remain separate pending work.
 
 ## 0.8.9 — Editorial history and restore, Build 20261020.10 (2026-10-20)
 
@@ -12,7 +18,7 @@ Verified, merged through [PR #25](https://github.com/afterburn25/velvet_vixxen/p
 
 All seven required CI jobs and 65 configured steps passed on the exact source tree, including 192 history source assertions on both PHP versions, 2292 history HTTP checks per root/nested case in both real-MySQL jobs, and four actual-package file/MySQL desktop/mobile browser cases. All 40 history screenshots decoded and representative full-size captures were reviewed. Retained source, security, ownership, persistent-OPcache, installer, ten-suite HTTP and browser gates passed. Full Fresh/Upgrade have 362/321 runtime entries, 13 changed entries and 349 unchanged Fresh entries. The ZIPs, separate manifest and unchanged 0.8.1 repair matched the gated and saved/read-back bytes at `2026-10-20T23:13:07.846261+00:00`. [Exact release, CI and delivery evidence](docs/releases/0.8.9-editorial-history.md).
 
-Calendar, explicit post expiry and deleted-item recovery remain separate. The immediate 0.8.10 Composer/public geometry correction has passed 52 local comparisons but awaits its CI, merge and delivery; dedicated depth placement and foreground masking remain pending. Broader #9, actual-host #12/#13, production email and separate 0.9 acceptance remain open; payments stay sandbox-only.
+Calendar, explicit post expiry and deleted-item recovery remain separate. At this historical 0.8.9 delivery, the 0.8.10 Composer/public geometry correction had passed 52 local comparisons and was awaiting its own CI, merge and delivery; its completed evidence is now recorded above; dedicated depth placement and foreground masking remain pending. Broader #9, actual-host #12/#13, production email and separate 0.9 acceptance remain open; payments stay sandbox-only.
 
 ## 0.8.8 — Editorial metadata, Build 20261020.9
 

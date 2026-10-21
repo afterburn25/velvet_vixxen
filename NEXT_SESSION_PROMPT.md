@@ -1,14 +1,14 @@
 # Copy-Paste Prompt for the Next Session
 
-<!-- editorial-history-089-current-prompt:start -->
-## Current prompt — continue from delivered 0.8.9 into the Composer geometry fix
+<!-- composer-geometry-0810-current-prompt:start -->
+## Current prompt — continue from delivered 0.8.10 into the Menus candidate
 
-Read live `main` and `docs/releases/0.8.9-editorial-history.md` with its CI/delivery JSON companions. The 0.8.9 / Build 20261020.10 history increment is verified, merged through PR #25 at `ca638ef486846d37c80606d5a012f07f23299dae`, and delivered. Its source, actual CI checkout and merge share tree `99ecb497aa99006568152c058c9b9c447625c16a`; all seven jobs and 65 configured required steps passed. Saved downloads were retrieved and compared literally at `2026-10-20T23:13:07.846261+00:00`. Do not repeat the completed history work.
+Read live `main` and `docs/releases/0.8.10-composer-geometry.md` with its CI/delivery JSON companions. Version **0.8.10 / Build 20261020.11** is verified, merged through PR #26 at `a98847d032a50eabfbd117ade9cdce63de5c25c3` and delivered. Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual seven-job checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and the merge share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. All seven required jobs and 66 configured steps passed in run 39517748806. Actual browser-artifact acceptance covers 52 scene comparisons, 24 footer layouts, eight new-tab clicks, eight empty-catalogue observations and 34 decoded PNGs. Saved downloads were retrieved and compared literally at `2026-10-21T00:25:31.617514+00:00`. Preserve the completed scene/footer behavior and its existing scene data; do not repeat this correction or the completed 0.8.9 history work.
 
-Continue the user-directed **0.8.10 / Build 20261020.11 Composer/public Hero and Footer geometry correction**. Its 52 local root/nested scene/width comparisons and actual Save, Full Page Preview, Publish and reload passed. Required CI, merge and saved-download delivery remain pending and require this fix's own exact evidence. Preserve existing saved scenes and layouts. The separate request for distance/depth placement and foreground furniture masking remains pending, with no approved dedicated UI or delivered control.
+The newest user-directed increment is **0.8.11 Menus**, on `feature/0.8.11-menu-editor`: owner controls to edit, add, remove and reorder menu items, add submenus, and choose same-tab, new-tab or requested new-window navigation. It is a separate candidate in progress, not a completed or delivered release. Its own required CI, merge and saved-download evidence remain pending; 0.8.10 acceptance does not certify changed 0.8.11 bytes.
 
-Preserve completed private history/review and deliberate draft/disabled restore, metadata, access and every other release gate. Calendar, explicit post expiry and deleted-item recovery remain separate #9 work. Preserve exact approved 13/9 runtime roots and the unchanged 0.8.1 / repair Build 20261020.3 installer overlay. Keep #3, actual-host #12/#13, production email, sandbox-only payments and separate 0.9 acceptance boundaries accurate. Every changed completed release advances its visible version; only literal byte-identical rebuilds may reuse one.
-<!-- editorial-history-089-current-prompt:end -->
+Preserve independent scene layers/device layouts, editorial history, metadata and access, private saved-owner previews, SQL marketing storage, publication windows, audiences, Media Center, owner email and every required gate and approved package root. Dedicated depth placement and foreground masking remain separate pending work. Broader #9 calendar and explicit post expiry remain separately scoped. Actual-host #12/#13 and production email are unverified, payments remain sandbox-only, and the separate 0.9 milestone remains incomplete. Never infer host deployment from repository or download completion.
+<!-- composer-geometry-0810-current-prompt:end -->
 
 <!-- editorial-metadata-088-current-prompt:start -->
 ## Historical prompt — continue from live main after 0.8.8
@@ -108,7 +108,7 @@ Use the following prompt in a new ChatGPT session:
 
 Continue development of **Nikki Wilder / The Velvet Vixxen** using GitHub repository **`afterburn25/velvet_vixxen`**.
 
-Before answering or coding, inspect live `main` and the current 0.8.9 release record. Continue the scoped 0.8.10 Composer/public geometry fix through its remaining release gates; its local 52-comparison acceptance has passed. Keep the separate depth/masking request pending, then scope remaining #9 calendar and explicit post expiry. Do not restart completed work from historical feature branches.
+Before answering or coding, inspect live `main` and the current verified 0.8.10 release record. Continue the separate 0.8.11 Menus candidate on `feature/0.8.11-menu-editor` through its own required acceptance and release gates; it is in progress and not delivered. Keep depth/masking and remaining #9 calendar and explicit post expiry separately scoped. Do not restart completed work from historical feature branches.
 
 Read these files in full:
 
@@ -148,7 +148,7 @@ Preserve all of these decisions:
 
 Preserve the historical installer/database/layout baseline, now included in live `main`. Its original implementation and package source was `e5b04daa132521be69c943151f8112c7cd2017e8` (tree `3cf10b7ac74f66a59e2a86ddc20a19b567f3f570`); matching customer downloads were saved on 2026-10-19 and are byte-identical to the gated GitHub artifact. All seven jobs in [run 39294335907](https://github.com/afterburn25/velvet_vixxen/actions/runs/39294335907) are completed/success. The installer now reuses compatible existing databases, preserves owner credentials/records/settings/scenes/keys/identity, resumes failed DDL and finalization, and keeps pending setup out of automatic recovery/public activation. The owner also required evenly aligned Server/Folders checks, removal of the extra Folders rule, and aligned Password/Confirm Password inputs. Those fixes and completion-state cleanup are part of this same repair.
 
-Read current status, test and release records for verified source and download identities. The unchanged **0.8.1 / repair Build 20261020.3** unfinished-installer overlay contains 11 files and retains its saved identity and hash. The complete **0.8.9 / Build 20261020.10** Fresh/Upgrade packages are separate. Use `docs/INSTALLER_DATABASE_REPAIR.md` only for unfinished 0.8.1 setup and `docs/UPDATE_VERIFICATION.md` for an installed site. Preserve configuration, original owner/keys, uploads and database contents; incompatible schema or missing original keys require diagnosis, not destructive reinstallation.
+Read current status, test and release records for verified source and download identities. The unchanged **0.8.1 / repair Build 20261020.3** unfinished-installer overlay contains 11 files and retains its saved identity and hash. The complete **0.8.10 / Build 20261020.11** Fresh/Upgrade packages are separate. Use `docs/INSTALLER_DATABASE_REPAIR.md` only for unfinished 0.8.1 setup and `docs/UPDATE_VERIFICATION.md` for an installed site. Preserve configuration, original owner/keys, uploads and database contents; incompatible schema or missing original keys require diagnosis, not destructive reinstallation.
 
 Keep the real packaged MySQL installer suite mandatory on PHP 8.2 and 8.3, and keep the real desktop/mobile installer browser flow alongside every currently required installed HTTP and application-browser suite. Preserve the actual foreign-owner and persistent-OPcache package tests. A configured CI gate, intermediate archive or previous source commit is not evidence that the latest changes passed. Update every handoff and issue #13, commit/upload the work, and provide the corrected downloadable packages before a completed handoff.
 
@@ -193,7 +193,7 @@ Do not claim completion without direct evidence. Required gates include:
 - Repository-safety and secret scans
 - Runtime-only customer ZIP exclusion checks
 
-Continue on a scoped branch from live `main`, preserving the completed bounded 0.8.6 SQL storage, 0.8.7 editorial access/saved-owner preview, 0.8.8 editorial metadata and 0.8.9 private history/restore increments and all existing release gates.
+Continue on a scoped branch from live `main`, preserving the completed bounded 0.8.6 SQL storage, 0.8.7 editorial access/saved-owner preview, 0.8.8 editorial metadata, 0.8.9 private history/restore and 0.8.10 Composer geometry/compact-footer increments and all existing release gates. The separate 0.8.11 Menus candidate requires its own final evidence.
 
 Update `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `INCOMPLETE_WORK.md`, `docs/ROADMAP.md`, `docs/TEST_REPORT.md`, and the tracking issue as work lands. Commit code, tests, and evidence to GitHub. The separate 0.9 milestone requires its own implementation and acceptance; continue the remaining #9 scope from the verified baseline without reopening completed 0.8.1 work.
 
