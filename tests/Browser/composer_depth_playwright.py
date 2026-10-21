@@ -384,7 +384,7 @@ def pixels(page, section, device, scene, reference, label, evidence):
     view, bg = scene['devices'][device], measured['background']
     polygon = [(bg['x'] + p['x'] / 100 * bg['width'], bg['y'] + p['y'] / 100 * bg['height'])
                for p in view['foreground']['points']]
-    groups = {'covered': [], 'exposed': [], 'front': []}
+    groups = {'covered': [], 'exposed': [], 'front': [], 'horizontal_edge': [], 'vertical_edge': []}
     for kind, identity in [('rear', f'rear-{section}-{device}'), ('front', f'front-{section}-{device}')]:
         r = measured['layers'][identity]['rect']
         for fx in (.3, .5, .7):
@@ -400,6 +400,34 @@ def pixels(page, section, device, scene, reference, label, evidence):
                     groups['front'].append(point)
                 elif kind == 'rear':
                     groups['covered' if inside(point, polygon) else 'exposed'].append(point)
+    # A foreground can match every interior sample yet draw a dark seam if its
+    # base/image/shade are antialiased separately. Compare both sides of actual
+    # polygon edges against the real background-only rendering. Exclude every
+    # visible photo and the standalone button's larger shadow footprint.
+    def unobstructed(point):
+        if not (.02 < point[0] < .98 and .03 < point[1] < .97):
+            return False
+        for identity, layer in measured['layers'].items():
+            if layer['hidden']:
+                continue
+            r = layer['rect']
+            margin = 36 if identity.startswith('button-') else 3
+            mx, my = margin / measured['frame']['width'], margin / measured['frame']['height']
+            if r['x'] - mx <= point[0] <= r['x'] + r['width'] + mx \
+                    and r['y'] - my <= point[1] <= r['y'] + r['height'] + my:
+                return False
+        return True
+    for index, start in enumerate(polygon):
+        end = polygon[(index + 1) % len(polygon)]
+        horizontal = abs(end[0] - start[0]) >= abs(end[1] - start[1])
+        for fraction in (.1, .2, .3, .4, .45, .5, .6, .7, .8, .9):
+            edge = (start[0] + (end[0] - start[0]) * fraction,
+                    start[1] + (end[1] - start[1]) * fraction)
+            for offset in (-.7, 0, .7):
+                point = (edge[0] + (0 if horizontal else offset / measured['frame']['width']),
+                         edge[1] + (offset / measured['frame']['height'] if horizontal else 0))
+                if unobstructed(point):
+                    groups['horizontal_edge' if horizontal else 'vertical_edge'].append(point)
     check(all(len(points) >= 3 for points in groups.values()), label + ': the fixture lacks distinct covered/exposed/front samples.')
     image = page.locator(f'[data-scene="{section}"]').screenshot(animations='disabled')
     if evidence:
@@ -407,7 +435,8 @@ def pixels(page, section, device, scene, reference, label, evidence):
     report = {}
     for group, points in groups.items():
         actual = sample_png(page, image, points)
-        expected = sample_png(page, reference, points) if group == 'covered' else [PINK if group == 'exposed' else CYAN] * len(points)
+        expected = sample_png(page, reference, points) if group in ('covered', 'horizontal_edge', 'vertical_edge') \
+            else [PINK if group == 'exposed' else CYAN] * len(points)
         errors = [max(abs(a - b) for a, b in zip(rgba, target)) for rgba, target in zip(actual, expected)]
         check(max(errors) <= 3, f'{label} {section}/{device}: {group} pixels differ from real reference; '
               f'max RGBA error {max(errors)}, samples {list(zip(points, actual, expected))[:6]}.')

@@ -98,7 +98,9 @@
     foreground.className = 'scene-foreground';
     foreground.setAttribute('aria-hidden', 'true');
     Object.assign(foreground.style, {position: 'absolute', inset: '0', pointerEvents: 'none',
-      overflow: 'hidden', backgroundColor: backgroundColor || '#150711', zIndex: '2',
+      // Flatten the base, filtered image and shade before antialiasing the clip.
+      // Separate clipped paints can expose a dark one-pixel polygon seam.
+      overflow: 'hidden', backgroundColor: backgroundColor || '#150711', zIndex: '2', filter: 'opacity(1)',
       clipPath: `polygon(${points.map(p => `${p.x}% ${p.y}%`).join(',')})`});
     const copy = document.createElement('img');
     copy.className = 'scene-foreground__image';
