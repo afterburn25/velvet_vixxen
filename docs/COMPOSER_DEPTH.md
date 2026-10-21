@@ -1,6 +1,6 @@
 # Composer depth and foreground masking
 
-Version **0.8.12 / Build 20261021.1** is in progress. These instructions describe its implemented controls; packaged acceptance, CI and delivery are still pending. The guide does not establish installation on the owner's host.
+Version **0.8.12 / Build 20261021.1** is verified, merged and delivered through [PR #29](https://github.com/afterburn25/velvet_vixxen/pull/29). See the [release record](releases/0.8.12-composer-depth.md), [CI evidence](releases/0.8.12-composer-depth-ci.json) and [saved-delivery evidence](releases/0.8.12-composer-depth-delivery.json). The affected owner's host still needs its own complete Upgrade and installation checks.
 
 ## Place a photo farther into the room
 
@@ -44,9 +44,11 @@ Existing scenes with none of the new settings keep their ordinary appearance. Co
 
 Composer and the public Hero/Visual Footer use the same projection and foreground renderer. The preceding proportional scene geometry, compact bottom footer and menu controls remain separate features.
 
-## Acceptance still required
+## Verified acceptance
 
-The focused source, actual-package file/MySQL HTTP and browser gates must verify persistence, malformed-input refusal, device independence, shared editor/public rendering, publication history and existing text/button behavior. The test entry points are `tests/Feature/scene_depth.php`, `tests/Http/composer_depth_http.py` and `tests/Browser/composer_depth_playwright.py`. The prior 70 configured CI steps remain required in their existing order; the new scope adds four expanded steps for a total of 74. Current execution and delivery evidence belongs in the release record and test report, not inferred from this guide.
+The source suite passed in both required PHP 8.2/8.3 jobs, including **215 scene-depth assertions**, **55 runtime-inventory checks** and **692 root-layout assertions**. Actual-package depth HTTP acceptance passed in file: **1,954 checks** over root/nested installations; mysql_php83: **1,954 checks** over root/nested installations; mysql_php82: **1,954 checks** over root/nested installations. The four file/MySQL root/nested browser cases passed **3,460 assertions**, **48 editor/preview/public scene comparisons** and **4,608 RGBA pixel samples** with maximum channel error **1/255**. This includes covered/exposed/front regions and horizontal/vertical polygon boundaries (maximum edge error **0/255**), both background fits and transformed/filtered backgrounds. Real controls exercise drawing, numeric and direct point edits, invalid shape refusal, depth-aware movement, reset, undo/redo, lock/hide/copy, save/reload, preview, publish and history restore. Retained scale acceptance passed **52 scene comparisons / 24 legal-footer layouts**, alongside the required existing menus, footer-placement, application, ownership, OPcache, PHP 8.2/8.3, MySQL and package gates.
+
+All seven required CI jobs and 74 configured required steps passed. The source, all actual CI checkouts and final merge have the same complete Git tree; the four saved customer files match the downloaded gated runtime artifact. Exact execution counts and artifact bindings are recorded in the [release evidence](releases/0.8.12-composer-depth.md).
 
 ## Updating an existing site
 

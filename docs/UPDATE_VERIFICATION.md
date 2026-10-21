@@ -1,4 +1,35 @@
-# Update and verify Velvet Vixxen — 0.8.11 / Build 20261020.12
+# Update and verify Velvet Vixxen — 0.8.12 / Build 20261021.1
+
+<!-- composer-depth-0812:start -->
+## Current 0.8.12 complete Upgrade procedure
+
+**Verified, merged and delivered.** [PR #29](https://github.com/afterburn25/velvet_vixxen/pull/29) addresses [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). The final release merged on `2026-10-21T06:51:53Z`; literal saved-download read-back completed on `2026-10-21T06:55:05.291536+00:00`. Earlier release blocks remain historical records with their then-current continuation notes.
+
+This release adds independent photo depth and foreground furniture without a new migration. It includes the delivered menus, scene-scale and compact bottom-footer behavior. The older 0.8.11 instructions below are explicitly historical; their pending-depth notes and old archive/build identities do not describe this release.
+
+1. Keep a recoverable backup of the active site files and database. Preserve the existing `config`, `storage` and `uploads` directories, owner account, installation identity and keys.
+2. Extract the complete **Nikki-Wilder-Velvet-Vixxen-0.8.12-Build-20261021.1-Upgrade-from-0.8.x.zip** into the existing active website folder and replace matching application files. The archive has no enclosing product folder. A subfolder installation must receive these files inside that same subfolder.
+3. Sign in with the existing owner account and open **`admin/repair.php`**, also available through **System → Update Status**, under that installation's URL.
+4. Require **Update files verified**, **Uploaded package: v0.8.12 · Build 20261021.1**, and **Files needing replacement: 0**. A matching ZIP filename alone does not prove a complete installed runtime. If anything is missing or different, complete extraction of the same full Upgrade and verify again.
+5. Choose **Refresh application PHP**. After reload, require **PHP running now: 20261021.1** and repeat the file checks. If PHP caching is disabled, the running build must still match. Reload Composer and the public page with asset revision **0.8.12-20261021.1**. If old responses remain after the file/PHP checks pass, hard-reload or inspect that site's hosting/CDN cache.
+6. Only if the page detects the exact retired forwarding files/folders from rejected Build 20261019.5, use **Restore organized folders**. That retained repair handles the known 46 forwarders and removes their 25 directories only when empty. Modified/custom items remain protected; review any reported exceptions. No action is needed when no retired entries remain.
+7. Open **Visual Composer** and follow [Photo depth and foreground furniture](COMPOSER_DEPTH.md). In Hero and Visual Footer, check the current Desktop, Tablet and Mobile layouts. Increase the selected photo's depth, draw/finish a furniture outline, and enable **Place behind foreground** only for the chosen photos. Verify direct/numeric points, Undo/Redo and Reset depth; finish or cancel unfinished drawing before saving.
+8. Save the draft and reload it. Use **Full Page Preview** to compare the visible crop, photo geometry and furniture edge with Composer at the matching device layout. Saving and previewing do not publish. Deliberately choose **Publish** when ready, compare the public page, and verify retained published versions through the existing history/restore controls.
+9. Verify the retained Menus editor, grouped/standalone buttons, real image upload, larger compact footer, blue new-tab Cajun Web Pro credit, bottom placement on short pages and normal scrolling on longer pages. Check desktop, tablet and mobile, including common public pages. The historical feature checks below and their linked current guides provide the detailed retained workflows.
+10. If this installation has older pending database/marketing updates or an add-on recovery hold, use its existing owner update/recovery workflows. This 0.8.12 increment adds no new migration. A package overlay does not establish production email delivery, change sandbox payment status, or prove host-specific behavior.
+
+The Upgrade has **334 runtime entries**, excludes `config`, `storage`, `uploads` and `install`, and preserves saved content. It does not reinstall the site, create a new owner, replace keys or run SQL. `app/Core/SceneDepth.php` and `public/assets/js/scene-depth.js` are required new dependencies; partial overwrites fail the complete runtime inventory. The separately targeted 0.8.1 / Build 20261020.3 installer repair is unchanged and is not the installed-site Upgrade.
+
+The final [required CI run 39553690388](https://github.com/afterburn25/velvet_vixxen/actions/runs/39553690388) passed **all seven required jobs and 74 configured required steps**, retaining the prior 70 steps in order. The actual checkout in all seven jobs was `c18a80d79e9f5559bdfb2d43f25f3065dfb93c06`. Source `a52747b1b20d8530b328255af740d72821eab70f`, that checkout, and final merge `e7b6938162b15a0371baca97fbf195c14acae569` have the identical complete Git tree `c09486d5f46021d7e021ed67a8fbb3604c42b43c`. The downloaded runtime and browser artifacts are bound to that source/run; all four saved customer files were read back and match the gated artifact by literal bytes, size and SHA-256. This evidence does not claim a separate post-merge CI run.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. This repository release and saved delivery do not establish installation or behavior on the affected customer host.
+
+[0.8.12 release record](releases/0.8.12-composer-depth.md) · [CI evidence](releases/0.8.12-composer-depth-ci.json) · [saved-delivery evidence](releases/0.8.12-composer-depth-delivery.json)
+<!-- composer-depth-0812:end -->
+
+# Historical 0.8.11 installation instructions and retained feature checks
+
+**Historical release identity below:** the following text records 0.8.11 / Build 20261020.12. Use the current 0.8.12 complete Upgrade procedure above for archive/build checks. The retained feature checklists remain useful where their behavior still applies.
 
 Version **0.8.11**, Build **20261020.12**, adds the owner Menus editor for Header/Footer links and submenus. It also keeps short-page footers at the viewport bottom and removes unnecessary small scroll ranges. It includes the preceding Composer scale and larger compact footer corrections, along with the previously delivered application features. No new migration is needed. The unfinished-installer repair retains its separate **0.8.1 / repair Build 20261020.3** identity.
 

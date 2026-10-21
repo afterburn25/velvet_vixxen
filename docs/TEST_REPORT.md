@@ -1,21 +1,27 @@
 # Velvet Vixxen — Current Test Evidence
 
 <!-- composer-depth-0812:start -->
-## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+## Current release — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
 
-**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+**Verified, merged and delivered.** [PR #29](https://github.com/afterburn25/velvet_vixxen/pull/29) addresses [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). The final release merged on `2026-10-21T06:51:53Z`; literal saved-download read-back completed on `2026-10-21T06:55:05.291536+00:00`. Earlier release blocks remain historical records with their then-current continuation notes.
 
-### Executed so far
+### Required CI and source identity
 
-The unchanged restored main `b1b93447f6165e3838da3b864f81b3e0e34599be` passed `scripts/test.sh`, and its rebuilt 0.8.11 packages match the previously delivered bytes exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and retained ownership, persistent OPcache, security and packaging gates. JavaScript syntax checking for the edited Composer and PHP lint for its view pass.
+The final [required CI run 39553690388](https://github.com/afterburn25/velvet_vixxen/actions/runs/39553690388) passed **all seven required jobs and 74 configured required steps**, retaining the prior 70 steps in order. The actual checkout in all seven jobs was `c18a80d79e9f5559bdfb2d43f25f3065dfb93c06`. Source `a52747b1b20d8530b328255af740d72821eab70f`, that checkout, and final merge `e7b6938162b15a0371baca97fbf195c14acae569` have the identical complete Git tree `c09486d5f46021d7e021ed67a8fbb3604c42b43c`. The downloaded runtime and browser artifacts are bound to that source/run; all four saved customer files were read back and match the gated artifact by literal bytes, size and SHA-256. This evidence does not claim a separate post-merge CI run.
 
-The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts** at root/nested installations; retained Composer actions pass all **four desktop/mobile root/nested cases**. The current package candidate has **375 Fresh / 334 Upgrade runtime entries**, **14 changed entries including two new**, **361 unchanged Fresh entries** and no removals. These are local candidate results; they do not establish a verified CI artifact or customer delivery.
+### Actual-package execution and visual evidence
 
-### Still required for the candidate
+The source suite passed in both required PHP 8.2/8.3 jobs, including **215 scene-depth assertions**, **55 runtime-inventory checks** and **692 root-layout assertions**. Actual-package depth HTTP acceptance passed in file: **1,954 checks** over root/nested installations; mysql_php83: **1,954 checks** over root/nested installations; mysql_php82: **1,954 checks** over root/nested installations. The four file/MySQL root/nested browser cases passed **3,460 assertions**, **48 editor/preview/public scene comparisons** and **4,608 RGBA pixel samples** with maximum channel error **1/255**. This includes covered/exposed/front regions and horizontal/vertical polygon boundaries (maximum edge error **0/255**), both background fits and transformed/filtered backgrounds. Real controls exercise drawing, numeric and direct point edits, invalid shape refusal, depth-aware movement, reset, undo/redo, lock/hide/copy, save/reload, preview, publish and history restore. Retained scale acceptance passed **52 scene comparisons / 24 legal-footer layouts**, alongside the required existing menus, footer-placement, application, ownership, OPcache, PHP 8.2/8.3, MySQL and package gates.
 
-New depth MySQL HTTP and actual-package browser acceptance, remaining retained application gates, all **seven required CI jobs and 74 configured required steps**, review of the actual CI browser/runtime artifacts, final source/checkout/merge identity and saved-download literal read-back remain pending. No 0.8.12 CI run, merge or saved-delivery success is claimed by this interim report. Earlier blocks are evidence for their own releases.
+### Package and delivery evidence
 
-Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+The complete distributions contain **375 Fresh / 334 Upgrade runtime entries**. Compared with the verified 0.8.11 Fresh package, **14 entries changed, including two new dependencies**, **361 Fresh entries are unchanged**, and **none were removed**. Fresh retains 13 root directories and Upgrade nine; each has only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. The generated inventories agree. The separately targeted 0.8.1 installer repair is unchanged. Use the complete Upgrade for an existing site; no new migration is needed.
+
+Root reviewed the downloaded browser artifact, including **96 decoded depth PNGs**, contact sheets and full-size captures. Saved package names, literal byte lengths, SHA-256 values and saved versions are listed in the final release and delivery records. Earlier candidate/local numbers are not substituted for these final CI measurements.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. This repository release and saved delivery do not establish installation or behavior on the affected customer host.
+
+[0.8.12 release record](releases/0.8.12-composer-depth.md) · [CI evidence](releases/0.8.12-composer-depth-ci.json) · [saved-delivery evidence](releases/0.8.12-composer-depth-delivery.json)
 <!-- composer-depth-0812:end -->
 
 <!-- navigation-menus-0811:start -->

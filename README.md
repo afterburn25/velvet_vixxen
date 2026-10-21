@@ -1,5 +1,23 @@
 # Nikki Wilder — The Velvet Vixxen
 
+<!-- composer-depth-0812:start -->
+## Current release — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**Verified, merged and delivered.** [PR #29](https://github.com/afterburn25/velvet_vixxen/pull/29) addresses [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). The final release merged on `2026-10-21T06:51:53Z`; literal saved-download read-back completed on `2026-10-21T06:55:05.291536+00:00`. Earlier release blocks remain historical records with their then-current continuation notes.
+
+Photo layers now have independent **Depth in scene** and **Place behind foreground** controls. A per-device room depth point directs the photo farther into the room, while a drawn outline of the bed or furniture can cover selected photos. Hero and Visual Footer share the same projection and source-image mask geometry in Composer and on the public page. The current design, independent photos, separate buttons, device layouts, prior scale/footer/menu behavior and existing history workflow are retained.
+
+The final [required CI run 39553690388](https://github.com/afterburn25/velvet_vixxen/actions/runs/39553690388) passed **all seven required jobs and 74 configured required steps**, retaining the prior 70 steps in order. The actual checkout in all seven jobs was `c18a80d79e9f5559bdfb2d43f25f3065dfb93c06`. Source `a52747b1b20d8530b328255af740d72821eab70f`, that checkout, and final merge `e7b6938162b15a0371baca97fbf195c14acae569` have the identical complete Git tree `c09486d5f46021d7e021ed67a8fbb3604c42b43c`. The downloaded runtime and browser artifacts are bound to that source/run; all four saved customer files were read back and match the gated artifact by literal bytes, size and SHA-256. This evidence does not claim a separate post-merge CI run.
+
+The complete distributions contain **375 Fresh / 334 Upgrade runtime entries**. Compared with the verified 0.8.11 Fresh package, **14 entries changed, including two new dependencies**, **361 Fresh entries are unchanged**, and **none were removed**. Fresh retains 13 root directories and Upgrade nine; each has only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. The generated inventories agree. The separately targeted 0.8.1 installer repair is unchanged. Use the complete Upgrade for an existing site; no new migration is needed.
+
+Start with [Photo depth and foreground furniture](docs/COMPOSER_DEPTH.md) for the owner controls and [Update verification](docs/UPDATE_VERIFICATION.md) for an existing site.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. This repository release and saved delivery do not establish installation or behavior on the affected customer host.
+
+[0.8.12 release record](docs/releases/0.8.12-composer-depth.md) · [CI evidence](docs/releases/0.8.12-composer-depth-ci.json) · [saved-delivery evidence](docs/releases/0.8.12-composer-depth-delivery.json)
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 
