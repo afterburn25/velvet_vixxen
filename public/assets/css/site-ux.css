@@ -8,13 +8,17 @@ html{scroll-padding-top:calc(var(--public-nav-height) + 20px)}
 .public-navigation .header-cart b{min-width:18px;padding:2px;border-radius:12px;background:#ff2d8d;color:#fff;text-align:center}
 .skip-link{position:fixed;top:8px;left:12px;z-index:300;background:#ff2d8d;color:#fff;padding:12px 18px;border-radius:8px;transform:translateY(-180%)}
 .skip-link:focus{transform:translateY(0)}
-body.media-page{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
-body.media-page>.media-main{width:100%;flex:1;min-height:0}
+/* Fill short public pages without fixing the footer over content. Player JS
+   adds only its actual visible height as border-box bottom padding. */
+body.public-page{box-sizing:border-box;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;padding-bottom:0}
+body.public-page>#mainContent{width:100%;min-width:0;min-height:0;flex:1 0 auto}
+body.public-page>.legal-footer{flex:0 0 auto;margin-top:auto}
 .media-main .member-main{padding-top:0;min-height:0}
-.media-footer{margin-top:auto}
+.media-main .commerce-main{min-height:0}
+.media-main .communication-main{padding-top:0;min-height:0}
 .auth-page .media-main{display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 15%,rgba(255,45,141,.18),transparent 65%),#090308}
 .auth-page .member-main{width:100%;background:transparent}
-.auth-page .member-auth-shell{display:flex;align-items:center;justify-content:center;min-height:calc(100dvh - var(--public-nav-height) - 250px);padding:clamp(30px,6vh,75px) 22px;width:100%;box-sizing:border-box}
+.auth-page .member-auth-shell{display:flex;align-items:center;justify-content:center;min-height:0;padding:clamp(30px,6vh,75px) 22px;width:100%;box-sizing:border-box}
 .auth-page .member-auth-card{width:100%;max-width:650px;min-width:0;padding:clamp(24px,4vw,48px);border:1px solid rgba(255,94,169,.24);border-radius:24px;background:linear-gradient(150deg,rgba(35,12,29,.98),rgba(10,4,9,.98));box-shadow:0 20px 80px rgba(0,0,0,.4);margin:0 auto}
 .auth-page .member-auth-card h1{font-size:clamp(1.8rem,4vw,2.65rem)}
 .auth-page .member-auth-art{display:none}

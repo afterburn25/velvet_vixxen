@@ -1,3 +1,11 @@
+## 0.8.11 — Editable navigation menus (acceptance candidate)
+
+Add the active-owner **Site & Design → Menus** editor for independent Header/Footer labels, destinations, order, visibility, three submenu levels and Same tab/New tab/New window behavior. Ordinary public links and labelled disclosure buttons support keyboard, touch, nested installations, long menus and script-free fallback. Current-owner checks and per-location revision checks protect atomic file/MySQL saves; rejected drafts remain unsaved and retain their submitted revision. Explicit empty menus and default resets preserve separate account/cart/legal/designer controls.
+
+Short public pages now fill the viewport and keep the legal footer at the bottom. A shared public-page flex layout removes duplicate nested viewport minimums and header spacing, while the fixed audio player reserves only its actual visible height plus 8px. A hidden or omitted player reserves no gap. The footer stays in normal document flow, so longer pages and expanded custom menus still scroll and remain reachable.
+
+The final frozen local source/package, 945-assertion HTTP and four-case browser matrices passed, including 88 separate footer-placement observations and 16 additional layout captures. Required seven-job/70-step CI, source/checkout/merge binding and saved delivery remain pending. Fresh/Upgrade contain 373/332 runtime entries, with 23 changed entries including ten new files. Existing Composer scale and compact footer corrections remain included; no database migration or runtime-root expansion is added. [Candidate release and exact evidence](docs/releases/0.8.11-menus.md).
+
 ## 0.8.10 — Scene scale and compact footer, Build 20261020.11 (2026-10-20)
 
 Verified, merged through [PR #26](https://github.com/afterburn25/velvet_vixxen/pull/26) at `a98847d032a50eabfbd117ade9cdce63de5c25c3` and delivered. Visual Composer and the public Hero/Visual Footer now share canonical device geometry, including background crop, photos, live copy, buttons and pixel effects. The proportional frame corrects the reported lower-edge clipping. Existing saved layouts, device independence, intentional crops, uploads, Save Draft, Full Page Preview and Publish remain intact; existing scenes need no resave.

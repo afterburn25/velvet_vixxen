@@ -109,6 +109,22 @@ class RuntimeInventoryService
         if (version_compare($data['version'], '0.8.10', '>=')) {
             $requiredFiles[] = 'public/assets/js/scene-geometry.js';
         }
+        // Menu dependencies first ship in 0.8.11; older inventories keep their own floor.
+        if (version_compare($data['version'], '0.8.11', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, [
+                'app/Core/MenuService.php',
+                'app/Core/MenuStoreTrait.php',
+                'app/Support/menu_admin.php',
+                'app/Views/admin/menus-actions.php',
+                'app/Views/admin/menus.php',
+                'app/Views/public/partials/menu-items.php',
+                'public/assets/css/menu-admin.css',
+                'public/assets/css/navigation.css',
+                'public/assets/css/site-ux.css',
+                'public/assets/js/menu-admin.js',
+                'public/assets/js/navigation.js',
+            ]);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

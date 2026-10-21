@@ -27,7 +27,19 @@ try {
         'app/Views/admin/composer.php', 'public/assets/js/composer.js', 'public/assets/js/api-client.js', 'public/assets/js/scene-geometry.js',
         'admin/repair.php', 'app/Core/RuntimeInventoryService.php', 'app/Core/RootLayoutService.php',
         'app/Views/admin/repair-status.php', 'route.php', 'public/routes/api/upload.php',
-        'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php'];
+        'public/routes/api/scene.php', 'app/Support/public_routes.php', 'public/router.php',
+        'app/Core/MenuService.php',
+        'app/Core/MenuStoreTrait.php',
+        'app/Support/menu_admin.php',
+        'app/Views/admin/menus-actions.php',
+        'app/Views/admin/menus.php',
+        'app/Views/public/partials/menu-items.php',
+        'public/assets/css/menu-admin.css',
+        'public/assets/css/navigation.css',
+        'public/assets/css/site-ux.css',
+        'public/assets/js/menu-admin.js',
+        'public/assets/js/navigation.js',
+    ];
     $hashes = [];
     foreach ($files as $relative) {
         $directory = dirname($fixture . '/' . $relative);
@@ -73,6 +85,12 @@ try {
     $reject(static fn() => $service->refreshPhpCache(), 'A missing scene dependency must block cache activation.');
     copy($source . '/public/assets/js/scene-geometry.js', $fixture . '/public/assets/js/scene-geometry.js');
 
+    unlink($fixture . '/public/assets/js/menu-admin.js');
+    $status = $service->inspect();
+    $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'public/assets/js/menu-admin.js', 'A missing menu editor script must be identified.');
+    $reject(static fn() => $service->refreshPhpCache(), 'Missing menu dependencies must block cache activation.');
+    copy($source . '/public/assets/js/menu-admin.js', $fixture . '/public/assets/js/menu-admin.js');
+
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);
     $assert(!$service->inspect()['files_match'], 'A linked runtime file must not be read as a verified replacement.');
@@ -100,6 +118,32 @@ try {
     $write($invalid);
     $legacy = $service->inspect();
     $assert($legacy['files_match'] && !$legacy['running_build_matches'] && $legacy['version'] === '0.8.9', 'Older inventories must remain inspectable without a dependency introduced later.');
+    $menuDependencies = [
+        'app/Core/MenuService.php',
+        'app/Core/MenuStoreTrait.php',
+        'app/Support/menu_admin.php',
+        'app/Views/admin/menus-actions.php',
+        'app/Views/admin/menus.php',
+        'app/Views/public/partials/menu-items.php',
+        'public/assets/css/menu-admin.css',
+        'public/assets/css/navigation.css',
+        'public/assets/css/site-ux.css',
+        'public/assets/js/menu-admin.js',
+        'public/assets/js/navigation.js',
+    ];
+    foreach ($menuDependencies as $dependency) {
+        $incomplete = $manifest;
+        unset($incomplete['files'][$dependency]);
+        $write($incomplete);
+        $reject(static fn() => $service->inspect(), 'Current inventory cannot omit menu dependency: ' . $dependency);
+    }
+    $beforeMenus = $manifest;
+    foreach ($menuDependencies as $dependency) unset($beforeMenus['files'][$dependency]);
+    $beforeMenus['version'] = '0.8.10';
+    $beforeMenus['build_id'] = '20261020.11';
+    $write($beforeMenus);
+    $legacyMenus = $service->inspect();
+    $assert($legacyMenus['files_match'] && !$legacyMenus['running_build_matches'] && $legacyMenus['version'] === '0.8.10', 'A pre-menu inventory remains inspectable without later menu dependencies.');
     file_put_contents($fixture . '/includes/runtime-build.json', '{invalid json');
     $reject(static fn() => $service->inspect(), 'Malformed manifest must fail readably.');
     unlink($fixture . '/includes/runtime-build.json');

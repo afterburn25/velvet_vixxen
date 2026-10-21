@@ -1,5 +1,14 @@
 # Architecture and Product Decisions
 
+## 2026-10-20 — Owner-editable Header and Footer menus (0.8.11 candidate)
+
+- Put Menus under Site & Design. Keep the two locations independent, retain untouched historical defaults, and distinguish a saved empty menu from a default reset. Keep account/cart, legal links, branding and designer credit separate.
+- Support bounded ordered trees: 50 items per location, three levels, labels up to 80 characters and safe site-path/fragment/HTTP(S) destinations. A destination-free parent needs children and Same tab. Hidden parents hide their branches.
+- Use ordinary links and separate submenu disclosures with semantic lists, keyboard/touch support and usable bounded scrolling. New tab uses the native target; New window requests a popup with opener isolation and native fallback. Browser policies retain final control over windows and modified clicks.
+- Use existing protected settings in file/MySQL modes, with no migration. Recheck saved active ownership under the mutation lock/transaction, compare per-location revisions, and keep the save/reset plus aggregate audit atomic. Reset advances a revision tombstone. Retained failed edits never adopt a newer revision silently.
+- Extend the current unpublished 0.8.11 candidate for the owner's later short-page/footer-scroll requests. Use one viewport-filling public shell with a flexible main area; keep the footer in flow and reserve only the visible player's measured height. Remove redundant nested viewport minimums and duplicated header spacing. Do not suppress necessary scrolling. The prior unpublished package is superseded and supplies only a diagnostic negative control.
+- Preserve all existing release gates and add mandatory file/MySQL menu HTTP and actual-package browser acceptance. Local frozen acceptance passed; required CI/merge/artifact/save evidence remains pending. Actual-host deployment remains unverified.
+
 ## 2026-10-20 — Shared Composer/public scene geometry (0.8.10, verified)
 
 - The owner reported that photos visible in Composer were cut off by the actual Hero. The original package reproduces a fixed 760px public height at 1680px width while Composer represents a 1440×760 canvas.

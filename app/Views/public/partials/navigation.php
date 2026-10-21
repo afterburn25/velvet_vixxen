@@ -5,6 +5,11 @@ declare(strict_types=1);
     $brand = (string) ($site['brand_name'] ?? 'Nikki Wilder');
     $subtitle = (string) ($site['brand_subtitle'] ?? 'The Velvet Vixxen');
     $member = current_member();
+    try { $menuSnapshot = app_store()->navigationMenu('header'); }
+    catch (Throwable) { $menuSnapshot = ['configured' => true, 'items' => []]; }
+    $customMenu = $menuSnapshot['configured'];
+    $publicMenuItems = $customMenu ? \App\Core\MenuService::publicItems($menuSnapshot) : [];
+    $publicMenuInstance = 'header';
     $items = [
         'home' => ['Home', ''], 'music' => ['Music', 'music/'], 'photos' => ['Photos', 'photos/'],
         'videos' => ['Videos', 'videos/'], 'membership' => ['Membership', 'membership/'],
@@ -13,11 +18,11 @@ declare(strict_types=1);
     ];
 ?>
 <a class="skip-link" href="#mainContent">Skip to content</a>
-<header class="site-header public-navigation" id="top">
+<header class="site-header public-navigation<?= $customMenu ? ' has-custom-navigation' : '' ?>" id="top">
   <a class="brand-lockup" href="<?= e(base_url()) ?>" aria-label="<?= e($brand) ?> home"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></a>
   <button class="mobile-menu" id="mobileMenu" type="button" aria-expanded="false" aria-controls="primaryNav"><span></span><span></span><span></span><span class="sr-only">Open menu</span></button>
-  <nav class="site-nav" id="primaryNav" aria-label="Primary navigation">
-    <?php foreach ($items as $key => [$label, $path]): ?><a class="<?= $active === $key ? 'active' : '' ?>" <?= $active === $key ? 'aria-current="page"' : '' ?> href="<?= e(base_url($path)) ?>"><?= e($label) ?></a><?php endforeach; ?>
+  <nav class="site-nav" id="primaryNav" aria-label="Primary navigation"<?= $customMenu ? ' data-menu-custom' : '' ?>>
+    <?php if ($customMenu): require root_path('app/Views/public/partials/menu-items.php'); else: foreach ($items as $key => [$label, $path]): ?><a class="<?= $active === $key ? 'active' : '' ?>" <?= $active === $key ? 'aria-current="page"' : '' ?> href="<?= e(base_url($path)) ?>"><?= e($label) ?></a><?php endforeach; endif; ?>
     <a class="mobile-account-nav" href="<?= e(base_url('cart/')) ?>">Cart<?php if (cart_service()->count() > 0): ?> (<?= cart_service()->count() ?>)<?php endif; ?></a>
     <a class="mobile-account-nav" href="<?= e(base_url($member ? 'account/' : 'account/login.php')) ?>"><?= $member ? 'My Account' : 'Login' ?></a>
   </nav>

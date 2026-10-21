@@ -2,7 +2,7 @@
 declare(strict_types=1);
 $adminGroups = [
     'dashboard' => ['Dashboard', ['dashboard']],
-    'design' => ['Site & Design', ['composer', 'about', 'canva', 'settings']],
+    'design' => ['Site & Design', ['composer', 'menus', 'about', 'canva', 'settings']],
     'content' => ['Content & Media', ['media', 'music', 'galleries', 'videos']],
     'members' => ['Members & Communications', ['members', 'entitlements', 'messages', 'content-requests', 'booking-requests', 'booking-form', 'communication-settings']],
     'commerce' => ['Commerce', ['commerce', 'merchandise', 'orders', 'plans', 'coupons', 'bundles', 'payments']],

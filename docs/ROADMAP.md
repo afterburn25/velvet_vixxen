@@ -1,7 +1,23 @@
 # Velvet Vixxen Development Roadmap
 
+<!-- navigation-menus-0811:start -->
+## Candidate — 0.8.11 Editable navigation menus, Build 20261020.12
+
+**The owner menu editor is implemented and its final local source, package, HTTP and browser acceptance passed. Required GitHub CI, exact source/checkout/merge binding and saved-download delivery remain pending.** The latest completed release is 0.8.10 / Build 20261020.11. This candidate continues from authoritative main `35dceb4a8d197ce23ea866e2e382f2bc14ace629` on `feature/0.8.11-menu-editor`.
+
+Owners use **Site & Design → Menus** to edit Header and Footer independently. Add, edit, reorder, hide/remove, choose a parent or add submenus, then save. Each location supports 50 items and three levels. Per-link opening choices are Same tab, New tab and New window; the last requests a window subject to browser settings. Saved empty menus and deliberate default restoration are supported. Account/cart, legal links and the blue Cajun Web Pro new-tab credit remain separate.
+
+Public menus use ordinary links, nested lists and labelled disclosures, with keyboard/touch operation, Escape/focus return and bounded scrolling for long menus. Safe internal destinations retain nested-install paths. File/MySQL writes recheck current saved ownership, validate the complete tree and compare per-location revisions inside the mutation lock/transaction. Rejected submissions retain attempted edits and their original revision; the editor keeps them unsaved until a successful save or deliberate reload. No new migration is needed.
+
+Short public pages now fill the viewport and keep the legal footer at the bottom. A shared public-page flex layout removes duplicate nested viewport minimums and header spacing, while the fixed audio player reserves only its actual visible height plus 8px. A hidden or omitted player reserves no gap. The footer stays in normal document flow, so longer pages and expanded custom menus still scroll and remain reachable.
+
+The final local source/package suite passed on PHP 8.3.6, including real foreign ownership, persistent OPcache, installer SMTP, strict runtime roots and exact deterministic packages. Menu persistence passed 183 file assertions and 179 real-MySQL assertions. The pinned Fresh HTTP matrix passed 945 assertions across file/MySQL root/nested cases, including four observed owner-row lock races. The final pinned browser matrix passed all four cases: 72 homepage/common layout observations at nine widths, 28 actual tab/window/native-modifier clicks, four script-free fallbacks, 44 screenshots, phone editing and 50-item menus. The same four-case browser run separately passed 88 footer-placement observations: 56 fitting pages had exactly zero document scroll range and zero movement after a real wheel action, and 32 longer pages retained positive scrolling. It covers short receipt/gallery/auth pages, member-library and message pages, homepage, viewport resizing, visible/hidden/omitted players, JavaScript-disabled pages and expanded custom footers, with 16 additional PNGs. Required CI remains a separate gate.
+
+The frozen Fresh/Upgrade have 373/332 runtime entries, 23 changed entries (ten new), 350 unchanged Fresh entries, no removals, exact approved 13/9 root directories and four root files. The unchanged unfinished-installer repair remains 0.8.1 / repair Build 20261020.3. The preceding Composer scale and larger compact footer corrections remain included. Use the [candidate release record](releases/0.8.11-menus.md) and [Menus guide](MENUS.md). Actual-host #12/#13, production email and the separate 0.9 milestone remain unverified; payments stay sandbox-only. Depth/foreground masking and broader #9 remain separate.
+<!-- navigation-menus-0811:end -->
+
 <!-- composer-geometry-0810:start -->
-## Current release — 0.8.10 Scene scale and compact footer, Build 20261020.11
+## Historical release — 0.8.10 Scene scale and compact footer, Build 20261020.11
 
 **Version 0.8.10 is verified, merged into `main` through [PR #26](https://github.com/afterburn25/velvet_vixxen/pull/26) and delivered.** Merge `a98847d032a50eabfbd117ade9cdce63de5c25c3` completed at **2026-10-20 19:23:10 CDT (America/Chicago)** (`2026-10-21T00:23:10Z`). Release source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual seven-job CI checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and the merge share the complete tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. Later completion documentation changes no executable, test, workflow or package bytes.
 

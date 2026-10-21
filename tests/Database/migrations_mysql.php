@@ -111,6 +111,7 @@ try {
     require $root . '/tests/Database/merchandise_scenarios.php';
     require $root . '/tests/Database/booking_form_scenarios.php';
     require $root . '/tests/Database/media_center_mysql.php';
+    require $root . '/tests/Database/navigation_menus_mysql.php';
     echo 'MySQL migrations applied successfully (' . count($applied) . ' migrations, ' . count($required) . " declared tables).\n";
 } finally {
     if ($applied !== []) {
