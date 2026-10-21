@@ -1,0 +1,345 @@
+{
+  "schema_version": 1,
+  "version": "0.8.13",
+  "build_id": "20261021.2",
+  "source_commit": "79a8d305e58e849c7489ba557f3cf10cffc8504d",
+  "source_tree": "0bc4dda8f6fff355009120b4f76557b319142bc2",
+  "pr": {
+    "merged": true,
+    "pr_number": 31,
+    "sha": "6faf826c0a3c6f252c876efbd2e5e8de35ee178f",
+    "tree": "0bc4dda8f6fff355009120b4f76557b319142bc2",
+    "head_sha": "79a8d305e58e849c7489ba557f3cf10cffc8504d",
+    "base_sha": "327b631db3fe4bd4952de6d0e987947bf84e7d36",
+    "parents": [
+      "327b631db3fe4bd4952de6d0e987947bf84e7d36",
+      "79a8d305e58e849c7489ba557f3cf10cffc8504d"
+    ],
+    "main_sha_observed": "6faf826c0a3c6f252c876efbd2e5e8de35ee178f",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/31",
+    "merged_at": "2026-10-21T09:43:43Z",
+    "read_back_at": "2026-10-21T09:44:02.350Z",
+    "actual_pr_readback": true,
+    "actual_main_ref_readback": true,
+    "actual_merge_commit_readback": true,
+    "source_and_actual_test_checkout_tree_equal": true
+  },
+  "ci_run_id": 39573078884,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39573078884",
+  "actual_ci_checkout": "0bb06c99ddde81ab701e7df3409b2152247451d0",
+  "ci_checkout_tree": "0bc4dda8f6fff355009120b4f76557b319142bc2",
+  "gated_artifact_verification": {
+    "run_id": 39573078884,
+    "artifact_id": 12335415891,
+    "artifact_sha256": "32f1276f94033e536b2529827f2aeb49b0941abfe29ad0fcf8d5af6de02fb02a",
+    "artifact_bytes": 15471652,
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39573078884/artifacts/12335415891",
+    "source_commit": "79a8d305e58e849c7489ba557f3cf10cffc8504d",
+    "verified_at": "2026-10-21T09:37:35.659476+00:00",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.13-Build-20261021.2-Fresh-Install.zip",
+        "bytes": 7798147,
+        "sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.13-Build-20261021.2-Upgrade-from-0.8.x.zip",
+        "bytes": 7640878,
+        "sha256": "aeecf3cfbd494fc49837abbf9a22d45cae29ac43abcf8c388ce8128a55d598bb",
+        "gated_bytes_equal_local": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.13-Build-20261021.2-package-manifest.json",
+        "bytes": 84182,
+        "sha256": "39bc823327a6cad6c86c577cc58d41b1ee5eb8d65618616060f9f791a9d61b0d",
+        "gated_bytes_equal_local": true
+      }
+    ],
+    "comparison": "Literal bytes, exact filename set, sizes and SHA-256; all four files match the frozen candidate."
+  },
+  "saved_download_verification": {
+    "verified_at": "2026-10-21T09:45:50.359883+00:00",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "saved_version_number": 2,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": true
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.13-Build-20261021.2-Fresh-Install.zip",
+        "bytes": 7798147,
+        "sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+        "saved_version_number": 20,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.13-Build-20261021.2-Upgrade-from-0.8.x.zip",
+        "bytes": 7640878,
+        "sha256": "aeecf3cfbd494fc49837abbf9a22d45cae29ac43abcf8c388ce8128a55d598bb",
+        "saved_version_number": 17,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Velvet-Vixxen-0.8.13-Build-20261021.2-package-manifest.json",
+        "bytes": 84182,
+        "sha256": "39bc823327a6cad6c86c577cc58d41b1ee5eb8d65618616060f9f791a9d61b0d",
+        "saved_version_number": 20,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      }
+    ]
+  },
+  "runtime_delta": {
+    "prior_fresh_sha256": "23bbe898ab8b280f311e80f1b87e713413bd47de1c27a031b81199367c4d88b1",
+    "fresh_entries": 378,
+    "changed_entries": [
+      "VERSION",
+      "admin/index.php",
+      "app/Core/MarketingCalendar.php",
+      "app/Core/MarketingHistory.php",
+      "app/Core/MarketingPublication.php",
+      "app/Core/MarketingStore.php",
+      "app/Core/RuntimeInventoryService.php",
+      "app/Core/Store.php",
+      "app/Views/admin/marketing-calendar.php",
+      "app/Views/admin/marketing-history.php",
+      "app/Views/admin/marketing-publication-editor.php",
+      "app/Views/admin/marketing-publication-list.php",
+      "app/Views/admin/marketing.php",
+      "app/Views/admin/media-center.php",
+      "includes/marketing_admin.php",
+      "includes/runtime-build.json",
+      "includes/version.php",
+      "public/assets/css/marketing-calendar.css"
+    ],
+    "added_entries": [
+      "app/Core/MarketingCalendar.php",
+      "app/Views/admin/marketing-calendar.php",
+      "public/assets/css/marketing-calendar.css"
+    ],
+    "removed_entries": [],
+    "unchanged_entries": 360,
+    "zip_timestamp": [
+      2026,
+      10,
+      21,
+      8,
+      37,
+      20
+    ],
+    "changed_entry_timestamps_advance_and_unchanged_timestamps_preserved": true,
+    "upgrade_entries": 337,
+    "changed_entry_count": 18,
+    "added_entry_count": 3,
+    "removed_entry_count": 0
+  },
+  "calendar_browser_binding": {
+    "artifact_id": 12335625569,
+    "artifact_sha256": "25913b01fb9e498f239c646f6b8b64b8a3c1961d24eeda8411d79ce5696835a1",
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "cfe9bb84f8b8801e643675250d8a7e5f8d9304f43586987520dbc59a0f0649d7",
+    "acceptance_sources": {
+      "tests/Http/editorial_calendar_fixture.php": "c61c089a8abc54b54af6f8f2a971239e4ea30fd407331c19e77a2bc571c3ba3b",
+      "tests/Http/editorial_calendar_http.py": "bc33f14e3d547c641e0f1d0ddec13df901be3bbf2d40dfdb85ad360dfa8fbffb",
+      "tests/Browser/editorial_calendar_playwright.py": "cfe9bb84f8b8801e643675250d8a7e5f8d9304f43586987520dbc59a0f0649d7"
+    },
+    "case_count": 4,
+    "http_checks": 5064,
+    "browser_checks": 578,
+    "decoded_png_count": 40,
+    "geometry_observations": 20,
+    "control_geometry_observations": 544,
+    "followed_editor_family_cases": 32,
+    "script_free_filter_cases": 4,
+    "actual_mysql_migration_cases": 2,
+    "native_music_editor_cases": 12,
+    "cases": {
+      "file-nested-mobile": {
+        "http_checks": 1156,
+        "browser_checks": 135,
+        "mysql_version": null,
+        "screenshot_count": 10,
+        "geometry_observations": 5,
+        "editor_families_followed": 8,
+        "native_music_editors_followed": 3,
+        "no_script_filter": true,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0
+      },
+      "file-root-desktop": {
+        "http_checks": 1156,
+        "browser_checks": 135,
+        "mysql_version": null,
+        "screenshot_count": 10,
+        "geometry_observations": 5,
+        "editor_families_followed": 8,
+        "native_music_editors_followed": 3,
+        "no_script_filter": true,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0
+      },
+      "mysql-nested-mobile": {
+        "http_checks": 1376,
+        "browser_checks": 154,
+        "mysql_version": "8.0.46",
+        "screenshot_count": 10,
+        "geometry_observations": 5,
+        "editor_families_followed": 8,
+        "native_music_editors_followed": 3,
+        "no_script_filter": true,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0
+      },
+      "mysql-root-desktop": {
+        "http_checks": 1376,
+        "browser_checks": 154,
+        "mysql_version": "8.0.46",
+        "screenshot_count": 10,
+        "geometry_observations": 5,
+        "editor_families_followed": 8,
+        "native_music_editors_followed": 3,
+        "no_script_filter": true,
+        "javascript_errors": 0,
+        "smtp_connections": 0,
+        "smtp_messages": 0
+      }
+    }
+  },
+  "calendar_http_binding": {
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "acceptance_sources": {
+      "tests/Http/editorial_calendar_fixture.php": "c61c089a8abc54b54af6f8f2a971239e4ea30fd407331c19e77a2bc571c3ba3b",
+      "tests/Http/editorial_calendar_http.py": "bc33f14e3d547c641e0f1d0ddec13df901be3bbf2d40dfdb85ad360dfa8fbffb",
+      "tests/Browser/editorial_calendar_playwright.py": "cfe9bb84f8b8801e643675250d8a7e5f8d9304f43586987520dbc59a0f0649d7"
+    },
+    "ci_cases": {
+      "file": {
+        "job_id": 119132882391,
+        "php": "8.3.35",
+        "mysql": null,
+        "checks": 2312,
+        "case_count": 2
+      },
+      "mysql_php83": {
+        "job_id": 119132882384,
+        "php": "8.3.35",
+        "mysql": "8.0.46",
+        "checks": 2830,
+        "case_count": 2
+      },
+      "mysql_php82": {
+        "job_id": 119132882455,
+        "php": "8.2.34",
+        "mysql": "8.0.46",
+        "checks": 2830,
+        "case_count": 2
+      }
+    }
+  },
+  "depth_browser_binding": {
+    "artifact_id": 12335625569,
+    "artifact_sha256": "25913b01fb9e498f239c646f6b8b64b8a3c1961d24eeda8411d79ce5696835a1",
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "56c0a84116ab8b15d6f6eea60c8a546a828b89a5f45ec04d5ec3824fa1ef8ea7",
+    "case_count": 4,
+    "scene_comparisons": 48,
+    "pixel_samples": 4608,
+    "interior_pixel_samples": 1728,
+    "edge_pixel_samples": 2880,
+    "decoded_png_count": 96,
+    "independently_read_png_examples": 240,
+    "pixel_samples_by_group": {
+      "exposed": 456,
+      "front": 792,
+      "horizontal_edge": 1344,
+      "vertical_edge": 1536,
+      "covered": 480
+    },
+    "max_channel_error_by_group": {
+      "exposed": 1,
+      "front": 0,
+      "horizontal_edge": 0,
+      "vertical_edge": 0,
+      "covered": 0
+    }
+  },
+  "depth_http_binding": {
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "71e2c2ec770c77042d96fec0f5c7fa64d55b555a8e6ae311e670c8829a1da6ec",
+    "ci_cases": {
+      "file": {
+        "job_id": 119132882391,
+        "php": "8.3.35",
+        "mysql": null,
+        "checks": 1954,
+        "case_count": 2
+      },
+      "mysql_php83": {
+        "job_id": 119132882384,
+        "php": "8.3.35",
+        "mysql": "8.0.46",
+        "checks": 1954,
+        "case_count": 2
+      },
+      "mysql_php82": {
+        "job_id": 119132882455,
+        "php": "8.2.34",
+        "mysql": "8.0.46",
+        "checks": 1954,
+        "case_count": 2
+      }
+    }
+  },
+  "footer_placement_browser_binding": {
+    "artifact_id": 12335625569,
+    "artifact_sha256": "25913b01fb9e498f239c646f6b8b64b8a3c1961d24eeda8411d79ce5696835a1",
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "29ac8eb3b3779da8df91baa89a69c0b7166a8923753b9bb0bd0566b64b239a72",
+    "case_count": 4,
+    "layout_observations": 88,
+    "fit_without_document_scroll": 56,
+    "long_with_document_scroll": 32,
+    "decoded_png_count": 16,
+    "script_free_footer_observations": 8
+  },
+  "menus_browser_binding": {
+    "artifact_id": 12335625569,
+    "artifact_sha256": "25913b01fb9e498f239c646f6b8b64b8a3c1961d24eeda8411d79ce5696835a1",
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "29ac8eb3b3779da8df91baa89a69c0b7166a8923753b9bb0bd0566b64b239a72",
+    "case_count": 4,
+    "public_layouts": 72,
+    "actual_tab_window_and_modifier_clicks": 28,
+    "native_script_free_fallbacks": 4,
+    "decoded_png_count": 44
+  },
+  "focused_browser_binding": {
+    "artifact_id": 12335625569,
+    "artifact_sha256": "25913b01fb9e498f239c646f6b8b64b8a3c1961d24eeda8411d79ce5696835a1",
+    "fresh_zip_sha256": "15ca4085222c1b6ddbb3053044a8c00047913a2e928ac43b3f065f5754b769a3",
+    "test_source_sha256": "a1c72d090a270daa9e1bf67cd1e7d0c0e685082b9d3d21c19c87b3fcbe81652b",
+    "scene_comparisons": 52,
+    "footer_layouts": 24,
+    "new_tab_clicks": 8,
+    "empty_catalogue_observations": 8,
+    "decoded_png_count": 34
+  },
+  "affected_host_verified": false,
+  "production_email_verified": false,
+  "payments": "sandbox-only"
+}

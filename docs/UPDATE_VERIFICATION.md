@@ -1,15 +1,28 @@
-# Update and verify Velvet Vixxen — 0.8.12 / Build 20261021.1
+# Update and verify Velvet Vixxen — 0.8.13 / Build 20261021.2
 
 <!-- editorial-calendar-0813:start -->
-## In progress — 0.8.13 Publishing calendar and post expiration, Build 20261021.2
+## Current 0.8.13 complete Upgrade procedure
 
-The current bounded continuation is [issue #30](https://github.com/afterburn25/velvet_vixxen/issues/30), under broader marketing issue #9, on `feature/0.8.13-editorial-calendar` from verified main `327b631db3fe4bd4952de6d0e987947bf84e7d36`. It adds an owner-only monthly calendar/agenda for saved editorial, media and campaign dates and retained Hero/Footer publication history, plus optional explicit post expiration. Opening the calendar must not initialize publishing data, publish content, run jobs, record analytics or send mail. Composer has publication history but no automatic scene scheduler; that remains separate work.
+**Verified, merged and delivered.** [PR #31](https://github.com/afterburn25/velvet_vixxen/pull/31) completes [issue #30](https://github.com/afterburn25/velvet_vixxen/issues/30), the bounded calendar and post-expiration increment of broader #9. Merge completed at `2026-10-21T09:43:43Z`; literal saved-download read-back completed at `2026-10-21T09:45:50.359883+00:00`. Earlier release blocks preserve historical evidence and their then-current continuation notes.
 
-The implementation is being verified. Required CI, source/checkout/merge tree identity, downloaded CI artifact binding and complete saved Upgrade/Fresh delivery are **pending**. Do not describe 0.8.13 as merged, delivered or installed until those records are complete. The existing 74 required configured steps must remain in order; four expanded calendar HTTP/browser steps bring the required total to 78 across seven jobs. Post-expiry and calendar source assertions join the retained source aggregate.
+Complete Fresh and Upgrade packages contain **378 / 337 runtime entries**. Use the complete Upgrade for an existing 0.8.x installation. Approved package roots and installed configuration, storage, uploads, owner identity and keys are preserved; no new migration is added. The separate unfinished-installer repair remains byte-identical at **0.8.1 / repair Build 20261020.3**.
 
-The approved design, complete package roots, prior scale/footer/menu/depth behavior and all existing gates remain required. The separate unfinished-installer repair stays byte-identical at 0.8.1 / repair Build 20261020.3. Keep #3 ongoing, broader #9 open, actual-host #12/#13 and production email unverified, payments sandbox-only and the separate 0.9 milestone incomplete. This work does not access or update the customer host.
+1. Keep a recoverable backup of the active site files and database. Preserve `config`, `storage`, `uploads`, the owner account, installation identity and keys.
+2. Extract the complete **Nikki-Wilder-Velvet-Vixxen-0.8.13-Build-20261021.2-Upgrade-from-0.8.x.zip** into the existing active website folder and replace matching application files. The archive has no enclosing product folder; a subfolder installation receives the files in that same subfolder.
+3. Sign in as the existing owner and open **`admin/repair.php`**, also available through **System → Update Status**, under that installation’s URL.
+4. Require **Update files verified**, **Uploaded package: v0.8.13 · Build 20261021.2**, and **Files needing replacement: 0**. Complete extraction of the same full Upgrade if files differ; the archive name alone does not establish an installed runtime.
+5. Choose **Refresh application PHP**. After reload require **PHP running now: 20261021.2** and repeat the file checks. Reload the admin/public pages with asset revision **0.8.13-20261021.2**; if old responses persist after verification, check that site’s browser/hosting/CDN cache.
+6. Only if the page detects the exact retired forwarding files/folders from rejected Build 20261019.5, use **Restore organized folders**. Modified/custom items remain protected; no action is needed when none remain.
+7. Open **Marketing & Publishing → Calendar**. Check the selected month/type, site timezone, agenda and undated/review entries. Follow links to the existing editors; merely opening the calendar must not publish content or send email.
+8. Edit a post and verify optional **Expires at**, site-timezone guidance and saved dates. A blank expiration has no end; a dated expiration must follow a dated publication. A draft stays hidden. Review **History** before a deliberate restore; restoration leaves Draft and an older version without expiration does not inherit a newer bound.
+9. Verify retained Menus, matching Composer/public Hero and Visual Footer scale, independent photo depth/foreground controls, larger compact footer and blue new-tab Cajun Web Pro credit. Check bottom placement on short pages and normal scrolling on long pages at desktop/tablet/mobile widths. Existing saved scenes and menus must remain intact.
+10. Use the existing owner update/recovery workflows for any older pending database or add-on work. This increment adds no migration. A package overlay does not certify production email, change sandbox payment status or prove the affected host’s behavior.
 
-[Calendar guide](EDITORIAL_CALENDAR.md) · [Current release record](releases/0.8.13-editorial-calendar.md). Earlier release blocks preserve historical evidence and their then-current continuation notes.
+All **seven required jobs and 78 configured required steps** passed in [CI run 39573078884](https://github.com/afterburn25/velvet_vixxen/actions/runs/39573078884), retaining the prior 74 steps in order. The actual checkout in every job was `0bb06c99ddde81ab701e7df3409b2152247451d0`. Source `79a8d305e58e849c7489ba557f3cf10cffc8504d`, that checkout and final merge `6faf826c0a3c6f252c876efbd2e5e8de35ee178f` share complete Git tree `0bc4dda8f6fff355009120b4f76557b319142bc2`. Downloaded runtime/browser artifacts are bound to the run and committed source. All four saved customer files were read back and match the gated artifact by literal bytes, size and SHA-256. No separate post-merge CI run or customer-host installation is implied.
+
+Keep **#3** open as the continuing release-evidence policy and broader **#9** open for the remaining marketing capabilities. Automatic Composer scene activation/expiry, deleted-item recovery, campaign-content preview/test-send/templates/tracking, additional audience predicates, referral attribution, analytics operations, missing notifications and provider bounce/complaint handling remain separate. Composer dates in this calendar are retained publication history and drafts; no scene scheduler is delivered. Actual-host **#12/#13** and production email remain unverified; payments remain sandbox-only and the separate **0.9 milestone remains incomplete**.
+
+[Calendar guide](EDITORIAL_CALENDAR.md) · [Release record](releases/0.8.13-editorial-calendar.md) · [CI evidence](releases/0.8.13-editorial-calendar-ci.json) · [Saved-delivery evidence](releases/0.8.13-editorial-calendar-delivery.json)
 <!-- editorial-calendar-0813:end -->
 
 <!-- composer-depth-0812:start -->
@@ -41,7 +54,7 @@ Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, exp
 
 # Historical 0.8.11 installation instructions and retained feature checks
 
-**Historical release identity below:** the following text records 0.8.11 / Build 20261020.12. Use the current 0.8.12 complete Upgrade procedure above for archive/build checks. The retained feature checklists remain useful where their behavior still applies.
+**Historical release identity below:** the following text records 0.8.11 / Build 20261020.12. Use the current 0.8.13 complete Upgrade procedure above for archive/build checks. The retained feature checklists remain useful where their behavior still applies.
 
 Version **0.8.11**, Build **20261020.12**, adds the owner Menus editor for Header/Footer links and submenus. It also keeps short-page footers at the viewport bottom and removes unnecessary small scroll ranges. It includes the preceding Composer scale and larger compact footer corrections, along with the previously delivered application features. No new migration is needed. The unfinished-installer repair retains its separate **0.8.1 / repair Build 20261020.3** identity.
 
