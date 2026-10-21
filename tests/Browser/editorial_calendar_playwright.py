@@ -257,7 +257,7 @@ def browser_case(browser, case, viewport, evidence):
         expect(owner.locator('[name="expires_at"]')).to_have_value("2030-02-25T12:30:45")
         capture(owner, "expiry-saved-editor")
         before_bad = calendar.snapshot(site, php)
-        owner.locator('[name="expires_at"]').fill("2030-02-01T12:00:00")
+        owner.locator('[name="expires_at"]').fill("2030-02-01T12:00")
         owner.locator('[name="title"]').fill("Browser attempted expiry title")
         with owner.expect_navigation(wait_until="networkidle") as navigation:
             owner.get_by_role("button", name="Save Post", exact=True).click()
