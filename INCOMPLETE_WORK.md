@@ -1,5 +1,19 @@
 # Acceptance Record — Velvet Vixxen
 
+<!-- composer-depth-0812:start -->
+## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+
+Issue #28 covers the independent-photo depth and foreground-furniture request. Shared projection/validation and the owner controls are implemented in the working candidate; the increment remains incomplete until the final candidate passes its required release gates and its delivered bytes are verified. Preserve per-device layouts, cutouts, history, Preview/Publish/Restore and the already delivered menus, scale and footer behavior.
+
+The unchanged `b1b93447f6165e3838da3b864f81b3e0e34599be` baseline passed `scripts/test.sh` and reproduced the prior 0.8.11 packages exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and the retained ownership, OPcache, security and package gates. The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts**, and retained Composer actions pass all **four desktop/mobile root/nested cases**. New depth browser and MySQL HTTP acceptance, all **seven required CI jobs and 74 configured required steps**, actual CI artifact verification, merge and saved-download read-back remain pending. These local results do not certify a delivered 0.8.12 release.
+
+Pending acceptance includes the new actual-package file/MySQL root/nested UI flows, MySQL depth HTTP checks, meaningful geometry/pixel checks, the remaining retained gates, exact CI artifacts, merge and saved-download verification. Do not present a working-tree implementation as an installed-site fix.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 

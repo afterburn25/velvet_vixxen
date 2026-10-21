@@ -5,6 +5,7 @@
   const seed = window.COMPOSER_DATA;
   if (!root || !seed) return;
   const geometry = window.VELVET_SCENE_GEOMETRY;
+  const depth = window.VELVET_SCENE_DEPTH;
 
   const clone = (value) => typeof structuredClone === 'function'
     ? structuredClone(value)
@@ -35,6 +36,11 @@
   let selectedId = null;
   let selectedTarget = 'none';
   let backgroundPanMode = false;
+  let propertyTab = 'background';
+  let foregroundDraft = null;
+  let foregroundDrag = null;
+  let foregroundMessage = '';
+  let foregroundError = false;
   let history = [];
   let historyIndex = -1;
 
@@ -68,7 +74,11 @@
     libraryCategory: root.querySelector('[data-library-category]'),
     libraryCount: root.querySelector('[data-library-count]'),
     libraryWarnings: root.querySelector('[data-library-warnings]'),
-    backgroundInfo: root.querySelector('[data-background-info]')
+    backgroundInfo: root.querySelector('[data-background-info]'),
+    foregroundEditor: root.querySelector('[data-foreground-editor]'),
+    foregroundPoints: root.querySelector('[data-foreground-points]'),
+    foregroundStatus: root.querySelector('[data-foreground-status]'),
+    foregroundDetails: root.querySelector('[data-foreground-point-details]')
   };
 
   function normalizePath(path) {
@@ -209,6 +219,8 @@
   const currentView = () => currentScene().devices[device];
   const currentBackground = () => currentView().background;
   const selectedLayer = () => currentView().layers.find((layer) => layer.id === selectedId) || null;
+  const foregroundBusy = () => !!foregroundDraft || !!foregroundDrag;
+  const backgroundReady = () => el.bg.complete && el.bg.naturalWidth > 0 && el.bg.dataset.fallbackApplied !== '1';
   const currentContentButtons = () => Array.isArray(currentScene().contentButtons)
     ? currentScene().contentButtons : (seed.contentButtonDefaults?.[section] || []);
 
@@ -321,6 +333,7 @@
   }
 
   function restoreSnapshot(serialized) {
+    cancelForeground(false);
     scenes = JSON.parse(serialized);
     normalizeScene('hero');
     normalizeScene('footer');
@@ -334,13 +347,37 @@
     return geometry.scale(device, el.canvas.getBoundingClientRect().width);
   }
 
+  function canvasFrame() {
+    const bounds = el.canvas.getBoundingClientRect();
+    return {left: bounds.left + el.canvas.clientLeft, top: bounds.top + el.canvas.clientTop,
+      width: el.canvas.clientWidth, height: el.canvas.clientHeight};
+  }
+
+  function displayedLayer(layer) {
+    return depth.project(layer, currentView());
+  }
+
+  function setDisplayedPosition(layer, x, y) {
+    const position = depth.unproject(x, y, layer, currentView());
+    layer.x = clamp(position.x, -400, 500);
+    layer.y = clamp(position.y, -400, 500);
+  }
+
+  function setDisplayedWidth(layer, width) {
+    layer.width = clamp(width / displayedLayer(layer).scale, 0.5, 400);
+  }
+
   function activatePropertyTab(name) {
+    if (name !== 'background' && foregroundDraft) cancelForeground(false);
+    propertyTab = name;
     root.querySelectorAll('[data-property-tab]').forEach((button) => {
       button.classList.toggle('active', button.dataset.propertyTab === name);
     });
     root.querySelectorAll('[data-property-page]').forEach((page) => {
       page.classList.toggle('active', page.dataset.propertyPage === name);
     });
+    renderForegroundEditor();
+    renderForegroundControls(false);
   }
 
   function applyBackgroundStyles() {
@@ -353,6 +390,7 @@
     el.overlay.style.background = bg.overlayColor;
     el.overlay.style.opacity = String(bg.overlay / 100);
     renderPlacementGuides();
+    refreshForeground();
   }
 
   function applyContentBoxStyles(node = el.contentBox) {
@@ -371,14 +409,15 @@
   }
 
   function layerFilter(layer) {
-    const scale = canvasScale();
+    const scale = canvasScale() * displayedLayer(layer).scale;
     return `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0) * scale}px ${Number(layer.shadowY ?? 18) * scale}px ${Number(layer.shadowBlur ?? 24) * scale}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
   }
 
   function applyLayerNodeStyles(node, layer) {
-    node.style.left = `${Number(layer.x ?? 65)}%`;
-    node.style.top = `${Number(layer.y ?? 50)}%`;
-    node.style.width = `${Number(layer.width ?? 30)}%`;
+    const projected = displayedLayer(layer);
+    node.style.left = `${projected.x}%`;
+    node.style.top = `${projected.y}%`;
+    node.style.width = `${projected.width}%`;
     node.style.opacity = String(Number(layer.opacity ?? 100) / 100);
     node.style.zIndex = String(Number(layer.z ?? 1));
     node.style.transform = layerTransform(layer);
@@ -402,7 +441,8 @@
     const frame = geometry.frame(section, device, view);
     el.canvas.style.aspectRatio = `${frame.width} / ${frame.height}`;
     el.canvas.style.maxWidth = `${frame.width}px`;
-    setImageSource(el.bg, resolveAsset(view.background.src), `${section} background`);
+    const backgroundUrl = resolveAsset(view.background.src);
+    if (el.bg.dataset.requestedSrc !== backgroundUrl) setImageSource(el.bg, backgroundUrl, `${section} background`);
     applyBackgroundStyles();
     applyContentBoxStyles();
     el.label.textContent = `${section === 'hero' ? 'Homepage Hero' : 'Visual Footer'} · ${device[0].toUpperCase() + device.slice(1)}`;
@@ -417,6 +457,8 @@
       el.panButton.classList.toggle('active', backgroundPanMode);
       el.panButton.setAttribute('aria-pressed', String(backgroundPanMode));
     }
+    renderForegroundEditor();
+    updateSaveControls();
   }
 
   function renderLayers() {
@@ -460,6 +502,7 @@
         node.classList.toggle('locked', layer.locked === true);
         node.addEventListener('pointerdown', startLayerPointer);
         node.addEventListener('click', (event) => {
+          if (foregroundBusy()) return;
           event.stopPropagation();
           selectedId = layer.id;
           selectedTarget = 'layer';
@@ -469,11 +512,294 @@
         });
         el.layers.appendChild(node);
       });
+    refreshForeground();
     renderSelectionOverlay();
   }
 
   function layerNode(layer) {
-    return [...el.layers.children].find((node) => node.dataset.layerId === String(layer.id)) || null;
+    return [...el.layers.querySelectorAll('[data-layer-id]')].find((node) => node.dataset.layerId === String(layer.id)) || null;
+  }
+
+  function foregroundForEditor() {
+    if (foregroundDrag) return {...(foregroundDraft || currentView().foreground), points: foregroundDrag.points};
+    return foregroundDraft || currentView().foreground || null;
+  }
+
+  function matchingForeground(foreground = currentView().foreground) {
+    return !!foreground && foreground.source === currentBackground().src;
+  }
+
+  function refreshForeground() {
+    const view = currentView();
+    let renderView = view;
+    // An existing outline is previewed while dragging, but invalid intermediate
+    // positions never enter the saved scene or replace its last valid mask.
+    if (foregroundDrag && !foregroundDrag.draft && depth.validatePolygon(foregroundDrag.points)) {
+      renderView = {...view, foreground: {...view.foreground, points: foregroundDrag.points}};
+    }
+    const nodes = new Map([...el.layers.querySelectorAll('[data-layer-id]')].map((node) => [node.dataset.layerId, node]));
+    el.layers.replaceChildren();
+    const foreground = depth.createForeground(renderView, currentBackground(), el.bg, el.overlay,
+      canvasFrame(), getComputedStyle(el.canvas).backgroundColor);
+    const stack = depth.createStack(el.layers, foreground);
+    [...view.layers].sort((a, b) => Number(a.z ?? 1) - Number(b.z ?? 1)).forEach((layer) => {
+      const node = nodes.get(String(layer.id));
+      if (node) (layer.type !== 'button' && layer.behindForeground === true ? stack.rear : stack.front).appendChild(node);
+    });
+    renderForegroundEditor();
+  }
+
+  function setForegroundFeedback(message = '', error = false) {
+    foregroundMessage = message;
+    foregroundError = error;
+    renderForegroundControls(false);
+  }
+
+  function renderForegroundControls(refreshInputs = true) {
+    const foreground = foregroundForEditor();
+    const matches = matchingForeground(foreground);
+    const points = matches && Array.isArray(foreground.points) ? foreground.points : [];
+    const enabled = root.querySelector('[data-control="foregroundEnabled"]');
+    enabled.checked = !foregroundDraft && currentView().foreground?.enabled === true && matches;
+    enabled.disabled = saving || foregroundBusy() || !matches || !depth.validatePolygon(points);
+    const draw = root.querySelector('[data-action="foreground-draw"]');
+    const clear = root.querySelector('[data-action="foreground-clear"]');
+    draw.hidden = !!foregroundDraft;
+    draw.disabled = saving || !!foregroundDrag;
+    clear.hidden = !!foregroundDraft;
+    clear.disabled = saving || !!foregroundDrag || !currentView().foreground;
+    ['foreground-finish', 'foreground-cancel', 'foreground-undo-point'].forEach((action) => {
+      const button = root.querySelector(`[data-action="${action}"]`);
+      button.hidden = !foregroundDraft;
+      button.disabled = saving || !!foregroundDrag || (action === 'foreground-undo-point' && !points.length);
+    });
+    el.panButton.disabled = saving || foregroundBusy();
+    const status = foregroundDraft
+      ? `${points.length} of 64 points. Click around the furniture, then Finish outline. Save, Preview and Publish wait until you finish or cancel.`
+      : !foreground ? 'No outline yet. Draw one over the foreground furniture.'
+        : !matches ? 'The background image changed. Draw a new outline for this image, or clear the previous outline.'
+          : `${points.length} points · ${foreground.enabled ? 'foreground on' : 'foreground off'}. Drag a numbered point to adjust the edge.`;
+    el.foregroundStatus.textContent = foregroundMessage || status;
+    el.foregroundStatus.classList.toggle('error', foregroundError);
+    el.foregroundDetails.hidden = !matches || !points.length;
+    const key = `${section}:${device}:${foreground?.source || ''}:${!!foregroundDraft}:${points.length}`;
+    if (el.foregroundPoints.dataset.pointsKey !== key) {
+      el.foregroundPoints.replaceChildren();
+      el.foregroundPoints.dataset.pointsKey = key;
+      points.forEach((point, index) => {
+        const row = document.createElement('div');
+        row.className = 'foreground-point-row';
+        const number = document.createElement('span');
+        number.textContent = String(index + 1);
+        row.appendChild(number);
+        ['x', 'y'].forEach((axis) => {
+          const label = document.createElement('label');
+          label.textContent = `${axis.toUpperCase()} %`;
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.min = '0'; input.max = '100'; input.step = '.1';
+          input.dataset.foregroundPointIndex = String(index);
+          input.dataset.foregroundAxis = axis;
+          input.setAttribute('aria-label', `Foreground point ${index + 1} ${axis.toUpperCase()} percent`);
+          input.addEventListener('change', () => editForegroundNumber(input));
+          label.appendChild(input);
+          row.appendChild(label);
+        });
+        el.foregroundPoints.appendChild(row);
+      });
+    }
+    el.foregroundPoints.querySelectorAll('input').forEach((input) => {
+      const point = points[Number(input.dataset.foregroundPointIndex)];
+      if (point && (refreshInputs || document.activeElement !== input)) input.value = String(round(point[input.dataset.foregroundAxis], 3));
+      input.disabled = saving || !!foregroundDrag;
+    });
+  }
+
+  function renderForegroundEditor() {
+    const foreground = foregroundForEditor();
+    const frame = canvasFrame();
+    const rect = backgroundReady() ? depth.backgroundRect(currentBackground(), el.bg, frame) : null;
+    const points = matchingForeground(foreground) && Array.isArray(foreground.points) ? foreground.points : [];
+    el.canvas.classList.toggle('foreground-drawing', !!foregroundDraft);
+    el.foregroundEditor.hidden = propertyTab !== 'background' || !rect || !points.length;
+    if (el.foregroundEditor.hidden) return;
+    el.foregroundEditor.dataset.mode = foregroundDraft ? 'draw' : 'edit';
+    const positions = points.map((point) => ({x: rect.left + point.x / 100 * rect.width, y: rect.top + point.y / 100 * rect.height}));
+    const svg = el.foregroundEditor.querySelector('svg');
+    svg.setAttribute('viewBox', `0 0 ${frame.width} ${frame.height}`);
+    const coordinates = positions.map((point) => `${point.x},${point.y}`).join(' ');
+    const outline = svg.querySelector('polygon');
+    const open = svg.querySelector('polyline');
+    outline.setAttribute('points', coordinates);
+    open.setAttribute('points', coordinates);
+    outline.style.display = foregroundDraft ? 'none' : '';
+    open.style.display = foregroundDraft ? '' : 'none';
+    el.foregroundEditor.classList.toggle('invalid', points.length >= 3 && !depth.validatePolygon(points));
+    const handles = el.foregroundEditor.querySelector('.foreground-handles');
+    if (handles.children.length !== points.length) {
+      handles.replaceChildren();
+      points.forEach((point, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'foreground-point-handle';
+        button.dataset.foregroundPoint = String(index);
+        button.textContent = String(index + 1);
+        button.setAttribute('aria-label', `Move foreground point ${index + 1}`);
+        button.addEventListener('pointerdown', (event) => startForegroundPoint(event, index));
+        button.addEventListener('keydown', (event) => nudgeForegroundPoint(event, index));
+        handles.appendChild(button);
+      });
+    }
+    positions.forEach((point, index) => {
+      const button = handles.children[index];
+      button.style.left = `${point.x}px`;
+      button.style.top = `${point.y}px`;
+      button.disabled = saving;
+    });
+  }
+
+  function foregroundPointAt(event) {
+    const frame = canvasFrame();
+    if (!backgroundReady() || !frame.width || !frame.height) return null;
+    return depth.imagePoint((event.clientX - frame.left) / frame.width * 100,
+      (event.clientY - frame.top) / frame.height * 100, currentBackground(), el.bg, frame);
+  }
+
+  function cancelForeground(refresh = true) {
+    const changed = foregroundBusy();
+    foregroundDrag?.cleanup?.();
+    foregroundDraft = null;
+    foregroundDrag = null;
+    foregroundMessage = '';
+    foregroundError = false;
+    updateSaveControls();
+    if (refresh) {
+      refreshForeground();
+      renderForegroundControls();
+    }
+    return changed;
+  }
+
+  function startForegroundDrawing() {
+    if (saving || foregroundDrag) return;
+    if (!backgroundReady() || !depth.backgroundRect(currentBackground(), el.bg, canvasFrame())) {
+      setForegroundFeedback('Wait for the background image to load before drawing its furniture outline.', true);
+      return;
+    }
+    foregroundDraft = {enabled: true, source: currentBackground().src, points: []};
+    foregroundMessage = '';
+    foregroundError = false;
+    backgroundPanMode = false;
+    selectedId = null;
+    selectedTarget = 'none';
+    activatePropertyTab('background');
+    render();
+    setStatus('Click around the furniture edge. Finish outline applies it; Cancel keeps the previous outline.');
+  }
+
+  function finishForegroundDrawing() {
+    if (!foregroundDraft || foregroundDrag) return;
+    if (!matchingForeground(foregroundDraft) || !depth.validatePolygon(foregroundDraft.points)) {
+      setForegroundFeedback('Use 3–64 different points around one shape. Edges must not cross or overlap, and the outline must enclose an area. Undo a point or move the numbered points, then finish again.', true);
+      return;
+    }
+    currentView().foreground = clone(foregroundDraft);
+    foregroundDraft = null;
+    foregroundMessage = '';
+    foregroundError = false;
+    commitHistory();
+    render();
+    setStatus('Foreground outline applied for this device. Choose Place behind foreground on the photos it should cover.');
+  }
+
+  function applyForegroundPoints(points, message) {
+    if (foregroundDraft) foregroundDraft.points = points;
+    else {
+      currentView().foreground.points = points;
+      commitHistory();
+    }
+    foregroundMessage = '';
+    foregroundError = false;
+    refreshForeground();
+    renderForegroundControls();
+    if (message) setStatus(message);
+  }
+
+  function editForegroundNumber(input) {
+    if (saving || foregroundDrag) return;
+    const foreground = foregroundForEditor();
+    if (!matchingForeground(foreground)) return;
+    const index = Number(input.dataset.foregroundPointIndex);
+    const axis = input.dataset.foregroundAxis;
+    const value = Number(input.value);
+    const points = clone(foreground.points);
+    if (!points[index]) return;
+    points[index][axis] = value;
+    if (!input.value.trim() || !Number.isFinite(value) || value < 0 || value > 100 || (!foregroundDraft && !depth.validatePolygon(points))) {
+      input.value = String(round(foreground.points[index][axis], 3));
+      setForegroundFeedback('That point would make an invalid outline. Keep coordinates from 0 to 100 and edges clear of one another. The previous point is kept.', true);
+      return;
+    }
+    applyForegroundPoints(points, foregroundDraft ? '' : 'Foreground point changed — save when ready.');
+  }
+
+  function startForegroundPoint(event, index) {
+    if (event.button !== 0 || saving || foregroundDrag) return;
+    const foreground = foregroundForEditor();
+    if (!matchingForeground(foreground)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const editing = {points: clone(foreground.points), draft: !!foregroundDraft};
+    foregroundDrag = editing;
+    updateSaveControls();
+    renderForegroundControls(false);
+    const onMove = (move) => {
+      const point = foregroundPointAt(move);
+      if (!point) return;
+      editing.points[index] = point;
+      refreshForeground();
+    };
+    const cleanup = () => {
+      document.removeEventListener('pointermove', onMove);
+      document.removeEventListener('pointerup', onUp);
+      document.removeEventListener('pointercancel', onCancel);
+    };
+    const finish = (cancelled) => {
+      cleanup();
+      foregroundDrag = null;
+      if (!cancelled && (editing.draft || depth.validatePolygon(editing.points))) {
+        applyForegroundPoints(editing.points, editing.draft ? '' : 'Foreground point moved — save when ready.');
+      } else {
+        refreshForeground();
+        setForegroundFeedback(cancelled ? '' : 'That move would cross an edge or collapse the outline. The previous point is kept.', !cancelled);
+      }
+      updateSaveControls();
+      renderForegroundControls();
+    };
+    const onUp = () => finish(false);
+    const onCancel = () => finish(true);
+    editing.cleanup = cleanup;
+    document.addEventListener('pointermove', onMove);
+    document.addEventListener('pointerup', onUp, {once: true});
+    document.addEventListener('pointercancel', onCancel, {once: true});
+  }
+
+  function nudgeForegroundPoint(event, index) {
+    if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const foreground = foregroundForEditor();
+    if (saving || foregroundDrag || !matchingForeground(foreground)) return;
+    const points = clone(foreground.points);
+    const step = event.shiftKey ? 1 : 0.2;
+    const axis = ['ArrowLeft', 'ArrowRight'].includes(event.key) ? 'x' : 'y';
+    const delta = ['ArrowLeft', 'ArrowUp'].includes(event.key) ? -step : step;
+    points[index][axis] = clamp(points[index][axis] + delta, 0, 100);
+    if (!foregroundDraft && !depth.validatePolygon(points)) {
+      setForegroundFeedback('That move would make an invalid outline. The previous point is kept.', true);
+      return;
+    }
+    applyForegroundPoints(points, foregroundDraft ? '' : 'Foreground point moved — save when ready.');
   }
 
   function renderSelectionOverlay() {
@@ -485,7 +811,7 @@
     }
     const node = layerNode(layer);
     if (!node) return;
-    const frame = el.canvas.getBoundingClientRect();
+    const frame = canvasFrame();
     const bounds = node.getBoundingClientRect();
     // A newly rendered image may still be loading. Keep its existing controls
     // until geometry is available instead of discarding focus between frames.
@@ -552,7 +878,7 @@
   function snapPosition(x, y, width, height, centered, excludeId, temporarilyDisabled) {
     clearSnapGuides();
     if (temporarilyDisabled || !root.querySelector('[data-snap-enabled]').checked) return {x, y};
-    const frame = el.canvas.getBoundingClientRect();
+    const frame = canvasFrame();
     const xTargets = [0, 50, 100];
     const yTargets = [0, 50, 100];
     currentView().layers.forEach((layer) => {
@@ -560,8 +886,9 @@
       const node = layerNode(layer);
       if (!node) return;
       const rect = node.getBoundingClientRect();
-      xTargets.push((rect.left - frame.left) / frame.width * 100, Number(layer.x), (rect.right - frame.left) / frame.width * 100);
-      yTargets.push((rect.top - frame.top) / frame.height * 100, Number(layer.y), (rect.bottom - frame.top) / frame.height * 100);
+      const projected = displayedLayer(layer);
+      xTargets.push((rect.left - frame.left) / frame.width * 100, projected.x, (rect.right - frame.left) / frame.width * 100);
+      yTargets.push((rect.top - frame.top) / frame.height * 100, projected.y, (rect.bottom - frame.top) / frame.height * 100);
     });
     const snappedX = snapAxis(x, centered ? [-width / 2, 0, width / 2] : [0, width / 2, width], xTargets, 5 / frame.width * 100);
     const snappedY = snapAxis(y, centered ? [-height / 2, 0, height / 2] : [0, height / 2, height], yTargets, 5 / frame.height * 100);
@@ -576,7 +903,7 @@
   }
 
   function startLayerPointer(event, layerId = null) {
-    if (event.button !== 0) return;
+    if (event.button !== 0 || foregroundBusy()) return;
     const layer = currentView().layers.find((item) => item.id === (layerId || event.currentTarget.dataset.layerId));
     const node = layer && layerNode(layer);
     if (!node) return;
@@ -591,11 +918,12 @@
       setStatus('This layer is locked. Unlock it in Layers to move or resize it.');
       return;
     }
-    const frame = el.canvas.getBoundingClientRect();
+    const frame = canvasFrame();
     const nodeRect = node.getBoundingClientRect();
+    const projected = displayedLayer(layer);
     const start = {
       pointerX: event.clientX, pointerY: event.clientY,
-      layerX: Number(layer.x), layerY: Number(layer.y), width: Number(layer.width), height: Number(layer.height || 8),
+      layerX: projected.x, layerY: projected.y, width: Number(layer.width), height: Number(layer.height || 8),
       handle: event.target.closest('[data-handle]')?.dataset.handle || '',
       halfWidth: Math.max(1, node.offsetWidth / 2), halfHeight: Math.max(1, node.offsetHeight / 2),
       angle: Number(layer.rotation || 0) * Math.PI / 180
@@ -620,8 +948,7 @@
       } else {
         const next = snapPosition(start.layerX + dx / frame.width * 100, start.layerY + dy / frame.height * 100,
           nodeRect.width / frame.width * 100, nodeRect.height / frame.height * 100, true, layer.id, move.altKey);
-        layer.x = clamp(next.x, -400, 500);
-        layer.y = clamp(next.y, -400, 500);
+        setDisplayedPosition(layer, next.x, next.y);
       }
       applyLayerNodeStyles(node, layer);
       updateLayerPropertyReadout(layer);
@@ -643,7 +970,7 @@
   }
 
   function startContentPointer(event) {
-    if (event.button !== 0) return;
+    if (event.button !== 0 || foregroundBusy()) return;
     event.preventDefault();
     event.stopPropagation();
     selectedTarget = 'content';
@@ -711,7 +1038,7 @@
   }
 
   function startBackgroundPan(event) {
-    if (!backgroundPanMode || event.button !== 0) return;
+    if (!backgroundPanMode || event.button !== 0 || foregroundBusy()) return;
     if (event.target.closest('.composer-layer, [data-content-box], [data-selection-overlay]')) return;
     event.preventDefault();
     const rect = el.canvas.getBoundingClientRect();
@@ -768,13 +1095,21 @@
   }
 
   function updateLayerPropertyReadout(layer) {
-    setControlValue('layerX', round(layer.x, 1));
-    setControlValue('layerY', round(layer.y, 1));
-    setControlValue('layerWidth', round(layer.width, 1));
+    const projected = displayedLayer(layer);
+    setControlValue('layerX', round(projected.x, 1));
+    setControlValue('layerY', round(projected.y, 1));
+    setControlValue('layerWidth', round(projected.width, 1));
     setControlValue('layerHeight', round(layer.height ?? 8, 1));
-    setControlValue('layerScale', round(layer.width, 1));
-    setOutput('layerScale', `${round(layer.width, 1)}%`);
-    if (el.selectedSize) el.selectedSize.textContent = `${round(layer.width, 1)}%${layer.type === 'button' ? ` × ${round(layer.height, 1)}%` : ''} of canvas · z${layer.z ?? 1}${layer.visible === false ? ' · hidden' : ''}${layer.locked ? ' · locked' : ''}`;
+    root.querySelectorAll('[data-control="layerWidth"], [data-control="layerScale"]').forEach((input) => {
+      input.min = String(0.5 * projected.scale);
+      input.max = String(400 * projected.scale);
+    });
+    setControlValue('layerScale', round(projected.width, 1));
+    setControlValue('layerDepth', projected.depth);
+    setOutput('layerScale', `${round(projected.width, 1)}%`);
+    setOutput('layerDepth', `${round(projected.depth)} · ${projected.depth === 0 ? 'Near' : (projected.depth === 100 ? 'Far' : 'into room')}`);
+    root.querySelector('[data-control="layerBehindForeground"]').checked = layer.behindForeground === true;
+    if (el.selectedSize) el.selectedSize.textContent = `${round(projected.width, 1)}%${layer.type === 'button' ? ` × ${round(layer.height, 1)}%` : ''} of canvas · z${layer.z ?? 1}${projected.depth ? ` · depth ${round(projected.depth)}` : ''}${layer.behindForeground ? ' · behind foreground' : ''}${layer.visible === false ? ' · hidden' : ''}${layer.locked ? ' · locked' : ''}`;
   }
 
   function round(value, digits = 0) {
@@ -802,12 +1137,16 @@
         overlayColor: bg.overlayColor
       };
       Object.entries(bgMap).forEach(([key, value]) => setControlValue(key, value));
+      const perspective = depth.perspective(view);
+      setControlValue('perspectiveX', round(perspective.x, 1));
+      setControlValue('perspectiveY', round(perspective.y, 1));
       setControlValue('sceneTitle', scene.title);
       updateContentPropertyReadout();
       renderContentButtons();
     }
     renderBackgroundInfo();
     renderLayerStack();
+    renderForegroundControls(refreshInputs);
 
     setOutput('bgX', `${Math.round(bg.x)}%`);
     setOutput('bgY', `${Math.round(bg.y)}%`);
@@ -837,12 +1176,13 @@
     root.querySelectorAll('[data-photo-only]').forEach((node) => { node.hidden = isButton; });
 
     if (refreshInputs) {
+      const projected = displayedLayer(layer);
       const map = {
-        layerX: layer.x,
-        layerY: layer.y,
-        layerWidth: layer.width,
+        layerX: projected.x,
+        layerY: projected.y,
+        layerWidth: projected.width,
         layerHeight: layer.height ?? 8,
-        layerScale: layer.width,
+        layerScale: projected.width,
         layerRotation: layer.rotation || 0,
         layerOpacity: layer.opacity ?? 100,
         layerBrightness: layer.brightness ?? 100,
@@ -1063,10 +1403,13 @@
   }
 
   function setBackground(asset, fromLibrary = false) {
+    cancelForeground(false);
     const targets = fromLibrary && root.querySelector('[data-library-all-devices]').checked
       ? ['desktop', 'tablet', 'mobile'] : [device];
     targets.forEach((targetDevice) => {
-      const bg = currentScene().devices[targetDevice].background;
+      const view = currentScene().devices[targetDevice];
+      const bg = view.background;
+      if (view.foreground && bg.src !== asset.file) view.foreground.enabled = false;
       Object.assign(bg, {
         src: asset.file, title: asset.title || 'Custom background',
         libraryId: fromLibrary ? asset.id : null,
@@ -1084,6 +1427,7 @@
   }
 
   function addLayer(asset, x = 68, y = 50) {
+    cancelForeground(false);
     const layers = currentView().layers;
     const z = Math.max(0, ...layers.map((layer) => Number(layer.z || 0))) + 1;
     const portrait = Number(asset.height || 0) > Number(asset.width || 0);
@@ -1126,6 +1470,7 @@
   }
 
   function addButton() {
+    cancelForeground(false);
     const layer = {
       id: `button-${Date.now()}-${Math.random().toString(16).slice(2, 7)}`,
       type: 'button', name: 'Book with me', label: 'Book with me', url: 'booking/',
@@ -1149,6 +1494,7 @@
 
   el.contentBox.addEventListener('pointerdown', startContentPointer);
   el.contentBox.addEventListener('click', (event) => {
+    if (foregroundBusy()) return;
     event.stopPropagation();
     selectedTarget = 'content';
     selectedId = null;
@@ -1157,8 +1503,32 @@
   });
 
   el.canvas.addEventListener('pointerdown', startBackgroundPan);
+  el.canvas.addEventListener('pointerdown', (event) => {
+    if (!foregroundDraft || event.button !== 0 || event.target.closest('[data-foreground-point]')) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+    if (foregroundDraft.points.length >= 64) {
+      setForegroundFeedback('The outline has 64 points. Finish it, move an existing point, or Undo point to draw a replacement.', true);
+      return;
+    }
+    const point = foregroundPointAt(event);
+    if (!point) {
+      setForegroundFeedback('Choose a point on the background image. The empty space beside a contained image is outside its outline.', true);
+      return;
+    }
+    foregroundDraft.points.push(point);
+    foregroundMessage = '';
+    foregroundError = false;
+    renderForegroundEditor();
+    renderForegroundControls();
+  }, true);
   el.canvas.addEventListener('click', (event) => {
-    if (event.target.closest('.composer-layer, [data-content-box], [data-selection-overlay]')) return;
+    if (!foregroundDraft && !event.target.closest('[data-foreground-point]')) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+  el.canvas.addEventListener('click', (event) => {
+    if (foregroundBusy() || event.target.closest('.composer-layer, [data-content-box], [data-selection-overlay], [data-foreground-point]')) return;
     if (backgroundPanMode) return;
     selectedId = null;
     selectedTarget = 'none';
@@ -1181,17 +1551,21 @@
   });
 
   root.querySelectorAll('[data-section]').forEach((button) => button.addEventListener('click', () => {
+    const cancelled = cancelForeground(false);
     section = button.dataset.section;
     selectedId = null;
     selectedTarget = 'none';
     backgroundPanMode = false;
     render();
+    if (cancelled) setStatus('Unfinished outline cancelled. The previous outline is kept.');
   }));
   root.querySelectorAll('[data-device]').forEach((button) => button.addEventListener('click', () => {
+    const cancelled = cancelForeground(false);
     device = button.dataset.device;
     selectedId = null;
     selectedTarget = 'none';
     render();
+    if (cancelled) setStatus('Unfinished outline cancelled. Each device keeps its own outline.');
   }));
   root.querySelectorAll('[data-property-tab]').forEach((button) => button.addEventListener('click', () => activatePropertyTab(button.dataset.propertyTab)));
 
@@ -1227,11 +1601,42 @@
     currentView().height = Number(heightInput.value);
     const frame = geometry.frame(section, device, currentView());
     el.canvas.style.aspectRatio = `${frame.width} / ${frame.height}`;
+    refreshForeground();
     renderProperties(false);
   });
   heightInput?.addEventListener('change', () => {
     commitHistory();
     setStatus('Section height changed.');
+  });
+
+  ['x', 'y'].forEach((axis) => {
+    const input = root.querySelector(`[data-control="perspective${axis.toUpperCase()}"]`);
+    input.addEventListener('input', () => {
+      if (!input.value.trim() || !Number.isFinite(Number(input.value))) return;
+      currentView().perspective = {...depth.perspective(currentView()), [axis]: clamp(input.value, 0, 100)};
+      currentView().layers.forEach((layer) => {
+        const node = layerNode(layer);
+        if (node) applyLayerNodeStyles(node, layer);
+      });
+      if (selectedLayer()) updateLayerPropertyReadout(selectedLayer());
+      renderSelectionOverlay();
+    });
+    input.addEventListener('change', () => {
+      const perspective = depth.perspective(currentView());
+      input.value = String(round(perspective[axis], 1));
+      commitHistory();
+      setStatus('Room depth direction changed for this device.');
+    });
+  });
+
+  root.querySelector('[data-control="foregroundEnabled"]').addEventListener('change', (event) => {
+    if (saving || foregroundBusy() || !matchingForeground() || !depth.validatePolygon(currentView().foreground.points)) return;
+    currentView().foreground.enabled = event.target.checked;
+    foregroundMessage = '';
+    foregroundError = false;
+    commitHistory();
+    render();
+    setStatus(event.target.checked ? 'Foreground furniture is on for this device.' : 'Foreground furniture is off; its outline is kept.');
   });
 
   const contentControls = {
@@ -1313,7 +1718,8 @@
     layerContrast: 'contrast',
     layerSaturation: 'saturation',
     layerFeather: 'feather',
-    layerShadow: 'shadowOpacity'
+    layerShadow: 'shadowOpacity',
+    layerDepth: 'depth'
   };
   Object.entries(layerControls).forEach(([control, property]) => {
     const input = root.querySelector(`[data-control="${control}"]`);
@@ -1322,10 +1728,13 @@
       const layer = selectedLayer();
       if (!layer || layer.locked) return;
       let value = Number(input.value);
-      if (!Number.isFinite(value)) return;
-      if (property === 'width' || property === 'height') value = clamp(value, 0.5, 400);
-      if (property === 'x' || property === 'y') value = clamp(value, -400, 500);
-      layer[property] = value;
+      if (!input.value.trim() || !Number.isFinite(value)) return;
+      if (property === 'depth' && layer.type === 'button') return;
+      if (property === 'width') setDisplayedWidth(layer, value);
+      else if (property === 'x' || property === 'y') {
+        const projected = displayedLayer(layer);
+        setDisplayedPosition(layer, property === 'x' ? value : projected.x, property === 'y' ? value : projected.y);
+      } else layer[property] = property === 'height' ? clamp(value, 0.5, 400) : (property === 'depth' ? clamp(value, 0, 100) : value);
       renderLayers();
       renderProperties(false);
       if (property === 'width' || property === 'height') updateLayerPropertyReadout(layer);
@@ -1334,6 +1743,15 @@
       commitHistory();
       setStatus('Layer changed — save when ready.');
     });
+  });
+
+  root.querySelector('[data-control="layerBehindForeground"]').addEventListener('change', (event) => {
+    const layer = selectedLayer();
+    if (!layer || layer.locked || layer.type === 'button') return;
+    layer.behindForeground = event.target.checked;
+    commitHistory();
+    render();
+    setStatus(layer.behindForeground ? 'Photo placed behind the foreground furniture for this device.' : 'Photo placed in front of the foreground furniture.');
   });
 
   const buttonControls = {buttonLabel: 'label', buttonUrl: 'url', buttonStyle: 'style',
@@ -1361,16 +1779,47 @@
   root.querySelectorAll('[data-layer-size]').forEach((button) => button.addEventListener('click', () => {
     const layer = selectedLayer();
     if (!layer || layer.locked) return;
-    layer.width = clamp(button.dataset.layerSize, 0.5, 400);
+    setDisplayedWidth(layer, Number(button.dataset.layerSize));
     commitHistory();
     render();
-    setStatus(`Layer width set to ${layer.width}%.`);
+    setStatus(`Layer width set to ${round(displayedLayer(layer).width, 1)}% of the canvas.`);
   }));
 
   root.querySelectorAll('[data-action]').forEach((button) => button.addEventListener('click', () => handleAction(button.dataset.action)));
 
   function handleAction(action) {
     const layer = selectedLayer();
+    if (action === 'foreground-draw') { startForegroundDrawing(); return; }
+    if (action === 'foreground-finish') { finishForegroundDrawing(); return; }
+    if (action === 'foreground-cancel') {
+      cancelForeground();
+      setStatus('Unfinished outline cancelled. The previous outline is kept.');
+      return;
+    }
+    if (action === 'foreground-undo-point' || (action === 'undo' && foregroundDraft)) {
+      if (foregroundDraft && !foregroundDrag) {
+        foregroundDraft.points.pop();
+        foregroundMessage = '';
+        foregroundError = false;
+        renderForegroundEditor();
+        renderForegroundControls();
+      }
+      return;
+    }
+    if (foregroundBusy()) {
+      setForegroundFeedback('Finish or cancel the outline before using this action.', true);
+      return;
+    }
+    if (action === 'foreground-clear') {
+      if (saving || !currentView().foreground) return;
+      delete currentView().foreground;
+      foregroundMessage = '';
+      foregroundError = false;
+      commitHistory();
+      render();
+      setStatus('Foreground outline cleared for this device. Undo can restore it.');
+      return;
+    }
     if (action === 'add-content-button') {
       addContentButton();
       return;
@@ -1448,7 +1897,8 @@
       return;
     }
     if (action.startsWith('layer-align-') || action === 'layer-crop-bottom') alignLayer(action, layer);
-    if (action === 'layer-recover') { layer.x = 50; layer.y = 50; layer.visible = true; }
+    if (action === 'layer-recover') { setDisplayedPosition(layer, 50, 50); layer.visible = true; }
+    if (action === 'layer-depth-reset' && layer.type !== 'button') layer.depth = 0;
     if (action === 'layer-lock') layer.locked = !layer.locked;
 
     if (action === 'layer-forward') layer.z = Math.max(...currentView().layers.map((item) => Number(item.z ?? 1))) + 1;
@@ -1458,8 +1908,8 @@
       const copy = clone(layer);
       copy.id = `layer-${Date.now()}-${Math.random().toString(16).slice(2, 6)}`;
       copy.name = `${layer.name} copy`;
-      copy.x = clamp(Number(layer.x) + 3, -400, 500);
-      copy.y = clamp(Number(layer.y) + 3, -400, 500);
+      const projected = displayedLayer(layer);
+      setDisplayedPosition(copy, projected.x + 3, projected.y + 3);
       copy.locked = false;
       copy.z = Math.max(...currentView().layers.map((item) => Number(item.z ?? 1))) + 1;
       currentView().layers.push(copy);
@@ -1478,24 +1928,32 @@
 
   function alignLayer(action, layer) {
     const node = layerNode(layer);
-    const frame = el.canvas.getBoundingClientRect();
+    const frame = canvasFrame();
     const rect = node?.getBoundingClientRect();
-    const width = rect ? rect.width / frame.width * 100 : Number(layer.width);
+    const projected = displayedLayer(layer);
+    const width = rect ? rect.width / frame.width * 100 : projected.width;
     const height = rect ? rect.height / frame.height * 100 : width;
-    if (action === 'layer-align-left') layer.x = width / 2;
-    if (action === 'layer-align-center-x') layer.x = 50;
-    if (action === 'layer-align-right') layer.x = 100 - width / 2;
-    if (action === 'layer-align-top') layer.y = height / 2;
-    if (action === 'layer-align-center-y') layer.y = 50;
-    if (action === 'layer-align-bottom') layer.y = 100 - height / 2;
-    if (action === 'layer-crop-bottom') layer.y = 100 - height * 0.3;
-    layer.x = clamp(layer.x, -400, 500);
-    layer.y = clamp(layer.y, -400, 500);
+    if (action === 'layer-align-left') projected.x = width / 2;
+    if (action === 'layer-align-center-x') projected.x = 50;
+    if (action === 'layer-align-right') projected.x = 100 - width / 2;
+    if (action === 'layer-align-top') projected.y = height / 2;
+    if (action === 'layer-align-center-y') projected.y = 50;
+    if (action === 'layer-align-bottom') projected.y = 100 - height / 2;
+    if (action === 'layer-crop-bottom') projected.y = 100 - height * 0.3;
+    setDisplayedPosition(layer, projected.x, projected.y);
+  }
+
+  function updateSaveControls() {
+    root.querySelectorAll('[data-action="save"], [data-action="publish"], [data-action="preview"], [data-restore-version]').forEach((button) => {
+      button.disabled = saving || foregroundBusy();
+      button.title = foregroundBusy() ? 'Finish or cancel the foreground outline first.' : '';
+    });
   }
 
   function setSaving(value) {
     saving = value;
-    root.querySelectorAll('[data-action="save"], [data-action="publish"], [data-action="preview"], [data-restore-version]').forEach((button) => { button.disabled = value; });
+    updateSaveControls();
+    renderForegroundControls(false);
   }
 
   async function saveScene(action, targetSection, draft) {
@@ -1510,7 +1968,7 @@
   }
 
   async function runSave(action) {
-    if (saving) return;
+    if (saving || foregroundBusy()) return;
     const targetSection = section;
     const draft = clone(scenes[targetSection]);
     setSaving(true);
@@ -1528,7 +1986,7 @@
   }
 
   async function previewDrafts() {
-    if (saving) return;
+    if (saving || foregroundBusy()) return;
     const drafts = clone(scenes);
     const preview = window.open('about:blank', '_blank');
     if (preview) {
@@ -1580,14 +2038,14 @@
       item.dataset.versionId = version.id;
       const date = new Date(version.publishedAt || version.createdAt || Date.now());
       item.innerHTML = `<strong>${escapeHtml(version.scene?.title || `Published version ${rows.length - index}`)}</strong><small>${escapeHtml(date.toLocaleString())} · Published version ${rows.length - index}</small><button type="button" data-restore-version>Restore and publish</button>`;
-      item.querySelector('button').disabled = saving;
+      item.querySelector('button').disabled = saving || foregroundBusy();
       item.querySelector('button').addEventListener('click', () => restoreVersion(version.id));
       el.versions.appendChild(item);
     });
   }
 
   async function restoreVersion(versionId) {
-    if (saving) return;
+    if (saving || foregroundBusy()) return;
     const targetSection = section;
     if (!confirm('Restore this version and publish it to the live homepage?')) return;
     setSaving(true);
@@ -1649,7 +2107,10 @@
   el.libraryCategory.addEventListener('change', renderLibrary);
   root.querySelector('[data-placement-enabled]').addEventListener('change', renderPlacementGuides);
   el.selection.addEventListener('click', (event) => event.stopPropagation());
-  el.bg.addEventListener('load', renderPlacementGuides);
+  el.bg.addEventListener('load', () => {
+    renderPlacementGuides();
+    refreshForeground();
+  });
   root.querySelector('[data-control="sceneTitle"]').addEventListener('input', (event) => {
     currentScene().title = event.target.value.slice(0, 160);
     setStatus('Composition title changed — save when ready.');
@@ -1671,6 +2132,12 @@
 
   document.addEventListener('keydown', (event) => {
     const activeTag = document.activeElement?.tagName || '';
+    if (event.key === 'Escape' && foregroundBusy()) {
+      event.preventDefault();
+      cancelForeground();
+      setStatus('Unfinished outline cancelled. The previous outline is kept.');
+      return;
+    }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z') {
       event.preventDefault();
       handleAction(event.shiftKey ? 'redo' : 'undo');
@@ -1682,6 +2149,7 @@
       return;
     }
     if (/INPUT|TEXTAREA|SELECT/.test(activeTag)) return;
+    if (foregroundBusy()) return;
     if (event.key === 'Escape') {
       selectedId = null;
       selectedTarget = 'none';
@@ -1701,17 +2169,19 @@
     } else {
       const layer = selectedLayer();
       if (!layer || layer.locked) return;
+      const projected = displayedLayer(layer);
       if (event.key === 'Delete' || event.key === 'Backspace') {
         event.preventDefault();
         handleAction('layer-delete');
         return;
       }
-      if (event.key === 'ArrowLeft') { layer.x -= step; changed = true; }
-      if (event.key === 'ArrowRight') { layer.x += step; changed = true; }
-      if (event.key === 'ArrowUp') { layer.y -= step; changed = true; }
-      if (event.key === 'ArrowDown') { layer.y += step; changed = true; }
-      if (event.key === '+' || event.key === '=') { layer.width = clamp(layer.width + (event.shiftKey ? 10 : 2), 0.5, 400); changed = true; }
-      if (event.key === '-' || event.key === '_') { layer.width = clamp(layer.width - (event.shiftKey ? 10 : 2), 0.5, 400); changed = true; }
+      if (event.key === 'ArrowLeft') { projected.x -= step; changed = true; }
+      if (event.key === 'ArrowRight') { projected.x += step; changed = true; }
+      if (event.key === 'ArrowUp') { projected.y -= step; changed = true; }
+      if (event.key === 'ArrowDown') { projected.y += step; changed = true; }
+      if (event.key === '+' || event.key === '=') { setDisplayedWidth(layer, projected.width + (event.shiftKey ? 10 : 2)); changed = true; }
+      if (event.key === '-' || event.key === '_') { setDisplayedWidth(layer, projected.width - (event.shiftKey ? 10 : 2)); changed = true; }
+      if (changed) setDisplayedPosition(layer, projected.x, projected.y);
     }
     if (changed) {
       if (selectedTarget === 'content') {

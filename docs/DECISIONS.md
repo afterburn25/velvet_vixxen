@@ -1,5 +1,20 @@
 # Architecture and Product Decisions
 
+<!-- composer-depth-0812:start -->
+## 2026-10-21 — Photo depth and source-image foreground outlines (0.8.12 candidate)
+
+The active `feature/0.8.12-composer-depth` candidate addresses [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). These implementation decisions preserve the existing Composer and public design; they do not establish a completed release.
+
+- Store optional per-photo depth from 0 to 100 and a separate behind-foreground boolean. Project toward a per-device point (default 50%/35%) using scale `1 / (1 + 3 × depth / 100)`; retain base position/width so depth 0 restores the base geometry. Apply inverse projection to visible-coordinate editing, snapping, alignment, recovery and resizing.
+- Store one optional simple foreground polygon per device, with 3–64 source-image percentage vertices and its background source. Recreate the matching background/overlay inside that outline between rear photos and front photos/buttons. This keeps furniture anchored through background pan, zoom, fit and canvas changes. Source replacement disables the old outline; failed/mismatched backgrounds cannot render it.
+- Keep missing fields absent, use strict finite JSON number/boolean validation, and require a simple nonzero polygon before a scene write. Buttons retain neutral depth and remain in front. Extend the existing scene record and history without a migration.
+- Keep new drawing temporary until Finish. Cancel retains the previous outline, invalid completed-point edits revert, and unfinished drawing blocks Save/Preview/Publish/Restore. Completed edits are undoable; device layouts stay independent unless explicitly copied.
+
+The unchanged `b1b93447f6165e3838da3b864f81b3e0e34599be` baseline passed `scripts/test.sh` and reproduced the prior 0.8.11 packages exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and the retained ownership, OPcache, security and package gates. The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts**, and retained Composer actions pass all **four desktop/mobile root/nested cases**. New depth browser and MySQL HTTP acceptance, all **seven required CI jobs and 74 configured required steps**, actual CI artifact verification, merge and saved-download read-back remain pending. These local results do not certify a delivered 0.8.12 release.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+<!-- composer-depth-0812:end -->
+
 ## 2026-10-20 — Owner-editable menus and public page layout (0.8.11, verified)
 
 - Put Menus under Site & Design. Keep the two locations independent, retain untouched historical defaults, and distinguish a saved empty menu from a default reset. Keep account/cart, legal links, branding and designer credit separate.

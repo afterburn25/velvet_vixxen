@@ -49,3 +49,32 @@
 .content-box-preview em.content-button-preview--glass{border-color:#ff2d8d;background:rgba(8,3,7,.7);color:#fff}
 .content-box-preview em.content-button-preview--ghost{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04);color:#fff}
 @media(max-width:620px){.content-box-preview{display:flex;inset:24% 8% 8%;overflow:hidden}.content-button-heading .mini-button{min-height:36px;padding:6px 10px}}
+
+/* Photo depth and image-anchored foreground outlines use the existing panels. */
+.composer-layer{pointer-events:auto}
+.scene-perspective-controls .control-grid{margin:0}
+.scene-perspective-controls .control-grid label{grid-template-columns:minmax(0,1fr)}
+.layer-depth-controls{margin-top:16px}
+.layer-depth-controls .composer-check,.foreground-controls .composer-check{display:flex;align-items:center;gap:8px;margin:0}
+.depth-range-labels{display:flex;justify-content:space-between;margin-top:-10px;color:var(--admin-muted);font-size:.62rem}
+.foreground-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.foreground-actions .mini-button{min-height:36px;padding:6px;white-space:normal}
+.foreground-status{margin:0}
+.foreground-status.error{color:#ffafc3}
+.foreground-point-details{min-width:0}
+.foreground-point-details summary{cursor:pointer;color:#ffb1d7;font-size:.7rem;font-weight:700}
+.foreground-points{display:grid;gap:8px;max-height:300px;overflow:auto;padding:2px}
+.foreground-point-row{display:grid;grid-template-columns:24px minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:center}
+.foreground-point-row>span{font-size:.65rem;color:#ffb1d7}
+.foreground-point-row label{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;font-size:.6rem}
+.foreground-point-row input{width:100%;min-width:0;min-height:34px;padding:6px;border:1px solid var(--admin-line);border-radius:7px;background:#080408;color:#fff;font:inherit}
+.foreground-editor{position:absolute;inset:0;z-index:64;overflow:hidden;pointer-events:none}
+.foreground-editor svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.foreground-outline{fill:rgba(76,238,195,.12);stroke:#70ffdb;stroke-width:2;vector-effect:non-scaling-stroke}
+.foreground-open-outline{fill:none;stroke:#70ffdb;stroke-width:2;stroke-dasharray:5 4;vector-effect:non-scaling-stroke}
+.foreground-editor.invalid .foreground-outline,.foreground-editor.invalid .foreground-open-outline{stroke:#ff91b2;fill:rgba(255,94,142,.12)}
+.foreground-point-handle{position:absolute;transform:translate(-50%,-50%);width:24px;height:24px;min-width:24px;min-height:24px;padding:0;border:2px solid #70ffdb;border-radius:50%;background:#11382d;color:#fff;font-size:10px;font-weight:800;line-height:20px;cursor:move;pointer-events:auto;touch-action:none;box-shadow:0 1px 4px #000}
+.foreground-point-handle:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.foreground-drawing,.foreground-drawing .composer-layer,.foreground-drawing .canvas-content-box{cursor:crosshair}
+.foreground-drawing .selection-overlay,.foreground-drawing .canvas-content-box{pointer-events:none}
+@media(max-width:620px){.foreground-point-handle{width:28px;height:28px;min-width:28px;min-height:28px;line-height:24px}.foreground-actions .mini-button{min-height:40px}}

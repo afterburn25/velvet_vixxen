@@ -1,5 +1,21 @@
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
+<!-- composer-depth-0812:start -->
+## Current candidate — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+
+**In progress on `feature/0.8.12-composer-depth`, tracked by [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28).** Version 0.8.11 remains the latest verified, merged and delivered release. The earlier release blocks below retain their historical facts and then-current continuation notes.
+
+The active work adds independent photo depth and furniture occlusion to Hero and Visual Footer. A Near/Far depth control moves and scales the selected photo toward a per-device point in the room. An outline drawn on the background defines the bed or furniture that appears in front of photos marked **Place behind foreground**. The outline follows the source image through pan, zoom and canvas-height changes. Buttons and live content remain above furniture.
+
+Editor controls and shared rendering/validation are implemented in the working candidate. The owner can finish/cancel an outline, drag or numerically edit its points, disable it without deleting it, or clear it. Unfinished outlines block Save, Preview, Publish and Restore; completed changes use the existing history. Background replacement disables an outline tied to the previous image. No new migration or redesign is included.
+
+The unchanged `b1b93447f6165e3838da3b864f81b3e0e34599be` baseline passed `scripts/test.sh` and reproduced the prior 0.8.11 packages exactly. The candidate's full local `scripts/test.sh` also passes, including **215 scene-depth assertions**, **55 runtime-inventory checks**, **692 root-layout assertions** and the retained ownership, OPcache, security and package gates. The new file-mode depth HTTP suite passes **1,954 checks**. Retained scale acceptance passes **52 scene comparisons and 24 footer layouts**, and retained Composer actions pass all **four desktop/mobile root/nested cases**. New depth browser and MySQL HTTP acceptance, all **seven required CI jobs and 74 configured required steps**, actual CI artifact verification, merge and saved-download read-back remain pending. These local results do not certify a delivered 0.8.12 release.
+
+Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, explicit post expiry and other marketing work remain separate. Actual-host #12/#13 and production email remain unverified; payments remain sandbox-only and the separate 0.9 milestone remains incomplete. Repository work does not establish that the affected customer host has been updated.
+
+[Owner workflow](docs/COMPOSER_DEPTH.md) · [Composer guide](docs/VISUAL_COMPOSER.md)
+<!-- composer-depth-0812:end -->
+
 <!-- navigation-menus-0811:start -->
 ## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 

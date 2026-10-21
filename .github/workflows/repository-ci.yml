@@ -92,10 +92,13 @@ jobs:
             tests/Packaging/fixtures/release-0.8.8-build-20261020.9.json
             tests/Packaging/fixtures/release-0.8.9-build-20261020.10.json
             tests/Packaging/fixtures/release-0.8.10-build-20261020.11.json
+            tests/Packaging/fixtures/release-0.8.11-build-20261020.12.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
             public/assets/js/scene-geometry.js tests/Browser/composer_scale_playwright.py
+            app/Core/SceneDepth.php public/assets/js/scene-depth.js docs/COMPOSER_DEPTH.md
+            tests/Feature/scene_depth.php tests/Http/composer_depth_http.py tests/Browser/composer_depth_playwright.py
             app/Core/MenuService.php app/Core/MenuStoreTrait.php app/Support/menu_admin.php
             app/Views/admin/menus.php app/Views/admin/menus-actions.php
             app/Views/public/partials/menu-items.php public/assets/css/menu-admin.css
@@ -248,6 +251,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/menus_http.py --mode mysql
+      - name: Preserve per-device scene depth and foreground masking through actual packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/composer_depth_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -322,6 +333,19 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/composer_scale_playwright.py
+      - name: Preserve per-device scene depth and foreground masking through actual packaged file requests
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Http/composer_depth_http.py --mode file
+      - name: Place cutouts and trace foreground masks in actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/composer_depth_playwright.py --mode both
       - name: Use the real Campaign owner controls and independent public switches on desktop and mobile
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser

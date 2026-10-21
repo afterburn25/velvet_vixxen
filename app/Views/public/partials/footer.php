@@ -14,6 +14,7 @@ $publicMenuInstance = 'footer';
 <?php if (empty($hidePersistentPlayer)) { require root_path('app/Views/public/partials/player.php'); } ?>
 <script>window.VELVET_CONFIG=Object.assign(window.VELVET_CONFIG||{},<?= json_encode(['baseUrl'=>base_url(),'uploadBase'=>base_url('uploads/'),'ageGate'=>(bool)($publicFooterSettings['age_gate_enabled']??true),'csrfToken'=>csrf_token(),...public_route_config(),'member'=>current_member()?['id'=>(string)current_member()['id'],'displayName'=>(string)current_member()['displayName']]:null], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?>);</script>
 <script src="<?= e(asset_url('js/scene-geometry.js')) ?>" defer></script>
+<script src="<?= e(asset_url('js/scene-depth.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/site.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/navigation.js')) ?>" defer></script>
 <script src="<?= e(asset_url('js/media-center.js')) ?>" defer></script>

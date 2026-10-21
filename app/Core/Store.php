@@ -92,6 +92,7 @@ final class Store
     public function saveScene(string $section, array $scene, bool $publish = false, ?int $adminId = null): int|string
     {
         $scene = SceneButton::validateScene($scene);
+        $scene = SceneDepth::validateScene($scene, $section);
         $scene['section'] = $section;
         $scene['updatedAt'] = now_iso();
         if ($this->mode === 'file') {

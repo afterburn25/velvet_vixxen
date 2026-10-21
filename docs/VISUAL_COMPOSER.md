@@ -1,5 +1,19 @@
 # Visual Composer and Hero Library — 0.8.1
 
+<!-- composer-depth-0812:start -->
+## 0.8.12 candidate — place photos farther into the room
+
+**In progress, Build 20261021.1**, on `feature/0.8.12-composer-depth` for [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). Version 0.8.11 remains the latest verified delivery; the following controls describe the working candidate. Full instructions are in [Photo depth and foreground furniture](COMPOSER_DEPTH.md).
+
+In **Layers**, select a photo and increase **Depth in scene** from Near toward Far. The photo gets smaller and moves toward the room's depth point; the other photos stay independent. **Reset depth** returns it to its stored base position and width. **Background → Depth direction** sets the room point for the current device. X/Y and width fields continue to describe the photo's visible canvas placement; dragging, alignment, recovery, duplication and keyboard nudges account for its depth.
+
+In **Background → Foreground furniture**, choose **Draw outline**, click 3–64 points around the part of the bed or furniture that should cover a photo, and choose **Finish outline**. Select **Place behind foreground** on each photo that should sit behind that furniture. Buttons and live content remain above it. Drawn points are attached to the original background image, so pan, zoom and section-height changes keep the outline on the furniture.
+
+**Undo point** removes the last point while drawing. **Cancel outline** or Escape keeps the previous outline; changing section/device/tab cancels an unfinished outline. Save, Preview, Publish and Restore remain unavailable until the outline is finished or cancelled. Completed points can be dragged in the Background canvas or changed under **Edit outline points**; an invalid edit keeps the previous valid shape. **Show foreground furniture** switches the outline off without deleting it, while **Clear outline** removes it and can be undone. Changing the background image disables its previous outline. Each device keeps its own depth settings and outline; **Copy to other devices** copies them with the layout.
+
+The unchanged baseline and candidate's full local source suite pass, including **215 scene-depth assertions**. File-mode depth HTTP acceptance passes **1,954 checks**; retained scale and Composer action acceptance also pass. New depth browser/MySQL acceptance, all **seven CI jobs/74 configured steps**, merge and saved-download verification remain pending. This work does not establish an update to the affected customer host.
+<!-- composer-depth-0812:end -->
+
 The Visual Composer edits the Homepage Hero and Visual Footer as independent compositions. Background artwork, uploaded photos, separate button layers, and the live text/button region remain separate. The approved pink/magenta/black site design is retained.
 
 ## Choose and preview a scene
