@@ -1,10 +1,10 @@
-# Update and verify Velvet Vixxen — 0.8.11 candidate / Build 20261020.12
+# Update and verify Velvet Vixxen — 0.8.11 / Build 20261020.12
 
 Version **0.8.11**, Build **20261020.12**, adds the owner Menus editor for Header/Footer links and submenus. It also keeps short-page footers at the viewport bottom and removes unnecessary small scroll ranges. It includes the preceding Composer scale and larger compact footer corrections, along with the previously delivered application features. No new migration is needed. The unfinished-installer repair retains its separate **0.8.1 / repair Build 20261020.3** identity.
 
-**Candidate status:** final local source/package, HTTP and browser checks passed. Required CI, merge, actual artifact comparison and saved-download delivery remain pending. The latest completed release is [0.8.10](releases/0.8.10-composer-geometry.md); this guide describes how to verify 0.8.11 once delivered and does not establish a customer-host update. See [the candidate release record](releases/0.8.11-menus.md).
+**Verified release:** 0.8.11 / Build 20261020.12 passed all seven required CI jobs/70 configured steps, merged through PR #27 at `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` on `2026-10-21T01:48:45Z`, and passed literal saved-download read-back at `2026-10-21T01:55:10.007674+00:00`. The [release record](releases/0.8.11-menus.md), [CI record](releases/0.8.11-menus-ci.json) and [delivery record](releases/0.8.11-menus-delivery.json) bind the actual source, checkout, merge and package bytes. This guide verifies the delivered complete Upgrade; the affected host still needs its own installation and behavior checks.
 
-Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains included in this candidate; its historical CI/delivery records remain available.
+Rejected Build **20261019.5** reintroduced 25 public route folders and 46 forwarding PHP files at the website root. Build **20261019.6** supplied the approved restoration and safe owner repair. That repair remains included in this release; its historical CI/delivery records remain available.
 
 ## Existing 0.8.x installation
 
@@ -191,7 +191,7 @@ Public pages and APIs are implemented under `public/routes`. Generated internal 
 
 The preserved installed-update regression reconstructs the exact rejected Build .5 ZIP from its pinned source/hash, keeps the same browser and PHP process through extraction, proves that extraction alone leaves the unwanted folders, refreshes through the owner entry and performs real cleanup and application actions. Separate package tests reject the actual .5 root maps and check the exact approved root names.
 
-The **0.8.11 / Build 20261020.12 candidate** passed its final frozen local source/package, HTTP and browser acceptance. All seven required CI jobs and 70 configured steps, exact source/checkout/merge tree binding, actual artifact comparison and saved-download read-back remain pending. See [the candidate release record](releases/0.8.11-menus.md). The completed [0.8.10 release](releases/0.8.10-composer-geometry.md) retains its own evidence; it does not certify the changed menu runtime.
+The delivered **0.8.11 / Build 20261020.12** has verified source/checkout/merge equality, all seven successful CI jobs/70 required steps, actual runtime/browser artifact comparisons and literal saved-readback at `2026-10-21T01:55:10.007674+00:00`. The actual menu artifact has four cases, 72 layouts, 28 link-opening observations, four script-free fallbacks and 44 decoded PNGs. The retained Composer artifact independently has 52/24/8/8 observations and 34 decoded PNGs. Menu HTTP CI observed file 441 checks in the browser job; MySQL 506 checks in PHP 8.2 and 506 checks in PHP 8.3; local combined 945 is supplementary. [Exact release and evidence](releases/0.8.11-menus.md). Actual-host #12/#13 and production email remain unverified; payments stay sandbox-only.
 
 ### Historical baseline — Build 20261020.1
 

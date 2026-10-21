@@ -1,6 +1,6 @@
 # Edit the public menus
 
-The Menus editor is part of the **0.8.11 / Build 20261020.12 candidate**. Implementation and release acceptance are in progress; this guide does not establish a completed release or an update on the customer host.
+The Menus editor is delivered in **0.8.11 / Build 20261020.12**, with verified CI, actual package acceptance, merge and saved-download read-back. See [the release record](releases/0.8.11-menus.md) for exact evidence. The affected customer host still requires its own update and behavior checks.
 
 ## Open the editor
 

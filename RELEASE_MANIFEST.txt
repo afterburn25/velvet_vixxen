@@ -1,22 +1,50 @@
-Candidate release: 0.8.11 / Build 20261020.12 — Editable navigation menus
-State: final local source/package, HTTP and browser acceptance passed; source publication, required CI, merge and saved-download delivery pending.
-Base: 35dceb4a8d197ce23ea866e2e382f2bc14ace629
-Branch: feature/0.8.11-menu-editor
-Runtime delta: 23 changed entries, including 10 new; 350 unchanged Fresh entries; no removals.
-Fresh 373 / Upgrade 332 entries; exact 13/9 root directories and four root files; changed ZIP timestamp 2026-10-21 00:41:28 UTC.
-Scope: owner-editable Header/Footer menus, short-page footer placement and removal of unnecessary vertical scroll.
-Acceptance: source PHP 8.3.6; menu file 183/MySQL 179; pinned HTTP 945; browser 4 cases/72 layouts/28 tab-window-modifier clicks/4 script-free fallbacks/44 menu PNGs; separate footer 88 observations/56 fitting/32 long/16 PNGs.
-Required CI: 7 jobs/70 configured steps; all 66 prior configured steps retained in order.
-Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Fresh-Install.zip
-Bytes: 7774486; SHA-256: 1528f6c966918a5bae0f4beabb75085480fe595cf8a869b6546acfb830d5abfe
-Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Upgrade-from-0.8.x.zip
-Bytes: 7617199; SHA-256: d61cdc2dc8ed4a951f9f324e863d61f51439ce83b3cdc7a1b01f79d00191c37f
-Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
-Bytes: 60065; SHA-256: f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297
-Velvet-Vixxen-0.8.11-Build-20261020.12-package-manifest.json
-Bytes: 83028; SHA-256: b91de7c359e34d75ea5b05e336effc6f197165fb79c3cd6008d0f2eb3b4b837d
-Evidence: docs/releases/0.8.11-menus.md
-Latest completed release and historical records follow.
+VELVET VIXXEN 0.8.11 — BUILD 20261020.12 VERIFIED, MERGED AND DELIVERED
+MENUS AND PUBLIC PAGE LAYOUT
+
+Source: d2b87559d9bccb3c6a3a3ac1fa732f9dd364f84c
+Actual seven-job CI checkout: ef343c9963e952c4230965c6cd37b01daa9da4bf
+Final merge on main: 6d7cfee8936a30c1b1acff47ca55c9e91d9e644b
+Complete identical source/CI/merge tree: 27d08c36c4b160a05753ae055b70934646e990ce
+PR: https://github.com/afterburn25/velvet_vixxen/pull/27
+Merged: 2026-10-20 20:48:45 CDT (America/Chicago); exact UTC 2026-10-21T01:48:45Z
+Required CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39524928930
+Required acceptance: all seven jobs and 70 configured steps successful; all 66 prior required steps retained in order.
+Menu HTTP CI observed totals: file 441 checks in the browser job; MySQL 506 checks in PHP 8.2 and 506 checks in PHP 8.3. Supplementary frozen local combined run: 945.
+Actual menu browser artifact: 4 cases, 72 public layouts, 28 tab/window/native-modifier clicks, 4 script-free fallbacks, 44 decoded PNGs.
+Footer-placement artifact: 88 observations, 56 fitting pages without document scroll, 32 long pages with scroll, 16 separate decoded PNGs; players visible 34 / hidden 42 / omitted 12.
+Retained Composer artifact: 52 scene comparisons, 24 footer layouts, 8 new-tab clicks, 8 empty-catalogue observations, 34 decoded PNGs.
+Root visual review covers all three menu, two footer-placement and four Composer contact sheets plus representative full-size captures.
+Freeze: 2026-10-21T00:41:29.418389+00:00. Changed-entry ZIP timestamp: 2026-10-21 00:41:28 UTC.
+Runtime delta: 23 changed entries including 10 new; 350 unchanged Fresh entries; no removals.
+Fresh 373 / Upgrade 332 entries; exact approved 13/9 root directories and four root files; identical inventories cover 331 non-inventory Upgrade entries.
+
+Runtime package artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39524928930/artifacts/12315330109
+  ID 12315330109; 15424363 bytes; SHA-256 798900db79a92d1c575b9175afd3dc0100a4d11b14db0b344aecce1c90a4815e
+Browser evidence artifact: https://github.com/afterburn25/velvet_vixxen/actions/runs/39524928930/artifacts/12314541238
+  ID 12314541238; 261053575 bytes; SHA-256 4b9f12cabee75f64a807f306ac4b25bde57a6fe9c7db4e3243429b7027ac31d3
+
+Saved-download literal read-back: 2026-10-20 20:55:10 CDT (America/Chicago); exact UTC 2026-10-21T01:55:10.007674+00:00.
+upgrade: Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Upgrade-from-0.8.x.zip
+  7617199 bytes; 332 entries/records; saved version 15; SHA-256 d61cdc2dc8ed4a951f9f324e863d61f51439ce83b3cdc7a1b01f79d00191c37f
+fresh: Nikki-Wilder-Velvet-Vixxen-0.8.11-Build-20261020.12-Fresh-Install.zip
+  7774486 bytes; 373 entries/records; saved version 18; SHA-256 1528f6c966918a5bae0f4beabb75085480fe595cf8a869b6546acfb830d5abfe
+manifest: Velvet-Vixxen-0.8.11-Build-20261020.12-package-manifest.json
+  83028 bytes; 3 package records; saved version 18; SHA-256 b91de7c359e34d75ea5b05e336effc6f197165fb79c3cd6008d0f2eb3b4b837d
+repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+  60065 bytes; 11 entries/records; saved version 2; SHA-256 f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297
+
+All four files match the actual gated artifact and saved/retrieved bytes literally.
+Installed sites use the complete Upgrade; preserve configuration, storage, uploads, owner identity, keys and database.
+The separate unchanged installer repair remains 0.8.1 / repair Build 20261020.3 and saved version 2.
+Current evidence: docs/releases/0.8.11-menus.md
+CI evidence: docs/releases/0.8.11-menus-ci.json
+Delivery evidence: docs/releases/0.8.11-menus-delivery.json
+
+Menus and the preceding Composer/footer correction are complete. Depth/foreground masking and broader #9 remain separate.
+Actual-host #12/#13 and production email remain unverified; payments stay sandbox-only; separate 0.9 remains incomplete.
+No customer-host deployment or separate post-merge CI certification is implied.
+
+HISTORICAL RELEASE RECORDS FOLLOW
 
 VELVET VIXXEN 0.8.10 — BUILD 20261020.11 VERIFIED, MERGED AND DELIVERED
 

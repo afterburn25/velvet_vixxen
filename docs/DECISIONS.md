@@ -1,13 +1,13 @@
 # Architecture and Product Decisions
 
-## 2026-10-20 — Owner-editable Header and Footer menus (0.8.11 candidate)
+## 2026-10-20 — Owner-editable menus and public page layout (0.8.11, verified)
 
 - Put Menus under Site & Design. Keep the two locations independent, retain untouched historical defaults, and distinguish a saved empty menu from a default reset. Keep account/cart, legal links, branding and designer credit separate.
 - Support bounded ordered trees: 50 items per location, three levels, labels up to 80 characters and safe site-path/fragment/HTTP(S) destinations. A destination-free parent needs children and Same tab. Hidden parents hide their branches.
 - Use ordinary links and separate submenu disclosures with semantic lists, keyboard/touch support and usable bounded scrolling. New tab uses the native target; New window requests a popup with opener isolation and native fallback. Browser policies retain final control over windows and modified clicks.
 - Use existing protected settings in file/MySQL modes, with no migration. Recheck saved active ownership under the mutation lock/transaction, compare per-location revisions, and keep the save/reset plus aggregate audit atomic. Reset advances a revision tombstone. Retained failed edits never adopt a newer revision silently.
 - Extend the current unpublished 0.8.11 candidate for the owner's later short-page/footer-scroll requests. Use one viewport-filling public shell with a flexible main area; keep the footer in flow and reserve only the visible player's measured height. Remove redundant nested viewport minimums and duplicated header spacing. Do not suppress necessary scrolling. The prior unpublished package is superseded and supplies only a diagnostic negative control.
-- Preserve all existing release gates and add mandatory file/MySQL menu HTTP and actual-package browser acceptance. Local frozen acceptance passed; required CI/merge/artifact/save evidence remains pending. Actual-host deployment remains unverified.
+- Preserve all existing release gates and add mandatory file/MySQL menu HTTP and actual-package browser acceptance. Local frozen acceptance and all seven required CI jobs/70 steps passed. Source `d2b87559d9bccb3c6a3a3ac1fa732f9dd364f84c`, actual seven-job CI checkout `ef343c9963e952c4230965c6cd37b01daa9da4bf` and final merge `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` share complete tree `27d08c36c4b160a05753ae055b70934646e990ce`. The actual menu and retained Composer artifacts were verified and visually reviewed; saved-download literal read-back completed at `2026-10-21T01:55:10.007674+00:00`. See [the release record](releases/0.8.11-menus.md). Actual-host deployment remains unverified.
 
 ## 2026-10-20 — Shared Composer/public scene geometry (0.8.10, verified)
 
@@ -21,9 +21,9 @@
 - Delivered 0.8.10 / Build 20261020.11 after all seven jobs and 66 required steps passed in run 39517748806. Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual CI checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and PR #26 merge `a98847d032a50eabfbd117ade9cdce63de5c25c3` share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. The actual browser artifact verifies 52/24/8/8 focused observations and 34 decoded PNGs; saved-download literal read-back passed at `2026-10-21T00:25:31.617514+00:00`. See [the release record](releases/0.8.10-composer-geometry.md).
 - Foreground masking/depth controls and unrelated contact-card overflow remain separately scoped. This correction does not complete broader marketing #9 or the 0.9 milestone.
 
-## Current continuation — 0.8.11 Menus candidate in progress
+## Current continuation after completed menus and public page layout
 
-The newest user-directed increment is **0.8.11 Menus**, on `feature/0.8.11-menu-editor`: owner controls to edit, add, remove and reorder menu items, add submenus, and choose same-tab, new-tab or requested new-window navigation. It is a separate candidate in progress, not a completed or delivered release. Its own required CI, merge and saved-download evidence remain pending; 0.8.10 acceptance does not certify changed 0.8.11 bytes.
+The requested menus and public page layout increment is complete. Dedicated Composer depth placement and foreground masking remain separately pending, along with broader #9 calendar, explicit post expiry and the other documented marketing work. Actual-host #12/#13 and production email remain unverified, payments remain sandbox-only, and the separate 0.9 milestone remains incomplete. Keep #3 open as the ongoing release policy. Any further changed delivery needs a new visible version and its own source, CI, artifact, merge and saved-download evidence.
 
 ## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, verified)
 
