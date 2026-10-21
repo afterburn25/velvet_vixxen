@@ -90,9 +90,11 @@ jobs:
             tests/Packaging/fixtures/release-0.8.6-build-20261020.7.json
             tests/Packaging/fixtures/release-0.8.7-build-20261020.8.json
             tests/Packaging/fixtures/release-0.8.8-build-20261020.9.json
+            tests/Packaging/fixtures/release-0.8.9-build-20261020.10.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
+            public/assets/js/scene-geometry.js tests/Browser/composer_scale_playwright.py
             tests/Browser/installed_update_playwright.py tests/Feature/runtime_build.php
             admin/update.php app/Core/RuntimeBuildService.php app/Views/admin/update-status.php
             admin/repair.php app/Core/RuntimeInventoryService.php app/Core/RootLayoutService.php
@@ -301,6 +303,10 @@ jobs:
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/composer_group_buttons_playwright.py
+      - name: Match Composer and public Hero geometry across desktop, tablet and mobile customer packages
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/composer_scale_playwright.py
       - name: Use the real Campaign owner controls and independent public switches on desktop and mobile
         env:
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser

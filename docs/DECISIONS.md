@@ -1,5 +1,16 @@
 # Architecture and Product Decisions
 
+## 2026-10-20 — Shared Composer/public scene geometry (0.8.10 candidate)
+
+- The owner reported that photos visible in Composer were cut off by the actual Hero. The original package reproduces a fixed 760px public height at 1680px width while Composer represents a 1440×760 canvas.
+- Preserve the existing per-device design canvases and stored coordinates. Uniformly project the whole public scene into its actual width, with displayed height equal to saved height × actual width/design width. This also preserves background fitting and scales live typography, controls and effects together.
+- Keep the public navigation outside the scene and stop the following paper section from overlapping the composed Hero's lower edge. Keep intended edge cropping; do not alter stored owner layouts, source images or publication state.
+- Share the geometry helper between editor/public entry points and require it in package/update inventories starting at 0.8.10. Earlier inventories remain inspectable with their own identity.
+- Require the focused actual-package root/nested 52-comparison matrix, the failing original-package control, retained Composer/browser gates and all seven required CI jobs. Local success does not establish merge, saved delivery or actual-host installation.
+- The later owner footer request is part of this same unreleased increment: enlarge bottom-footer type while removing fixed minimum height and reducing padding; add a clearly blue underlined Cajun Web Pro credit opening a new tab on homepage/common renderers. Preserve existing mobile link visibility and allow content-driven wrapping. Verify 24 footer layouts and eight locally fulfilled new-tab clicks in the same packaged browser step.
+- A real packaged phone click exposed the fixed player covering the homepage credit. Track actual player height/visibility and reserve clearance below page content without increasing the footer element. Verify real pointer hits, new tabs and hidden-player empty-catalogue responses.
+- Foreground masking/depth controls and unrelated contact-card overflow remain separately scoped. This correction does not complete broader marketing #9 or the 0.9 milestone.
+
 ## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, verified)
 
 - Add history to existing posts, banners and landing pages in their current marketing record/backend. Keep at most 20 earlier versions, newest first; capture the prior editorial state only when supported fields or visibility genuinely change. Creation and unchanged saves do not manufacture prior versions. Existing items begin retaining history on their first changed save after upgrade.

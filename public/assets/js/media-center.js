@@ -31,6 +31,18 @@
 
   const player = document.querySelector('[data-player]');
   const audio = document.querySelector('[data-player-audio]');
+  if (player) {
+    // Keep the final page controls reachable above the fixed audio dock.
+    // Hidden/empty players reserve no space, including on the homepage.
+    const syncPlayerClearance = () => {
+      const height = player.hidden ? 0 : player.getBoundingClientRect().height;
+      document.body.style.paddingBottom = height > 0 ? `${Math.ceil(height) + 8}px` : '0px';
+    };
+    if (typeof ResizeObserver === 'function') new ResizeObserver(syncPlayerClearance).observe(player);
+    new MutationObserver(syncPlayerClearance).observe(player, {attributes: true, attributeFilter: ['hidden']});
+    window.addEventListener('resize', syncPlayerClearance);
+    syncPlayerClearance();
+  }
   if (player && audio && tracks.length) {
     player.hidden = false;
     const state = Object.assign({trackId:tracks[0].id,position:0,volume:.8,shuffle:false,repeat:'off',queue:tracks.map(t=>t.id),playing:false}, readState());

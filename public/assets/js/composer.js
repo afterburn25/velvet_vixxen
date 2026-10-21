@@ -4,6 +4,7 @@
   const root = document.getElementById('visualComposer');
   const seed = window.COMPOSER_DATA;
   if (!root || !seed) return;
+  const geometry = window.VELVET_SCENE_GEOMETRY;
 
   const clone = (value) => typeof structuredClone === 'function'
     ? structuredClone(value)
@@ -167,13 +168,10 @@
     // Legacy compositions keep their global background as the migration fallback.
     scene.background = normalizeBackground(scene.background, {}, key);
     scene.devices ||= {};
-    const heights = key === 'hero'
-      ? {desktop: 760, tablet: 900, mobile: 860}
-      : {desktop: 420, tablet: 520, mobile: 620};
     ['desktop', 'tablet', 'mobile'].forEach((targetDevice) => {
       scene.devices[targetDevice] ||= {};
       const view = scene.devices[targetDevice];
-      view.height = clamp(view.height || heights[targetDevice], 280, 1800);
+      view.height = geometry.frame(key, targetDevice, view).height;
       view.background = normalizeBackground(view.background, scene.background, key);
       view.layers = (Array.isArray(view.layers) ? view.layers : []).filter((layer) => layer && typeof layer === 'object');
       view.layers.forEach((layer) => {
@@ -332,8 +330,8 @@
 
   resetHistory();
 
-  function canvasWidthForDevice() {
-    return device === 'desktop' ? 1440 : (device === 'tablet' ? 900 : 390);
+  function canvasScale() {
+    return geometry.scale(device, el.canvas.getBoundingClientRect().width);
   }
 
   function activatePropertyTab(name) {
@@ -351,7 +349,7 @@
     el.bg.style.objectPosition = `${bg.x}% ${bg.y}%`;
     el.bg.style.transform = `scale(${bg.zoom})`;
     el.bg.style.transformOrigin = `${bg.x}% ${bg.y}%`;
-    el.bg.style.filter = `brightness(${bg.brightness}%) contrast(${bg.contrast}%) saturate(${bg.saturation}%) blur(${bg.blur}px)`;
+    el.bg.style.filter = `brightness(${bg.brightness}%) contrast(${bg.contrast}%) saturate(${bg.saturation}%) blur(${bg.blur * canvasScale()}px)`;
     el.overlay.style.background = bg.overlayColor;
     el.overlay.style.opacity = String(bg.overlay / 100);
     renderPlacementGuides();
@@ -373,7 +371,8 @@
   }
 
   function layerFilter(layer) {
-    return `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0)}px ${Number(layer.shadowY ?? 18)}px ${Number(layer.shadowBlur ?? 24)}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
+    const scale = canvasScale();
+    return `brightness(${Number(layer.brightness ?? 100)}%) contrast(${Number(layer.contrast ?? 100)}%) saturate(${Number(layer.saturation ?? 100)}%) drop-shadow(${Number(layer.shadowX ?? 0) * scale}px ${Number(layer.shadowY ?? 18) * scale}px ${Number(layer.shadowBlur ?? 24) * scale}px rgba(0,0,0,${Number(layer.shadowOpacity ?? 35) / 100}))`;
   }
 
   function applyLayerNodeStyles(node, layer) {
@@ -385,7 +384,7 @@
     node.style.transform = layerTransform(layer);
     node.style.filter = layerFilter(layer);
     if (layer.type === 'button') {
-      const scale = el.canvas.getBoundingClientRect().width / canvasWidthForDevice();
+      const scale = canvasScale();
       node.style.height = `${Number(layer.height ?? 8)}%`;
       node.style.backgroundColor = layer.style === 'outline' ? 'transparent' : layer.color;
       node.style.color = layer.textColor;
@@ -400,9 +399,9 @@
     normalizeScene(section);
     const scene = currentScene();
     const view = currentView();
-    const canvasWidth = canvasWidthForDevice();
-    el.canvas.style.aspectRatio = `${canvasWidth} / ${Math.max(100, view.height)}`;
-    el.canvas.style.maxWidth = `${canvasWidth}px`;
+    const frame = geometry.frame(section, device, view);
+    el.canvas.style.aspectRatio = `${frame.width} / ${frame.height}`;
+    el.canvas.style.maxWidth = `${frame.width}px`;
     setImageSource(el.bg, resolveAsset(view.background.src), `${section} background`);
     applyBackgroundStyles();
     applyContentBoxStyles();
@@ -1226,7 +1225,8 @@
   const heightInput = root.querySelector('[data-control="height"]');
   heightInput?.addEventListener('input', () => {
     currentView().height = Number(heightInput.value);
-    el.canvas.style.aspectRatio = `${canvasWidthForDevice()} / ${Math.max(100, currentView().height)}`;
+    const frame = geometry.frame(section, device, currentView());
+    el.canvas.style.aspectRatio = `${frame.width} / ${frame.height}`;
     renderProperties(false);
   });
   heightInput?.addEventListener('change', () => {
@@ -1657,11 +1657,12 @@
   root.querySelector('[data-control="sceneTitle"]').addEventListener('change', commitHistory);
   if (typeof ResizeObserver === 'function') {
     new ResizeObserver(() => {
-      currentView().layers.filter((layer) => layer.type === 'button').forEach((layer) => {
+      applyBackgroundStyles();
+      currentView().layers.forEach((layer) => {
         const node = layerNode(layer);
         if (node) applyLayerNodeStyles(node, layer);
       });
-      renderSelectionOverlay(); renderPlacementGuides();
+      renderSelectionOverlay();
     }).observe(el.canvas);
   }
 

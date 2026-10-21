@@ -14,7 +14,11 @@ The **Your Images** tab contains public image assets from the Media Library. Pro
 
 ## Edit each device
 
-Desktop, tablet, and mobile each store their own section height, background source and geometry, photo layers, and live text/button region. The editing frame uses representative widths of 1440, 900, and 390 pixels with the saved section height so its aspect ratio matches those public viewport sizes.
+Desktop, tablet, and mobile each store their own section height, background source and geometry, photo layers, and live text/button region. Their reference canvas widths are 1440, 900, and 390 pixels. The saved section height defines the canvas proportions. Both the editor and the public Hero/Footer fit that complete canvas to the available width, keeping the same background crop, photo edges, positions and button proportions.
+
+For example, a desktop canvas saved at 1440 × 760 appears at 1920 × 1013.33 on a 1920-pixel-wide page. It remains 1440 × 760 at its reference width. The editor fits the same proportions into its smaller panel. Public mobile layouts apply through 760 pixels, tablet through 1120 pixels, and desktop above that. Resizing within a device layout scales the whole composition; crossing a breakpoint selects the separately saved layout. Existing saved scenes need no migration or resave.
+
+Intentional off-frame cropping remains clipped at the same canvas edge in both views. The section following the Hero no longer overlaps and conceals its last visible pixels. The navigation header and persistent player remain separate page controls; they are not part of the scene canvas.
 
 Background controls include horizontal and vertical focal position, zoom from 25% to 400%, brightness, contrast, saturation, blur, dark overlay, and overlay color. **Pan Background** lets you drag the room image directly. Changes affect the selected device. **Reset view** restores its focal position, zoom, and image adjustments. **Copy to other devices** deliberately copies the entire current device layout, including background, section height, photo layers, and content box.
 

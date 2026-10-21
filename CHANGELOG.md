@@ -1,3 +1,11 @@
+## 0.8.10 — Scene scale and compact footer (acceptance candidate)
+
+- Share canonical device geometry between Visual Composer and the public Hero/Visual Footer, including background crop, photos, live copy, buttons and pixel effects. Correct the lower-edge clipping caused by a fixed public height at wider viewport widths.
+- Preserve existing saved layouts, device independence, intentional crops, uploads, Save Draft, Full Page Preview and Publish. Existing layouts need no resave.
+- Add actual-package root/nested browser regression coverage for both scenes at 13 widths, with a failing original-package control, retained controls/buttons coverage and mandatory CI execution.
+- Increase bottom-footer text, remove unnecessary minimum height/padding, and add a blue underlined Cajun Web Pro credit that opens a new tab on homepage and common public pages.
+- Advance visible version to 0.8.10 / Build 20261020.11. Complete local acceptance passed; required CI, source/merge binding, actual artifact verification and saved-download delivery remain pending. See [the release record](docs/releases/0.8.10-composer-geometry.md).
+
 ## 0.8.9 — Editorial history and restore, Build 20261020.10 (2026-10-20)
 
 Verified, merged through [PR #25](https://github.com/afterburn25/velvet_vixxen/pull/25) and delivered. Existing posts, banners and landing pages retain their 20 most recent earlier editorial states after changed saves. Owners can privately review a retained version and deliberately restore it as a draft or disabled item. Restoration preserves identity, permalink, order and unrelated fields, revalidates current references and active ownership, and refuses stale reviews. History reads remain inert; deletion removes attached history. No database migration, automatic backend switch or public route was added.
