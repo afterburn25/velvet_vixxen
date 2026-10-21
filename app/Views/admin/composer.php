@@ -58,6 +58,7 @@ foreach ($composerScenes as $composerScene) {
     }
 }
 $composerData = [
+    'initialSection' => in_array($_GET['section'] ?? null, ['hero', 'footer'], true) ? $_GET['section'] : 'hero',
     'scenes' => $composerScenes,
     'media' => $composerMedia,
     'library' => $heroLibrary,
@@ -93,6 +94,7 @@ $composerData = [
     <button class="admin-button secondary" type="button" data-action="add-button">+ Add Button</button>
     <button class="admin-button secondary" data-action="preview">Full Page Preview</button>
     <button class="admin-button secondary" data-action="save">Save Draft</button>
+    <button class="admin-button secondary" type="button" data-action="schedule" title="Save both drafts and choose when this scene goes live">Schedule</button>
     <button class="admin-button primary" data-action="publish">Publish</button>
   </div>
 

@@ -1,5 +1,17 @@
 # Velvet Vixxen — Current Test Evidence
 
+<!-- scene-schedules-0814:start -->
+## Current candidate — 0.8.14 Scheduled Composer scenes, Build 20261021.3
+
+Continue from verified 0.8.13 `main` (`b3e310c3da8084b13dd3ddd8d5dc653f374d5969`). The recovered chat decisions and live GitHub agree that history/restore, Composer/public scale, compact footer, editable menus, depth/foreground furniture, calendar and post expiration are already delivered. Preserve those capabilities and the exact approved package roots. Every changed completed release advances the visible version; merge tested work to main and deliver complete runtime-only Upgrade/Fresh ZIPs.
+
+The scoped continuation is [#32](https://github.com/afterburn25/velvet_vixxen/issues/32): fixed saved Hero/Footer snapshots with activation and optional end dates, explicit keep/restore-previous policy, fresh-owner and stale-state guards, cancellation, atomic claim/recovery, bounded CLI/owner execution and read-only calendar integration. Automatic changes preserve newer drafts; manual publication supersedes pending automatic work. No new database migration is required. The candidate is being verified; final CI, merge and saved-delivery evidence are not yet claimed.
+
+The previously stale 0.8.11 next-session prompt is now historical. Resume this candidate only from its current branch and release record, or from a later verified main merge. Keep #3/#9 open and preserve actual-host #12/#13 boundaries; production mail is unverified, payments sandbox-only and 0.9 incomplete.
+
+[Owner guide](SCENE_SCHEDULES.md) · [Release record](releases/0.8.14-scene-schedules.md)
+<!-- scene-schedules-0814:end -->
+
 <!-- editorial-calendar-0813:start -->
 ## Current release — 0.8.13 Publishing calendar and post expiration, Build 20261021.2
 

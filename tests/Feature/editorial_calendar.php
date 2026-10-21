@@ -183,6 +183,34 @@ try {
     $brokenHistory = Calendar::build([], [], ['footer' => ['versions' => [['id' => 1, 'publishedAt' => false], ['id' => 2, 'publishedAt' => null]]]], '2030-02', 'scenes', $now);
     $assert($brokenHistory['events'] === [] && count($brokenHistory['undated']) === 2, 'Missing/unrepresentable SQL scene dates silently became epoch events.');
 
+    $scheduledScene = ['id' => 'schedule-main', 'section' => 'hero', 'snapshotTitle' => 'Weekend <scene>',
+        'startsAt' => '2030-02-11T18:00:00Z', 'endsAt' => '2030-02-12T18:00:00Z',
+        'returnPolicy' => 'restore_previous', 'status' => 'scheduled',
+        'snapshot' => ['PRIVATE_CALENDAR_FROZEN_SCENE'], 'owner' => 'PRIVATE_CALENDAR_OWNER',
+        'claim' => ['PRIVATE_CALENDAR_CLAIM'], 'reason' => 'PRIVATE_CALENDAR_EXTRA_FIELD'];
+    $scenePlan = Calendar::build([], [], ['hero' => ['schedules' => [$scheduledScene]]], '2030-02', 'scenes', $now);
+    $assert(count($scenePlan['events']) === 2 && array_column($scenePlan['events'], 'action') === ['scene_start', 'scene_end'], 'Scene scheduling omitted its separate activation and ending dates.');
+    $assert($scenePlan['events'][0]['title'] === 'Weekend <scene>' && $scenePlan['events'][0]['state'] === 'Scheduled'
+        && $scenePlan['events'][0]['edit_path'] === 'admin/?page=scene-schedules&section=hero', 'Scheduled scene title, state or owner destination is incorrect.');
+    $assert(!str_contains(json_encode($scenePlan, JSON_THROW_ON_ERROR), 'PRIVATE_CALENDAR_'), 'Scene schedule projection exposed frozen scenes, owner data, claims or unrelated fields.');
+    foreach (['scheduled' => 'Due — awaiting scene runner', 'processing' => 'In progress', 'active' => 'Live — awaiting end processing',
+        'completed' => 'Completed', 'expired' => 'Ended', 'cancelled' => 'Cancelled',
+        'superseded' => 'Replaced by a manual publication', 'skipped' => 'Skipped', 'held' => 'Needs attention'] as $savedState => $expected) {
+        $result = Calendar::build([], [], ['hero' => ['schedules' => [array_replace($scheduledScene, ['status' => $savedState])]]],
+            '2030-02', 'scenes', new DateTimeImmutable('2030-02-13T18:00:00Z'));
+        $assert($state($result, 'schedule-main') === $expected, 'Scene schedule dates incorrectly implied a completed worker transition.');
+    }
+    foreach ([['startsAt' => null], ['endsAt' => '2030-02-11T18:00:00Z'], ['returnPolicy' => 'automatic'],
+        ['returnPolicy' => 'restore_previous', 'endsAt' => null], ['status' => 'published'], ['section' => 'footer'], ['id' => '../unsafe']] as $invalid) {
+        $result = Calendar::build([], [], ['hero' => ['schedules' => [array_replace($scheduledScene, $invalid)]]], '2030-02', 'scenes', $now);
+        $assert($result['events'] === [] && count($result['undated']) === 1 && $result['undated'][0]['state'] === 'Needs review', 'Invalid scene schedule metadata was promoted to a valid calendar plan.');
+    }
+    $result = Calendar::build([], [], ['hero' => ['schedules' => [$scheduledScene, $scheduledScene]]], '2030-02', 'scenes', $now);
+    $assert($result['events'] === [] && count($result['undated']) === 2
+        && $result['undated'][0]['edit_path'] === '' && $result['undated'][1]['edit_path'] === '', 'Duplicate scene schedule identities retained actionable calendar links.');
+    $result = Calendar::build([], [], ['hero' => ['schedules' => [array_replace($scheduledScene, ['endsAt' => null, 'returnPolicy' => 'keep'])]]], '2030-02', 'scenes', $now);
+    $assert(count($result['events']) === 1 && $result['events'][0]['action'] === 'scene_start', 'An unbounded keep schedule invented an end time.');
+
     $config = new Config($root . '/config/app.php');
     $config->write(['storage_mode' => 'file', 'file_store_path' => 'storage/data.json', 'timezone' => 'America/Chicago',
         'mail' => ['mode' => 'disabled'], 'security' => ['app_key' => bin2hex(random_bytes(32))]]);

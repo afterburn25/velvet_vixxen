@@ -98,6 +98,12 @@ jobs:
             tests/Packaging/fixtures/release-0.8.10-build-20261020.11.json
             tests/Packaging/fixtures/release-0.8.11-build-20261020.12.json
             tests/Packaging/fixtures/release-0.8.12-build-20261021.1.json
+            tests/Packaging/fixtures/release-0.8.13-build-20261021.2.json
+            app/Core/SceneSchedule.php app/Core/SceneScheduleStoreTrait.php app/Console/run_scenes.php
+            app/Support/scene_schedule_admin.php app/Views/admin/scene-schedules.php
+            app/Views/admin/scene-schedules-actions.php public/assets/css/scene-schedules.css
+            tests/Feature/scene_schedules.php tests/Http/scene_schedules_fixture.php
+            tests/Http/scene_schedules_http.py tests/Browser/scene_schedules_playwright.py docs/SCENE_SCHEDULES.md
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -272,6 +278,15 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/editorial_calendar_http.py --mode mysql
+
+      - name: Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/scene_schedules_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -471,6 +486,19 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/editorial_calendar_playwright.py
+      - name: Schedule frozen Composer scenes and recover atomic transitions through actual packaged file requests
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Http/scene_schedules_http.py --mode file
+      - name: Schedule Hero and Footer changes through actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/scene_schedules_playwright.py --mode both
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4
