@@ -258,6 +258,7 @@ try {
     foreach ($badPolicies as $index => $policy) {
         $reject(fn() => $marketing->savePublication('posts', ['id' => $restricted['id'], 'expected_revision' => $restricted['revision'], 'access' => $policy]), 'Explicit invalid save policy was accepted at case ' . $index . '.', $marketingFile);
     }
+    $deletedRecords = [];
     foreach (['posts', 'banners', 'landing_pages'] as $collection) {
         $heldInput = $collection === 'banners' ? ['text' => 'Held banner', 'enabled' => true]
             : ['title' => 'Held content', 'slug' => 'held-' . $collection, 'body' => "Preserve held text.\n", 'status' => 'published', 'enabled' => true];
@@ -272,6 +273,9 @@ try {
         $reject(fn() => $marketing->setPublicationEnabled($collection, $held['id'], true, $withdrawn['revision']), 'Held content was enabled without deliberate repair.', $marketingFile);
         $repaired = $marketing->savePublication($collection, ['id' => $held['id'], 'expected_revision' => $withdrawn['revision'], 'access' => $members]);
         $assert($repaired['access'] === $members && $repaired['private_unknown'] === $held['private_unknown'], 'A deliberate policy repair did not preserve the saved content.');
+        foreach ($marketing->all()[$collection] as $record) {
+            if ((string) $record['id'] === (string) $held['id']) $deletedRecords[$collection] = $record;
+        }
         $marketing->deletePublication($collection, $held['id'], $repaired['revision']);
         $assert($marketing->publicationRecord($collection, $held['id']) === null, 'Revision-checked withdrawal deletion did not remove the exact held record.');
     }
@@ -301,7 +305,13 @@ try {
     $assert(MarketingStore::previewPublication('posts', $future['id'], $root)['visibility']['state'] === 'Scheduled'
         && $tree($root . '/storage/private/marketing') === $before, 'Preview required a writable lock, changed its permissions or hid saved scheduled content.');
     chmod($lockPath, 0640);
-    $assert(array_diff_key($marketing->all(), array_flip(['meta', 'posts', 'banners', 'landing_pages'])) === $preserved, 'Editorial access or preview mutated consent, frozen audiences/messages, queue state, tokens, events or unknown data.');
+    $finalMarketing = $marketing->all();
+    $assert(array_diff_key($finalMarketing, array_flip(['meta', 'posts', 'banners', 'landing_pages', \Velvet\Core\MarketingRecovery::KEY])) === $preserved, 'Editorial access or preview mutated consent, frozen audiences/messages, queue state, tokens, events or unknown data.');
+    $deletedEntries = \Velvet\Core\MarketingRecovery::entries($finalMarketing);
+    $assert(count($deletedEntries) === 3, 'Only the three deliberate deletions may change the private recovery archive.');
+    foreach ($deletedEntries as $entry) {
+        $assert(($deletedRecords[$entry['collection']] ?? null) === $entry['record'], 'Deletion failed to preserve the exact saved access policy, private fields and history.');
+    }
 
     // Resolve real file-backed accounts/devices/catalogues afresh, with no heartbeat or event writes.
     $fresh = static fn(): Store => new Store(new Config($config->path()));

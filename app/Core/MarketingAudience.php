@@ -41,8 +41,8 @@ final class MarketingAudience
     /** @return array{version:int,sources:list<string>,confirmed_after:?string,confirmed_before:?string} */
     public static function rules(mixed $value): array
     {
-        if (!is_array($value) || array_diff(array_keys($value), ['version', 'sources', 'confirmed_after', 'confirmed_before']) !== []
-            || (array_key_exists('version', $value) && $value['version'] !== 1)) {
+        if (!is_array($value) || array_diff(array_keys($value), ['version', 'sources', 'confirmed_after', 'confirmed_before', 'membership', 'plan_ids', 'purchase', 'referral_codes']) !== []
+            || (array_key_exists('version', $value) && !in_array($value['version'], [1,2], true))) {
             throw new InvalidArgumentException('The audience contains unsupported criteria. Edit it before queueing.');
         }
         $sources = array_key_exists('sources', $value) ? $value['sources'] : [];
@@ -61,14 +61,82 @@ final class MarketingAudience
         if ($after !== null && $before !== null && $after >= $before) {
             throw new InvalidArgumentException('The confirmation start must be before the end.');
         }
-        return ['version' => 1, 'sources' => $normalized,
+        $rules = ['version' => 1, 'sources' => $normalized,
             'confirmed_after' => $after?->format('Y-m-d\TH:i:s\Z'),
             'confirmed_before' => $before?->format('Y-m-d\TH:i:s\Z')];
+        $extended = ($value['version'] ?? 1) === 2 || array_intersect(array_keys($value), ['membership','plan_ids','purchase','referral_codes']) !== [];
+        if (!$extended) return $rules;
+        if (($value['version'] ?? 2) === 1) throw new InvalidArgumentException('Business criteria require audience rules version 2.');
+        $membership = $value['membership'] ?? 'any';
+        if (!in_array($membership, ['any','active','none'], true)) throw new InvalidArgumentException('Choose any, active or no active membership.');
+        $plans = self::criteriaList($value['plan_ids'] ?? [], false);
+        if ($plans !== [] && $membership !== 'active') throw new InvalidArgumentException('Selected tiers require active membership.');
+        $referrals = self::criteriaList($value['referral_codes'] ?? [], true);
+        $purchase = $value['purchase'] ?? null;
+        if ($purchase !== null) {
+            if (!is_array($purchase) || array_diff(array_keys($purchase), ['min_count','min_total_minor','currency','after','before']) !== []
+                || !is_int($purchase['min_count'] ?? null) || $purchase['min_count'] < 1 || $purchase['min_count'] > 100000
+                || !is_int($purchase['min_total_minor'] ?? null) || $purchase['min_total_minor'] < 0 || $purchase['min_total_minor'] > 100000000000
+                || !is_string($purchase['currency'] ?? null) || !preg_match('/\A[A-Z]{3}\z/D', $purchase['currency'])) throw new InvalidArgumentException('Enter valid paid purchase thresholds and one currency.');
+            $from = self::timestamp($purchase['after'] ?? null); $until = self::timestamp($purchase['before'] ?? null);
+            if ($from !== null && $until !== null && $from >= $until) throw new InvalidArgumentException('Purchase start must be before the end.');
+            $purchase = ['min_count' => $purchase['min_count'], 'min_total_minor' => $purchase['min_total_minor'], 'currency' => $purchase['currency'],
+                'after' => $from?->format('Y-m-d\TH:i:s\Z'), 'before' => $until?->format('Y-m-d\TH:i:s\Z')];
+        }
+        return array_replace($rules, ['version' => 2, 'membership' => $membership, 'plan_ids' => $plans, 'purchase' => $purchase, 'referral_codes' => $referrals]);
     }
 
     public static function restricted(array $rules): bool
     {
-        return $rules['sources'] !== [] || $rules['confirmed_after'] !== null || $rules['confirmed_before'] !== null;
+        return $rules['sources'] !== [] || $rules['confirmed_after'] !== null || $rules['confirmed_before'] !== null || self::businessRestricted($rules);
+    }
+
+    public static function businessRestricted(array $rules): bool
+    {
+        return ($rules['membership'] ?? 'any') !== 'any' || ($rules['plan_ids'] ?? []) !== [] || ($rules['purchase'] ?? null) !== null || ($rules['referral_codes'] ?? []) !== [];
+    }
+
+    private static function criteriaList(mixed $values, bool $referrals): array
+    {
+        if (!is_array($values) || !array_is_list($values) || count($values) > 20) throw new InvalidArgumentException('Choose at most 20 saved criteria.');
+        $result = [];
+        foreach ($values as $value) {
+            if ($referrals) {
+                if (!is_string($value) || !preg_match('/\A[A-Za-z0-9][A-Za-z0-9_-]{0,63}\z/D', $value)) throw new InvalidArgumentException('Choose valid exact referral codes.');
+                $value = strtolower($value);
+            } else $value = self::id($value);
+            if (!in_array($value, $result, true)) $result[] = $value;
+        }
+        sort($result, SORT_STRING); return $result;
+    }
+
+    /** Business predicates never grant newsletter consent and never infer unknown facts. */
+    public static function matchesBusiness(?array $facts, array $rules, array $erasedActors = []): bool
+    {
+        if (!self::businessRestricted($rules)) return true;
+        if ($facts === null || ($facts['member'] ?? false) !== true || ($facts['valid'] ?? false) !== true) return false;
+        $plans = $facts['active_plan_ids']; $membership = $rules['membership'];
+        if ($membership === 'active' && $plans === []) return false;
+        if ($membership === 'none' && $plans !== []) return false;
+        if ($rules['plan_ids'] !== [] && array_intersect($rules['plan_ids'], $plans) === []) return false;
+        if ($rules['purchase'] !== null) {
+            $criteria = $rules['purchase']; $count = 0; $total = 0;
+            foreach ($facts['purchases'] as $purchase) {
+                if ($purchase['currency'] !== $criteria['currency'] || ($criteria['after'] !== null && $purchase['at'] < self::timestamp($criteria['after'])->getTimestamp())
+                    || ($criteria['before'] !== null && $purchase['at'] >= self::timestamp($criteria['before'])->getTimestamp())) continue;
+                $count++; $total += $purchase['amount_minor'];
+            }
+            if ($count < $criteria['min_count'] || $total < $criteria['min_total_minor']) return false;
+        }
+        if ($rules['referral_codes'] !== []) {
+            $matched = false;
+            foreach ($facts['referrals'] as $snapshot) {
+                try { $snapshot = MarketingAttribution::snapshot($snapshot); } catch (InvalidArgumentException) { continue; }
+                if ($snapshot !== null && !isset($erasedActors[$snapshot['actor']]) && in_array($snapshot['referral_code'], $rules['referral_codes'], true)) $matched = true;
+            }
+            if (!$matched) return false;
+        }
+        return true;
     }
 
     public static function sourcesFromText(mixed $value): array
@@ -87,12 +155,22 @@ final class MarketingAudience
             throw new InvalidArgumentException('Enter a valid confirmation date and time in the site timezone.');
         }
         $canonical = strlen($value) === 16 ? $value . ':00' : $value;
-        $date = DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:s', $canonical, new DateTimeZone(date_default_timezone_get()));
+        $zone = new DateTimeZone(date_default_timezone_get());
+        $date = DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:s', $canonical, $zone);
         $errors = DateTimeImmutable::getLastErrors();
         if (!$date || ($errors !== false && ($errors['warning_count'] || $errors['error_count']))
             || $date->format('Y-m-d\TH:i:s') !== $canonical || (int) $date->format('Y') < 1000) {
             throw new InvalidArgumentException('Enter a valid confirmation date and time in the site timezone.');
         }
+        $wall = DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:s', $canonical, new DateTimeZone('UTC'));
+        $offsets = [$zone->getOffset($date)];
+        foreach ($zone->getTransitions($date->getTimestamp() - 172800, $date->getTimestamp() + 172800) ?: [] as $transition) $offsets[] = $transition['offset'];
+        $matches = [];
+        foreach (array_unique($offsets) as $offset) {
+            $candidate = (new DateTimeImmutable('@' . ($wall->getTimestamp() - $offset)))->setTimezone($zone);
+            if ($candidate->format('Y-m-d\TH:i:s') === $canonical) $matches[$candidate->getTimestamp()] = true;
+        }
+        if (count($matches) !== 1) throw new InvalidArgumentException('This audience date occurs twice when clocks change. Choose a time outside the repeated hour.');
         return $date->setTimezone(new DateTimeZone('UTC'))->format('Y-m-d\TH:i:s\Z');
     }
 

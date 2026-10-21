@@ -108,6 +108,7 @@ try {
     }
     if ($runner->migrate() !== []) throw new RuntimeException('Reapplying unchanged migrations was not idempotent.');
     require $root . '/tests/Database/database_update_scenarios.php';
+    require $root . '/tests/Database/member_dates.php';
     require $root . '/tests/Database/merchandise_scenarios.php';
     require $root . '/tests/Database/booking_form_scenarios.php';
     require $root . '/tests/Database/media_center_mysql.php';

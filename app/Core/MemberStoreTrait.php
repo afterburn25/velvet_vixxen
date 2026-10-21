@@ -124,7 +124,7 @@ trait MemberStoreTrait
             return $member;
         }
         $stmt = $this->pdo()->prepare('INSERT INTO members (display_name,email,password_hash,email_verified_at,status,preferences_json,failed_login_count,created_at,updated_at) VALUES (?,?,?,?,?,?,0,NOW(),NOW())');
-        $stmt->execute([$name, $email, $member['passwordHash'], $verifiedAt, $status, json_encode($member['preferences'])]);
+        $stmt->execute([$name, $email, $member['passwordHash'], $this->memberVerificationSqlTime($verifiedAt), $status, json_encode($member['preferences'])]);
         $member['id'] = (string) $this->pdo()->lastInsertId();
         $this->recordMemberEvent((string) $member['id'], 'member.registered');
         return $member;
@@ -152,7 +152,10 @@ trait MemberStoreTrait
             $member['emailVerifiedAt'] = $changes['emailVerifiedAt'];
         }
         if (isset($changes['preferences']) && is_array($changes['preferences'])) {
-            $member['preferences'] = $changes['preferences'];
+            $preferences = $changes['preferences'];
+            unset($preferences['_attribution']);
+            if (isset($member['preferences']['_attribution'])) $preferences['_attribution'] = $member['preferences']['_attribution'];
+            $member['preferences'] = $preferences;
         }
         $member['updatedAt'] = now_iso();
         if ($this->mode === 'file') {
@@ -163,10 +166,37 @@ trait MemberStoreTrait
         }
         $stmt = $this->pdo()->prepare('UPDATE members SET display_name=?, status=?, email_verified_at=?, preferences_json=?, updated_at=NOW() WHERE id=?');
         $stmt->execute([
-            $member['displayName'], $member['status'], $member['emailVerifiedAt'] ?: null,
+            $member['displayName'], $member['status'], $this->memberVerificationSqlTime($member['emailVerifiedAt'] ?? null),
             json_encode((array) ($member['preferences'] ?? [])), (int) $member['id'],
         ]);
         return $this->member((string) $member['id']) ?? $member;
+    }
+
+    /** Store offset-bearing verification instants in the SQL connection timezone. */
+    private function memberVerificationSqlTime(mixed $value): ?string
+    {
+        if ($value === null || $value === '') return null;
+        if (!is_string($value)) throw new RuntimeException('The verification date is invalid.');
+        // Existing SQL values already use the connection's wall clock. Do not
+        // reinterpret them in the configured PHP/site timezone during an edit.
+        if (preg_match('/\A\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\z/D', $value)) {
+            $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $value, new \DateTimeZone('UTC'));
+            if (!$date || $date->format('Y-m-d H:i:s') !== $value) throw new RuntimeException('The verification date is invalid.');
+            return $value;
+        }
+        if (!preg_match('/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})\z/D', $value)) {
+            throw new RuntimeException('The verification date needs an explicit timezone.');
+        }
+        $normalized = str_ends_with($value, 'Z') ? substr($value, 0, -1) . '+00:00' : $value;
+        $date = \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:sP', $normalized);
+        if (!$date || $date->format('Y-m-d\TH:i:sP') !== $normalized) throw new RuntimeException('The verification date is invalid.');
+        // MySQL accepts ISO offsets in DATETIME bindings while MariaDB does
+        // not. Both engines implement this explicit instant-to-local conversion.
+        $statement = $this->pdo()->prepare('SELECT FROM_UNIXTIME(?)');
+        $statement->execute([$date->getTimestamp()]);
+        $converted = $statement->fetchColumn();
+        if (!is_string($converted) || $converted === '') throw new RuntimeException('The verification date is outside the database-supported range.');
+        return $converted;
     }
 
     public function setMemberPassword(string|int $memberId, string $password): void

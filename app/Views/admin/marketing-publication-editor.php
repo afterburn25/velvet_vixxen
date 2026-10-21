@@ -176,7 +176,7 @@ if (!velvet_marketing_is_owner()) {
         <p class="marketing-field-help"><span data-editorial-seo-title-count><?= preg_match_all('/./us', $publicationMetadataValues['seo_title']) ?></span>/120 characters</p>
         <label>Search description<textarea name="seo_description" rows="3" maxlength="320" placeholder="Uses the excerpt when blank" data-editorial-seo-description><?= $publicationMetadataText('seo_description') ?></textarea></label>
         <p class="marketing-field-help"><span data-editorial-seo-description-count><?= preg_match_all('/./us', $publicationMetadataValues['seo_description']) ?></span>/320 characters. These fields do not change the visible heading, saved address, schedule or access setting.</p>
-        <div class="marketing-search-preview" data-editorial-search-preview aria-label="Search appearance preview">
+        <div class="marketing-search-preview" data-editorial-search-preview role="group" aria-label="Search appearance preview">
           <span class="marketing-search-brand"><?= velvet_marketing_escape($publicationSearchBrand) ?></span>
           <strong data-editorial-search-title><?= velvet_marketing_escape(($publicationSearchTitle !== '' ? $publicationSearchTitle : 'Your publication title') . ' · ' . $publicationSearchBrand) ?></strong>
           <p data-editorial-search-description><?= velvet_marketing_escape($publicationSearchDescription !== '' ? $publicationSearchDescription : 'Add an excerpt or search description to introduce this publication.') ?></p>

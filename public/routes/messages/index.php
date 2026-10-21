@@ -89,7 +89,7 @@ require root_path('app/Views/public/partials/header.php');
           <strong>Start a new conversation</strong>
           <input name="subject" maxlength="190" placeholder="Subject" required>
           <textarea name="message" maxlength="10000" rows="4" placeholder="Write your private message" required></textarea>
-          <?php if (!empty($communicationSettings['memberAttachmentsEnabled'])): ?><input type="file" name="attachments[]" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain"><?php endif; ?>
+          <?php if (!empty($communicationSettings['memberAttachmentsEnabled'])): ?><label>Attachments (optional)<input type="file" name="attachments[]" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain"></label><?php endif; ?>
           <button class="button button--primary button--small">Send Message</button>
         </form>
         <?php endif; ?>
@@ -122,7 +122,7 @@ require root_path('app/Views/public/partials/header.php');
           <form method="post" enctype="multipart/form-data" class="conversation-reply">
             <?= csrf_field() ?><input type="hidden" name="action" value="send_message"><input type="hidden" name="thread_id" value="<?= e((string)$selected['id']) ?>">
             <textarea name="message" maxlength="10000" rows="5" placeholder="Write a private reply" required></textarea>
-            <?php if (!empty($communicationSettings['memberAttachmentsEnabled'])): ?><input type="file" name="attachments[]" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain"><?php endif; ?>
+            <?php if (!empty($communicationSettings['memberAttachmentsEnabled'])): ?><label>Attachments (optional)<input type="file" name="attachments[]" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain"></label><?php endif; ?>
             <button class="button button--primary communication-full-button">Send Reply</button>
           </form>
           <?php else: ?><div class="communication-alert warning" style="margin:20px">This conversation is closed or messaging is unavailable.</div><?php endif; ?>

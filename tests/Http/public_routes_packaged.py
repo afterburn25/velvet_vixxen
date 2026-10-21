@@ -49,7 +49,11 @@ def route_inventory() -> dict[str, str]:
     pairs = re.findall(r"'([^']+)'\s*=>\s*'([^']+)'", block[1])
     routes = dict(pairs)
     require(len(routes) == len(pairs), 'Duplicate registered public URLs are not permitted.')
-    require(len(routes) == 87 and len(set(routes.values())) == 42, 'Registered aliases or protected handlers were removed.')
+    require(len(routes) == 90 and len(set(routes.values())) == 45, 'Registered aliases or protected handlers were removed.')
+    baseline = json.loads((ROOT / 'tests/Fixtures/public-routes-0.8.14.json').read_text())
+    require(baseline['source_commit'] == '91f796767e2f5a844e9733703e92c965a99803cc' and len(baseline['routes']) == 87, 'The retained routing baseline changed.')
+    additions = {name: name for name in ('api/mail-events.php', 'campaign/click.php', 'privacy/choices.php')}
+    require(routes == baseline['routes'] | additions, 'A retained route changed or an unreviewed handler was introduced.')
     return routes
 
 

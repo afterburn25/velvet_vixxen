@@ -32,6 +32,7 @@ if (!is_string($addonId) || !preg_match('/^[a-z0-9][a-z0-9._-]{1,189}$/D', $addo
 }
 
 try {
+    app_auth()->requireRecentOwner();
     $message = addon_manager()->recoverPending($addonId);
     flash('success', $message);
 } catch (Throwable) {

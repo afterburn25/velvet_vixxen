@@ -18,8 +18,13 @@ function vvx_installer_fixture_database(): array
     $pdo = new PDO(sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $db['host'], $db['port'], $db['name']),
         $db['user'], $db['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC, PDO::ATTR_EMULATE_PREPARES => false]);
-    if (!preg_match('/^8\.0\./', (string) $pdo->getAttribute(PDO::ATTR_SERVER_VERSION))) {
-        throw new RuntimeException('These acceptance fixtures require actual MySQL 8.0; another database engine is not a passing substitute.');
+    $version = (string) $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
+    $engine = getenv('VELVET_TEST_DB_ENGINE') ?: 'mysql-8.0';
+    if (($engine === 'mysql-8.0' && (!str_starts_with($version, '8.0.') || stripos($version, 'MariaDB') !== false))
+        || ($engine === 'mariadb-10.11' && (!str_starts_with($version, '10.11.') || stripos($version, 'MariaDB') === false))
+        || !in_array($engine, ['mysql-8.0', 'mariadb-10.11'], true)) {
+        throw new RuntimeException('The actual database engine does not match the explicit acceptance target: ' . $engine
+            . '. MySQL and MariaDB gates must run separately.');
     }
     return [$db, $pdo];
 }

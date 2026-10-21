@@ -33,6 +33,7 @@ $layoutResult = $_SESSION['_root_layout_result'] ?? null;
 unset($_SESSION['_root_layout_result']);
 try {
     if ($method === 'POST') {
+        app_auth()->requireRecentOwner();
         if (!verify_csrf()) {
             http_response_code(419);
             throw new RuntimeException('Your session token expired. Reload this page and try again.');

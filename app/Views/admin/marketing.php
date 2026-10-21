@@ -3,22 +3,30 @@ declare(strict_types=1);
 require_once root_path('includes/marketing.php');
 require_once root_path('includes/marketing_admin.php');
 velvet_marketing_require_owner();
-$marketingTabs = ['overview', 'calendar', 'posts', 'banners', 'campaigns', 'audiences', 'links', 'newsletter', 'referrals'];
+$marketingTabs = ['overview', 'calendar', 'posts', 'banners', 'campaigns', 'notifications', 'provider', 'deleted', 'audiences', 'links', 'newsletter', 'referrals', 'analytics'];
 // Match the controller's exact calendar route; never turn an unguarded alias
 // such as calendar1 into a request for the private preloaded calendar view.
 $tab = is_string($_GET['tab'] ?? null) && in_array($_GET['tab'], $marketingTabs, true) ? $_GET['tab'] : 'overview';
 // Calendar data was read and authorized before output. Viewing it must never
 // initialize marketing storage, create defaults, publish content or send mail.
-if ($tab !== 'calendar') {
+if (!in_array($tab, ['calendar', 'deleted', 'analytics', 'notifications', 'provider'], true)) {
     $marketingStore = velvet_marketing_store();
     $segments = $marketingStore->segments();
     $data = $marketingStore->all();
-    $summary = $marketingStore->analyticsSummary(30);
+    $summary = null; $overviewMeasurementError = '';
+    if ($tab === 'overview') {
+        try { $summary = $marketingStore->measurementReport(); }
+        catch (Throwable) { $overviewMeasurementError = 'Measurement reporting needs review. Open Analytics for details.'; }
+    }
 }
 ?>
-<nav class="marketing-tabs" aria-label="Marketing pages"><?php foreach($marketingTabs as $t):?><a href="?page=marketing&amp;tab=<?= $t ?>" <?= $tab === $t ? 'aria-current="page"' : '' ?>><?= ucfirst($t) ?></a><?php endforeach;?></nav>
+<nav class="marketing-tabs" aria-label="Marketing pages"><?php foreach($marketingTabs as $t):?><a href="?page=marketing&amp;tab=<?= $t ?>" <?= $tab === $t ? 'aria-current="page"' : '' ?>><?= $t === 'deleted' ? 'Deleted content' : ($t === 'provider' ? 'Provider events' : ucfirst($t)) ?></a><?php endforeach;?></nav>
 <?php if($tab==='calendar'): require root_path('app/Views/admin/marketing-calendar.php'); ?>
-<?php elseif($tab==='overview'):?><section class="marketing-stat-grid"><div class="marketing-stat"><strong><?= (int)$summary['unique_sessions'] ?></strong>Unique sessions</div><div class="marketing-stat"><strong><?= (int)($summary['counts']['page_view']??0) ?></strong>Page views</div><div class="marketing-stat"><strong><?= count($data['contacts']) ?></strong>Contacts</div><div class="marketing-stat"><strong><?= count($data['posts']) ?></strong>Posts</div></section><section class="marketing-card"><h2>Top pages — last 30 days</h2><table class="marketing-table"><tbody><?php foreach($summary['top_paths'] as $path=>$count):?><tr><td><?=velvet_marketing_escape((string)$path)?></td><td><?= (int)$count ?></td></tr><?php endforeach;?></tbody></table></section>
+<?php elseif($tab==='notifications'): require root_path('app/Views/admin/marketing-notifications.php'); ?>
+<?php elseif($tab==='provider'): require root_path('app/Views/admin/marketing-provider.php'); ?>
+<?php elseif($tab==='deleted'): require root_path('app/Views/admin/marketing-deleted.php'); ?>
+<?php elseif($tab==='analytics'): require root_path('app/Views/admin/marketing-analytics.php'); ?>
+<?php elseif($tab==='overview'):?><?php if ($overviewMeasurementError !== ''): ?><p class="marketing-notice" role="alert"><?= velvet_marketing_escape($overviewMeasurementError) ?></p><?php endif; ?><p>Consented measurement for the last 30 UTC calendar days. Legacy events are excluded. <a href="?page=marketing&amp;tab=analytics">Open reports, privacy controls and retention</a>.</p><section class="marketing-stat-grid"><div class="marketing-stat"><strong><?= (int)($summary['retained_unique_visitors'] ?? 0) ?></strong>Retained measured visitors</div><div class="marketing-stat"><strong><?= (int)($summary['counts']['page_view']??0) ?></strong>Page views</div><div class="marketing-stat"><strong><?= count($data['contacts']) ?></strong>Contacts</div><div class="marketing-stat"><strong><?= count($data['posts']) ?></strong>Posts</div></section><section class="marketing-card"><h2>Top pages — last 30 days</h2><table class="marketing-table"><tbody><?php foreach(($summary['top_paths'] ?? []) as $path=>$count):?><tr><td><?=velvet_marketing_escape((string)$path)?></td><td><?= (int)$count ?></td></tr><?php endforeach;?></tbody></table></section>
 <p><a class="marketing-button" href="<?= e(base_url('admin/?page=marketing-storage')) ?>">Manage Marketing Storage</a></p>
 <?php elseif($tab==='posts' || $tab==='banners'):
 $publicationCollection = $tab;
@@ -50,6 +58,7 @@ $marketingSettings = $marketingStore->settings();
     </form>
   </div>
 </section>
+<?php require root_path('app/Views/admin/marketing-email-brand.php'); ?>
 <div class="marketing-admin-grid" style="margin-top:22px">
   <?php $publicationCollection = 'landing_pages'; require root_path('app/Views/admin/marketing-publication-editor.php'); ?>
   <?php require root_path('app/Views/admin/marketing-campaign-form.php'); ?>
@@ -60,6 +69,7 @@ $marketingSettings = $marketingStore->settings();
 <?php if ($data['campaigns'] === []): ?><p>No email campaigns saved yet.</p><?php endif; ?>
 <?php foreach (array_reverse($data['campaigns']) as $campaign):
   $campaignId = (string) $campaign['id'];
+  $messagePreview = $marketingStore->campaignMessage($campaignId);
   $campaignSummary = $marketingStore->campaignSummary($campaignId);
   $counts = $campaignSummary['counts'];
   $campaignAudienceError = '';
@@ -82,6 +92,7 @@ $marketingSettings = $marketingStore->settings();
 ?>
 <article class="marketing-card" style="margin-top:16px" data-campaign-id="<?= velvet_marketing_escape($campaignId) ?>">
   <h3><?= velvet_marketing_escape((string) ($campaign['subject'] ?? $campaign['name'] ?? 'Email campaign')) ?></h3>
+  <?php if ($messagePreview !== null): ?><p><a data-campaign-message-preview class="marketing-button" href="<?= e(base_url('admin/?page=campaign-message-preview&id=' . rawurlencode($campaignId) . '&revision=' . $messagePreview['revision'] . '&template_revision=' . $messagePreview['template_revision'])) ?>">Preview saved message</a></p><?php endif; ?>
   <p><?= !empty($campaign['delivery_paused']) ? 'Paused' : velvet_marketing_escape(ucfirst((string) ($campaign['status'] ?? 'draft'))) ?> · <?= empty($campaign['scheduled_at']) ? 'No future schedule' : 'Scheduled: ' . velvet_marketing_escape((string) $campaign['scheduled_at']) ?></p>
   <?php if ($campaignAudienceError !== ''): ?><p class="marketing-notice" role="alert"><?= velvet_marketing_escape($campaignAudienceError) ?></p><?php else: ?><p data-campaign-audience><strong>Audience: <?= velvet_marketing_escape($campaignAudience['label']) ?></strong><br><?= velvet_marketing_escape(mm_audience_summary($campaignAudience['rules'])) ?> (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)</p><?php endif; ?>
   <?php if (!isset($campaign['delivery_snapshot']) && !isset($campaign['audience_snapshot'])): ?><p><a href="?page=marketing&amp;tab=campaigns&amp;edit_campaign=<?= rawurlencode($campaignId) ?>">Edit campaign draft</a></p><?php else: ?><p>Queued addresses are saved. Queue Recipients can add new eligible matches using this campaign's saved rules. Consent and suppression are checked again before sending.</p><?php endif; ?>
@@ -102,4 +113,5 @@ $marketingSettings = $marketingStore->settings();
 <?php elseif($tab==='audiences'): require root_path('app/Views/admin/marketing-audiences.php'); ?>
 <?php elseif($tab==='links'):?><div class="marketing-admin-grid"><section class="marketing-card"><h2>Add Link</h2><form class="marketing-form" method="post"><?= csrf_field() ?><input type="hidden" name="action" value="save_link"><label>Label<input name="label" required></label><label>URL<input name="url" required></label><label>Order<input type="number" name="sort" value="50"></label><label><input type="checkbox" name="enabled" value="1" checked style="width:auto"> Enabled</label><button class="marketing-button">Save Link</button></form></section><section class="marketing-card"><h2>Link-in-Bio</h2><?php foreach($data['links'] as $l):?><p><?=velvet_marketing_escape((string)$l['label'])?> — <?=velvet_marketing_escape((string)$l['url'])?></p><?php endforeach;?></section></div>
 <?php elseif($tab==='newsletter'):?><section class="marketing-card"><h2>Newsletter Contacts</h2><p><?=count(array_filter($data['contacts'],fn($c)=>($c['status']??'')==='active'))?> active · <?=count(array_filter($data['campaign_queue'],fn($d)=>($d['status']??'')==='queued'))?> queued deliveries</p><table class="marketing-table"><tr><th>Email</th><th>Name</th><th>Status</th><th>Source</th></tr><?php foreach($data['contacts'] as $c):?><tr><td><?=velvet_marketing_escape((string)$c['email'])?></td><td><?=velvet_marketing_escape((string)$c['name'])?></td><td><?=velvet_marketing_escape((string)$c['status'])?></td><td><?=velvet_marketing_escape((string)$c['source'])?></td></tr><?php endforeach;?></table></section>
-<?php elseif($tab==='referrals'):?><div class="marketing-admin-grid"><section class="marketing-card"><h2>Referral Code</h2><form class="marketing-form" method="post"><?= csrf_field() ?><input type="hidden" name="action" value="save_referral"><label>Code<input name="code" required></label><label>Label<input name="label"></label><label><input type="checkbox" name="enabled" value="1" checked style="width:auto"> Enabled</label><button class="marketing-button">Save Referral</button></form></section><section class="marketing-card"><h2>Referral Codes</h2><?php foreach($data['referral_codes'] as $r):?><p><code>?ref=<?=velvet_marketing_escape((string)$r['code'])?></code> — <?=velvet_marketing_escape((string)$r['label'])?></p><?php endforeach;?></section></div><?php endif; ?>
+<?php elseif($tab==='referrals'): require root_path('app/Views/admin/marketing-attribution.php'); ?><?php endif; ?>
+<?php if ($tab === 'links') require root_path('app/Views/admin/marketing-link-bio.php'); ?>

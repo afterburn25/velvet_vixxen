@@ -2,6 +2,11 @@
 declare(strict_types=1);
 
 define('ROOT_PATH', dirname(__DIR__));
+if (($_GET['page'] ?? null) === 'campaign-message-preview') {
+    require ROOT_PATH . '/includes/bootstrap.php';
+    require ROOT_PATH . '/app/Views/admin/campaign-message-preview.php';
+    exit;
+}
 if (($_GET['page'] ?? null) === 'marketing-preview') {
     // A saved preview is read-only and does not boot add-ons or dispatch actions.
     require ROOT_PATH . '/includes/bootstrap.php';
@@ -21,13 +26,82 @@ require ROOT_PATH . '/includes/bootstrap.php';
 $requestedAdminPage = $_GET['page'] ?? ($_SESSION['admin_last_pages'][(string) ($_SESSION['admin']['id'] ?? '')] ?? 'dashboard');
 $isSceneScheduleRequest = $requestedAdminPage === 'scene-schedules'
     || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'scene_schedule_'));
-$skipAdminExtensions = $isEditorialCalendar || $isSceneScheduleRequest;
+$isEditorialRecoveryRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?? null) === 'deleted')
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'editorial_deleted_'));
+$isSecurityRequest = $requestedAdminPage === 'security' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'security_'));
+$isNotificationRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?? null) === 'notifications')
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'notification_'));
+$isMailProviderRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?? null) === 'provider')
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'mail_provider_'));
+$skipAdminExtensions = $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest;
 if (!$skipAdminExtensions) require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
 use App\Core\MediaAdminService;
 use App\Core\MailService;
 use App\Core\RepairBackupService;
+
+if ($isEditorialRecoveryRequest) {
+    require_once ROOT_PATH . '/app/Support/marketing_recovery_admin.php';
+    velvet_marketing_private_response(true);
+    try { vvx_marketing_recovery_require_owner(); }
+    catch (Throwable) {
+        http_response_code(403);
+        exit('Only the active site owner can manage deleted content.');
+    }
+    if (!in_array((string) ($_SERVER['REQUEST_METHOD'] ?? 'GET'), ['GET', 'POST'], true)) {
+        header('Allow: GET, POST');
+        http_response_code(405);
+        exit('Method not allowed.');
+    }
+    if ($requestedAdminPage !== 'marketing' || ($_GET['tab'] ?? null) !== 'deleted') {
+        http_response_code(400);
+        exit('Open Deleted content to restore or permanently remove a saved item.');
+    }
+    try { $recoveryRequest = vvx_marketing_recovery_request(); }
+    catch (Throwable) {
+        http_response_code(400);
+        exit('Choose a valid content type and deleted item.');
+    }
+}
+
+if ($isMailProviderRequest) {
+    require_once ROOT_PATH . '/includes/marketing.php';
+    velvet_marketing_private_response(true);
+    if (!is_installed() || !velvet_marketing_is_owner()) {
+        http_response_code(403); exit('Only the active site owner can manage provider events.');
+    }
+    if ($requestedAdminPage !== 'marketing' || ($_GET['tab'] ?? null) !== 'provider') {
+        http_response_code(400); exit('Open Provider events to manage signed delivery feedback.');
+    }
+    if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'POST'], true)) {
+        header('Allow: GET, POST'); http_response_code(405); exit('Method not allowed.');
+    }
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
+        && (!is_string($_POST['action'] ?? null) || !str_starts_with($_POST['action'], 'mail_provider_'))) {
+        http_response_code(400); exit('Choose a provider-event action from this page.');
+    }
+}
+
+if ($isNotificationRequest) {
+    require_once ROOT_PATH . '/includes/marketing.php';
+    velvet_marketing_private_response(true);
+    if (!is_installed() || !velvet_marketing_is_owner()) {
+        http_response_code(403);
+        exit('Only the active site owner can manage notifications.');
+    }
+    if ($requestedAdminPage !== 'marketing' || ($_GET['tab'] ?? null) !== 'notifications') {
+        http_response_code(400);
+        exit('Open Marketing notifications to manage notification delivery.');
+    }
+    if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'POST'], true)) {
+        header('Allow: GET, POST'); http_response_code(405); exit('Method not allowed.');
+    }
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST'
+        && (!is_string($_POST['action'] ?? null) || !str_starts_with($_POST['action'], 'notification_'))) {
+        http_response_code(400); exit('Choose a notification action from this page.');
+    }
+}
 
 if ($isSceneScheduleRequest) {
     header('Cache-Control: no-store, private, max-age=0');
@@ -100,24 +174,7 @@ if ($page === 'logout') {
     redirect(base_url('admin/?page=login'));
 }
 
-if ($page === 'login') {
-    if (app_auth()->check()) {
-        redirect(base_url('admin/'));
-    }
-    $installComplete = isset($_GET['installed']) && is_installed();
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (!verify_csrf()) {
-            $error = 'Your sign-in session expired. Refresh and try again.';
-        } elseif (!app_auth()->attempt((string) ($_POST['email'] ?? ''), (string) ($_POST['password'] ?? ''))) {
-            $error = 'The email address or password was not accepted.';
-        } else {
-            redirect(base_url('admin/'));
-        }
-    }
-    ?>
-    <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Sign In</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head><body class="login-body"><main class="login-shell"><div class="login-brand"><span>Nikki Wilder</span><small>The Velvet Vixxen</small></div><form method="post" class="login-card"><?= csrf_field() ?><div class="admin-kicker">Private administration</div><h1>Welcome back.</h1><p>Sign in to manage the live design, Canva templates, and media.</p><?php if ($installComplete): ?><div class="admin-alert success"><strong>Installation complete.</strong> The database, owner account, organized folders, security secrets, and installation lock were verified. The installer cleanup was completed or safely locked by the server.</div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?><label>Email address<input type="email" name="email" autocomplete="username" required autofocus></label><label>Password<input type="password" name="password" autocomplete="current-password" required></label><button class="admin-button primary">Sign in</button><a class="back-link" href="<?= e(base_url()) ?>">← Return to the website</a></form></main><script src="<?= e(asset_url('js/admin-ux.js')) ?>" defer></script></body></html>
-    <?php exit;
-}
+if ($page === 'login') { require ROOT_PATH . '/app/Views/admin/login.php'; exit; }
 
 require_admin();
 if ($page === 'marketing') {
@@ -211,6 +268,13 @@ if ($page === 'mail-settings') {
         exit('Method not allowed.');
     }
 }
+$securityRecoveryCodes = [];
+if ($isSecurityRequest) {
+    header('Cache-Control: no-store, private, max-age=0');
+    header('Pragma: no-cache'); header('Referrer-Policy: no-referrer'); header('X-Robots-Tag: noindex, nofollow');
+    if ($page !== 'security' || !in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'POST'], true)) { http_response_code(400); exit('Open Security to manage administrator security.'); }
+    if (($user['role'] ?? '') !== 'owner') { http_response_code(403); exit('Only the active owner can manage administrator security.'); }
+}
 $store = app_store();
 $addonManager = $skipAdminExtensions ? null : addon_manager();
 $licenseHub = $skipAdminExtensions ? null : addon_license_hub();
@@ -220,7 +284,35 @@ $addonReview = null;
 $repairService = $skipAdminExtensions ? null : new RepairBackupService(ROOT_PATH);
 
 $sceneScheduleAttempted = null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSceneScheduleRequest) {
+$recoveryFailed = false;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSecurityRequest) {
+    try {
+        if (!verify_csrf()) throw new RuntimeException('Your session token expired. Reload this page.', 419);
+        require root_path('app/Views/admin/security-actions.php');
+    } catch (Throwable $caught) {
+        $status = in_array((int) $caught->getCode(), [403, 409, 419, 428, 429], true) ? (int) $caught->getCode() : 422;
+        http_response_code($status);
+        $error = $caught instanceof RuntimeException && !$caught instanceof PDOException ? $caught->getMessage() : 'The security action could not be completed.';
+    }
+} else if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isEditorialRecoveryRequest) {
+    try {
+        if (!verify_csrf()) {
+            http_response_code(419);
+            throw new RuntimeException('Your session token expired. Reload the saved review and try again.');
+        }
+        require root_path('app/Views/admin/marketing-deleted-actions.php');
+    } catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) {
+            http_response_code(403);
+            exit('Only the active site owner can manage deleted content.');
+        }
+        $recoveryFailed = true;
+        if (http_response_code() < 400) http_response_code($caught instanceof InvalidArgumentException ? 422 : 409);
+        $error = (($caught instanceof RuntimeException && !$caught instanceof PDOException)
+            || $caught instanceof InvalidArgumentException)
+            ? $caught->getMessage() : 'The saved item could not be changed. Reload its review before trying again.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSceneScheduleRequest) {
     if (($_POST['action'] ?? null) === 'scene_schedule_create') $sceneScheduleAttempted = vvx_scene_schedule_attempt();
     try {
         if (!verify_csrf()) {
@@ -283,6 +375,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSceneScheduleRequest) {
             throw new RuntimeException('Your session token expired. Refresh the page and try again.');
         }
         $action = (string) ($_POST['action'] ?? '');
+        if (in_array($action, ['save_mail_settings', 'save_payment_provider', 'refund_order', 'install_addon', 'activate_addon', 'deactivate_addon', 'rollback_addon', 'uninstall_addon', 'save_addon_settings', 'activate_addon_license', 'deactivate_addon_license', 'install_addon_update', 'delete_repair_backup', 'merge_repair_backup', 'apply_database_updates', 'save_commerce_settings', 'toggle_addon_safe_mode', 'generate_license_hub_keys', 'issue_addon_license', 'change_issued_license_status', 'renew_issued_license', 'publish_addon_release', 'archive_legacy_root_entries', 'archive_repair_residues', 'assign_subscription', 'grant_entitlement', 'revoke_entitlement', 'update_member'], true)) app_auth()->requireRecentOwner();
         if ($page === 'mail-settings') require root_path('app/Views/admin/mail-settings-actions.php');
         if ($page === 'marketing') require root_path('app/Views/admin/marketing-actions.php');
         require root_path('app/Views/admin/merchandise-actions.php');
@@ -903,7 +996,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isSceneScheduleRequest) {
             redirect(base_url('admin/?page=' . $destination));
         }
     } catch (Throwable $e) {
+        if (in_array((int) $e->getCode(), [403, 428, 429], true)) http_response_code((int) $e->getCode());
         $error = $e->getMessage();
+    }
+}
+
+if ($isEditorialRecoveryRequest) {
+    try {
+        $recoverySnapshot = vvx_marketing_recovery_read($recoveryRequest);
+        if ($recoveryRequest['id'] !== null && $recoverySnapshot['review']['selected'] === null && !$recoveryFailed) {
+            http_response_code(404);
+            exit('This deleted item is no longer available. Open Deleted content to see the saved items.');
+        }
+    } catch (Throwable $caught) {
+        http_response_code((int) $caught->getCode() === 403 ? 403 : 503);
+        exit((int) $caught->getCode() === 403
+            ? 'Only the active site owner can manage deleted content.'
+            : 'Deleted content could not be read. Your saved items were preserved. Check storage and reload this page.');
     }
 }
 
@@ -916,6 +1025,40 @@ if ($isSceneScheduleRequest) {
         exit((int) $caught->getCode() === 403
             ? 'Only the active site owner can manage scene schedules.'
             : 'The saved scene schedules could not be read. Your scenes were not changed. Check storage and reload this page.');
+    }
+}
+
+if ($isSecurityRequest) {
+    try {
+        $securityOverview = app_auth()->security()->overview((string) ($user['id'] ?? ''));
+        $securityAudit = app_store()->auditRecords(100);
+        $freshSecurityOwner = app_auth()->user();
+        if (!$freshSecurityOwner || ($freshSecurityOwner['role'] ?? '') !== 'owner') throw new RuntimeException('Only the active owner can view security.', 403);
+        $user = $freshSecurityOwner;
+    } catch (Throwable $caught) { http_response_code((int) $caught->getCode() === 403 ? 403 : 503); exit('Administrator security could not be read. Sign in again or check storage.'); }
+}
+
+if ($isNotificationRequest) {
+    try {
+        $notificationService = new \App\Core\NotificationService(app_config(), app_store());
+        $notificationState = $notificationService->overview();
+        $notificationMailProblem = (new MailService(app_config(), app_store()))->configurationProblem();
+        if (!velvet_marketing_is_owner()) throw new RuntimeException('Current owner authentication is required.', 403);
+    } catch (Throwable $caught) {
+        http_response_code((int) $caught->getCode() === 403 ? 403 : 503);
+        exit((int) $caught->getCode() === 403 ? 'Only the active site owner can manage notifications.'
+            : 'The private notification journal is unavailable. Check storage and pending migrations before sending notices.');
+    }
+}
+
+if ($isMailProviderRequest) {
+    try {
+        $providerState = (new \App\Core\MailProviderService(app_config(), app_store()))->overview();
+        if (!velvet_marketing_is_owner()) throw new RuntimeException('Current owner authentication is required.', 403);
+    } catch (Throwable $caught) {
+        http_response_code((int) $caught->getCode() === 403 ? 403 : 503);
+        exit((int) $caught->getCode() === 403 ? 'Only the active site owner can manage provider events.'
+            : 'The private provider journal is unavailable. Check storage and pending migrations.');
     }
 }
 
@@ -949,6 +1092,7 @@ $pageTitles = [
     'addons' => 'Add-ons',
     'licenses' => 'Add-on Licensing',
     'settings' => 'Site Settings',
+    'security' => 'Security',
     'mail-settings' => 'Email & SMTP',
     'marketing-storage' => 'Marketing Storage',
     'update-status' => 'Update Status',
@@ -989,6 +1133,7 @@ $nav = [
     'addons' => ['◇', 'Add-ons'],
     'licenses' => ['⌁', 'Add-on Licensing'],
     'settings' => ['⚙', 'Site Settings'],
+    'security' => ['◇', 'Security'],
     'mail-settings' => ['✉', 'Email & SMTP'],
     'marketing-storage' => ['▤', 'Marketing Storage'],
     'update-status' => ['✓', 'Update Status'],
@@ -1004,9 +1149,9 @@ if ($page === 'marketing' && !velvet_marketing_is_owner()) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
-<body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
-<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($isSecurityRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/security-admin.css')) ?>"><?php endif; ?><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><?php if ($isEditorialRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-deleted.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<body class="admin-body"><a class="admin-skip-link" href="#adminContent">Skip to content</a><?php require root_path('app/Views/admin/navigation.php'); ?>
+<div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content" id="adminContent" tabindex="-1"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
 $stats = $store->stats(); ?>
 <section class="welcome-panel"><div><span class="admin-kicker">Approved visual direction</span><h2>The pink Velvet Vixxen build is active.</h2><p>The public site, one-page installer, Visual Composer, Media Center, member commerce, add-ons, private messaging, content requests, and booking intake are active.</p><div class="panel-actions"><a class="admin-button primary" href="<?= e(base_url('admin/?page=composer')) ?>">Open Visual Composer</a><a class="admin-button secondary" href="<?= e(base_url('admin/?page=canva')) ?>">Open Canva Templates</a></div></div><img src="<?= e(image_url('defaults/canva-hero-preview.jpg')) ?>" alt="Approved pink hero design"></section>
@@ -1014,6 +1159,7 @@ $stats = $store->stats(); ?>
 <div class="dashboard-grid"><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">First build workflow</span><h2>Add your photos as separate layers</h2></div></div><ol class="workflow"><li><b>Upload</b><span>Add transparent PNG or WebP photos, with optional custom thumbnails.</span></li><li><b>Compose</b><span>Drag a thumbnail onto the Hero or Footer canvas, then resize and position it.</span></li><li><b>Preview</b><span>Check desktop, tablet, and mobile arrangements independently.</span></li><li><b>Publish</b><span>Create a restorable version and update the live homepage.</span></li></ol></section><section class="admin-card"><div class="card-head"><div><span class="admin-kicker">Canva bridge</span><h2>Editable design templates</h2></div></div><p class="muted-copy">Download a layered starter file, upload it to Canva, save the Canva edit link, and import the exported background. Add your transparent photos as separate Composer layers.</p><a class="admin-button secondary full" href="<?= e(base_url('admin/?page=canva')) ?>">Manage Canva Templates</a></section></div>
 <?php elseif ($page === 'marketing'):
 require root_path('app/Views/admin/marketing.php'); ?>
+<?php elseif ($page === 'security'): require root_path('app/Views/admin/security.php'); ?>
 <?php elseif ($page === 'mail-settings'):
 require root_path('app/Views/admin/mail-settings.php'); ?>
 <?php elseif ($page === 'marketing-storage'):

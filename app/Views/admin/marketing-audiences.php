@@ -11,6 +11,13 @@ if ($segmentForm === [] && isset($_GET['edit_segment'])) {
             'confirmed_after' => \Velvet\Core\MarketingAudience::dateForForm($editingSegment['rules']['confirmed_after']),
             'confirmed_before' => \Velvet\Core\MarketingAudience::dateForForm($editingSegment['rules']['confirmed_before']),
             'segment_revision' => $editingSegment['revision']];
+        $businessRules = $editingSegment['rules'];
+        $segmentForm += ['membership' => $businessRules['membership'] ?? 'any', 'plan_ids' => $businessRules['plan_ids'] ?? [],
+            'referral_codes' => implode("\n", $businessRules['referral_codes'] ?? []), 'purchase_enabled' => ($businessRules['purchase'] ?? null) !== null ? '1' : '',
+            'purchase_min_count' => (string) ($businessRules['purchase']['min_count'] ?? 1), 'purchase_min_total_minor' => (string) ($businessRules['purchase']['min_total_minor'] ?? 0),
+            'purchase_currency' => $businessRules['purchase']['currency'] ?? 'USD',
+            'purchase_after' => \Velvet\Core\MarketingAudience::dateForForm($businessRules['purchase']['after'] ?? null),
+            'purchase_before' => \Velvet\Core\MarketingAudience::dateForForm($businessRules['purchase']['before'] ?? null)];
         if (!$editingSegment['valid']) $segmentLoadError = 'This saved audience needs valid criteria before it can be selected for a campaign.';
     } catch (Throwable $caught) { $segmentLoadError = $caught->getMessage(); }
 }
@@ -25,8 +32,8 @@ sort($sourceOptions, SORT_STRING);
 ?>
 <section class="marketing-card" data-newsletter-audiences>
   <h2>Newsletter audiences</h2>
-  <p>Select by saved newsletter signup source and confirmation date. Every campaign still requires current confirmed consent and passes the suppression checks.</p>
-  <p>Source means the saved newsletter form source. Dates describe the latest newsletter confirmation, including a later subscription request. These criteria do not identify members, purchases or referrals.</p>
+  <p>Select by saved newsletter signup source, confirmation date, membership, paid purchases or a consented referral. Every campaign still requires current confirmed newsletter consent and passes suppression checks.</p>
+  <p>Business criteria use an exact email match to one active verified member. Unknown or ambiguous records do not qualify. Newsletter source and confirmation dates remain separate from membership and measurement choices.</p>
 </section>
 <div class="marketing-admin-grid" style="margin-top:22px">
   <section class="marketing-card">
@@ -42,8 +49,23 @@ sort($sourceOptions, SORT_STRING);
       <?php if ($sourceOptions !== []): ?><details><summary>Saved signup sources</summary><ul><?php foreach (array_slice($sourceOptions, 0, 100) as $source): ?><li><code><?= velvet_marketing_escape($source) ?></code></li><?php endforeach; ?></ul><?php if (count($sourceOptions) > 100): ?><p>Showing the first 100 saved sources.</p><?php endif; ?></details><?php endif; ?>
       <label>Confirmed on or after (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)<input type="datetime-local" step="1" name="confirmed_after" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['confirmed_after'] ?? '', 40)) ?>"></label>
       <label>Confirmed before (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)<input type="datetime-local" step="1" name="confirmed_before" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['confirmed_before'] ?? '', 40)) ?>"></label>
-      <p>All entered criteria must match. The start includes that moment; the end excludes it. Choose at least one source or confirmation date.</p>
-      <label><input type="checkbox" name="enabled" value="1" style="width:auto" <?= ($segmentForm === [] || !empty($segmentForm['enabled'])) ? 'checked' : '' ?>> Available for new campaigns</label>
+      <details data-business-audience><summary>Membership, purchase and referral criteria</summary>
+      <label>Membership<select name="membership" aria-label="Membership"><?php foreach (['any' => 'Any membership state', 'active' => 'Active membership', 'none' => 'Verified member without active membership'] as $value => $label): ?><option value="<?= $value ?>" <?= ($segmentForm['membership'] ?? 'any') === $value ? 'selected' : '' ?>><?= velvet_marketing_escape($label) ?></option><?php endforeach; ?></select></label>
+      <?php $audiencePlanCatalog = mm_publication_access_catalog(); $selectedPlans = is_array($segmentForm['plan_ids'] ?? null) ? $segmentForm['plan_ids'] : []; ?>
+      <fieldset><legend>Selected active tiers (optional)</legend><?php foreach ($audiencePlanCatalog['plans'] as $plan): ?><label class="marketing-check"><input type="checkbox" name="plan_ids[]" value="<?= velvet_marketing_escape($plan['id']) ?>" style="width:auto" <?= in_array($plan['id'], $selectedPlans, true) ? 'checked' : '' ?>> <?= velvet_marketing_escape($plan['name']) ?><?= $plan['available'] ? '' : ' — unavailable; review selection' ?></label><?php endforeach; ?><?php foreach (array_diff($selectedPlans, array_column($audiencePlanCatalog['plans'], 'id')) as $missing): if (!is_string($missing)) continue; ?><label class="marketing-check"><input type="checkbox" name="plan_ids[]" value="<?= velvet_marketing_escape($missing) ?>" style="width:auto" checked> Unavailable saved tier <?= velvet_marketing_escape($missing) ?> — review before changing</label><?php endforeach; ?></fieldset>
+      <?php if ($audiencePlanCatalog['problem'] !== ''): ?><p class="marketing-notice" role="alert"><?= velvet_marketing_escape($audiencePlanCatalog['problem']) ?></p><?php endif; ?>
+      <label class="marketing-check"><input type="checkbox" name="purchase_enabled" value="1" style="width:auto" <?= !empty($segmentForm['purchase_enabled']) ? 'checked' : '' ?>> Require paid purchases</label>
+      <label>Minimum paid purchase count<input type="number" name="purchase_min_count" min="1" max="100000" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['purchase_min_count'] ?? '1', 10)) ?>"></label>
+      <label>Minimum total in minor currency units<input type="number" name="purchase_min_total_minor" min="0" max="100000000000" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['purchase_min_total_minor'] ?? '0', 12)) ?>"></label>
+      <label>Purchase currency<input name="purchase_currency" maxlength="3" pattern="[A-Z]{3}" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['purchase_currency'] ?? 'USD', 3)) ?>"></label>
+      <label>Purchased on or after (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)<input type="datetime-local" step="1" name="purchase_after" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['purchase_after'] ?? '', 40)) ?>"></label>
+      <label>Purchased before (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)<input type="datetime-local" step="1" name="purchase_before" value="<?= velvet_marketing_escape(mm_form_text($segmentForm['purchase_before'] ?? '', 40)) ?>"></label>
+      <p>Purchase totals subtract partial refunds. Fully refunded and disputed purchases do not qualify. One currency is evaluated at a time; no exchange rate is inferred.</p>
+      <label>Exact saved referral codes, one per line<textarea name="referral_codes" rows="3" maxlength="1300"><?= velvet_marketing_escape(mm_form_text($segmentForm['referral_codes'] ?? '', 1300)) ?></textarea></label>
+      <p>Referral criteria use the consented origin saved with registration or a paid order. Browser deletion markers exclude erased attribution from these criteria.</p>
+      </details>
+      <p>All entered criteria must match. Starts include that moment; ends exclude it. Choose at least one criterion.</p>
+      <label class="marketing-check"><input type="checkbox" name="enabled" value="1" style="width:auto" <?= ($segmentForm === [] || !empty($segmentForm['enabled'])) ? 'checked' : '' ?>> Available for new campaigns</label>
       <div style="display:flex;gap:10px;flex-wrap:wrap"><button class="marketing-button">Save Audience</button><button class="marketing-button" name="preview_segment" value="1" formnovalidate>Preview Audience</button></div>
       <?php if (!empty($segmentForm['id'])): ?><a href="?page=marketing&amp;tab=audiences">Create another audience</a><?php endif; ?>
     </form>

@@ -9,6 +9,7 @@ use Throwable;
 
 final class Store
 {
+    use AdminSecurityStoreTrait;
     use MediaStoreTrait;
     use MemberStoreTrait;
     use CommerceStoreTrait;
@@ -18,6 +19,8 @@ final class Store
     use BookingFormStoreTrait;
     use MenuStoreTrait;
     use SceneScheduleStoreTrait;
+    use MarketingBusinessStoreTrait;
+    use NotificationStoreTrait;
 
     private readonly string $mode;
     private ?Database $database = null;

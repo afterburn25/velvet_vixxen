@@ -438,14 +438,14 @@ def retention_and_withdrawal(owner, base, site, php):
     _, editor = current_fields(owner, base, name="delete")
     deletion = http.fields(editor.text, '[data-publication-id="history-post-delete"] form:has(input[value="delete_publication"])')
     response = owner.post(editor_url(base, name="delete"), data=deletion, timeout=20)
-    check(response.status_code == 200 and response.history, "The existing permanent-delete action failed.")
+    check(response.status_code == 200 and response.history, "The existing revision-checked delete action failed.")
     after = snapshot(site, php)
     check(not any(row.get("id") == "history-post-delete" for row in after["marketing"]["posts"]), "Deleted content/history still has a record.")
     for version in (None, deleted_version):
         check(owner.get(history_url(base, name="delete", version=version), timeout=20).status_code == 404,
               "A deleted publication was recoverable through its removed history.")
     return {"actual_saves": 22, "newest_prior_version_limit": 20, "pruned_version_unavailable": True,
-            "malformed_history_refuses_edit_allows_safe_withdrawal": True, "permanent_delete_removes_attached_history": True}
+            "malformed_history_refuses_edit_allows_safe_withdrawal": True, "delete_hides_active_record_and_history_route": True}
 
 
 def owner_revocation(owner, base, site, php):
