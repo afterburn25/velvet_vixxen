@@ -26,7 +26,7 @@ function mm_publication_meta(string $collection): array
 function mm_publication_input(string $collection, array $post): array
 {
     $allowed = match ($collection) {
-        'posts' => ['title', 'slug', 'category', 'excerpt', 'body', 'status', 'publish_at'],
+        'posts' => ['title', 'slug', 'category', 'excerpt', 'body', 'status', 'publish_at', 'expires_at'],
         'banners' => ['text', 'url', 'starts_at', 'ends_at'],
         'landing_pages' => ['title', 'slug', 'eyebrow', 'excerpt', 'body', 'cta_label', 'cta_url', 'starts_at', 'ends_at'],
         default => throw new InvalidArgumentException('Choose a valid publication.'),

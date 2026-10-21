@@ -40,6 +40,74 @@ final class Store
         return $this->mode;
     }
 
+    /** Calendar metadata only: no initialization, hydration, jobs or write-digest changes. */
+    public function calendarRecords(): array
+    {
+        $tables = ['albums' => 'audio_albums', 'tracks' => 'audio_tracks',
+            'audioPlaylists' => 'audio_playlists', 'galleries' => 'photo_galleries', 'videos' => 'videos'];
+        $media = array_fill_keys(array_keys($tables), []);
+        $scenes = [];
+        if ($this->mode === 'file') {
+            $data = $this->loadFileStore()[0];
+            $fields = array_fill_keys(['id', 'title', 'status', 'publishedAt', 'scheduledAt', 'accessMode'], true);
+            foreach ($tables as $collection => $table) {
+                $rows = $data['mediaCenter'][$collection] ?? [];
+                if (!is_array($rows)) {
+                    $media[$collection] = [[]];
+                    continue;
+                }
+                foreach ($rows as $row) {
+                    if (!is_array($row)) { $media[$collection][] = []; continue; }
+                    if (!empty($row['deletedAt'])) continue;
+                    $media[$collection][] = array_intersect_key($row, $fields);
+                }
+            }
+            foreach (['hero', 'footer'] as $section) {
+                $saved = $data['scenes'][$section] ?? [];
+                $versions = is_array($saved) ? ($saved['versions'] ?? []) : [];
+                $scenes[$section] = ['draft' => is_array($saved['draft'] ?? null) && $saved['draft'] !== [], 'versions' => []];
+                if (!is_array($versions)) $versions = [[]];
+                foreach (array_slice($versions, -20) as $version) {
+                    $scenes[$section]['versions'][] = is_array($version)
+                        ? array_intersect_key($version, ['id' => true, 'publishedAt' => true]) : [];
+                }
+            }
+            return ['media' => $media, 'scenes' => $scenes];
+        }
+
+        $pdo = $this->pdo();
+        foreach ($tables as $collection => $table) {
+            $columns = 'id,title,status,published_at,scheduled_at' . ($collection === 'albums' ? '' : ',access_mode');
+            $where = in_array($collection, ['galleries', 'videos'], true) ? ' WHERE deleted_at IS NULL' : '';
+            $rows = $pdo->query('SELECT ' . $columns . ' FROM ' . $table . $where . ' ORDER BY id')->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($rows as $row) {
+                $media[$collection][] = ['id' => $row['id'], 'title' => $row['title'], 'status' => $row['status'],
+                    'publishedAt' => $row['published_at'], 'scheduledAt' => $row['scheduled_at'],
+                    'accessMode' => $row['access_mode'] ?? 'public'];
+            }
+        }
+        $draft = $pdo->prepare("SELECT 1 FROM scenes WHERE section_key = ? AND status = 'draft' LIMIT 1");
+        // Scene writers use NOW(), so interpret DATETIME in the database session's
+        // timezone before returning an explicit instant. Invalid/out-of-range
+        // UNIX_TIMESTAMP values must not silently become the epoch.
+        $versions = $pdo->prepare('SELECT id, CASE WHEN UNIX_TIMESTAMP(created_at) = 0 AND created_at <> FROM_UNIXTIME(0) '
+            . 'THEN NULL ELSE UNIX_TIMESTAMP(created_at) END AS published_epoch FROM scene_versions '
+            . 'WHERE section_key = ? ORDER BY id DESC LIMIT 20');
+        foreach (['hero', 'footer'] as $section) {
+            $draft->execute([$section]);
+            $scenes[$section] = ['draft' => $draft->fetchColumn() !== false, 'versions' => []];
+            $versions->execute([$section]);
+            // Match the file store's oldest-to-newest retained order.
+            foreach (array_reverse($versions->fetchAll(PDO::FETCH_ASSOC)) as $row) {
+                $epoch = $row['published_epoch'];
+                $at = (is_int($epoch) || is_string($epoch)) && preg_match('/\A[0-9]{1,12}\z/D', (string) $epoch)
+                    ? (new \DateTimeImmutable('@' . $epoch))->format(\DateTimeInterface::ATOM) : false;
+                $scenes[$section]['versions'][] = ['id' => $row['id'], 'publishedAt' => $at];
+            }
+        }
+        return ['media' => $media, 'scenes' => $scenes];
+    }
+
     public function setting(string $key, mixed $default = null): mixed
     {
         if ($this->mode === 'file') {

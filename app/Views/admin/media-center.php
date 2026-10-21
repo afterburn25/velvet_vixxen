@@ -46,14 +46,29 @@ if ($page === 'music'):
     $albums = $store->albums(false);
     $tracks = $store->tracks(false);
     $playlists = $store->audioPlaylists(false);
-    $editAlbum = isset($_GET['edit_album']) ? $store->album((string) $_GET['edit_album']) : null;
-    $editTrack = isset($_GET['edit_track']) ? $store->track((string) $_GET['edit_track']) : null;
+    $musicEditId = static function (string $key): ?string {
+        if (!array_key_exists($key, $_GET)) return null;
+        try { return \App\Core\MediaInput::id($_GET[$key], false); }
+        catch (RuntimeException) { return null; }
+    };
+    $musicAlbumId = $musicEditId('edit_album');
+    $musicTrackId = $musicEditId('edit_track');
+    $musicPlaylistId = $musicEditId('edit_playlist');
+    $editAlbum = $musicAlbumId !== null ? $store->album($musicAlbumId) : null;
+    $editTrack = $musicTrackId !== null ? $store->track($musicTrackId) : null;
     $editPlaylist = null;
-    if (isset($_GET['edit_playlist'])) {
+    if ($musicPlaylistId !== null) {
         foreach ($playlists as $candidate) {
-            if ((string) ($candidate['id'] ?? '') === (string) $_GET['edit_playlist']) { $editPlaylist = $candidate; break; }
+            if ((string) ($candidate['id'] ?? '') === $musicPlaylistId) { $editPlaylist = $candidate; break; }
         }
     }
+    // Direct calendar/editor links must reveal the requested form even without
+    // JavaScript. A rejected POST keeps its form visible for correction.
+    $musicRequestedTab = $musicAlbumId !== null ? 'albums' : ($musicPlaylistId !== null ? 'playlists' : 'tracks');
+    $musicAction = ($_SERVER['REQUEST_METHOD'] ?? '') === 'POST' && is_string($_POST['action'] ?? null) ? $_POST['action'] : '';
+    $musicInitialTab = match ($musicAction) {
+        'save_album' => 'albums', 'save_audio_playlist' => 'playlists', 'save_track' => 'tracks', default => $musicRequestedTab,
+    };
 ?>
 <section class="media-admin-hero">
   <div><span class="admin-kicker"><?= e(VELVET_VIXXEN_VERSION) ?> Media Center</span><h2>Music library &amp; persistent player</h2><p>Upload original songs, organize albums and playlists, set access rules, and publish directly to the site-wide audio player.</p></div>
@@ -61,12 +76,12 @@ if ($page === 'music'):
 </section>
 
 <div class="media-admin-tabs" data-admin-tabs>
-  <button class="active" type="button" data-tab-target="tracks">Tracks</button>
-  <button type="button" data-tab-target="albums">Albums</button>
-  <button type="button" data-tab-target="playlists">Playlists</button>
+  <button class="<?= $musicInitialTab === 'tracks' ? 'active' : '' ?>" type="button" data-tab-target="tracks">Tracks</button>
+  <button class="<?= $musicInitialTab === 'albums' ? 'active' : '' ?>" type="button" data-tab-target="albums">Albums</button>
+  <button class="<?= $musicInitialTab === 'playlists' ? 'active' : '' ?>" type="button" data-tab-target="playlists">Playlists</button>
 </div>
 
-<section class="media-admin-panel active" data-tab-panel="tracks">
+<section class="media-admin-panel<?= $musicInitialTab === 'tracks' ? ' active' : '' ?>" data-tab-panel="tracks">
   <div class="media-admin-layout">
     <form method="post" enctype="multipart/form-data" class="admin-card media-editor-card">
       <?= csrf_field() ?><input type="hidden" name="action" value="save_track"><input type="hidden" name="id" value="<?= e((string) ($editTrack['id'] ?? '')) ?>"><input type="hidden" name="audio_asset_id" value="<?= e((string) ($editTrack['audioAssetId'] ?? '')) ?>"><input type="hidden" name="cover_asset_id" value="<?= e((string) ($editTrack['coverAssetId'] ?? '')) ?>">
@@ -85,14 +100,14 @@ if ($page === 'music'):
   </div>
 </section>
 
-<section class="media-admin-panel" data-tab-panel="albums">
+<section class="media-admin-panel<?= $musicInitialTab === 'albums' ? ' active' : '' ?>" data-tab-panel="albums">
   <div class="media-admin-layout">
     <form method="post" enctype="multipart/form-data" class="admin-card media-editor-card"><?= csrf_field() ?><input type="hidden" name="action" value="save_album"><input type="hidden" name="id" value="<?= e((string) ($editAlbum['id'] ?? '')) ?>"><input type="hidden" name="cover_asset_id" value="<?= e((string) ($editAlbum['coverAssetId'] ?? '')) ?>"><div class="card-head"><div><span class="admin-kicker"><?= $editAlbum?'Edit album':'New album' ?></span><h2><?= e((string)($editAlbum['title']??'Create an album')) ?></h2></div></div><label>Album title<input name="title" value="<?= e((string)($editAlbum['title']??'')) ?>" required></label><label>Slug <small>optional</small><input name="slug" value="<?= e((string)($editAlbum['slug']??'')) ?>"></label><label>Description<textarea name="description" rows="5"><?= e((string)($editAlbum['description']??'')) ?></textarea></label><label>Cover art<input type="file" name="cover" accept="image/jpeg,image/png,image/webp"></label><div class="form-grid two"><label>Status<select name="status"><?php foreach($statusOptions as $value=>$label):?><option value="<?=e($value)?>"<?=$selected($editAlbum['status']??'draft',$value)?>><?=e($label)?></option><?php endforeach;?></select></label><label>Scheduled date<input type="datetime-local" name="scheduled_at" value="<?=e($dateValue($editAlbum['scheduledAt']??null))?>"></label></div><button class="admin-button primary full">Save Album</button></form>
     <div class="media-record-list"><?php foreach($albums as $album):?><article class="media-record-card"><img src="<?=e(media_thumbnail_src((array)($album['coverAsset']??[])))?>" alt=""><div><div class="record-badges"><span><?=e((string)$album['status'])?></span></div><h3><?=e((string)$album['title'])?></h3><p><?=e((string)$album['description'])?></p><small><?=e((string)count(array_filter($tracks,static fn(array $track):bool=>(string)($track['albumId']??'')===(string)$album['id'])))?> tracks</small></div><a class="mini-button" href="<?=e(base_url('admin/?page=music&edit_album='.rawurlencode((string)$album['id'])))?>">Edit</a></article><?php endforeach;?><?php if($albums===[]):?><div class="admin-empty"><strong>No albums yet.</strong></div><?php endif;?></div>
   </div>
 </section>
 
-<section class="media-admin-panel" data-tab-panel="playlists">
+<section class="media-admin-panel<?= $musicInitialTab === 'playlists' ? ' active' : '' ?>" data-tab-panel="playlists">
 <?php
 $playlistAction = 'save_audio_playlist';
 $playlistValue = static fn(string $post, string $key, mixed $default = ''): string => $mediaValue($playlistAction, $editPlaylist, $post, $key, $default);

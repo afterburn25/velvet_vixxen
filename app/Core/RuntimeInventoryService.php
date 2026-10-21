@@ -132,6 +132,26 @@ class RuntimeInventoryService
                 'public/assets/js/scene-depth.js',
             ]);
         }
+        // The publishing calendar and post expiry first ship in 0.8.13.
+        if (version_compare($data['version'], '0.8.13', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, [
+                'app/Core/MarketingCalendar.php',
+                'app/Views/admin/media-center.php',
+                'app/Core/MarketingPublication.php',
+                'app/Core/MarketingHistory.php',
+                'app/Core/MarketingStorage.php',
+                'app/Core/MarketingStore.php',
+                'app/Core/Store.php',
+                'app/Views/admin/marketing.php',
+                'app/Views/admin/marketing-calendar.php',
+                'app/Views/admin/marketing-publication-editor.php',
+                'app/Views/admin/marketing-publication-list.php',
+                'app/Views/admin/marketing-history.php',
+                'includes/marketing.php',
+                'includes/marketing_admin.php',
+                'public/assets/css/marketing-calendar.css',
+            ]);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

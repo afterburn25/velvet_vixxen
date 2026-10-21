@@ -68,6 +68,10 @@ jobs:
             tests/Feature/editorial_metadata.php tests/Http/editorial_metadata_fixture.php
             tests/Http/editorial_metadata_http.py tests/Browser/editorial_metadata_playwright.py
             app/Core/MarketingHistory.php app/Views/admin/marketing-history.php docs/EDITORIAL_HISTORY.md
+            app/Core/MarketingCalendar.php app/Views/admin/marketing-calendar.php public/assets/css/marketing-calendar.css
+            docs/EDITORIAL_CALENDAR.md tests/Feature/post_expiry.php tests/Feature/editorial_calendar.php
+            tests/Http/editorial_calendar_fixture.php tests/Http/editorial_calendar_http.py
+            tests/Browser/editorial_calendar_playwright.py
             tests/Feature/editorial_history.php tests/Http/editorial_history_fixture.php
             tests/Http/editorial_history_http.py tests/Browser/editorial_history_playwright.py
             app/Core/EmailAddress.php app/Core/MailSettingsService.php app/Support/mail_settings_admin.php
@@ -93,6 +97,7 @@ jobs:
             tests/Packaging/fixtures/release-0.8.9-build-20261020.10.json
             tests/Packaging/fixtures/release-0.8.10-build-20261020.11.json
             tests/Packaging/fixtures/release-0.8.11-build-20261020.12.json
+            tests/Packaging/fixtures/release-0.8.12-build-20261021.1.json
             tests/Packaging/fixtures/installer-mail-baseline.json
             tests/Browser/composer_buttons_playwright.py tests/Browser/packaged_media_upload_playwright.py
             tests/Browser/composer_actions_playwright.py tests/Structure/public_routes.php tests/Http/public_routes_packaged.py
@@ -259,6 +264,14 @@ jobs:
           VELVET_TEST_DB_USER: velvet_test
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
         run: python tests/Http/composer_depth_http.py --mode mysql
+      - name: Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_vixxen_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+        run: python tests/Http/editorial_calendar_http.py --mode mysql
 
   http-browser:
     name: Installed HTTP and Chromium desktop/mobile acceptance
@@ -445,6 +458,19 @@ jobs:
           VELVET_TEST_DB_PASSWORD: velvet_test_fixture
           VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
         run: python tests/Browser/menus_playwright.py --mode both
+      - name: Read the private publishing calendar and enforce post expiry through actual packaged file requests
+        env:
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Http/editorial_calendar_http.py --mode file
+      - name: Use the publishing calendar and post-expiry controls in actual file and MySQL desktop and mobile packages
+        env:
+          VELVET_TEST_DB_HOST: 127.0.0.1
+          VELVET_TEST_DB_PORT: '3306'
+          VELVET_TEST_DB_NAME: velvet_installer_http_test
+          VELVET_TEST_DB_USER: velvet_test
+          VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+          VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/browser
+        run: python tests/Browser/editorial_calendar_playwright.py
       - name: Upload real browser evidence
         if: always()
         uses: actions/upload-artifact@v4

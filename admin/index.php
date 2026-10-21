@@ -14,12 +14,43 @@ if (($_GET['page'] ?? null) === 'marketing-history') {
     require ROOT_PATH . '/app/Views/admin/marketing-history.php';
     exit;
 }
-require ROOT_PATH . '/app/bootstrap.php';
+$isEditorialCalendar = ($_GET['page'] ?? null) === 'marketing' && ($_GET['tab'] ?? null) === 'calendar';
+// Calendar reads do not boot add-ons, dispatch actions or initialize publishing data.
+require ROOT_PATH . ($isEditorialCalendar ? '/includes/bootstrap.php' : '/app/bootstrap.php');
 
 use App\Core\UploadService;
 use App\Core\MediaAdminService;
 use App\Core\MailService;
 use App\Core\RepairBackupService;
+
+if ($isEditorialCalendar) {
+    require_once ROOT_PATH . '/includes/marketing.php';
+    velvet_marketing_private_response(true);
+    if (!is_installed() || !velvet_marketing_is_owner()) {
+        http_response_code(403);
+        exit('Only the active site owner can view the publishing calendar.');
+    }
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'GET') {
+        header('Allow: GET');
+        http_response_code(405);
+        exit('The publishing calendar is read-only. Open an item to edit it.');
+    }
+    require_once ROOT_PATH . '/app/Core/MarketingCalendar.php';
+    try {
+        $editorialCalendar = \Velvet\Core\MarketingCalendar::read(app_store(), $_GET['month'] ?? null, $_GET['type'] ?? null);
+    } catch (InvalidArgumentException $calendarError) {
+        http_response_code(400);
+        exit($calendarError->getMessage());
+    } catch (Throwable) {
+        http_response_code(503);
+        exit('The saved publishing calendar could not be read. Your content was not changed. Try again after checking storage.');
+    }
+    // Data reads may have waited for a writer. Recheck current saved ownership.
+    if (!velvet_marketing_is_owner()) {
+        http_response_code(403);
+        exit('Only the active site owner can view the publishing calendar.');
+    }
+}
 
 if (!is_installed()) {
     redirect(base_url('install/'));
@@ -54,6 +85,13 @@ if ($page === 'login') {
 }
 
 require_admin();
+if ($page === 'marketing') {
+    // Check saved ownership before CSRF errors or shared admin output. A stale
+    // session must not reach an editor through a rejected mutation response.
+    require_once ROOT_PATH . '/includes/marketing.php';
+    velvet_marketing_private_response(true);
+    velvet_marketing_require_owner();
+}
 if ($page === 'update-status') {
     redirect(base_url('admin/repair.php'));
 }
@@ -139,12 +177,12 @@ if ($page === 'mail-settings') {
     }
 }
 $store = app_store();
-$addonManager = addon_manager();
-$licenseHub = addon_license_hub();
-$licenseClient = addon_license_client();
-$addonUpdateService = addon_update_service();
+$addonManager = $isEditorialCalendar ? null : addon_manager();
+$licenseHub = $isEditorialCalendar ? null : addon_license_hub();
+$licenseClient = $isEditorialCalendar ? null : addon_license_client();
+$addonUpdateService = $isEditorialCalendar ? null : addon_update_service();
 $addonReview = null;
-$repairService = new RepairBackupService(ROOT_PATH);
+$repairService = $isEditorialCalendar ? null : new RepairBackupService(ROOT_PATH);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isMenuRequest) {
     // Keep the owner edit available even if its form token has expired.
@@ -850,7 +888,7 @@ $pageTitles = [
     'repair-backups' => 'Repair Backups',
     'database-updates' => 'Database Updates',
 ];
-foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
+foreach (($isEditorialCalendar ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
     $pageTitles[$addonPageKey] = (string) $addonPage['label'];
 }
 if (isset($pageTitles[$page])) $_SESSION['admin_last_pages'][(string) $user['id']] = $page;
@@ -889,12 +927,16 @@ $nav = [
     'repair-backups' => ['↺', 'Repair Backups'],
     'database-updates' => ['↑', 'Database Updates'],
 ];
-foreach (addon_runtime()->adminPages() as $addonPageKey => $addonPage) {
+foreach (($isEditorialCalendar ? [] : addon_runtime()->adminPages()) as $addonPageKey => $addonPage) {
     $nav[$addonPageKey] = [(string)$addonPage['icon'], (string)$addonPage['label']];
+}
+if ($page === 'marketing' && !velvet_marketing_is_owner()) {
+    http_response_code(403);
+    exit('Only the active site owner can access Marketing & Publishing.');
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
