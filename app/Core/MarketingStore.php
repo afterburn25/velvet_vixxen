@@ -480,6 +480,7 @@ final class MarketingStore
         if (!$consent) throw new \InvalidArgumentException('Consent is required to join the mailing list.');
         return $this->update(function (array &$data) use ($email, $name, $source): array {
             if (empty($data['settings']['newsletter_signup_enabled'])) throw new \RuntimeException('Newsletter signup is disabled.');
+            if (MarketingPrivacyErasure::suppressed($data, $email)) throw new \RuntimeException('This address is not eligible for newsletter signup.', 409);
             $token = bin2hex(random_bytes(24));
             $now = gmdate('c');
             $existing = null;
@@ -581,6 +582,7 @@ final class MarketingStore
 
     private function isSuppressed(array $data, array $contact): bool
     {
+        if (MarketingPrivacyErasure::suppressed($data, (string) ($contact['email'] ?? ''))) return true;
         if (!empty($contact['suppressed']) || !empty($contact['suppressed_at'])
             || in_array($contact['status'] ?? '', ['suppressed', 'bounced', 'complained', 'blocked'], true)) return true;
         foreach ($data['suppressions'] as $suppression) {

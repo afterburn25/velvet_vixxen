@@ -87,19 +87,24 @@ final class PublicPolicies
             return $data;
         }
         try {
-            if (($data['schema'] ?? null) !== 1 || !is_array($data['documents'] ?? null)
+            if (array_keys($data) !== ['schema', 'documents'] || ($data['schema'] ?? null) !== 1 || !is_array($data['documents'] ?? null)
                 || array_keys($data['documents']) !== array_keys(self::DOCUMENTS)) throw new RuntimeException();
             foreach ($data['documents'] as $record) {
-                if (!is_array($record) || !is_int($record['generation'] ?? null) || $record['generation'] < 0
-                    || !is_string($record['updated_at'] ?? null) || ($record['updated_at'] !== '' && strtotime($record['updated_at']) === false)
+                if (!is_array($record) || array_keys($record) !== ['draft', 'published', 'updated_at', 'generation']
+                    || !is_int($record['generation'] ?? null) || $record['generation'] < 0 || $record['generation'] >= 2147483647
+                    || !is_string($record['updated_at'] ?? null)
                     || !array_key_exists('published', $record) || !is_array($record['draft'] ?? null)) throw new RuntimeException();
+                if ($record['updated_at'] !== '') YotiAgeProvider::timestamp($record['updated_at']);
+                if (array_keys($record['draft']) !== ['title', 'body']) throw new RuntimeException();
                 foreach ([$record['draft'], $record['published']] as $body) {
                     if ($body === null) continue;
                     if (!is_array($body) || ProtectionRecords::text($body['title'] ?? null, 160, 'Policy title', true) !== $body['title']
                         || ProtectionRecords::text($body['body'] ?? null, 30000, 'Policy text') !== $body['body']) throw new RuntimeException();
                 }
-                if ($record['published'] !== null && ($record['published']['body'] === '' || !is_string($record['published']['published_at'] ?? null)
-                    || strtotime($record['published']['published_at']) === false)) throw new RuntimeException();
+                if ($record['published'] !== null) {
+                    if (array_keys($record['published']) !== ['title', 'body', 'published_at'] || $record['published']['body'] === '') throw new RuntimeException();
+                    YotiAgeProvider::timestamp($record['published']['published_at']);
+                }
             }
         } catch (Throwable $error) { throw new RuntimeException('Public policies need a storage review. Saved drafts were preserved.', 503, $error); }
         return $data;

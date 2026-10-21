@@ -10,6 +10,7 @@ use PDOException;
 use Throwable;
 
 require_once __DIR__ . '/MarketingStorageException.php';
+require_once __DIR__ . '/MarketingPrivacyErasure.php';
 require_once __DIR__ . '/MarketingSqlRepository.php';
 require_once __DIR__ . '/Config.php';
 require_once __DIR__ . '/Database.php';
@@ -55,7 +56,12 @@ final class MarketingStorage
 
     public function update(callable $operation): mixed
     {
-        return $this->access($operation, true);
+        return $this->access(static function (array &$data) use ($operation): mixed {
+            $prior = (array) ($data['settings'] ?? []);
+            $result = $operation($data);
+            MarketingPrivacyErasure::enforce($data, $prior);
+            return $result;
+        }, true);
     }
 
     /** SQL reports select only indexed matching measurement rows after authority validation. */

@@ -53,9 +53,35 @@ boundaries. A form rejected because its CSRF token expired must be reloaded; an
 HTTP error does not mean the requested mutation succeeded.
 
 For a runtime update, also follow [Update verification](UPDATE_VERIFICATION.md).
-The repair entry point has to operate across older cached PHP versions; its
-separate warm-cache acceptance is retained. Do not use a global OPcache reset or
-delete installation records as a substitute for the documented update process.
+After extracting the **complete Upgrade ZIP**, open **`admin/repair-current.php`**
+directly for the 0.8.x to 0.9 upgrade. This new filename reaches the current guard
+even if the prior `admin/repair.php` entry remains cached. Its forms and redirects
+stay on the new entry until application PHP is refreshed. The existing
+`admin/repair.php` remains a compatibility entry once current code is active.
+The entry verifies the entire on-disk runtime and its current dependency inventory
+before loading cached application bootstrap. It refreshes the verified current
+authentication dependencies so an older cached `Auth` class cannot bypass the
+saved security rules or prevent owner confirmation.
+
+An older password-only administrator cookie does not become a current session.
+The repair page asks for the existing owner password, then the current
+authenticator or an unused recovery code when enabled. If a current session's
+15-minute confirmation has expired, the page provides password/factor confirmation
+there. These deliberate attempts use the normal limits and security journal.
+The page neither replaces installation keys nor resets owner accounts or data.
+
+Missing or mixed application files, including a missing repair helper, produce
+**Complete the update** with HTTP503 before sign-in or activation. Extract the
+complete matching ZIP and reload. After owner confirmation, use **Refresh
+application PHP**, confirm the running build, and then use the existing organized
+folder repair if offered. Authentication preflight does not activate the cached
+application/version/Composer files; that requires the explicit protected refresh.
+An already cached legacy repair endpoint still executes its old security policy
+until PHP is refreshed; uploading files cannot change bytecode already in use.
+Do not use an old repair form as proof that current MFA is enforced. Use the new
+entry above, or have hosting refresh this site's workers/scoped OPcache before
+proceeding. Do not use a global OPcache reset or delete installation records as a
+substitute for the update process.
 
 ## Sessions and sign-in limits
 
@@ -118,8 +144,10 @@ establish access to, configuration of or delivery from the customer host.
 
 ```sh
 php tests/Feature/admin_security.php
+php tests/Feature/repair_access.php
 python3 tests/Http/admin_security_http.py --mode both
 python3 tests/Browser/admin_security_playwright.py --mode both
+python3 tests/Browser/installed_update_playwright.py
 ```
 
 SQL acceptance requires an explicitly owned disposable test schema. The tests

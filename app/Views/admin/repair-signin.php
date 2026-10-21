@@ -9,7 +9,7 @@
 <h1><?= $access['mode'] === 'factor' ? 'Confirm your authenticator' : ($access['mode'] === 'reauth' ? 'Confirm owner access' : 'Sign in to verify the update') ?></h1>
 <p>The update uses the current owner security settings. Confirm your password and, when enabled, your authenticator before changing application PHP or folders.</p>
 <?php if ($access['error'] !== ''): ?><div class="error" role="alert"><?= e($access['error']) ?></div><?php endif; ?>
-<form method="post" action="repair.php"><?= csrf_field() ?><input type="hidden" name="action" value="repair_<?= e($access['mode']) ?>">
+<form method="post" action="<?= e($repairEntry) ?>"><?= csrf_field() ?><input type="hidden" name="action" value="repair_<?= e($access['mode']) ?>">
 <?php if ($access['mode'] === 'signin'): ?><label for="repair-email">Email address</label><input id="repair-email" name="email" type="email" autocomplete="username" maxlength="254" required><?php endif; ?>
 <?php if ($access['mode'] !== 'factor'): ?><label for="repair-password">Password</label><input id="repair-password" name="password" type="password" autocomplete="current-password" required><?php endif; ?>
 <?php if ($access['mode'] === 'factor' || $access['factor']): ?><label for="repair-code">Authenticator or recovery code</label><input id="repair-code" name="code" type="text" autocomplete="one-time-code" autocapitalize="none" spellcheck="false" maxlength="64" required><small>Enter the current code from your authenticator, or one unused recovery code.</small><?php endif; ?>

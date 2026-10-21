@@ -301,4 +301,23 @@ trait MemberPrivacyStoreTrait
         }
         return false;
     }
+
+    public function privacyCleanUnreferencedFile(string $path, callable $remove): bool
+    {
+        if ($this->mode === 'file') return $this->mutateFileStore(static function (array &$data) use ($path, $remove): bool {
+            foreach (['messageAttachments', 'requestAttachments'] as $collection) foreach ($data[$collection] ?? [] as $row) if (($row['filePath'] ?? '') === $path) return false;
+            $remove(); return true;
+        }, true);
+        $pdo = $this->pdo();
+        if ($pdo->inTransaction()) throw new RuntimeException('Nested attachment cleanup is unavailable.');
+        $pdo->beginTransaction();
+        try {
+            // InnoDB next-key locks also serialize inserts of a newly shared path.
+            foreach (['message_attachments','request_attachments'] as $table) {
+                $statement = $pdo->prepare('SELECT id FROM ' . $table . ' WHERE file_path=? FOR UPDATE'); $statement->execute([$path]);
+                if ($statement->fetchColumn() !== false) { $pdo->rollBack(); return false; }
+            }
+            $remove(); $pdo->commit(); return true;
+        } catch (Throwable $error) { if ($pdo->inTransaction()) $pdo->rollBack(); throw $error; }
+    }
 }

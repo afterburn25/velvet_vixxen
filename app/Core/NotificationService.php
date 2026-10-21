@@ -34,6 +34,23 @@ final class NotificationService
         $this->mailer = $mailer ?? new MailService($config, $store);
     }
 
+    /** Complete account-specific rows, only for the privacy projector and inventory revision. */
+    public function privacyRows(string $memberId): array
+    {
+        $data = $this->normalized($this->state->read('notifications'));
+        return array_values(array_filter($data['jobs'], static fn(array $row): bool => ($row['member_id'] ?? null) === $memberId));
+    }
+
+    public function privacyForget(string $memberId, callable $authorize): void
+    {
+        $this->mutate(static function (array &$data) use ($memberId, $authorize): void {
+            $authorize(); $hash = hash('sha256', $memberId);
+            $data['erased_members'][$hash] ??= time();
+            foreach ($data['jobs'] as $id => $job) if (($job['member_id'] ?? null) === $memberId) unset($data['jobs'][$id]);
+            $authorize();
+        });
+    }
+
     public function overview(): array
     {
         $data = $this->normalized($this->state->read('notifications'));
@@ -408,6 +425,8 @@ final class NotificationService
 
     private function insert(array &$data, array $job): array
     {
+        if ($job['member_id'] !== null && (isset($data['erased_members'][hash('sha256', $job['member_id'])])
+            || (new Store($this->config))->privacyMemberErased($job['member_id']))) throw new RuntimeException('This account is closed for optional notifications.', 409);
         if (isset($data['jobs'][$job['id']])) return $data['jobs'][$job['id']];
         if (count($data['jobs']) >= 20000) throw new RuntimeException('The notification journal is full. Review and archive completed entries before adding work.');
         $data['jobs'][$job['id']] = $job;
@@ -455,6 +474,7 @@ final class NotificationService
             || !is_array($data['content_seen'] ?? null) || !is_array($data['content_work'] ?? null) || !is_string($data['member_cursor'] ?? null)) {
             throw new RuntimeException('The notification journal needs review; delivery is held.');
         }
+        foreach ($data['erased_members'] ?? [] as $hash => $at) if (!is_string($hash) || preg_match('/\A[a-f0-9]{64}\z/D', $hash) !== 1 || !is_int($at) || $at < 1) throw new RuntimeException('Notification privacy markers need review.');
         foreach ($data['jobs'] as $key => $job) {
             if (!is_array($job) || !is_string($job['id'] ?? null) || preg_match('/\A[a-f0-9]{64}\z/D', $job['id']) !== 1
                 || $key !== $job['id'] || !in_array($job['type'] ?? '', self::TYPES, true)
@@ -526,7 +546,11 @@ final class NotificationService
     {
         return $this->state->update('notifications', function (array &$data) use ($operation): mixed {
             $data = $this->normalized($data);
+            $erased = $data['erased_members'] ?? [];
             $result = $operation($data);
+            $markers = array_replace($data['erased_members'] ?? [], $erased);
+            if ($markers !== []) $data['erased_members'] = $markers;
+            foreach ($data['jobs'] as $id => $job) if ($job['member_id'] !== null && isset($markers[hash('sha256', $job['member_id'])])) unset($data['jobs'][$id]);
             $this->normalized($data);
             return $result;
         });

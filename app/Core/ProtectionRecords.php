@@ -68,6 +68,34 @@ final class ProtectionRecords
 
     public function snapshot(): array { return $this->validate($this->state->read('protection')); }
 
+    /** Member binding, not a same-email guess, determines export and removal scope. */
+    public function privacyRows(string $memberId): array
+    {
+        return array_values(array_filter($this->snapshot()['cases'], static fn(array $row): bool => $row['reporter_member_id'] === $memberId));
+    }
+
+    public function privacyForget(string $memberId, callable $authorize): void
+    {
+        $this->mutate(function (array &$data) use ($memberId, $authorize): void {
+            $authorize();
+            foreach ($data['cases'] as &$record) {
+                if ($record['reporter_member_id'] !== $memberId) continue;
+                $record['label'] = 'Privacy-anonymized report'; $record['reporter_member_id'] = null;
+                $record['receipt_hash'] = hash('sha256', random_bytes(32)); $record['rate_hash'] = hash('sha256', random_bytes(32));
+                foreach (['name','email','description','url'] as $field) $record[$field . '_encrypted'] = '';
+                foreach ($record['events'] as &$event) {
+                    // Internal owner safety evidence remains; reporter text and public replies are removed.
+                    if (in_array($event['type'], ['received','appeal','reporter_reply'], true)) $event['message_encrypted'] = '';
+                    $event['public_message_encrypted'] = '';
+                }
+                unset($event);
+                if (count($record['events']) < 100) $record['events'] = $this->event($record['events'], 'privacy_anonymized', null, 'Member identity and reporter text removed; safety decision and evidence retained.');
+                ++$record['version']; $record['updated_at'] = gmdate('c');
+            }
+            unset($record); $authorize();
+        });
+    }
+
     public function enabled(): bool
     {
         $this->config->reload();

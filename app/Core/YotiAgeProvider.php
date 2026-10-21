@@ -75,7 +75,7 @@ final class YotiAgeProvider
         if (($result['status'] ?? null) !== 'COMPLETE' || ($result['method'] ?? null) !== 'DOC_SCAN'
             || !is_int($result['age'] ?? null) || $result['age'] !== ($attempt['threshold'] ?? null)
             || !is_array($method) || ($method['allowed'] ?? null) !== true || ($method['threshold'] ?? null) !== $attempt['threshold']
-            || ($method['level'] ?? null) !== 'PASSIVE' || (isset($method['authenticity']) && $method['authenticity'] !== 'AUTO')) $invalid();
+            || ($method['level'] ?? null) !== 'PASSIVE' || (array_key_exists('authenticity', $method) && $method['authenticity'] !== 'AUTO')) $invalid();
         return true;
     }
 

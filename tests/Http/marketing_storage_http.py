@@ -22,6 +22,9 @@ FIXTURE = Path(__file__).with_name('marketing_storage_fixture.php')
 OWNER = 'owner@example.test'
 PASSWORD = 'VelvetDemo12'
 MIGRATION = '202610200015_marketing_sql_storage'
+PACKAGED_MIGRATIONS = tuple(sorted(path.stem for path in
+    (Path(__file__).resolve().parents[2] / 'database/migrations').glob('*.php')))
+PRE015_MIGRATIONS = tuple(key for key in PACKAGED_MIGRATIONS if key < MIGRATION)
 COLLECTIONS = ('posts', 'banners', 'landing_pages', 'links', 'referral_codes', 'contacts', 'segments',
                'campaigns', 'campaign_queue', 'events', 'consents', 'suppressions')
 PRIVATE_MARKERS = ('confirmed-storage@example.test', 'pending-storage@example.test', 'retired-storage@example.test',
@@ -166,8 +169,9 @@ def security_and_preview_case(site: Path, base: str, php: str):
     initial = fixture(site, 'read', php)
     check(initial['status']['state'] == 'ready' and initial['status']['can_migrate']
           and initial['status']['mode'] == 'file', 'An explicit move must be required on the installed MySQL site.')
-    check(initial['mysql_version'].startswith('8.0.') and len(initial['ledger']) == 15,
-          'The HTTP fixture must use real MySQL 8 and all fifteen packaged migrations.')
+    check(initial['mysql_version'].startswith('8.0.') and initial['ledger'] == list(PACKAGED_MIGRATIONS)
+          and len(PRE015_MIGRATIONS) == 14 and MIGRATION in PACKAGED_MIGRATIONS,
+          'The HTTP fixture must use real MySQL 8 and every packaged migration in exact order.')
     check(len(initial['marketing']['campaign_queue']) == 2
           and initial['marketing']['settings']['campaign_delivery_enabled'], 'The seeded delivery safety case is missing.')
     owner, anonymous, member = login(base), session(), session()

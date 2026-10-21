@@ -33,7 +33,8 @@ final class RepairAccess
             'app/Core/Store.php', 'app/Core/Config.php', 'app/Core/Database.php', 'app/Core/SecureValue.php',
             'app/Core/Totp.php', 'app/Core/OperationsGate.php', 'app/Core/OperationsFiles.php',
             'app/Core/BackupArchive.php', 'app/Views/admin/repair-signin.php'];
-        foreach (array_merge($dependencies, ['admin/repair.php', 'app/Core/RepairAccess.php',
+        foreach (array_merge($dependencies, ['admin/repair.php', 'admin/repair-current.php', 'app/Support/repair_entry.php',
+            'app/Views/admin/repair-current-status.php', 'app/Core/RepairAccess.php',
             'app/Core/RuntimeInventoryService.php', 'includes/autoload.php', 'includes/bootstrap.php',
             'includes/security.php', 'includes/version.php', 'app/Support/functions.php']) as $relative) {
             if (!array_key_exists($relative, $files)) self::missing($relative);

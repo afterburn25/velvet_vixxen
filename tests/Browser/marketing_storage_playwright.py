@@ -136,8 +136,9 @@ def independent_sql_snapshot(saved: dict):
 
 def browser_case(browser, site: Path, base: str, label: str, viewport: dict, capture, php: str):
     initial = http.fixture(site, 'read', php)
-    require(initial['status']['state'] == 'schema_needed' and len(initial['ledger']) == 14,
+    require(initial['status']['state'] == 'schema_needed' and initial['ledger'] == list(http.PRE015_MIGRATIONS),
             'The browser must start on the explicit pre015 Database Updates path.')
+    pending_count = len(http.PACKAGED_MIGRATIONS) - len(http.PRE015_MIGRATIONS)
     context = browser.new_context(viewport=viewport)
     page = context.new_page()
     errors, actions = [], []
@@ -167,15 +168,15 @@ def browser_case(browser, site: Path, base: str, label: str, viewport: dict, cap
         screenshot(page, label + '-database-update-needed')
         database_link.click()
         page.wait_for_url('**/admin/?page=database-updates')
-        expect(page.get_by_role('heading', name='1 pending update', exact=True)).to_be_visible()
+        expect(page.get_by_role('heading', name=str(pending_count) + ' pending updates', exact=True)).to_be_visible()
         updater = page.locator('form:has(input[name="action"][value="apply_database_updates"])')
         updater.locator('[name="backup_reference"]').fill('Reserved isolated MySQL fixture backup — ' + label)
         updater.locator('[name="backup_confirmed"]').check()
-        submit(page, updater.get_by_role('button', name='Apply 1 Pending Update', exact=True), 'Apply packaged database update', redirect=True)
-        expect(page.locator('.admin-alert.success').first).to_contain_text('1 database update(s) applied')
+        submit(page, updater.get_by_role('button', name='Apply ' + str(pending_count) + ' Pending Updates', exact=True), 'Apply packaged database update', redirect=True)
+        expect(page.locator('.admin-alert.success').first).to_contain_text(str(pending_count) + ' database update(s) applied')
         updated = http.fixture(site, 'read', php)
-        require(updated['status']['state'] == 'ready' and len(updated['ledger']) == 15 and http.MIGRATION in updated['ledger'],
-                'The actual owner Database Updates POST did not apply migration 015.')
+        require(updated['status']['state'] == 'ready' and updated['ledger'] == list(http.PACKAGED_MIGRATIONS),
+                'The actual owner Database Updates POST did not apply every pending packaged migration.')
         require(updated['marketing'] == initial['marketing'] and updated['protected'] == initial['protected']
                 and updated['outbox'] == initial['outbox'] and updated['unrelated'] == initial['unrelated'],
                 'The database update altered existing marketing, configuration, backups, outbox or unrelated rows.')

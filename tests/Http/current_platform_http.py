@@ -82,6 +82,15 @@ extra = guest.post(urljoin(BASE, "api/marketing-event.php"), headers={"Origin": 
 assert extra.status_code == 400, "Analytics accepted a private payload field."
 same = guest.post(urljoin(BASE, "api/marketing-event.php"), headers={"Origin": BASE.rstrip("/")}, json={"event": "page_view", "path": "/accepted?secret=fixture-private-query"}, timeout=20)
 assert same.status_code == 200 and same.json()["ok"], "Same-origin analytics request failed."
+assert json.loads((ROOT / "storage/private/marketing/data.json").read_text()) == marketing, "Analytics changed state before optional measurement consent."
+choices = guest.get(urljoin(BASE, "privacy/choices.php"), timeout=20)
+allowed = guest.post(urljoin(BASE, "privacy/choices.php"), data={"csrf": token(choices, "csrf"), "choice": "allow"}, timeout=20)
+assert allowed.status_code == 200 and "now allowed" in allowed.text and guest.cookies.get("velvet_measurement") and guest.cookies.get("velvet_attribution"), "The real measurement consent form did not save browser permission."
+before_events = json.loads((ROOT / "storage/private/marketing/data.json").read_text())["events"]
+consented = guest.post(urljoin(BASE, "api/marketing-event.php"), headers={"Origin": BASE.rstrip("/")}, json={"event": "page_view", "path": "/about/?secret=fixture-private-query"}, timeout=20)
+assert consented.status_code == 200 and consented.json()["ok"], "Consented same-origin analytics request failed."
+saved_events = json.loads((ROOT / "storage/private/marketing/data.json").read_text())["events"]
+assert saved_events[:-1] == before_events and saved_events[-1]["measurement_version"] == 1 and saved_events[-1]["path"] == "/about/", "The consented request did not append exactly one sanitized canonical page view."
 assert "forbidden-analytics-body" not in (ROOT / "storage/private/marketing/data.json").read_text(), "Analytics stored a private message body."
 assert "fixture-private-query" not in (ROOT / "storage/private/marketing/data.json").read_text(), "Analytics stored a private query string."
 print("Communication ownership, booking CSRF, newsletter consent and same-origin analytics HTTP regressions passed.")

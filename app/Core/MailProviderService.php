@@ -26,6 +26,27 @@ final class MailProviderService
         $this->secrets = new SecureValue($config);
     }
 
+    /** No recipient ciphertext or correlation identifier is exposed by the export projector. */
+    public function privacyRows(string $emailHash): array
+    {
+        $data = $this->normalized($this->state->read('mail_provider'));
+        return array_values(array_filter($data['events'], static fn(array $row): bool => ($row['email_hash'] ?? '') === $emailHash));
+    }
+
+    public function privacyForget(string $emailHash, callable $authorize): void
+    {
+        if (preg_match('/\A[a-f0-9]{64}\z/D', $emailHash) !== 1) throw new InvalidArgumentException('A privacy recipient identity is required.');
+        $this->mutate(static function (array &$data) use ($emailHash, $authorize): void {
+            $authorize(); $data['erased_emails'][$emailHash] ??= time();
+            foreach ($data['events'] as &$event) {
+                if ($event['email_hash'] !== $emailHash) continue;
+                if ($event['status'] === 'pending') { $event['status'] = 'unmatched'; $event['processed_at'] = time(); $event['delivery_kind'] = null; }
+                $event['recipient_ciphertext'] = null;
+            }
+            unset($event); $authorize();
+        });
+    }
+
     public function overview(): array
     {
         $data = $this->normalized($this->state->read('mail_provider'));
@@ -69,6 +90,9 @@ final class MailProviderService
             $this->prune($data);
             $ids = []; $duplicates = 0;
             foreach ($events as $event) {
+                if (isset($data['erased_emails'][$event['email_hash']]) && $event['status'] === 'pending') {
+                    $event['status'] = 'unmatched'; $event['processed_at'] = time(); $event['recipient_ciphertext'] = null;
+                }
                 if (isset($data['events'][$event['id']])) {
                     if (!hash_equals($data['events'][$event['id']]['fingerprint'], $event['fingerprint'])) throw new RuntimeException('A provider event identity conflicts with a previous event.', 409);
                     ++$duplicates;
@@ -193,6 +217,7 @@ final class MailProviderService
             || !is_string($data['settings']['public_key'] ?? null) || !is_int($data['settings']['revision'] ?? null)
             || !is_array($data['events'] ?? null)) throw new RuntimeException('Provider event storage needs review.');
         if ($data['settings']['enabled']) SendGridSignature::publicKey($data['settings']['public_key']);
+        foreach ($data['erased_emails'] ?? [] as $hash => $at) if (!is_string($hash) || preg_match('/\A[a-f0-9]{64}\z/D', $hash) !== 1 || !is_int($at) || $at < 1) throw new RuntimeException('Provider privacy markers need review.');
         foreach ($data['events'] as $key => $event) {
             if (!is_array($event) || $key !== ($event['id'] ?? null) || preg_match('/\A[a-f0-9]{64}\z/D', (string) $key) !== 1
                 || !is_string($event['fingerprint'] ?? null) || preg_match('/\A[a-f0-9]{64}\z/D', $event['fingerprint']) !== 1
@@ -217,7 +242,15 @@ final class MailProviderService
     {
         return $this->state->update('mail_provider', function (array &$data) use ($operation): mixed {
             $data = $this->normalized($data);
+            $erased = $data['erased_emails'] ?? [];
             $result = $operation($data);
+            $markers = array_replace($data['erased_emails'] ?? [], $erased);
+            if ($markers !== []) $data['erased_emails'] = $markers;
+            foreach ($data['events'] as &$event) if (isset($markers[$event['email_hash']])) {
+                if ($event['status'] === 'pending') { $event['status'] = 'unmatched'; $event['processed_at'] = time(); $event['delivery_kind'] = null; }
+                $event['recipient_ciphertext'] = null;
+            }
+            unset($event);
             $this->normalized($data);
             return $result;
         });

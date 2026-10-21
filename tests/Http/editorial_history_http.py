@@ -215,13 +215,28 @@ def exercise_collection(owner, guest, base, site, php, collection):
               "The public publication leaked the stored historical body or envelope.")
         public_state = snapshot(site, php)
         public_events = public_state["marketing"]["events"]
+        no_writes(first, public_state, "Unconsented public history-disclosure control")
         if collection == "landing_pages":
-            check(public_events[:-1] == expected_events and public_events[-1]["name"] == "campaign_view"
-                  and public_events[-1]["campaign"] == identity(collection),
-                  "The explicit public landing-page control did not create its one expected campaign view.")
+            choices_url = http.route(base, "privacy/choices.php")
+            choices = guest.get(choices_url, timeout=20)
+            values = http.changed(http.fields(choices.text, "[data-measurement-choices] form"), choice="allow")
+            allowed = guest.post(choices_url, data=values, timeout=20)
+            check(allowed.status_code == 200 and "now allowed" in allowed.text
+                  and guest.cookies.get("velvet_measurement") and guest.cookies.get("velvet_attribution"),
+                  "The real optional-measurement consent form did not save its browser choice.")
+            check(snapshot(site, php)["marketing"]["events"] == expected_events,
+                  "Saving measurement consent fabricated a page event.")
+            consented = guest.get(public_url(base, collection), timeout=20)
+            check(consented.status_code == 200 and "HISTORY_CURRENT_BODY_" + collection + "_first" in consented.text
+                  and "HISTORY_PRIOR_BODY_" + collection + "_main" not in consented.text,
+                  "The consented public control leaked history or lost the current publication.")
+            public_events = snapshot(site, php)["marketing"]["events"]
+            check(public_events[:-2] == expected_events
+                  and [event["name"] for event in public_events[-2:]] == ["campaign_view", "page_view"]
+                  and all(event["measurement_version"] == 1 and event["path"] == "/campaign/"
+                          and event["campaign"] is None and event["referral"] is None for event in public_events[-2:]),
+                  "The consented public control did not produce exactly its two sanitized measurements.")
             expected_events = public_events
-        else:
-            no_writes(first, public_state, "Public post history-disclosure control")
     unchanged, _ = current_fields(owner, base, collection)
     save(owner, base, unchanged, collection)
     check([row["id"] for row in stored_entries(snapshot(site, php), collection)] == [baseline_id],
@@ -531,9 +546,11 @@ def http_case(case):
         final = snapshot(site, php)
         http.protected(initial, final)
         final_events = final["marketing"]["events"]
-        check(initial["metadata"] == final["metadata"] and final_events[:-1] == initial["marketing"]["events"]
-              and final_events[-1]["name"] == "campaign_view" and final_events[-1]["campaign"] == identity("landing_pages"),
-              "History work changed original media or created events beyond the single explicit public landing-page control.")
+        check(initial["metadata"] == final["metadata"] and final_events[:-2] == initial["marketing"]["events"]
+              and [event["name"] for event in final_events[-2:]] == ["campaign_view", "page_view"]
+              and all(event["measurement_version"] == 1 and event["path"] == "/campaign/"
+                      and event["campaign"] is None and event["referral"] is None for event in final_events[-2:]),
+              "History work changed original media or created events beyond the consented public control.")
         if case["mode"] == "mysql":
             http.independent_sql(final)
         capture = case["capture"]
@@ -544,7 +561,9 @@ def http_case(case):
                 "readonly_missing_storage_artifacts": noninitializing,
                 "mysql_owner_revocation_during_record_reads": waits, "retention_and_delete": retention,
                 "independent_sql_payload_readback": case["mode"] == "mysql", "protected_records_queues_consent_and_media_preserved": True,
-                "explicit_public_control_campaign_views": 1, "owner_history_marketing_events": 0,
+                "explicit_public_control_campaign_views": 1, "explicit_public_control_page_views": 1,
+                "nonconsenting_public_events": 0, "measurement_choice_submitted_through_real_form": True,
+                "owner_history_marketing_events": 0,
                 "smtp_connections": capture.connections, "smtp_messages": len(capture.payloads)}
     finally:
         owner.close()

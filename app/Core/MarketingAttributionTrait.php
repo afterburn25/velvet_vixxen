@@ -184,6 +184,8 @@ trait MarketingAttributionTrait
     private function saveAttributionConversion(string $type, string $sourceId, string $memberId, array $snapshot, array $facts): bool
     {
         return $this->update(function (array &$data) use ($type, $sourceId, $memberId, $snapshot, $facts): bool {
+            if (isset($data['settings']['member_privacy_erased_members'][hash('sha256', $memberId)])
+                || (new Store(new \App\Core\Config($this->root . '/config/app.php')))->privacyMemberErased($memberId)) return false;
             $state = MarketingAttribution::state($data); $key = hash('sha256', $type . ':' . $sourceId);
             $epoch = isset($facts['created_at']) && is_string($facts['created_at']) ? strtotime($facts['created_at']) : false;
             if ($epoch === false || $epoch < time() - MarketingAnalytics::state($data)['retention_days'] * 86400
@@ -210,10 +212,41 @@ trait MarketingAttributionTrait
     }
 
     /** The authenticated account-deletion service calls this before pseudonymizing source records. */
-    public function forgetMemberAttribution(Store $store, string $memberId): int
+    public function forgetMemberAttribution(Store $store, string $memberId, ?callable $authorize = null): int
     {
         $actors = $store->marketingAttributionActors($memberId);
-        return $this->update(fn(array &$data): int => $this->eraseMeasurementActors($data, $actors, true));
+        return $this->update(function (array &$data) use ($actors, $memberId, $authorize): int {
+            if ($authorize !== null) $authorize();
+            $state = MarketingAttribution::state($data); $own = []; $shared = [];
+            foreach ($state['conversions'] as $key => $conversion) {
+                $actor = $conversion['attribution']['actor'] ?? null;
+                if (!is_string($actor)) continue;
+                if (($conversion['member_id'] ?? '') === $memberId) { $actors[] = $actor; $own[$key] = true; }
+                else $shared[$actor] = true;
+            }
+            // A browser may have been shared by different members. Their linked
+            // business conversions stay intact; only this member's sources are removed.
+            $exclusive = array_values(array_filter(array_unique($actors), static fn(string $actor): bool => !isset($shared[$actor])));
+            $removed = $this->eraseMeasurementActors($data, $exclusive, true);
+            $state = MarketingAttribution::state($data); $analytics = MarketingAnalytics::state($data);
+            foreach ($state['conversions'] as $key => $conversion) if (isset($own[$key])) { unset($state['conversions'][$key]); ++$removed; }
+            $sourceHashes = array_fill_keys(array_map(static fn(string $key): string => hash('sha256', $key), array_keys($own)), true);
+            $kept = [];
+            foreach ($data['events'] as $event) {
+                if (!is_array($event) || !isset($sourceHashes[$event['source_key'] ?? ''])) { $kept[] = $event; continue; }
+                $event = MarketingAnalytics::event($event); $key = MarketingAnalytics::rollupKey($event);
+                if (isset($analytics['rollups'][$key])) {
+                    $row = MarketingAnalytics::rollup($analytics['rollups'][$key]);
+                    $row['count'] = max(0, $row['count'] - 1); $row['amount_minor'] = max(0, $row['amount_minor'] - $event['amount_minor']);
+                    if ($row['count'] === 0) unset($analytics['rollups'][$key]); else $analytics['rollups'][$key] = $row;
+                }
+                ++$removed;
+            }
+            $data['events'] = $kept; $data[MarketingAttribution::KEY] = $state; $data[MarketingAnalytics::KEY] = $analytics;
+            $data['settings']['member_privacy_erased_members'][hash('sha256', $memberId)] ??= time();
+            if ($authorize !== null) $authorize();
+            return $removed;
+        });
     }
 
     private function eraseMeasurementActors(array &$data, array $actors, bool $sourceKnown = false): int
