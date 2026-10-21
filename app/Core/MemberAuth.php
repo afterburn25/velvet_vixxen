@@ -80,9 +80,9 @@ final class MemberAuth
 
     public function user(): ?array
     {
-        if ($this->resolved) {
-            return $this->cachedMember;
-        }
+        // A long-running request may outlive account closure or device revocation.
+        // Resolve the durable identity every time; only the activity touch is cached.
+        $this->cachedMember = null;
         $this->resolved = true;
         $session = (array) ($_SESSION['member'] ?? []);
         $token = (string) ($session['token'] ?? '');

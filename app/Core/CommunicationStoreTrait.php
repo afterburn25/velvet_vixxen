@@ -332,19 +332,49 @@ trait CommunicationStoreTrait
         return array_map(fn(array $r):array=>$this->mapCommunicationAttachmentRow($r,'message'),$stmt->fetchAll());
     }
 
-    public function communicationAttachment(string|int $attachmentId): ?array
+    /** Separate SQL tables have independent ids. An untyped ambiguous id never selects either file. */
+    public function communicationAttachment(string|int $attachmentId, ?string $kind = null): ?array
     {
-        $key=(string)$attachmentId;
-        if($this->mode==='file'){
-            $data=$this->readFileStore();
-            if(isset($data['messageAttachments'][$key])) return (array)$data['messageAttachments'][$key];
-            if(isset($data['requestAttachments'][$key])) return (array)$data['requestAttachments'][$key];
-            return null;
+        $key = (string) $attachmentId;
+        if ($key === '' || ($kind !== null && !in_array($kind, ['message', 'request'], true))) return null;
+        $found = [];
+        if ($this->mode === 'file') {
+            $data = $this->loadFileStore()[0];
+            foreach (['message' => 'messageAttachments', 'request' => 'requestAttachments'] as $type => $collection) {
+                if (($kind === null || $kind === $type) && is_array($data[$collection][$key] ?? null)) {
+                    $found[] = array_replace($data[$collection][$key], ['kind' => $type]);
+                }
+            }
+        } else {
+            if (!ctype_digit($key)) return null;
+            foreach (['message' => 'SELECT ma.*, m.thread_id FROM message_attachments ma JOIN messages m ON m.id=ma.message_id WHERE ma.id=?',
+                'request' => 'SELECT * FROM request_attachments WHERE id=?'] as $type => $sql) {
+                if ($kind !== null && $kind !== $type) continue;
+                $statement = $this->pdo()->prepare($sql); $statement->execute([$key]);
+                $row = $statement->fetch();
+                if (is_array($row)) $found[] = $this->mapCommunicationAttachmentRow($row, $type);
+            }
         }
-        $stmt=$this->pdo()->prepare("SELECT ma.*, m.thread_id, 'message' AS attachment_kind FROM message_attachments ma JOIN messages m ON m.id=ma.message_id WHERE ma.id=? LIMIT 1");$stmt->execute([(int)$attachmentId]);$row=$stmt->fetch();
-        if(is_array($row)) return $this->mapCommunicationAttachmentRow($row,'message');
-        $stmt=$this->pdo()->prepare("SELECT ra.*, 'request' AS attachment_kind FROM request_attachments ra WHERE ra.id=? LIMIT 1");$stmt->execute([(int)$attachmentId]);$row=$stmt->fetch();
-        return is_array($row)?$this->mapCommunicationAttachmentRow($row,'request'):null;
+        return count($found) === 1 ? $found[0] : null;
+    }
+
+    /** Use this for both ordinary downloads and account archives. Unknown visibility is private. */
+    public function memberCanReadCommunicationAttachment(array $attachment, string $memberId): bool
+    {
+        if ($memberId === '') return false;
+        if (($attachment['kind'] ?? '') === 'message') {
+            $message = $this->communicationMessage((string) ($attachment['messageId'] ?? ''));
+            $thread = $message ? $this->communicationThread((string) ($message['threadId'] ?? '')) : null;
+            return is_array($thread) && ($message['visibility'] ?? '') === 'public'
+                && (string) ($thread['memberId'] ?? '') === $memberId;
+        }
+        if (($attachment['kind'] ?? '') !== 'request' || ($attachment['uploadedByType'] ?? '') !== 'member') return false;
+        $request = match ($attachment['requestType'] ?? '') {
+            'content_request' => $this->contentRequest((string) ($attachment['requestId'] ?? '')),
+            'booking_request' => $this->bookingRequest((string) ($attachment['requestId'] ?? '')),
+            default => null,
+        };
+        return is_array($request) && (string) ($request['memberId'] ?? '') === $memberId;
     }
 
     /** @param array<string,mixed> $input */

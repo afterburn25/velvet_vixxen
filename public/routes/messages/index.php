@@ -113,7 +113,7 @@ require root_path('app/Views/public/partials/header.php');
               <article class="message-bubble <?= e((string)$message['senderType']) ?>">
                 <div class="message-meta"><strong><?= $message['senderType']==='member'?e((string)$member['displayName']):($message['senderType']==='admin'?'Nikki / Staff':'System') ?></strong><time><?= e((string)$message['createdAt']) ?></time></div>
                 <p><?= e((string)$message['body']) ?></p>
-                <?php if (!empty($message['attachments'])): ?><div class="attachment-list"><?php foreach ($message['attachments'] as $attachment): ?><a href="<?= e(base_url('communication/download.php?id='.rawurlencode((string)$attachment['id']))) ?>">⇩ <?= e((string)$attachment['originalName']) ?></a><?php endforeach; ?></div><?php endif; ?>
+                <?php if (!empty($message['attachments'])): ?><div class="attachment-list"><?php foreach ($message['attachments'] as $attachment): ?><a href="<?= e(base_url('communication/download.php?kind='.rawurlencode((string)($attachment['kind']??'request')).'&id='.rawurlencode((string)$attachment['id']))) ?>">⇩ <?= e((string)$attachment['originalName']) ?></a><?php endforeach; ?></div><?php endif; ?>
               </article>
             <?php endforeach; ?>
             <?php if ($messages === []): ?><div class="conversation-empty">No messages are in this conversation yet.</div><?php endif; ?>
