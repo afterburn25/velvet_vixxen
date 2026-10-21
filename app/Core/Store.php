@@ -13,6 +13,7 @@ final class Store
     use ProtectionStoreTrait;
     use MediaStoreTrait;
     use MemberStoreTrait;
+    use MemberPrivacyStoreTrait;
     use CommerceStoreTrait;
     use AddonStoreTrait;
     use AddonLicensingStoreTrait;

@@ -22,3 +22,4 @@ if (in_array($configuredTimezone, DateTimeZone::listIdentifiers(), true)) {
 }
 
 require_once ROOT_PATH . '/includes/security.php';
+require_once ROOT_PATH . '/includes/age_access.php';

@@ -248,10 +248,13 @@ def invalid_calendar(owner, guest, member, base, site, php):
         http.fixture(site, "owner-status", php, status=status)
         try:
             denied = owner.get(calendar_url(base), allow_redirects=False, timeout=20)
-            check(denied.status_code in (302, 303, 403) and "Calendar post" not in denied.text,
+            check(denied.status_code == 403 and "Calendar post" not in denied.text,
                   "A changed owner retained calendar access.")
         finally:
             http.fixture(site, "owner-status", php, status="owner")
+    check(owner.get(calendar_url(base), allow_redirects=False, timeout=20).status_code == 403,
+          "Restoring the inactive account revived its calendar session.")
+    http.owner_login(base, owner)
     stale = http.fixture(site, "stale-owner-session", php)
     client = http.session()
     try:
@@ -377,7 +380,7 @@ def expiry_authority(owner, clients, base, site, php):
         http.fixture(site, "owner-status", php, status=state)
         try:
             response = owner.post(editor_url(base), data=attempted, allow_redirects=False, timeout=20)
-            check(response.status_code == 302 and response.headers.get("Location") == base + "/admin/",
+            check(response.status_code == 302 and response.headers.get("Location") == base + ("/admin/" if state == "demoted" else "/admin/?page=login"),
                   "The initial owner gate accepted an expiration POST after owner revocation.")
         finally:
             http.fixture(site, "owner-status", php, status="owner")
@@ -394,6 +397,9 @@ def expiry_authority(owner, clients, base, site, php):
     finally:
         client.close()
     no_writes(before, snapshot(site, php), "Nonowner and revoked-owner expiration writes")
+    check(owner.get(calendar_url(base), allow_redirects=False, timeout=20).status_code == 403,
+          "Restoring the inactive account revived its expiration session.")
+    http.owner_login(base, owner)
     return {"guest_member_stale_demoted_inactive_refused": True, "stale_invalid_csrf_refused_before_output": True,
             "exact_saved_state_preserved": True}
 

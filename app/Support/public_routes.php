@@ -5,6 +5,12 @@ declare(strict_types=1);
 function vvx_public_routes(): array
 {
     return [
+    'age' => 'age/index.php',
+    'age/' => 'age/index.php',
+    'age/index.php' => 'age/index.php',
+    'policies' => 'policies/index.php',
+    'policies/' => 'policies/index.php',
+    'policies/index.php' => 'policies/index.php',
     'about' => 'about/index.php',
     'about/index.php' => 'about/index.php',
     'join' => 'account/register.php',

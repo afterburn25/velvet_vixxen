@@ -225,14 +225,18 @@ def invalid_edits(owner, member, base: str, site: Path, php: str, manifest: dict
         http.fixture(site, "owner-status", php, status=state)
         try:
             response = owner.post(editor_url(base), data=http.changed(values, seo_title="Revoked metadata"), timeout=20, allow_redirects=False)
-            check(response.status_code == 302 and response.headers.get("Location") == base + "/admin/",
-                  "The existing initial owner gate did not redirect a demoted/inactive metadata POST.")
+            check(response.status_code == 302 and response.headers.get("Location") == base + ("/admin/" if state == "demoted" else "/admin/?page=login"),
+                  "The initial owner gate did not enforce the exact revoked-session destination.")
             preview = owner.get(preview_url(base), timeout=20)
             check(preview.status_code == 403 and preview.text == "Preview unavailable.", "A revoked owner preview disclosed metadata.")
             http.private(preview, True)
         finally:
             http.fixture(site, "owner-status", php, status="owner")
         no_writes(before, snapshot(site, php), "Revoked owner metadata refusal")
+        if state == "inactive":
+            check(owner.get(preview_url(base), allow_redirects=False, timeout=20).status_code == 403,
+                  "Restoring the inactive account revived its revoked metadata session.")
+            http.owner_login(base, owner)
     return outcomes
 
 
@@ -362,6 +366,10 @@ def owner_revoked_during_media_read(owner, base: str, site: Path, php: str):
             http.fixture(site, "owner-status", php, status="owner")
             release.unlink(missing_ok=True)
         no_writes(before, snapshot(site, php), "Owner revocation during media catalogue wait")
+        if status == "inactive":
+            check(owner.get(preview_url(base), allow_redirects=False, timeout=20).status_code == 403,
+                  "The revoked media-read session revived after account restoration.")
+            http.owner_login(base, owner)
         results.append({"action": action, "owner_change": status, "observed_media_select_wait": True,
                         "http_status": 403, "exact_state_preserved": True})
     return results

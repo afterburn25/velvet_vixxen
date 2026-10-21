@@ -501,6 +501,10 @@ def owner_revocation(owner, base, site, php):
             http.fixture(site, "owner-status", php, status="owner")
             release.unlink(missing_ok=True)
         no_writes(before, snapshot(site, php), "Owner revoked during authoritative history read")
+        if status == "inactive":
+            check(owner.get(history_url(base, "posts"), allow_redirects=False, timeout=20).status_code == 403,
+                  "Restoring the inactive account revived its revoked history session.")
+            http.owner_login(base, owner)
         results.append({"action": action, "owner_change": status, "observed_records_select_wait": True,
                         "http_status": 403, "exact_state_preserved": True})
     return results

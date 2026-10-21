@@ -40,13 +40,25 @@ $isNotificationRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?
 $isMailProviderRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?? null) === 'provider')
     || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'mail_provider_'));
 $isProtectionRequest = $requestedAdminPage === 'protection' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'protection_'));
-$skipAdminExtensions = $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
+$isPoliciesRequest = $requestedAdminPage === 'policies' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'policies_'));
+$skipAdminExtensions = $isPoliciesRequest || $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
 if (!$skipAdminExtensions) require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
 use App\Core\MediaAdminService;
 use App\Core\MailService;
 use App\Core\RepairBackupService;
+
+if ($isPoliciesRequest) {
+    require_once ROOT_PATH . '/app/Support/policies_admin.php';
+    vvx_access_private();
+    try { if (!is_installed()) throw new RuntimeException(); vvx_policies_owner(); }
+    catch (Throwable) { http_response_code(403); exit('Only the current site owner can open Policies & access.'); }
+    if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'POST'], true)) { header('Allow: GET, POST'); http_response_code(405); exit('Method not allowed.'); }
+    if ($requestedAdminPage !== 'policies') { http_response_code(400); exit('Open Policies & access to change these records.'); }
+    try { $policiesRequest = vvx_policies_request(); }
+    catch (Throwable) { http_response_code(400); exit('Choose a valid policy or access tab.'); }
+}
 
 if ($isProtectionRequest) {
     require_once ROOT_PATH . '/app/Support/protection_admin.php';
@@ -304,7 +316,19 @@ $repairService = $skipAdminExtensions ? null : new RepairBackupService(ROOT_PATH
 $sceneScheduleAttempted = null;
 $recoveryFailed = false;
 $protectionAttempt = null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isProtectionRequest) {
+$policiesAttempt = null;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPoliciesRequest) {
+    $policiesAttempt = vvx_policies_attempt();
+    try {
+        if (!verify_csrf()) throw new RuntimeException('Your session token expired. Reload this page before continuing.', 419);
+        require root_path('app/Views/admin/policies-actions.php');
+    } catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) { http_response_code(403); exit('Only the current site owner can change policies and access rules.'); }
+        vvx_response_status(in_array((int) $caught->getCode(), [400, 404, 409, 419, 428, 429, 503], true) ? (int) $caught->getCode() : 422);
+        $error = ($caught instanceof RuntimeException && !$caught instanceof PDOException) || $caught instanceof InvalidArgumentException
+            ? $caught->getMessage() : 'The policy could not be changed. Review storage and reload this page.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $isProtectionRequest) {
     $protectionAttempt = vvx_protection_attempt();
     try {
         if (!verify_csrf()) throw new RuntimeException('Your session token expired. Reload this page before continuing.', 419);
@@ -1031,6 +1055,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isProtectionRequest) {
     }
 }
 
+if ($isPoliciesRequest) {
+    try { $policiesPage = vvx_policies_read($policiesRequest); }
+    catch (Throwable $caught) {
+        http_response_code((int) $caught->getCode() === 403 ? 403 : 503);
+        exit((int) $caught->getCode() === 403 ? 'Only the current site owner can open Policies & access.' : 'Policies and access settings need a storage review. Saved records were preserved.');
+    }
+}
+
 if ($isProtectionRequest) {
     try { $protectionPage = vvx_protection_read($protectionRequest); }
     catch (Throwable $caught) {
@@ -1102,6 +1134,7 @@ if ($isMailProviderRequest) {
 
 $success = flash('success');
 $pageTitles = [
+    'policies' => 'Policies & access',
     'protection' => 'Protection & policies',
     'dashboard' => 'Dashboard',
     'composer' => 'Visual Composer',
@@ -1145,6 +1178,7 @@ foreach (($skipAdminExtensions ? [] : addon_runtime()->adminPages()) as $addonPa
 if (isset($pageTitles[$page])) $_SESSION['admin_last_pages'][(string) $user['id']] = $page;
 $title = $pageTitles[$page] ?? 'Page not found';
 $nav = [
+    'policies' => ['◇', 'Policies & access'],
     'protection' => ['◇', 'Protection & policies'],
     'dashboard' => ['⌂', 'Dashboard'],
     'composer' => ['✦', 'Visual Composer'],
@@ -1191,7 +1225,7 @@ if ($page === 'marketing' && !velvet_marketing_is_owner()) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($isSecurityRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/security-admin.css')) ?>"><?php endif; ?><?php if ($isProtectionRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/protection.css')) ?>"><?php endif; ?><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><?php if ($isEditorialRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-deleted.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($isSecurityRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/security-admin.css')) ?>"><?php endif; ?><?php if ($isProtectionRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/protection.css')) ?>"><?php endif; ?><?php if ($isPoliciesRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/policies.css')) ?>"><?php endif; ?><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><?php if ($isEditorialRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-deleted.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><a class="admin-skip-link" href="#adminContent">Skip to content</a><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content" id="adminContent" tabindex="-1"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
@@ -1202,6 +1236,7 @@ $stats = $store->stats(); ?>
 <?php elseif ($page === 'marketing'):
 require root_path('app/Views/admin/marketing.php'); ?>
 <?php elseif ($page === 'security'): require root_path('app/Views/admin/security.php'); ?>
+<?php elseif ($page === 'policies'): require root_path('app/Views/admin/policies.php'); ?>
 <?php elseif ($page === 'protection'): require root_path('app/Views/admin/protection.php'); ?>
 <?php elseif ($page === 'mail-settings'):
 require root_path('app/Views/admin/mail-settings.php'); ?>

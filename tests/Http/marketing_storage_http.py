@@ -73,8 +73,8 @@ def form_values(html: str, action: str | None = None):
     return fields
 
 
-def login(base: str):
-    owner = session()
+def login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=10)
     fields = form_values(page.text)
     response = owner.post(base + '/admin/?page=login', data={'_csrf': fields['_csrf'],
@@ -245,14 +245,18 @@ def security_and_preview_case(site: Path, base: str, php: str):
             _, valid = review(owner, base, site)
             fixture(site, 'owner-status', php, status=owner_status)
             try:
-                check(owner.get(url, timeout=15).status_code == 403, 'A stale ' + owner_status + ' owner session read storage.')
-                check(owner.post(url, data=valid, timeout=15).status_code == 403,
-                      'A stale ' + owner_status + ' owner session moved records.')
-                check(owner.post(base + '/admin/?page=dashboard', data=valid, timeout=15).status_code == 403,
-                      'A revoked owner bypassed the storage guard through another admin page.')
+                for method, target in (('GET', url), ('POST', url), ('POST', base + '/admin/?page=dashboard')):
+                    denied = owner.request(method, target, data=valid, allow_redirects=False, timeout=15)
+                    check(denied.status_code == (403 if owner_status == 'demoted' else 302)
+                          and (owner_status == 'demoted' or denied.headers.get('Location') == base + '/admin/?page=login'),
+                          'A revoked owner retained storage authority through ' + method + ' ' + target)
             finally:
                 fixture(site, 'owner-status', php, status='owner')
         check(snapshot(site, php) == stale_baseline, 'Revoked-owner requests changed the stored records.')
+        revoked = owner.get(url, allow_redirects=False, timeout=15)
+        check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+              'Restoring the inactive account revived its storage session.')
+        login(base, owner)
         owner_revoked_while_waiting(owner, base, site, php)
         removed = fixture(site, 'remove-empty-schema', php)
         check(removed['state'] == 'schema_needed', 'The pre015 fixture did not reach the missing-schema path.')

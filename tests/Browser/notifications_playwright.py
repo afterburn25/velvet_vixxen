@@ -77,6 +77,17 @@ def browser_case(browser, case, viewport, evidence):
 
     try:
         login(page, base)
+        initial = notifications.state(case)
+        initial_jobs = list((initial['raw'] or {}).get('jobs', {}).values())
+        new_client_notices = 1 if case['mode'] == 'mysql' else 0
+        http.check(len(initial_jobs) == new_client_notices, 'Unexpected notification state before workflow seeding.')
+        if new_client_notices:
+            notice = initial_jobs[0]
+            http.check(notice['type'] == 'owner_security' and notice['status'] == 'queued'
+                       and notice['context']['kind'] == 'suspicious_admin_login'
+                       and notice['context']['url'] == 'admin/?page=security',
+                       'The second actual owner client did not create its exact security notice.')
+        expected_messages = len(notifications.TYPES) + new_client_notices
         page.goto(url)
         http.check('paused' in page.locator('[data-notification-state]').inner_text() and capture.connections == 0, 'Notifications did not start paused without sending.')
         page.locator('[data-notification-settings]').scroll_into_view_if_needed()
@@ -93,12 +104,18 @@ def browser_case(browser, case, viewport, evidence):
         page = original; stale.close()
         seeds = notifications.fixture(case, 'seed')
         submit(page, page.get_by_role('button', name='Discover notifications', exact=True))
-        http.check(notifications.state(case)['overview']['counts']['queued'] == 6, 'Browser discovery did not queue actual eligible workflows.')
+        discovered = notifications.state(case)
+        discovered_jobs = list(discovered['raw']['jobs'].values())
+        http.check(sorted(job['type'] for job in discovered_jobs)
+                   == sorted(notifications.TYPES + ['owner_security'] * new_client_notices)
+                   and all(job['status'] == 'queued' for job in discovered_jobs)
+                   and discovered['overview']['counts']['queued'] == expected_messages,
+                   'Browser discovery did not queue the six actual workflows and exact new-client security notice.')
         page.locator('[data-notification-journal]').scroll_into_view_if_needed()
         shot('queued')
         page.get_by_label('Notices per batch', exact=True).fill('10')
         submit(page, page.get_by_role('button', name='Run notification batch', exact=True))
-        http.check(len(capture.payloads) == 6 and notifications.state(case)['overview']['counts']['sent'] == 6, 'Browser run did not commit the actual SMTP outcomes.')
+        http.check(len(capture.payloads) == expected_messages and notifications.state(case)['overview']['counts']['sent'] == expected_messages, 'Browser run did not commit the actual SMTP outcomes.')
         page.locator('[data-notification-journal]').scroll_into_view_if_needed()
         shot('accepted')
         for payload in capture.payloads:
@@ -146,9 +163,10 @@ def browser_case(browser, case, viewport, evidence):
         finally:
             plain.close()
         http.check(not errors, 'Notification browser raised JavaScript errors: ' + repr(errors))
-        http.check(not capture.errors and len(capture.payloads) == 6, 'Read-only/preferences/script-free actions sent additional mail.')
+        http.check(not capture.errors and len(capture.payloads) == expected_messages, 'Read-only/preferences/script-free actions sent additional mail.')
         return {'browser_checks': http.checks - start, 'viewport': viewport, 'screenshots': images, 'layouts': layouts,
-                'captured_messages': 6, 'external_messages': 0, 'javascript_errors': errors,
+                'captured_messages': expected_messages, 'new_client_security_notices': new_client_notices,
+                'mysql_version': initial['mysql_version'], 'external_messages': 0, 'javascript_errors': errors,
                 'script_free_discovery_cancel': True, 'member_optout': True, 'registration_default_unchecked': True}
     finally:
         context.close()

@@ -445,6 +445,9 @@ def preview_cases(owner, clients: dict, base: str, site: Path, php: str):
           and before['legacy_sha256'] == after['legacy_sha256'],
           'Preview success/denial/method checks wrote publication, page-view, referral, campaign or SQL records.')
     protected(before, after)
+    check(owner.get(preview_url(base, 'posts'), allow_redirects=False, timeout=15).status_code == 403,
+          'Restoring an inactive account revived its revoked preview session.')
+    owner_login(base, owner)
 
 
 def noninitializing_preview(owner, base: str, site: Path, php: str, mode: str):
@@ -616,6 +619,10 @@ def owner_revoked_during_catalog_read(owner, base: str, site: Path, php: str):
               and before['legacy_sha256'] == after['legacy_sha256'] and before['outbox'] == after['outbox'],
               'Revocation during catalog wait changed saved marketing, events, SQL payload or mail state.')
         protected(before, after)
+        if status == 'inactive':
+            check(owner.get(preview_url(base, 'posts'), allow_redirects=False, timeout=15).status_code == 403,
+                  'A revoked catalog-read session revived after the account was restored.')
+            owner_login(base, owner)
         results.append({'action': action, 'owner_change': status, 'observed_catalog_select_wait': True,
                         'http_status': 403, 'exact_state_preserved': True})
     return results

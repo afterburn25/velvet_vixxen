@@ -235,6 +235,8 @@ final class CommerceService
     /** @return array<string,mixed> */
     public function fulfillOrder(array $order): array
     {
+        // A delayed paid event may update retained finances, but cannot reopen erased access.
+        if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return $order;
         if ((string) ($order['status'] ?? '') !== 'paid') {
             return $order;
         }
@@ -673,6 +675,7 @@ final class CommerceService
         $this->store->revokeEntitlementsBySource('rental', $orderId);
         $this->store->revokeEntitlementsBySource('bundle', $orderId);
         $this->store->settleMerchandiseStock($order, true);
+        if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return;
 
         foreach ((array) ($order['items'] ?? $this->store->orderItems($orderId)) as $item) {
             $subscriptionId = (string) (($item['metadata']['subscriptionId'] ?? ''));

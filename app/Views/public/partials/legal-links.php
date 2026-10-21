@@ -1,0 +1,2 @@
+<?php declare(strict_types=1); ?>
+<div class="legal-links"><a href="<?= e(base_url('policies/?document=terms')) ?>">Terms</a><a href="<?= e(base_url('policies/?document=privacy')) ?>">Privacy</a><a href="<?= e(base_url('privacy/choices.php')) ?>">Privacy choices</a><a href="<?= e(base_url('policies/?document=adults')) ?>">18+</a><a href="<?= e(base_url('policies/?document=dmca')) ?>">DMCA</a><a href="<?= e(base_url('policies/?document=support')) ?>">Support</a></div>

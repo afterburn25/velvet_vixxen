@@ -69,8 +69,8 @@ def form_values(html: str, action: str | None = None):
     return fields
 
 
-def login(base: str):
-    owner = session()
+def login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=10)
     fields = form_values(page.text)
     result = owner.post(base + '/admin/?page=login', data={'_csrf': fields['_csrf'],
@@ -254,9 +254,15 @@ def run():
             for method in ('GET', 'POST'):
                 denied = owner.request(method, base + '/admin/?page=mail-settings', data=old_fields,
                                        allow_redirects=False, timeout=10)
-                check(denied.status_code == 403, 'A stale demoted/inactive session retained mail access.')
+                check(denied.status_code == (403 if active else 302)
+                      and (active or denied.headers.get('Location') == base + '/admin/?page=login'),
+                      'A stale demoted/inactive session retained mail access.')
             fixture(root, 'owner', role='owner', active=True)
         check(capture.connections == 0, 'A stale owner session invoked the transport.')
+        revoked = owner.get(base + '/admin/?page=mail-settings', allow_redirects=False, timeout=10)
+        check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+              'Restoring an inactive account revived its mail-settings session.')
+        login(base, owner)
 
         configured = save(owner, base, mode='smtp', host='127.0.0.1', port=str(capture.server_address[1]),
                           encryption='none', username=SMTP_USERNAME, password=FIXTURE_SMTP_PASSWORD,

@@ -106,7 +106,13 @@ php_admin_flag opcache.enable Off
 php_admin_value upload_max_filesize 32M
 php_admin_value post_max_size 40M
 ''')
-        environment = os.environ.copy(); environment['PHP_INI_SCAN_DIR'] = '/etc/php/' + version + '/cli/conf.d'
+        # Module startup happens before per-directory php_admin_value overrides.
+        # Keep the system extensions and disable JIT in this owned server only.
+        supplemental_ini = server / 'php-conf.d'
+        supplemental_ini.mkdir()
+        (supplemental_ini / '99-vvx-opcache.ini').write_text('opcache.jit=0\nopcache.jit_buffer_size=0\n')
+        environment = os.environ.copy()
+        environment['PHP_INI_SCAN_DIR'] = '/etc/php/' + version + '/cli/conf.d:' + str(supplemental_ini)
         log = (server / 'console.log').open('w+')
         process = subprocess.Popen([apache, '-f', str(conf), '-DFOREGROUND'], env=environment, cwd=server, stdout=log, stderr=log, start_new_session=True)
         client = http.session(); deadline = time.monotonic() + 15

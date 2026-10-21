@@ -72,7 +72,7 @@ try {
             copy($file, $updateTestRoot . '/database/migrations/' . basename($file));
         }
     }
-    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Database.php', 'app/Core/MigrationRunner.php',
+    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Config.php', 'app/Core/OperationsGate.php', 'app/Core/Database.php', 'app/Core/MigrationRunner.php',
         'app/Core/DatabaseUpdateService.php', 'app/Console/migrate.php'] as $relative) copy($root . '/' . $relative, $updateTestRoot . '/' . $relative);
     $updateTestInstallation = 'fixture-installed-update-' . bin2hex(random_bytes(8));
     $updateTestConfig = ['installed' => true, 'installation_id' => $updateTestInstallation, 'storage_mode' => 'mysql',

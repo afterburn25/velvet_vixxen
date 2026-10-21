@@ -19,7 +19,12 @@ final class MailService
         if (EmailAddress::hasForbiddenControls($subject)) throw new RuntimeException('The email subject must not contain line breaks or control characters.');
         $recipient = EmailAddress::normalize($recipient);
         $message = $this->store->queueMemberMail($memberId, $recipient, $subject, $template, $body, $metadata);
-        $result = $this->deliver($recipient, $subject, $body);
+        $beforeSend = $memberId === null ? null : function () use ($memberId, $recipient): bool {
+            $member = (new Store($this->config))->member($memberId);
+            return $member !== null && ($member['status'] ?? '') !== 'closed' && empty($member['deletedAt'])
+                && !isset($member['preferences']['_privacy_erasure']) && EmailAddress::normalize((string) $member['email']) === $recipient;
+        };
+        $result = $this->deliver($recipient, $subject, $body, $beforeSend);
         try {
             // The existing transactional outbox schema has four statuses. Preserve that contract,
             // but expose unknown transport outcomes to callers and in its diagnostic text.
