@@ -5,6 +5,7 @@ declare(strict_types=1);
 if (PHP_SAPI !== 'cli') { http_response_code(404); exit; }
 define('ROOT_PATH', dirname(__DIR__, 2));
 require ROOT_PATH . '/includes/autoload.php';
+App\Core\OperationsGate::bootstrap(ROOT_PATH);
 require ROOT_PATH . '/includes/installation_recovery.php';
 
 $options = getopt('', ['status', 'apply', 'backup-confirmed', 'backup-reference:', 'reviewed-failure', 'plan:', 'help']);

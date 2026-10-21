@@ -73,19 +73,20 @@ final class MediaUploadService
             'caption' => 'captions',
             default => 'media',
         };
-        $base = $private ? root_path('storage/private/media/' . $bucket . '/' . $yearMonth) : root_path('uploads/' . $bucket . '/' . $yearMonth);
+        $filename = $id . '.' . $definition['extension'];
+        $relative = ($private ? 'private:' : '') . $bucket . '/' . $yearMonth . '/' . $filename;
+        $destination = $private ? root_path('storage/private/media/' . $bucket . '/' . $yearMonth . '/' . $filename)
+            : (new ProtectionUploads(app_config()))->destination($relative);
+        $base = dirname($destination);
         if (!is_dir($base) && !mkdir($base, 0755, true) && !is_dir($base)) {
             throw new RuntimeException('Unable to create the media upload directory.');
         }
 
-        $filename = $id . '.' . $definition['extension'];
-        $destination = $base . '/' . $filename;
         if (!move_uploaded_file($tmp, $destination)) {
             throw new RuntimeException('Unable to store the uploaded media file.');
         }
-        @chmod($destination, $private ? 0640 : 0644);
+        @chmod($destination, str_contains($destination, '/storage/private/') ? 0600 : 0644);
 
-        $relative = ($private ? 'private:' : '') . $bucket . '/' . $yearMonth . '/' . $filename;
         $width = 0;
         $height = 0;
         if ($actualKind === 'image') {
@@ -170,19 +171,20 @@ final class MediaUploadService
         $sourceY = max(0, (int) round(($height - $sourceHeight) / 2));
         $thumb = imagecreatetruecolor($targetWidth, $targetHeight);
         imagecopyresampled($thumb, $image, 0, 0, $sourceX, $sourceY, $targetWidth, $targetHeight, $sourceWidth, $sourceHeight);
-        $directory = root_path('uploads/thumbnails/' . $yearMonth);
+        $relative = 'thumbnails/' . $yearMonth . '/' . $id . '-thumb.jpg';
+        $destination = (new ProtectionUploads(app_config()))->destination($relative);
+        $directory = dirname($destination);
         if (!is_dir($directory)) {
             @mkdir($directory, 0755, true);
         }
-        $destination = $directory . '/' . $id . '-thumb.jpg';
         $ok = imagejpeg($thumb, $destination, 86);
         imagedestroy($image);
         imagedestroy($thumb);
         if (!$ok) {
             return null;
         }
-        @chmod($destination, 0644);
-        return 'thumbnails/' . $yearMonth . '/' . $id . '-thumb.jpg';
+        @chmod($destination, str_contains($destination, '/storage/private/') ? 0600 : 0644);
+        return $relative;
     }
 
     private function probeDuration(string $path): ?float

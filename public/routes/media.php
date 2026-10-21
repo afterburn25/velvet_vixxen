@@ -26,6 +26,9 @@ if (!$valid) {
 }
 
 $asset = app_store()->mediaAsset($id);
+if (!(new App\Core\ProtectionRecords(app_config()))->publicationAllowed('asset', $id, $asset)) {
+    http_response_code(403); exit('This media is unavailable.');
+}
 $stored = (string) ($asset['file'] ?? '');
 if (!$asset || !str_starts_with($stored, 'private:')) {
     http_response_code(404);
@@ -50,6 +53,9 @@ if ($mime === '') {
     $mime = (string) (new finfo(FILEINFO_MIME_TYPE))->file($path);
 }
 $mime = $mime !== '' ? $mime : 'application/octet-stream';
+if (!(new App\Core\ProtectionRecords(app_config()))->publicationAllowed('asset', $id, $asset)) {
+    http_response_code(403); exit('This media is unavailable.');
+}
 
 header('Content-Type: ' . $mime);
 header('Accept-Ranges: bytes');

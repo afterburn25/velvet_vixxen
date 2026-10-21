@@ -35,7 +35,7 @@ try {
     if ($method === 'POST') {
         app_auth()->requireRecentOwner();
         if (!verify_csrf()) {
-            http_response_code(419);
+            vvx_response_status(419);
             throw new RuntimeException('Your session token expired. Reload this page and try again.');
         }
         $submittedAction = $_POST['action'] ?? '';

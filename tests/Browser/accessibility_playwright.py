@@ -15,15 +15,15 @@ spec=importlib.util.spec_from_file_location('accessibility_package',ROOT/'tests/
 depth=importlib.util.module_from_spec(spec);spec.loader.exec_module(depth)
 http=depth._base;check=http.check
 PUBLIC=['','about','music','photos','videos','membership','shop','collections','booking','account/login.php',
-        'account/register.php','cart','blog','newsletter','links','privacy/choices.php']
+        'account/register.php','cart','blog','newsletter','links','privacy/choices.php','reports']
 ADMIN=['dashboard','composer','security','mail-settings','menus','scene-schedules','marketing&tab=overview',
        'marketing&tab=posts','marketing&tab=campaigns','marketing&tab=deleted','marketing&tab=analytics',
-       'marketing&tab=notifications','marketing&tab=provider','members','payments','booking-form','media']
+       'marketing&tab=notifications','marketing&tab=provider','operations','protection','members','payments','booking-form','media']
 MEMBER=['account','account/library.php','account/billing.php','account/security.php','messages','requests']
 RUNTIME=['public/assets/js/site.js','public/assets/js/admin.js','public/assets/js/admin-ux.js','public/assets/js/navigation.js','public/home.php',
          'public/routes/messages/index.php','public/routes/account/security.php',
          'public/assets/css/site-ux.css','public/assets/css/admin-ux.css','admin/index.php','app/Views/admin/login.php','app/Views/admin/security.php',
-         'app/Views/admin/marketing-publication-editor.php','app/Views/admin/marketing-analytics.php']
+         'app/Views/admin/marketing-publication-editor.php','app/Views/admin/marketing-analytics.php','app/Views/admin/operations.php']
 TAGS=['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']
 
 
@@ -85,6 +85,7 @@ def run_case(browser,case,viewport,engine,evidence):
         for path in PUBLIC:
             visit('public/'+(path or 'home'),http.route(case['base'],path) if path else case['base']+'/',path in ['', 'account/register.php'])
         if viewport['width']<900:
+            page.goto(case['base']+'/',wait_until='networkidle')
             toggle=page.locator('#mobileMenu');toggle.focus();page.keyboard.press('Enter')
             key_check(toggle.get_attribute('aria-expanded')=='true','Public mobile navigation opens with Enter')
             page.keyboard.press('Escape');key_check(toggle.get_attribute('aria-expanded')=='false','Public mobile navigation closes with Escape')

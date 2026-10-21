@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__, 2) . '/includes/autoload.php';
+require_once dirname(__DIR__, 2) . '/app/Support/functions.php';
+
 require dirname(__DIR__, 2) . '/app/Core/MarketingStore.php';
 
 $root = sys_get_temp_dir() . '/vvx-marketing-test-' . bin2hex(random_bytes(6));

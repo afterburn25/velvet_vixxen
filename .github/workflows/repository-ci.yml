@@ -150,7 +150,21 @@ jobs:
             tests/Http/campaign_messages_fixture.php tests/Http/campaign_messages_http.py tests/Http/editorial_recovery_fixture.php
             tests/Http/editorial_recovery_http.py tests/Http/mail_provider_fixture.php tests/Http/mail_provider_http.py
             tests/Http/marketing_attribution_fixture.php tests/Http/marketing_attribution_http.py tests/Http/notifications_fixture.php
-            tests/Http/notifications_http.py tests/Packaging/fixtures/release-0.8.14-build-20261021.3.json)
+            tests/Http/notifications_http.py tests/Packaging/fixtures/release-0.8.14-build-20261021.3.json
+            app/Console/operations.php app/Console/run_backups.php app/Core/BackupArchive.php
+            app/Core/BackupDatabase.php app/Core/BackupJobs.php app/Core/BackupRestore.php
+            app/Core/BackupService.php app/Core/OperationsFiles.php app/Core/OperationsGate.php
+            app/Core/PrivateMediaResponse.php app/Core/ProtectionDelivery.php app/Core/ProtectionRecords.php
+            app/Core/ProtectionResources.php app/Core/ProtectionStoreTrait.php app/Core/ProtectionUploads.php
+            app/Docs/BACKUP_OPERATIONS.md app/Support/operations_admin.php app/Support/protection_admin.php
+            app/Views/admin/operations.php app/Views/admin/protection-actions.php app/Views/admin/protection.php
+            docs/ADMIN_SECURITY.md docs/BACKUP_OPERATIONS.md docs/ROAD_TO_1_0.md public/assets/css/operations.css
+            public/assets/css/protection-public.css public/assets/css/protection.css public/routes/protected-asset.php
+            public/routes/reports/index.php tests/Browser/operations_playwright.py tests/Browser/protection_records_playwright.py
+            tests/Database/operations_mysql.php tests/Feature/operations.php tests/Feature/protection_records.php
+            tests/Http/apache_status_http.py tests/Http/operations_fixture.php tests/Http/operations_http.py
+            tests/Http/protection_records_fixture.php tests/Http/protection_records_http.py
+            tests/Database/operations_ci_fixture.php tests/Feature/operations_ci_fixture.php tests/Database/OPERATIONS_CI.md)
           for file in "${required[@]}"; do
             test -s "$file" || { echo "Missing required source or handoff file: $file"; exit 1; }
           done
@@ -594,7 +608,7 @@ jobs:
           python-version: '3.12'
       - name: Install pinned real browser acceptance dependencies
         run: |
-          python -m pip install requests beautifulsoup4 playwright==1.62.0
+          python -m pip install requests beautifulsoup4 pillow==11.3.0 playwright==1.62.0
           python -m playwright install --with-deps chromium
       - name: Verify file and SQL HTTP authorization, preservation and interruption behavior
         run: python tests/Http/${{ matrix.feature }}_http.py --mode both
@@ -648,7 +662,7 @@ jobs:
       - name: Install pinned accessibility and browser engines
         run: |
           npm ci --prefix tests/Browser --ignore-scripts
-          python -m pip install requests beautifulsoup4 playwright==1.62.0
+          python -m pip install requests beautifulsoup4 pillow==11.3.0 playwright==1.62.0
           python -m playwright install --with-deps chromium
       - name: Exercise keyboard paths and rendered WCAG rules in desktop and mobile packages
         run: python tests/Browser/accessibility_playwright.py --mode both
@@ -730,9 +744,194 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  protection-runtime:
+    name: Protected media and Apache forms / ${{ matrix.engine }}
+    needs: repository-contract
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - engine: mysql8
+            image: mysql:8.0
+            health: mysqladmin ping --silent
+          - engine: mariadb-10.11
+            image: mariadb:10.11
+            health: healthcheck.sh --connect --innodb_initialized
+    services:
+      database:
+        image: ${{ matrix.image }}
+        env:
+          MYSQL_DATABASE: velvet_protection_test
+          MYSQL_USER: velvet_test
+          MYSQL_PASSWORD: velvet_test_fixture
+          MYSQL_ROOT_PASSWORD: velvet_root_fixture
+          MARIADB_DATABASE: velvet_protection_test
+          MARIADB_USER: velvet_test
+          MARIADB_PASSWORD: velvet_test_fixture
+          MARIADB_ROOT_PASSWORD: velvet_root_fixture
+        ports: ['3306:3306']
+        options: >-
+          --health-cmd="${{ matrix.health }}"
+          --health-interval=10s --health-timeout=5s --health-retries=12
+    env:
+      VELVET_TEST_DB_ENGINE: ${{ matrix.engine }}
+      VELVET_TEST_DB_HOST: 127.0.0.1
+      VELVET_TEST_DB_PORT: '3306'
+      VELVET_TEST_DB_NAME: velvet_protection_test
+      VELVET_TEST_DB_USER: velvet_test
+      VELVET_TEST_DB_PASSWORD: velvet_test_fixture
+      VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/protection
+      VELVET_APACHE_BINARY: /usr/sbin/apache2
+      VELVET_APACHE_MODULES: /usr/lib/apache2/modules
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium, dom
+          coverage: none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install real Apache and matching PHP handler with pinned browser tooling
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install --yes --no-install-recommends apache2-bin libapache2-mod-php8.3
+          sudo systemctl stop apache2
+          python -m pip install requests beautifulsoup4 pillow==11.3.0 playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Verify SQL protection records and guarded publication persistence
+        run: php tests/Feature/protection_records.php --mysql
+      - name: Verify actual server upload denial, holds, appeals and file release
+        run: python tests/Http/protection_records_http.py --mode both
+      - name: Preserve expired-form responses and rejected-state integrity on real Apache
+        run: python tests/Http/apache_status_http.py
+      - name: Review actual desktop and mobile protection controls
+        run: python tests/Browser/protection_records_playwright.py --mode both
+      - name: Upload protected-delivery and Apache acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: protection-${{ matrix.engine }}-evidence
+          path: artifacts/protection/
+          if-no-files-found: error
+          retention-days: 14
+
+  operations-recovery:
+    name: Operations restore (${{ matrix.engine }}, PHP ${{ matrix.php }})
+    needs: repository-contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.2', '8.3']
+        engine: [mysql-8.0, mariadb-10.11]
+        include:
+          - engine: mysql-8.0
+            image: mysql:8.0
+            client: mysql
+            health: mysqladmin ping --silent
+          - engine: mariadb-10.11
+            image: mariadb:10.11
+            client: mariadb
+            health: healthcheck.sh --connect --innodb_initialized
+    services:
+      database:
+        image: ${{ matrix.image }}
+        env:
+          MYSQL_ROOT_PASSWORD: velvet_root_fixture
+          MARIADB_ROOT_PASSWORD: velvet_root_fixture
+        ports:
+          - '127.0.0.1:3306:3306'
+        options: >-
+          --health-cmd="${{ matrix.health }}"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=12
+    env:
+      VVX_OPERATIONS_CI_DIR: ${{ runner.temp }}/vvx-operations-ci-${{ github.run_id }}-${{ github.run_attempt }}-${{ strategy.job-index }}
+      VELVET_SCREENSHOT_DIR: ${{ github.workspace }}/artifacts/operations
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: pdo_mysql, fileinfo, mbstring, openssl, gd, zip, sodium, dom, posix
+          coverage: none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install retained HTTP and browser dependencies
+        run: |
+          python -m pip install requests beautifulsoup4 pillow==11.3.0 playwright==1.62.0
+          python -m playwright install --with-deps chromium
+      - name: Check owned Operations fixture guards
+        run: php tests/Feature/operations_ci_fixture.php
+      - name: Prepare new private source and restore fixture
+        env:
+          VVX_ENGINE: ${{ matrix.engine }}
+        run: |
+          set -euo pipefail
+          umask 077
+          php tests/Database/operations_ci_fixture.php prepare "$VVX_OPERATIONS_CI_DIR" "$VVX_ENGINE" 3306
+      - name: Provision only this disposable service's new fixture pair
+        env:
+          VVX_SERVICE: ${{ job.services.database.id }}
+          VVX_IMAGE: ${{ matrix.image }}
+          VVX_CLIENT: ${{ matrix.client }}
+          MYSQL_PWD: velvet_root_fixture
+        run: |
+          set -euo pipefail
+          umask 077
+          test -n "$VVX_SERVICE"
+          test "$(docker inspect --format '{{.Config.Image}}' "$VVX_SERVICE")" = "$VVX_IMAGE"
+          test "$(docker inspect --format '{{.State.Health.Status}}' "$VVX_SERVICE")" = healthy
+          if ! docker exec -i -e MYSQL_PWD "$VVX_SERVICE" "$VVX_CLIENT" --no-defaults -uroot --batch \
+              < "$VVX_OPERATIONS_CI_DIR/provision.sql" \
+              > "$VVX_OPERATIONS_CI_DIR/provision-client.log" 2>&1; then
+            echo 'Disposable Operations provisioning failed; private SQL and client output were preserved outside artifacts.' >&2
+            exit 1
+          fi
+      - name: Verify actual engine and exact empty fixture pair
+        run: |
+          set -euo pipefail
+          mkdir -p "$VELVET_SCREENSHOT_DIR"
+          php tests/Database/operations_ci_fixture.php verify "$VVX_OPERATIONS_CI_DIR" \
+            > "$VELVET_SCREENSHOT_DIR/database-provisioning.json"
+      - name: Actual SQL encrypted backup and isolated restore
+        run: |
+          set -euo pipefail
+          source "$VVX_OPERATIONS_CI_DIR/source.env"
+          php tests/Database/operations_mysql.php
+          php tests/Database/operations_ci_fixture.php verify "$VVX_OPERATIONS_CI_DIR" \
+            > "$VELVET_SCREENSHOT_DIR/database-after-source.json"
+      - name: Actual packaged Operations HTTP acceptance
+        run: |
+          set -euo pipefail
+          source "$VVX_OPERATIONS_CI_DIR/source.env"
+          python tests/Http/operations_http.py --mode both
+          php tests/Database/operations_ci_fixture.php verify "$VVX_OPERATIONS_CI_DIR" \
+            > "$VELVET_SCREENSHOT_DIR/database-after-http.json"
+      - name: Actual packaged Operations desktop and mobile acceptance
+        run: |
+          set -euo pipefail
+          source "$VVX_OPERATIONS_CI_DIR/source.env"
+          python tests/Browser/operations_playwright.py --mode both
+          php tests/Database/operations_ci_fixture.php verify "$VVX_OPERATIONS_CI_DIR" \
+            > "$VELVET_SCREENSHOT_DIR/database-after-browser.json"
+      - name: Upload actual Operations evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: operations-${{ matrix.engine }}-php${{ matrix.php }}-evidence
+          path: artifacts/operations/
+          if-no-files-found: error
+
   runtime-packages:
     name: Build verified fresh-install and upgrade ZIPs
-    needs: [source-tests, mysql-migrations, http-browser, safeguards-browser, accessibility, mariadb-compatibility]
+    needs: [source-tests, mysql-migrations, http-browser, safeguards-browser, accessibility, mariadb-compatibility, protection-runtime, operations-recovery]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

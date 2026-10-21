@@ -22,7 +22,7 @@ if (!$owner || empty($owner['is_active']) || ($owner['role'] ?? '') !== 'owner'
     exit('Only the active site owner can recover an add-on change.');
 }
 if (!verify_csrf()) {
-    http_response_code(419);
+    vvx_response_status(419);
     exit('Your session token expired. Refresh the Add-on Manager and try again.');
 }
 $addonId = $_POST['addon_id'] ?? null;

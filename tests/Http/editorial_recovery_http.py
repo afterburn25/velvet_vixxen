@@ -219,6 +219,10 @@ def rejected_requests(owner, guest, member, case, entry):
         finally:
             http.fixture(site, "owner-status", php, status="owner")
         history.no_writes(before, history.snapshot(site, php), "Revoked owner recovery refusal")
+        if status == "inactive":
+            check(owner.get(url(base), timeout=20, allow_redirects=False).status_code == 403,
+                  "Restoring an owner account resurrected its revoked session.")
+            http.owner_login(base, owner)
     return {"invalid_vectors": [label for label, _ in attempts], "guest_member_demoted_inactive_denied": True,
             "method_and_foreign_dispatch_guards": True, "failed_post_requires_explicit_reload": True}
 
@@ -313,6 +317,10 @@ def blocked_owner_reads(owner, case, entry):
             http.fixture(site, "owner-status", php, status="owner")
             release.unlink(missing_ok=True)
         history.no_writes(before, history.snapshot(site, php), "Owner revoked during recovery " + action)
+        if status == "inactive":
+            check(owner.get(url(base), timeout=20, allow_redirects=False).status_code == 403,
+                  "Restoring an owner after a blocked read resurrected its revoked session.")
+            http.owner_login(base, owner)
         outcomes.append({"action": action, "owner_change": status, "observed_records_select_wait": True, "http_status": 403})
     return outcomes
 

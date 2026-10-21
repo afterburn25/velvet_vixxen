@@ -28,8 +28,8 @@ $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1' && app_auth()
 require_once root_path('includes/marketing.php');
 if (!$previewMode) velvet_marketing_record_pageview();
 $publicScenes = [
-    'hero' => $store->scene('hero', !$previewMode),
-    'footer' => $store->scene('footer', !$previewMode),
+    'hero' => scene_protected_paths($store->scene('hero', !$previewMode)),
+    'footer' => scene_protected_paths($store->scene('footer', !$previewMode)),
 ];
 $featuredGalleries = array_slice($store->galleries(true), 0, 5);
 $featuredTracks = array_slice($store->tracks(true), 0, 3);
@@ -91,7 +91,7 @@ $trailerCaptionSrc = $trailerCaption !== [] ? media_asset_src($trailerCaption, f
   </div>
   <div class="content-wrap">
     <div class="section-heading"><div><span class="eyebrow pink">Private collection</span><h2>Popular Sets</h2></div><a href="<?= e(base_url('photos/')) ?>">View All <span>→</span></a></div>
-    <div class="set-grid">
+    <div class="set-grid" tabindex="0" role="region" aria-label="Popular photo sets">
       <?php if ($featuredGalleries !== []): foreach ($featuredGalleries as $gallery): $cover=(array)($gallery['coverAsset']??[]); $galleryDecision=entitlement_resolver()->resolve('gallery',$gallery,$member,false); ?>
       <a class="set-card" href="<?= e(base_url('photos/view.php?slug='.rawurlencode((string)$gallery['slug']))) ?>"><div class="set-image"><img src="<?= e(media_thumbnail_src($cover)) ?>" alt="<?= e((string)$gallery['title']) ?>"><span class="lock-badge"><?= $galleryDecision['allowed']?'↗':'◆' ?></span></div><h3><?= e((string)$gallery['title']) ?></h3><p><?= e((string)count((array)($gallery['items']??[]))) ?> Photos · <?= e($galleryDecision['allowed']?'Available':MediaAccess::label((string)$gallery['accessMode'])) ?></p></a>
       <?php endforeach; else: foreach ([['Pink Paradise',48,'set-1.jpg'],['Vixxen Nights',32,'set-2.jpg'],['Mirror Play',27,'set-3.jpg'],['Lingerie Lounge',41,'set-4.jpg'],['Velvet Escapes',36,'set-5.jpg']] as [$title,$count,$image]): ?>

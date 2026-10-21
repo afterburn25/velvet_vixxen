@@ -40,7 +40,7 @@ trait MediaStoreTrait
         }
         $where = $publishedOnly ? "WHERE a.status = 'published'" : '';
         $rows = $this->pdo()->query("SELECT a.*, c.file_path AS cover_file, c.thumbnail_path AS cover_thumbnail FROM audio_albums a LEFT JOIN media_assets c ON c.id = a.cover_asset_id {$where} ORDER BY COALESCE(a.published_at, a.created_at) DESC, a.id DESC")->fetchAll();
-        return array_map(fn(array $row): array => $this->mapAlbumRow($row), $rows);
+        return $this->protectedPublicRows('album', array_map(fn(array $row): array => $this->mapAlbumRow($row), $rows), $publishedOnly);
     }
 
     public function album(string|int $identifier): ?array
@@ -56,7 +56,13 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $album */
     public function saveAlbum(array $album): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->saveAlbumRecord($album));
+    }
+
+    private function saveAlbumRecord(array $album): array
+    {
         $album = $this->normalizeContent($album, 'album');
+        $this->requireProtectedPublication('album', $album);
         if ($this->mode === 'file') {
             return $this->saveFileContent('albums', $album);
         }
@@ -83,7 +89,7 @@ trait MediaStoreTrait
         }
         $where = $publishedOnly ? "WHERE t.status = 'published'" : '';
         $rows = $this->pdo()->query("SELECT t.*, a.title AS album_title, m.file_path AS audio_file, m.thumbnail_path AS audio_thumbnail, m.mime_type AS audio_mime, m.duration_seconds AS asset_duration, c.file_path AS cover_file, c.thumbnail_path AS cover_thumbnail FROM audio_tracks t LEFT JOIN audio_albums a ON a.id=t.album_id LEFT JOIN media_assets m ON m.id=t.audio_asset_id LEFT JOIN media_assets c ON c.id=t.cover_asset_id {$where} ORDER BY t.sort_order, COALESCE(t.published_at,t.created_at) DESC,t.id DESC")->fetchAll();
-        return array_map(fn(array $row): array => $this->mapTrackRow($row), $rows);
+        return $this->protectedPublicRows('track', array_map(fn(array $row): array => $this->mapTrackRow($row), $rows), $publishedOnly);
     }
 
     public function track(string|int $identifier): ?array
@@ -99,10 +105,16 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $track */
     public function saveTrack(array $track): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->saveTrackRecord($track));
+    }
+
+    private function saveTrackRecord(array $track): array
+    {
         $track = $this->normalizeContent($track, 'track');
         $track['artist'] = trim((string) ($track['artist'] ?? 'Nikki Wilder')) ?: 'Nikki Wilder';
         $track['sortOrder'] = (int) ($track['sortOrder'] ?? 100);
         $track['previewSeconds'] = max(0, (int) ($track['previewSeconds'] ?? 0));
+        $this->requireProtectedPublication('track', $track);
         if ($this->mode === 'file') {
             $audio = $this->mediaAsset((string) ($track['audioAssetId'] ?? ''));
             if (!$audio) {
@@ -158,7 +170,7 @@ trait MediaStoreTrait
             $playlist['revision'] = MediaInput::revision($playlist, 'playlist');
             $result[] = $playlist;
         }
-        return $result;
+        return $this->protectedPublicRows('playlist', $result, $publishedOnly);
     }
 
     public function audioPlaylist(string|int $identifier): ?array
@@ -174,6 +186,11 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $playlist */
     public function saveAudioPlaylist(array $playlist): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->saveAudioPlaylistRecord($playlist));
+    }
+
+    private function saveAudioPlaylistRecord(array $playlist): array
+    {
         $id = MediaInput::id($playlist['id'] ?? '');
         if ($this->mode === 'file') {
             return $this->mutateFileStore(function (array &$data) use ($playlist, $id): array {
@@ -187,6 +204,7 @@ trait MediaStoreTrait
                     }
                 }
                 $this->requireImageAsset($saved['coverAssetId'], (array) ($data['media'] ?? []), true);
+                $this->requireProtectedPublication('playlist', $saved);
                 $saved = $this->putMediaFileRecord($data, 'audioPlaylists', $saved);
                 return $this->hydrateFileMedia('audioPlaylists', $saved, $data);
             });
@@ -213,6 +231,7 @@ trait MediaStoreTrait
             }
             $this->checkMediaRevision($playlist, $existing, 'playlist');
             $saved = $this->normalizePlaylist($playlist, $existing);
+            $this->requireProtectedPublication('playlist', $saved);
             if ($saved['trackIds'] !== []) {
                 foreach ($saved['trackIds'] as $trackId) {
                     $this->requireSqlMediaId($trackId);
@@ -254,7 +273,7 @@ trait MediaStoreTrait
         }
         $where = "WHERE g.deleted_at IS NULL" . ($publishedOnly ? " AND g.status='published'" : '');
         $rows = $this->pdo()->query("SELECT g.*, c.file_path AS cover_file, c.thumbnail_path AS cover_thumbnail FROM photo_galleries g LEFT JOIN media_assets c ON c.id=g.cover_asset_id {$where} ORDER BY COALESCE(g.published_at,g.created_at) DESC,g.id DESC")->fetchAll();
-        return array_map(fn(array $row): array => $this->mapGalleryRow($row, true), $rows);
+        return $this->protectedPublicRows('gallery', array_map(fn(array $row): array => $this->mapGalleryRow($row, true), $rows), $publishedOnly);
     }
 
     public function gallery(string|int $identifier): ?array
@@ -270,6 +289,11 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $gallery */
     public function saveGallery(array $gallery): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->saveGalleryRecord($gallery));
+    }
+
+    private function saveGalleryRecord(array $gallery): array
+    {
         $id = MediaInput::id($gallery['id'] ?? '');
         if ($this->mode === 'file') {
             return $this->mutateFileStore(function (array &$data) use ($gallery, $id): array {
@@ -277,6 +301,7 @@ trait MediaStoreTrait
                     ? $this->hydrateFileMedia('galleries', $data['mediaCenter']['galleries'][$id], $data) : [];
                 $this->checkMediaRevision($gallery, $existing, 'gallery');
                 [$saved, $tags] = $this->normalizeGallery($gallery, $existing, (array) ($data['media'] ?? []));
+                $this->requireProtectedPublication('gallery', $saved);
                 foreach ($tags as $assetId => $assetTags) {
                     $data['media'][$assetId]['tags'] = $assetTags;
                 }
@@ -328,6 +353,7 @@ trait MediaStoreTrait
             }
             $this->checkMediaRevision($gallery, $existing, 'gallery');
             [$saved, $tags] = $this->normalizeGallery($gallery, $existing, $assets);
+            $this->requireProtectedPublication('gallery', $saved);
             $values = [$saved['slug'], $saved['title'], $saved['description'], $this->numericOrNull($saved['coverAssetId']), $saved['status'], $saved['accessMode'], $saved['standardPrice'], $saved['subscriberPrice'], $saved['rentalPrice'], $saved['rentalHours'] ?: null, $saved['currency'], $saved['previewCount'], $this->mediaSqlDate($saved['publishedAt']), $this->mediaSqlDate($saved['scheduledAt'])];
             if ($id !== '') {
                 $stmt=$pdo->prepare('UPDATE photo_galleries SET slug=?,title=?,description=?,cover_asset_id=?,status=?,access_mode=?,standard_price=?,subscriber_price=?,rental_price=?,rental_hours=?,currency=?,preview_count=?,published_at=?,scheduled_at=?,updated_at=NOW() WHERE id=?');
@@ -358,7 +384,7 @@ trait MediaStoreTrait
         }
         $where=$publishedOnly?"WHERE v.status='published'":'';
         $rows=$this->pdo()->query("SELECT v.*, p.file_path AS poster_file,p.thumbnail_path AS poster_thumbnail,t.file_path AS trailer_file,t.mime_type AS trailer_mime,f.file_path AS full_file,f.mime_type AS full_mime,c.file_path AS caption_file,c.mime_type AS caption_mime FROM videos v LEFT JOIN media_assets p ON p.id=v.poster_asset_id LEFT JOIN media_assets t ON t.id=v.trailer_asset_id LEFT JOIN media_assets f ON f.id=v.full_video_asset_id LEFT JOIN media_assets c ON c.id=v.caption_asset_id {$where} ORDER BY COALESCE(v.published_at,v.created_at) DESC,v.id DESC")->fetchAll();
-        return array_map(fn(array $row):array=>$this->mapVideoRow($row),$rows);
+        return $this->protectedPublicRows('video', array_map(fn(array $row):array=>$this->mapVideoRow($row),$rows), $publishedOnly);
     }
 
     public function video(string|int $identifier): ?array
@@ -374,7 +400,13 @@ trait MediaStoreTrait
     /** @param array<string,mixed> $video */
     public function saveVideo(array $video): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->saveVideoRecord($video));
+    }
+
+    private function saveVideoRecord(array $video): array
+    {
         $video=$this->normalizeContent($video,'video');
+        $this->requireProtectedPublication('video', $video);
         $video['standardPrice']=$this->priceOrNull($video['standardPrice']??null);
         $video['subscriberPrice']=$this->priceOrNull($video['subscriberPrice']??null);
         $video['rentalPrice']=$this->priceOrNull($video['rentalPrice']??null);
@@ -414,6 +446,11 @@ trait MediaStoreTrait
      */
     public function publishDueMedia(int $limit = 100, ?DateTimeImmutable $now = null): array
     {
+        return (new ProtectionRecords($this->config))->withPublicationLock(fn(): array => $this->publishDueMediaRecords($limit, $now));
+    }
+
+    private function publishDueMediaRecords(int $limit = 100, ?DateTimeImmutable $now = null): array
+    {
         if ($limit < 1 || $limit > 500) {
             throw new RuntimeException('Publish between 1 and 500 media items per run.');
         }
@@ -438,6 +475,8 @@ trait MediaStoreTrait
                 $stats = $empty;
                 foreach (array_slice($due, 0, $limit) as $candidate) {
                     $record = &$data['mediaCenter'][$candidate['collection']][$candidate['id']];
+                    $kind = array_search($candidate['collection'], self::PROTECTION_COLLECTIONS, true);
+                    if (!$this->protectionAllowed($kind, $candidate['id'], $record)) { unset($record); continue; }
                     $record['status'] = 'published';
                     if (empty($record['publishedAt'])) {
                         $record['publishedAt'] = $record['scheduledAt'];
@@ -469,6 +508,9 @@ trait MediaStoreTrait
             usort($due, static fn(array $a, array $b): int => ($a['when'] <=> $b['when']) ?: strcmp($a['type'] . ':' . $a['id'], $b['type'] . ':' . $b['id']));
             $stats = $empty;
             foreach (array_slice($due, 0, $limit) as $candidate) {
+                $kind = array_search($candidate['table'], self::PROTECTION_TABLES, true);
+                $record = $this->protectionMediaSnapshot()[$kind][$candidate['id']] ?? null;
+                if ($record === null || !$this->protectionAllowed($kind, $candidate['id'], $record)) continue;
                 // Conditional update is the claim and publication in one step:
                 // concurrent workers or an intervening owner edit cannot reuse it.
                 $update = $pdo->prepare("UPDATE {$candidate['table']} SET status='published',published_at=COALESCE(published_at,scheduled_at),updated_at=? WHERE id=? AND status='scheduled' AND scheduled_at=? AND published_at <=> ? AND scheduled_at<=? AND (published_at IS NULL OR published_at<=?){$candidate['deleted']}");
@@ -700,7 +742,8 @@ trait MediaStoreTrait
         }
         if($publishedOnly){$rows=array_values(array_filter($rows,static fn(array $row):bool=>(string)($row['status']??'draft')==='published'));}
         usort($rows,static fn(array $a,array $b):int=>strcmp((string)($b['publishedAt']??$b['createdAt']??''),(string)($a['publishedAt']??$a['createdAt']??'')));
-        return $rows;
+        $kind = array_search($key, self::PROTECTION_COLLECTIONS, true);
+        return $this->protectedPublicRows($kind, $rows, $publishedOnly);
     }
 
     /** @param array<string,mixed> $item */
@@ -712,6 +755,7 @@ trait MediaStoreTrait
         $existing=(array)($data['mediaCenter'][$collection][$id]??[]);
         $createdAt=(string)($existing['createdAt']??$item['createdAt']??now_iso());
         $item=array_merge($existing,$item,['id'=>$id,'createdAt'=>$createdAt,'updatedAt'=>now_iso()]);
+        $this->requireProtectedPublication(array_search($collection, self::PROTECTION_COLLECTIONS, true), $item);
         if(($item['status']??'')==='published'&&empty($item['publishedAt'])){$item['publishedAt']=now_iso();}
         $data['mediaCenter'][$collection][$id]=$item;
         $this->writeFileStore($data);

@@ -2,19 +2,19 @@
 declare(strict_types=1);
 header('Cache-Control: no-store, private, max-age=0');
 header('Referrer-Policy: no-referrer');
-if (app_auth()->check()) redirect(base_url('admin/'));
+if (app_auth()->check()) redirect(base_url(\App\Core\OperationsGate::recovery() ? 'admin/?page=operations' : 'admin/'));
 $installComplete = isset($_GET['installed']) && is_installed();
 $error = '';
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     try {
-        if (!verify_csrf()) { http_response_code(419); throw new RuntimeException('Your sign-in session expired. Refresh and try again.'); }
+        if (!verify_csrf()) { vvx_response_status(419); throw new RuntimeException('Your sign-in session expired. Refresh and try again.'); }
         if (($_POST['action'] ?? '') === 'restart_login') { unset($_SESSION['admin_pending']); redirect(base_url('admin/?page=login')); }
         if (app_auth()->pending()) {
-            if (app_auth()->completeChallenge(is_string($_POST['code'] ?? null) ? $_POST['code'] : '')) redirect(base_url('admin/'));
+            if (app_auth()->completeChallenge(is_string($_POST['code'] ?? null) ? $_POST['code'] : '')) redirect(base_url(\App\Core\OperationsGate::recovery() ? 'admin/?page=operations' : 'admin/'));
             $error = 'The authentication code was not accepted. Use a current code or an unused recovery code. Repeated attempts require a 15-minute wait.';
         } else {
             $ok = app_auth()->attempt(is_string($_POST['email'] ?? null) ? $_POST['email'] : '', is_string($_POST['password'] ?? null) ? $_POST['password'] : '');
-            if ($ok) redirect(base_url('admin/'));
+            if ($ok) redirect(base_url(\App\Core\OperationsGate::recovery() ? 'admin/?page=operations' : 'admin/'));
             if (!app_auth()->pending()) $error = 'The email address or password was not accepted. Repeated attempts require a 15-minute wait.';
         }
     } catch (Throwable $caught) {

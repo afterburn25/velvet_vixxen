@@ -120,8 +120,8 @@ def changed(values, **updates):
     return result
 
 
-def owner_login(base: str):
-    owner = session()
+def owner_login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=15)
     values = dict(fields(page.text))
     response = owner.post(base + '/admin/?page=login', data={'_csrf': values['_csrf'],

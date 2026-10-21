@@ -119,7 +119,7 @@ final class MarketingMetadata
      * An existing public image original only. A public thumbnail does not make a
      * protected original eligible. Returned paths are local, never signed URLs.
      */
-    public static function image(array $asset, string $root): ?array
+    public static function image(array $asset, string $root, bool $ownerReview = false): ?array
     {
         if (!empty($asset['private']) || !empty($asset['deletedAt']) || !empty($asset['deleted_at'])) return null;
         $id = $asset['id'] ?? null;
@@ -141,6 +141,8 @@ final class MarketingMetadata
         if ($hasMime && (!is_string($mime) || !in_array($mime, $allowed, true))) return null;
         $root = realpath($root);
         if ($root === false) return null;
+        $protection = new \App\Core\ProtectionRecords(new Config($root . '/config/app.php'));
+        if (!$ownerReview && !$protection->publicationAllowed('asset', $id, $asset)) return null;
         $relative = str_starts_with($file, 'uploads/') ? $file
             : (str_starts_with($file, 'images/') && is_file($root . '/' . $file) ? $file : 'uploads/' . $file);
         $parent = $root;
@@ -150,26 +152,33 @@ final class MarketingMetadata
         }
         $absolute = realpath($root . '/' . $relative);
         $allowedRoot = realpath($root . '/' . (str_starts_with($relative, 'uploads/') ? 'uploads' : 'images'));
-        if ($absolute === false || $allowedRoot === false || !is_file($absolute)
+        $protected = null;
+        if ($protection->enabled()) {
+            try {
+                $protected = $protection->vaultEntry($relative);
+                if ($protected !== null) $absolute = (new \App\Core\ProtectionResources(new Config($root . '/config/app.php')))->vaultFile($protected);
+            } catch (Throwable) { return null; }
+        }
+        if ($protected === null && ($absolute === false || $allowedRoot === false || !is_file($absolute)
             || !str_starts_with($absolute, $allowedRoot . DIRECTORY_SEPARATOR)
-            || !str_starts_with($allowedRoot, $root . DIRECTORY_SEPARATOR)) return null;
+            || !str_starts_with($allowedRoot, $root . DIRECTORY_SEPARATOR))) return null;
         $dimensions = @getimagesize($absolute);
         if ($dimensions === false || !in_array($dimensions['mime'] ?? '', $allowed, true)
             || ($hasMime && ($dimensions['mime'] ?? '') !== $mime) || ($dimensions[0] ?? 0) < 1 || ($dimensions[1] ?? 0) < 1) return null;
         try { $title = MarketingAudience::text($asset['title'] ?? '', 255, 'Image title'); }
         catch (InvalidArgumentException) { $title = ''; }
-        return ['id' => $id, 'title' => $title !== '' ? $title : 'Saved image', 'path' => $relative,
+        return ['id' => $id, 'title' => $title !== '' ? $title : 'Saved image', 'path' => $protected === null ? $relative : 'route.php?vvx_route=protected-asset.php&file=' . hash('sha256', $relative),
             'width' => (int) $dimensions[0], 'height' => (int) $dimensions[1]];
     }
 
     /** Fresh catalogue resolution; missing or changed assets are omitted on reads. */
-    public static function resolveImage(string $id, string $root): ?array
+    public static function resolveImage(string $id, string $root, bool $ownerReview = false): ?array
     {
         if ($id === '') return null;
         try {
             self::mediaId($id);
             $asset = self::assetStore($root)->mediaAsset($id, true);
-            return $asset === null ? null : self::image($asset, $root);
+            return $asset === null ? null : self::image($asset, $root, $ownerReview);
         } catch (Throwable) { return null; }
     }
 

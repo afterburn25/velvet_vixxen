@@ -95,6 +95,10 @@ function vvx_public_routes(): array
     'videos/index.php' => 'videos/index.php',
     'videos/watch.php' => 'videos/watch.php',
     'media.php' => 'media.php',
+    'protected-asset.php' => 'protected-asset.php',
+    'reports' => 'reports/index.php',
+    'reports/' => 'reports/index.php',
+    'reports/index.php' => 'reports/index.php',
     ];
 }
 

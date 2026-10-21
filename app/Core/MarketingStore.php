@@ -78,8 +78,9 @@ final class MarketingStore
     public function publishedPosts(?int $limit = null, ?array $viewer = null): array
     {
         $now = time();
-        $posts = array_values(array_filter($this->all()['posts'], static fn(mixed $post): bool => is_array($post)
-            && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)));
+        $posts = array_values(array_filter($this->all()['posts'], fn(mixed $post): bool => is_array($post)
+            && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)
+            && $this->protectionAllows('posts', $post)));
         usort($posts, static fn(array $a, array $b): int => (MarketingPublication::storedDate($b['publish_at'] ?? null)?->getTimestamp() ?? 0)
             <=> (MarketingPublication::storedDate($a['publish_at'] ?? null)?->getTimestamp() ?? 0));
         return array_map(MarketingHistory::withoutHistory(...), $limit ? array_slice($posts, 0, $limit) : $posts);
@@ -97,7 +98,7 @@ final class MarketingStore
     public function relatedPosts(string $sourceId, ?array $viewer = null): array
     {
         MarketingPublication::id($sourceId);
-        return self::relatedFromSnapshot($this->all(), $sourceId, $viewer, false);
+        return self::relatedFromSnapshot($this->all(), $sourceId, $viewer, false, $this->root);
     }
 
     /** The active-owner caller rechecks ownership after this and all media reads. */
@@ -108,7 +109,7 @@ final class MarketingStore
         return $data === null ? [] : self::relatedFromSnapshot($data, $sourceId, null, true);
     }
 
-    private static function relatedFromSnapshot(array $data, string $sourceId, ?array $viewer, bool $preview): array
+    private static function relatedFromSnapshot(array $data, string $sourceId, ?array $viewer, bool $preview, ?string $root = null): array
     {
         $posts = []; $duplicates = [];
         foreach ($data['posts'] as $record) {
@@ -120,14 +121,15 @@ final class MarketingStore
         $source = $posts[$sourceId] ?? null;
         $now = time();
         if ($source === null || isset($duplicates[$sourceId]) || (!$preview
-            && (!MarketingPublication::visibility('posts', $source, $now)['visible'] || !MarketingAccess::allows($source, $viewer)))) return [];
+            && (!MarketingPublication::visibility('posts', $source, $now)['visible'] || !MarketingAccess::allows($source, $viewer)
+                || !self::protectedRecordAllows('posts', $source, $root)))) return [];
         $ids = MarketingMetadata::describe('posts', $source)['values']['related_post_ids'];
         $related = [];
         foreach ($ids as $id) {
             if ($id === $sourceId || isset($duplicates[$id]) || !isset($posts[$id])) continue;
             $record = $posts[$id];
             if (!$preview && (!MarketingPublication::visibility('posts', $record, $now)['visible']
-                || !MarketingAccess::allows($record, $viewer))) continue;
+                || !MarketingAccess::allows($record, $viewer) || !self::protectedRecordAllows('posts', $record, $root))) continue;
             $related[] = MarketingHistory::withoutHistory($record);
         }
         return $related;
@@ -281,6 +283,7 @@ final class MarketingStore
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
             $this->validateMetadataReferences($collection, $fields, $record, $data);
             $record = MarketingHistory::capture($collection, $existing, $record, 'save');
+            $this->requireProtectedPublication($collection, $record);
             // Media catalogue reads can wait. Authorization must be checked only
             // after every saved reference has been resolved inside this lock.
             if ($authorize !== null) $authorize($record);
@@ -292,7 +295,7 @@ final class MarketingStore
     private function validateMetadataReferences(string $collection, array $fields, array $record, array $data): void
     {
         if (array_key_exists('featured_asset_id', $fields) && $fields['featured_asset_id'] !== ''
-            && MarketingMetadata::resolveImage($fields['featured_asset_id'], $this->root) === null) {
+            && MarketingMetadata::resolveImage($fields['featured_asset_id'], $this->root, true) === null) {
             throw new \InvalidArgumentException('That featured image is unavailable. Choose a current public image from the Media Library.');
         }
         if ($collection !== 'posts' || !array_key_exists('related_post_ids', $fields)) return;
@@ -322,10 +325,28 @@ final class MarketingStore
             $record['edit_version'] = (int) ($record['edit_version'] ?? 0) + 1;
             $record['updated_at'] = gmdate('c');
             $record = MarketingHistory::capture($collection, $previous, $record, 'visibility', !$enabled);
+            $this->requireProtectedPublication($collection, $record);
             if ($authorize !== null) $authorize($record);
             $data[$collection][$index] = $record;
             return MarketingHistory::describe($collection, $record);
         });
+    }
+
+    private static function protectedRecordAllows(string $collection, array $record, ?string $root): bool
+    {
+        if ($collection === 'banners') return true;
+        $root ??= dirname(__DIR__, 2);
+        return (new \App\Core\ProtectionRecords(new \App\Core\Config($root . '/config/app.php')))
+            ->publicationAllowed($collection === 'posts' ? 'post' : 'landing_page', (string) ($record['id'] ?? ''), $record);
+    }
+
+    private function protectionAllows(string $collection, array $record): bool { return self::protectedRecordAllows($collection, $record, $this->root); }
+
+    private function requireProtectedPublication(string $collection, array $record): void
+    {
+        if (MarketingPublication::enabled($collection, $record) && !$this->protectionAllows($collection, $record)) {
+            throw new \RuntimeException('A protection hold or release review prevents publication. Save this item as a draft or disabled and review Protection & policies.', 409);
+        }
     }
 
     /** Removal and private capture are one commit; no archive entry is silently evicted. */
@@ -961,8 +982,8 @@ final class MarketingStore
     private function activeWindow(string $collection, ?array $viewer = null): array
     {
         $now = time();
-        return array_map(MarketingHistory::withoutHistory(...), array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
-            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer))));
+        return array_map(MarketingHistory::withoutHistory(...), array_values(array_filter($this->all()[$collection] ?? [], fn(mixed $item): bool => is_array($item)
+            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer) && $this->protectionAllows($collection, $item))));
     }
 
     private function id(string $prefix): string

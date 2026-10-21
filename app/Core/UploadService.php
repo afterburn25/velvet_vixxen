@@ -22,21 +22,17 @@ final class UploadService
             throw new RuntimeException('Unsupported image type. Upload JPG, PNG, or WebP.');
         }
         $id = bin2hex(random_bytes(12));
-        $directory = root_path('uploads/media/' . gmdate('Y/m'));
-        $thumbDirectory = root_path('uploads/thumbnails/' . gmdate('Y/m'));
-        foreach ([$directory, $thumbDirectory] as $path) {
-            if (!is_dir($path) && !mkdir($path, 0755, true) && !is_dir($path)) {
-                throw new RuntimeException('Unable to create the upload directory.');
-            }
-        }
+        $uploads = new ProtectionUploads(app_config());
         $filename = $id . '.' . $ext;
-        $destination = $directory . '/' . $filename;
+        $relative = 'media/' . gmdate('Y/m') . '/' . $filename;
+        $destination = $uploads->destination($relative);
+        $directory = dirname($destination);
+        if (!is_dir($directory) && !mkdir($directory, 0755, true) && !is_dir($directory)) throw new RuntimeException('Unable to create the upload directory.');
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
             throw new RuntimeException('Unable to store the uploaded image.');
         }
-        @chmod($destination, 0644);
+        @chmod($destination, str_contains($destination, '/storage/private/') ? 0600 : 0644);
         [$width, $height] = getimagesize($destination) ?: [0, 0];
-        $relative = 'media/' . gmdate('Y/m') . '/' . $filename;
 
         $thumbnailRelative = $relative;
         if ($thumbnailFile && ($thumbnailFile['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_NO_FILE) {
@@ -47,16 +43,21 @@ final class UploadService
                 throw new RuntimeException('Custom thumbnail must be JPG, PNG, or WebP.');
             }
             $thumbFilename = $id . '-thumb.' . $thumbExt;
-            $thumbDestination = $thumbDirectory . '/' . $thumbFilename;
+            $thumbnailRelative = 'thumbnails/' . gmdate('Y/m') . '/' . $thumbFilename;
+            $thumbDestination = $uploads->destination($thumbnailRelative);
+            if (!is_dir(dirname($thumbDestination)) && !mkdir(dirname($thumbDestination), 0755, true) && !is_dir(dirname($thumbDestination))) throw new RuntimeException('Unable to create the thumbnail directory.');
             if (!move_uploaded_file($thumbnailFile['tmp_name'], $thumbDestination)) {
                 throw new RuntimeException('Unable to store the custom thumbnail.');
             }
-            @chmod($thumbDestination, 0644);
-            $thumbnailRelative = 'thumbnails/' . gmdate('Y/m') . '/' . $thumbFilename;
+            @chmod($thumbDestination, str_contains($thumbDestination, '/storage/private/') ? 0600 : 0644);
         } else {
-            $generated = $this->makeThumbnail($destination, $thumbDirectory . '/' . $id . '-thumb.jpg');
+            $generatedRelative = 'thumbnails/' . gmdate('Y/m') . '/' . $id . '-thumb.jpg';
+            $generatedPath = $uploads->destination($generatedRelative);
+            if (!is_dir(dirname($generatedPath)) && !mkdir(dirname($generatedPath), 0755, true) && !is_dir(dirname($generatedPath))) throw new RuntimeException('Unable to create the thumbnail directory.');
+            $generated = $this->makeThumbnail($destination, $generatedPath);
             if ($generated) {
-                $thumbnailRelative = 'thumbnails/' . gmdate('Y/m') . '/' . $id . '-thumb.jpg';
+                @chmod($generatedPath, str_contains($generatedPath, '/storage/private/') ? 0600 : 0644);
+                $thumbnailRelative = $generatedRelative;
             }
         }
 

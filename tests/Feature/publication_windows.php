@@ -1,6 +1,9 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__, 2) . '/includes/autoload.php';
+require_once dirname(__DIR__, 2) . '/app/Support/functions.php';
+
 use Velvet\Core\MarketingPublication as Publication;
 use Velvet\Core\MarketingStore;
 
