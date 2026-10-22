@@ -10,6 +10,8 @@ The storage change uses existing order-item metadata and the existing fulfillmen
 Local evidence currently includes all 67 source/module suites, the focused purchased-terms file suite, and strict reproducible Fresh/Upgrade packaging. Actual packaged file HTTP checkout/recovery/billing passes at root and nested paths. Database and final changed-source results are recorded in the candidate evidence as they finish. The complete workflow, actual desktop/mobile/no-script browser evidence, reviewed artifacts, guarded merge and saved customer-file readback remain required. The local sandbox denies Chromium's required Unix sockets and foreign-owner fixture operations; no passing result is substituted for those gates.
 
 The full recurring agreement/cycle/cancel/resume increment and approved live provider/merchant acceptance remain separate, along with configured mail/age services, actual-host #12/#13 and owner policy/retention decisions. [Candidate guide](PURCHASED_TERMS.md) describes exact behavior, legacy limits and remaining acceptance.
+**Correction checkpoint:** local MariaDB 10.11.14 purchased terms passed 42 assertions; retained payment foundation passed 391 assertions with four real killed workers and cleaned owned schema. Exact-package HTTP passed file root/nested (45 checks each) and MariaDB root/nested (86 each). Bundle definition deduplication/rollback and retained merchandise form revisions were corrected. The original PR workflow is historical and cannot certify these changes; complete corrected CI remains required. See `docs/releases/0.9.2-purchased-terms-corrections.json`.
+
 <!-- purchased-terms-092-candidate:end -->
 
 <!-- payment-recovery-091-release:start -->

@@ -146,6 +146,6 @@ final class PurchasedTerms
     }
     private static function invalid(): never
     {
-        throw new RuntimeException('Purchased terms are missing or invalid. Hold this order for review; do not substitute current catalogue terms.');
+        throw new RuntimeException('This purchase cannot be completed until its saved terms are reviewed. Please contact support.');
     }
 }

@@ -21,5 +21,25 @@
     "foreign UID ownership operations denied",
     "file worker /proc lock observation unavailable"
   ],
-  "full_ci_merge_and_customer_delivery": "pending"
+  "full_ci_merge_and_customer_delivery": "pending corrected source",
+  "purchased_terms_mariadb": {
+    "ok": true,
+    "assertions": 42,
+    "mode": "mysql",
+    "php": "8.3.6",
+    "database": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+    "storage_design": "existing immutable order item plus protected subscription reverse reference",
+    "live_provider_calls": 0
+  },
+  "retained_mariadb_payment_foundation": {
+    "assertions": 391,
+    "killed_workers": 4,
+    "owned_schema_cleaned": true
+  },
+  "packaged_http_both": {
+    "file-root": 45,
+    "file-nested": 45,
+    "mysql-root": 86,
+    "mysql-nested": 86
+  }
 }

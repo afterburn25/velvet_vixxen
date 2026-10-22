@@ -161,7 +161,16 @@ try {
     if ($mysql) $assert((new App\Core\MigrationRunner($pdo,$source.'/database/migrations'))->migrate(false,true) === [], 'Snapshot increment changed historical migrations or resume.');
     $report = ['ok'=>true,'assertions'=>$checks,'mode'=>$mysql?'mysql':'file','php'=>PHP_VERSION,'database'=>$pdo?->query('SELECT VERSION()')->fetchColumn(),
         'storage_design'=>'existing immutable order item plus protected subscription reverse reference','live_provider_calls'=>0];
+} catch (Throwable $error) {
+    fwrite(STDERR, get_class($error) . ': ' . $error->getMessage() . PHP_EOL . $error->getTraceAsString() . PHP_EOL);
+    throw $error;
 } finally {
+    if ($mysql && isset($store)) {
+        foreach ([$store, app_store()] as $connectionStore) {
+            $connection = (new ReflectionMethod(Store::class, 'pdo'))->invoke($connectionStore);
+            if ($connection->inTransaction()) $connection->rollBack();
+        }
+    }
     if ($owns && $pdo) { if ($pdo->inTransaction()) $pdo->rollBack(); vvx_installer_fixture_reset_database($pdo,true); }
     vvx_installer_fixture_remove($root);
 }

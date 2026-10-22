@@ -26,7 +26,12 @@ def csrf(response):
     return node['value']
 
 def post(session, path, page, payload, **kwargs):
-    return session.post(urljoin(BASE, path.lstrip('/')), data={'_csrf': csrf(page), **payload}, timeout=20, **kwargs)
+    values = {'_csrf': csrf(page), **payload}
+    if payload.get('action') == 'pay':
+        revision = BeautifulSoup(page.text, 'html.parser').select_one('form.checkout-card input[name="purchase_terms_revision"]')
+        assert revision and revision.get('value'), 'Real checkout review revision is missing.'
+        values['purchase_terms_revision'] = revision['value']
+    return session.post(urljoin(BASE, path.lstrip('/')), data=values, timeout=20, **kwargs)
 
 def member_login(email):
     session = requests.Session()

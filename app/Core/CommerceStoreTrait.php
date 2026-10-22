@@ -240,12 +240,15 @@ trait CommerceStoreTrait
         $id = trim((string) ($bundle['id'] ?? ''));
         $title = trim((string) ($bundle['title'] ?? ''));
         if ($title === '') throw new RuntimeException('Bundle title is required.');
-        $items = [];
+        $items = []; $seen = [];
         foreach ((array) ($bundle['items'] ?? []) as $item) {
             if (!is_array($item)) continue;
             $type = (string) ($item['itemType'] ?? $item['type'] ?? '');
             $itemId = (string) ($item['itemId'] ?? $item['id'] ?? '');
             if (in_array($type, ['gallery','video'], true) && $itemId !== '') {
+                $identity = $type . ':' . $itemId;
+                if (isset($seen[$identity])) continue;
+                $seen[$identity] = true;
                 $items[] = ['itemType'=>$type,'itemId'=>$itemId,'sortOrder'=>(int)($item['sortOrder']??100)];
             }
         }
@@ -265,7 +268,7 @@ trait CommerceStoreTrait
             $pdo->prepare('DELETE FROM commerce_bundle_items WHERE bundle_id=?')->execute([$bundleId]);
             $insert=$pdo->prepare('INSERT INTO commerce_bundle_items (bundle_id,item_type,item_id,sort_order,created_at) VALUES (?,?,?,?,NOW())');foreach($items as $item){$insert->execute([$bundleId,$item['itemType'],(int)$item['itemId'],$item['sortOrder']]);}
             $pdo->commit();return $this->bundle((string)$bundleId)??array_merge($record,['id'=>(string)$bundleId]);
-        } catch(Throwable $e){if($ownsTransaction&&$pdo->inTransaction())$pdo->rollBack();throw $e;}
+        } catch(Throwable $e){if($pdo->inTransaction())$pdo->rollBack();throw $e;}
     }
 
     /** @return list<array<string,mixed>> */
