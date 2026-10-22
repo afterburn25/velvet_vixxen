@@ -6,6 +6,8 @@
 Final local acceptance binds implementation `6c06bf4f92e81b1f06b7b507c2c13e3583b0d8c6` to Fresh SHA-256 `27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d`: file/MySQL/MariaDB source checks passed, along with 1,600 actual-package HTTP checks, 1,740 browser checks and 72 independently decoded screenshots. The candidate workflow preserves every prior gate and adds required payment lanes: 28 jobs / 295 configured step instances. Full GitHub CI, actual artifacts, merge and saved-download readback are still required. Follow the [candidate record and local evidence](releases/0.9.1-payment-recovery.md) for exact source identities, counts and preserved intermediate outcomes.
 
 Continue the separately scoped recurring agreement/cycle/command engineering while this candidate completes release acceptance. A selected processor, its real adapter and live acceptance, production mail/age services, actual-host installation/upgrade/rollback/restore/workers and owner policy decisions remain necessary for production 1.0. Existing Photo depth and ownership-repair backup protections remain unchanged.
+**Continuation checkpoint, 2026-10-22:** the first PR #36 run exposed three retained-fixture mismatches (payment inventory, old package identity and missing-to-empty journal initialization). The complete local source/package aggregate and focused negative controls now pass; full corrected CI and complete cached-upgrade browser acceptance remain pending. Runtime/package bytes are unchanged. See [the correction evidence](releases/0.9.1-ci-corrections.md).
+
 <!-- payment-recovery-091-candidate:end -->
 
 # Velvet Vixxen — Current Test Evidence

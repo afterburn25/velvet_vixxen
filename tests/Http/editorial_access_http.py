@@ -35,7 +35,6 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = Path(__file__).with_name('editorial_access_fixture.php')
-VERSION, BUILD = '0.9.0', '20261021.4'
 OWNER, PASSWORD, MEMBER_PASSWORD = 'owner@example.test', 'VelvetDemo12', 'VelvetMember12'
 COLLECTIONS = ('posts', 'banners', 'landing_pages', 'links', 'referral_codes', 'contacts', 'segments',
                'campaigns', 'campaign_queue', 'events', 'consents', 'suppressions')
@@ -799,6 +798,12 @@ def http_case(site: Path, base: str, php: str, capture, activate=True):
 
 def prepare_package(work: Path):
     package = load('vvx_editorial_package', ROOT / 'scripts/package.py')
+    # Bind retained acceptance to this checkout, independently of any supplied
+    # archive. A new release must not keep requesting an older fixed version.
+    source_version, source_build = package.package_identity({
+        'VERSION': (ROOT / 'VERSION').read_bytes(),
+        'includes/version.php': (ROOT / 'includes/version.php').read_bytes(),
+    })
     expected = os.environ.get('VELVET_EXPECTED_FRESH_SHA256', '').lower()
     exploratory = os.environ.get('VELVET_EDITORIAL_EXPLORATORY') == '1'
     if os.environ.get('VELVET_FRESH_PACKAGE'):
@@ -807,7 +812,7 @@ def prepare_package(work: Path):
         check(bool(re.fullmatch(r'[a-f0-9]{64}', expected)) or exploratory,
               'Pin a supplied Fresh ZIP with VELVET_EXPECTED_FRESH_SHA256 for final acceptance.')
     else:
-        built = package.build(ROOT, work / 'packages', VERSION)
+        built = package.build(ROOT, work / 'packages', source_version)
         fresh = next(entry for entry in built['packages'] if entry['kind'] == 'fresh')
         archive = work / 'packages' / fresh['filename']
     actual = hashlib.sha256(archive.read_bytes()).hexdigest()
@@ -816,7 +821,8 @@ def prepare_package(work: Path):
     with ZipFile(archive) as zipped:
         files = {name: zipped.read(name) for name in zipped.namelist() if not name.endswith('/')}
     version, build = package.package_identity(files)
-    check((version, build) == (VERSION, BUILD), 'Editorial acceptance requires 0.9.0 / Build20261021.4.')
+    check((version, build) == (source_version, source_build),
+          f'Editorial acceptance requires checkout version {source_version} / Build {source_build}.')
     package.validate(files, 'fresh', version)
     check(set(UI_FILES) <= files.keys() and all(files[name] == (ROOT / name).read_bytes() for name in UI_FILES),
           'The actual Fresh ZIP does not contain the exact editorial runtime sources under test.')

@@ -226,13 +226,19 @@ def unchanged(site: Path, expected: dict[str, bytes], label: str) -> None:
 
 
 def authentication_only(site: Path, expected: dict[str, bytes], label: str) -> None:
-    """Explicit sign-in/factor attempts may write only the current security journal."""
+    """Preserve existing data across authentication and empty schema initialization."""
     unchanged(site, {name: data for name, data in expected.items() if name != 'storage/data.json'}, label)
     before = json.loads(expected['storage/data.json'])
     after = helpers.state(site)
     for data in (before, after):
         data.get('settings', {}).pop('_private_admin_security_v1', None)
-    require(after == before, label + ' changed installed data outside the intentional administrator security journal.')
+    # A current Store write materializes the newly declared empty journal when
+    # upgrading a historical file store. Accept only that exact missing -> []
+    # transition; existing journal entries and every other field remain exact.
+    if 'paymentJournal' not in before and 'paymentJournal' in after:
+        require(after['paymentJournal'] == [], label + ' created payment records during authentication.')
+        before['paymentJournal'] = []
+    require(after == before, label + ' changed installed data outside the intentional administrator security journal or missing empty payment journal.')
 
 
 def security_fixture(php: str, site: Path, action: str, *arguments: str) -> dict:
@@ -562,7 +568,7 @@ def current_owner_login(page, context, site: Path, base: str, php: str, label: s
     return {'legacy_cookie_rejected': True, 'current_password': True, 'signin_csrf_checked': True,
             'recent_owner_confirmation': True, 'totp_required_and_accepted': factors is not None,
             'unused_recovery_accepted_and_replay_refused': factors is not None,
-            'only_intentional_security_journal_writes': True, 'entry': entry, 'forms_and_redirects_keep_entry': True,
+            'only_security_and_missing_empty_payment_journal_writes': True, 'entry': entry, 'forms_and_redirects_keep_entry': True,
             'geometry': layouts}
 
 
