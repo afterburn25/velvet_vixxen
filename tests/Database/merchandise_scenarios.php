@@ -9,6 +9,7 @@ $temporaryConfig = tempnam(sys_get_temp_dir(), 'vvx-db-commerce-');
 if ($temporaryConfig === false) throw new RuntimeException('Cannot create a disposable database-test configuration.');
 try {
     $values = ['storage_mode' => 'mysql', 'installed' => false, 'currency' => 'USD', 'mail' => ['mode' => 'disabled'], 'db' => ['host' => $host, 'port' => $port, 'name' => $name, 'user' => $user, 'password' => $password, 'charset' => 'utf8mb4']];
+    $values['installation_id'] = 'owned-database-commerce-' . bin2hex(random_bytes(16));
     file_put_contents($temporaryConfig, "<?php\nreturn " . var_export($values, true) . ';');
     chmod($temporaryConfig, 0600);
     $configuration = new App\Core\Config($temporaryConfig);

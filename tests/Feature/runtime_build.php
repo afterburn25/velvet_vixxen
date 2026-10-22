@@ -174,7 +174,37 @@ try {
         'public/routes/protected-asset.php',
         'public/routes/reports/index.php',
     ];
-    $files = array_values(array_unique(array_merge($files, $v09Dependencies)));
+    $paymentDependencies = [
+        'admin/index.php',
+        'app/Core/AddonRuntime.php',
+        'app/Core/CommerceService.php',
+        'app/Core/CommerceStoreTrait.php',
+        'app/Core/MailService.php',
+        'app/Core/MemberPrivacyProjection.php',
+        'app/Core/MemberPrivacyService.php',
+        'app/Core/MemberPrivacyStoreTrait.php',
+        'app/Core/MerchandiseStoreTrait.php',
+        'app/Core/PaymentCommerceTrait.php',
+        'app/Core/PaymentOperationService.php',
+        'app/Core/PaymentRecoveryAuthorizationException.php',
+        'app/Core/PaymentRecoveryService.php',
+        'app/Core/PaymentStoreTrait.php',
+        'app/Core/Store.php',
+        'app/Payments/BoundPaymentProviderInterface.php',
+        'app/Payments/PaymentContract.php',
+        'app/Payments/PaymentProviderInterface.php',
+        'app/Payments/PaymentProviderRegistry.php',
+        'app/Payments/SandboxPaymentProvider.php',
+        'app/Support/payment_recovery_admin.php',
+        'app/Views/admin/commerce.php',
+        'app/Views/admin/navigation.php',
+        'app/Views/admin/payment-recovery-actions.php',
+        'app/Views/admin/payment-recovery.php',
+        'database/migrations/202610220018_payment_journal.php',
+        'public/assets/css/payment-recovery.css',
+        'public/routes/api/payment-webhook.php',
+    ];
+    $files = array_values(array_unique(array_merge($files, $v09Dependencies, $paymentDependencies)));
     $hashes = [];
     foreach ($files as $relative) {
         $directory = dirname($fixture . '/' . $relative);
@@ -276,6 +306,35 @@ try {
         $reject(static fn() => $service->refreshPhpCache(), 'Missing calendar dependencies must block cache activation.');
         copy($source . '/' . $dependency, $fixture . '/' . $dependency);
     }
+
+    foreach ($paymentDependencies as $dependency) {
+        unlink($fixture . '/' . $dependency);
+        $status = $service->inspect();
+        $assert(!$status['files_match'] && $status['problems'][0]['path'] === $dependency, 'Missing payment dependency must be identified: ' . $dependency);
+        $reject(static fn() => $service->refreshPhpCache(), 'Missing payment dependencies must block cache activation.');
+        copy($source . '/' . $dependency, $fixture . '/' . $dependency);
+        $incomplete = $manifest;
+        unset($incomplete['files'][$dependency]);
+        $write($incomplete);
+        $reject(static fn() => $service->inspect(), 'A 0.9.1 inventory cannot omit payment dependency: ' . $dependency);
+        $write($manifest);
+    }
+    $beforePayments = $manifest;
+    foreach ([
+        'app/Core/PaymentCommerceTrait.php', 'app/Core/PaymentOperationService.php',
+        'app/Core/PaymentRecoveryAuthorizationException.php', 'app/Core/PaymentRecoveryService.php',
+        'app/Core/PaymentStoreTrait.php', 'app/Payments/BoundPaymentProviderInterface.php',
+        'app/Payments/PaymentContract.php', 'app/Support/payment_recovery_admin.php',
+        'app/Views/admin/payment-recovery-actions.php', 'app/Views/admin/payment-recovery.php',
+        'database/migrations/202610220018_payment_journal.php', 'public/assets/css/payment-recovery.css',
+    ] as $dependency) unset($beforePayments['files'][$dependency]);
+    $beforePayments['version'] = '0.9.0';
+    $beforePayments['build_id'] = '20261021.4';
+    $write($beforePayments);
+    $legacyPayments = $service->inspect();
+    $assert($legacyPayments['files_match'] && !$legacyPayments['running_build_matches'] && $legacyPayments['version'] === '0.9.0',
+        'The prior 0.9 inventory remains inspectable without later payment dependencies.');
+    $write($manifest);
 
     rename($target, $fixture . '/composer-outside.php');
     symlink($fixture . '/composer-outside.php', $target);

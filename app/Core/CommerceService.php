@@ -4,11 +4,13 @@ declare(strict_types=1);
 namespace App\Core;
 
 use App\Payments\PaymentProviderRegistry;
+use App\Payments\PaymentContract;
 use RuntimeException;
 use Throwable;
 
 final class CommerceService
 {
+    use PaymentCommerceTrait;
     public function __construct(
         private readonly Store $store,
         private readonly Config $config,
@@ -152,6 +154,11 @@ final class CommerceService
         $existing = $this->store->order($idempotencyKey);
         if ($existing) {
             if ((string) $existing['memberId'] !== (string) $member['id']) throw new RuntimeException('Checkout session does not belong to this member.');
+            $operation = $this->chargeOperation($existing);
+            if ($operation && $operation['state'] === 'confirmed') $operation = $this->applyPaymentOperation($operation);
+            if ($operation && $operation['state'] === 'attempting') $operation = $this->payments()->commit((string) $existing['id'], fn(): array => $this->payments()->change($operation, 'unknown', ['issue' => 'interrupted_call']));
+            if ($operation) $this->runPaymentEffectsLocked((string) $existing['id']);
+            $existing = $this->store->order((string) $existing['id']);
             $transactions = $this->store->paymentTransactions((string) $existing['id']);
             return [
                 'order' => $existing,
@@ -161,7 +168,8 @@ final class CommerceService
                     'taxTotal' => $existing['taxTotal'], 'grandTotal' => $existing['grandTotal'], 'currency' => $existing['currency'],
                     'couponCode' => $existing['couponCode'],
                 ],
-                'message' => 'This checkout was already processed.',
+                'message' => $operation && !in_array($operation['state'], ['applied','declined','ignored'], true) ? 'This payment is held or processing. Reconcile its operation before starting another checkout.' : 'This checkout was already processed.',
+                'paymentOperation' => $operation,
             ];
         }
 
@@ -176,6 +184,9 @@ final class CommerceService
             if ((string) ($row['itemType'] ?? '') === 'plan' && !$provider->supportsRecurring()) {
                 throw new RuntimeException('The selected payment provider does not support recurring memberships.');
             }
+            if ((string) ($row['itemType'] ?? '') === 'plan' && !$provider instanceof \App\Payments\SandboxPaymentProvider) {
+                throw new RuntimeException('Recurring memberships require a certified provider agreement and lifecycle adapter.');
+            }
         }
 
         $orderItems = array_map(static fn(array $row): array => [
@@ -184,56 +195,52 @@ final class CommerceService
             'metadata' => $row['metadata'], 'fulfillmentStatus' => 'pending',
         ], $quote['items']);
         $attribution = MarketingAttributionBridge::order($this->config, $member, (string) $quote['couponCode']);
-        $order = $this->store->createOrder([
+        $payments = $this->payments();
+        // Refuse an unsupported/unbound adapter before any order or stock mutation.
+        $scope = $payments->captureScope($providerKey);
+        [$order, $operation] = $this->store->paymentAtomic(function () use ($member, $providerKey, $quote, $idempotencyKey, $shippingAddress, $attribution, $orderItems, $payments, $scope): array {
+            $payments->assertCurrentScope($scope);
+            $order = $this->store->createOrder([
             'memberId' => (string) $member['id'],
-            'status' => 'pending',
+            'status' => 'processing',
             'subtotal' => $quote['subtotal'], 'discountTotal' => $quote['discountTotal'], 'taxTotal' => $quote['taxTotal'],
             'grandTotal' => $quote['grandTotal'], 'currency' => $quote['currency'], 'couponCode' => $quote['couponCode'],
             'providerKey' => $providerKey, 'idempotencyKey' => $idempotencyKey, 'billingEmail' => (string) $member['email'],
             'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending']
                 + ($attribution === null ? [] : ['attribution' => $attribution]),
         ], $orderItems);
-        if ($attribution !== null) MarketingAttributionBridge::project($this->config, $this->store, 'checkout', (string) $order['id']);
-
-        try {
             $this->store->reserveMerchandiseStock($order);
-            $charge = $quote['grandTotal'] <= 0
-                ? ['ok'=>true,'status'=>'paid','providerTransactionId'=>'free_'.bin2hex(random_bytes(8)),'message'=>'No payment was required.','last4'=>null,'brand'=>'No charge','payload'=>['free'=>true]]
-                : $provider->charge($order, $paymentInput);
-        } catch (Throwable $error) {
-            $this->store->settleMerchandiseStock($order, true);
-            $this->store->updateOrder((string) $order['id'], ['status' => 'failed']);
-            throw $error;
-        }
-        $transaction = $this->store->savePaymentTransaction([
-            'orderId' => (string) $order['id'], 'providerKey' => $providerKey,
-            'providerTransactionId' => $charge['providerTransactionId'] ?? null, 'transactionType' => 'charge',
-            'status' => (string) ($charge['status'] ?? ($charge['ok'] ? 'paid' : 'failed')),
-            'amount' => (float) $quote['grandTotal'], 'currency' => (string) $quote['currency'],
-            'last4' => $charge['last4'] ?? null, 'brand' => $charge['brand'] ?? null, 'payload' => (array) ($charge['payload'] ?? []),
-        ]);
-
-        if (!empty($charge['ok'])) {
-            $order = $this->store->updateOrder((string) $order['id'], ['status'=>'paid','paidAt'=>now_iso(),'providerCheckoutId'=>$charge['providerTransactionId']??null]);
-            $order = $this->fulfillOrder($order);
-            if ($quote['coupon'] !== null && $quote['discountTotal'] > 0) {
-                $this->store->recordCouponRedemption((string) $quote['coupon']['id'], (string) $member['id'], (string) $order['id'], (float) $quote['discountTotal']);
-            }
-            $this->sendReceipt($member, $order);
-            $this->store->recordMemberEvent((string) $member['id'], 'commerce.order.paid', ['orderId'=>(string)$order['id'],'orderNumber'=>$order['orderNumber'],'amount'=>$order['grandTotal']]);
-        } else {
-            $status = (string) ($charge['status'] ?? 'failed');
-            $order = $this->store->updateOrder((string) $order['id'], ['status'=>$status === 'processing' ? 'processing' : 'failed','providerCheckoutId'=>$charge['providerTransactionId']??null]);
-            if ($status !== 'processing') $this->store->settleMerchandiseStock($order, true);
-            $this->store->recordMemberEvent((string) $member['id'], 'commerce.order.failed', ['orderId'=>(string)$order['id'],'message'=>$charge['message']??'Payment failed.']);
-        }
-
-        if ($attribution !== null) MarketingAttributionBridge::project($this->config, $this->store, 'checkout', (string) $order['id']);
-        return ['order'=>$order,'transaction'=>$transaction,'quote'=>$quote,'message'=>(string)($charge['message']??'Checkout complete.')];
+            $operation = $payments->prepare($payments->bindingInScope($order, $scope['scope'], 'charge', PaymentContract::minor($quote['grandTotal'])), 'checkout');
+            return [$order, $operation];
+        }, (string) $member['id']);
+        $received = $payments->execute($operation, $order, $paymentInput);
+        $operation = $this->applyPaymentOperation($received['operation'], $received['display']);
+        $this->runPaymentEffectsLocked((string) $order['id']);
+        $order = $this->store->order((string) $order['id']);
+        $transactions = $this->store->paymentTransactionsForOrder((string) $order['id']);
+        $message = match ($operation['state']) {
+            'applied' => $quote['grandTotal'] <= 0 ? 'No payment was required.' : ($providerKey === 'sandbox' ? 'Sandbox payment approved.' : 'Payment confirmed.'),
+            'declined' => $providerKey === 'sandbox' ? 'Sandbox payment was declined.' : 'Payment was declined.',
+            'pending' => $providerKey === 'sandbox' ? 'Sandbox payment is processing.' : 'Payment is processing.',
+            default => 'Payment outcome is held for reconciliation. Do not start another checkout for this order.',
+        };
+        return ['order'=>$order,'transaction'=>$transactions[0]??[],'quote'=>$quote,'message'=>$message,'paymentOperation'=>$operation];
     }
 
     /** @return array<string,mixed> */
     public function fulfillOrder(array $order): array
+    {
+        return $this->store->withCommerceLock(function () use ($order): array {
+            $current = $this->store->order((string) ($order['id'] ?? ''));
+            if (!$current || $current['status'] !== 'paid') return $current ?? $order;
+            $operation = $this->chargeOperation($current) ?? $this->legacySandboxCharge($current);
+            $this->applyPaymentOperation($operation);
+            $this->runPaymentEffectsLocked((string) $current['id']);
+            return $this->store->order((string) $current['id']);
+        });
+    }
+
+    private function fulfillOrderCore(array $order): array
     {
         // A delayed paid event may update retained finances, but cannot reopen erased access.
         if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return $order;
@@ -310,50 +317,39 @@ final class CommerceService
     }
 
     /** @return array<string,mixed> */
-    public function refundOrder(string|int $orderId, string $reason = ''): array
+    public function refundOrder(string|int $orderId, string $reason = '', ?callable $authorize = null): array
     {
-        return $this->store->withCommerceLock(fn(): array => $this->refundOrderLocked($orderId, $reason));
+        return $this->store->withCommerceLock(function () use ($orderId, $reason, $authorize): array {
+            PaymentOperationService::authorize($authorize);
+            return $this->refundOrderLocked($orderId, $reason, $authorize);
+        });
     }
 
-    private function refundOrderLocked(string|int $orderId, string $reason): array
+    private function refundOrderLocked(string|int $orderId, string $reason, ?callable $authorize = null): array
     {
         $order = $this->store->order($orderId);
-        if (!$order || !in_array((string) ($order['status'] ?? ''), ['paid','partially_refunded'], true)) {
-            throw new RuntimeException('Only a paid order can be refunded.');
-        }
-        $charge = null;
-        foreach ($this->store->paymentTransactions((string) $order['id']) as $transaction) {
-            if ((string) ($transaction['transactionType'] ?? '') === 'charge' && (string) ($transaction['status'] ?? '') === 'paid') {
-                $charge = $transaction;
-                break;
+        if (!$order || !in_array((string) $order['status'], ['paid','partially_refunded'], true)) throw new RuntimeException('Only a paid order can be refunded.');
+        $charge = $this->originalCharge($order);
+        foreach ($this->store->paymentJournalForOrder((string) $order['id']) as $previous) {
+            if ($previous['kind'] !== 'operation' || $previous['data']['binding']['kind'] !== 'refund' || in_array($previous['state'], ['declined','applied','ignored'], true)) continue;
+            if ($previous['state'] === 'confirmed') {
+                $settled = $this->applyPaymentOperation($previous, [], null, $authorize);
+                if ($settled['state'] === 'applied') { $this->runPaymentEffectsLocked((string) $order['id'], $authorize); return $this->store->order((string) $order['id']); }
             }
+            throw new RuntimeException('The previous refund is held or processing. Reconcile its operation; no second refund will be sent.');
         }
-        if (!$charge) throw new RuntimeException('The original successful charge could not be found.');
-        $provider = $this->providers->get((string) ($charge['providerKey'] ?? 'sandbox'));
-        $amount = max(0, round((float) $order['grandTotal'] - (float) ($order['refundedTotal'] ?? 0), 2));
-        $result = $provider->refund($charge, $amount, $reason);
-        if (empty($result['ok'])) throw new RuntimeException((string) ($result['message'] ?? 'Refund failed.'));
-        $this->store->savePaymentTransaction([
-            'orderId'=>(string)$order['id'],'providerKey'=>(string)$charge['providerKey'],'providerTransactionId'=>$result['providerTransactionId']??null,
-            'transactionType'=>'refund','status'=>'refunded','amount'=>$amount,'currency'=>(string)$order['currency'],'payload'=>(array)($result['payload']??[]),
-        ]);
-        $order = $this->store->updateOrder((string)$order['id'], ['status'=>'refunded','refundedTotal'=>(float)$order['grandTotal'],'metadata'=>['refundReason'=>$reason,'refundedAt'=>now_iso()]]);
-        $this->store->settleMerchandiseStock($order, true);
-        $this->store->revokeEntitlementsBySource('purchase', (string) $order['id']);
-        $this->store->revokeEntitlementsBySource('rental', (string) $order['id']);
-        $this->store->revokeEntitlementsBySource('bundle', (string) $order['id']);
-        foreach ((array) $order['items'] as $item) {
-            $subscriptionId = (string) (($item['metadata']['subscriptionId'] ?? ''));
-            if ($subscriptionId === '') continue;
-            foreach ($this->store->subscriptions((string) $order['memberId']) as $subscription) {
-                if ((string) ($subscription['id'] ?? '') !== $subscriptionId) continue;
-                $this->store->saveSubscription(array_merge($subscription, ['status'=>'cancelled','cancelledAt'=>now_iso(),'cancelAtPeriodEnd'=>false]));
-                break;
-            }
-        }
-        $this->store->recordMemberEvent((string)$order['memberId'],'commerce.order.refunded',['orderId'=>(string)$order['id'],'amount'=>$amount]);
-        $this->dispatchAddonEvent('order.refunded', ['order' => $order, 'amount' => $amount, 'reason' => $reason, 'source' => 'admin']);
-        return $order;
+        $amount = PaymentContract::minor($order['grandTotal']) - PaymentContract::minor($order['refundedTotal']);
+        $payments = $this->payments();
+        $binding = $payments->binding($order, 'refund', $amount, $charge['providerTransactionId']);
+        $operation = $payments->commit((string) $order['id'], function () use ($payments, $binding, $order, $reason): array {
+            $this->store->updateOrder((string) $order['id'], ['metadata' => ['pendingRefundReason' => mb_substr($reason, 0, 1000)]]);
+            return $payments->prepare($binding, 'refund');
+        }, $authorize);
+        $received = $payments->execute($operation, $charge, [], $reason, $authorize);
+        $operation = $this->applyPaymentOperation($received['operation'], [], null, $authorize);
+        $this->runPaymentEffectsLocked((string) $order['id'], $authorize);
+        if ($operation['state'] !== 'applied') throw new RuntimeException($operation['state'] === 'declined' ? 'The provider declined the refund.' : 'Refund outcome is held for reconciliation. No second refund will be sent.');
+        return $this->store->order((string) $order['id']);
     }
 
     public function cancelMerchandiseOrder(string|int $orderId): array
@@ -530,91 +526,7 @@ final class CommerceService
 
     private function handleWebhookLocked(string $providerKey, string $rawBody, string $signature): array
     {
-        $providerConfig = $this->store->paymentProvider($providerKey);
-        if (!$providerConfig || empty($providerConfig['enabled'])) {
-            throw new RuntimeException('Payment provider is not enabled.');
-        }
-
-        $secret = (string) ($providerConfig['settings']['webhookSecret'] ?? '');
-        if ($secret === '') {
-            $secret = (string) $this->config->get('security.signing_key', '');
-        }
-        if ($secret === '') {
-            throw new RuntimeException('Webhook signing is not configured.');
-        }
-
-        $parsed = $this->providers->get($providerKey)->parseWebhook($rawBody, $signature, $secret);
-        if (empty($parsed['valid'])) {
-            throw new RuntimeException((string) $parsed['message']);
-        }
-        $eventId = trim((string) $parsed['eventId']);
-        if ($eventId === '') {
-            throw new RuntimeException('Webhook event ID is required.');
-        }
-        $existing = $this->store->webhookEvent($providerKey, $eventId);
-        if ($existing) {
-            return ['duplicate' => true, 'event' => $existing];
-        }
-
-        $payload = (array) $parsed['payload'];
-        $type = (string) $parsed['eventType'];
-        $orderNumber = trim((string) ($payload['order_number'] ?? ''));
-        $order = $orderNumber !== '' ? $this->store->order($orderNumber) : null;
-        $eventStatus = 'processed';
-
-        if ($order === null && str_starts_with($type, 'order.')) {
-            $eventStatus = 'ignored';
-        } elseif ($type === 'order.paid' && $order !== null) {
-            if (in_array((string) $order['status'], ['refunded', 'partially_refunded', 'chargeback', 'cancelled'], true)) {
-                return ['duplicate' => false, 'event' => $this->store->saveWebhookEvent($providerKey, $eventId, $type, $payload, 'ignored')];
-            }
-            $this->store->reserveMerchandiseStock($order);
-            if ((string) ($order['status'] ?? '') !== 'paid') {
-                // Confirm the existing charge as well as the order. Otherwise an
-                // asynchronously paid order cannot use the normal refund flow.
-                $charge = null;
-                foreach ($this->store->paymentTransactions((string) $order['id']) as $candidate) {
-                    if (($candidate['transactionType'] ?? '') === 'charge' && ($candidate['providerKey'] ?? '') === $providerKey) { $charge = $candidate; break; }
-                }
-                $this->store->savePaymentTransaction(array_replace($charge ?? [], [
-                    'orderId' => (string) $order['id'], 'providerKey' => $providerKey,
-                    'providerTransactionId' => $payload['transaction_id'] ?? ($charge['providerTransactionId'] ?? $order['providerCheckoutId'] ?? null),
-                    'transactionType' => 'charge', 'status' => 'paid', 'amount' => (float) $order['grandTotal'],
-                    'currency' => (string) $order['currency'],
-                    'payload' => array_replace((array) ($charge['payload'] ?? []), ['confirmedByWebhook' => $eventId]),
-                ]));
-                $order = $this->store->updateOrder((string) $order['id'], [
-                    'status' => 'paid',
-                    'paidAt' => now_iso(),
-                    'providerCheckoutId' => $payload['transaction_id'] ?? ($order['providerCheckoutId'] ?? null),
-                ]);
-            }
-            $this->fulfillOrder($order);
-        } elseif ($type === 'order.refunded' && $order !== null) {
-            $amount = isset($payload['amount'])
-                ? max(0.0, round((float) $payload['amount'], 2))
-                : max(0.0, round((float) $order['grandTotal'] - (float) ($order['refundedTotal'] ?? 0), 2));
-            $this->applyExternalRefund(
-                $order,
-                $providerKey,
-                isset($payload['transaction_id']) ? (string) $payload['transaction_id'] : null,
-                $amount,
-                'Provider webhook refund',
-                $payload,
-            );
-        } elseif ($type === 'order.chargeback' && $order !== null) {
-            $this->store->updateOrder((string) $order['id'], [
-                'status' => 'chargeback',
-                'metadata' => ['chargebackAt' => now_iso(), 'chargebackPayload' => $payload],
-            ]);
-            $this->revokeOrderAccess($order, 'chargeback');
-            $this->dispatchAddonEvent('order.chargeback', ['order' => $order, 'payload' => $payload]);
-        } elseif (!in_array($type, ['order.paid', 'order.refunded', 'order.chargeback'], true)) {
-            $eventStatus = 'ignored';
-        }
-
-        $event = $this->store->saveWebhookEvent($providerKey, $eventId, $type, $payload, $eventStatus);
-        return ['duplicate' => false, 'event' => $event];
+        return $this->receivePaymentWebhook($providerKey, $rawBody, $signature);
     }
 
     /**
@@ -629,10 +541,7 @@ final class CommerceService
     private function applyExternalRefund(array $order, string $providerKey, ?string $transactionId, float $amount, string $reason, array $payload): array
     {
         $remaining = max(0.0, round((float) $order['grandTotal'] - (float) ($order['refundedTotal'] ?? 0), 2));
-        $amount = min($remaining, max(0.0, round($amount, 2)));
-        if ($amount <= 0.0) {
-            return $order;
-        }
+        if ($amount <= 0.0 || PaymentContract::minor($amount) > PaymentContract::minor($remaining)) throw new RuntimeException('Refund amount exceeds the confirmed remaining balance.');
 
         $newRefundedTotal = round((float) ($order['refundedTotal'] ?? 0) + $amount, 2);
         $fullyRefunded = $newRefundedTotal >= round((float) $order['grandTotal'], 2);
@@ -732,7 +641,7 @@ final class CommerceService
     }
 
     /** @param array<string,mixed> $member @param array<string,mixed> $order */
-    private function sendReceipt(array $member, array $order): void
+    private function sendReceipt(array $member, array $order, ?callable $authorize = null): array
     {
         $lines = [];
         foreach ((array) $order['items'] as $item) {
@@ -746,13 +655,14 @@ final class CommerceService
             . "\n\nTotal: " . (string) $order['currency'] . ' ' . number_format((float) $order['grandTotal'], 2)
             . (($order['metadata']['checkoutFlow'] ?? '') === 'merchandise' ? "\n\nYour merchandise order is awaiting fulfillment. Track it in Billing History." : "\n\nYour purchases are available in My Library.")
             . ($footer !== '' ? "\n\n" . $footer : '');
-        $this->mailer->send(
+        return $this->mailer->send(
             (string) $member['id'],
             (string) $member['email'],
             'Your Velvet Vixxen receipt — ' . (string) $order['orderNumber'],
             'commerce_receipt',
             $body,
-            ['orderNumber' => $order['orderNumber'], 'orderId' => $order['id']]
+            ['orderNumber' => $order['orderNumber'], 'orderId' => $order['id']],
+            $authorize === null ? null : static fn(): mixed => PaymentOperationService::authorize($authorize)
         );
     }
 
@@ -760,6 +670,11 @@ final class CommerceService
     /** @param array<string,mixed> $payload */
     private function dispatchAddonEvent(string $event, array $payload): void
     {
+        if ($this->paymentEffectContext !== null) {
+            $this->queuePaymentEffect($this->paymentEffectContext, 'addon', $event, isset($payload['subscription']['id']) ? (string) $payload['subscription']['id'] : null,
+                isset($payload['amount']) ? PaymentContract::minor($payload['amount']) : null);
+            return;
+        }
         if (!function_exists('addon_event') || !function_exists('is_installed') || !is_installed()) return;
         try {
             addon_event($event, $payload);

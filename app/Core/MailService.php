@@ -13,13 +13,15 @@ final class MailService
     }
 
     /** @param array<string,mixed> $metadata */
-    public function send(?string $memberId, string $recipient, string $subject, string $template, string $body, array $metadata = []): array
+    public function send(?string $memberId, string $recipient, string $subject, string $template, string $body, array $metadata = [], ?callable $beforeTransmit = null): array
     {
         if (!EmailAddress::isValid($recipient)) throw new RuntimeException('A valid recipient email address without line breaks is required.');
         if (EmailAddress::hasForbiddenControls($subject)) throw new RuntimeException('The email subject must not contain line breaks or control characters.');
         $recipient = EmailAddress::normalize($recipient);
         $message = $this->store->queueMemberMail($memberId, $recipient, $subject, $template, $body, $metadata);
-        $beforeSend = $memberId === null ? null : function () use ($memberId, $recipient): bool {
+        $beforeSend = function () use ($memberId, $recipient, $beforeTransmit): bool {
+            if ($beforeTransmit !== null && $beforeTransmit() === false) return false;
+            if ($memberId === null) return true;
             $member = (new Store($this->config))->member($memberId);
             return $member !== null && ($member['status'] ?? '') !== 'closed' && empty($member['deletedAt'])
                 && !isset($member['preferences']['_privacy_erasure']) && EmailAddress::normalize((string) $member['email']) === $recipient;

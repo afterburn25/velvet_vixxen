@@ -30,6 +30,15 @@ $updateTestWriteMigration = static function (string $key, array $up, array $down
         . var_export(['id' => $key, 'description' => 'Disposable update safety fixture', 'up' => $up, 'down' => $down], true) . ";\n");
 };
 try {
+    // Rewind only the new, proved-empty payment table before reconstructing
+    // the retained historical update path. Its own 0.9 to 0.9.1 step is below.
+    $updateTestPaymentKey = '202610220018_payment_journal';
+    $updateTestPaymentDefinition = require $root . '/database/migrations/' . $updateTestPaymentKey . '.php';
+    foreach ($updateTestPaymentDefinition['tables'] as $table) $updateTestAssert(
+        (int) $pdo->query('SELECT COUNT(*) FROM `' . $table . '`')->fetchColumn() === 0,
+        'Refusing to rewind a nonempty payment fixture table: ' . $table);
+    foreach ($updateTestPaymentDefinition['down'] as $sql) $pdo->exec($sql);
+    $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$updateTestPaymentKey]);
     // Reconstruct the exact historical twelve-migration starting point in the
     // exclusively owned test schema. The current marketing schema must contain
     // no authority or imported customer records before this guarded rewind.
@@ -201,6 +210,45 @@ try {
         && $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll() === $updateTestSafeguardsLedger,
         '0.9 reapply changed the migration ledger.');
 
+    // Preserve pre-journal financial records through the actual additive 018
+    // installed-site update. No journal operation may be invented by migration.
+    $updateTestLegacyMember = $updateTestStore->createMember(['displayName' => 'Pre-journal fixture', 'email' => 'pre-journal@example.test',
+        'password' => 'Pre-Journal-Fixture-123!', 'status' => 'active', 'emailVerifiedAt' => gmdate('c')]);
+    $updateTestLegacyOrder = $updateTestStore->createOrder(['memberId' => $updateTestLegacyMember['id'], 'status' => 'paid',
+        'subtotal' => 17.25, 'grandTotal' => 17.25, 'currency' => 'USD', 'providerKey' => 'sandbox', 'idempotencyKey' => 'pre-journal-owned-fixture'], []);
+    $updateTestStore->savePaymentTransaction(['orderId' => $updateTestLegacyOrder['id'], 'providerKey' => 'sandbox',
+        'providerTransactionId' => 'pre-journal-owned-transaction', 'transactionType' => 'charge', 'status' => 'paid', 'amount' => 17.25, 'currency' => 'USD']);
+    $updateTestBeforePayments = [];
+    foreach ($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table) {
+        if ($table !== 'migrations') $updateTestBeforePayments[$table] = $pdo->query('SELECT * FROM `' . $table . '`')->fetchAll();
+    }
+    copy($root . '/database/migrations/' . $updateTestPaymentKey . '.php', $updateTestRoot . '/database/migrations/' . $updateTestPaymentKey . '.php');
+    $updateTestPaymentPlan = $updateTestService->preview();
+    $updateTestAssert(count($updateTestPaymentPlan['applied']) === 17 && array_column($updateTestPaymentPlan['pending'], 'id') === [$updateTestPaymentKey],
+        'An actual 0.9 database did not list only the additive payment journal migration.');
+    $updateTestReject(static fn() => $updateTestService->apply($updateTestSafeguardsCurrent['plan'], true, 'Old fixture backup'),
+        'The old 0.9 plan approved the new payment schema.');
+    $updateTestPaymentApplied = $updateTestService->apply($updateTestPaymentPlan['plan'], true, 'Verified 0.9 financial and private-state fixture backup');
+    $updateTestAssert($updateTestPaymentApplied['status'] === 'completed' && $updateTestPaymentApplied['applied'] === [$updateTestPaymentKey],
+        'Actual 0.9 to 0.9.1 update did not apply exactly migration018.');
+    $updateTestPaymentLedger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
+    $updateTestAssert(count($updateTestPaymentLedger) === 18 && array_values(array_filter($updateTestPaymentLedger,
+        static fn(array $row): bool => $row['migration_key'] !== $updateTestPaymentKey)) === $updateTestSafeguardsLedger,
+        'The payment migration changed historical ledger entries.');
+    foreach ($updateTestBeforePayments as $table => $rows) $updateTestAssert(
+        $pdo->query('SELECT * FROM `' . $table . '`')->fetchAll() === $rows, 'The payment migration changed existing rows in ' . $table);
+    $updateTestAssert((int) $pdo->query('SELECT COUNT(*) FROM payment_journal')->fetchColumn() === 0,
+        'The payment migration invented operations or changed existing financial facts.');
+    $updateTestAssert(file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
+        && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes
+        && file_get_contents($updateTestRoot . '/uploads/customer-fixture.txt') === 'Preserve this pre-existing customer upload.'
+        && file_get_contents($updateTestMarketingDirectory . '/data.json') === $updateTestMarketingBytes,
+        'The payment migration replaced existing private files or installation identity.');
+    $updateTestPaymentCurrent = $updateTestService->preview();
+    $updateTestAssert($updateTestPaymentCurrent['pending'] === [] && $updateTestService->apply($updateTestPaymentCurrent['plan'], false, '')['status'] === 'current'
+        && $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll() === $updateTestPaymentLedger,
+        'The completed payment migration was reapplied.');
+
     // A deliberately failing DDL migration contains destructive down SQL: installed-site mode must never run it.
     $updateTestWriteMigration('999900000015_update_success', [
         'CREATE TABLE vvx_update_completed (id INT PRIMARY KEY, marker VARCHAR(50)) ENGINE=InnoDB',
@@ -273,7 +321,7 @@ try {
     $updateTestAssert($updateTestCliApplied['exit'] === 0 && (json_decode($updateTestCliApplied['output'], true)['applied'] ?? []) === ['999900000017_update_blocked'], 'Real SQL CLI apply failed: ' . $updateTestCliApplied['error']);
     $updateTestAssert(is_file($updateTestRoot . '/install/fixture.txt') && file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
         && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes, 'CLI update invoked installer cleanup or replaced installation state.');
-    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014→015→017 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server '
+    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014→015→017→018 upgrades, preserved financial/data/keys/uploads/marketing, locks, failure/retry and CLI; server '
         . $pdo->getAttribute(PDO::ATTR_SERVER_VERSION) . ").\n";
 } finally {
     foreach (['vvx_update_blocked', 'vvx_update_partial', 'vvx_update_completed', 'vvx_upgrade_customer'] as $table) $pdo->exec('DROP TABLE IF EXISTS ' . $table);

@@ -1,3 +1,13 @@
+<!-- payment-recovery-091-candidate:start -->
+## Active candidate — 0.9.1 payment recovery
+
+**0.9.0 remains the latest completed delivery.** The separate **0.9.1 / Build 20261022.1 candidate** implements durable payment operations, strict provider/result binding, atomic financial effects, held uncertain outcomes, separate recoverable follow-ups and **Admin → Commerce → Payment recovery**. First-charge dispatch and privacy closure share the commerce lock; current owner and recent authentication are rechecked throughout refunds and recovery.
+
+Final local acceptance binds implementation `6c06bf4f92e81b1f06b7b507c2c13e3583b0d8c6` to Fresh SHA-256 `27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d`: file/MySQL/MariaDB source checks passed, along with 1,600 actual-package HTTP checks, 1,740 browser checks and 72 independently decoded screenshots. The candidate workflow preserves every prior gate and adds required payment lanes: 28 jobs / 295 configured step instances. Full GitHub CI, actual artifacts, merge and saved-download readback are still required. Follow the [candidate record and local evidence](docs/releases/0.9.1-payment-recovery.md) for exact source identities, counts and preserved intermediate outcomes.
+
+Continue the separately scoped recurring agreement/cycle/command engineering while this candidate completes release acceptance. A selected processor, its real adapter and live acceptance, production mail/age services, actual-host installation/upgrade/rollback/restore/workers and owner policy decisions remain necessary for production 1.0. Existing Photo depth and ownership-repair backup protections remain unchanged.
+<!-- payment-recovery-091-candidate:end -->
+
 # Session Handoff — Velvet Vixxen
 
 <!-- road-to-1.0-integration:start -->

@@ -247,7 +247,8 @@ trait MerchandiseStoreTrait
                 return;
             }
             $pdo = $this->pdo();
-            $pdo->beginTransaction();
+            $ownsTransaction = !$pdo->inTransaction();
+            if ($ownsTransaction) $pdo->beginTransaction();
             try {
                 foreach ($items as $item) {
                     $variantId = (int) $item['metadata']['variantId'];
@@ -261,9 +262,9 @@ trait MerchandiseStoreTrait
                     if ($update->rowCount() !== 1) throw new RuntimeException('An item has sold out. Refresh your cart before paying.');
                     $pdo->prepare("INSERT INTO merchandise_reservations (order_id,variant_id,quantity,status,created_at,updated_at) VALUES (?,?,?,'reserved',NOW(),NOW()) ON DUPLICATE KEY UPDATE status='reserved',quantity=VALUES(quantity),updated_at=NOW()")->execute([(int) $order['id'], $variantId, $quantity]);
                 }
-                $pdo->commit();
+                if ($ownsTransaction) $pdo->commit();
             } catch (Throwable $error) {
-                $pdo->rollBack();
+                if ($ownsTransaction && $pdo->inTransaction()) $pdo->rollBack();
                 throw $error;
             }
         });
@@ -272,6 +273,11 @@ trait MerchandiseStoreTrait
     public function settleMerchandiseStock(array $order, bool $release = false): void
     {
         $this->withCommerceLock(function () use ($order, $release): void {
+            // Erasure removes shipping/address metadata. Its absence cannot
+            // prove that paid goods were never dispatched. Retain reservations
+            // for explicit inventory review instead of manufacturing stock.
+            if ($release && ($order['status'] ?? '') !== 'failed' && !isset($order['metadata']['shippingStatus'])
+                && $this->privacyMemberErased((string) ($order['memberId'] ?? ''))) return;
             $canReturn = !in_array((string) ($order['metadata']['shippingStatus'] ?? 'pending'), ['shipped', 'delivered', 'completed'], true);
             if ($release && !$canReturn) return;
             if ($this->mode === 'file') {
@@ -285,7 +291,8 @@ trait MerchandiseStoreTrait
                 return;
             }
             $pdo = $this->pdo();
-            $pdo->beginTransaction();
+            $ownsTransaction = !$pdo->inTransaction();
+            if ($ownsTransaction) $pdo->beginTransaction();
             try {
                 $statement = $pdo->prepare("SELECT * FROM merchandise_reservations WHERE order_id=? AND status<>'released' FOR UPDATE");
                 $statement->execute([(int) $order['id']]);
@@ -293,9 +300,9 @@ trait MerchandiseStoreTrait
                     if ($release) $pdo->prepare('UPDATE merchandise_variants SET stock=stock+?,updated_at=NOW() WHERE id=?')->execute([(int) $row['quantity'], (int) $row['variant_id']]);
                     $pdo->prepare('UPDATE merchandise_reservations SET status=?,updated_at=NOW() WHERE id=?')->execute([$release ? 'released' : 'committed', (int) $row['id']]);
                 }
-                $pdo->commit();
+                if ($ownsTransaction) $pdo->commit();
             } catch (Throwable $error) {
-                $pdo->rollBack();
+                if ($ownsTransaction && $pdo->inTransaction()) $pdo->rollBack();
                 throw $error;
             }
         });

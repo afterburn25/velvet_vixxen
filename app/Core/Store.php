@@ -15,6 +15,7 @@ final class Store
     use MemberStoreTrait;
     use MemberPrivacyStoreTrait;
     use CommerceStoreTrait;
+    use PaymentStoreTrait;
     use AddonStoreTrait;
     use AddonLicensingStoreTrait;
     use CommunicationStoreTrait;
@@ -468,6 +469,7 @@ final class Store
     /** @return array{0:array<string,mixed>,1:string} */
     private function loadFileStore(): array
     {
+        if ($this->paymentFileBuffer !== null) return [$this->paymentFileBuffer, $this->paymentFileDigest];
         $this->assertFileStorePath();
         if (!is_file($this->filePath)) {
             return [$this->emptyFileStore(), 'missing'];
@@ -565,7 +567,7 @@ final class Store
             'contentAccessRules' => [], 'memberMediaState' => [], 'memberSessions' => [],
             'memberTokens' => [], 'memberEvents' => [], 'mailOutbox' => [],
             'paymentProviders' => [], 'coupons' => [], 'couponRedemptions' => [], 'bundles' => [],
-            'orders' => [], 'orderItems' => [], 'paymentTransactions' => [], 'paymentWebhookEvents' => [],
+            'orders' => [], 'orderItems' => [], 'paymentTransactions' => [], 'paymentWebhookEvents' => [], 'paymentJournal' => [],
             'addons' => [], 'addonActivity' => [], 'addonSettings' => [], 'addonBackups' => [], 'addonTasks' => [], 'addonMigrations' => [],
             'messageThreads' => [], 'messages' => [], 'messageAttachments' => [], 'savedReplies' => [],
             'communicationBlocks' => [], 'contentRequests' => [], 'bookingRequests' => [],
@@ -576,6 +578,7 @@ final class Store
 
     private function writeFileStore(array $data): void
     {
+        if ($this->paymentFileBuffer !== null && $this->paymentAtomicActive) { $this->paymentFileBuffer = $data; return; }
         if ($this->fileMutationActive) {
             throw new RuntimeException('Nested file data writes are not supported.');
         }
@@ -620,6 +623,9 @@ final class Store
             }
             if (!fflush($handle)) {
                 throw new RuntimeException('Unable to write data store.');
+            }
+            if ($this->paymentAtomicActive && (!function_exists('fsync') || !fsync($handle))) {
+                throw new RuntimeException('Payment data could not be synchronized.');
             }
             // A manual/noncooperating change during the write must also survive.
             [, $latestDigest] = $this->loadFileStore();

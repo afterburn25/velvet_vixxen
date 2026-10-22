@@ -56,6 +56,12 @@ final class MemberPrivacyProjection
             'orders' => $orders,
             'orderItems' => self::rows($data['orderItems'], ['id', 'orderId', 'itemType', 'itemId', 'title', 'quantity', 'unitPrice', 'discountTotal', 'lineTotal', 'fulfillmentStatus', 'createdAt']),
             'transactions' => self::rows($data['transactions'], ['id', 'orderId', 'subscriptionId', 'providerKey', 'transactionType', 'status', 'amount', 'currency', 'createdAt', 'updatedAt']),
+            'paymentOperations' => array_values(array_map(static function (array $row): array {
+                $safe = self::fields($row, ['id','orderId','kind','state','createdAt','updatedAt']);
+                if ($row['kind'] === 'operation') $safe += ['operationType' => $row['data']['binding']['kind']] + self::fields($row['data']['binding'], ['amountMinor','currency','provider']);
+                $safe['reasonCode'] = $row['data']['issue'];
+                return $safe;
+            }, $data['paymentJournal'] ?? [])),
             'couponRedemptions' => self::rows($data['couponRedemptions'], ['id', 'couponId', 'orderId', 'discountAmount', 'discount', 'status', 'createdAt']),
             'mediaState' => self::rows($data['mediaState'], ['contentType', 'contentId', 'progressSeconds', 'isFavorite', 'viewCount', 'lastViewedAt', 'completedAt', 'updatedAt']),
             'devices' => self::rows($data['sessions'], ['id', 'deviceName', 'ipAddress', 'userAgent', 'createdAt', 'lastSeenAt', 'revokedAt']),

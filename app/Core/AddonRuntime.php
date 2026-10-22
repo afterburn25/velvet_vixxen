@@ -9,6 +9,7 @@ use Throwable;
 final class AddonRuntime
 {
     private bool $booted = false;
+    private bool $paymentDispatchBootFailed = false;
     /** @var array<string,AddonContext> */ private array $contexts = [];
     /** @var array<string,array{addon:string,label:string,icon:string,renderer:callable}> */ private array $adminPages = [];
     /** @var array<string,array{addon:string,renderer:callable}> */ private array $publicRoutes = [];
@@ -68,6 +69,7 @@ final class AddonRuntime
                 }
             }
         } catch (Throwable $e) {
+            $this->paymentDispatchBootFailed = true;
             unset($this->contexts[$id]);
             $failures = (int) ($record['failureCount'] ?? 0) + 1;
             $record['failureCount'] = $failures;
@@ -161,6 +163,38 @@ final class AddonRuntime
             }
         }
         return $payload;
+    }
+
+    /**
+     * Financial obligations must observe listener failures. The general event
+     * API above retains its historical best-effort behavior. A resolver runs at
+     * each actual listener boundary so deferred member data can be reauthorized
+     * and refreshed; null cancels remaining delivery after account closure.
+     */
+    public function dispatchPaymentEffect(string $event, array $payload, callable $resolvePayload): array
+    {
+        if ($this->store->addonsSafeMode()) return ['status' => 'retryable'];
+        foreach ($this->store->addons() as $record) {
+            if (in_array($record['status'] ?? '', ['failed','quarantined'], true) && in_array('events.subscribe', (array) ($record['permissions'] ?? []), true)) return ['status' => 'retryable'];
+            if (($record['status'] ?? '') === 'active' && $this->store->hasPendingAddonRecovery((string) ($record['addonKey'] ?? ''))) return ['status' => 'retryable'];
+        }
+        $this->boot();
+        if ($this->paymentDispatchBootFailed) return ['status' => 'unknown'];
+        $failed = false;
+        foreach ($this->listeners[$event] ?? [] as $registration) {
+            $fresh = $resolvePayload($payload);
+            if ($fresh === null) return ['status' => $failed ? 'unknown' : 'cancelled'];
+            if (!is_array($fresh)) throw new RuntimeException('Payment event payload authorization failed.');
+            $payload = $fresh;
+            try {
+                $result = ($registration['listener'])($payload, $this->contexts[$registration['addon']]);
+                if (is_array($result)) $payload = $result;
+            } catch (Throwable $error) {
+                $failed = true;
+                $this->store->logAddonActivity($registration['addon'], 'event.listener.failed', ['event' => $event, 'error' => $error->getMessage()], 'error');
+            }
+        }
+        return ['status' => $failed ? 'unknown' : 'done'];
     }
 
     public function registerService(AddonContext $addon, string $key, mixed $service): void
