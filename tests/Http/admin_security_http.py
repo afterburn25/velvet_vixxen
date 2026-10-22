@@ -55,10 +55,13 @@ def http_case(case):
   stage=password_stage(other,case);check('Verify your sign-in.' in stage.text,'Password bypassed enrolled factor.')
   check('page=login' in other.get(url,timeout=20).url,'Pending second factor reached protected page.')
   bad=challenge(other,case,'wrong');check('not accepted' in bad.text,'Wrong factor accepted.')
-  response=challenge(other,case,totp(secret,1));check('page=login' not in response.url,'Valid independent RFC time code refused.')
+  accepted_code=totp(secret,1)
+  response=challenge(other,case,accepted_code);check('page=login' not in response.url,'Valid independent RFC time code refused.')
   replay=http.session()
   try:
-   password_stage(replay,case);result=challenge(replay,case,totp(secret,1));check('not accepted' in result.text,'Time code replay accepted.')
+   # Replay the exact accepted value, including when the 30-second clock window
+   # changes between requests. Recomputing would test a different valid code.
+   password_stage(replay,case);result=challenge(replay,case,accepted_code);check('not accepted' in result.text,'Time code replay accepted.')
    result=challenge(replay,case,codes[0]);check('page=login' not in result.url,'Recovery code refused.')
    owner.post(url,data=form(owner.get(url,timeout=20),'security_revoke'),timeout=20)
    check('page=login' in replay.get(url,timeout=20).url and 'page=login' in other.get(url,timeout=20).url,'Other sessions remained active after revocation.')

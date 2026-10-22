@@ -12,6 +12,8 @@ try {
     foreach ([59=>'94287082',1111111109=>'07081804',1111111111=>'14050471',1234567890=>'89005924',2000000000=>'69279037',20000000000=>'65353130'] as $at=>$expected) $assert(Totp::code($secret, intdiv($at,30), 8) === $expected, 'RFC6238 SHA1 vector failed.');
     $assert(Totp::match($secret, Totp::code($secret,100),3000)===100,'Valid time code refused.');
     $assert(Totp::match($secret, Totp::code($secret,100),3000,100)===null,'Replayed time code accepted.');
+    $assert(Totp::match($secret, Totp::code($secret,100),3030,100)===null,'Replayed time code accepted after the clock window changed.');
+    $assert(Totp::match($secret, Totp::code($secret,101),3030,100)===101,'A new code after clock rollover was confused with a replay.');
     $assert(Totp::match($secret, Totp::code($secret,98),3000)===null,'Old time code accepted.');
     $assert(Totp::match($secret, '1234567',3000)===null,'Malformed code accepted.');
     $id=(string)$store->createAdmin('Security Owner','security-owner@example.test','OwnerSecurity12!');

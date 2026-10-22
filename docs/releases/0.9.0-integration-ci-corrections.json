@@ -1,0 +1,3796 @@
+{
+  "schema_version": 1,
+  "recorded_at": "2026-10-22T01:08:12.943078+00:00",
+  "scope": "Failed frozen integration CI and targeted test-only corrections; the next complete release run remains required.",
+  "runtime_version": "0.9.0",
+  "build_id": "20261021.4",
+  "runtime_changed_by_corrections": false,
+  "failed_run": {
+    "run_id": 39702115764,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764",
+    "source": "10ed52435321e8ccba25b1cac19c4d176ecf8f4b",
+    "checkout": "c972dbc99c4cc3f2d076b096e8f11671222ff5ac",
+    "tree": "1c1b864b6bf8d96f70b80c1e900eedec84b4beff",
+    "conclusion": "failure",
+    "jobs": [
+      {
+        "id": 119573581430,
+        "name": "Repository and executable source contract",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:41Z",
+        "completed_at": "2026-10-22T00:50:47Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573581430",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:42Z",
+            "completed_at": "2026-10-22T00:50:42Z"
+          },
+          {
+            "number": 2,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:42Z",
+            "completed_at": "2026-10-22T00:50:44Z"
+          },
+          {
+            "number": 3,
+            "name": "Require documentation and executable source",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:44Z",
+            "completed_at": "2026-10-22T00:50:45Z"
+          },
+          {
+            "number": 4,
+            "name": "Require the additional integrated security privacy and operations sources",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:45Z",
+            "completed_at": "2026-10-22T00:50:45Z"
+          },
+          {
+            "number": 8,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:45Z",
+            "completed_at": "2026-10-22T00:50:45Z"
+          },
+          {
+            "number": 9,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:45Z",
+            "completed_at": "2026-10-22T00:50:45Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628902,
+        "name": "Packaged accessibility, keyboard and bounded page performance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:49Z",
+        "completed_at": "2026-10-22T00:56:02Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628902",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:51:16Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:16Z",
+            "completed_at": "2026-10-22T00:51:18Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:18Z",
+            "completed_at": "2026-10-22T00:51:20Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:20Z",
+            "completed_at": "2026-10-22T00:51:20Z"
+          },
+          {
+            "number": 6,
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:20Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 7,
+            "name": "Install pinned accessibility and browser engines",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:55Z"
+          },
+          {
+            "number": 8,
+            "name": "Exercise keyboard paths and rendered WCAG rules in desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:55Z",
+            "completed_at": "2026-10-22T00:55:58Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload accessibility findings and local performance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:58Z",
+            "completed_at": "2026-10-22T00:55:59Z"
+          },
+          {
+            "number": 15,
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:59Z",
+            "completed_at": "2026-10-22T00:55:59Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:59Z",
+            "completed_at": "2026-10-22T00:55:59Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:59Z",
+            "completed_at": "2026-10-22T00:56:00Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:00Z",
+            "completed_at": "2026-10-22T00:56:00Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:00Z",
+            "completed_at": "2026-10-22T00:56:00Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628910,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:49Z",
+        "completed_at": "2026-10-22T00:59:25Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628910",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:24Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:24Z",
+            "completed_at": "2026-10-22T00:51:24Z"
+          },
+          {
+            "number": 6,
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:24Z",
+            "completed_at": "2026-10-22T00:51:28Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:28Z",
+            "completed_at": "2026-10-22T00:52:30Z"
+          },
+          {
+            "number": 8,
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:30Z",
+            "completed_at": "2026-10-22T00:52:30Z"
+          },
+          {
+            "number": 9,
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:30Z",
+            "completed_at": "2026-10-22T00:52:41Z"
+          },
+          {
+            "number": 10,
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:41Z",
+            "completed_at": "2026-10-22T00:52:47Z"
+          },
+          {
+            "number": 11,
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:47Z",
+            "completed_at": "2026-10-22T00:52:50Z"
+          },
+          {
+            "number": 12,
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:50Z",
+            "completed_at": "2026-10-22T00:54:04Z"
+          },
+          {
+            "number": 13,
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:04Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 14,
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:56:40Z"
+          },
+          {
+            "number": 15,
+            "name": "Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:40Z",
+            "completed_at": "2026-10-22T00:57:00Z"
+          },
+          {
+            "number": 16,
+            "name": "Preserve per-device scene depth and foreground masking through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:00Z",
+            "completed_at": "2026-10-22T00:57:36Z"
+          },
+          {
+            "number": 17,
+            "name": "Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:36Z",
+            "completed_at": "2026-10-22T00:58:32Z"
+          },
+          {
+            "number": 18,
+            "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:32Z",
+            "completed_at": "2026-10-22T00:59:15Z"
+          },
+          {
+            "number": 19,
+            "name": "Preserve atomic private journals under real MySQL concurrency and interruption",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:15Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          },
+          {
+            "number": 20,
+            "name": "Verify durable attribution, privacy tombstones and exact business joins in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:17Z",
+            "completed_at": "2026-10-22T00:59:22Z"
+          },
+          {
+            "number": 38,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:22Z",
+            "completed_at": "2026-10-22T00:59:22Z"
+          },
+          {
+            "number": 39,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:22Z",
+            "completed_at": "2026-10-22T00:59:22Z"
+          },
+          {
+            "number": 40,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:22Z",
+            "completed_at": "2026-10-22T00:59:23Z"
+          },
+          {
+            "number": 41,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:23Z",
+            "completed_at": "2026-10-22T00:59:23Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628924,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:54:43Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628924",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:17Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:17Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 6,
+            "name": "Install browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:48Z"
+          },
+          {
+            "number": 7,
+            "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:48Z",
+            "completed_at": "2026-10-22T00:52:08Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:08Z",
+            "completed_at": "2026-10-22T00:52:25Z"
+          },
+          {
+            "number": 9,
+            "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:25Z",
+            "completed_at": "2026-10-22T00:54:31Z"
+          },
+          {
+            "number": 10,
+            "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-22T00:54:31Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 11,
+            "name": "Run installed HTTP suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 12,
+            "name": "Keep private replies out of actual member and guest notification emails",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 13,
+            "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 14,
+            "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 15,
+            "name": "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 16,
+            "name": "Preserve per-device scene depth and foreground masking through actual packaged file requests",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 17,
+            "name": "Place cutouts and trace foreground masks in actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 18,
+            "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 19,
+            "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 20,
+            "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 21,
+            "name": "Run real desktop and mobile browser suites in a disposable copy",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 22,
+            "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 23,
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 24,
+            "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 25,
+            "name": "Edit publication windows through actual packaged owner and public pages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 26,
+            "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 27,
+            "name": "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 28,
+            "name": "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 29,
+            "name": "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 30,
+            "name": "Preserve saved menu order, targets and access through actual packaged file requests",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 31,
+            "name": "Edit and navigate nested menus through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 32,
+            "name": "Read the private publishing calendar and enforce post expiry through actual packaged file requests",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 33,
+            "name": "Use the publishing calendar and post-expiry controls in actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 34,
+            "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged file requests",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 35,
+            "name": "Schedule Hero and Footer changes through actual file and MySQL desktop and mobile packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:37Z"
+          },
+          {
+            "number": 36,
+            "name": "Upload real browser evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:37Z",
+            "completed_at": "2026-10-22T00:54:40Z"
+          },
+          {
+            "number": 70,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:40Z",
+            "completed_at": "2026-10-22T00:54:40Z"
+          },
+          {
+            "number": 71,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:40Z",
+            "completed_at": "2026-10-22T00:54:40Z"
+          },
+          {
+            "number": 72,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:40Z",
+            "completed_at": "2026-10-22T00:54:41Z"
+          },
+          {
+            "number": 73,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:41Z",
+            "completed_at": "2026-10-22T00:54:41Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628950,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T01:00:25Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628950",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:25Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:25Z",
+            "completed_at": "2026-10-22T00:51:25Z"
+          },
+          {
+            "number": 6,
+            "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:25Z",
+            "completed_at": "2026-10-22T00:51:29Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:29Z",
+            "completed_at": "2026-10-22T00:52:20Z"
+          },
+          {
+            "number": 8,
+            "name": "Permit failure-injection triggers in the disposable MySQL service",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:20Z",
+            "completed_at": "2026-10-22T00:52:20Z"
+          },
+          {
+            "number": 9,
+            "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:20Z",
+            "completed_at": "2026-10-22T00:52:30Z"
+          },
+          {
+            "number": 10,
+            "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:30Z",
+            "completed_at": "2026-10-22T00:52:37Z"
+          },
+          {
+            "number": 11,
+            "name": "Install packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:37Z",
+            "completed_at": "2026-10-22T00:52:39Z"
+          },
+          {
+            "number": 12,
+            "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:39Z",
+            "completed_at": "2026-10-22T00:54:05Z"
+          },
+          {
+            "number": 13,
+            "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:05Z",
+            "completed_at": "2026-10-22T00:55:24Z"
+          },
+          {
+            "number": 14,
+            "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:24Z",
+            "completed_at": "2026-10-22T00:57:10Z"
+          },
+          {
+            "number": 15,
+            "name": "Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:10Z",
+            "completed_at": "2026-10-22T00:57:34Z"
+          },
+          {
+            "number": 16,
+            "name": "Preserve per-device scene depth and foreground masking through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:34Z",
+            "completed_at": "2026-10-22T00:58:19Z"
+          },
+          {
+            "number": 17,
+            "name": "Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:19Z",
+            "completed_at": "2026-10-22T00:59:24Z"
+          },
+          {
+            "number": 18,
+            "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:24Z",
+            "completed_at": "2026-10-22T01:00:13Z"
+          },
+          {
+            "number": 19,
+            "name": "Preserve atomic private journals under real MySQL concurrency and interruption",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:13Z",
+            "completed_at": "2026-10-22T01:00:16Z"
+          },
+          {
+            "number": 20,
+            "name": "Verify durable attribution, privacy tombstones and exact business joins in MySQL",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:16Z",
+            "completed_at": "2026-10-22T01:00:21Z"
+          },
+          {
+            "number": 38,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:21Z",
+            "completed_at": "2026-10-22T01:00:21Z"
+          },
+          {
+            "number": 39,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:21Z",
+            "completed_at": "2026-10-22T01:00:21Z"
+          },
+          {
+            "number": 40,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:21Z",
+            "completed_at": "2026-10-22T01:00:22Z"
+          },
+          {
+            "number": 41,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:22Z",
+            "completed_at": "2026-10-22T01:00:22Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628956,
+        "name": "MariaDB 10.11 / PHP 8.3 actual install and upgrade compatibility",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:54:06Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628956",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:51:11Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:11Z",
+            "completed_at": "2026-10-22T00:51:13Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:13Z",
+            "completed_at": "2026-10-22T00:51:15Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:15Z",
+            "completed_at": "2026-10-22T00:51:15Z"
+          },
+          {
+            "number": 6,
+            "name": "Apply, verify, upgrade and roll back the explicit MariaDB schema",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:15Z",
+            "completed_at": "2026-10-22T00:51:17Z"
+          },
+          {
+            "number": 7,
+            "name": "Resume actual packaged MariaDB installations without replacing owner data",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:17Z",
+            "completed_at": "2026-10-22T00:51:44Z"
+          },
+          {
+            "number": 8,
+            "name": "Preserve private journals under MariaDB transactions and interrupted workers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:44Z",
+            "completed_at": "2026-10-22T00:51:46Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify MariaDB attribution and consent-aware exact joins",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:46Z",
+            "completed_at": "2026-10-22T00:51:49Z"
+          },
+          {
+            "number": 10,
+            "name": "Install MariaDB packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:49Z",
+            "completed_at": "2026-10-22T00:51:51Z"
+          },
+          {
+            "number": 11,
+            "name": "Verify administrator factors and revocation through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:51Z",
+            "completed_at": "2026-10-22T00:52:02Z"
+          },
+          {
+            "number": 12,
+            "name": "Preserve deleted editorial records through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:02Z",
+            "completed_at": "2026-10-22T00:52:50Z"
+          },
+          {
+            "number": 13,
+            "name": "Preserve campaign previews, frozen content and safe test delivery in MariaDB",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:50Z",
+            "completed_at": "2026-10-22T00:53:06Z"
+          },
+          {
+            "number": 14,
+            "name": "Verify campaign and referral attribution through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:06Z",
+            "completed_at": "2026-10-22T00:53:20Z"
+          },
+          {
+            "number": 15,
+            "name": "Verify consent-aware durable notifications through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:20Z",
+            "completed_at": "2026-10-22T00:53:44Z"
+          },
+          {
+            "number": 16,
+            "name": "Verify signed mail feedback and interruption recovery in MariaDB",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:44Z",
+            "completed_at": "2026-10-22T00:54:02Z"
+          },
+          {
+            "number": 17,
+            "name": "Upload actual MariaDB compatibility evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:02Z",
+            "completed_at": "2026-10-22T00:54:03Z"
+          },
+          {
+            "number": 32,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:03Z",
+            "completed_at": "2026-10-22T00:54:03Z"
+          },
+          {
+            "number": 33,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:03Z",
+            "completed_at": "2026-10-22T00:54:04Z"
+          },
+          {
+            "number": 34,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:04Z",
+            "completed_at": "2026-10-22T00:54:04Z"
+          },
+          {
+            "number": 35,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:04Z",
+            "completed_at": "2026-10-22T00:54:04Z"
+          }
+        ]
+      },
+      {
+        "id": 119573628987,
+        "name": "PHP 8.3 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:49Z",
+        "completed_at": "2026-10-22T00:52:01Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573628987",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:50:53Z"
+          },
+          {
+            "number": 3,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:53Z",
+            "completed_at": "2026-10-22T00:50:55Z"
+          },
+          {
+            "number": 4,
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:55Z",
+            "completed_at": "2026-10-22T00:50:56Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:56Z",
+            "completed_at": "2026-10-22T00:50:56Z"
+          },
+          {
+            "number": 6,
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:56Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          },
+          {
+            "number": 10,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:59Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          },
+          {
+            "number": 11,
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:59Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          },
+          {
+            "number": 12,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:59Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          },
+          {
+            "number": 13,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:59Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629001,
+        "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:53:28Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629001",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:28Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:28Z",
+            "completed_at": "2026-10-22T00:51:29Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:29Z",
+            "completed_at": "2026-10-22T00:51:32Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:32Z",
+            "completed_at": "2026-10-22T00:51:32Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:32Z",
+            "completed_at": "2026-10-22T00:52:01Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:01Z",
+            "completed_at": "2026-10-22T00:52:42Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:42Z",
+            "completed_at": "2026-10-22T00:53:22Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:22Z",
+            "completed_at": "2026-10-22T00:53:24Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:24Z",
+            "completed_at": "2026-10-22T00:53:24Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:24Z",
+            "completed_at": "2026-10-22T00:53:25Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:25Z",
+            "completed_at": "2026-10-22T00:53:26Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:26Z",
+            "completed_at": "2026-10-22T00:53:26Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629016,
+        "name": "Protected media and Apache forms / mariadb-10.11",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:54:36Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629016",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:17Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:17Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:23Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:23Z",
+            "completed_at": "2026-10-22T00:52:43Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify SQL protection records and guarded publication persistence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:43Z",
+            "completed_at": "2026-10-22T00:52:46Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual server upload denial, holds, appeals and file release",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:46Z",
+            "completed_at": "2026-10-22T00:53:34Z"
+          },
+          {
+            "number": 9,
+            "name": "Preserve expired-form responses and rejected-state integrity on real Apache",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:34Z",
+            "completed_at": "2026-10-22T00:53:42Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile protection controls",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:42Z",
+            "completed_at": "2026-10-22T00:54:31Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload protected-delivery and Apache acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:31Z",
+            "completed_at": "2026-10-22T00:54:33Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:33Z",
+            "completed_at": "2026-10-22T00:54:34Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:34Z",
+            "completed_at": "2026-10-22T00:54:34Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:34Z",
+            "completed_at": "2026-10-22T00:54:34Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:34Z",
+            "completed_at": "2026-10-22T00:54:34Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629019,
+        "name": "PHP 8.2 source and package regressions",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:52:08Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629019",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:50:54Z"
+          },
+          {
+            "number": 3,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:54Z",
+            "completed_at": "2026-10-22T00:50:57Z"
+          },
+          {
+            "number": 4,
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:57Z",
+            "completed_at": "2026-10-22T00:50:59Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:59Z",
+            "completed_at": "2026-10-22T00:50:59Z"
+          },
+          {
+            "number": 6,
+            "name": "Run mandatory source and packaging suites in disposable copies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:59Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          },
+          {
+            "number": 10,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:05Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          },
+          {
+            "number": 11,
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:05Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          },
+          {
+            "number": 12,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:05Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          },
+          {
+            "number": 13,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:05Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629037,
+        "name": "Safeguards and marketing mail_provider actual-package acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:53:25Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629037",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:27Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:27Z",
+            "completed_at": "2026-10-22T00:51:27Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:27Z",
+            "completed_at": "2026-10-22T00:51:56Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:56Z",
+            "completed_at": "2026-10-22T00:52:39Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:39Z",
+            "completed_at": "2026-10-22T00:53:19Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:19Z",
+            "completed_at": "2026-10-22T00:53:21Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:21Z",
+            "completed_at": "2026-10-22T00:53:21Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:21Z",
+            "completed_at": "2026-10-22T00:53:21Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:21Z",
+            "completed_at": "2026-10-22T00:53:23Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:23Z",
+            "completed_at": "2026-10-22T00:53:23Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629062,
+        "name": "Protected media and Apache forms / mysql-8.0",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:54:38Z",
+        "completed_at": "2026-10-22T00:58:50Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629062",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:39Z",
+            "completed_at": "2026-10-22T00:54:40Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:41Z",
+            "completed_at": "2026-10-22T00:55:08Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:08Z",
+            "completed_at": "2026-10-22T00:55:10Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:10Z",
+            "completed_at": "2026-10-22T00:55:13Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:13Z",
+            "completed_at": "2026-10-22T00:55:13Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:13Z",
+            "completed_at": "2026-10-22T00:56:44Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify SQL protection records and guarded publication persistence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:44Z",
+            "completed_at": "2026-10-22T00:56:48Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual server upload denial, holds, appeals and file release",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:48Z",
+            "completed_at": "2026-10-22T00:57:41Z"
+          },
+          {
+            "number": 9,
+            "name": "Preserve expired-form responses and rejected-state integrity on real Apache",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:41Z",
+            "completed_at": "2026-10-22T00:57:50Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile protection controls",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:50Z",
+            "completed_at": "2026-10-22T00:58:43Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload protected-delivery and Apache acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:43Z",
+            "completed_at": "2026-10-22T00:58:46Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:46Z",
+            "completed_at": "2026-10-22T00:58:46Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:46Z",
+            "completed_at": "2026-10-22T00:58:46Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:46Z",
+            "completed_at": "2026-10-22T00:58:46Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:46Z",
+            "completed_at": "2026-10-22T00:58:46Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629116,
+        "name": "Safeguards and marketing marketing_attribution actual-package acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:49Z",
+        "completed_at": "2026-10-22T00:53:21Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629116",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:51:17Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:17Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:21Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:21Z",
+            "completed_at": "2026-10-22T00:51:42Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:42Z",
+            "completed_at": "2026-10-22T00:52:09Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:09Z",
+            "completed_at": "2026-10-22T00:53:17Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:17Z",
+            "completed_at": "2026-10-22T00:53:18Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:18Z",
+            "completed_at": "2026-10-22T00:53:19Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:19Z",
+            "completed_at": "2026-10-22T00:53:19Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:19Z",
+            "completed_at": "2026-10-22T00:53:20Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:20Z",
+            "completed_at": "2026-10-22T00:53:20Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629122,
+        "name": "MariaDB 10.11 / PHP 8.2 actual install and upgrade compatibility",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:52:02Z",
+        "completed_at": "2026-10-22T00:56:04Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629122",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:03Z",
+            "completed_at": "2026-10-22T00:52:04Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:04Z",
+            "completed_at": "2026-10-22T00:52:22Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:22Z",
+            "completed_at": "2026-10-22T00:52:23Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:23Z",
+            "completed_at": "2026-10-22T00:52:26Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:26Z",
+            "completed_at": "2026-10-22T00:52:26Z"
+          },
+          {
+            "number": 6,
+            "name": "Apply, verify, upgrade and roll back the explicit MariaDB schema",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:26Z",
+            "completed_at": "2026-10-22T00:52:28Z"
+          },
+          {
+            "number": 7,
+            "name": "Resume actual packaged MariaDB installations without replacing owner data",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:28Z",
+            "completed_at": "2026-10-22T00:52:58Z"
+          },
+          {
+            "number": 8,
+            "name": "Preserve private journals under MariaDB transactions and interrupted workers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:58Z",
+            "completed_at": "2026-10-22T00:52:59Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify MariaDB attribution and consent-aware exact joins",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:59Z",
+            "completed_at": "2026-10-22T00:53:04Z"
+          },
+          {
+            "number": 10,
+            "name": "Install MariaDB packaged HTTP acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:04Z",
+            "completed_at": "2026-10-22T00:53:07Z"
+          },
+          {
+            "number": 11,
+            "name": "Verify administrator factors and revocation through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:07Z",
+            "completed_at": "2026-10-22T00:53:21Z"
+          },
+          {
+            "number": 12,
+            "name": "Preserve deleted editorial records through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:21Z",
+            "completed_at": "2026-10-22T00:54:26Z"
+          },
+          {
+            "number": 13,
+            "name": "Preserve campaign previews, frozen content and safe test delivery in MariaDB",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:26Z",
+            "completed_at": "2026-10-22T00:54:47Z"
+          },
+          {
+            "number": 14,
+            "name": "Verify campaign and referral attribution through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:47Z",
+            "completed_at": "2026-10-22T00:55:05Z"
+          },
+          {
+            "number": 15,
+            "name": "Verify consent-aware durable notifications through packaged MariaDB requests",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:05Z",
+            "completed_at": "2026-10-22T00:55:36Z"
+          },
+          {
+            "number": 16,
+            "name": "Verify signed mail feedback and interruption recovery in MariaDB",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:36Z",
+            "completed_at": "2026-10-22T00:56:00Z"
+          },
+          {
+            "number": 17,
+            "name": "Upload actual MariaDB compatibility evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:00Z",
+            "completed_at": "2026-10-22T00:56:01Z"
+          },
+          {
+            "number": 32,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:01Z",
+            "completed_at": "2026-10-22T00:56:01Z"
+          },
+          {
+            "number": 33,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:01Z",
+            "completed_at": "2026-10-22T00:56:02Z"
+          },
+          {
+            "number": 34,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:02Z",
+            "completed_at": "2026-10-22T00:56:02Z"
+          },
+          {
+            "number": 35,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:02Z",
+            "completed_at": "2026-10-22T00:56:02Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629145,
+        "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:53:23Z",
+        "completed_at": "2026-10-22T01:00:43Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629145",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:24Z",
+            "completed_at": "2026-10-22T00:53:25Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:25Z",
+            "completed_at": "2026-10-22T00:53:54Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:54Z",
+            "completed_at": "2026-10-22T00:53:55Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:55Z",
+            "completed_at": "2026-10-22T00:53:58Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:58Z",
+            "completed_at": "2026-10-22T00:53:59Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:59Z",
+            "completed_at": "2026-10-22T00:54:27Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:27Z",
+            "completed_at": "2026-10-22T00:56:22Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:22Z",
+            "completed_at": "2026-10-22T01:00:37Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:37Z",
+            "completed_at": "2026-10-22T01:00:40Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:40Z",
+            "completed_at": "2026-10-22T01:00:40Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:40Z",
+            "completed_at": "2026-10-22T01:00:40Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:40Z",
+            "completed_at": "2026-10-22T01:00:40Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T01:00:40Z",
+            "completed_at": "2026-10-22T01:00:41Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629170,
+        "name": "Safeguards and marketing admin_security actual-package acceptance",
+        "status": "completed",
+        "conclusion": "failure",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:52:07Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629170",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:20Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:20Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:23Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:23Z",
+            "completed_at": "2026-10-22T00:51:49Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "failure",
+            "started_at": "2026-10-22T00:51:49Z",
+            "completed_at": "2026-10-22T00:52:00Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:52:00Z",
+            "completed_at": "2026-10-22T00:52:00Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:00Z",
+            "completed_at": "2026-10-22T00:52:01Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:52:01Z",
+            "completed_at": "2026-10-22T00:52:01Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:01Z",
+            "completed_at": "2026-10-22T00:52:02Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:02Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:05Z",
+            "completed_at": "2026-10-22T00:52:05Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629176,
+        "name": "Safeguards and marketing notifications actual-package acceptance",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:53:27Z",
+        "completed_at": "2026-10-22T00:56:07Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629176",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:28Z",
+            "completed_at": "2026-10-22T00:53:29Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:29Z",
+            "completed_at": "2026-10-22T00:53:57Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:57Z",
+            "completed_at": "2026-10-22T00:53:59Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:59Z",
+            "completed_at": "2026-10-22T00:54:02Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:02Z",
+            "completed_at": "2026-10-22T00:54:02Z"
+          },
+          {
+            "number": 6,
+            "name": "Install pinned real browser acceptance dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:02Z",
+            "completed_at": "2026-10-22T00:54:30Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:30Z",
+            "completed_at": "2026-10-22T00:55:22Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify actual desktop and mobile controls in file and SQL packages",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:22Z",
+            "completed_at": "2026-10-22T00:56:02Z"
+          },
+          {
+            "number": 9,
+            "name": "Upload safeguards acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:02Z",
+            "completed_at": "2026-10-22T00:56:04Z"
+          },
+          {
+            "number": 16,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:04Z",
+            "completed_at": "2026-10-22T00:56:04Z"
+          },
+          {
+            "number": 17,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:04Z",
+            "completed_at": "2026-10-22T00:56:04Z"
+          },
+          {
+            "number": 18,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:04Z",
+            "completed_at": "2026-10-22T00:56:05Z"
+          },
+          {
+            "number": 19,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:05Z",
+            "completed_at": "2026-10-22T00:56:05Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629181,
+        "name": "Operations restore (mariadb-10.11, PHP 8.3)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:53:50Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629181",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:52Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:52Z",
+            "completed_at": "2026-10-22T00:51:17Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:17Z",
+            "completed_at": "2026-10-22T00:51:19Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:19Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:22Z"
+          },
+          {
+            "number": 6,
+            "name": "Install retained HTTP and browser dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:22Z",
+            "completed_at": "2026-10-22T00:51:56Z"
+          },
+          {
+            "number": 7,
+            "name": "Check owned Operations fixture guards",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:56Z",
+            "completed_at": "2026-10-22T00:51:56Z"
+          },
+          {
+            "number": 8,
+            "name": "Prepare new private source and restore fixture",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:56Z",
+            "completed_at": "2026-10-22T00:51:56Z"
+          },
+          {
+            "number": 9,
+            "name": "Provision only this disposable service's new fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:56Z",
+            "completed_at": "2026-10-22T00:51:57Z"
+          },
+          {
+            "number": 10,
+            "name": "Verify actual engine and exact empty fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:57Z",
+            "completed_at": "2026-10-22T00:51:57Z"
+          },
+          {
+            "number": 11,
+            "name": "Actual SQL encrypted backup and isolated restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:57Z",
+            "completed_at": "2026-10-22T00:51:59Z"
+          },
+          {
+            "number": 12,
+            "name": "Actual packaged Operations HTTP acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:59Z",
+            "completed_at": "2026-10-22T00:52:49Z"
+          },
+          {
+            "number": 13,
+            "name": "Actual packaged Operations desktop and mobile acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:49Z",
+            "completed_at": "2026-10-22T00:53:46Z"
+          },
+          {
+            "number": 14,
+            "name": "Upload actual Operations evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:46Z",
+            "completed_at": "2026-10-22T00:53:48Z"
+          },
+          {
+            "number": 26,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:48Z",
+            "completed_at": "2026-10-22T00:53:48Z"
+          },
+          {
+            "number": 27,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:48Z",
+            "completed_at": "2026-10-22T00:53:48Z"
+          },
+          {
+            "number": 28,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:48Z",
+            "completed_at": "2026-10-22T00:53:48Z"
+          },
+          {
+            "number": 29,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:48Z",
+            "completed_at": "2026-10-22T00:53:48Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629197,
+        "name": "Privacy and access / member_privacy / mariadb-10.11",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:50:50Z",
+        "completed_at": "2026-10-22T00:57:02Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629197",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:50Z",
+            "completed_at": "2026-10-22T00:50:51Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:50:51Z",
+            "completed_at": "2026-10-22T00:51:16Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:16Z",
+            "completed_at": "2026-10-22T00:51:18Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:18Z",
+            "completed_at": "2026-10-22T00:51:20Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:20Z",
+            "completed_at": "2026-10-22T00:51:20Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:51:20Z",
+            "completed_at": "2026-10-22T00:52:53Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify complete member inventory and atomic core closure on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:53Z",
+            "completed_at": "2026-10-22T00:52:55Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:55Z",
+            "completed_at": "2026-10-22T00:52:57Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify actual file and SQL Apache root and nested request boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:57Z",
+            "completed_at": "2026-10-22T00:54:51Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile workflows including no JavaScript",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:51Z",
+            "completed_at": "2026-10-22T00:56:59Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload actual privacy and access acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:59Z",
+            "completed_at": "2026-10-22T00:57:00Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:00Z",
+            "completed_at": "2026-10-22T00:57:00Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:00Z",
+            "completed_at": "2026-10-22T00:57:00Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:00Z",
+            "completed_at": "2026-10-22T00:57:01Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:01Z",
+            "completed_at": "2026-10-22T00:57:01Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629234,
+        "name": "Operations restore (mariadb-10.11, PHP 8.2)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:54:08Z",
+        "completed_at": "2026-10-22T00:57:29Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629234",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:09Z",
+            "completed_at": "2026-10-22T00:54:10Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:10Z",
+            "completed_at": "2026-10-22T00:54:30Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:30Z",
+            "completed_at": "2026-10-22T00:54:32Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:32Z",
+            "completed_at": "2026-10-22T00:54:35Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:35Z",
+            "completed_at": "2026-10-22T00:54:36Z"
+          },
+          {
+            "number": 6,
+            "name": "Install retained HTTP and browser dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:36Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 7,
+            "name": "Check owned Operations fixture guards",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 8,
+            "name": "Prepare new private source and restore fixture",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 9,
+            "name": "Provision only this disposable service's new fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 10,
+            "name": "Verify actual engine and exact empty fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:55:12Z"
+          },
+          {
+            "number": 11,
+            "name": "Actual SQL encrypted backup and isolated restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:12Z",
+            "completed_at": "2026-10-22T00:55:16Z"
+          },
+          {
+            "number": 12,
+            "name": "Actual packaged Operations HTTP acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:16Z",
+            "completed_at": "2026-10-22T00:56:16Z"
+          },
+          {
+            "number": 13,
+            "name": "Actual packaged Operations desktop and mobile acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:16Z",
+            "completed_at": "2026-10-22T00:57:23Z"
+          },
+          {
+            "number": 14,
+            "name": "Upload actual Operations evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:23Z",
+            "completed_at": "2026-10-22T00:57:26Z"
+          },
+          {
+            "number": 26,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:26Z",
+            "completed_at": "2026-10-22T00:57:26Z"
+          },
+          {
+            "number": 27,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:26Z",
+            "completed_at": "2026-10-22T00:57:26Z"
+          },
+          {
+            "number": 28,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:26Z",
+            "completed_at": "2026-10-22T00:57:26Z"
+          },
+          {
+            "number": 29,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:26Z",
+            "completed_at": "2026-10-22T00:57:26Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629250,
+        "name": "Privacy and access / member_privacy / mysql-8.0",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:53:29Z",
+        "completed_at": "2026-10-22T00:59:16Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629250",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:30Z",
+            "completed_at": "2026-10-22T00:53:31Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:31Z",
+            "completed_at": "2026-10-22T00:54:01Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:01Z",
+            "completed_at": "2026-10-22T00:54:03Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:03Z",
+            "completed_at": "2026-10-22T00:54:06Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:06Z",
+            "completed_at": "2026-10-22T00:54:06Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:06Z",
+            "completed_at": "2026-10-22T00:55:30Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify complete member inventory and atomic core closure on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:30Z",
+            "completed_at": "2026-10-22T00:55:32Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:32Z",
+            "completed_at": "2026-10-22T00:55:35Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify actual file and SQL Apache root and nested request boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:35Z",
+            "completed_at": "2026-10-22T00:57:07Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile workflows including no JavaScript",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:07Z",
+            "completed_at": "2026-10-22T00:59:11Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload actual privacy and access acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:11Z",
+            "completed_at": "2026-10-22T00:59:13Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:13Z",
+            "completed_at": "2026-10-22T00:59:13Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:13Z",
+            "completed_at": "2026-10-22T00:59:13Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:13Z",
+            "completed_at": "2026-10-22T00:59:14Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:14Z",
+            "completed_at": "2026-10-22T00:59:14Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629317,
+        "name": "Operations restore (mysql-8.0, PHP 8.3)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:54:45Z",
+        "completed_at": "2026-10-22T00:58:11Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629317",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:46Z",
+            "completed_at": "2026-10-22T00:54:47Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:47Z",
+            "completed_at": "2026-10-22T00:55:22Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:22Z",
+            "completed_at": "2026-10-22T00:55:24Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:24Z",
+            "completed_at": "2026-10-22T00:55:27Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:27Z",
+            "completed_at": "2026-10-22T00:55:27Z"
+          },
+          {
+            "number": 6,
+            "name": "Install retained HTTP and browser dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:27Z",
+            "completed_at": "2026-10-22T00:55:55Z"
+          },
+          {
+            "number": 7,
+            "name": "Check owned Operations fixture guards",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:55Z",
+            "completed_at": "2026-10-22T00:55:55Z"
+          },
+          {
+            "number": 8,
+            "name": "Prepare new private source and restore fixture",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:55Z",
+            "completed_at": "2026-10-22T00:55:55Z"
+          },
+          {
+            "number": 9,
+            "name": "Provision only this disposable service's new fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:55Z",
+            "completed_at": "2026-10-22T00:55:55Z"
+          },
+          {
+            "number": 10,
+            "name": "Verify actual engine and exact empty fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:55Z",
+            "completed_at": "2026-10-22T00:55:55Z"
+          },
+          {
+            "number": 11,
+            "name": "Actual SQL encrypted backup and isolated restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:55Z",
+            "completed_at": "2026-10-22T00:56:00Z"
+          },
+          {
+            "number": 12,
+            "name": "Actual packaged Operations HTTP acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:00Z",
+            "completed_at": "2026-10-22T00:57:00Z"
+          },
+          {
+            "number": 13,
+            "name": "Actual packaged Operations desktop and mobile acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:00Z",
+            "completed_at": "2026-10-22T00:58:04Z"
+          },
+          {
+            "number": 14,
+            "name": "Upload actual Operations evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:04Z",
+            "completed_at": "2026-10-22T00:58:07Z"
+          },
+          {
+            "number": 26,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:07Z",
+            "completed_at": "2026-10-22T00:58:07Z"
+          },
+          {
+            "number": 27,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:07Z",
+            "completed_at": "2026-10-22T00:58:07Z"
+          },
+          {
+            "number": 28,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:07Z",
+            "completed_at": "2026-10-22T00:58:08Z"
+          },
+          {
+            "number": 29,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:58:08Z",
+            "completed_at": "2026-10-22T00:58:08Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629349,
+        "name": "Operations restore (mysql-8.0, PHP 8.2)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:52:08Z",
+        "completed_at": "2026-10-22T00:55:41Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629349",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:09Z",
+            "completed_at": "2026-10-22T00:52:10Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:10Z",
+            "completed_at": "2026-10-22T00:52:37Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:37Z",
+            "completed_at": "2026-10-22T00:52:39Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:39Z",
+            "completed_at": "2026-10-22T00:52:42Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:42Z",
+            "completed_at": "2026-10-22T00:52:42Z"
+          },
+          {
+            "number": 6,
+            "name": "Install retained HTTP and browser dependencies",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:42Z",
+            "completed_at": "2026-10-22T00:53:12Z"
+          },
+          {
+            "number": 7,
+            "name": "Check owned Operations fixture guards",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:12Z",
+            "completed_at": "2026-10-22T00:53:12Z"
+          },
+          {
+            "number": 8,
+            "name": "Prepare new private source and restore fixture",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:12Z",
+            "completed_at": "2026-10-22T00:53:12Z"
+          },
+          {
+            "number": 9,
+            "name": "Provision only this disposable service's new fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:12Z",
+            "completed_at": "2026-10-22T00:53:12Z"
+          },
+          {
+            "number": 10,
+            "name": "Verify actual engine and exact empty fixture pair",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:12Z",
+            "completed_at": "2026-10-22T00:53:12Z"
+          },
+          {
+            "number": 11,
+            "name": "Actual SQL encrypted backup and isolated restore",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:12Z",
+            "completed_at": "2026-10-22T00:53:18Z"
+          },
+          {
+            "number": 12,
+            "name": "Actual packaged Operations HTTP acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:18Z",
+            "completed_at": "2026-10-22T00:54:26Z"
+          },
+          {
+            "number": 13,
+            "name": "Actual packaged Operations desktop and mobile acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:26Z",
+            "completed_at": "2026-10-22T00:55:36Z"
+          },
+          {
+            "number": 14,
+            "name": "Upload actual Operations evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:36Z",
+            "completed_at": "2026-10-22T00:55:38Z"
+          },
+          {
+            "number": 26,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:38Z",
+            "completed_at": "2026-10-22T00:55:38Z"
+          },
+          {
+            "number": 27,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:38Z",
+            "completed_at": "2026-10-22T00:55:39Z"
+          },
+          {
+            "number": 28,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:39Z",
+            "completed_at": "2026-10-22T00:55:39Z"
+          },
+          {
+            "number": 29,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:39Z",
+            "completed_at": "2026-10-22T00:55:39Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629361,
+        "name": "Privacy and access / age_policies / mariadb-10.11",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:52:10Z",
+        "completed_at": "2026-10-22T00:57:20Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629361",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:11Z",
+            "completed_at": "2026-10-22T00:52:11Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:11Z",
+            "completed_at": "2026-10-22T00:52:31Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:31Z",
+            "completed_at": "2026-10-22T00:52:33Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:33Z",
+            "completed_at": "2026-10-22T00:52:35Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:35Z",
+            "completed_at": "2026-10-22T00:52:35Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:52:35Z",
+            "completed_at": "2026-10-22T00:54:09Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify complete member inventory and atomic core closure on the actual engine",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:54:09Z",
+            "completed_at": "2026-10-22T00:54:09Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:09Z",
+            "completed_at": "2026-10-22T00:54:11Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify actual file and SQL Apache root and nested request boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:11Z",
+            "completed_at": "2026-10-22T00:54:54Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile workflows including no JavaScript",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:54Z",
+            "completed_at": "2026-10-22T00:57:17Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload actual privacy and access acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:17Z",
+            "completed_at": "2026-10-22T00:57:18Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:18Z",
+            "completed_at": "2026-10-22T00:57:18Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:18Z",
+            "completed_at": "2026-10-22T00:57:18Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:18Z",
+            "completed_at": "2026-10-22T00:57:19Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:57:19Z",
+            "completed_at": "2026-10-22T00:57:19Z"
+          }
+        ]
+      },
+      {
+        "id": 119573629436,
+        "name": "Privacy and access / age_policies / mysql-8.0",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-22T00:53:52Z",
+        "completed_at": "2026-10-22T00:59:20Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119573629436",
+        "steps": [
+          {
+            "number": 1,
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:53Z",
+            "completed_at": "2026-10-22T00:53:54Z"
+          },
+          {
+            "number": 2,
+            "name": "Initialize containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:53:54Z",
+            "completed_at": "2026-10-22T00:54:22Z"
+          },
+          {
+            "number": 3,
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:22Z",
+            "completed_at": "2026-10-22T00:54:24Z"
+          },
+          {
+            "number": 4,
+            "name": "Run shivammathur/setup-php@v2",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:24Z",
+            "completed_at": "2026-10-22T00:54:27Z"
+          },
+          {
+            "number": 5,
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:27Z",
+            "completed_at": "2026-10-22T00:54:27Z"
+          },
+          {
+            "number": 6,
+            "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:54:27Z",
+            "completed_at": "2026-10-22T00:55:45Z"
+          },
+          {
+            "number": 7,
+            "name": "Verify complete member inventory and atomic core closure on the actual engine",
+            "status": "completed",
+            "conclusion": "skipped",
+            "started_at": "2026-10-22T00:55:45Z",
+            "completed_at": "2026-10-22T00:55:45Z"
+          },
+          {
+            "number": 8,
+            "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:45Z",
+            "completed_at": "2026-10-22T00:55:48Z"
+          },
+          {
+            "number": 9,
+            "name": "Verify actual file and SQL Apache root and nested request boundaries",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:55:48Z",
+            "completed_at": "2026-10-22T00:56:30Z"
+          },
+          {
+            "number": 10,
+            "name": "Review actual desktop and mobile workflows including no JavaScript",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:56:30Z",
+            "completed_at": "2026-10-22T00:59:14Z"
+          },
+          {
+            "number": 11,
+            "name": "Upload actual privacy and access acceptance evidence",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:14Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          },
+          {
+            "number": 20,
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:17Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          },
+          {
+            "number": 21,
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:17Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          },
+          {
+            "number": 22,
+            "name": "Stop containers",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:17Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          },
+          {
+            "number": 23,
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "started_at": "2026-10-22T00:59:17Z",
+            "completed_at": "2026-10-22T00:59:17Z"
+          }
+        ]
+      },
+      {
+        "id": 119576864096,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "status": "completed",
+        "conclusion": "skipped",
+        "started_at": "2026-10-22T01:00:44Z",
+        "completed_at": "2026-10-22T01:00:43Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39702115764/job/119576864096",
+        "steps": []
+      }
+    ]
+  },
+  "job_conclusions": {
+    "success": 23,
+    "failure": 2,
+    "skipped": 1
+  },
+  "correction_source": "604b0c59b3f65ca87f93cce5cd49ef2608b2b209",
+  "changed_files": [
+    {
+      "path": "tests/Feature/admin_security.php",
+      "sha256": "409151fc5883716749bf7d8e6089c428fa32b21c12557cd0925014c2ec898163"
+    },
+    {
+      "path": "tests/Http/admin_security_http.py",
+      "sha256": "fbf2e3dab3fe3385ec45662a3d888478517cd5136ee67ef65a97226d685c7523"
+    },
+    {
+      "path": "tests/Http/public_routes_packaged.py",
+      "sha256": "294b96f83ac9569518922f0439d32f4576dd115e172fd37909288148773a81af"
+    }
+  ],
+  "corrections": [
+    {
+      "failed_job": 119573629170,
+      "cause": "The replay fixture recomputed its authenticator value after a real 30-second boundary, sending a new valid code instead of the previously consumed code.",
+      "change": "Capture the accepted value once and replay that exact value. Add source assertions distinguishing consumed-counter replay from the next fresh counter.",
+      "source_checks": 68,
+      "local_clock_boundary": {
+        "file": "clock-boundary-proof.json",
+        "bytes": 431,
+        "sha256": "f47572f7cbe821494b4e246aaf227c236a3a729e2d089fefdf35942fe2935843",
+        "evidence": {
+          "scope": "Actual packaged HTTP replay across a real clock boundary; disposable loopback fixtures only",
+          "runtime_changed": false,
+          "boundary_exercised": true,
+          "wait_seconds": 9.529681921005249,
+          "case": "file-root",
+          "counter_advanced": true,
+          "exact_accepted_value_replayed": true,
+          "recomputing_now_would_send_a_different_value": true,
+          "replay_refused_after_boundary": true,
+          "all_four_http_cases_passed": true
+        }
+      },
+      "local_packaged_http": {
+        "file": "admin-security-http-evidence.json",
+        "bytes": 1570,
+        "sha256": "565fd9123a95bcccaf7bff5b13e240742460fda6928d9ac9980a26c3fd642186",
+        "evidence": {
+          "cases": {
+            "file-root": {
+              "checks": 68,
+              "mysql_version": null,
+              "factor_enrollment": true,
+              "rfc_totp": true,
+              "replay_refused": true,
+              "recovery_single_use": true,
+              "session_revocation": true,
+              "recent_owner_required": true,
+              "smtp_connections": 0
+            },
+            "file-nested": {
+              "checks": 68,
+              "mysql_version": null,
+              "factor_enrollment": true,
+              "rfc_totp": true,
+              "replay_refused": true,
+              "recovery_single_use": true,
+              "session_revocation": true,
+              "recent_owner_required": true,
+              "smtp_connections": 0
+            },
+            "mysql-root": {
+              "checks": 68,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "factor_enrollment": true,
+              "rfc_totp": true,
+              "replay_refused": true,
+              "recovery_single_use": true,
+              "session_revocation": true,
+              "recent_owner_required": true,
+              "smtp_connections": 0
+            },
+            "mysql-nested": {
+              "checks": 68,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "factor_enrollment": true,
+              "rfc_totp": true,
+              "replay_refused": true,
+              "recovery_single_use": true,
+              "session_revocation": true,
+              "recent_owner_required": true,
+              "smtp_connections": 0
+            }
+          },
+          "version": "0.9.0",
+          "build_id": "20261021.4",
+          "fresh_zip_sha256": "432e83cba7a97a6f49346d87c78bfb78b3c05c7e8d42a8f866e44838f5f0d1c4",
+          "expected_fresh_zip_sha256": "432e83cba7a97a6f49346d87c78bfb78b3c05c7e8d42a8f866e44838f5f0d1c4",
+          "externally_pinned_fresh": false,
+          "archive_runtime_matches_sources": true
+        }
+      }
+    },
+    {
+      "failed_job": 119573628924,
+      "cause": "The legacy routing fixture expected a redirect although the current physical repair entry authenticates locally and returns native 419/401 rejections.",
+      "change": "Require current sign-in forms, no privileged controls, native foreign-CSRF and owner-authentication rejection, and exact file/record preservation after every denied request.",
+      "local_acceptance": {
+        "file": "fix-proof.json",
+        "bytes": 3059,
+        "sha256": "ba40387e067211dd7f8c90dd3fe3c6b69016fe6bbf9ffa48cc3d9aeddbffdd93",
+        "evidence": {
+          "status": "PASS",
+          "commit": "5bf9aec89f80ee12248f7aaeaab61d466ee8e704",
+          "parent": "69dcea92fce6db79ef582e7645c62599ea9dacad",
+          "changed_files": [
+            "tests/Http/public_routes_packaged.py"
+          ],
+          "producer_sha256": "294b96f83ac9569518922f0439d32f4576dd115e172fd37909288148773a81af",
+          "runtime_changed": false,
+          "php": "8.3.6",
+          "fresh_zip_sha256": "432e83cba7a97a6f49346d87c78bfb78b3c05c7e8d42a8f866e44838f5f0d1c4",
+          "upgrade_zip_sha256": "7f84e9d4febb65c1fb684ce1407100fce4e940eab368c8f068c30381814b77ac",
+          "packages_equal_frozen_candidate": true,
+          "registered_aliases": 102,
+          "protected_handlers": 51,
+          "root_and_nested_passed": true,
+          "cases": {
+            "root": {
+              "current_repair_auth_rejections": {
+                "anonymous": {
+                  "foreign_csrf": 419,
+                  "own_csrf_without_owner": 401,
+                  "owner_credentials_with_foreign_csrf": 419,
+                  "sign_in_gate_retained": true,
+                  "files_and_records_unchanged": true
+                },
+                "member": {
+                  "foreign_csrf": 419,
+                  "own_csrf_without_owner": 401,
+                  "owner_credentials_with_foreign_csrf": 419,
+                  "sign_in_gate_retained": true,
+                  "files_and_records_unchanged": true
+                }
+              },
+              "retired_known_files": 46,
+              "removed_empty_directories": 22,
+              "preserved_current_runtime_files": 452,
+              "custom_items_preserved_in_place": 3,
+              "reversible_nonexecuting_archive": true,
+              "repeat_cleanup_preserved_routes": true
+            },
+            "nested": {
+              "current_repair_auth_rejections": {
+                "anonymous": {
+                  "foreign_csrf": 419,
+                  "own_csrf_without_owner": 401,
+                  "owner_credentials_with_foreign_csrf": 419,
+                  "sign_in_gate_retained": true,
+                  "files_and_records_unchanged": true
+                },
+                "member": {
+                  "foreign_csrf": 419,
+                  "own_csrf_without_owner": 401,
+                  "owner_credentials_with_foreign_csrf": 419,
+                  "sign_in_gate_retained": true,
+                  "files_and_records_unchanged": true
+                }
+              },
+              "retired_known_files": 46,
+              "removed_empty_directories": 25,
+              "preserved_current_runtime_files": 452,
+              "custom_items_preserved_in_place": 0,
+              "reversible_nonexecuting_archive": true,
+              "repeat_cleanup_preserved_routes": true
+            }
+          },
+          "evidence_sha256": "3a4cf0e320bee75c0ac507b6d51e935b5c48eb62e4324761a9d6f96cd77b3c6b",
+          "logs": [
+            {
+              "file": "packaged-public-routes-root-http.log",
+              "sha256": "55bcab7a5c2002efed47381fd5b10113abaf65f8208f675374f0bed47d9af370",
+              "diagnostics": 0
+            },
+            {
+              "file": "packaged-public-routes-nested-http.log",
+              "sha256": "cf50f300e207cfc9955a11a261f1818afb8b79dc01ee5e7707a1405245cc4c16",
+              "diagnostics": 0
+            },
+            {
+              "file": "acceptance.log",
+              "sha256": "ab00b1a6afc773a70867f97bb9b8fae4cc6c81e48f9fda3dccb1de22ae06ae4d",
+              "diagnostics": 0
+            }
+          ],
+          "original_ci_run": 39702115764,
+          "original_failed_job": 119573628924,
+          "remote_reverification": "required on the subsequent source commit"
+        }
+      }
+    }
+  ],
+  "package_cohort": {
+    "fresh_sha256": "432e83cba7a97a6f49346d87c78bfb78b3c05c7e8d42a8f866e44838f5f0d1c4",
+    "upgrade_sha256": "7f84e9d4febb65c1fb684ce1407100fce4e940eab368c8f068c30381814b77ac",
+    "repair_sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+    "manifest_sha256": "79fb02e5a961576d1fea5f47a639efd74423adabbe3aa1b6a21d61c75736c12f"
+  },
+  "limitations": [
+    "Failed CI is not a release pass. The main browser job skipped 26 later steps after its routing failure.",
+    "Both corrections change tests only. No customer-host inspection, live payment, real provider request or production email was performed.",
+    "Final required CI, gated artifact verification, merge and literal saved-download read-back remain necessary."
+  ]
+}
