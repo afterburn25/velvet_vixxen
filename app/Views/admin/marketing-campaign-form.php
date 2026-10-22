@@ -45,7 +45,7 @@ foreach ($segments as $segment) {
     <?php if (isset($campaignAudiencePreview)): ?><p class="marketing-notice" role="status" data-campaign-audience-preview><strong><?= (int) $campaignAudiencePreview['eligible_count'] ?> eligible newsletter contacts</strong> match now. Queueing checks this preview again; refresh it if contacts or criteria change.</p><?php endif; ?>
     <label>Schedule (<?= velvet_marketing_escape(date_default_timezone_get()) ?>)<input type="datetime-local" step="1" name="scheduled_at" value="<?= velvet_marketing_escape(mm_form_text($campaignForm['scheduled_at'] ?? '', 40)) ?>"></label>
     <input type="hidden" name="status" value="draft">
-    <label><input type="checkbox" name="queue" value="1" style="width:auto" <?= !empty($campaignForm['queue']) ? 'checked' : '' ?>> Queue for confirmed subscribers in this audience</label>
+    <label class="marketing-check"><input type="checkbox" name="queue" value="1" style="width:auto" <?= !empty($campaignForm['queue']) ? 'checked' : '' ?>> Queue for confirmed subscribers in this audience</label>
     <p>Leave the schedule blank to make queued messages eligible now. Queueing saves message text, audience rules and recipient addresses. Create a new campaign to change its message or audience rules.</p>
     <button class="marketing-button">Save Campaign</button>
     <p>Save first, then choose <strong>Preview saved message</strong> in the saved campaign card to review its rendered content and send a test to yourself.</p>
