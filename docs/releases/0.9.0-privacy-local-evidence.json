@@ -1719,5 +1719,664 @@
         "source-member-privacy.json": "f1db3779e86929f34286122274660e276bbc6f759b1833a972fbc55aab02c2fa"
       }
     }
-  }
+  },
+  "contrast_correction": {
+    "sha256": "5b6464eef96aa1394f2d76825ea034bd953564bcfa9295f2cde6734a7ca8a415",
+    "bytes": 19645,
+    "evidence": {
+      "schema": 1,
+      "scope": "Focused owner privacy CSS contrast correction, real Apache file-store desktop/mobile browser review; no HTTP/process fault suite rerun.",
+      "created_at_utc": "2026-10-22T00:48:14.606866+00:00",
+      "source_commit": "18adc02fc64aab6165cb0ab56f065f9a8820f31c",
+      "changed_files": [
+        {
+          "path": "/workspace/scratch/3715f676c66d/vvx-privacy-recovery/public/assets/css/privacy-admin.css",
+          "bytes": 2854,
+          "sha256": "873ecc445885069ac726fab44e6d91d15a1e325e22ed22e776a28b0e31673134"
+        },
+        {
+          "path": "/workspace/scratch/3715f676c66d/vvx-privacy-recovery/tests/Browser/member_privacy_playwright.py",
+          "bytes": 17045,
+          "sha256": "730265bcd4c93fe86504862837a3e6d975246202aecdf9fc0fb23ff99b9884ce"
+        }
+      ],
+      "report": {
+        "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-browser-evidence.json",
+        "bytes": 217729,
+        "sha256": "40e92d6365dafd387617df95cca87ec1cf17afe351999fd9268e68495d2285b8"
+      },
+      "browser": "151.0.7922.34",
+      "server": "real Apache + matching mod_php",
+      "version": "0.9.0",
+      "build_id": "20261021.4",
+      "branch_fresh_zip_sha256": "47197bace8a0bd105c44a3947bc964ac9d850a5025df9e55a9db7dcf23a16a69",
+      "root_final_package_claim": false,
+      "final_ci_claim": false,
+      "runtime_matches_sources": true,
+      "thresholds": {
+        "text": 4.5,
+        "focus": 3
+      },
+      "method": "Computed opaque text/focus colors against sampled actual full-page PNG background pixels. Glyphs are temporarily hidden without changing layout; only painted nodes are measured. Focus is keyboard-visible and CSS transitions settle before sampling.",
+      "cases": {
+        "file-root-desktop": {
+          "checks": 71,
+          "owner_states": [
+            {
+              "name": "owner-overview",
+              "minimum_text_ratio": 7.8906658399911755,
+              "minimum_focus_ratio": 8.083300163819247,
+              "elements_measured": 5
+            },
+            {
+              "name": "export-review",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.083300163819247,
+              "elements_measured": 67
+            },
+            {
+              "name": "export-held",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.083300163819247,
+              "elements_measured": 68
+            },
+            {
+              "name": "closure-review",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.083300163819247,
+              "elements_measured": 74
+            },
+            {
+              "name": "closure-complete",
+              "minimum_text_ratio": 7.8906658399911755,
+              "minimum_focus_ratio": 8.083300163819247,
+              "elements_measured": 10
+            }
+          ],
+          "minimum_by_group": {
+            "text:.privacy-admin-muted": {
+              "ratio": 8.516384157741449,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                30,
+                13,
+                24
+              ],
+              "state": "owner-overview"
+            },
+            "text:.privacy-admin a:not(.admin-button)": {
+              "ratio": 7.8746941937879695,
+              "foreground": "rgb(255, 121, 183)",
+              "background_rgb": [
+                22,
+                13,
+                19
+              ],
+              "state": "export-review"
+            },
+            "focus:a": {
+              "ratio": 9.182915022729999,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                22,
+                13,
+                20
+              ],
+              "state": "closure-review"
+            },
+            "focus:button[type=submit]": {
+              "ratio": 8.083300163819247,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                52,
+                17,
+                36
+              ],
+              "state": "owner-overview"
+            },
+            "text:.privacy-admin-requests p": {
+              "ratio": 8.571268997393648,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                24,
+                15,
+                22
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-admin summary": {
+              "ratio": 7.927856654353854,
+              "foreground": "rgb(255, 121, 183)",
+              "background_rgb": [
+                23,
+                11,
+                19
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-inventory dt": {
+              "ratio": 5.811995725677198,
+              "foreground": "rgb(103, 91, 104)",
+              "background_rgb": [
+                248,
+                242,
+                246
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-inventory dd": {
+              "ratio": 13.58370791521126,
+              "foreground": "rgb(52, 32, 51)",
+              "background_rgb": [
+                248,
+                242,
+                246
+              ],
+              "state": "export-review"
+            },
+            "focus:summary": {
+              "ratio": 8.942890412552291,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                32,
+                13,
+                23
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-admin-note": {
+              "ratio": 14.062478583898546,
+              "foreground": "rgb(52, 32, 51)",
+              "background_rgb": [
+                255,
+                245,
+                250
+              ],
+              "state": "export-held"
+            },
+            "text:.privacy-admin-form small": {
+              "ratio": 8.783375428881781,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                20,
+                12,
+                19
+              ],
+              "state": "closure-review"
+            },
+            "text:.privacy-admin-form textarea": {
+              "ratio": 16.655934978256262,
+              "foreground": "rgb(38, 26, 40)",
+              "background_rgb": [
+                255,
+                255,
+                255
+              ],
+              "state": "closure-review"
+            },
+            "text:.privacy-admin-form input[type=date]": {
+              "ratio": 16.655934978256262,
+              "foreground": "rgb(38, 26, 40)",
+              "background_rgb": [
+                255,
+                255,
+                255
+              ],
+              "state": "closure-review"
+            },
+            "focus:textarea[type=textarea]": {
+              "ratio": 9.225350228562183,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                20,
+                13,
+                19
+              ],
+              "state": "closure-review"
+            },
+            "focus:input[type=date]": {
+              "ratio": 9.273120671747252,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                20,
+                12,
+                18
+              ],
+              "state": "closure-review"
+            },
+            "focus:input[type=checkbox]": {
+              "ratio": 9.267438715239367,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                20,
+                12,
+                19
+              ],
+              "state": "closure-review"
+            }
+          },
+          "all_document_widths_equal_viewport": true,
+          "viewport_widths": [
+            1440
+          ],
+          "javascript_errors": [],
+          "smtp_connections": 0,
+          "screenshots": 7
+        },
+        "file-nested-mobile": {
+          "checks": 71,
+          "owner_states": [
+            {
+              "name": "owner-overview",
+              "minimum_text_ratio": 7.885657458569602,
+              "minimum_focus_ratio": 8.294612855463841,
+              "elements_measured": 5
+            },
+            {
+              "name": "export-review",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.294612855463841,
+              "elements_measured": 67
+            },
+            {
+              "name": "export-held",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.294612855463841,
+              "elements_measured": 68
+            },
+            {
+              "name": "closure-review",
+              "minimum_text_ratio": 5.811995725677198,
+              "minimum_focus_ratio": 8.260559870609084,
+              "elements_measured": 74
+            },
+            {
+              "name": "closure-complete",
+              "minimum_text_ratio": 7.885657458569602,
+              "minimum_focus_ratio": 8.294612855463841,
+              "elements_measured": 10
+            }
+          ],
+          "minimum_by_group": {
+            "text:.privacy-admin-muted": {
+              "ratio": 8.788760601496657,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                20,
+                12,
+                18
+              ],
+              "state": "owner-overview"
+            },
+            "text:.privacy-admin a:not(.admin-button)": {
+              "ratio": 7.8697060605576725,
+              "foreground": "rgb(255, 121, 183)",
+              "background_rgb": [
+                22,
+                13,
+                20
+              ],
+              "state": "export-review"
+            },
+            "focus:a": {
+              "ratio": 9.182915022729999,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                22,
+                13,
+                20
+              ],
+              "state": "export-review"
+            },
+            "focus:button[type=submit]": {
+              "ratio": 8.260559870609084,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                50,
+                15,
+                32
+              ],
+              "state": "closure-review"
+            },
+            "text:.privacy-admin-requests p": {
+              "ratio": 8.58974484493874,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                23,
+                15,
+                22
+              ],
+              "state": "closure-complete"
+            },
+            "text:.privacy-admin summary": {
+              "ratio": 8.003282080285647,
+              "foreground": "rgb(255, 121, 183)",
+              "background_rgb": [
+                21,
+                10,
+                17
+              ],
+              "state": "export-held"
+            },
+            "text:.privacy-inventory dt": {
+              "ratio": 5.811995725677198,
+              "foreground": "rgb(103, 91, 104)",
+              "background_rgb": [
+                248,
+                242,
+                246
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-inventory dd": {
+              "ratio": 13.58370791521126,
+              "foreground": "rgb(52, 32, 51)",
+              "background_rgb": [
+                248,
+                242,
+                246
+              ],
+              "state": "export-review"
+            },
+            "focus:summary": {
+              "ratio": 9.052037065061256,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                31,
+                11,
+                22
+              ],
+              "state": "export-review"
+            },
+            "text:.privacy-admin-note": {
+              "ratio": 14.062478583898546,
+              "foreground": "rgb(52, 32, 51)",
+              "background_rgb": [
+                255,
+                245,
+                250
+              ],
+              "state": "export-held"
+            },
+            "text:.privacy-admin-form small": {
+              "ratio": 8.81052636527413,
+              "foreground": "rgb(189, 170, 182)",
+              "background_rgb": [
+                19,
+                12,
+                17
+              ],
+              "state": "closure-review"
+            },
+            "text:.privacy-admin-form textarea": {
+              "ratio": 16.655934978256262,
+              "foreground": "rgb(38, 26, 40)",
+              "background_rgb": [
+                255,
+                255,
+                255
+              ],
+              "state": "closure-review"
+            },
+            "text:.privacy-admin-form input[type=date]": {
+              "ratio": 16.655934978256262,
+              "foreground": "rgb(38, 26, 40)",
+              "background_rgb": [
+                255,
+                255,
+                255
+              ],
+              "state": "closure-review"
+            },
+            "focus:textarea[type=textarea]": {
+              "ratio": 9.336575635078326,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                19,
+                11,
+                17
+              ],
+              "state": "closure-review"
+            },
+            "focus:input[type=date]": {
+              "ratio": 9.353577780067988,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                18,
+                11,
+                17
+              ],
+              "state": "closure-review"
+            },
+            "focus:input[type=checkbox]": {
+              "ratio": 9.353577780067988,
+              "foreground": "rgb(255, 145, 198)",
+              "background_rgb": [
+                18,
+                11,
+                17
+              ],
+              "state": "closure-review"
+            }
+          },
+          "all_document_widths_equal_viewport": true,
+          "viewport_widths": [
+            390
+          ],
+          "javascript_errors": [],
+          "smtp_connections": 0,
+          "screenshots": 7
+        }
+      },
+      "screenshot_manifest": [
+        {
+          "case": "file-root-desktop",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-member-overview.png",
+          "bytes": 194192,
+          "sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5",
+          "dimensions": [
+            1440,
+            1358
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-owner-overview.png",
+          "bytes": 478166,
+          "sha256": "62e5a2da9bde52191d5a4b1b78237a593b741c015546eaf7a98a1c38e51f3bd7",
+          "dimensions": [
+            1440,
+            1060
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-export-review.png",
+          "bytes": 904303,
+          "sha256": "5b52e1b4369ae6102404190a88b5806f5ba2b82d4281a33cb0d964d437836a0f",
+          "dimensions": [
+            1440,
+            2485
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "export-held",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-export-held.png",
+          "bytes": 921351,
+          "sha256": "9f74e0a807d1572dee8413a7cbd9e799bb615ec7f780d07b27d7cb79a59f3908",
+          "dimensions": [
+            1440,
+            2582
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-export-ready.png",
+          "bytes": 216668,
+          "sha256": "8d0eb90addb40ef5747213ddb61d2309e186f344ed9954fea482dfed01b6de55",
+          "dimensions": [
+            1440,
+            1619
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-closure-review.png",
+          "bytes": 1182150,
+          "sha256": "baaa4ccbd6cf7eaba005a2bbaefbbf03b514119e09fc8a4bac2191aa5accc25e",
+          "dimensions": [
+            1440,
+            3332
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-root-desktop-closure-complete.png",
+          "bytes": 648836,
+          "sha256": "cd280971474d6ddb09438e4a275d4acc8c3103399e0a2d4dc0e210e5c9e42315",
+          "dimensions": [
+            1440,
+            1483
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-member-overview.png",
+          "bytes": 191606,
+          "sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894",
+          "dimensions": [
+            390,
+            2438
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-owner-overview.png",
+          "bytes": 304599,
+          "sha256": "3219c136c49bb0736bde27708ed12d80b11a5ed7abe01f11672882f5e0bac845",
+          "dimensions": [
+            390,
+            1442
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-export-review.png",
+          "bytes": 619278,
+          "sha256": "b68978b515174a41fe55d79f7d4e9092321ab3d7f7817ec3ff37958cec747d47",
+          "dimensions": [
+            390,
+            3796
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "export-held",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-export-held.png",
+          "bytes": 632629,
+          "sha256": "813a3a26d4b2bd620efd156d3a178a0473f7dcebf76f5629011806796a04cd66",
+          "dimensions": [
+            390,
+            3946
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-export-ready.png",
+          "bytes": 212405,
+          "sha256": "bdee8959de4cf5e664af537e5b91f9425f3f8cc7f1fe87843f0dc52585675430",
+          "dimensions": [
+            390,
+            2774
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-closure-review.png",
+          "bytes": 816535,
+          "sha256": "550f851aa4737875f39b6ee85037bccc1f2625bceb973639a66261210cc037d2",
+          "dimensions": [
+            390,
+            5123
+          ],
+          "png_verified_and_fully_decoded": true
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-contrast-acceptance/member-privacy-file-nested-mobile-closure-complete.png",
+          "bytes": 443415,
+          "sha256": "609db8db54b99368f1c1104a3cc667da9dc1cc75a8cd84cf3d94ce7849987437",
+          "dimensions": [
+            390,
+            2186
+          ],
+          "png_verified_and_fully_decoded": true
+        }
+      ],
+      "logs": [
+        {
+          "path": "/tmp/vvx-privacy-contrast-acceptance/protection-file-nested-mobile-console.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/tmp/vvx-privacy-contrast-acceptance/protection-file-nested-mobile-error.log",
+          "bytes": 622,
+          "sha256": "e7e1ba46f180f4dd92117d5e0f7f0e5d5601eb0043532994ccd1a556f74a0d45"
+        },
+        {
+          "path": "/tmp/vvx-privacy-contrast-acceptance/protection-file-root-desktop-console.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/tmp/vvx-privacy-contrast-acceptance/protection-file-root-desktop-error.log",
+          "bytes": 621,
+          "sha256": "2cb5823924e9396c97654c0a765a0c7ef8b89ea35a725848cb3cff4655a7cddc"
+        }
+      ],
+      "visual_followup_from_previous_summary_resolved": true,
+      "visually_inspected": [
+        "file-root-desktop/owner-overview",
+        "file-root-desktop/export-held",
+        "file-nested-mobile/owner-overview",
+        "file-nested-mobile/export-held",
+        "file-nested-mobile/closure-review"
+      ],
+      "visual_findings": "Helper text, links, dates/statuses, light notices, white text fields and native date-picker icon are readable. Desktop/mobile layouts remain within viewport bounds. Light inventory cards retain their original dark labels and values.",
+      "totals": {
+        "checks": 142,
+        "browser_cases": 2,
+        "measured_owner_states": 10,
+        "png_count": 14,
+        "png_bytes": 7766133
+      }
+    }
+  },
+  "updated_at": "2026-10-21T19:48:47.160210-05:00"
 }

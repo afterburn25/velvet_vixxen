@@ -2851,13 +2851,13 @@
   },
   "additional_completed_acceptance": {
     "0.9.0-privacy-local-evidence.json": {
-      "sha256": "5eecde40ba3b98da7b13c2eae96b61dfddac0f27336e0622ee0bfe898b5ca050",
-      "bytes": 74165
+      "sha256": "d2c9a854a70c9e532365024aebddd4c1d11aa30879cf61ae681e6f37e0268a68",
+      "bytes": 96624
     },
     "0.9.0-source-local-audit.json": {
       "sha256": "b86734863fbea34a0bc61187febd7965ca5802b818f9b56145f569fae0d515dd",
       "bytes": 46348
     }
   },
-  "updated_at": "2026-10-21T19:41:02.409998-05:00"
+  "updated_at": "2026-10-21T19:48:47.164044-05:00"
 }

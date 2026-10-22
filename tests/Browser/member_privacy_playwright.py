@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Real privacy forms and downloads on Apache, with desktop/mobile PNG evidence."""
-import argparse, hashlib, importlib.util, json, os, tempfile
+import argparse, base64, hashlib, importlib.util, json, os, tempfile
 from pathlib import Path
 from types import SimpleNamespace
 from playwright.sync_api import sync_playwright
@@ -10,8 +10,80 @@ spec = importlib.util.spec_from_file_location('privacy_http', ROOT / 'tests/Http
 privacy = importlib.util.module_from_spec(spec); spec.loader.exec_module(privacy)
 http = privacy.http; check = http.check; protection = privacy.protection
 
+def owner_contrast(page, name):
+    """Measure text/focus against rendered pixels, including translucent gradients."""
+    if not page.locator('[data-owner-privacy]').count(): return None
+    rows = page.evaluate(r'''() => {
+        document.activeElement?.blur();
+        const selectors=['.privacy-admin-muted','.privacy-admin-form small','.privacy-admin-requests p',
+            '.privacy-admin a:not(.admin-button)','.privacy-admin summary','.privacy-admin-note',
+            '.privacy-inventory dt','.privacy-inventory dd','.privacy-admin-form textarea',
+            '.privacy-admin-form input[type=date]','.privacy-admin-form select'];
+        const rows=[];
+        for(const selector of selectors) for(const element of document.querySelectorAll(selector)) {
+            if(!element.checkVisibility({checkOpacity:true,checkVisibilityCSS:true})) continue;
+            const rect=element.getBoundingClientRect(),style=getComputedStyle(element);
+            const points=[];
+            for(const x of [.15,.5,.85]) for(const y of [.15,.5,.85])
+                points.push([rect.left+rect.width*x+scrollX,rect.top+rect.height*y+scrollY]);
+            rows.push({kind:'text',selector,color:style.color,points});
+        }
+        return rows;
+    }''')
+    # Hide only glyphs, keeping each real field, notice and gradient background.
+    hidden = page.add_style_tag(content='''[data-owner-privacy],[data-owner-privacy] * {
+        color:transparent!important;-webkit-text-fill-color:transparent!important;
+        text-shadow:none!important;text-decoration-color:transparent!important;caret-color:transparent!important;
+    }''')
+    try: background = page.screenshot(full_page=True)
+    finally: hidden.evaluate('(element)=>element.remove()')
+    page.keyboard.press('Tab')
+    for selector in ['a:not(.admin-button)', 'button', 'summary', 'textarea', 'input[type=date]', 'input[type=checkbox]', 'select']:
+        target = page.locator('.privacy-admin ' + selector).filter(visible=True).first
+        if not target.count(): continue
+        focus = target.evaluate(r'''async (element) => {
+            element.focus({preventScroll:true});
+            await Promise.all(element.getAnimations().map(animation=>animation.finished));
+            const rect=element.getBoundingClientRect(),style=getComputedStyle(element);
+            const width=parseFloat(style.outlineWidth),offset=parseFloat(style.outlineOffset),gap=offset+width/2;
+            return {kind:'focus',selector:element.tagName.toLowerCase()+(element.type?'[type='+element.type+']':''),
+                color:style.outlineColor,visible:element.matches(':focus-visible'),style:style.outlineStyle,width,offset,
+                points:[[rect.left-gap+scrollX,rect.top+rect.height/2+scrollY],
+                    [rect.right+gap+scrollX,rect.top+rect.height/2+scrollY],
+                    [rect.left+rect.width/2+scrollX,rect.top-gap+scrollY],
+                    [rect.left+rect.width/2+scrollX,rect.bottom+gap+scrollY]]};
+        }''')
+        check(focus['visible'] and focus['style'] == 'solid' and focus['width'] >= 2 and focus['offset'] >= 2,
+              'A privacy owner control has no visible keyboard focus in ' + name + ': ' + repr(focus))
+        rows.append(focus)
+    page.evaluate('''()=>{document.activeElement?.blur();scrollTo(0,0)}''')
+    measured = page.evaluate(r'''async ({png,rows}) => {
+        const image=new Image();image.src='data:image/png;base64,'+png;await image.decode();
+        const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;
+        const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0);
+        const luminance=rgb=>rgb.slice(0,3).map(value=>{value/=255;return value<=.04045?value/12.92:((value+.055)/1.055)**2.4})
+            .reduce((sum,value,index)=>sum+value*[.2126,.7152,.0722][index],0);
+        return rows.map(row=>{
+            const foreground=(row.color.match(/[\d.]+/g)||[]).map(Number);
+            const samples=row.points.filter(([x,y])=>x>=0&&y>=0&&x<canvas.width&&y<canvas.height).map(([x,y])=>{
+                const background=[...context.getImageData(Math.floor(x),Math.floor(y),1,1).data].slice(0,3);
+                const a=luminance(foreground),b=luminance(background);
+                return {background,ratio:(Math.max(a,b)+.05)/(Math.min(a,b)+.05)};
+            });
+            const worst=samples.reduce((result,sample)=>!result||sample.ratio<result.ratio?sample:result,null);
+            return {...row,points:undefined,foreground_opaque:foreground.length===3||foreground[3]===1,
+                sampled_pixels:samples.length,minimum_background:worst?.background,minimum_ratio:worst?.ratio};
+        });
+    }''', {'png': base64.b64encode(background).decode(), 'rows': rows})
+    failures = [row for row in measured if not row['foreground_opaque'] or not row['sampled_pixels'] or row['minimum_ratio'] < (3 if row['kind'] == 'focus' else 4.5)]
+    check(bool(measured) and not failures,
+          'Privacy owner text or focus is unreadable against actual rendered backgrounds in ' + name + ': ' + repr(failures))
+    return {'name': name, 'method': 'computed foreground against sampled rendered background PNG pixels; glyphs hidden without layout changes',
+            'minimum_text_ratio': min(row['minimum_ratio'] for row in measured if row['kind'] == 'text'),
+            'minimum_focus_ratio': min(row['minimum_ratio'] for row in measured if row['kind'] == 'focus'), 'samples': measured}
+
 def browser_case(browser, case, viewport, evidence):
-    start = http.checks; records = privacy.fixture(case, 'seed'); shots = []; layouts = []; errors = []
+    start = http.checks; records = privacy.fixture(case, 'seed'); shots = []; layouts = []; contrasts = []; errors = []
     owner_context = browser.new_context(viewport=viewport); member_context = browser.new_context(viewport=viewport)
     owner = owner_context.new_page(); member = member_context.new_page()
     for page in [owner, member]: page.on('pageerror', lambda error: errors.append(str(error)))
@@ -26,6 +98,8 @@ def browser_case(browser, case, viewport, evidence):
         geometry = page.evaluate('''()=>({width:innerWidth,document:document.documentElement.scrollWidth,controls:[...(document.querySelector('[data-member-privacy],[data-owner-privacy]')?.querySelectorAll('input:not([type=hidden]),textarea,select,button')||[])].filter(e=>e.getClientRects().length).map(e=>({tag:e.tagName,type:e.type,left:e.getBoundingClientRect().left,right:e.getBoundingClientRect().right,width:e.getBoundingClientRect().width}))})''')
         check(geometry['document'] <= geometry['width'] + 1 and all(control['width'] > 0 and control['left'] >= -1 and control['right'] <= geometry['width'] + 1 for control in geometry['controls']), 'Privacy controls overflowed or collapsed in ' + name)
         layouts.append({'name': name, **geometry})
+        contrast = owner_contrast(page, name)
+        if contrast: contrasts.append(contrast)
         if evidence:
             path = evidence / ('member-privacy-' + case['label'] + '-' + name + '.png'); page.screenshot(path=str(path), full_page=True)
             shots.append({'name': name, 'file': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()})
@@ -60,6 +134,14 @@ def browser_case(browser, case, viewport, evidence):
         owner.goto(privacy.owner_url(case, exported)); shot(owner, 'export-review')
         check('1,007' in owner.locator('[data-privacy-review]').inner_text(), 'The actual owner review hid the complete order inventory.')
         submit(owner, owner.get_by_role('button', name='Approve private export', exact=True))
+        # A real held request exercises the light notice surface as well as the
+        # dark review, dates, status, helper and link surfaces.
+        privacy.fixture(case, 'change-inventory')
+        submit(owner, owner.get_by_role('button', name='Run approved work', exact=True))
+        owner.goto(privacy.owner_url(case, exported))
+        check(owner.locator('.privacy-admin-note').is_visible(), 'A held request has no visible recovery notice.')
+        shot(owner, 'export-held')
+        submit(owner, owner.get_by_role('button', name='Approve reviewed resumption', exact=True))
         submit(owner, owner.get_by_role('button', name='Run approved work', exact=True))
         member.reload(); shot(member, 'export-ready')
         with member.expect_download() as download: member.get_by_role('link', name='Download private ZIP', exact=True).click()
@@ -79,7 +161,7 @@ def browser_case(browser, case, viewport, evidence):
         check(member.request.get(privacy.member_url(case)).status == 403 and member.request.get(privacy.download_url(case, exported)).status == 403, 'Account closure left its browser session or export accessible.')
         check(not errors and case['capture'].connections == 0, 'Privacy browser errors or SMTP traffic: ' + repr(errors))
         return {'checks': http.checks - start, 'mysql_version': after['mysql_version'], 'orders_exported': 1007, 'archive_sha256': archive_hash,
-                'screenshots': shots, 'layouts': layouts, 'javascript_errors': errors, 'readonly_get_no_mutation': True,
+                'screenshots': shots, 'layouts': layouts, 'owner_contrast': contrasts, 'javascript_errors': errors, 'readonly_get_no_mutation': True,
                 'real_password_confirmed_request': True, 'no_script_request_and_cancel': True, 'real_owner_review_and_approval': True,
                 'actual_browser_private_zip': True, 'ten_stage_owner_run': True, 'closed_session_and_export_denied': True,
                 'financial_facts_preserved': True, 'other_members_unchanged': True, 'smtp_connections': 0}
