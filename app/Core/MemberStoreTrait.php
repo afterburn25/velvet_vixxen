@@ -625,6 +625,11 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $plan */
     public function saveMembershipPlan(array $plan): array
     {
+        return $this->withCommerceLock(fn(): array => $this->saveMembershipPlanLocked($plan));
+    }
+
+    private function saveMembershipPlanLocked(array $plan): array
+    {
         $name = trim((string) ($plan['name'] ?? ''));
         if ($name === '') {
             throw new RuntimeException('Membership plan name is required.');
@@ -674,7 +679,7 @@ trait MemberStoreTrait
                 $rows = array_values(array_filter($rows, static fn(array $row): bool => (string) ($row['memberId'] ?? '') === $memberId));
             }
             usort($rows, static fn(array $a, array $b): int => strcmp((string) ($b['createdAt'] ?? ''), (string) ($a['createdAt'] ?? '')));
-            return $rows;
+            return array_map($this->projectPurchasedSubscription(...), $rows);
         }
         $sql = 'SELECT s.*,p.plan_key,p.name AS plan_name,p.benefits_json,p.ppv_discount_percent FROM subscriptions s JOIN membership_plans p ON p.id=s.plan_id';
         $params = [];
@@ -685,7 +690,7 @@ trait MemberStoreTrait
         $sql .= ' ORDER BY s.id DESC';
         $stmt = $this->pdo()->prepare($sql);
         $stmt->execute($params);
-        return array_map(fn(array $row): array => $this->mapSubscriptionRow($row), $stmt->fetchAll());
+        return array_map(fn(array $row): array => $this->projectPurchasedSubscription($this->mapSubscriptionRow($row)), $stmt->fetchAll());
     }
 
     /** @return list<array<string,mixed>> */
@@ -723,6 +728,12 @@ trait MemberStoreTrait
             $status = 'active';
         }
         $id = (string) ($subscription['id'] ?? '');
+        if ($id !== '') {
+            $purchased = $this->subscriptionPurchasedTerms(['id' => $id, 'memberId' => $memberId, 'planId' => $planId]);
+            if (array_key_exists('purchasedTerms', $subscription) && $subscription['purchasedTerms'] !== $purchased) {
+                throw new RuntimeException('Purchased subscription terms cannot be replaced.');
+            }
+        }
         $record = [
             'id' => $id !== '' ? $id : bin2hex(random_bytes(8)), 'memberId' => $memberId, 'planId' => $planId,
             'planName' => (string) ($this->membershipPlan($planId)['name'] ?? ''), 'status' => $status,

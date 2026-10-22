@@ -1,3 +1,7 @@
+## Purchased terms candidate decision — 2026-10-22
+
+Use a versioned, strict commercial snapshot and canonical SHA-256 in the original order item. Protect that snapshot, the order requirement marker and the existing fulfillment subscription ID. Resolve purchased subscription facts through the original item on file and SQL storage, without retroactive historical acceptance or a new table. Catalogue changes affect new purchases; current access and protection policy still applies. Initial coupon/tax and charged trial behavior are explicit sandbox terms; production recurring remains blocked. Historical incomplete purchases hold for review. Full remote agreement/cycle semantics remain the next separate increment.
+
 # Architecture and Product Decisions
 
 <!-- payment-recovery-091-release:start -->

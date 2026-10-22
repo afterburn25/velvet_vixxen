@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'pay' 
         $result = commerce_service()->checkout((string) $member['id'], $items, $couponCode, (string) ($_POST['provider'] ?? 'sandbox'), [
             'sandboxResult' => (string) ($_POST['sandbox_result'] ?? 'success'),
             'cardNumber' => (string) ($_POST['card_number'] ?? ''), 'shipping' => $shipping,
-        ], $idempotencyKey);
+        ], $idempotencyKey, (string) ($_POST['purchase_terms_revision'] ?? ''));
         $status = (string) ($result['order']['status'] ?? '');
         if ($status === 'paid') {
             if ($isDirect) $intentService->finish($intentToken); else { $cart->clear(); unset($_SESSION['cart_coupon']); }
@@ -105,7 +105,7 @@ require root_path('app/Views/public/partials/header.php');
   <?php if ($quote !== null && !$processing): ?>
   <div class="commerce-layout checkout-layout">
     <form method="post" action="<?= e($checkoutUrl) ?>" class="checkout-card">
-      <?= csrf_field() ?><input type="hidden" name="action" value="pay">
+      <?= csrf_field() ?><input type="hidden" name="action" value="pay"><input type="hidden" name="purchase_terms_revision" value="<?= e(App\Core\PurchasedTerms::quoteRevision($quote)) ?>">
       <?php if ($quote['requiresShipping']): ?>
       <fieldset class="shipping-address"><legend>Shipping address</legend>
         <?php foreach (['name' => ['Recipient name', 'name'], 'address1' => ['Address line 1', 'address-line1'], 'address2' => ['Address line 2 (optional)', 'address-line2'], 'city' => ['City', 'address-level2'], 'region' => ['State / province / region', 'address-level1'], 'postalCode' => ['Postal code', 'postal-code']] as $field => [$label, $autocomplete]): ?>
@@ -125,6 +125,7 @@ require root_path('app/Views/public/partials/header.php');
     <aside class="order-summary checkout-summary"><span class="eyebrow pink">Order</span><h2><?= e((string) count($quote['items'])) ?> item<?= count($quote['items']) === 1 ? '' : 's' ?></h2>
       <div class="checkout-items"><?php foreach ($quote['items'] as $item): ?><div><span><?= e((string) $item['title']) ?><small><?= e((string) $item['quantity']) ?> × <?= e(money((float) $item['unitPrice'], (string) $item['currency'])) ?> · <?= e(ucfirst((string) $item['mode'])) ?></small></span><strong><?= e(money((float) $item['lineTotal'], (string) $item['currency'])) ?></strong></div><?php endforeach; ?></div>
       <?php require root_path('app/Views/public/partials/order-totals.php'); ?>
+      <?php require root_path('app/Views/public/partials/checkout-terms.php'); ?>
       <form method="post" action="<?= e($checkoutUrl) ?>" class="coupon-form"><?= csrf_field() ?><input type="hidden" name="action" value="coupon"><label>Coupon code<input name="coupon" value="<?= e($couponCode) ?>" maxlength="100"></label><button class="button button--ghost button--small">Apply</button></form>
       <?php if (!$isDirect): ?><a class="button button--ghost full" href="<?= e(base_url('cart/')) ?>">Return to Cart</a><?php else: ?><a class="button button--ghost full" href="<?= e(base_url($flow === 'membership' ? 'membership/' : 'photos/')) ?>">Continue browsing</a><?php endif; ?>
     </aside>

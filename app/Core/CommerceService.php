@@ -26,6 +26,11 @@ final class CommerceService
      */
     public function quote(array $cartItems, ?array $member, string $couponCode = ''): array
     {
+        return $this->store->withCommerceLock(fn(): array => $this->quoteLocked($cartItems, $member, $couponCode));
+    }
+
+    private function quoteLocked(array $cartItems, ?array $member, string $couponCode): array
+    {
         if ($cartItems === []) {
             throw new RuntimeException('Your cart is empty.');
         }
@@ -115,7 +120,7 @@ final class CommerceService
         $requiresShipping = (bool) array_filter($rows, static fn(array $row): bool => !empty($row['metadata']['requiresShipping']));
         $grandTotal = round($taxable + $taxTotal + $shippingTotal, 2);
 
-        return [
+        $quote = [
             'items' => $rows,
             'subtotal' => $subtotal,
             'discountTotal' => $discountTotal,
@@ -129,6 +134,14 @@ final class CommerceService
             'coupon' => $coupon,
             'couponCode' => $coupon['code'] ?? null,
         ];
+        foreach ($quote['items'] as &$row) {
+            if (!in_array($row['itemType'], ['plan','bundle'], true)) continue;
+            $catalogue = $row['metadata']['_purchaseCatalogue'];
+            unset($row['metadata']['_purchaseCatalogue']);
+            $row['metadata']['purchaseTerms'] = PurchasedTerms::capture($row, $catalogue, $quote);
+        }
+        unset($row);
+        return $quote;
     }
 
     /**
@@ -136,12 +149,12 @@ final class CommerceService
      * @param array<string,mixed> $paymentInput
      * @return array{order:array<string,mixed>,transaction:array<string,mixed>,quote:array<string,mixed>,message:string}
      */
-    public function checkout(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey): array
+    public function checkout(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey, ?string $quoteRevision = null): array
     {
-        return $this->store->withCommerceLock(fn(): array => $this->checkoutLocked($memberId, $cartItems, $couponCode, $providerKey, $paymentInput, $idempotencyKey));
+        return $this->store->withCommerceLock(fn(): array => $this->checkoutLocked($memberId, $cartItems, $couponCode, $providerKey, $paymentInput, $idempotencyKey, $quoteRevision));
     }
 
-    private function checkoutLocked(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey): array
+    private function checkoutLocked(string|int $memberId, array $cartItems, string $couponCode, string $providerKey, array $paymentInput, string $idempotencyKey, ?string $quoteRevision = null): array
     {
         $member = $this->store->member($memberId);
         if (!$member || (string) ($member['status'] ?? '') !== 'active' || empty($member['emailVerifiedAt'])) {
@@ -179,6 +192,9 @@ final class CommerceService
         }
         $provider = $this->providers->get($providerKey);
         $quote = $this->quote($cartItems, $member, $couponCode);
+        if ($quoteRevision !== null && !hash_equals(PurchasedTerms::quoteRevision($quote), $quoteRevision)) {
+            throw new RuntimeException('The purchase terms changed. Review the updated checkout before paying.');
+        }
         $shippingAddress = $quote['requiresShipping'] ? MerchandiseService::shippingAddress((array) ($paymentInput['shipping'] ?? [])) : [];
         foreach ($quote['items'] as $row) {
             if ((string) ($row['itemType'] ?? '') === 'plan' && !$provider->supportsRecurring()) {
@@ -206,7 +222,7 @@ final class CommerceService
             'subtotal' => $quote['subtotal'], 'discountTotal' => $quote['discountTotal'], 'taxTotal' => $quote['taxTotal'],
             'grandTotal' => $quote['grandTotal'], 'currency' => $quote['currency'], 'couponCode' => $quote['couponCode'],
             'providerKey' => $providerKey, 'idempotencyKey' => $idempotencyKey, 'billingEmail' => (string) $member['email'],
-            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending']
+            'metadata' => ['purchaseTermsVersion' => 1, 'taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending']
                 + ($attribution === null ? [] : ['attribution' => $attribution]),
         ], $orderItems);
             $this->store->reserveMerchandiseStock($order);
@@ -264,13 +280,15 @@ final class CommerceService
                 continue;
             }
             if ($type === 'plan') {
-                $plan = $this->store->membershipPlan($itemId);
-                if (!$plan) throw new RuntimeException('Membership plan no longer exists.');
-                $trialDays = max(0, (int) ($plan['trialDays'] ?? 0));
+                $snapshot = PurchasedTerms::forItem($order, $item);
+                if ($snapshot === null) throw new RuntimeException('Legacy membership purchase has no complete accepted terms. Hold fulfillment for review.');
+                $terms = $snapshot['terms'];
+                if (!$this->store->membershipPlan($itemId)) throw new RuntimeException('Purchased membership reference is missing. Hold fulfillment for review.');
+                $trialDays = $terms['trialDays'];
                 $start = now_iso();
                 $end = $trialDays > 0
                     ? gmdate('c', time() + $trialDays * 86400)
-                    : $this->nextPeriodEnd($start, (string) $plan['billingInterval'], (int) $plan['intervalCount']);
+                    : $this->nextPeriodEnd($start, $terms['interval'], $terms['intervalCount']);
                 $subscription = $this->store->saveSubscription([
                     'memberId' => (string) $order['memberId'], 'planId' => $itemId,
                     'status' => $trialDays > 0 ? 'trialing' : 'active', 'providerKey' => (string) ($order['providerKey'] ?? 'sandbox'),
@@ -278,7 +296,7 @@ final class CommerceService
                     'cancelAtPeriodEnd' => false,
                 ]);
                 $fulfillment = ['subscriptionId'=>(string)$subscription['id'],'currentPeriodEnd'=>$end];
-                $startedSubscriptions[] = $subscription;
+                $startedSubscriptions[] = array_merge($subscription, ['planName' => $terms['title'], 'purchasedTermsState' => 'accepted', 'purchasedTerms' => $snapshot]);
             } elseif (in_array($type, ['gallery','video'], true)) {
                 $mode = (string) ($metadata['purchaseMode'] ?? 'purchase');
                 $expiresAt = null;
@@ -291,13 +309,14 @@ final class CommerceService
                 $entitlement = $this->store->grantEntitlement((string) $order['memberId'], $type, $itemId, $source, (string) $order['id'], $expiresAt, ['orderNumber'=>$order['orderNumber'],'purchaseMode'=>$mode]);
                 $fulfillment = ['entitlementId'=>(string)$entitlement['id'],'expiresAt'=>$expiresAt];
             } elseif ($type === 'bundle') {
-                $bundle = $this->store->bundle($itemId);
-                if (!$bundle) throw new RuntimeException('Bundle no longer exists.');
+                $snapshot = PurchasedTerms::forItem($order, $item);
+                if ($snapshot === null) throw new RuntimeException('Legacy bundle purchase has no accepted contents. Hold fulfillment for review.');
                 $ids = [];
-                foreach ((array) ($bundle['items'] ?? []) as $bundleItem) {
+                foreach ($snapshot['terms']['items'] as $bundleItem) {
                     $contentType = (string) ($bundleItem['itemType'] ?? '');
                     $contentId = (string) ($bundleItem['itemId'] ?? '');
-                    if (!in_array($contentType, ['gallery','video'], true) || $contentId === '') continue;
+                    $content = $contentType === 'gallery' ? $this->store->gallery($contentId) : $this->store->video($contentId);
+                    if (!$content) throw new RuntimeException('A purchased bundle item is missing. Hold fulfillment for review.');
                     $entitlement = $this->store->grantEntitlement((string) $order['memberId'], $contentType, $contentId, 'bundle', (string) $order['id'], null, ['bundleId'=>$itemId,'orderNumber'=>$order['orderNumber']]);
                     $ids[] = (string) $entitlement['id'];
                 }
@@ -394,6 +413,11 @@ final class CommerceService
     /** @return array{processed:int,renewed:int,expired:int,failed:int,deferred:int} */
     public function processDueSubscriptions(): array
     {
+        return $this->store->withCommerceLock(fn(): array => $this->processDueSubscriptionsLocked());
+    }
+
+    private function processDueSubscriptionsLocked(): array
+    {
         $stats = ['processed' => 0, 'renewed' => 0, 'expired' => 0, 'failed' => 0, 'deferred' => 0];
 
         foreach ($this->store->subscriptions(null) as $subscription) {
@@ -431,9 +455,16 @@ final class CommerceService
 
             try {
                 $plan = $this->store->membershipPlan((string) $subscription['planId']);
-                if (!$plan) {
-                    throw new RuntimeException('Plan missing.');
+                if (($subscription['purchasedTermsState'] ?? 'legacy') === 'held') {
+                    $stats['deferred']++;
+                    continue;
                 }
+                if (isset($subscription['purchasedTerms'])) {
+                    $terms = PurchasedTerms::validate($subscription['purchasedTerms'])['terms'];
+                    $plan = ['id' => $terms['itemId'], 'name' => $terms['title'], 'price' => $terms['recurringMinor'] / 100,
+                        'currency' => $terms['currency'], 'billingInterval' => $terms['interval'], 'intervalCount' => $terms['intervalCount']];
+                }
+                if (!$plan) throw new RuntimeException('Plan missing.');
                 $member = $this->store->member((string) $subscription['memberId']);
                 if (!$member) {
                     throw new RuntimeException('Member missing.');
@@ -470,7 +501,7 @@ final class CommerceService
                     'idempotencyKey' => $idempotencyKey,
                     'billingEmail' => (string) $member['email'],
                     'paidAt' => now_iso(),
-                    'metadata' => ['renewal' => true, 'subscriptionId' => (string) $subscription['id']],
+                    'metadata' => ['renewal' => true, 'subscriptionId' => (string) $subscription['id'], 'termsSource' => $subscription['purchasedTermsState'] ?? 'legacy', 'acceptedTermsHash' => $subscription['purchasedTerms']['hash'] ?? null],
                 ], [[
                     'itemType' => 'plan_renewal',
                     'itemId' => (string) $plan['id'],
@@ -616,9 +647,9 @@ final class CommerceService
     {
         if (($cartItem['type'] ?? '') === 'merchandise') return (new MerchandiseService($this->store))->quoteItem($cartItem);
         $type=(string)($cartItem['type']??'');$id=(string)($cartItem['id']??'');$mode=(string)($cartItem['mode']??($type==='plan'?'subscribe':'purchase'));$activeSubscription=$member!==null&&$this->store->activeSubscriptions((string)$member['id'])!==[];$discountPercent=$member!==null?$this->memberPpvDiscount((string)$member['id']):0.0;
-        if($type==='plan'){$plan=$this->store->membershipPlan($id);if(!$plan||empty($plan['isActive']))throw new RuntimeException('The selected membership plan is not available.');return ['key'=>'plan:'.$id.':subscribe','itemType'=>'plan','itemId'=>$id,'mode'=>'subscribe','title'=>(string)$plan['name'],'unitPrice'=>(float)$plan['price'],'currency'=>(string)$plan['currency'],'couponEligible'=>true,'scope'=>'subscription','metadata'=>['purchaseMode'=>'subscribe','billingInterval'=>$plan['billingInterval'],'intervalCount'=>$plan['intervalCount'],'trialDays'=>$plan['trialDays']]];}
+        if($type==='plan'){$plan=$this->store->membershipPlan($id);if(!$plan||empty($plan['isActive']))throw new RuntimeException('The selected membership plan is not available.');return ['key'=>'plan:'.$id.':subscribe','itemType'=>'plan','itemId'=>$id,'mode'=>'subscribe','title'=>(string)$plan['name'],'unitPrice'=>(float)$plan['price'],'currency'=>(string)$plan['currency'],'couponEligible'=>true,'scope'=>'subscription','metadata'=>['purchaseMode'=>'subscribe','billingInterval'=>$plan['billingInterval'],'intervalCount'=>$plan['intervalCount'],'trialDays'=>$plan['trialDays'],'_purchaseCatalogue'=>$plan]];}
         if($type==='gallery'){$content=$this->store->gallery($id);}elseif($type==='video'){$content=$this->store->video($id);}elseif($type==='bundle'){$content=$this->store->bundle($id);}else{$content=null;}if(!$content)throw new RuntimeException('A cart item is no longer available.');
-        if($type==='bundle'){$price=$activeSubscription&&$content['subscriberPrice']!==null?(float)$content['subscriberPrice']:(float)$content['price'];return ['key'=>'bundle:'.$id.':purchase','itemType'=>'bundle','itemId'=>$id,'mode'=>'purchase','title'=>(string)$content['title'],'unitPrice'=>$price,'currency'=>(string)$content['currency'],'couponEligible'=>true,'scope'=>'bundle','metadata'=>['purchaseMode'=>'purchase']];}
+        if($type==='bundle'){if(empty($content['isActive']))throw new RuntimeException('The selected bundle is not available.');$price=$activeSubscription&&$content['subscriberPrice']!==null?(float)$content['subscriberPrice']:(float)$content['price'];return ['key'=>'bundle:'.$id.':purchase','itemType'=>'bundle','itemId'=>$id,'mode'=>'purchase','title'=>(string)$content['title'],'unitPrice'=>$price,'currency'=>(string)$content['currency'],'couponEligible'=>true,'scope'=>'bundle','metadata'=>['purchaseMode'=>'purchase','_purchaseCatalogue'=>$content]];}
         if(!in_array((string)($content['status']??''),['published','unlisted'],true))throw new RuntimeException('A cart item is not published.');$standard=$content['standardPrice']??null;$subscriber=$content['subscriberPrice']??null;$rental=$content['rentalPrice']??null;$currency=(string)($content['currency']??$this->config->get('currency','USD'));
         if($mode==='rental'){$price=$rental!==null?(float)$rental:0.0;if($price<=0)throw new RuntimeException('This release is not available to rent.');return ['key'=>$type.':'.$id.':rental','itemType'=>$type,'itemId'=>$id,'mode'=>'rental','title'=>(string)$content['title'].' — rental','unitPrice'=>$price,'currency'=>$currency,'couponEligible'=>true,'scope'=>'rental','metadata'=>['purchaseMode'=>'rental','rentalHours'=>max(1,(int)($content['rentalHours']??48))]];}
         $price=$standard!==null?(float)$standard:0.0;if($activeSubscription&&$subscriber!==null)$price=(float)$subscriber;elseif($activeSubscription&&$discountPercent>0)$price=round($price*(1-$discountPercent/100),2);if($price<=0)throw new RuntimeException('This release does not have a purchase price.');return ['key'=>$type.':'.$id.':purchase','itemType'=>$type,'itemId'=>$id,'mode'=>'purchase','title'=>(string)$content['title'],'unitPrice'=>$price,'currency'=>$currency,'couponEligible'=>true,'scope'=>'ppv','metadata'=>['purchaseMode'=>'purchase','subscriberPricing'=>$activeSubscription,'ppvDiscountPercent'=>$discountPercent]];
@@ -632,7 +663,15 @@ final class CommerceService
 
     private function memberPpvDiscount(string|int $memberId): float
     {
-        $max=0.0;foreach($this->store->activeSubscriptions($memberId) as $subscription){$plan=$this->store->membershipPlan((string)$subscription['planId']);$max=max($max,(float)($plan['ppvDiscountPercent']??0));}return min(100,$max);
+        $max = 0.0;
+        foreach ($this->store->activeSubscriptions($memberId) as $subscription) {
+            $state = $subscription['purchasedTermsState'] ?? 'legacy';
+            if ($state === 'held') continue;
+            $discount = $state === 'accepted' ? $subscription['ppvDiscountPercent']
+                : ($this->store->membershipPlan((string) $subscription['planId'])['ppvDiscountPercent'] ?? 0);
+            $max = max($max, (float) $discount);
+        }
+        return min(100, $max);
     }
 
     private function nextPeriodEnd(string $start, string $interval, int $count): string

@@ -1,0 +1,25 @@
+{
+  "base_main": "8d7ccce01d3a2db599b9c9955b10e0a9a115c0d7",
+  "version": "0.9.2",
+  "build_id": "20261022.2",
+  "php": "8.3.6",
+  "php_syntax_files": 466,
+  "module_suite_count": 67,
+  "purchased_terms_file": {
+    "ok": true,
+    "assertions": 41,
+    "mode": "file",
+    "php": "8.3.6",
+    "database": null,
+    "storage_design": "existing immutable order item plus protected subscription reverse reference",
+    "live_provider_calls": 0
+  },
+  "package_structure_reproducibility": "passed; final candidate rebuild required after latest runtime edits",
+  "packaged_http_file": "root and nested passed before final bundle-order and UTF-8 validation edits; repeated final-source HTTP/SQL underway",
+  "local_limits": [
+    "Chromium Unix socket denied",
+    "foreign UID ownership operations denied",
+    "file worker /proc lock observation unavailable"
+  ],
+  "full_ci_merge_and_customer_delivery": "pending"
+}

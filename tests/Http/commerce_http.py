@@ -94,6 +94,7 @@ subscription_checkout = member.post(
     checkout_page.url,
     data={
         "_csrf": get_csrf(checkout_page.text),
+        "purchase_terms_revision": BeautifulSoup(checkout_page.text, "html.parser").select_one('input[name="purchase_terms_revision"]')["value"],
         "action": "pay",
         "provider": "sandbox",
         "card_number": "4242 4242 4242 4242",
@@ -161,6 +162,7 @@ bundle_checkout = member.post(
     bundle_checkout_page.url,
     data={
         "_csrf": get_csrf(bundle_checkout_page.text),
+        "purchase_terms_revision": BeautifulSoup(bundle_checkout_page.text, "html.parser").select_one('input[name="purchase_terms_revision"]')["value"],
         "action": "pay",
         "provider": "sandbox",
         "card_number": "5555 5555 5555 4444",
@@ -193,6 +195,7 @@ rental_checkout = member.post(
     rental_checkout_page.url,
     data={
         "_csrf": get_csrf(rental_checkout_page.text),
+        "purchase_terms_revision": BeautifulSoup(rental_checkout_page.text, "html.parser").select_one('input[name="purchase_terms_revision"]')["value"],
         "action": "pay",
         "provider": "sandbox",
         "card_number": "4242 4242 4242 4242",
@@ -218,6 +221,7 @@ declined = member.post(
     decline_page.url,
     data={
         "_csrf": get_csrf(decline_page.text),
+        "purchase_terms_revision": BeautifulSoup(decline_page.text, "html.parser").select_one('input[name="purchase_terms_revision"]')["value"],
         "action": "pay",
         "provider": "sandbox",
         "card_number": "4000 0000 0000 0002",

@@ -233,6 +233,8 @@ namespace {
         'app/Views/admin/payment-recovery-actions.php',
         'app/Views/admin/payment-recovery.php',
         'database/migrations/202610220018_payment_journal.php',
+        'app/Core/PurchasedTerms.php','app/Core/PurchasedTermsStoreTrait.php',
+        'app/Views/public/partials/checkout-terms.php','app/Views/public/partials/purchased-membership.php',
         'public/assets/css/payment-recovery.css',
         'public/routes/api/payment-webhook.php',
     ];
