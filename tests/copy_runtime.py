@@ -15,7 +15,7 @@ if len(sys.argv) == 3 and sys.argv[1] == "--remove":
 elif len(sys.argv) == 1:
     target = Path(tempfile.mkdtemp(prefix="vvx-test-"))
     shutil.copytree(SOURCE, target, dirs_exist_ok=True,
-                    ignore=shutil.ignore_patterns(".git", "__pycache__", "test-results", "artifacts", MARKER))
+                    ignore=shutil.ignore_patterns(".git", "node_modules", "__pycache__", "test-results", "artifacts", MARKER))
     (target / MARKER).write_text("Disposable automated test runtime.\n", encoding="utf-8")
     if not (target / "config/app.php").exists():
         shutil.copy2(target / "config/app.example.php", target / "config/app.php")

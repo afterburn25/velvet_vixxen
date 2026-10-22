@@ -22,6 +22,9 @@ FIXTURE = Path(__file__).with_name('marketing_storage_fixture.php')
 OWNER = 'owner@example.test'
 PASSWORD = 'VelvetDemo12'
 MIGRATION = '202610200015_marketing_sql_storage'
+PACKAGED_MIGRATIONS = tuple(sorted(path.stem for path in
+    (Path(__file__).resolve().parents[2] / 'database/migrations').glob('*.php')))
+PRE015_MIGRATIONS = tuple(key for key in PACKAGED_MIGRATIONS if key < MIGRATION)
 COLLECTIONS = ('posts', 'banners', 'landing_pages', 'links', 'referral_codes', 'contacts', 'segments',
                'campaigns', 'campaign_queue', 'events', 'consents', 'suppressions')
 PRIVATE_MARKERS = ('confirmed-storage@example.test', 'pending-storage@example.test', 'retired-storage@example.test',
@@ -73,8 +76,8 @@ def form_values(html: str, action: str | None = None):
     return fields
 
 
-def login(base: str):
-    owner = session()
+def login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=10)
     fields = form_values(page.text)
     response = owner.post(base + '/admin/?page=login', data={'_csrf': fields['_csrf'],
@@ -166,8 +169,9 @@ def security_and_preview_case(site: Path, base: str, php: str):
     initial = fixture(site, 'read', php)
     check(initial['status']['state'] == 'ready' and initial['status']['can_migrate']
           and initial['status']['mode'] == 'file', 'An explicit move must be required on the installed MySQL site.')
-    check(initial['mysql_version'].startswith('8.0.') and len(initial['ledger']) == 15,
-          'The HTTP fixture must use real MySQL 8 and all fifteen packaged migrations.')
+    check(initial['mysql_version'].startswith('8.0.') and initial['ledger'] == list(PACKAGED_MIGRATIONS)
+          and len(PRE015_MIGRATIONS) == 14 and MIGRATION in PACKAGED_MIGRATIONS,
+          'The HTTP fixture must use real MySQL 8 and every packaged migration in exact order.')
     check(len(initial['marketing']['campaign_queue']) == 2
           and initial['marketing']['settings']['campaign_delivery_enabled'], 'The seeded delivery safety case is missing.')
     owner, anonymous, member = login(base), session(), session()
@@ -245,14 +249,18 @@ def security_and_preview_case(site: Path, base: str, php: str):
             _, valid = review(owner, base, site)
             fixture(site, 'owner-status', php, status=owner_status)
             try:
-                check(owner.get(url, timeout=15).status_code == 403, 'A stale ' + owner_status + ' owner session read storage.')
-                check(owner.post(url, data=valid, timeout=15).status_code == 403,
-                      'A stale ' + owner_status + ' owner session moved records.')
-                check(owner.post(base + '/admin/?page=dashboard', data=valid, timeout=15).status_code == 403,
-                      'A revoked owner bypassed the storage guard through another admin page.')
+                for method, target in (('GET', url), ('POST', url), ('POST', base + '/admin/?page=dashboard')):
+                    denied = owner.request(method, target, data=valid, allow_redirects=False, timeout=15)
+                    check(denied.status_code == (403 if owner_status == 'demoted' else 302)
+                          and (owner_status == 'demoted' or denied.headers.get('Location') == base + '/admin/?page=login'),
+                          'A revoked owner retained storage authority through ' + method + ' ' + target)
             finally:
                 fixture(site, 'owner-status', php, status='owner')
         check(snapshot(site, php) == stale_baseline, 'Revoked-owner requests changed the stored records.')
+        revoked = owner.get(url, allow_redirects=False, timeout=15)
+        check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+              'Restoring the inactive account revived its storage session.')
+        login(base, owner)
         owner_revoked_while_waiting(owner, base, site, php)
         removed = fixture(site, 'remove-empty-schema', php)
         check(removed['state'] == 'schema_needed', 'The pre015 fixture did not reach the missing-schema path.')

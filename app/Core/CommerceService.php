@@ -183,14 +183,17 @@ final class CommerceService
             'unitPrice' => $row['unitPrice'], 'discountTotal' => $row['discountTotal'], 'lineTotal' => $row['lineTotal'],
             'metadata' => $row['metadata'], 'fulfillmentStatus' => 'pending',
         ], $quote['items']);
+        $attribution = MarketingAttributionBridge::order($this->config, $member, (string) $quote['couponCode']);
         $order = $this->store->createOrder([
             'memberId' => (string) $member['id'],
             'status' => 'pending',
             'subtotal' => $quote['subtotal'], 'discountTotal' => $quote['discountTotal'], 'taxTotal' => $quote['taxTotal'],
             'grandTotal' => $quote['grandTotal'], 'currency' => $quote['currency'], 'couponCode' => $quote['couponCode'],
             'providerKey' => $providerKey, 'idempotencyKey' => $idempotencyKey, 'billingEmail' => (string) $member['email'],
-            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending'],
+            'metadata' => ['taxRate' => $quote['taxRate'], 'checkoutVersion' => \VELVET_VIXXEN_VERSION, 'checkoutFlow' => $quote['checkoutFlow'], 'shippingTotal' => $quote['shippingTotal'], 'requiresShipping' => $quote['requiresShipping'], 'shippingAddress' => $shippingAddress, 'shippingStatus' => 'pending']
+                + ($attribution === null ? [] : ['attribution' => $attribution]),
         ], $orderItems);
+        if ($attribution !== null) MarketingAttributionBridge::project($this->config, $this->store, 'checkout', (string) $order['id']);
 
         try {
             $this->store->reserveMerchandiseStock($order);
@@ -225,12 +228,15 @@ final class CommerceService
             $this->store->recordMemberEvent((string) $member['id'], 'commerce.order.failed', ['orderId'=>(string)$order['id'],'message'=>$charge['message']??'Payment failed.']);
         }
 
+        if ($attribution !== null) MarketingAttributionBridge::project($this->config, $this->store, 'checkout', (string) $order['id']);
         return ['order'=>$order,'transaction'=>$transaction,'quote'=>$quote,'message'=>(string)($charge['message']??'Checkout complete.')];
     }
 
     /** @return array<string,mixed> */
     public function fulfillOrder(array $order): array
     {
+        // A delayed paid event may update retained finances, but cannot reopen erased access.
+        if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return $order;
         if ((string) ($order['status'] ?? '') !== 'paid') {
             return $order;
         }
@@ -669,6 +675,7 @@ final class CommerceService
         $this->store->revokeEntitlementsBySource('rental', $orderId);
         $this->store->revokeEntitlementsBySource('bundle', $orderId);
         $this->store->settleMerchandiseStock($order, true);
+        if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return;
 
         foreach ((array) ($order['items'] ?? $this->store->orderItems($orderId)) as $item) {
             $subscriptionId = (string) (($item['metadata']['subscriptionId'] ?? ''));

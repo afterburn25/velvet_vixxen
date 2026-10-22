@@ -117,10 +117,28 @@ def main():
                 expect(command('snapshot') == snapshot, 'Invalid CSRF changed recovery state.')
             for role, active in (('editor', True), ('owner', False)):
                 command('owner', role=role, active=active)
-                code, _, _ = request(owner, endpoint, fields | {'_csrf': csrf})
-                expect(code == 403, 'A stale owner session bypassed the current account boundary.')
+                code, headers, _ = request(owner, endpoint, fields | {'_csrf': csrf})
+                if active:
+                    expect(code == 403, 'A demoted owner session bypassed the current account boundary.')
+                else:
+                    expect(code == 302 and 'page=login' in headers.get('Location', ''),
+                           'An inactive owner session was not revoked at the login boundary.')
                 expect(command('snapshot') == snapshot, 'An unauthorized current account changed recovery state.')
             command('owner', role='owner', active=True)
+            code, headers, _ = request(owner, endpoint, fields | {'_csrf': csrf})
+            expect(code == 302 and 'page=login' in headers.get('Location', ''),
+                   'Restoring an owner account resurrected its revoked session.')
+            expect(command('snapshot') == snapshot, 'A revoked session changed recovery state after account restoration.')
+            code, _, html = request(owner, '/admin/?page=login')
+            csrf = Inputs(html).csrf
+            expect(code == 200 and bool(csrf), 'The restored owner cannot start a fresh sign-in.')
+            code, headers, _ = request(owner, '/admin/?page=login', {
+                '_csrf': csrf, 'email': 'addon-owner@example.test', 'password': 'AddonFixtureOwner123!',
+            })
+            expect(code == 302 and '/admin/' in headers.get('Location', ''), 'Restored owner password sign-in failed.')
+            code, _, html = request(owner, '/admin/?page=addons')
+            csrf = Inputs(html).csrf
+            expect(code == 200 and bool(csrf), 'A fresh owner session cannot review the retained recovery form.')
             code, _, _ = request(owner, endpoint, {'addon_id[]': 'fixture.mysql-lifecycle', '_csrf': csrf})
             expect(code == 400, 'Array-shaped add-on identity was accepted.')
             expect(command('snapshot') == snapshot, 'Malformed identity changed recovery state.')

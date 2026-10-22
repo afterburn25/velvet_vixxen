@@ -224,6 +224,75 @@ def disclosure_open(page, instance, item_id):
     frames(page)
 
 
+def fixed_footer_links(page, base):
+    credit = page.locator('.legal-footer .site-credit a')
+    check(credit.count() == 1 and credit.inner_text().strip() == 'Cajun Web Pro LLC'
+          and credit.get_attribute('href') == 'https://cajunwebpro.com/'
+          and credit.get_attribute('target') == '_blank'
+          and {'noopener', 'noreferrer'} <= set((credit.get_attribute('rel') or '').split()),
+          'Menu rendering changed the fixed designer credit or its safe new-tab target.')
+    check(credit.is_visible(), 'The fixed designer credit is hidden.')
+    viewport = page.evaluate('innerWidth')
+    expected = [('Terms', 'policies/?document=terms'), ('Privacy', 'policies/?document=privacy'),
+                ('Privacy choices', 'privacy/choices.php'), ('18+', 'policies/?document=adults'),
+                ('DMCA', 'policies/?document=dmca'), ('Support', 'policies/?document=support')]
+    legal = page.locator('.legal-footer .legal-links a')
+    check([text.strip() for text in legal.all_text_contents()] == [name for name, _ in expected],
+          'Menu rendering changed or removed an independent legal/privacy link.')
+    links = []
+    for index, (name, destination) in enumerate(expected):
+        anchor = legal.nth(index)
+        href, target = anchor.get_attribute('href'), anchor.get_attribute('target')
+        check(href == menus.route(base, destination) and target in (None, '_self'),
+              'Fixed ' + name + ' link lost its installation route, document choice or same-tab destination.')
+        box = anchor.bounding_box()
+        check(anchor.is_visible() and box and box['width'] > 0 and box['height'] > 0
+              and box['x'] >= -1 and box['x'] + box['width'] <= viewport + 1,
+              'Fixed ' + name + ' link is hidden or clipped at ' + str(viewport) + 'px.')
+        check(viewport > 760 or (box['width'] >= 44 and box['height'] >= 44),
+              'Fixed ' + name + ' link has no usable 44px phone target.')
+        links.append({'label': name, 'href': href, 'target': target, 'visible': True, 'bounds': box})
+    return {'credit': {'label': credit.inner_text().strip(), 'href': credit.get_attribute('href'),
+                       'target': credit.get_attribute('target'), 'rel': credit.get_attribute('rel'), 'visible': True},
+            'legal_links': links}
+
+
+def fixed_footer_destinations(page, case):
+    base = case['base']
+    before = menus.fixture(case['site'], 'read', case['php'])
+    destinations = [('Terms', 'Terms of use'), ('Privacy', 'Privacy policy'),
+                    ('Privacy choices', 'Privacy choices'), ('18+', 'Adults & access'),
+                    ('DMCA', 'Copyright & content reports'), ('Support', 'Support & refunds')]
+    rows = []
+    for width in (390, 1440):
+        page.set_viewport_size({'width': width, 'height': 1000})
+        for name, heading in destinations:
+            public_goto(page, base + '/')
+            fixed_footer_links(page, base)
+            anchor = page.locator('.legal-footer .legal-links').get_by_role('link', name=name, exact=True)
+            destination = anchor.get_attribute('href')
+            pages = len(page.context.pages)
+            with page.expect_navigation(wait_until='networkidle') as opened:
+                anchor.click()
+            response = opened.value
+            check(response is not None and page.url == destination and len(page.context.pages) == pages,
+                  'Fixed ' + name + ' did not open its actual same-tab destination.')
+            expect(page.get_by_role('heading', name=heading, exact=True)).to_be_visible()
+            if name == 'Privacy choices':
+                check(response.status == 200, 'The actual Privacy choices destination failed.')
+                expect(page.get_by_role('button', name='Decline and remove measurements', exact=True)).to_be_visible()
+                expect(page.locator('[data-measurement-status]')).to_have_text('off')
+            else:
+                check(response.status == 404 and page.locator('[data-public-policy]').count() == 0,
+                      'A fresh installation unexpectedly published a policy without owner review.')
+                expect(page.get_by_role('status')).to_contain_text('This policy has not been published yet.')
+            rows.append({'label': name, 'width': width, 'href': destination, 'status': response.status,
+                         'actual_same_tab_click': True, 'unpublished_policy': name != 'Privacy choices'})
+    menus.unchanged(before, menus.fixture(case['site'], 'read', case['php']))
+    page.set_viewport_size({'width': 1440, 'height': 1000})
+    return {'destinations': rows, 'unrelated_state_and_menu_unchanged': True}
+
+
 def defaults(page, base):
     records = []
     for renderer, destination in [('home', base + '/'), ('common', menus.route(base, 'about/'))]:
@@ -234,11 +303,10 @@ def defaults(page, base):
         check(page.locator('.legal-footer nav > a').all_text_contents() == expected_footer,
               'The untouched page-specific footer changed.')
         check(page.locator('[data-menu-custom]').count() == 0, 'Merely reading defaults configured a custom menu.')
-        check(page.locator('.site-credit a').get_attribute('href') == 'https://cajunwebpro.com/'
-              and page.locator('.legal-links a').count() == 5, 'Menu rendering removed fixed credit/legal links.')
         for width in [320, 760, 1120, 1280, 1281, 1440]:
             page.set_viewport_size({'width': width, 'height': 1000})
             frames(page)
+            fixed = fixed_footer_links(page, base)
             check(page.locator('#mobileMenu').is_visible() == (width <= 1280), 'The default header breakpoint changed.')
             check(page.locator('.legal-footer nav').is_visible() == (width > 1120), 'The default footer visibility changed.')
             if width <= 1280:
@@ -251,7 +319,8 @@ def defaults(page, base):
                 page.keyboard.press('Escape')
                 expect(page.locator('#mobileMenu')).to_be_focused()
                 expect(page.locator('#primaryNav')).to_be_hidden()
-            records.append({'renderer': renderer, 'width': width, 'default_links_preserved': True})
+            records.append({'renderer': renderer, 'width': width, 'default_links_preserved': True,
+                            'fixed_footer_links': fixed})
     page.set_viewport_size({'width': 1440, 'height': 1000})
     return records
 
@@ -665,9 +734,6 @@ def public_matrix(page, base, ids, footer, evidence, label):
         check(page.locator(f'[data-navigation-item="{ids["hidden"]}"]').count() == 0
               and page.locator(f'[data-navigation-item="{ids["empty_group"]}"]').count() == 0,
               'A disabled branch or empty group leaked into public navigation.')
-        check(page.locator('.legal-footer .site-credit a').get_attribute('href') == 'https://cajunwebpro.com/'
-              and page.locator('.legal-footer .legal-links a').count() == 5,
-              'A saved footer menu replaced independent legal/designer links.')
         for width in WIDTHS:
             page.set_viewport_size({'width': width, 'height': 1000})
             page.evaluate('window.scrollTo({top:0,behavior:"instant"})')
@@ -693,14 +759,28 @@ def public_matrix(page, base, ids, footer, evidence, label):
             disclosure_open(page, 'footer', footer['group'])
             page.locator('.legal-footer .site-credit').scroll_into_view_if_needed()
             frames(page)
+            # Browser "if needed" alignment only considers the viewport; it
+            # can stop with the credit behind the fixed player. Exercise the
+            # real page-end wheel action before measuring the expanded menu.
+            scroll = {'after_if_needed': page.evaluate('''() => ({scroll_y:scrollY,
+                maximum_scroll:document.scrollingElement.scrollHeight-innerHeight})''')}
+            page.mouse.move(5, 500)
+            page.mouse.wheel(0, page.evaluate('document.scrollingElement.scrollHeight'))
+            page.wait_for_function('Math.abs(scrollY-(document.scrollingElement.scrollHeight-innerHeight)) <= 1', timeout=5000)
+            frames(page)
+            scroll['after_actual_wheel'] = page.evaluate('''() => ({scroll_y:scrollY,
+                maximum_scroll:document.scrollingElement.scrollHeight-innerHeight})''')
             foot = bounds(page, '.legal-footer', label + ' ' + renderer + ' footer ' + str(width))
             credit = page.locator('.legal-footer .site-credit').bounding_box()
             player = player_box(page)
             check(credit['y'] + credit['height'] <= (player['y'] if player else 1000) + 1,
                   'The saved custom footer leaves its independent credit under the player.')
+            fixed = fixed_footer_links(page, base)
             if width in (390, 1440):
                 captures.append(screenshot(page, evidence, label + '-' + renderer + '-footer-' + str(width), '.legal-footer'))
             rows.append({'renderer': renderer, 'width': width, 'header': header, 'footer': foot,
+                         'fixed_footer_links': fixed,
+                         'footer_scroll': scroll,
                          'persistent_player_visible': player is not None})
     return rows, captures
 
@@ -776,6 +856,7 @@ def browser_case(browser, case, evidence):
     report = {'screenshots': []}
     try:
         report['defaults'] = defaults(page, base)
+        report['fixed_footer_destinations'] = fixed_footer_destinations(page, case)
         report['footer_placement'] = default_footer_positions(browser, page, case, evidence, errors)
         owner.goto(base + '/admin/?page=login', wait_until='networkidle')
         owner.get_by_label('Email address').fill(menus.OWNER)
@@ -848,6 +929,13 @@ def browser_case(browser, case, evidence):
             touch_page.locator('#mobileMenu').tap()
             expect(touch_page.locator('#primaryNav')).to_be_hidden()
             report['touch_three_levels'] = True
+            with touch_page.expect_navigation(wait_until='networkidle') as opened:
+                touch_page.locator('.legal-footer .legal-links').get_by_role('link', name='Privacy choices', exact=True).tap()
+            response = opened.value
+            check(response is not None and response.status == 200 and touch_page.url == menus.route(base, 'privacy/choices.php'),
+                  'The real phone footer Privacy choices tap did not open its control page.')
+            expect(touch_page.get_by_role('button', name='Decline and remove measurements', exact=True)).to_be_visible()
+            report['touch_privacy_choices'] = True
         finally:
             touch.close()
         no_script = browser.new_context(viewport={'width': 1440, 'height': 1000}, java_script_enabled=False)

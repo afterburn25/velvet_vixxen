@@ -5,6 +5,12 @@ declare(strict_types=1);
 function vvx_public_routes(): array
 {
     return [
+    'age' => 'age/index.php',
+    'age/' => 'age/index.php',
+    'age/index.php' => 'age/index.php',
+    'policies' => 'policies/index.php',
+    'policies/' => 'policies/index.php',
+    'policies/index.php' => 'policies/index.php',
     'about' => 'about/index.php',
     'about/index.php' => 'about/index.php',
     'join' => 'account/register.php',
@@ -26,9 +32,11 @@ function vvx_public_routes(): array
     'account/register.php' => 'account/register.php',
     'account/reset.php' => 'account/reset.php',
     'account/security.php' => 'account/security.php',
+    'account/privacy.php' => 'account/privacy.php',
     'account/verify.php' => 'account/verify.php',
     'api/addon-license.php' => 'api/addon-license.php',
     'api/marketing-event.php' => 'api/marketing-event.php',
+    'api/mail-events.php' => 'api/mail-events.php',
     'api/member-state.php' => 'api/member-state.php',
     'api/payment-webhook.php' => 'api/payment-webhook.php',
     'api/scene.php' => 'api/scene.php',
@@ -43,6 +51,8 @@ function vvx_public_routes(): array
     'campaign' => 'campaign/index.php',
     'campaign/' => 'campaign/index.php',
     'campaign/index.php' => 'campaign/index.php',
+    'campaign/click.php' => 'campaign/click.php',
+    'privacy/choices.php' => 'privacy/choices.php',
     'cart' => 'cart/index.php',
     'cart/' => 'cart/index.php',
     'cart/index.php' => 'cart/index.php',
@@ -54,6 +64,7 @@ function vvx_public_routes(): array
     'collections/' => 'collections/index.php',
     'collections/index.php' => 'collections/index.php',
     'communication/download.php' => 'communication/download.php',
+    'communication/privacy-download.php' => 'communication/privacy-download.php',
     'extension' => 'extension/index.php',
     'extension/' => 'extension/index.php',
     'extension/index.php' => 'extension/index.php',
@@ -92,6 +103,10 @@ function vvx_public_routes(): array
     'videos/index.php' => 'videos/index.php',
     'videos/watch.php' => 'videos/watch.php',
     'media.php' => 'media.php',
+    'protected-asset.php' => 'protected-asset.php',
+    'reports' => 'reports/index.php',
+    'reports/' => 'reports/index.php',
+    'reports/index.php' => 'reports/index.php',
     ];
 }
 

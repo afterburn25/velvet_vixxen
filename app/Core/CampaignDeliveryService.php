@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Core;
 
 use Velvet\Core\MarketingStore;
+use Velvet\Core\CampaignMessage;
 
 /** Bounded, resumable delivery of explicitly queued newsletter campaigns. */
 final class CampaignDeliveryService
@@ -51,11 +52,16 @@ final class CampaignDeliveryService
                 $delivery = $claim['delivery'];
                 $snapshot = $claim['snapshot'];
                 $unsubscribe = $this->publicBaseUrl() . '/' . \vvx_public_route_relative_url('newsletter/unsubscribe.php?token=' . rawurlencode($claim['unsubscribe_token']));
-                $body = trim((string) ($snapshot['preheader'] ?? ''));
-                if ($body !== '') $body .= "\n\n";
-                $body .= trim((string) $snapshot['body']) . "\n\nUnsubscribe from campaign emails: " . $unsubscribe;
-                $outcome = $this->mail->deliver((string) $delivery['email'], (string) $snapshot['subject'], $body,
-                    fn(): bool => $this->beginSending((string) $delivery['id'], (string) $delivery['claim_token']));
+                try {
+                    $mapper = method_exists($this->marketing, 'deliveryTrackedUrl')
+                        ? fn(string $url): string => $this->marketing->deliveryTrackedUrl((string) $delivery['campaign_id'], (string) $delivery['id'], $url) : null;
+                    $rendered = CampaignMessage::render($snapshot, $unsubscribe, (string) $this->publicBaseUrl(), $mapper);
+                    $outcome = $this->mail->deliver((string) $delivery['email'], $rendered['subject'], $rendered['text'],
+                        fn(): bool => $this->beginSending((string) $delivery['id'], (string) $delivery['claim_token']),
+                        ['html' => $rendered['html'], 'message_id' => $delivery['message_id']]);
+                } catch (\Throwable) {
+                    $outcome = ['status' => 'unknown', 'lastError' => 'The saved message or transmission could not be completed. Review the durable delivery state.'];
+                }
                 $status = $this->finish((string) $delivery['id'], (string) $delivery['claim_token'], $outcome);
                 if ($status === 'sent') $stats['accepted']++;
                 elseif (isset($stats[$status]) && is_int($stats[$status])) $stats[$status]++;
@@ -131,6 +137,7 @@ final class CampaignDeliveryService
                     return $this->skip($delivery, 'failed', 'The campaign needs a subject and message.');
                 }
                 $delivery['status'] = 'claimed';
+                $delivery['message_id'] ??= CampaignMessage::messageId('campaign', (string) $delivery['id']);
                 $delivery['claim_token'] = bin2hex(random_bytes(24));
                 $delivery['claimed_at'] = gmdate('c');
                 $delivery['updated_at'] = gmdate('c');

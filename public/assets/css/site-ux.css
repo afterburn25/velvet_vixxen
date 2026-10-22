@@ -56,3 +56,10 @@ body.public-page>.legal-footer{flex:0 0 auto;margin-top:auto}
 .scene-content-buttons .play{flex-shrink:0}
 .closing-content>.scene-content-buttons>.button{flex:1 1 auto}
 @media(max-width:760px){.scene-content-buttons{gap:10px}.scene-content-buttons>.button{flex:1 1 135px;padding:12px 15px;font-size:.88rem}}
+
+/* Small text on the pale panels needs a deeper shade of the same magenta. */
+.paper-section .eyebrow.pink,.paper-section .section-heading>a,.contact-grid .eyebrow.pink{color:#b60859}
+.skip-link,.public-navigation .header-cart b{color:#19040d}
+.public-page :focus-visible{outline:3px solid #ff91c6;outline-offset:4px}
+.paper-section :focus-visible,.contact-grid :focus-visible{outline-color:#a60051}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}.public-page *,.public-page *:before,.public-page *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

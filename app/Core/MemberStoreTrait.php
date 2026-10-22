@@ -124,7 +124,7 @@ trait MemberStoreTrait
             return $member;
         }
         $stmt = $this->pdo()->prepare('INSERT INTO members (display_name,email,password_hash,email_verified_at,status,preferences_json,failed_login_count,created_at,updated_at) VALUES (?,?,?,?,?,?,0,NOW(),NOW())');
-        $stmt->execute([$name, $email, $member['passwordHash'], $verifiedAt, $status, json_encode($member['preferences'])]);
+        $stmt->execute([$name, $email, $member['passwordHash'], $this->memberVerificationSqlTime($verifiedAt), $status, json_encode($member['preferences'])]);
         $member['id'] = (string) $this->pdo()->lastInsertId();
         $this->recordMemberEvent((string) $member['id'], 'member.registered');
         return $member;
@@ -133,6 +133,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $changes */
     public function updateMember(string|int $memberId, array $changes): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) $memberId, fn() => $this->updateMember($memberId, $changes)); }
+        $this->privacyRequireOpenMember((string) $memberId);
         $member = $this->member($memberId);
         if (!$member) {
             throw new RuntimeException('Member account not found.');
@@ -152,7 +154,10 @@ trait MemberStoreTrait
             $member['emailVerifiedAt'] = $changes['emailVerifiedAt'];
         }
         if (isset($changes['preferences']) && is_array($changes['preferences'])) {
-            $member['preferences'] = $changes['preferences'];
+            $preferences = $changes['preferences'];
+            unset($preferences['_attribution']);
+            if (isset($member['preferences']['_attribution'])) $preferences['_attribution'] = $member['preferences']['_attribution'];
+            $member['preferences'] = $preferences;
         }
         $member['updatedAt'] = now_iso();
         if ($this->mode === 'file') {
@@ -163,14 +168,43 @@ trait MemberStoreTrait
         }
         $stmt = $this->pdo()->prepare('UPDATE members SET display_name=?, status=?, email_verified_at=?, preferences_json=?, updated_at=NOW() WHERE id=?');
         $stmt->execute([
-            $member['displayName'], $member['status'], $member['emailVerifiedAt'] ?: null,
+            $member['displayName'], $member['status'], $this->memberVerificationSqlTime($member['emailVerifiedAt'] ?? null),
             json_encode((array) ($member['preferences'] ?? [])), (int) $member['id'],
         ]);
         return $this->member((string) $member['id']) ?? $member;
     }
 
+    /** Store offset-bearing verification instants in the SQL connection timezone. */
+    private function memberVerificationSqlTime(mixed $value): ?string
+    {
+        if ($value === null || $value === '') return null;
+        if (!is_string($value)) throw new RuntimeException('The verification date is invalid.');
+        // Existing SQL values already use the connection's wall clock. Do not
+        // reinterpret them in the configured PHP/site timezone during an edit.
+        if (preg_match('/\A\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\z/D', $value)) {
+            $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $value, new \DateTimeZone('UTC'));
+            if (!$date || $date->format('Y-m-d H:i:s') !== $value) throw new RuntimeException('The verification date is invalid.');
+            return $value;
+        }
+        if (!preg_match('/\A\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})\z/D', $value)) {
+            throw new RuntimeException('The verification date needs an explicit timezone.');
+        }
+        $normalized = str_ends_with($value, 'Z') ? substr($value, 0, -1) . '+00:00' : $value;
+        $date = \DateTimeImmutable::createFromFormat('!Y-m-d\TH:i:sP', $normalized);
+        if (!$date || $date->format('Y-m-d\TH:i:sP') !== $normalized) throw new RuntimeException('The verification date is invalid.');
+        // MySQL accepts ISO offsets in DATETIME bindings while MariaDB does
+        // not. Both engines implement this explicit instant-to-local conversion.
+        $statement = $this->pdo()->prepare('SELECT FROM_UNIXTIME(?)');
+        $statement->execute([$date->getTimestamp()]);
+        $converted = $statement->fetchColumn();
+        if (!is_string($converted) || $converted === '') throw new RuntimeException('The verification date is outside the database-supported range.');
+        return $converted;
+    }
+
     public function setMemberPassword(string|int $memberId, string $password): void
     {
+        if ($this->privacyWriteDepth === 0) { $this->privacyMemberWrite((string) $memberId, fn() => $this->setMemberPassword($memberId, $password)); return; }
+        $this->privacyRequireOpenMember((string) $memberId);
         if ((function_exists('mb_strlen') ? mb_strlen($password) : strlen($password)) < 12) {
             throw new RuntimeException('Your password must be at least 12 characters.');
         }
@@ -212,6 +246,8 @@ trait MemberStoreTrait
 
     public function recordMemberLoginSuccess(string|int $memberId): void
     {
+        if ($this->privacyWriteDepth === 0) { $this->privacyMemberWrite((string) $memberId, fn() => $this->recordMemberLoginSuccess($memberId), true); return; }
+        if ($this->privacyMemberErased($memberId)) return;
         $member = $this->member($memberId);
         if (!$member) {
             return;
@@ -235,6 +271,8 @@ trait MemberStoreTrait
         if (!$member) {
             return;
         }
+        if ($this->privacyMemberErased((string) $member['id'])) return;
+        if ($this->privacyWriteDepth === 0) { $this->privacyMemberWrite((string) $member['id'], fn() => $this->recordMemberLoginFailure($email), true); return; }
         $count = (int) ($member['failedLoginCount'] ?? 0) + 1;
         $lockUntil = $count >= 8 ? gmdate('c', time() + 900) : null;
         if ($this->mode === 'file') {
@@ -252,6 +290,8 @@ trait MemberStoreTrait
     /** @return array{token:string,expiresAt:string} */
     public function createMemberToken(string|int $memberId, string $type, int $ttlSeconds): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) $memberId, fn() => $this->createMemberToken($memberId, $type, $ttlSeconds)); }
+        $this->privacyRequireOpenMember((string) $memberId);
         if (!in_array($type, ['email_verification', 'password_reset'], true)) {
             throw new RuntimeException('Unsupported member token type.');
         }
@@ -326,6 +366,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $metadata */
     public function createMemberSession(string|int $memberId, string $rawToken, array $metadata = []): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) $memberId, fn() => $this->createMemberSession($memberId, $rawToken, $metadata)); }
+        $this->privacyRequireOpenMember((string) $memberId);
         $member = $this->member($memberId);
         if (!$member) {
             throw new RuntimeException('Member account not found.');
@@ -447,6 +489,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $context */
     public function recordMemberEvent(string|int $memberId, string $event, array $context = []): void
     {
+        if ($this->privacyWriteDepth === 0) { $this->privacyMemberWrite((string) $memberId, fn() => $this->recordMemberEvent($memberId, $event, $context), true); return; }
+        if ($this->privacyMemberErased($memberId)) return;
         if ($this->mode === 'file') {
             $data = $this->readFileStore();
             $data['memberEvents'][] = [
@@ -484,6 +528,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $metadata */
     public function queueMemberMail(?string $memberId, string $email, string $subject, string $template, string $body, array $metadata = []): array
     {
+        if ($memberId !== null && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($memberId, fn() => $this->queueMemberMail($memberId, $email, $subject, $template, $body, $metadata));
+        if ($memberId !== null) $this->privacyRequireOpenMember($memberId);
         $message = [
             'id' => bin2hex(random_bytes(8)), 'memberId' => $memberId, 'recipientEmail' => strtolower(trim($email)),
             'subject' => $subject, 'template' => $template, 'body' => $body, 'metadata' => $metadata,
@@ -665,6 +711,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $subscription */
     public function saveSubscription(array $subscription): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) (string) ($subscription['memberId'] ?? ''), fn() => $this->saveSubscription($subscription)); }
+        $this->privacyRequireOpenMember((string) (string) ($subscription['memberId'] ?? ''));
         $memberId = (string) ($subscription['memberId'] ?? '');
         $planId = (string) ($subscription['planId'] ?? '');
         if (!$this->member($memberId) || !$this->membershipPlan($planId)) {
@@ -780,6 +828,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $metadata */
     public function grantEntitlement(string|int $memberId, string $contentType, string|int $contentId, string $sourceType = 'complimentary', ?string $sourceId = null, ?string $expiresAt = null, array $metadata = []): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) $memberId, fn() => $this->grantEntitlement($memberId, $contentType, $contentId, $sourceType, $sourceId, $expiresAt, $metadata)); }
+        $this->privacyRequireOpenMember((string) $memberId);
         if (!$this->member($memberId)) {
             throw new RuntimeException('Member account not found.');
         }
@@ -857,6 +907,8 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $changes */
     public function saveMemberMediaState(string|int $memberId, string $contentType, string|int $contentId, array $changes): array
     {
+        if ($this->privacyWriteDepth === 0) { return $this->privacyMemberWrite((string) $memberId, fn() => $this->saveMemberMediaState($memberId, $contentType, $contentId, $changes)); }
+        $this->privacyRequireOpenMember((string) $memberId);
         $state = $this->memberMediaState($memberId, $contentType, $contentId);
         if (array_key_exists('progressSeconds', $changes)) $state['progressSeconds'] = max(0, (float) $changes['progressSeconds']);
         if (array_key_exists('isFavorite', $changes)) $state['isFavorite'] = (bool) $changes['isFavorite'];

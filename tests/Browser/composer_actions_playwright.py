@@ -147,36 +147,78 @@ def marketing_actions(page, public, site: Path, base: str, label: str) -> dict:
     public.reload(wait_until='networkidle')
     expect(public.locator('[data-marketing-banner]')).to_have_count(0)
 
-    public.goto(helpers.route_url(base, 'campaign/?slug=' + campaign_slug), wait_until='networkidle')
+    campaign_url = helpers.route_url(base, 'campaign/?slug=' + campaign_slug)
+    marketing_file = site / 'storage/private/marketing/data.json'
+    before_choice = marketing_file.read_bytes()
+    public.goto(campaign_url, wait_until='networkidle')
+    require(not any(cookie['name'] in ['velvet_measurement', 'velvet_attribution']
+                    for cookie in public.context.cookies(base + '/')),
+            'The anonymous campaign control already has a measurement choice or visitor token.')
+    # Exercise the real endpoint before permission; an HTTP acknowledgement must
+    # not create measurements or attribution for an unknown browser choice.
+    anonymous_event = public.evaluate('''async endpoint => {
+        const response = await fetch(endpoint, {method: 'POST', headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({event: 'cta_click', path: window.VELVET_CONFIG.pagePath})});
+        return {status: response.status, body: await response.json()};
+    }''', helpers.route_url(base, 'api/marketing-event.php'))
+    require(anonymous_event['status'] == 200 and anonymous_event['body'].get('ok') is True
+            and marketing_file.read_bytes() == before_choice,
+            'The real unconsented campaign request changed marketing state or lost its acknowledgement.')
+
+    privacy_url = helpers.route_url(base, 'privacy/choices.php')
+    public.goto(privacy_url, wait_until='networkidle')
+    dismiss_age(public)
+    expect(public.locator('[data-measurement-status]')).to_have_text('off')
+    with public.expect_navigation(wait_until='networkidle') as choice_navigation:
+        public.get_by_role('button', name='Allow optional measurement', exact=True).click()
+    require(choice_navigation.value is not None and choice_navigation.value.status == 200
+            and public.url == privacy_url, 'The real optional-measurement form did not save the browser choice.')
+    expect(public.locator('[data-measurement-status]')).to_have_text('allowed')
+    cookies = {cookie['name']: cookie for cookie in public.context.cookies(base + '/')}
+    expected_cookie_path = urlparse(base).path.rstrip('/') + '/'
+    require(all(name in cookies and cookies[name]['httpOnly']
+                and cookies[name]['path'] == expected_cookie_path
+                for name in ['velvet_measurement', 'velvet_attribution'])
+            and cookies['velvet_measurement']['value'].startswith('allow.')
+            and re.fullmatch(r'[a-f0-9]{64}', cookies['velvet_attribution']['value']) is not None,
+            'The privacy form did not return installation-scoped measurement and visitor cookies.')
+    require(json.loads(marketing_file.read_text())['events'] == json.loads(before_choice)['events'],
+            'Saving the browser choice fabricated a measurement event.')
+
+    public.goto(campaign_url, wait_until='networkidle')
     campaign = public.get_by_role('link', name=campaign_label, exact=True)
     expected_destination = helpers.route_url(base, destination)
     require(campaign.evaluate('element => element.href') == expected_destination,
             'Campaign CTA leaves the configured installation.')
     script = public.locator('script[src*="/public/assets/js/marketing.js"]')
     require('?v=' in (script.get_attribute('src') or ''), 'Marketing script URL lacks the current asset revision.')
-    marketing_file = site / 'storage/private/marketing/data.json'
     previous_events = {event['id'] for event in json.loads(marketing_file.read_text())['events']}
     with public.expect_navigation(wait_until='networkidle') as campaign_navigation:
         campaign.click()
-    expected_event_path = urlparse(base).path + '/campaign'
+    expected_event_path = '/campaign/'
     require(campaign_navigation.value is not None and campaign_navigation.value.status == 200
             and public.url == expected_destination, 'Campaign CTA did not open Booking with its query and fragment.')
     # Chromium can discard keepalive request/response details during navigation.
-    # The real API must still create exactly one new event with the correct path.
+    # The real API must still create exactly one consented event with the canonical
+    # public path, excluding the installation prefix, query and fragment.
     # The caller also checks the PHP server's actual POST/200 log entry.
     deadline = time.monotonic() + 5
     while True:
         events = json.loads(marketing_file.read_text())['events']
         new_clicks = [event for event in events if event['id'] not in previous_events and event['name'] == 'cta_click']
         if new_clicks:
-            require(len(new_clicks) == 1 and new_clicks[0]['path'] == expected_event_path,
-                    'Campaign click was duplicated or lost its installation path.')
+            require(len(new_clicks) == 1 and new_clicks[0]['path'] == expected_event_path
+                    and new_clicks[0].get('measurement_version') == 1,
+                    'Consented campaign click was duplicated or lost its canonical public path.')
             break
         require(time.monotonic() < deadline, 'The real campaign click was not recorded by the marketing endpoint.')
         time.sleep(0.05)
     return {'owner_posts_view_click': True, 'default_link_destinations': True,
             'banner_click_and_dismiss_persistence': True, 'campaign_cta_click': True,
-            'same_origin_campaign_beacon_recorded': True, 'versioned_marketing_asset': True}
+            'unconsented_campaign_did_not_mutate_marketing': True,
+            'actual_privacy_form_saved_scoped_choice': True, 'privacy_choice_created_no_events': True,
+            'same_origin_campaign_beacon_recorded': True, 'canonical_event_path': expected_event_path,
+            'versioned_marketing_asset': True}
 
 
 def browser_case(browser, site: Path, base: str, label: str, viewport: dict) -> dict:

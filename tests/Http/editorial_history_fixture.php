@@ -144,6 +144,12 @@ if ($action === 'seed') {
         }
     }
     $marketing->update(static function (array &$data) use ($records): void {
+        if (count($data['events']) !== 1 || ($data['events'][0]['id'] ?? '') !== 'editorial-existing-event') {
+            throw new RuntimeException('The retained history event must be the exact original fixture.');
+        }
+        // Preserve the legacy event shape and fields while keeping this explicit
+        // preservation control inside the current raw-measurement retention window.
+        $data['events'][0]['created_at'] = gmdate('c');
         foreach ($records as $collection => $rows) array_push($data[$collection], ...array_values($rows));
     });
     $manifest = ['records' => $records, 'positions' => []];

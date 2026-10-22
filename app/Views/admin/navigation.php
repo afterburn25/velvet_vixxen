@@ -3,12 +3,12 @@ declare(strict_types=1);
 $adminGroups = [
     'dashboard' => ['Dashboard', ['dashboard']],
     'design' => ['Site & Design', ['composer', 'scene-schedules', 'menus', 'about', 'canva', 'settings']],
-    'content' => ['Content & Media', ['media', 'music', 'galleries', 'videos']],
-    'members' => ['Members & Communications', ['members', 'entitlements', 'messages', 'content-requests', 'booking-requests', 'booking-form', 'communication-settings']],
+    'content' => ['Content & Media', ['media', 'music', 'galleries', 'videos', 'protection', 'policies']],
+    'members' => ['Members & Communications', ['members', 'privacy', 'entitlements', 'messages', 'content-requests', 'booking-requests', 'booking-form', 'communication-settings']],
     'commerce' => ['Commerce', ['commerce', 'merchandise', 'orders', 'plans', 'coupons', 'bundles', 'payments']],
     'marketing' => ['Marketing', ['marketing']],
     'extensions' => ['Extensions', ['addons', 'licenses']],
-    'system' => ['System', ['mail-settings', 'marketing-storage', 'update-status', 'database-updates', 'repair-backups']],
+    'system' => ['System', ['security', 'operations', 'mail-settings', 'marketing-storage', 'update-status', 'database-updates', 'repair-backups']],
 ];
 $adminAssigned = [];
 foreach ($adminGroups as [, $keys]) $adminAssigned = array_merge($adminAssigned, $keys);

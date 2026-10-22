@@ -81,7 +81,7 @@ if ($action === 'owner-wait') {
 }
 if ($action !== 'read') throw new RuntimeException('Unknown guarded menu fixture action.');
 $result = ['mode' => $mode, 'menus' => ['header' => $store->navigationMenu('header'), 'footer' => $store->navigationMenu('footer')],
-    'records' => [], 'audit' => [], 'protected' => [], 'unrelated_sha256' => '', 'outbox_count' => 0,
+    'records' => [], 'audit' => [], 'protected' => [], 'unrelated_sha256' => '', 'admin_security_sha256' => null, 'outbox_count' => 0,
     'mysql_version' => $pdo?->getAttribute(PDO::ATTR_SERVER_VERSION)];
 foreach (['config/app.php', 'storage/install.lock', 'uploads/editorial-existing.bin',
     'storage/private/editorial-existing.bin', 'storage/backups/editorial-existing.txt'] as $relative) {
@@ -96,6 +96,8 @@ if ($pdo !== null) {
         foreach ($rows as $row) {
             if ($table === 'settings' && in_array($row['setting_key'], ['navigation_menu_header', 'navigation_menu_footer'], true)) {
                 $result['records'][$row['setting_key']] = json_decode((string) $row['setting_value'], true, 32, JSON_THROW_ON_ERROR);
+            } elseif ($table === 'settings' && $row['setting_key'] === '_private_admin_security_v1') {
+                $result['admin_security_sha256'] = hash('sha256', json_encode($row, JSON_THROW_ON_ERROR));
             } elseif ($table === 'audit_log' && str_starts_with((string) $row['action_key'], 'site.menu.')) {
                 $result['audit'][] = $row;
             } else {
@@ -111,6 +113,10 @@ if ($pdo !== null) {
     $result['outbox_count'] = (int) $pdo->query('SELECT COUNT(*) FROM mail_outbox')->fetchColumn();
 } else {
     $unrelated = json_decode((string) file_get_contents($root . '/storage/data.json'), true, 512, JSON_THROW_ON_ERROR);
+    if (array_key_exists('_private_admin_security_v1', $unrelated['settings'])) {
+        $result['admin_security_sha256'] = hash('sha256', json_encode($unrelated['settings']['_private_admin_security_v1'], JSON_THROW_ON_ERROR));
+        unset($unrelated['settings']['_private_admin_security_v1']);
+    }
     foreach (['navigation_menu_header', 'navigation_menu_footer'] as $key) {
         if (array_key_exists($key, $unrelated['settings'])) $result['records'][$key] = $unrelated['settings'][$key];
         unset($unrelated['settings'][$key]);

@@ -22,7 +22,7 @@ if (!$owner || empty($owner['is_active']) || ($owner['role'] ?? '') !== 'owner'
     exit('Only the active site owner can recover an add-on change.');
 }
 if (!verify_csrf()) {
-    http_response_code(419);
+    vvx_response_status(419);
     exit('Your session token expired. Refresh the Add-on Manager and try again.');
 }
 $addonId = $_POST['addon_id'] ?? null;
@@ -32,6 +32,7 @@ if (!is_string($addonId) || !preg_match('/^[a-z0-9][a-z0-9._-]{1,189}$/D', $addo
 }
 
 try {
+    app_auth()->requireRecentOwner();
     $message = addon_manager()->recoverPending($addonId);
     flash('success', $message);
 } catch (Throwable) {

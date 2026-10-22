@@ -53,9 +53,11 @@ editor = login('update-editor@example.test')
 editor_status = get(editor, 'admin/?page=database-updates')
 assert 'Owner access required' in editor_status.text and 'No SQL update is needed' not in editor_status.text, 'Non-owner obtained update inspection details.'
 editor_settings = get(editor, 'admin/?page=settings')
+editor_before = (ROOT / 'storage/data.json').read_bytes()
 denied = editor.post(urljoin(BASE, 'admin/?page=database-updates'), data={'_csrf': csrf(editor_settings), 'action': 'apply_database_updates',
-    'backup_confirmed': '1', 'backup_reference': 'Forged operator acknowledgment'}, timeout=20)
-assert 'Only the owner can apply database updates' in denied.text, 'Authenticated non-owner triggered database updates.'
+    'backup_confirmed': '1', 'backup_reference': 'Forged operator acknowledgment'}, allow_redirects=False, timeout=20)
+assert denied.status_code == 403 and 'Only the active site owner can perform this action.' in denied.text, 'Authenticated non-owner bypassed current owner verification for database updates.'
+assert (ROOT / 'storage/data.json').read_bytes() == editor_before, 'Rejected non-owner database update changed the saved application state.'
 assert not (ROOT / 'storage/private/database-updates').exists(), 'Rejected/no-op actions created migration state.'
 assert (ROOT / 'config/app.php').read_bytes() == config_before and (ROOT / 'storage/install.lock').read_bytes() == lock_before, 'Update endpoint changed active configuration or installation lock.'
 print('Database update HTTP boundaries passed: owner-only status/apply, CSRF, private paths and file-storage no-op preserve installation state.')

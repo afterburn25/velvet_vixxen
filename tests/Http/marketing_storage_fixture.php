@@ -195,14 +195,19 @@ if ($action === 'change-source') {
 }
 if ($action === 'remove-empty-schema') {
     if ($storage->status()['state'] !== 'ready') throw new RuntimeException('Only empty inactive fixture tables may be removed.');
-    foreach ($tables as $table) if ((int) $pdo->query('SELECT COUNT(*) FROM ' . vvx_installer_fixture_quote($table))->fetchColumn() !== 0) {
-        throw new RuntimeException('Refusing to remove occupied marketing tables.');
+    $pendingKeys = [$migration, '202610210016_marketing_measurements', '202610210017_private_state'];
+    $emptyTables = array_merge($tables, ['marketing_measurement_state', 'marketing_measurement_records', 'private_state']);
+    // Prove all later tables empty before the first DDL statement so this is a
+    // genuine pre015 installation, never a missing migration below a newer ledger.
+    foreach ($emptyTables as $table) if ((int) $pdo->query('SELECT COUNT(*) FROM ' . vvx_installer_fixture_quote($table))->fetchColumn() !== 0) {
+        throw new RuntimeException('Refusing to remove occupied fixture tables.');
     }
     if ($pdo->query("SELECT COUNT(*) FROM settings WHERE setting_key='marketing_sql_storage'")->fetchColumn() != 0) {
         throw new RuntimeException('Refusing to remove active marketing authority.');
     }
-    foreach (array_reverse($tables) as $table) $pdo->exec('DROP TABLE ' . vvx_installer_fixture_quote($table));
-    $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$migration]);
+    foreach (array_reverse($emptyTables) as $table) $pdo->exec('DROP TABLE ' . vvx_installer_fixture_quote($table));
+    $remove = $pdo->prepare('DELETE FROM migrations WHERE migration_key=?');
+    foreach ($pendingKeys as $key) $remove->execute([$key]);
     echo json_encode(['state' => $storage->status()['state']], JSON_THROW_ON_ERROR);
     exit;
 }

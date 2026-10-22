@@ -454,7 +454,7 @@ if ($action === 'plan-state') {
 if ($action !== 'read') throw new RuntimeException('Unknown editorial access fixture action.');
 $result = ['mode' => $mode, 'status' => $storage->status(), 'marketing' => $marketing->all(),
     'legacy_sha256' => hash_file('sha256', $sourcePath), 'protected' => [], 'sql' => null,
-    'mysql_version' => $pdo?->getAttribute(PDO::ATTR_SERVER_VERSION), 'plans' => [], 'unrelated' => [], 'outbox' => [],
+    'mysql_version' => $pdo?->query('SELECT VERSION()')->fetchColumn(), 'plans' => [], 'unrelated' => [], 'outbox' => [],
     'site_timezone' => date_default_timezone_get(), 'membership_clock' => ['fixture_epoch' => $manifest['clock'],
         'observed_epoch' => time(), 'free_verification_method' => $manifest['free_verification_method'],
         'verification' => [], 'subscription_inputs' => $manifest['subscription_inputs'], 'subscriptions' => []],

@@ -67,11 +67,39 @@ def submit(page, button, expected_error: str | None = None):
 def no_overflow(page, label: str):
     width = page.evaluate('({content: document.documentElement.scrollWidth, viewport: window.innerWidth})')
     require(width['content'] <= width['viewport'] + 1, label + ' overflows horizontally: ' + repr(width))
+    controls = []
     for field in page.locator('form[data-audience-editor] input, form[data-audience-editor] textarea, form[data-campaign-editor] input, form[data-campaign-editor] textarea, form[data-campaign-editor] select').all():
         if field.is_visible():
             box = field.bounding_box()
-            require(box is not None and box['width'] >= 20 and box['x'] >= -1 and box['x'] + box['width'] <= width['viewport'] + 1,
-                    label + ' has an inaccessible or clipped form control.')
+            name = field.get_attribute('name')
+            if field.get_attribute('type') == 'checkbox':
+                # The visible indicator is inside a larger native label target.
+                # Measure and exercise that target instead of applying text-field
+                # width requirements to the deliberately compact indicator.
+                target = field.locator('xpath=ancestor::label[1]')
+                require(target.count() == 1 and target.is_visible(), label + ' checkbox lacks its associated label: ' + str(name))
+                target_box = target.bounding_box()
+                require(box is not None and box['width'] >= 18 and box['height'] >= 18
+                        and target_box is not None and target_box['width'] >= 44 and target_box['height'] >= 44
+                        and target_box['x'] >= -1 and target_box['x'] + target_box['width'] <= width['viewport'] + 1
+                        and box['x'] >= target_box['x'] - 1 and box['y'] >= target_box['y'] - 1
+                        and box['x'] + box['width'] <= target_box['x'] + target_box['width'] + 1
+                        and box['y'] + box['height'] <= target_box['y'] + target_box['height'] + 1,
+                        label + ' has an inaccessible or clipped checkbox target: ' + repr({'name': name, 'indicator': box, 'label': target_box}))
+                checked = field.is_checked()
+                target.click()
+                require(field.is_checked() != checked, label + ' label click did not toggle its checkbox: ' + str(name))
+                field.focus()
+                expect(field).to_be_focused()
+                field.press('Space')
+                require(field.is_checked() == checked, label + ' keyboard Space did not restore its checkbox state: ' + str(name))
+                controls.append({'name': name, 'indicator': box, 'label_target': target_box,
+                                 'label_click_toggled': True, 'keyboard_space_restored': True})
+            else:
+                require(box is not None and box['width'] >= 20 and box['x'] >= -1 and box['x'] + box['width'] <= width['viewport'] + 1,
+                        label + ' has an inaccessible or clipped form control: ' + repr({'name': name, 'box': box}))
+                controls.append({'name': name, 'box': box})
+    return {'label': label, 'width': width, 'controls': controls}
 
 
 def browser_case(browser, php: str, site: Path, base: str, label: str, viewport: dict) -> dict:
@@ -79,7 +107,7 @@ def browser_case(browser, php: str, site: Path, base: str, label: str, viewport:
                 for email, source, confirmed in [('first@example.test', 'alpha', True), ('second@example.test', 'alpha', True),
                                                   ('beta@example.test', 'beta', True), ('pending@example.test', 'alpha', False)]]
     context = browser.new_context(viewport=viewport)
-    errors = []
+    errors, layouts = [], []
     context.on('page', lambda page: page.on('pageerror', lambda error: errors.append(str(error))))
     page = context.new_page()
     stale_page = context.new_page()
@@ -103,7 +131,7 @@ def browser_case(browser, php: str, site: Path, base: str, label: str, viewport:
         submit(page, audience.get_by_role('button', name='Preview Audience', exact=True))
         expect(page.locator('[data-audience-preview]')).to_contain_text('2 eligible newsletter contacts')
         require(data_file.read_bytes() == before, 'Owner audience preview saved data.')
-        no_overflow(page, label + ' audience preview')
+        layouts.append(no_overflow(page, label + ' audience preview'))
         screenshot(page, label + '-source-date-preview', page.locator('.marketing-admin-grid'))
         response = submit(page, audience.get_by_role('button', name='Save Audience', exact=True))
         require(response.request.method == 'GET' and len(http.state(site)['segments']) == 1, 'Audience save did not persist once and redirect to GET.')
@@ -130,7 +158,7 @@ def browser_case(browser, php: str, site: Path, base: str, label: str, viewport:
         submit(page, campaign.get_by_role('button', name='Preview Campaign Audience', exact=True))
         expect(page.locator('[data-campaign-audience-preview]')).to_contain_text('2 eligible newsletter contacts')
         require(data_file.read_bytes() == before, 'Campaign preview saved a draft or queued work.')
-        no_overflow(page, label + ' campaign preview')
+        layouts.append(no_overflow(page, label + ' campaign preview'))
         screenshot(page, label + '-campaign-preview', campaign)
         http.fixture(php, site, 'contact', email='late-alpha@example.test', source='alpha')
         submit(page, campaign.get_by_role('button', name='Save Campaign', exact=True), 'draft was saved, but no new recipients were queued')
@@ -178,7 +206,7 @@ def browser_case(browser, php: str, site: Path, base: str, label: str, viewport:
         before = data_file.read_bytes()
         submit(page, card.get_by_role('button', name='Queue Recipients', exact=True))
         require(data_file.read_bytes() == before, 'Repeated owner queue rewrote existing work.')
-        no_overflow(page, label + ' frozen campaign')
+        layouts.append(no_overflow(page, label + ' frozen campaign'))
         screenshot(page, label + '-frozen-requeue', card)
 
         # Public opt-out remains decisive for a selected recipient even after
@@ -193,7 +221,8 @@ def browser_case(browser, php: str, site: Path, base: str, label: str, viewport:
         return {'viewport': viewport, 'source_date_preview': True, 'stale_preview_retry': True,
                 'stale_segment_tab_rejected': True, 'queued_rules_survive_edit_delete': True,
                 'explicit_append_only_requeue': True, 'public_unsubscribe_suppresses_selected_delivery': True,
-                'no_horizontal_overflow_or_clipped_controls': True, 'mail_mode': 'disabled', 'external_messages_sent': 0}
+                'no_horizontal_overflow_or_clipped_controls': True, 'layouts': layouts,
+                'mail_mode': 'disabled', 'external_messages_sent': 0}
     except Exception:
         screenshot(page, label + '-failure')
         raise
@@ -230,6 +259,8 @@ def run():
         summary['browser'] = browser.version
         try:
             for label, prefix, viewport in [('root-http', '', None), ('root-desktop', '', {'width': 1440, 'height': 1000}),
+                                            ('root-mobile', '', {'width': 390, 'height': 844}),
+                                            ('nested-desktop', '/nested/velvet', {'width': 1440, 'height': 1000}),
                                             ('nested-mobile', '/nested/velvet', {'width': 390, 'height': 844})]:
                 document_root = work / label / 'www'
                 site = document_root / prefix.lstrip('/')

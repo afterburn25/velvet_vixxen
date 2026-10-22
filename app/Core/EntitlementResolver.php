@@ -22,6 +22,7 @@ final class EntitlementResolver
             'allowed' => false, 'mode' => $mode, 'reason' => 'Access is required.', 'source' => 'none',
             'expiresAt' => null, 'loginRequired' => $member === null, 'plan' => null, 'entitlement' => null,
         ];
+        if (!$this->store->protectionAllowed($contentType, $contentId, $content)) return array_merge($base, ['reason' => 'This release is unavailable while its protection records are reviewed.']);
         $status = (string) ($content['status'] ?? 'published');
         $scheduledAt = strtotime((string) ($content['scheduledAt'] ?? '')) ?: 0;
         if ($status === 'scheduled' && $scheduledAt > time()) {
@@ -98,6 +99,7 @@ final class EntitlementResolver
         foreach ($this->store->entitlements($memberId, true) as $entitlement) {
             $content = $this->content((string) $entitlement['contentType'], (string) $entitlement['contentId']);
             if ($content === null) continue;
+            if (!$this->store->protectionAllowed((string) $entitlement['contentType'], (string) $content['id'], $content)) continue;
             $items[$this->key((string) $entitlement['contentType'], (string) $entitlement['contentId'])] = $this->libraryItem((string) $entitlement['contentType'], $content, [
                 'source' => (string) ($entitlement['sourceType'] ?? 'entitlement'),
                 'expiresAt' => $entitlement['expiresAt'] ?? null,

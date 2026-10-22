@@ -35,7 +35,7 @@ import requests
 
 ROOT = Path(__file__).resolve().parents[2]
 FIXTURE = Path(__file__).with_name('editorial_access_fixture.php')
-VERSION, BUILD = '0.8.14', '20261021.3'
+VERSION, BUILD = '0.9.0', '20261021.4'
 OWNER, PASSWORD, MEMBER_PASSWORD = 'owner@example.test', 'VelvetDemo12', 'VelvetMember12'
 COLLECTIONS = ('posts', 'banners', 'landing_pages', 'links', 'referral_codes', 'contacts', 'segments',
                'campaigns', 'campaign_queue', 'events', 'consents', 'suppressions')
@@ -120,8 +120,8 @@ def changed(values, **updates):
     return result
 
 
-def owner_login(base: str):
-    owner = session()
+def owner_login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=15)
     values = dict(fields(page.text))
     response = owner.post(base + '/admin/?page=login', data={'_csrf': values['_csrf'],
@@ -445,6 +445,9 @@ def preview_cases(owner, clients: dict, base: str, site: Path, php: str):
           and before['legacy_sha256'] == after['legacy_sha256'],
           'Preview success/denial/method checks wrote publication, page-view, referral, campaign or SQL records.')
     protected(before, after)
+    check(owner.get(preview_url(base, 'posts'), allow_redirects=False, timeout=15).status_code == 403,
+          'Restoring an inactive account revived its revoked preview session.')
+    owner_login(base, owner)
 
 
 def noninitializing_preview(owner, base: str, site: Path, php: str, mode: str):
@@ -616,6 +619,10 @@ def owner_revoked_during_catalog_read(owner, base: str, site: Path, php: str):
               and before['legacy_sha256'] == after['legacy_sha256'] and before['outbox'] == after['outbox'],
               'Revocation during catalog wait changed saved marketing, events, SQL payload or mail state.')
         protected(before, after)
+        if status == 'inactive':
+            check(owner.get(preview_url(base, 'posts'), allow_redirects=False, timeout=15).status_code == 403,
+                  'A revoked catalog-read session revived after the account was restored.')
+            owner_login(base, owner)
         results.append({'action': action, 'owner_change': status, 'observed_catalog_select_wait': True,
                         'http_status': 403, 'exact_state_preserved': True})
     return results
@@ -809,7 +816,7 @@ def prepare_package(work: Path):
     with ZipFile(archive) as zipped:
         files = {name: zipped.read(name) for name in zipped.namelist() if not name.endswith('/')}
     version, build = package.package_identity(files)
-    check((version, build) == (VERSION, BUILD), 'Editorial acceptance requires 0.8.14 / Build20261021.3.')
+    check((version, build) == (VERSION, BUILD), 'Editorial acceptance requires 0.9.0 / Build20261021.4.')
     package.validate(files, 'fresh', version)
     check(set(UI_FILES) <= files.keys() and all(files[name] == (ROOT / name).read_bytes() for name in UI_FILES),
           'The actual Fresh ZIP does not contain the exact editorial runtime sources under test.')

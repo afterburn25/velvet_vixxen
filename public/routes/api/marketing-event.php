@@ -32,7 +32,8 @@ if (strlen((string) $raw) > 2048 || !is_array($data)
     http_response_code(400); echo json_encode(['ok' => false]); exit;
 }
 try {
-    velvet_marketing_store()->recordEvent($data['event'], ['path' => $data['path']]);
+    if (!in_array($data['event'], ['page_view', 'cta_click', 'purchase_intent'], true)) throw new InvalidArgumentException('Unsupported public measurement.');
+    velvet_marketing_store()->recordMeasuredEvent($data['event'], ['path' => $data['path']]);
     echo json_encode(['ok' => true]);
 } catch (Throwable $error) {
     http_response_code(400); echo json_encode(['ok' => false]);

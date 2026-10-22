@@ -14,6 +14,22 @@ function mm_checked(mixed $value): bool
     return true;
 }
 
+function mm_measurement_authorize(): void
+{
+    if (!velvet_marketing_is_owner()) throw new RuntimeException('Only the active site owner can manage measurement and attribution.', 403);
+}
+
+function mm_measurement_filters(array $input): array
+{
+    $filters = [];
+    foreach (['start','end','campaign','referral','event'] as $key) if (array_key_exists($key, $input)) {
+        if (!is_string($input[$key])) throw new InvalidArgumentException('Enter valid measurement filters.');
+        $filters[$key] = $input[$key];
+    }
+    $filters['compare'] = mm_checked($input['compare'] ?? null);
+    return $filters;
+}
+
 function mm_publication_meta(string $collection): array
 {
     return match (\Velvet\Core\MarketingPublication::collection($collection)) {
@@ -154,12 +170,30 @@ function mm_publication_history_url(string $collection, string $id, ?string $ver
 
 function mm_audience_rules(array $post): array
 {
-    return \Velvet\Core\MarketingAudience::rules([
+    $rules = [
         'version' => 1,
         'sources' => \Velvet\Core\MarketingAudience::sourcesFromText($post['sources'] ?? ''),
         'confirmed_after' => \Velvet\Core\MarketingAudience::formDate($post['confirmed_after'] ?? ''),
         'confirmed_before' => \Velvet\Core\MarketingAudience::formDate($post['confirmed_before'] ?? ''),
-    ]);
+    ];
+    $membership = $post['membership'] ?? 'any';
+    if (!in_array($membership, ['any','active','none'], true)) throw new InvalidArgumentException('Choose a valid membership criterion.');
+    $plans = $post['plan_ids'] ?? [];
+    if (!is_array($plans) || !array_is_list($plans)) throw new InvalidArgumentException('Choose valid saved membership tiers.');
+    $referrals = \Velvet\Core\MarketingAudience::sourcesFromText($post['referral_codes'] ?? '');
+    $purchase = null;
+    if (mm_checked($post['purchase_enabled'] ?? null)) {
+        $count = filter_var($post['purchase_min_count'] ?? '', FILTER_VALIDATE_INT);
+        $minor = filter_var($post['purchase_min_total_minor'] ?? '', FILTER_VALIDATE_INT);
+        if ($count === false || $minor === false) throw new InvalidArgumentException('Enter whole purchase counts and minor currency units.');
+        $purchase = ['min_count' => $count, 'min_total_minor' => $minor, 'currency' => $post['purchase_currency'] ?? '',
+            'after' => \Velvet\Core\MarketingAudience::formDate($post['purchase_after'] ?? ''),
+            'before' => \Velvet\Core\MarketingAudience::formDate($post['purchase_before'] ?? '')];
+    }
+    if ($membership !== 'any' || $plans !== [] || $referrals !== [] || $purchase !== null) {
+        $rules = array_replace($rules, ['version' => 2, 'membership' => $membership, 'plan_ids' => $plans, 'referral_codes' => $referrals, 'purchase' => $purchase]);
+    }
+    return \Velvet\Core\MarketingAudience::rules($rules);
 }
 
 function mm_audience_option(array $selection): string
@@ -184,5 +218,14 @@ function mm_audience_summary(array $rules): string
     $parts = [$rules['sources'] === [] ? 'Any saved signup source' : 'Signup source: ' . implode(', ', $rules['sources'])];
     if ($rules['confirmed_after'] !== null) $parts[] = 'confirmed on or after ' . str_replace('T', ' ', \Velvet\Core\MarketingAudience::dateForForm($rules['confirmed_after']));
     if ($rules['confirmed_before'] !== null) $parts[] = 'confirmed before ' . str_replace('T', ' ', \Velvet\Core\MarketingAudience::dateForForm($rules['confirmed_before']));
+    if (($rules['membership'] ?? 'any') !== 'any') $parts[] = $rules['membership'] === 'active' ? 'active membership' : 'verified member without active membership';
+    if (($rules['plan_ids'] ?? []) !== []) $parts[] = 'tier IDs: ' . implode(', ', $rules['plan_ids']);
+    if (($rules['referral_codes'] ?? []) !== []) $parts[] = 'saved referral: ' . implode(', ', $rules['referral_codes']);
+    if (($rules['purchase'] ?? null) !== null) {
+        $purchase = $rules['purchase'];
+        $parts[] = 'at least ' . $purchase['min_count'] . ' paid purchases and ' . $purchase['min_total_minor'] . ' minor units ' . $purchase['currency'];
+        if ($purchase['after'] !== null) $parts[] = 'purchased on or after ' . str_replace('T', ' ', \Velvet\Core\MarketingAudience::dateForForm($purchase['after']));
+        if ($purchase['before'] !== null) $parts[] = 'purchased before ' . str_replace('T', ' ', \Velvet\Core\MarketingAudience::dateForForm($purchase['before']));
+    }
     return implode(' · ', $parts);
 }

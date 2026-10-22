@@ -119,8 +119,8 @@
     menuButton.setAttribute('aria-expanded', 'true');
     document.body.classList.add('menu-open');
   });
-  primary?.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && primary.classList.contains('open')) {
+  header?.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && primary?.classList.contains('open')) {
       event.preventDefault();
       closePrimary(true);
     }

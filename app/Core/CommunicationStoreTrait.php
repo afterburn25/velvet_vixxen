@@ -124,6 +124,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $input */
     public function createCommunicationThread(array $input): array
     {
+        $privacyMember = (string) ($input['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->createCommunicationThread($input));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $subject = trim((string) ($input['subject'] ?? ''));
         if ($subject === '' || (function_exists('mb_strlen') ? mb_strlen($subject) : strlen($subject)) > 190) {
             throw new RuntimeException('Enter a subject of 190 characters or fewer.');
@@ -169,6 +172,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $changes */
     public function updateCommunicationThread(string|int $id, array $changes): array
     {
+        $privacyMember = (string) ($this->communicationThread($id)['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->updateCommunicationThread($id, $changes));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $thread = $this->communicationThread($id);
         if (!$thread) throw new RuntimeException('Conversation not found.');
         foreach (['status' => ['open','pending_member','pending_staff','closed','blocked'], 'priority' => ['low','normal','high','urgent']] as $field => $allowed) {
@@ -233,6 +239,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $input @return array<string,mixed> */
     public function sendCommunicationMessage(array $input): array
     {
+        $privacyMember = (string) ($this->communicationThread((string) ($input['threadId'] ?? ''))['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->sendCommunicationMessage($input));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $thread = $this->communicationThread((string) ($input['threadId'] ?? ''));
         if (!$thread) throw new RuntimeException('Conversation not found.');
         $senderType = (string) ($input['senderType'] ?? 'member');
@@ -332,24 +341,57 @@ trait CommunicationStoreTrait
         return array_map(fn(array $r):array=>$this->mapCommunicationAttachmentRow($r,'message'),$stmt->fetchAll());
     }
 
-    public function communicationAttachment(string|int $attachmentId): ?array
+    /** Separate SQL tables have independent ids. An untyped ambiguous id never selects either file. */
+    public function communicationAttachment(string|int $attachmentId, ?string $kind = null): ?array
     {
-        $key=(string)$attachmentId;
-        if($this->mode==='file'){
-            $data=$this->readFileStore();
-            if(isset($data['messageAttachments'][$key])) return (array)$data['messageAttachments'][$key];
-            if(isset($data['requestAttachments'][$key])) return (array)$data['requestAttachments'][$key];
-            return null;
+        $key = (string) $attachmentId;
+        if ($key === '' || ($kind !== null && !in_array($kind, ['message', 'request'], true))) return null;
+        $found = [];
+        if ($this->mode === 'file') {
+            $data = $this->loadFileStore()[0];
+            foreach (['message' => 'messageAttachments', 'request' => 'requestAttachments'] as $type => $collection) {
+                if (($kind === null || $kind === $type) && is_array($data[$collection][$key] ?? null)) {
+                    $found[] = array_replace($data[$collection][$key], ['kind' => $type]);
+                }
+            }
+        } else {
+            if (!ctype_digit($key)) return null;
+            foreach (['message' => 'SELECT ma.*, m.thread_id FROM message_attachments ma JOIN messages m ON m.id=ma.message_id WHERE ma.id=?',
+                'request' => 'SELECT * FROM request_attachments WHERE id=?'] as $type => $sql) {
+                if ($kind !== null && $kind !== $type) continue;
+                $statement = $this->pdo()->prepare($sql); $statement->execute([$key]);
+                $row = $statement->fetch();
+                if (is_array($row)) $found[] = $this->mapCommunicationAttachmentRow($row, $type);
+            }
         }
-        $stmt=$this->pdo()->prepare("SELECT ma.*, m.thread_id, 'message' AS attachment_kind FROM message_attachments ma JOIN messages m ON m.id=ma.message_id WHERE ma.id=? LIMIT 1");$stmt->execute([(int)$attachmentId]);$row=$stmt->fetch();
-        if(is_array($row)) return $this->mapCommunicationAttachmentRow($row,'message');
-        $stmt=$this->pdo()->prepare("SELECT ra.*, 'request' AS attachment_kind FROM request_attachments ra WHERE ra.id=? LIMIT 1");$stmt->execute([(int)$attachmentId]);$row=$stmt->fetch();
-        return is_array($row)?$this->mapCommunicationAttachmentRow($row,'request'):null;
+        return count($found) === 1 ? $found[0] : null;
+    }
+
+    /** Use this for both ordinary downloads and account archives. Unknown visibility is private. */
+    public function memberCanReadCommunicationAttachment(array $attachment, string $memberId): bool
+    {
+        if ($memberId === '') return false;
+        if (($attachment['kind'] ?? '') === 'message') {
+            $message = $this->communicationMessage((string) ($attachment['messageId'] ?? ''));
+            $thread = $message ? $this->communicationThread((string) ($message['threadId'] ?? '')) : null;
+            return is_array($thread) && ($message['visibility'] ?? '') === 'public'
+                && (string) ($thread['memberId'] ?? '') === $memberId;
+        }
+        if (($attachment['kind'] ?? '') !== 'request' || ($attachment['uploadedByType'] ?? '') !== 'member') return false;
+        $request = match ($attachment['requestType'] ?? '') {
+            'content_request' => $this->contentRequest((string) ($attachment['requestId'] ?? '')),
+            'booking_request' => $this->bookingRequest((string) ($attachment['requestId'] ?? '')),
+            default => null,
+        };
+        return is_array($request) && (string) ($request['memberId'] ?? '') === $memberId;
     }
 
     /** @param array<string,mixed> $input */
     public function createContentRequest(array $input): array
     {
+        $privacyMember = (string) ($input['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->createContentRequest($input));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $memberId=trim((string)($input['memberId']??''));
         if($memberId===''||!$this->member($memberId)) throw new RuntimeException('A valid member account is required.');
         $member=$this->member($memberId);
@@ -402,6 +444,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $changes */
     public function updateContentRequest(string|int $id,array $changes):array
     {
+        $privacyMember = (string) ($this->contentRequest($id)['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->updateContentRequest($id, $changes));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $request=$this->contentRequest($id);if(!$request)throw new RuntimeException('Content request not found.');
         $allowed=['submitted','reviewing','quoted','accepted','declined','completed','cancelled'];$oldStatus=(string)$request['status'];
         if(isset($changes['status'])&&in_array((string)$changes['status'],$allowed,true))$request['status']=(string)$changes['status'];
@@ -416,6 +461,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $input */
     public function createBookingRequest(array $input): array
     {
+        $privacyMember = (string) ($input['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->createBookingRequest($input));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $submission = null;
         if (array_key_exists('formValues', $input)) {
             if (!is_array($input['formValues'])) throw new RuntimeException('The booking answers are invalid.');
@@ -513,6 +561,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $changes */
     public function updateBookingRequest(string|int $id,array $changes):array
     {
+        $privacyMember = (string) ($this->bookingRequest($id)['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->updateBookingRequest($id, $changes));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $r=$this->bookingRequest($id);if(!$r)throw new RuntimeException('Booking request not found.');$old=(string)$r['status'];$statuses=['submitted','reviewing','quoted','accepted','declined','completed','cancelled'];$priorities=['low','normal','high','urgent'];if(isset($changes['status'])&&in_array((string)$changes['status'],$statuses,true))$r['status']=(string)$changes['status'];if(isset($changes['priority'])&&in_array((string)$changes['priority'],$priorities,true))$r['priority']=(string)$changes['priority'];if(array_key_exists('assignedAdminId',$changes))$r['assignedAdminId']=$changes['assignedAdminId']===''||$changes['assignedAdminId']===null?null:(string)$changes['assignedAdminId'];if(array_key_exists('internalNotes',$changes))$r['internalNotes']=trim((string)$changes['internalNotes']);$r['updatedAt']=now_iso();
         if($this->mode==='file'){$data=$this->readFileStore();$data['bookingRequests'][(string)$r['id']]=$r;$this->writeFileStore($data);}else{$stmt=$this->pdo()->prepare('UPDATE booking_requests SET status=?,priority=?,assigned_admin_id=?,internal_notes=?,updated_at=NOW() WHERE id=?');$stmt->execute([$r['status'],$r['priority'],$r['assignedAdminId']!==null?(int)$r['assignedAdminId']:null,$r['internalNotes']!==''?$r['internalNotes']:null,(int)$r['id']]);}
         if($old!==$r['status']&&!empty($r['threadId']))$this->sendCommunicationMessage(['threadId'=>$r['threadId'],'senderType'=>'system','visibility'=>'public','body'=>'Booking inquiry status changed to '.ucwords(str_replace('_',' ',(string)$r['status'])).'.']);return $this->bookingRequest($id)??$r;
@@ -528,6 +579,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $attachment */
     public function addRequestAttachment(string $requestType,string|int $requestId,array $attachment,string $uploadedByType='member'):array
     {
+        $privacyMember = (string) (($requestType === 'content_request' ? $this->contentRequest($requestId) : $this->bookingRequest($requestId))['memberId'] ?? '');
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->addRequestAttachment($requestType, $requestId, $attachment, $uploadedByType));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $record=$this->normalizeCommunicationAttachment($attachment,null,'request');$record['requestType']=$requestType;$record['requestId']=(string)$requestId;$record['uploadedByType']=$uploadedByType;
         if($this->mode==='file'){$data=$this->readFileStore();$data['requestAttachments'][(string)$record['id']]=$record;$this->writeFileStore($data);return $record;}
         $stmt=$this->pdo()->prepare('INSERT INTO request_attachments (request_type,request_id,file_path,original_name,mime_type,file_size,uploaded_by_type,created_at) VALUES (?,?,?,?,?,?,?,NOW())');$stmt->execute([$requestType,(int)$requestId,$record['filePath'],$record['originalName'],$record['mimeType'],$record['fileSize'],$uploadedByType]);$record['id']=(string)$this->pdo()->lastInsertId();return $record;
@@ -577,6 +631,9 @@ trait CommunicationStoreTrait
     /** @param array<string,mixed> $metadata */
     public function createMemberNotification(string|int $memberId,string $type,string $title,string $body,string $url='',array $metadata=[]):array
     {
+        $privacyMember = (string) $memberId;
+        if ($privacyMember !== '' && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite($privacyMember, fn() => $this->createMemberNotification($memberId, $type, $title, $body, $url, $metadata));
+        if ($privacyMember !== '') $this->privacyRequireOpenMember($privacyMember);
         $record=['id'=>bin2hex(random_bytes(8)),'memberId'=>(string)$memberId,'type'=>$type,'title'=>$title,'body'=>$body,'url'=>$url,'metadata'=>$metadata,'readAt'=>null,'createdAt'=>now_iso()];
         if($this->mode==='file'){$data=$this->readFileStore();$data['memberNotifications'][(string)$record['id']]=$record;$this->writeFileStore($data);return $record;}
         $stmt=$this->pdo()->prepare('INSERT INTO member_notifications (member_id,notification_type,title,body,target_url,metadata_json,read_at,created_at) VALUES (?,?,?,?,?,?,NULL,NOW())');$stmt->execute([(int)$memberId,$type,$title,$body,$url!==''?$url:null,json_encode($metadata)]);$record['id']=(string)$this->pdo()->lastInsertId();return $record;

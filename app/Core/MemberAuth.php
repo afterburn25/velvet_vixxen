@@ -19,15 +19,20 @@ final class MemberAuth
     }
 
     /** @return array{member:array,verificationUrl:string,mailStatus:string} */
-    public function register(string $displayName, string $email, string $password): array
+    public function register(string $displayName, string $email, string $password, bool $registrationReminder = false): array
     {
         $this->validatePassword($password);
+        $attribution = MarketingAttributionBridge::registration($this->config);
         $member = $this->store->createMember([
             'displayName' => $displayName,
             'email' => $email,
             'password' => $password,
             'status' => 'pending',
+            'preferences' => array_merge($attribution === null ? [] : ['_attribution' => $attribution], [
+                'registrationReminder' => $registrationReminder,
+                'registrationReminderConsentedAt' => $registrationReminder ? gmdate('c') : null]),
         ]);
+        if ($attribution !== null) MarketingAttributionBridge::project($this->config, $this->store, 'registration', (string) $member['id']);
         $delivery = $this->sendVerification((string) $member['id']);
         if (function_exists('addon_event') && function_exists('is_installed') && is_installed()) {
             addon_event('member.registered', ['memberId'=>(string)$member['id'],'email'=>(string)$member['email']]);
@@ -75,9 +80,9 @@ final class MemberAuth
 
     public function user(): ?array
     {
-        if ($this->resolved) {
-            return $this->cachedMember;
-        }
+        // A long-running request may outlive account closure or device revocation.
+        // Resolve the durable identity every time; only the activity touch is cached.
+        $this->cachedMember = null;
         $this->resolved = true;
         $session = (array) ($_SESSION['member'] ?? []);
         $token = (string) ($session['token'] ?? '');

@@ -29,9 +29,21 @@ foreach ($pairs as $pair) {
         'Friendly and explicit aliases disagree on their organized handler: ' . $destination);
     $destinations[$destination] = $handler;
 }
-$check(count($destinations) === 46 && count($routes) === 87, 'A required public alias was removed or duplicated.');
+$check(count($destinations) === 55 && count($routes) === 102, 'A required public alias was removed or duplicated.');
 $check($routes === vvx_public_routes(), 'The executable route map differs from the declared unique mappings.');
-$check(count(array_unique($routes)) === 42, 'A protected public implementation was removed.');
+$check(count(array_unique($routes)) === 51, 'A protected public implementation was removed.');
+foreach (['api/mail-events.php', 'campaign/click.php', 'privacy/choices.php', 'account/privacy.php', 'communication/privacy-download.php', 'age/index.php', 'policies/index.php'] as $route) {
+    $check(($routes[$route] ?? null) === $route, 'A required signed-event, attribution or privacy handler is missing: ' . $route);
+}
+$baseline = json_decode((string) file_get_contents($root . '/tests/Fixtures/public-routes-0.8.14.json'), true, 32, JSON_THROW_ON_ERROR);
+$check($baseline['source_commit'] === '91f796767e2f5a844e9733703e92c965a99803cc' && count($baseline['routes']) === 87, 'The retained routing baseline changed.');
+$expected = $baseline['routes'] + ['api/mail-events.php' => 'api/mail-events.php', 'campaign/click.php' => 'campaign/click.php', 'privacy/choices.php' => 'privacy/choices.php',
+    'protected-asset.php' => 'protected-asset.php', 'reports' => 'reports/index.php', 'reports/' => 'reports/index.php', 'reports/index.php' => 'reports/index.php',
+    'age' => 'age/index.php', 'age/' => 'age/index.php', 'age/index.php' => 'age/index.php',
+    'policies' => 'policies/index.php', 'policies/' => 'policies/index.php', 'policies/index.php' => 'policies/index.php',
+    'account/privacy.php' => 'account/privacy.php', 'communication/privacy-download.php' => 'communication/privacy-download.php'];
+$orderedRoutes = $routes; ksort($orderedRoutes); ksort($expected);
+$check($orderedRoutes === $expected, 'A retained public route changed or an unreviewed handler was introduced.');
 foreach (['join' => 'account/register.php', 'login' => 'account/login.php',
     'create-account' => 'account/register.php', 'recover' => 'account/forgot.php'] as $alias => $handler) {
     $check(($routes[$alias] ?? null) === $handler && ($routes[$alias . '/index.php'] ?? null) === $handler,

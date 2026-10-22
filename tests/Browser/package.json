@@ -1,0 +1,8 @@
+{
+  "name": "velvet-vixxen-browser-acceptance",
+  "private": true,
+  "description": "Development-only accessibility engine for real packaged browser acceptance.",
+  "devDependencies": {
+    "axe-core": "4.11.4"
+  }
+}

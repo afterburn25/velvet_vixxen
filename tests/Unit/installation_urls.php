@@ -7,6 +7,13 @@ mkdir($fixture . '/config', 0700, true);
 mkdir($fixture . '/sessions', 0700);
 define('ROOT_PATH', $fixture);
 session_save_path($fixture . '/sessions');
+// Exercise the actual protection-aware URL helpers against isolated config.
+// ROOT_PATH names the fixture, so its source classes need a source-only loader.
+spl_autoload_register(static function (string $class) use ($source): void {
+    if (!str_starts_with($class, 'App\\')) return;
+    $file = $source . '/app/' . str_replace('\\', '/', substr($class, 4)) . '.php';
+    if (is_file($file)) require_once $file;
+});
 require $source . '/app/Core/Config.php';
 require $source . '/app/Core/SceneButton.php';
 require $source . '/app/Support/functions.php';

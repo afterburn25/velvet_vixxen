@@ -62,20 +62,39 @@ function velvet_marketing_require_owner(): void
 
 function velvet_marketing_capture_referral(): string
 {
-    $code = preg_replace('/[^A-Za-z0-9_-]/', '', (string)($_GET['ref'] ?? '')) ?: '';
-    if ($code !== '') {
-        setcookie('velvet_ref', $code, ['expires'=>time()+2592000,'path'=>'/','secure'=>!empty($_SERVER['HTTPS']),'httponly'=>true,'samesite'=>'Lax']);
-        $_COOKIE['velvet_ref'] = $code;
-        try { velvet_marketing_store()->recordEvent('referral_visit', ['referral'=>$code]); } catch (Throwable $e) {}
+    if (\Velvet\Core\MarketingPrivacy::choice() !== true) return '';
+    $code = array_key_exists('ref', $_GET) ? $_GET['ref'] : null;
+    if ($code !== null && !is_string($code)) return '';
+    $visitor = velvet_marketing_store()->attributionVisitor(\Velvet\Core\MarketingPrivacy::visitor(), $code, true);
+    if ($visitor === null) return '';
+    velvet_marketing_visitor_cookie($visitor['token'], $visitor['expires_at']);
+    $snapshot = velvet_marketing_store()->requestAttribution();
+    if ($code !== null && ($snapshot['referral_code'] ?? null) !== null) {
+        velvet_marketing_store()->recordMeasuredEvent('referral_visit', ['source_key' => 'referral:' . $snapshot['actor'] . ':' . $snapshot['referral_id']]);
     }
-    return (string)($_COOKIE['velvet_ref'] ?? $code);
+    return $snapshot['referral_code'] ?? '';
+}
+
+function velvet_marketing_cookie_options(int $expires): array
+{
+    return ['expires' => $expires, 'path' => \Velvet\Core\MarketingPrivacy::cookiePath(base_url()),
+        'secure' => strtolower((string) parse_url(base_url(), PHP_URL_SCHEME)) === 'https', 'httponly' => true, 'samesite' => 'Lax'];
+}
+
+function velvet_marketing_visitor_cookie(string $token, int $expires): void
+{
+    if ($token !== '') \Velvet\Core\MarketingAttribution::token($token);
+    if (!headers_sent()) setcookie(\Velvet\Core\MarketingPrivacy::VISITOR_COOKIE, $token, velvet_marketing_cookie_options($expires));
+    $_COOKIE[\Velvet\Core\MarketingPrivacy::VISITOR_COOKIE] = $token;
 }
 
 function velvet_marketing_record_pageview(): void
 {
     $uri = vvx_public_request_path((string)($_SERVER['REQUEST_URI'] ?? '/'));
-    if (PHP_SAPI === 'cli' || preg_match('#/(admin|install|api)/#', $uri) || preg_match('/\.(?:css|js|png|jpe?g|webp|svg|ico|woff2?)(?:\?|$)/i', $uri)) return;
-    try { velvet_marketing_capture_referral(); velvet_marketing_store()->recordEvent('page_view', ['path'=>$uri]); } catch (Throwable $e) {}
+    if (PHP_SAPI === 'cli' || ($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET' || http_response_code() >= 400
+        || \Velvet\Core\MarketingAnalytics::path($uri, base_url()) === null) return;
+    if (\Velvet\Core\MarketingPrivacy::choice() !== true) return;
+    try { velvet_marketing_capture_referral(); velvet_marketing_store()->recordMeasuredEvent('page_view', ['path'=>$uri]); } catch (Throwable $e) {}
 }
 
 function velvet_marketing_render_banner(): void

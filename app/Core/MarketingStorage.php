@@ -10,6 +10,7 @@ use PDOException;
 use Throwable;
 
 require_once __DIR__ . '/MarketingStorageException.php';
+require_once __DIR__ . '/MarketingPrivacyErasure.php';
 require_once __DIR__ . '/MarketingSqlRepository.php';
 require_once __DIR__ . '/Config.php';
 require_once __DIR__ . '/Database.php';
@@ -55,7 +56,62 @@ final class MarketingStorage
 
     public function update(callable $operation): mixed
     {
-        return $this->access($operation, true);
+        return $this->access(static function (array &$data) use ($operation): mixed {
+            $prior = (array) ($data['settings'] ?? []);
+            $result = $operation($data);
+            MarketingPrivacyErasure::enforce($data, $prior);
+            return $result;
+        }, true);
+    }
+
+    /** SQL reports select only indexed matching measurement rows after authority validation. */
+    public function measurementReport(array $filters): array
+    {
+        if ($this->dataOperation) throw new MarketingStorageException('A marketing operation is already in progress.');
+        $this->dataOperation = true; $context = null; $databaseLock = false; $transaction = false; $local = null;
+        try {
+            $local = $this->acquireLocal('data.lock', false, false);
+            $context = $this->context();
+            $inspection = ['state' => null];
+            if ($context['mode'] === 'mysql') {
+                $databaseLock = $this->acquireDatabase($context, 'data', 10);
+                $context['pdo']->beginTransaction(); $transaction = true;
+                $inspection = $context['repository']->inspect(true);
+            }
+            if ($inspection['state'] !== null) {
+                $this->assertGuardMatches($context['guard'], $inspection['authority']);
+                $state = $inspection['state']; $index = new MarketingMeasurementSqlRepository($context['pdo']);
+                if (!$index->current($state)) $index->sync($context['repository']->read($state), true);
+                $header = json_decode($state['header_json'], true, 512, JSON_THROW_ON_ERROR);
+                $retention = MarketingAnalytics::state($header)['retention_days'];
+                try { $result = $index->report($filters, $retention); }
+                catch (MarketingStorageException $error) {
+                    if ($error->getCode() !== 1001) throw $error;
+                    $index->sync($context['repository']->read($state), true);
+                    $result = $index->report($filters, $retention);
+                }
+                $result['configuration'] = MarketingAnalytics::configuration($header);
+                $result['capacity'] = $index->capacity();
+            } else {
+                if ($context['guard'] !== null) throw new MarketingStorageException('SQL marketing requires review. The old file was not reactivated.');
+                $data = $this->sourceData($this->source()); $state = MarketingAnalytics::state($data);
+                $events = array_values(array_filter($data['events'], static fn($event): bool => is_array($event) && array_key_exists('measurement_version', $event)));
+                $result = MarketingAnalytics::report(array_values($state['rollups']), $events, $filters, 'file', $state['retention_days']);
+                if ($filters['compare']) $result['previous'] = MarketingAnalytics::report(array_values($state['rollups']), $events, MarketingAnalytics::previous($filters), 'file', $state['retention_days']);
+                $result['configuration'] = MarketingAnalytics::configuration($data);
+                $result['capacity'] = ['raw_events' => count($data['events']), 'measured_events' => count($events),
+                    'legacy_events' => count($data['events']) - count($events), 'raw_limit' => MarketingAnalytics::MAX_EVENTS,
+                    'daily_totals' => count($state['rollups']), 'daily_limit' => MarketingAnalytics::MAX_ROLLUPS];
+            }
+            if ($transaction) { $context['pdo']->commit(); $transaction = false; }
+            return $result;
+        } catch (PDOException $error) { throw $this->databaseError($error); }
+        finally {
+            if ($transaction && $context !== null && $context['pdo']->inTransaction()) { try { $context['pdo']->rollBack(); } catch (Throwable) {} }
+            if ($databaseLock && $context !== null) $this->releaseDatabase($context, 'data');
+            if (is_resource($local)) { flock($local, LOCK_UN); fclose($local); }
+            $this->dataOperation = false;
+        }
     }
 
     /** Holds no data mutex or SQL transaction while the caller performs SMTP. */

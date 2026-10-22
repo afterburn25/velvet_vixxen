@@ -69,8 +69,8 @@ def form_values(html: str, action: str | None = None):
     return fields
 
 
-def login(base: str):
-    owner = session()
+def login(base: str, owner=None):
+    owner = session() if owner is None else owner
     page = owner.get(base + '/admin/?page=login', timeout=10)
     fields = form_values(page.text)
     result = owner.post(base + '/admin/?page=login', data={'_csrf': fields['_csrf'],
@@ -227,13 +227,18 @@ def run():
         gallery_fields_saved = gallery_fields(owner, gallery_url)
         for status in ('demoted', 'inactive'):
             fixture(site, 'owner-status', status)
-            check(owner.get(gallery_url, timeout=10).status_code == 403, 'A stale ' + status + ' owner session accessed media.')
-            check(owner.post(base + '/admin/?page=dashboard', data=due_fields, timeout=10).status_code == 403,
-                  'A stale ' + status + ' owner bypassed the guard through another admin page.')
-            check(owner.post(gallery_url, data=gallery_fields_saved, timeout=10).status_code == 403,
-                  'A stale ' + status + ' owner saved media.')
+            for method, target, values in (('GET', gallery_url, {}), ('POST', base + '/admin/?page=dashboard', due_fields),
+                                           ('POST', gallery_url, gallery_fields_saved)):
+                denied = owner.request(method, target, data=values, allow_redirects=False, timeout=10)
+                check(denied.status_code == (403 if status == 'demoted' else 302)
+                      and (status == 'demoted' or denied.headers.get('Location') == base + '/admin/?page=login'),
+                      'A revoked owner retained media authority through ' + method + ' ' + target)
             fixture(site, 'owner-status', 'owner')
         check(snapshot(site) == before, 'An authorization, CSRF or method rejection changed media.')
+        revoked = owner.get(gallery_url, allow_redirects=False, timeout=10)
+        check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+              'Restoring the inactive account revived its media session.')
+        login(base, owner)
 
         # Past schedules still remain hidden until a deliberate owner run.
         for url, getter in ((gallery_url, gallery_fields), (playlist_url, playlist_fields)):

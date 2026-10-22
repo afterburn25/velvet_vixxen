@@ -49,7 +49,14 @@ def route_inventory() -> dict[str, str]:
     pairs = re.findall(r"'([^']+)'\s*=>\s*'([^']+)'", block[1])
     routes = dict(pairs)
     require(len(routes) == len(pairs), 'Duplicate registered public URLs are not permitted.')
-    require(len(routes) == 87 and len(set(routes.values())) == 42, 'Registered aliases or protected handlers were removed.')
+    require(len(routes) == 102 and len(set(routes.values())) == 51, 'Registered aliases or protected handlers were removed.')
+    baseline = json.loads((ROOT / 'tests/Fixtures/public-routes-0.8.14.json').read_text())
+    require(baseline['source_commit'] == '91f796767e2f5a844e9733703e92c965a99803cc' and len(baseline['routes']) == 87, 'The retained routing baseline changed.')
+    additions = {name: name for name in ('api/mail-events.php', 'campaign/click.php', 'privacy/choices.php', 'account/privacy.php', 'communication/privacy-download.php')}
+    additions.update({'protected-asset.php': 'protected-asset.php', 'reports': 'reports/index.php', 'reports/': 'reports/index.php', 'reports/index.php': 'reports/index.php'})
+    additions.update({'age': 'age/index.php', 'age/': 'age/index.php', 'age/index.php': 'age/index.php',
+                      'policies': 'policies/index.php', 'policies/': 'policies/index.php', 'policies/index.php': 'policies/index.php'})
+    require(routes == baseline['routes'] | additions, 'A retained route changed or an unreviewed handler was introduced.')
     return routes
 
 
@@ -133,14 +140,55 @@ def cleanup_routes(site: Path, base: str, routes: dict[str, str], owner: request
             and 'value="repair_root_layout"' in view.text, 'The real owner repair page did not identify all known old files.')
     csrf = csrf_from_html(view.text)
 
-    # Root cleanup is an owner action; neither anonymous nor member-only sessions
-    # may use it. Every denied request must leave the exact prior files untouched.
+    def denied_repair_unchanged() -> None:
+        require(all((site / relative).read_bytes() == content for relative, content in retired.items()),
+                'A rejected repair request changed an old forwarding file.')
+        require(all((site / relative).is_file() and hashlib.sha256((site / relative).read_bytes()).hexdigest() == digest
+                    for relative, digest in active.items()), 'A rejected repair request changed the current runtime.')
+        require((site / 'storage/data.json').read_bytes() == data_before,
+                'A rejected repair request changed installed owner/member/content records.')
+        require(not list((site / 'storage/private').glob('root-layout/retired-*')),
+                'A rejected repair request created a retirement archive.')
+        for relative, content in retained.items():
+            target = site / relative
+            before = retained_metadata[relative]
+            require(target.read_bytes() == content and target.stat().st_ino == before.st_ino
+                    and target.stat().st_mtime_ns == before.st_mtime_ns and target.stat().st_mode == before.st_mode,
+                    'A rejected repair request changed a custom item: ' + relative)
+
+    def require_repair_signin(response: requests.Response, status: int) -> None:
+        require(response.status_code == status and not response.headers.get('location')
+                and 'data-repair-auth="signin"' in response.text and 'value="repair_signin"' in response.text
+                and 'name="password"' in response.text and 'value="repair_root_layout"' not in response.text
+                and 'value="refresh_php_cache"' not in response.text and 'data-root-layout=' not in response.text,
+                f'A nonowner repair response lost its sign-in gate (HTTP {response.status_code}, expected {status}).')
+        denied_repair_unchanged()
+
+    # The current physical repair entry authenticates locally, even when an old
+    # admin login entry remains cached. A member cookie never supplies owner access.
+    # Test the specific sign-in/CSRF responses and unchanged files after each denial.
     anonymous = requests_session()
-    for session in [anonymous, member]:
+    repair_rejections = {}
+    for identity, session in [('anonymous', anonymous), ('member', member)]:
+        signin = session.get(endpoint, timeout=15, allow_redirects=False)
+        require_repair_signin(signin, 200)
+        own_csrf = csrf_from_html(signin.text)
         denied = session.post(endpoint, data={'action': 'repair_root_layout', '_csrf': csrf},
                               timeout=15, allow_redirects=False)
-        require(denied.status_code in (302, 303) and '/admin/' in denied.headers.get('location', ''),
-                'A nonowner session reached the folder repair action.')
+        require_repair_signin(denied, 419)
+        require('session token expired' in denied.text.lower(), 'Foreign owner CSRF did not explain the rejected repair.')
+        denied = session.post(endpoint, data={'action': 'repair_root_layout', '_csrf': own_csrf},
+                              timeout=15, allow_redirects=False)
+        require_repair_signin(denied, 401)
+        require('Confirm the existing owner account' in denied.text, 'A nonowner with valid CSRF bypassed owner confirmation.')
+        denied = session.post(endpoint, data={'action': 'repair_signin', '_csrf': csrf,
+                                             'email': 'owner@example.test', 'password': 'VelvetDemo12'},
+                              timeout=15, allow_redirects=False)
+        require_repair_signin(denied, 419)
+        require_repair_signin(session.get(endpoint, timeout=15, allow_redirects=False), 200)
+        repair_rejections[identity] = {'foreign_csrf': 419, 'own_csrf_without_owner': 401,
+                                       'owner_credentials_with_foreign_csrf': 419,
+                                       'sign_in_gate_retained': True, 'files_and_records_unchanged': True}
     anonymous.close()
     denied = owner.post(endpoint, data={'action': 'repair_root_layout', '_csrf': 'invalid-fixture-token'},
                         timeout=15, allow_redirects=False)
@@ -208,6 +256,7 @@ def cleanup_routes(site: Path, base: str, routes: dict[str, str], owner: request
             and all(hashlib.sha256((site / relative).read_bytes()).hexdigest() == digest for relative, digest in active.items()),
             'Repeated repair changed current application files or preserved custom items.')
     return {'actual_owner_cleanup': True, 'nonowner_rejection': True, 'csrf_rejection': True,
+            'current_repair_auth_rejections': repair_rejections,
             'method_rejection': True, 'retired_known_files': len(retired), 'removed_empty_directories': expected_removed,
             'preserved_current_runtime_files': len(active), 'custom_items_preserved_in_place': len(retained),
             'reversible_nonexecuting_archive': True, 'installed_root_directories': sorted(actual_roots),

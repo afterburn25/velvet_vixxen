@@ -121,6 +121,7 @@ def private(response):
 
 def protected(before: dict, after: dict):
     check(before['protected'] == after['protected'] and before['unrelated_sha256'] == after['unrelated_sha256']
+          and before['admin_security_sha256'] == after['admin_security_sha256']
           and before['outbox_count'] == after['outbox_count'],
           'A menu action changed unrelated records, configuration, uploads, backup or mail outbox.')
 
@@ -129,6 +130,17 @@ def unchanged(before: dict, after: dict):
     protected(before, after)
     check(before['menus'] == after['menus'] and before['records'] == after['records'] and before['audit'] == after['audit'],
           'A refused/read-only menu request changed a saved menu, revision or audit.')
+
+
+def fresh_owner_login(owner, base: str, site: Path, php: str, baseline: dict):
+    before = fixture(site, 'read', php)
+    protected(baseline, before)
+    owner_login(base, owner)
+    after = fixture(site, 'read', php)
+    check(before['admin_security_sha256'] != after['admin_security_sha256'],
+          'An actual fresh owner sign-in did not change its durable security journal.')
+    unchanged({**before, 'admin_security_sha256': after['admin_security_sha256']}, after)
+    baseline['admin_security_sha256'] = after['admin_security_sha256']
 
 
 def node(identity, label, url, target='self', enabled=True, children=None):
@@ -223,7 +235,7 @@ def custom_public(client, base: str, member=None):
               'Menu customization changed signed-in member controls.')
 
 
-def owner_revoked_during_lock(owner, base: str, site: Path, php: str):
+def owner_revoked_during_lock(owner, base: str, site: Path, php: str, baseline: dict):
     results = []
     for action, status in (('menu_save', 'demoted'), ('menu_reset', 'inactive')):
         values, page = menu_form(owner, base)
@@ -256,6 +268,10 @@ def owner_revoked_during_lock(owner, base: str, site: Path, php: str):
                 response = pending.result(timeout=30)
                 check(response.status_code == 403, 'A revoked owner completed a menu write after the SQL lock wait.')
                 private(response)
+                if status == 'inactive':
+                    observed = owner.get(menu_url(base), allow_redirects=False, timeout=15)
+                    check(observed.status_code == 302 and observed.headers.get('Location') == base + '/admin/?page=login',
+                          'The current identity check did not revoke the inactive owner session.')
         finally:
             if not release.exists():
                 release.write_text('Release the exclusively owned menu lock after failure.\n')
@@ -271,6 +287,11 @@ def owner_revoked_during_lock(owner, base: str, site: Path, php: str):
             release.unlink(missing_ok=True)
             check(worker.returncode == 0, 'The owned owner-lock fixture failed: ' + stderr[:1000])
         unchanged(before, fixture(site, 'read', php))
+        if status == 'inactive':
+            revoked = owner.get(menu_url(base), allow_redirects=False, timeout=15)
+            check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+                  'Restoring the locked owner account revived its revoked session.')
+            fresh_owner_login(owner, base, site, php, baseline)
         results.append({'action': action, 'revocation': status, 'observed_select_for_update_wait': True,
                         'http_status': 403, 'exact_state_preserved': True})
     return results
@@ -385,15 +406,23 @@ def http_case(site: Path, base: str, php: str, capture):
             _base.fixture(site, 'owner-status', php, status=status)
             blocked = fixture(site, 'read', php)
             try:
-                check(owner.get(menu_url(base), timeout=15).status_code == 403,
+                denied = owner.get(menu_url(base), allow_redirects=False, timeout=15)
+                check(denied.status_code == (403 if status == 'demoted' else 302)
+                      and (status == 'demoted' or denied.headers.get('Location') == base + '/admin/?page=login'),
                       'A stale cached owner role could reopen Menus after revocation.')
                 for action in ('menu_save', 'menu_reset'):
-                    response = owner.post(menu_url(base), data=changed(stale, action=action, revision='2'), timeout=15)
-                    check(response.status_code == 403, 'A revoked owner could save/reset a menu.')
+                    response = owner.post(menu_url(base), data=changed(stale, action=action, revision='2'), allow_redirects=False, timeout=15)
+                    check(response.status_code == (403 if status == 'demoted' else 302)
+                          and (status == 'demoted' or response.headers.get('Location') == base + '/admin/?page=login'),
+                          'A revoked owner could save/reset a menu.')
                 unchanged(blocked, fixture(site, 'read', php))
             finally:
                 _base.fixture(site, 'owner-status', php, status='owner')
-        lock_cases = owner_revoked_during_lock(owner, base, site, php) if initial['mode'] == 'mysql' else []
+        revoked = owner.get(menu_url(base), allow_redirects=False, timeout=15)
+        check(revoked.status_code == 302 and revoked.headers.get('Location') == base + '/admin/?page=login',
+              'Restoring the inactive account revived its old menu session.')
+        fresh_owner_login(owner, base, site, php, initial)
+        lock_cases = owner_revoked_during_lock(owner, base, site, php, initial) if initial['mode'] == 'mysql' else []
         save_menu(owner, base, 'header', [])
         save_menu(owner, base, 'footer', [])
         cleared = fixture(site, 'read', php)
@@ -417,6 +446,7 @@ def http_case(site: Path, base: str, php: str, capture):
                 'safe_labels_urls_and_nested_physical_routes': True, 'csrf_methods_page_forgery_and_owner_revocation': True,
                 'attempted_json_and_original_stale_revision_retained': True, 'empty_menus_and_reset_tombstones': True,
                 'independent_committed_record_readback': True, 'mysql_owner_lock_cases': lock_cases,
+                'menu_actions_preserve_security_journal': True, 'revoked_sessions_require_real_signin': True,
                 'config_upload_backup_unrelated_and_outbox_preserved': True, 'smtp_connections': capture.connections}
     finally:
         owner.close()

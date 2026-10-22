@@ -33,6 +33,18 @@ try {
     // Reconstruct the exact historical twelve-migration starting point in the
     // exclusively owned test schema. The current marketing schema must contain
     // no authority or imported customer records before this guarded rewind.
+    // The current 0.9 tables are also freshly created and empty here. Rewind
+    // only this owned schema, then test their real installed-site update below.
+    $updateTestSafeguardKeys = ['202610210016_marketing_measurements', '202610210017_private_state'];
+    foreach (array_reverse($updateTestSafeguardKeys) as $key) {
+        $definition = require $root . '/database/migrations/' . $key . '.php';
+        foreach ($definition['tables'] as $table) {
+            $updateTestAssert((int) $pdo->query('SELECT COUNT(*) FROM `' . $table . '`')->fetchColumn() === 0,
+                'Refusing to rewind nonempty 0.9 fixture table: ' . $table);
+        }
+        foreach ($definition['down'] as $sql) $pdo->exec($sql);
+        $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$key]);
+    }
     $updateTestMarketingKey = '202610200015_marketing_sql_storage';
     $updateTestMarketingRows = $pdo->query('SELECT * FROM marketing_storage_state')->fetchAll();
     $updateTestAssert($updateTestMarketingRows === [], 'Refusing to rewind existing marketing authority rows.');
@@ -60,7 +72,7 @@ try {
             copy($file, $updateTestRoot . '/database/migrations/' . basename($file));
         }
     }
-    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Database.php', 'app/Core/MigrationRunner.php',
+    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Config.php', 'app/Core/OperationsGate.php', 'app/Core/Database.php', 'app/Core/MigrationRunner.php',
         'app/Core/DatabaseUpdateService.php', 'app/Console/migrate.php'] as $relative) copy($root . '/' . $relative, $updateTestRoot . '/' . $relative);
     $updateTestInstallation = 'fixture-installed-update-' . bin2hex(random_bytes(8));
     $updateTestConfig = ['installed' => true, 'installation_id' => $updateTestInstallation, 'storage_mode' => 'mysql',
@@ -148,6 +160,47 @@ try {
         && file_get_contents($updateTestMarketingDirectory . '/data.json') === $updateTestMarketingBytes,
         'No-op migration apply changed its ledger or legacy marketing data.');
 
+    // Upgrade an actual fifteen-migration (0.8.14) site through the guarded
+    // production updater. Existing member, marketing, installation and custom
+    // rows must remain byte/value identical, with no module silently activated.
+    $updateTestBeforeSafeguards = [];
+    foreach (['admins', 'members', 'settings', 'installation_state', 'booking_requests',
+        'marketing_storage_state', 'marketing_storage_records', 'vvx_upgrade_customer'] as $table) {
+        $updateTestBeforeSafeguards[$table] = $pdo->query('SELECT * FROM `' . $table . '`')->fetchAll();
+    }
+    foreach ($updateTestSafeguardKeys as $key) copy($root . '/database/migrations/' . $key . '.php',
+        $updateTestRoot . '/database/migrations/' . $key . '.php');
+    $updateTestSafeguardPlan = $updateTestService->preview();
+    $updateTestAssert(count($updateTestSafeguardPlan['applied']) === 15
+        && array_column($updateTestSafeguardPlan['pending'], 'id') === $updateTestSafeguardKeys,
+        '0.8.14 did not list exactly the 016/017 additive updates.');
+    $updateTestReject(static fn() => $updateTestService->apply($updateTestMarketingCurrent['plan'], true, 'Old fixture backup'),
+        'An old pre-0.9 plan approved the new migration set.');
+    $updateTestSafeguardsApplied = $updateTestService->apply($updateTestSafeguardPlan['plan'], true,
+        'Verified 0.8.14 database and private-state fixture backup');
+    $updateTestAssert($updateTestSafeguardsApplied['status'] === 'completed'
+        && $updateTestSafeguardsApplied['applied'] === $updateTestSafeguardKeys,
+        'Actual 0.8.14 to 0.9 update did not apply exactly 016/017.');
+    $updateTestSafeguardsLedger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
+    $updateTestAssert(count($updateTestSafeguardsLedger) === 17
+        && array_values(array_filter($updateTestSafeguardsLedger,
+            static fn(array $row): bool => !in_array($row['migration_key'], $updateTestSafeguardKeys, true))) === $updateTestAfterMarketingLedger,
+        '0.9 changed historical migration rows or timestamps.');
+    foreach ($updateTestBeforeSafeguards as $table => $rows) $updateTestAssert(
+        $pdo->query('SELECT * FROM `' . $table . '`')->fetchAll() === $rows, '0.9 changed prior rows in ' . $table);
+    foreach (['marketing_measurement_state', 'marketing_measurement_records', 'private_state'] as $table) $updateTestAssert(
+        (int) $pdo->query('SELECT COUNT(*) FROM `' . $table . '`')->fetchColumn() === 0, '0.9 activated a journal or report projection during migration.');
+    $updateTestAssert(file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
+        && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes
+        && file_get_contents($updateTestRoot . '/uploads/customer-fixture.txt') === 'Preserve this pre-existing customer upload.'
+        && file_get_contents($updateTestMarketingDirectory . '/data.json') === $updateTestMarketingBytes,
+        '0.9 replaced configuration, installation identity, uploads or private marketing bytes.');
+    $updateTestSafeguardsCurrent = $updateTestService->preview();
+    $updateTestAssert($updateTestSafeguardsCurrent['pending'] === []
+        && $updateTestService->apply($updateTestSafeguardsCurrent['plan'], false, '')['status'] === 'current'
+        && $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll() === $updateTestSafeguardsLedger,
+        '0.9 reapply changed the migration ledger.');
+
     // A deliberately failing DDL migration contains destructive down SQL: installed-site mode must never run it.
     $updateTestWriteMigration('999900000015_update_success', [
         'CREATE TABLE vvx_update_completed (id INT PRIMARY KEY, marker VARCHAR(50)) ENGINE=InnoDB',
@@ -220,7 +273,7 @@ try {
     $updateTestAssert($updateTestCliApplied['exit'] === 0 && (json_decode($updateTestCliApplied['output'], true)['applied'] ?? []) === ['999900000017_update_blocked'], 'Real SQL CLI apply failed: ' . $updateTestCliApplied['error']);
     $updateTestAssert(is_file($updateTestRoot . '/install/fixture.txt') && file_get_contents($updateTestRoot . '/config/app.php') === $updateTestConfigBytes
         && file_get_contents($updateTestRoot . '/storage/install.lock') === $updateTestLockBytes, 'CLI update invoked installer cleanup or replaced installation state.');
-    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014→015 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server '
+    echo 'Installed database update scenarios passed (' . $updateTestChecks . ' checks; actual012→014→015→017 upgrades, preserved data/keys/uploads/marketing, locks, failure/retry and CLI; server '
         . $pdo->getAttribute(PDO::ATTR_SERVER_VERSION) . ").\n";
 } finally {
     foreach (['vvx_update_blocked', 'vvx_update_partial', 'vvx_update_completed', 'vvx_upgrade_customer'] as $table) $pdo->exec('DROP TABLE IF EXISTS ' . $table);

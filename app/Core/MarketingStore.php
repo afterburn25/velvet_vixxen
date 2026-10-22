@@ -3,14 +3,26 @@ declare(strict_types=1);
 
 namespace Velvet\Core;
 
+require_once __DIR__ . '/MarketingProviderEvents.php';
+
 require_once dirname(__DIR__) . '/Support/public_routes.php';
 require_once __DIR__ . '/MarketingAudience.php';
 require_once __DIR__ . '/MarketingPublication.php';
 require_once __DIR__ . '/MarketingHistory.php';
+require_once __DIR__ . '/MarketingRecovery.php';
 require_once __DIR__ . '/MarketingStorage.php';
+require_once __DIR__ . '/MarketingCampaignMessages.php';
+require_once __DIR__ . '/MarketingAttributionTrait.php';
+require_once __DIR__ . '/MarketingAnalyticsTrait.php';
+require_once __DIR__ . '/MarketingAttributionAdminTrait.php';
 
 final class MarketingStore
 {
+    use MarketingProviderEvents;
+    use MarketingCampaignMessages;
+    use MarketingAttributionTrait;
+    use MarketingAnalyticsTrait;
+    use MarketingAttributionAdminTrait;
     private MarketingStorage $storage;
     private readonly string $root;
 
@@ -66,8 +78,9 @@ final class MarketingStore
     public function publishedPosts(?int $limit = null, ?array $viewer = null): array
     {
         $now = time();
-        $posts = array_values(array_filter($this->all()['posts'], static fn(mixed $post): bool => is_array($post)
-            && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)));
+        $posts = array_values(array_filter($this->all()['posts'], fn(mixed $post): bool => is_array($post)
+            && MarketingPublication::visibility('posts', $post, $now)['visible'] && MarketingAccess::allows($post, $viewer)
+            && $this->protectionAllows('posts', $post)));
         usort($posts, static fn(array $a, array $b): int => (MarketingPublication::storedDate($b['publish_at'] ?? null)?->getTimestamp() ?? 0)
             <=> (MarketingPublication::storedDate($a['publish_at'] ?? null)?->getTimestamp() ?? 0));
         return array_map(MarketingHistory::withoutHistory(...), $limit ? array_slice($posts, 0, $limit) : $posts);
@@ -85,7 +98,7 @@ final class MarketingStore
     public function relatedPosts(string $sourceId, ?array $viewer = null): array
     {
         MarketingPublication::id($sourceId);
-        return self::relatedFromSnapshot($this->all(), $sourceId, $viewer, false);
+        return self::relatedFromSnapshot($this->all(), $sourceId, $viewer, false, $this->root);
     }
 
     /** The active-owner caller rechecks ownership after this and all media reads. */
@@ -96,7 +109,7 @@ final class MarketingStore
         return $data === null ? [] : self::relatedFromSnapshot($data, $sourceId, null, true);
     }
 
-    private static function relatedFromSnapshot(array $data, string $sourceId, ?array $viewer, bool $preview): array
+    private static function relatedFromSnapshot(array $data, string $sourceId, ?array $viewer, bool $preview, ?string $root = null): array
     {
         $posts = []; $duplicates = [];
         foreach ($data['posts'] as $record) {
@@ -108,14 +121,15 @@ final class MarketingStore
         $source = $posts[$sourceId] ?? null;
         $now = time();
         if ($source === null || isset($duplicates[$sourceId]) || (!$preview
-            && (!MarketingPublication::visibility('posts', $source, $now)['visible'] || !MarketingAccess::allows($source, $viewer)))) return [];
+            && (!MarketingPublication::visibility('posts', $source, $now)['visible'] || !MarketingAccess::allows($source, $viewer)
+                || !self::protectedRecordAllows('posts', $source, $root)))) return [];
         $ids = MarketingMetadata::describe('posts', $source)['values']['related_post_ids'];
         $related = [];
         foreach ($ids as $id) {
             if ($id === $sourceId || isset($duplicates[$id]) || !isset($posts[$id])) continue;
             $record = $posts[$id];
             if (!$preview && (!MarketingPublication::visibility('posts', $record, $now)['visible']
-                || !MarketingAccess::allows($record, $viewer))) continue;
+                || !MarketingAccess::allows($record, $viewer) || !self::protectedRecordAllows('posts', $record, $root))) continue;
             $related[] = MarketingHistory::withoutHistory($record);
         }
         return $related;
@@ -258,12 +272,18 @@ final class MarketingStore
                 foreach ($data[$collection] as $other) {
                     if (is_array($other) && ($other['slug'] ?? '') === $fields['slug']) throw new \InvalidArgumentException('That permalink is already used. Choose a different slug.');
                 }
+                foreach (MarketingRecovery::entries($data) as $deleted) {
+                    if ($deleted['collection'] === $collection && ($deleted['record']['slug'] ?? null) === $fields['slug']) {
+                        throw new \InvalidArgumentException('That permalink belongs to an item in Deleted content. Restore that item or choose a different slug.');
+                    }
+                }
             }
             $record = array_replace($existing, $fields, ['id' => $id ?: $this->id(rtrim($collection, 's')),
                 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
             $this->validateMetadataReferences($collection, $fields, $record, $data);
             $record = MarketingHistory::capture($collection, $existing, $record, 'save');
+            $this->requireProtectedPublication($collection, $record);
             // Media catalogue reads can wait. Authorization must be checked only
             // after every saved reference has been resolved inside this lock.
             if ($authorize !== null) $authorize($record);
@@ -275,7 +295,7 @@ final class MarketingStore
     private function validateMetadataReferences(string $collection, array $fields, array $record, array $data): void
     {
         if (array_key_exists('featured_asset_id', $fields) && $fields['featured_asset_id'] !== ''
-            && MarketingMetadata::resolveImage($fields['featured_asset_id'], $this->root) === null) {
+            && MarketingMetadata::resolveImage($fields['featured_asset_id'], $this->root, true) === null) {
             throw new \InvalidArgumentException('That featured image is unavailable. Choose a current public image from the Media Library.');
         }
         if ($collection !== 'posts' || !array_key_exists('related_post_ids', $fields)) return;
@@ -305,24 +325,127 @@ final class MarketingStore
             $record['edit_version'] = (int) ($record['edit_version'] ?? 0) + 1;
             $record['updated_at'] = gmdate('c');
             $record = MarketingHistory::capture($collection, $previous, $record, 'visibility', !$enabled);
+            $this->requireProtectedPublication($collection, $record);
             if ($authorize !== null) $authorize($record);
             $data[$collection][$index] = $record;
             return MarketingHistory::describe($collection, $record);
         });
     }
 
-    public function deletePublication(string $collection, string $id, string $revision, ?callable $authorize = null): void
+    private static function protectedRecordAllows(string $collection, array $record, ?string $root): bool
+    {
+        if ($collection === 'banners') return true;
+        $root ??= dirname(__DIR__, 2);
+        return (new \App\Core\ProtectionRecords(new \App\Core\Config($root . '/config/app.php')))
+            ->publicationAllowed($collection === 'posts' ? 'post' : 'landing_page', (string) ($record['id'] ?? ''), $record);
+    }
+
+    private function protectionAllows(string $collection, array $record): bool { return self::protectedRecordAllows($collection, $record, $this->root); }
+
+    private function requireProtectedPublication(string $collection, array $record): void
+    {
+        if (MarketingPublication::enabled($collection, $record) && !$this->protectionAllows($collection, $record)) {
+            throw new \RuntimeException('A protection hold or release review prevents publication. Save this item as a draft or disabled and review Protection & policies.', 409);
+        }
+    }
+
+    /** Removal and private capture are one commit; no archive entry is silently evicted. */
+    public function deletePublication(string $collection, string $id, string $revision, ?callable $authorize = null): array
     {
         MarketingPublication::collection($collection);
         MarketingPublication::id($id);
-        $this->update(function (array &$data) use ($collection, $id, $revision, $authorize): void {
+        return $this->update(function (array &$data) use ($collection, $id, $revision, $authorize): array {
             $index = $this->publicationIndex($data, $collection, $id);
             if ($index === false) throw new \RuntimeException('This publication no longer exists. Reload before removing it.');
-            $this->requirePublicationRevision($data[$collection][$index], $revision);
-            if ($authorize !== null) $authorize($data[$collection][$index]);
+            $record = $data[$collection][$index];
+            $this->requirePublicationRevision($record, $revision);
+            $entries = MarketingRecovery::entries($data);
+            $position = array_search($index, array_keys($data[$collection]), true);
+            $entry = MarketingRecovery::capture($collection, $record, (int) $position, $entries);
+            array_unshift($entries, $entry);
+            $envelope = MarketingRecovery::envelope($entries);
+            // The current owner is checked after all potentially waiting reads
+            // and archive validation, immediately before this single commit.
+            if ($authorize !== null) $authorize($record);
+            $data[MarketingRecovery::KEY] = $envelope;
             unset($data[$collection][$index]);
             $data[$collection] = array_values($data[$collection]);
+            return MarketingRecovery::summary($entry);
         });
+    }
+
+    /** No initialization, storage migration, history creation or write on a review GET. */
+    public static function previewDeletedPublications(?string $collection = null, ?string $entryId = null, ?string $root = null): array
+    {
+        if ($collection !== null) MarketingPublication::collection($collection);
+        if ($entryId !== null) MarketingRecovery::id($entryId);
+        return MarketingRecovery::review((new MarketingStorage($root))->peek() ?? [], $collection, $entryId);
+    }
+
+    /** Restore the original identity and content offline; references remain available for repair. */
+    public function restoreDeletedPublication(string $collection, string $entryId, string $revision, ?callable $authorize = null): array
+    {
+        MarketingPublication::collection($collection);
+        MarketingRecovery::id($entryId);
+        return $this->update(function (array &$data) use ($collection, $entryId, $revision, $authorize): array {
+            [$entries, $index] = $this->deletedPublicationIndex($data, $collection, $entryId);
+            $entry = $entries[$index];
+            MarketingRecovery::requireRevision($entry, $revision);
+            $previous = $entry['record'];
+            if ($this->publicationIndex($data, $collection, $previous['id']) !== false) {
+                throw new \RuntimeException('An active item already uses this saved identity. No item was replaced. Review the current content before restoring.');
+            }
+            if ($collection !== 'banners') {
+                foreach ($data[$collection] as $other) {
+                    if (is_array($other) && ($other['slug'] ?? null) === ($previous['slug'] ?? null)) {
+                        throw new \RuntimeException('An active item already uses this permalink. No item was replaced. Review the current content before restoring.');
+                    }
+                }
+            }
+            $restoredPrevious = MarketingRecovery::project($entry);
+            $record = $restoredPrevious;
+            if ($collection === 'posts') $record['status'] = 'draft'; else $record['enabled'] = false;
+            $record['edit_version'] = (int) ($previous['edit_version'] ?? 0) + 1;
+            $record['updated_at'] = gmdate('c');
+            // The deleted item's local dates belong to its captured timezone.
+            // Keep the normalized original instants in a new history snapshot
+            // even when the site's timezone changed while the item was deleted.
+            $record = MarketingHistory::capture($collection, $restoredPrevious, $record, 'restore');
+            unset($entries[$index]);
+            $envelope = MarketingRecovery::envelope($entries);
+            // Missing images, related posts or tiers are preserved for repair in
+            // the normal editor. Restoring never publishes or widens access.
+            // The callback uses a fresh owner check, without granting visibility.
+            if ($authorize !== null) $authorize($record);
+            array_splice($data[$collection], min($entry['position'], count($data[$collection])), 0, [$record]);
+            $data[MarketingRecovery::KEY] = $envelope;
+            return MarketingHistory::describe($collection, $record);
+        });
+    }
+
+    /** Explicit permanent removal is distinct from ordinary editorial deletion. */
+    public function purgeDeletedPublication(string $collection, string $entryId, string $revision, ?callable $authorize = null): void
+    {
+        MarketingPublication::collection($collection);
+        MarketingRecovery::id($entryId);
+        $this->update(function (array &$data) use ($collection, $entryId, $revision, $authorize): void {
+            [$entries, $index] = $this->deletedPublicationIndex($data, $collection, $entryId);
+            MarketingRecovery::requireRevision($entries[$index], $revision);
+            $record = $entries[$index]['record'];
+            unset($entries[$index]);
+            $envelope = MarketingRecovery::envelope($entries);
+            if ($authorize !== null) $authorize($record);
+            $data[MarketingRecovery::KEY] = $envelope;
+        });
+    }
+
+    private function deletedPublicationIndex(array $data, string $collection, string $entryId): array
+    {
+        $entries = MarketingRecovery::entries($data);
+        foreach ($entries as $index => $entry) {
+            if ($entry['id'] === $entryId && $entry['collection'] === $collection) return [$entries, $index];
+        }
+        throw new \RuntimeException('This deleted item is no longer available. Reload Deleted content before continuing.');
     }
 
     private function publicationIndex(array $data, string $collection, string $id): int|string|false
@@ -357,6 +480,7 @@ final class MarketingStore
         if (!$consent) throw new \InvalidArgumentException('Consent is required to join the mailing list.');
         return $this->update(function (array &$data) use ($email, $name, $source): array {
             if (empty($data['settings']['newsletter_signup_enabled'])) throw new \RuntimeException('Newsletter signup is disabled.');
+            if (MarketingPrivacyErasure::suppressed($data, $email)) throw new \RuntimeException('This address is not eligible for newsletter signup.', 409);
             $token = bin2hex(random_bytes(24));
             $now = gmdate('c');
             $existing = null;
@@ -458,6 +582,7 @@ final class MarketingStore
 
     private function isSuppressed(array $data, array $contact): bool
     {
+        if (MarketingPrivacyErasure::suppressed($data, (string) ($contact['email'] ?? ''))) return true;
         if (!empty($contact['suppressed']) || !empty($contact['suppressed_at'])
             || in_array($contact['status'] ?? '', ['suppressed', 'bounced', 'complained', 'blocked'], true)) return true;
         foreach ($data['suppressions'] as $suppression) {
@@ -467,6 +592,18 @@ final class MarketingStore
         return false;
     }
 
+    /** Global delivery suppression is independent of a member's optional notice choices. */
+    public function emailSuppressed(string $email): bool
+    {
+        $data = $this->all();
+        $email = strtolower(trim($email));
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return true;
+        foreach ($data['contacts'] as $contact) {
+            if (strtolower((string) ($contact['email'] ?? '')) === $email && $this->isSuppressed($data, $contact)) return true;
+        }
+        return $this->isSuppressed($data, ['email' => $email]);
+    }
+
     public function recordEvent(string $name, array $properties = []): void
     {
         $allowed = ['page_view','newsletter_signup','newsletter_confirmed','cta_click','campaign_view','referral_visit','purchase_intent'];
@@ -474,6 +611,9 @@ final class MarketingStore
         $path = \vvx_public_request_path((string) ($properties['path'] ?? ($_SERVER['REQUEST_URI'] ?? '/')));
         if (preg_match('#/(?:admin|account|messages|requests|communication|receipt|newsletter/(?:confirm|unsubscribe))(/|\\.|$)#i', $path)) return;
         $this->update(function (array &$data) use ($name, $properties, $path): void {
+            // Legacy callers share the retained event collection. Never evict
+            // consented measurements to make room for an unverified event.
+            if (count($data['events']) >= MarketingAnalytics::MAX_EVENTS) return;
             $data['events'][] = [
                 'id' => $this->id('event'), 'name' => $name, 'path' => substr($path, 0, 500),
                 'referral' => substr((string) ($properties['referral'] ?? ($_COOKIE['velvet_ref'] ?? '')), 0, 80),
@@ -481,7 +621,6 @@ final class MarketingStore
                 'session_hash' => hash('sha256', gmdate('Y-m-d') . '|' . (session_id() ?: 'anonymous') . '|' . $data['meta']['analytics_salt']),
                 'created_at' => gmdate('c'),
             ];
-            if (count($data['events']) > 20000) $data['events'] = array_slice($data['events'], -20000);
         });
     }
 
@@ -518,7 +657,7 @@ final class MarketingStore
         return null;
     }
 
-    public function saveSegment(array $input): array
+    public function saveSegment(array $input, ?callable $authorize = null): array
     {
         if (array_diff(array_keys($input), ['id', 'name', 'enabled', 'rules', 'expected_revision']) !== []) {
             throw new \InvalidArgumentException('The audience contains unsupported fields.');
@@ -527,8 +666,13 @@ final class MarketingStore
         $name = MarketingAudience::text($input['name'] ?? '', 120, 'Audience name');
         $rules = MarketingAudience::rules($input['rules'] ?? null);
         if ($name === '' || !is_bool($input['enabled'] ?? null)) throw new \InvalidArgumentException('Enter an audience name and enabled state.');
-        if (!MarketingAudience::restricted($rules)) throw new \InvalidArgumentException('Choose a signup source or confirmation date; use All eligible newsletter contacts for the whole list.');
-        return $this->update(function (array &$data) use ($input, $id, $name, $rules): array {
+        if (!MarketingAudience::restricted($rules)) throw new \InvalidArgumentException('Choose at least one audience criterion; use All eligible newsletter contacts for the whole list.');
+        return $this->update(function (array &$data) use ($input, $id, $name, $rules, $authorize): array {
+            if ($authorize !== null) $authorize();
+            if (($rules['plan_ids'] ?? []) !== []) {
+                $available = MarketingAccess::availablePlanIds(new \App\Core\Store(new \App\Core\Config($this->root . '/config/app.php')));
+                if (array_diff($rules['plan_ids'], $available) !== []) throw new \InvalidArgumentException('A selected membership tier is unavailable. Review the saved selection before changing it.');
+            }
             $index = $id === '' ? false : $this->segmentIndex($data, $id);
             if ($id !== '' && $index === false) throw new \RuntimeException('The audience no longer exists. Reload before saving.');
             $existing = $index === false ? [] : $data['segments'][$index];
@@ -538,6 +682,7 @@ final class MarketingStore
                 'enabled' => $input['enabled'], 'rules' => $rules, 'edit_version' => (int) ($existing['edit_version'] ?? 0) + 1,
                 'created_at' => $existing['created_at'] ?? gmdate('c'), 'updated_at' => gmdate('c')]);
             if ($index === false) $data['segments'][] = $record; else $data['segments'][$index] = $record;
+            if ($authorize !== null) $authorize();
             return $this->describeSegment($record);
         });
     }
@@ -649,10 +794,19 @@ final class MarketingStore
     {
         $recipients = [];
         $seen = [];
+        $businessFacts = []; $erasedActors = [];
+        if (MarketingAudience::businessRestricted($snapshot['rules'])) {
+            $emails = [];
+            foreach ($data['contacts'] as $contact) if (is_array($contact) && is_string($contact['email'] ?? null)
+                && filter_var($contact['email'], FILTER_VALIDATE_EMAIL) && MarketingAudience::matches($contact, $snapshot['rules'])) $emails[] = strtolower(trim($contact['email']));
+            $businessFacts = (new \App\Core\Store(new \App\Core\Config($this->root . '/config/app.php')))->marketingAudienceFacts($emails);
+            $erasedActors = MarketingAttribution::state($data)['erased_actors'];
+        }
         foreach ($data['contacts'] as $contact) {
             if (!is_array($contact) || !is_string($contact['email'] ?? null) || !is_string($contact['id'] ?? null)
                 || !MarketingAudience::matches($contact, $snapshot['rules'])) continue;
             $email = strtolower(trim($contact['email']));
+            if (!MarketingAudience::matchesBusiness($businessFacts[$email] ?? null, $snapshot['rules'], $erasedActors)) continue;
             if (isset($seen[$email]) || !$this->eligibleContact($data, $contact['id'], $email)) continue;
             $recipients[] = ['contact_id' => $contact['id'], 'email' => $email];
             $seen[$email] = true;
@@ -683,7 +837,7 @@ final class MarketingStore
             foreach ($data[$collection] as $i => $existing) {
                 if (($existing['id'] ?? '') !== $record['id']) continue;
                 if ($collection === 'campaigns' && (isset($existing['delivery_snapshot']) || array_key_exists('audience_snapshot', $existing))) {
-                    foreach (['subject', 'preheader', 'body'] as $key) {
+                    foreach (['subject', 'preheader', 'body', 'format', 'cta_label', 'cta_url', 'message_schema'] as $key) {
                         if (isset($record[$key]) && $record[$key] !== ($existing[$key] ?? '')) {
                             throw new \RuntimeException('Queued campaign text is frozen. Create a new campaign for a different message.');
                         }
@@ -710,6 +864,9 @@ final class MarketingStore
     {
         $this->requireCollection($collection);
         if ($collection === 'segments') throw new \InvalidArgumentException('Remove audiences through their revision-checked editor.');
+        if (in_array($collection, ['posts', 'banners', 'landing_pages'], true)) {
+            throw new \InvalidArgumentException('Move editorial items to Deleted content through their revision-checked editor.');
+        }
         $this->update(static function (array &$data) use ($collection, $id): void {
             $data[$collection] = array_values(array_filter($data[$collection], static fn(array $record): bool => ($record['id'] ?? '') !== $id));
             if ($collection === 'campaigns') {
@@ -749,10 +906,8 @@ final class MarketingStore
                 throw new \RuntimeException('The audience or eligible recipients changed. Refresh the preview before queueing.');
             }
             $campaign['audience_snapshot'] ??= $audience + ['queued_at' => gmdate('c')];
-            $campaign['delivery_snapshot'] ??= [
-                'subject' => (string) ($campaign['subject'] ?? $campaign['name'] ?? 'Velvet Vixxen update'),
-                'preheader' => (string) ($campaign['preheader'] ?? ''), 'body' => (string) ($campaign['body'] ?? ''),
-            ];
+            $campaign['delivery_snapshot'] ??= CampaignMessage::snapshot($campaign,
+                CampaignMessage::template($data['settings']['email_brand'] ?? null));
             $campaign['status'] = 'queued';
             $campaign['queued_at'] ??= gmdate('c');
             $existing = [];
@@ -771,8 +926,10 @@ final class MarketingStore
             foreach ($recipients as $recipient) {
                 $email = $recipient['email'];
                 if (isset($existing[$email])) continue;
+                $deliveryId = $this->id('delivery');
                 $data['campaign_queue'][] = [
-                    'id' => $this->id('delivery'), 'campaign_id' => $id, 'contact_id' => $recipient['contact_id'],
+                    'id' => $deliveryId, 'message_id' => CampaignMessage::messageId('campaign', $deliveryId),
+                    'campaign_id' => $id, 'contact_id' => $recipient['contact_id'],
                     'email' => $email, 'status' => 'queued', 'attempts' => 0, 'created_at' => gmdate('c'),
                 ];
                 $existing[$email] = true;
@@ -827,8 +984,8 @@ final class MarketingStore
     private function activeWindow(string $collection, ?array $viewer = null): array
     {
         $now = time();
-        return array_map(MarketingHistory::withoutHistory(...), array_values(array_filter($this->all()[$collection] ?? [], static fn(mixed $item): bool => is_array($item)
-            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer))));
+        return array_map(MarketingHistory::withoutHistory(...), array_values(array_filter($this->all()[$collection] ?? [], fn(mixed $item): bool => is_array($item)
+            && MarketingPublication::visibility($collection, $item, $now)['visible'] && MarketingAccess::allows($item, $viewer) && $this->protectionAllows($collection, $item))));
     }
 
     private function id(string $prefix): string

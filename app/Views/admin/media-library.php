@@ -7,6 +7,8 @@ $libraryPreview = static function (array $asset): string {
         $path = ltrim(str_replace('\\', '/', (string) $candidate), '/');
         if ($path === '' || str_contains($path, '..') || str_contains($path, ':')
             || !preg_match('/\.(?:png|jpe?g|webp|gif|avif)$/i', $path)) continue;
+        $protected = (new App\Core\ProtectionDelivery(app_config()))->url($path, (string) $asset['id']);
+        if ($protected !== null) return $protected === '' ? '' : base_url($protected);
         $relative = str_starts_with($path, 'uploads/') ? $path
             : (str_starts_with($path, 'images/') && is_file(root_path($path)) ? $path : 'uploads/' . $path);
         $absolute = realpath(root_path($relative));

@@ -248,14 +248,17 @@ try {
     $reject(static fn() => $marketing->restorePublication('posts', 'history-invalid', $invalidHistory['entries'][0]['id'], $repaired['revision']), 'Malformed legacy content was restored.', $file);
 
     $beforeDelete = $marketing->publicationRecord('posts', $new['id']);
-    $marketing->deletePublication('posts', $new['id'], $beforeDelete['revision']);
+    $deletedRecord = $marketing->all()['posts'][$retentionKey];
+    $deleted = $marketing->deletePublication('posts', $new['id'], $beforeDelete['revision']);
     $assert($marketing->publicationHistory('posts', $new['id']) === null
-        && MarketingStore::previewPublicationHistory('posts', $new['id'], null, $root) === null, 'Permanent deletion left a selectable attached history.');
+        && MarketingStore::previewPublicationHistory('posts', $new['id'], null, $root) === null, 'Deletion left a selectable active history.');
+    $recovery = MarketingStore::previewDeletedPublications('posts', $deleted['id'], $root);
+    $assert($recovery['selected']['record'] === $deletedRecord, 'Deletion failed to preserve the complete saved record and history privately.');
     $reject(static fn() => $marketing->restorePublication('posts', $new['id'], $validEnvelope['entries'][0]['id'], $beforeDelete['revision']), 'Restoration resurrected a deleted item.', $file);
     $emptyRoot = $root . '/absent-history'; mkdir($emptyRoot, 0700);
     $assert(MarketingStore::previewPublicationHistory('posts', 'absent-post', null, $emptyRoot) === null && scandir($emptyRoot) === ['.', '..'], 'Private history review initialized an absent saved store.');
     $final = $marketing->all();
-    $assert(array_diff_key($final, array_flip(['meta', 'posts', 'banners', 'landing_pages'])) === array_diff_key($original, array_flip(['meta', 'posts', 'banners', 'landing_pages'])),
+    $assert(array_diff_key($final, array_flip(['meta', 'posts', 'banners', 'landing_pages', \Velvet\Core\MarketingRecovery::KEY])) === array_diff_key($original, array_flip(['meta', 'posts', 'banners', 'landing_pages'])),
         'History actions modified frozen messages, queue entries, consent, suppression, contacts, settings or unknown headers.');
 
     // Related labels cannot trigger a second initializing/chmodding marketing read.

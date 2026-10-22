@@ -59,7 +59,8 @@ try {
     file_put_contents($updateFixture . '/config/app.php', $configBytes);
 
     // Run the real CLI from a minimal disposable installation with no app/bootstrap.php.
-    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/DatabaseUpdateService.php', 'app/Console/migrate.php'] as $relative) {
+    foreach (['includes/autoload.php', 'includes/installation_recovery.php', 'app/Core/Config.php',
+        'app/Core/OperationsGate.php', 'app/Core/DatabaseUpdateService.php', 'app/Console/migrate.php'] as $relative) {
         copy($sourceRoot . '/' . $relative, $updateFixture . '/' . $relative);
     }
     $runCli = static function (array $arguments) use ($updateFixture): array {

@@ -246,21 +246,75 @@
   });
   renderAll();
 
-  const gate = document.getElementById('ageGate');
-  if (gate && config.ageGate && localStorage.getItem('velvetAgeVerified') !== 'yes') {
-    gate.hidden = false;
+  // Dialogs keep keyboard focus inside the visible decision and restore the
+  // invoking control. This client acknowledgement is not provider verification.
+  function openDialog(root, first, escape) {
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    let topLevel = root;
+    while (topLevel.parentElement && topLevel.parentElement !== document.body) topLevel = topLevel.parentElement;
+    const siblings = [...document.body.children].filter(node => node !== topLevel)
+      .map(node => ({node, inert: node.inert}));
+    siblings.forEach(({node}) => { node.inert = true; });
     document.body.style.overflow = 'hidden';
-    document.getElementById('ageEnter')?.addEventListener('click', () => {
-      localStorage.setItem('velvetAgeVerified', 'yes');
+    const controls = () => [...root.querySelectorAll('a[href],button:not([disabled]),input:not([disabled]),select:not([disabled]),textarea:not([disabled]),video[controls],[tabindex]:not([tabindex="-1"])')]
+      .filter(node => node.getClientRects().length && getComputedStyle(node).visibility !== 'hidden');
+    const focusFirst = () => (first || controls()[0])?.focus();
+    const keydown = event => {
+      if (event.key === 'Escape') { event.preventDefault(); escape?.(); return; }
+      if (event.key !== 'Tab') return;
+      const items = controls();
+      if (!items.length) { event.preventDefault(); return; }
+      const index = items.indexOf(document.activeElement);
+      if (event.shiftKey && index <= 0) { event.preventDefault(); items.at(-1).focus(); }
+      else if (!event.shiftKey && (index === items.length - 1 || index === -1)) { event.preventDefault(); items[0].focus(); }
+    };
+    const focusin = event => { if (!root.contains(event.target)) focusFirst(); };
+    document.addEventListener('keydown', keydown, true);
+    document.addEventListener('focusin', focusin, true);
+    focusFirst();
+    let open = true;
+    return () => {
+      if (!open) return;
+      open = false;
+      document.removeEventListener('keydown', keydown, true);
+      document.removeEventListener('focusin', focusin, true);
+      siblings.forEach(({node, inert}) => { node.inert = inert; });
+      document.body.style.overflow = previousOverflow;
+      const target = previousFocus && previousFocus !== document.body && previousFocus.isConnected
+        ? previousFocus : document.getElementById('mainContent');
+      target?.focus();
+    };
+  }
+  const gate = document.getElementById('ageGate');
+  let ageAcknowledged = false;
+  try { ageAcknowledged = localStorage.getItem('velvetAgeVerified') === 'yes'; } catch (_) { /* Explicit choice still works when storage is unavailable. */ }
+  if (gate && config.ageGate && !ageAcknowledged) {
+    gate.hidden = false;
+    const enter = document.getElementById('ageEnter');
+    const closeGate = openDialog(gate, enter, () => gate.querySelector('a[href]')?.focus());
+    enter?.addEventListener('click', () => {
+      try { localStorage.setItem('velvetAgeVerified', 'yes'); } catch (_) { /* A future page can ask again. */ }
       gate.hidden = true;
-      document.body.style.overflow = '';
+      closeGate();
     });
   }
 
   const modal = document.getElementById('trailerModal');
   const trailerVideo = modal?.querySelector('video');
-  const closeTrailer = () => { if (!modal) return; modal.hidden = true; trailerVideo?.pause(); };
-  document.querySelectorAll('[data-open-trailer]').forEach(button => button.addEventListener('click', () => { if (modal) modal.hidden = false; }));
+  let releaseTrailer = null;
+  const closeTrailer = () => {
+    if (!modal) return;
+    modal.hidden = true;
+    trailerVideo?.pause();
+    releaseTrailer?.();
+    releaseTrailer = null;
+  };
+  document.querySelectorAll('[data-open-trailer]').forEach(button => button.addEventListener('click', () => {
+    if (!modal || !modal.hidden) return;
+    modal.hidden = false;
+    releaseTrailer = openDialog(modal, modal.querySelector('[data-close-trailer]'), closeTrailer);
+  }));
   document.querySelectorAll('[data-close-trailer]').forEach(button => button.addEventListener('click', closeTrailer));
   modal?.addEventListener('click', event => { if (event.target === modal) closeTrailer(); });
 })();

@@ -263,7 +263,23 @@ function template_url(string $path): string
 
 function upload_url(string $path): string
 {
+    $protected = (new App\Core\ProtectionDelivery(app_config()))->url('uploads/' . ltrim($path, '/'));
+    if ($protected !== null) return $protected === '' ? '' : base_url($protected);
     return base_url('uploads/' . ltrim($path, '/'));
+}
+
+/** Resolve a response copy only; saved Composer paths and geometry stay intact. */
+function scene_protected_paths(array $scene): array
+{
+    if (!(new App\Core\ProtectionRecords(app_config()))->enabled()) return $scene;
+    if (!empty($scene['background']['src'])) $scene['background']['src'] = scene_asset_url((string) $scene['background']['src']);
+    foreach (array_keys((array) ($scene['devices'] ?? [])) as $device) {
+        if (!empty($scene['devices'][$device]['background']['src'])) $scene['devices'][$device]['background']['src'] = scene_asset_url((string) $scene['devices'][$device]['background']['src']);
+        foreach (array_keys((array) ($scene['devices'][$device]['layers'] ?? [])) as $index) {
+            foreach (['src', 'thumbnail'] as $field) if (!empty($scene['devices'][$device]['layers'][$index][$field])) $scene['devices'][$device]['layers'][$index][$field] = scene_asset_url((string) $scene['devices'][$device]['layers'][$index][$field]);
+        }
+    }
+    return $scene;
 }
 
 function e(mixed $value): string
@@ -271,9 +287,16 @@ function e(mixed $value): string
     return htmlspecialchars((string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+/** Keep the existing expired-form status consistent on CGI and Apache mod_php. */
+function vvx_response_status(int $status): void
+{
+    if ($status === 419) header('HTTP/1.1 419 Form session expired', true, 419);
+    else http_response_code($status);
+}
+
 function json_response(array $data, int $status = 200): never
 {
-    http_response_code($status);
+    vvx_response_status($status);
     header('Content-Type: application/json; charset=utf-8');
     header('Cache-Control: no-store');
     echo json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE);
@@ -364,6 +387,8 @@ function scene_asset_url(string $path): string
     if ($path === '') {
         return '';
     }
+    $protected = (new App\Core\ProtectionDelivery(app_config()))->url($path);
+    if ($protected !== null) return $protected === '' ? '' : base_url($protected);
     if (preg_match('#^(?:https?:)?//#i', $path) || str_starts_with($path, 'data:') || str_starts_with($path, 'blob:')) {
         return $path;
     }
@@ -437,6 +462,8 @@ function media_public_url(string $path): string
     if ($path === '') {
         return '';
     }
+    $protected = (new App\Core\ProtectionDelivery(app_config()))->url($path);
+    if ($protected !== null) return $protected === '' ? '' : base_url($protected);
     if (preg_match('#^https?://#i', $path)) {
         return $path;
     }
@@ -448,6 +475,7 @@ function media_public_url(string $path): string
 
 function media_signed_url(string|int $assetId, int $ttlSeconds = 900): string
 {
+    if (!(new App\Core\ProtectionRecords(app_config()))->publicationAllowed('asset', (string) $assetId)) return '';
     $expires = time() + max(60, min($ttlSeconds, 86400));
     $key = (string) app_config('security.media_key', '');
     if ($key === '') {
@@ -460,6 +488,7 @@ function media_signed_url(string|int $assetId, int $ttlSeconds = 900): string
 
 function media_asset_src(array $asset, bool $allowPrivate = false): string
 {
+    if (!empty($asset['id']) && !(new App\Core\ProtectionRecords(app_config()))->publicationAllowed('asset', (string) $asset['id'], $asset)) return '';
     $path = (string) ($asset['file'] ?? '');
     if (str_starts_with($path, 'private:')) {
         return $allowPrivate ? media_signed_url((string) ($asset['id'] ?? '')) : '';
@@ -469,6 +498,7 @@ function media_asset_src(array $asset, bool $allowPrivate = false): string
 
 function media_thumbnail_src(array $asset): string
 {
+    if (!empty($asset['id']) && !(new App\Core\ProtectionRecords(app_config()))->publicationAllowed('asset', (string) $asset['id'], $asset)) return '';
     $thumbnail = (string) ($asset['thumbnail'] ?? '');
     if ($thumbnail !== '' && !str_starts_with($thumbnail, 'private:')) {
         return media_public_url($thumbnail);

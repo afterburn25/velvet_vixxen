@@ -19,7 +19,12 @@ final class MailService
         if (EmailAddress::hasForbiddenControls($subject)) throw new RuntimeException('The email subject must not contain line breaks or control characters.');
         $recipient = EmailAddress::normalize($recipient);
         $message = $this->store->queueMemberMail($memberId, $recipient, $subject, $template, $body, $metadata);
-        $result = $this->deliver($recipient, $subject, $body);
+        $beforeSend = $memberId === null ? null : function () use ($memberId, $recipient): bool {
+            $member = (new Store($this->config))->member($memberId);
+            return $member !== null && ($member['status'] ?? '') !== 'closed' && empty($member['deletedAt'])
+                && !isset($member['preferences']['_privacy_erasure']) && EmailAddress::normalize((string) $member['email']) === $recipient;
+        };
+        $result = $this->deliver($recipient, $subject, $body, $beforeSend);
         try {
             // The existing transactional outbox schema has four statuses. Preserve that contract,
             // but expose unknown transport outcomes to callers and in its diagnostic text.
@@ -63,19 +68,25 @@ final class MailService
      * rewrite the separate member store. beforeSend runs immediately before body
      * transmission, after an SMTP handshake, so a revoked claim cannot send.
      */
-    public function deliver(string $recipient, string $subject, string $body, ?callable $beforeSend = null): array
+    public function deliver(string $recipient, string $subject, string $body, ?callable $beforeSend = null, array $message = []): array
     {
         if (!EmailAddress::isValid($recipient)) return ['status' => 'failed', 'lastError' => 'A valid recipient email address without line breaks is required.', 'retryable' => false];
         if (EmailAddress::hasForbiddenControls($subject)) return ['status' => 'failed', 'lastError' => 'The email subject must not contain line breaks or control characters.', 'retryable' => false];
+        if (array_diff(array_keys($message), ['html', 'message_id']) !== []
+            || (isset($message['html']) && (!is_string($message['html']) || strlen($message['html']) > 1000000))
+            || (isset($message['message_id']) && (!is_string($message['message_id'])
+                || preg_match('/\A<[A-Za-z0-9._-]{1,190}@[A-Za-z0-9.-]{1,190}>\z/D', $message['message_id']) !== 1))) {
+            return ['status' => 'failed', 'lastError' => 'The rendered email envelope is invalid.', 'retryable' => false];
+        }
         $recipient = EmailAddress::normalize($recipient);
         if (($problem = $this->configurationProblem()) !== null) return ['status' => 'skipped', 'lastError' => $problem, 'retryable' => false];
         try {
             if (strtolower(trim((string) $this->config->get('mail.mode'))) === 'php') {
-                $this->sendPhpMail($recipient, $subject, $body, $beforeSend);
+                $this->sendPhpMail($recipient, $subject, $body, $beforeSend, $message);
             } else {
-                $this->sendSmtp($recipient, $subject, $body, $beforeSend);
+                $this->sendSmtp($recipient, $subject, $body, $beforeSend, $message);
             }
-            return ['status' => 'sent', 'lastError' => null, 'retryable' => false];
+            return ['status' => 'sent', 'lastError' => null, 'retryable' => false, 'messageId' => $message['message_id'] ?? null];
         } catch (MailDeliveryException $error) {
             return ['status' => $error->canceled ? 'skipped' : ($error->uncertain ? 'unknown' : 'failed'),
                 'lastError' => $error->getMessage(), 'retryable' => !$error->uncertain && !$error->canceled && $error->retryable];
@@ -93,26 +104,23 @@ final class MailService
         }
     }
 
-    private function sendPhpMail(string $recipient, string $subject, string $body, ?callable $beforeSend = null): void
+    private function sendPhpMail(string $recipient, string $subject, string $body, ?callable $beforeSend = null, array $message = []): void
     {
         if (!function_exists('mail')) {
             throw new MailDeliveryException('PHP mail() is unavailable.');
         }
         $fromEmail = $this->senderAddress();
         $fromName = (string) $this->config->get('mail.from_name', 'Nikki Wilder');
-        $headers = [
-            'MIME-Version: 1.0',
-            'Content-Type: text/plain; charset=UTF-8',
-            'Content-Transfer-Encoding: 8bit',
-            'From: ' . $this->encodeDisplayName($fromName) . ' <' . $fromEmail . '>',
-        ];
+        [$mimeHeaders, $body] = $this->messageBody($body, $message['html'] ?? null);
+        $headers = array_merge(['MIME-Version: 1.0', 'From: ' . $this->encodeDisplayName($fromName) . ' <' . $fromEmail . '>'], $mimeHeaders);
+        if (isset($message['message_id'])) $headers[] = 'Message-ID: ' . $message['message_id'];
         $this->authorize($beforeSend);
         if (!@mail($recipient, $this->encodeHeader($subject), $body, implode("\r\n", $headers))) {
             throw new MailDeliveryException('PHP mail() did not accept the message.');
         }
     }
 
-    private function sendSmtp(string $recipient, string $subject, string $body, ?callable $beforeSend = null): void
+    private function sendSmtp(string $recipient, string $subject, string $body, ?callable $beforeSend = null, array $message = []): void
     {
         $host = MailSettingsService::normalizeHost($this->config->get('mail.host', ''));
         $port = (int) $this->config->get('mail.port', 587);
@@ -162,11 +170,11 @@ final class MailService
                 'From: ' . $this->encodeDisplayName($fromName) . ' <' . $fromEmail . '>',
                 'To: <' . $recipient . '>',
                 'Subject: ' . $this->encodeHeader($subject),
-                'Message-ID: <' . bin2hex(random_bytes(12)) . '@' . $hostname . '>',
+                'Message-ID: ' . ($message['message_id'] ?? ('<' . bin2hex(random_bytes(12)) . '@' . $hostname . '>')),
                 'MIME-Version: 1.0',
-                'Content-Type: text/plain; charset=UTF-8',
-                'Content-Transfer-Encoding: 8bit',
             ];
+            [$mimeHeaders, $body] = $this->messageBody($body, $message['html'] ?? null);
+            $headers = array_merge($headers, $mimeHeaders);
             $safeBody = preg_replace('/^\./m', '..', str_replace(["\r\n", "\r"], "\n", $body));
             $payload = implode("\r\n", $headers) . "\r\n\r\n" . str_replace("\n", "\r\n", (string) $safeBody) . "\r\n.";
             $this->writeAll($socket, $payload . "\r\n", true);
@@ -181,6 +189,20 @@ final class MailService
     {
         $this->writeAll($socket, $command . "\r\n");
         $this->expect($socket, $expected);
+    }
+
+    /** A text alternative is always present. Boundary bytes cannot be owner supplied. */
+    private function messageBody(string $text, ?string $html): array
+    {
+        if ($html === null) return [['Content-Type: text/plain; charset=UTF-8', 'Content-Transfer-Encoding: 8bit'], $text];
+        do { $boundary = 'vvx_' . bin2hex(random_bytes(24)); }
+        while (str_contains($text, $boundary) || str_contains($html, $boundary));
+        // Email HTML may contain long serialized lines. Encode both alternatives
+        // so their wire representation respects SMTP line limits without changing content.
+        $body = '--' . $boundary . "\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n" . quoted_printable_encode($text)
+            . "\r\n--" . $boundary . "\r\nContent-Type: text/html; charset=UTF-8\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n" . quoted_printable_encode($html)
+            . "\r\n--" . $boundary . "--\r\n";
+        return [['Content-Type: multipart/alternative; boundary="' . $boundary . '"'], $body];
     }
 
     private function writeAll($socket, string $payload, bool $bodyStarted = false): void

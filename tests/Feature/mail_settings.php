@@ -183,6 +183,9 @@ try {
     $assert($raced['security'] === $initial['security'] && $raced['db'] === $initial['db'] && $raced['future'] === $current['future'], 'Concurrent settings edits changed private or unrelated state.');
     $assert((fileperms($config->path()) & 0007) === 0 && (fileperms($root . '/config/.mail-settings.lock') & 0077) === 0, 'Saved configuration or lock permissions became public.');
     $before = file_get_contents($config->path());
+    $reject(fn() => $config->write(array_replace($raced, ['installer_pending' => true])), 'A stale Config object bypassed the shared configuration revision guard.');
+    $assert(file_get_contents($config->path()) === $before, 'The rejected stale Config changed the concurrent winner.');
+    $config->reload();
     $config->write(array_replace($raced, ['installer_pending' => true]));
     $reject(fn() => $service->snapshot(), 'A pending installation exposed mutable mail settings.');
     $config->write($raced);

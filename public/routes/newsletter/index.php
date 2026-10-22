@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST') {
     $confirmation = base_url('newsletter/confirm.php?token=' . rawurlencode($result['token']));
     $mail = new \App\Core\MailService(app_config(), app_store());
     $delivery = ($result['contact']['status'] ?? '') === 'suppressed' ? ['status' => 'skipped'] : $mail->send(null, $result['contact']['email'], 'Confirm your Velvet Vixxen updates', 'newsletter_confirmation', "Confirm your email to receive updates: " . $confirmation . "\n\nIf you did not request updates, ignore this message.");
-    velvet_marketing_store()->recordEvent('newsletter_signup', ['path' => '/newsletter/']);
+    velvet_marketing_store()->recordMeasuredEvent('newsletter_signup', ['path' => '/newsletter/']);
     $message = ($delivery['status'] ?? '') === 'sent'
       ? 'Check your inbox for the confirmation link.'
       : 'Your request is saved but email delivery is currently unavailable. Your subscription remains unconfirmed. Please try again later.';

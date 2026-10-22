@@ -1,4 +1,9 @@
 <!-- scene-schedules-0814:start -->
+
+## Unreleased — 0.9.0 candidate, Build 20261021.4
+
+The active build-through-1.0 work integrates administrator security, private journals/configuration, deleted editorial recovery, campaign content, durable attribution/analytics, notification automation and signed mail-provider feedback. Protection, privacy and operational work remains in progress. No new release, merge, customer download or production certification is claimed. See [the integration record](docs/ROAD_TO_1_0.md).
+
 ## 0.8.14 delivered — Scheduled Composer scenes, Build 20261021.3
 
 **Verified, merged and delivered.** [PR #33](https://github.com/afterburn25/velvet_vixxen/pull/33) completes [issue #32](https://github.com/afterburn25/velvet_vixxen/issues/32), the bounded scheduled-Composer-scenes increment of broader #9. Merge completed at `2026-10-21T17:07:02Z`; literal saved-download read-back completed at `2026-10-21T17:09:54.040414+00:00`. Earlier release blocks preserve historical evidence and their then-current continuation notes; their older “current release” labels do not override this release or a later verified main merge.

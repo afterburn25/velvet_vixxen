@@ -24,13 +24,6 @@
     const active = navigation.querySelector('[aria-current="page"]');
     active?.scrollIntoView({block:'nearest'});
   }
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && document.body.classList.contains('sidebar-open')) {
-      document.body.classList.remove('sidebar-open');
-      document.querySelector('.sidebar-toggle')?.setAttribute('aria-expanded', 'false');
-      document.querySelector('.sidebar-toggle')?.focus();
-    }
-  });
   const editor = document.querySelector('[data-about-editor]');
   if (!editor) return;
   const rows = editor.querySelector('[data-about-rows]');

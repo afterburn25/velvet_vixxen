@@ -25,9 +25,11 @@ $subtitle = (string) ($settings['brand_subtitle'] ?? 'The Velvet Vixxen');
 $tagline = (string) ($settings['tagline'] ?? 'Bolder. Sexier. Closer.');
 $heroCopy = (string) ($settings['hero_copy'] ?? 'Exclusive content, personal updates, and a closer connection. Welcome to my world.');
 $previewMode = isset($_GET['preview']) && $_GET['preview'] === '1' && app_auth()->check();
+require_once root_path('includes/marketing.php');
+if (!$previewMode) velvet_marketing_record_pageview();
 $publicScenes = [
-    'hero' => $store->scene('hero', !$previewMode),
-    'footer' => $store->scene('footer', !$previewMode),
+    'hero' => scene_protected_paths($store->scene('hero', !$previewMode)),
+    'footer' => scene_protected_paths($store->scene('footer', !$previewMode)),
 ];
 $featuredGalleries = array_slice($store->galleries(true), 0, 5);
 $featuredTracks = array_slice($store->tracks(true), 0, 3);
@@ -35,6 +37,8 @@ $featuredVideos = array_slice($store->videos(true), 0, 3);
 $trailerVideo = $featuredVideos[0] ?? null;
 $trailerAsset = (array) ($trailerVideo['trailerAsset'] ?? $trailerVideo['fullAsset'] ?? []);
 $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
+$trailerCaption = (array) ($trailerVideo['captionAsset'] ?? []);
+$trailerCaptionSrc = $trailerCaption !== [] ? media_asset_src($trailerCaption, false) : '';
 ?>
 <!doctype html>
 <html lang="en">
@@ -87,7 +91,7 @@ $trailerSrc = $trailerAsset !== [] ? media_asset_src($trailerAsset, true) : '';
   </div>
   <div class="content-wrap">
     <div class="section-heading"><div><span class="eyebrow pink">Private collection</span><h2>Popular Sets</h2></div><a href="<?= e(base_url('photos/')) ?>">View All <span>→</span></a></div>
-    <div class="set-grid">
+    <div class="set-grid" tabindex="0" role="region" aria-label="Popular photo sets">
       <?php if ($featuredGalleries !== []): foreach ($featuredGalleries as $gallery): $cover=(array)($gallery['coverAsset']??[]); $galleryDecision=entitlement_resolver()->resolve('gallery',$gallery,$member,false); ?>
       <a class="set-card" href="<?= e(base_url('photos/view.php?slug='.rawurlencode((string)$gallery['slug']))) ?>"><div class="set-image"><img src="<?= e(media_thumbnail_src($cover)) ?>" alt="<?= e((string)$gallery['title']) ?>"><span class="lock-badge"><?= $galleryDecision['allowed']?'↗':'◆' ?></span></div><h3><?= e((string)$gallery['title']) ?></h3><p><?= e((string)count((array)($gallery['items']??[]))) ?> Photos · <?= e($galleryDecision['allowed']?'Available':MediaAccess::label((string)$gallery['accessMode'])) ?></p></a>
       <?php endforeach; else: foreach ([['Pink Paradise',48,'set-1.jpg'],['Vixxen Nights',32,'set-2.jpg'],['Mirror Play',27,'set-3.jpg'],['Lingerie Lounge',41,'set-4.jpg'],['Velvet Escapes',36,'set-5.jpg']] as [$title,$count,$image]): ?>
@@ -133,9 +137,9 @@ $customFooterMenu = $footerMenuSnapshot['configured'];
 $publicMenuItems = $customFooterMenu ? \App\Core\MenuService::publicItems($footerMenuSnapshot) : [];
 $publicMenuInstance = 'footer';
 ?>
-<footer class="legal-footer<?= $customFooterMenu && $publicMenuItems !== [] ? ' has-custom-footer-menu' : '' ?>"><div class="brand-lockup compact"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></div><nav aria-label="Footer navigation"<?= $customFooterMenu ? ' data-menu-custom' . ($publicMenuItems === [] ? ' data-menu-empty' : '') : '' ?>><?php if ($customFooterMenu): require root_path('app/Views/public/partials/menu-items.php'); else: ?><a href="#top">Home</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="<?= e(base_url('about/')) ?>">About Me</a><?php endif; ?></nav><div class="legal-links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">18+</a><a href="#">DMCA</a><a href="#">Support</a></div><span class="signature">Nikki ♡</span><p class="site-credit">Website designed &amp; developed by <a href="https://cajunwebpro.com/" target="_blank" rel="noopener noreferrer">Cajun Web Pro LLC</a></p></footer>
+<footer class="legal-footer<?= $customFooterMenu && $publicMenuItems !== [] ? ' has-custom-footer-menu' : '' ?>"><div class="brand-lockup compact"><span class="brand-script"><?= e($brand) ?></span><span class="brand-sub"><?= e($subtitle) ?></span></div><nav aria-label="Footer navigation"<?= $customFooterMenu ? ' data-menu-custom' . ($publicMenuItems === [] ? ' data-menu-empty' : '') : '' ?>><?php if ($customFooterMenu): require root_path('app/Views/public/partials/menu-items.php'); else: ?><a href="#top">Home</a><a href="<?= e(base_url('music/')) ?>">Music</a><a href="<?= e(base_url('photos/')) ?>">Photos</a><a href="<?= e(base_url('videos/')) ?>">Videos</a><a href="<?= e(base_url('membership/')) ?>">Membership</a><a href="<?= e(base_url('shop/')) ?>">Store</a><a href="<?= e(base_url('booking/')) ?>">Booking</a><a href="<?= e(base_url('about/')) ?>">About Me</a><?php endif; ?></nav><?php require root_path('app/Views/public/partials/legal-links.php'); ?><span class="signature">Nikki ♡</span><p class="site-credit">Website designed &amp; developed by <a href="https://cajunwebpro.com/" target="_blank" rel="noopener noreferrer">Cajun Web Pro LLC</a></p></footer>
 
-<?php if ($trailerSrc !== ''): ?><div class="trailer-modal" id="trailerModal" hidden><button class="trailer-close" data-close-trailer aria-label="Close preview">×</button><div class="trailer-player"><video controls playsinline preload="metadata" poster="<?= e(media_thumbnail_src((array)($trailerVideo['posterAsset']??[]))) ?>" src="<?= e($trailerSrc) ?>"></video><h2><?= e((string)($trailerVideo['title']??'Watch Trailer')) ?></h2><a class="button button--primary" href="<?= e(base_url('videos/watch.php?slug='.rawurlencode((string)($trailerVideo['slug']??'')))) ?>">Open Video Page</a></div></div><?php endif; ?>
+<?php if ($trailerSrc !== ''): ?><div class="trailer-modal" id="trailerModal" role="dialog" aria-modal="true" aria-labelledby="trailerTitle" hidden><button class="trailer-close" data-close-trailer aria-label="Close preview">×</button><div class="trailer-player"><video controls playsinline preload="metadata" poster="<?= e(media_thumbnail_src((array)($trailerVideo['posterAsset']??[]))) ?>" src="<?= e($trailerSrc) ?>"><?php if ($trailerCaptionSrc !== ''): ?><track kind="captions" srclang="en" label="English" src="<?= e($trailerCaptionSrc) ?>" default><?php endif; ?></video><h2 id="trailerTitle"><?= e((string)($trailerVideo['title']??'Watch Trailer')) ?></h2><a class="button button--primary" href="<?= e(base_url('videos/watch.php?slug='.rawurlencode((string)($trailerVideo['slug']??'')))) ?>">Open Video Page</a></div></div><?php endif; ?>
 <?php require root_path('app/Views/public/partials/player.php'); ?>
 <script>window.VELVET_CONFIG=<?= json_encode(['baseUrl'=>base_url(),'uploadBase'=>base_url('uploads/'),'scenes'=>$publicScenes,'ageGate'=>(bool)($settings['age_gate_enabled']??true),'csrfToken'=>csrf_token(),...public_route_config(),'member'=>$member?['id'=>(string)$member['id'],'displayName'=>(string)$member['displayName']]:null], JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE|JSON_HEX_TAG|JSON_HEX_AMP|JSON_HEX_APOS|JSON_HEX_QUOT) ?>;</script>
 <script src="<?= e(asset_url('js/scene-geometry.js')) ?>" defer></script>

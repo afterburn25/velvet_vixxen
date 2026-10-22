@@ -11,7 +11,13 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   if (!is_string($action)) throw new InvalidArgumentException('Choose a valid marketing action.');
   if ($action === 'save_segment' && ($_POST['preview_segment'] ?? null) === '1') $action = 'preview_segment';
   if ($action === 'save_campaign' && ($_POST['preview_audience'] ?? null) === '1') $action = 'preview_campaign_audience';
-  if (in_array($action, ['save_post', 'save_banner', 'save_page'], true)) {
+  if (str_starts_with($action, 'notification_')) {
+    require root_path('app/Views/admin/marketing-notifications-actions.php');
+  }
+  elseif (str_starts_with($action, 'mail_provider_')) {
+    require root_path('app/Views/admin/marketing-provider-actions.php');
+  }
+  elseif (in_array($action, ['save_post', 'save_banner', 'save_page'], true)) {
     $publicationForm = $_POST;
     $publicationFormCollection = ['save_post' => 'posts', 'save_banner' => 'banners', 'save_page' => 'landing_pages'][$action];
     $savedPublication = $marketingStore->savePublication($publicationFormCollection, mm_publication_input($publicationFormCollection, $_POST),
@@ -44,7 +50,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     if ($action === 'delete_publication') {
       $marketingStore->deletePublication($collection, $id, $revision,
         static fn(array $candidate) => mm_publication_authorize($candidate, false));
-      $notice = $meta['name'] . ' removed.';
+      $notice = $meta['name'] . ' moved to Deleted content. Its saved content and history are available there for recovery.';
     } else {
       if (!in_array($_POST['enabled'] ?? null, ['0', '1'], true)) throw new InvalidArgumentException('Choose a valid visibility setting.');
       $enablePublication = $_POST['enabled'] === '1';
@@ -55,7 +61,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $returnPublicationTab = $meta['tab'];
   }
   elseif($action==='save_link'){$marketingStore->upsert('links',['id'=>(string)($_POST['id']??''),'label'=>trim((string)($_POST['label']??'')),'url'=>trim((string)($_POST['url']??'')),'enabled'=>!empty($_POST['enabled']),'sort'=>(int)($_POST['sort']??0)]);$notice='Link saved.';}
-  elseif($action==='save_referral'){$marketingStore->upsert('referral_codes',['id'=>(string)($_POST['id']??''),'code'=>strtoupper(preg_replace('/[^A-Za-z0-9_-]/','',(string)($_POST['code']??''))),'label'=>trim((string)($_POST['label']??'')),'enabled'=>!empty($_POST['enabled'])]);$notice='Referral code saved.';}
+  elseif($action==='save_referral'){
+    $marketingStore->saveReferralDefinition(['id'=>$_POST['id']??'', 'code'=>$_POST['code']??null, 'label'=>$_POST['label']??'',
+      'enabled'=>mm_checked($_POST['enabled']??null), 'revision'=>$_POST['referral_revision']??null], mm_measurement_authorize(...));
+    $notice='Referral code saved.';
+  }
+  elseif (in_array($action, ['save_analytics_configuration','run_analytics_maintenance','export_measurement_csv','save_coupon_attribution','save_link_bio_presentation'], true)) {
+    require root_path('app/Views/admin/marketing-measurement-actions.php');
+  }
   elseif ($action === 'save_segment' || $action === 'preview_segment') {
     $segmentForm = $_POST;
     $rules = mm_audience_rules($_POST);
@@ -63,7 +76,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
       $segmentPreview = $marketingStore->previewSegment($rules);
     } else {
       $segment = $marketingStore->saveSegment(['id' => $_POST['id'] ?? '', 'name' => $_POST['name'] ?? '',
-        'enabled' => mm_checked($_POST['enabled'] ?? null), 'rules' => $rules, 'expected_revision' => $_POST['segment_revision'] ?? null]);
+        'enabled' => mm_checked($_POST['enabled'] ?? null), 'rules' => $rules, 'expected_revision' => $_POST['segment_revision'] ?? null], 'mm_measurement_authorize');
       $notice = 'Audience saved. Existing queued campaigns keep their saved audience rules.';
       $returnSegment = $segment['id'];
     }
@@ -99,13 +112,49 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $previewRevision = $_POST['audience_preview_revision'] ?? null;
     if ($previewRevision === '') $previewRevision = null;
     if ($previewRevision !== null && !\Velvet\Core\MarketingAudience::validRevision($previewRevision)) throw new InvalidArgumentException('Refresh the audience preview before queueing.');
-    $campaign = $marketingStore->upsert('campaigns', ['id' => \Velvet\Core\MarketingAudience::id($_POST['id'] ?? '', true), 'subject' => $subject,
-      'preheader' => $preheader, 'body' => $body, 'status' => 'draft', 'scheduled_at' => $schedule, 'audience' => $selection]);
+    $campaign = $marketingStore->saveCampaignMessage(['id' => \Velvet\Core\MarketingAudience::id($_POST['id'] ?? '', true), 'subject' => $subject,
+      'preheader' => $preheader, 'body' => $body, 'scheduled_at' => $schedule, 'audience' => $selection,
+      'format' => $_POST['format'] ?? 'branded', 'cta_label' => $_POST['cta_label'] ?? '', 'cta_url' => $_POST['cta_url'] ?? '',
+      'expected_revision' => $_POST['campaign_revision'] ?? ''], (array) app_auth()->user());
     $campaignForm['id'] = $campaign['id'];
+    $campaignForm['campaign_revision'] = \Velvet\Core\CampaignMessage::revision($campaign);
     $campaignDraftSaved = !isset($campaign['delivery_snapshot']) && !array_key_exists('audience_snapshot', $campaign);
     $count = $queueNow ? $marketingStore->queueCampaign((string) $campaign['id'], $previewRevision) : null;
     $notice = 'Campaign saved.';
     if ($count !== null) $notice .= ' ' . $count . ' new eligible recipients queued from the selected audience.';
+  }
+  elseif ($action === 'save_email_brand') {
+    $emailBrandForm = $_POST;
+    $brandInput = [];
+    foreach (['brand_name', 'tagline', 'accent', 'footer'] as $key) $brandInput[$key] = $_POST[$key] ?? '';
+    $brandRevision = $_POST['brand_revision'] ?? null;
+    if (!is_string($brandRevision)) throw new InvalidArgumentException('Reload the email brand before saving.');
+    $marketingStore->saveEmailBrand($brandInput, $brandRevision, (array) app_auth()->user());
+    $notice = 'Email brand saved. Queued campaigns keep their frozen template.';
+  }
+  elseif ($action === 'send_campaign_test') {
+    $testRequest = $_POST['test_request'] ?? null;
+    $testIdentity = (array) app_auth()->user();
+    $testSaved = is_string($testRequest) ? ($_SESSION['_campaign_test_requests'][$testRequest] ?? null) : null;
+    if (!is_array($testSaved) || ($testSaved['owner'] ?? '') !== (string) ($testIdentity['id'] ?? '')
+        || (int) ($testSaved['issued'] ?? 0) < time() - 1800
+        || ($testSaved['campaign'] ?? '') !== ($_POST['campaign_id'] ?? null)
+        || ($testSaved['revision'] ?? '') !== ($_POST['campaign_revision'] ?? null)
+        || ($testSaved['template_revision'] ?? '') !== ($_POST['template_revision'] ?? null)) {
+      throw new RuntimeException('This test request expired or was already used. Open the saved message preview again.', 409);
+    }
+    unset($_SESSION['_campaign_test_requests'][$testRequest]);
+    $testService = new \App\Core\CampaignTestService(app_config(), $marketingStore, new \App\Core\MailService(app_config(), app_store()));
+    $sessionOpen = session_status() === PHP_SESSION_ACTIVE;
+    if ($sessionOpen) session_write_close();
+    try { $testResult = $testService->send($testSaved['campaign'], $testSaved['revision'], $testSaved['template_revision'], $testRequest, $testIdentity); }
+    finally { if ($sessionOpen) session_start(); }
+    if (!velvet_marketing_is_owner()) { http_response_code(403); exit('Current owner authentication is required.'); }
+    $notice = match ($testResult['status'] ?? '') {
+      'sent' => 'Campaign test accepted by the mail transport for the current owner. Inbox arrival is not confirmed. No subscribers were queued.',
+      'unknown', 'sending' => 'Campaign test outcome is unknown. Check your mail provider before a separate test. Automatic retry is blocked.',
+      default => 'Campaign test was not accepted. ' . (string) ($testResult['last_error'] ?? 'Review Email & SMTP and the saved message.'),
+    };
   }
   elseif ($action === 'queue_campaign') {
     $previewRevision = $_POST['audience_preview_revision'] ?? null;
@@ -150,9 +199,12 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
       $marketingStore->deletePublication($collection, $id, $revision,
         static fn(array $candidate) => mm_publication_authorize($candidate, false));
     } else $marketingStore->delete($collection, $id);
-    $notice='Item removed.';
+    $notice = in_array($collection, ['posts', 'banners', 'landing_pages'], true)
+      ? 'Item moved to Deleted content. Its saved content and history are available there for recovery.' : 'Item removed.';
   }
  }catch(Throwable $e){
+  if (is_string($action ?? null) && (str_starts_with($action, 'notification_') || str_starts_with($action, 'mail_provider_')) && http_response_code() < 400) http_response_code(422);
+  if (in_array((int) $e->getCode(), [409, 429], true)) http_response_code((int) $e->getCode());
   if ((int) $e->getCode() === 403) { http_response_code(403); exit('Only the active site owner can change publications.'); }
   $notice='';$error=(!empty($campaignDraftSaved) ? 'The campaign draft was saved, but no new recipients were queued. ' : '') . $e->getMessage();
  }

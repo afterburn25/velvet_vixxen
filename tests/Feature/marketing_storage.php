@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require_once dirname(__DIR__, 2) . '/includes/autoload.php';
+
 // Source regressions for the new storage boundary; actual SQL is covered by the
 // independent packaged tests/Database/marketing_sql_mysql.php acceptance gate.
 require_once dirname(__DIR__, 2) . '/app/Core/MarketingStore.php';

@@ -9,8 +9,11 @@ use Throwable;
 
 final class Store
 {
+    use AdminSecurityStoreTrait;
+    use ProtectionStoreTrait;
     use MediaStoreTrait;
     use MemberStoreTrait;
+    use MemberPrivacyStoreTrait;
     use CommerceStoreTrait;
     use AddonStoreTrait;
     use AddonLicensingStoreTrait;
@@ -18,6 +21,8 @@ final class Store
     use BookingFormStoreTrait;
     use MenuStoreTrait;
     use SceneScheduleStoreTrait;
+    use MarketingBusinessStoreTrait;
+    use NotificationStoreTrait;
 
     private readonly string $mode;
     private ?Database $database = null;
@@ -235,10 +240,12 @@ final class Store
             'metadata' => [],
             'createdAt' => now_iso(),
         ], $asset);
+        (new ProtectionRecords($this->config))->preserveUpload($asset);
         if ($this->mode === 'file') {
             $data = $this->readFileStore();
             $data['media'][(string) $asset['id']] = $asset;
             $this->writeFileStore($data);
+            (new ProtectionRecords($this->config))->preserveUpload($asset);
             return $asset;
         }
         $stmt = $this->pdo()->prepare('INSERT INTO media_assets (title, asset_type, file_path, thumbnail_path, mime_type, file_size, width, height, duration_seconds, tags_json, metadata_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())');
@@ -248,6 +255,7 @@ final class Store
             $asset['duration'], json_encode($asset['tags']), json_encode($asset['metadata']),
         ]);
         $asset['id'] = (string) $this->pdo()->lastInsertId();
+        (new ProtectionRecords($this->config))->preserveUpload($asset);
         return $asset;
     }
 

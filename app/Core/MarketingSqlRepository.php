@@ -8,6 +8,7 @@ use PDOException;
 use Throwable;
 
 require_once __DIR__ . '/MarketingStorageException.php';
+require_once __DIR__ . '/MarketingMeasurementSqlRepository.php';
 
 /** Lossless per-record SQL persistence; callers hold the short database data mutex. */
 final class MarketingSqlRepository
@@ -160,6 +161,7 @@ final class MarketingSqlRepository
         if ($this->read($state) !== $data) {
             throw new MarketingStorageException('The database copy did not exactly preserve the marketing records. The move was stopped.');
         }
+        (new MarketingMeasurementSqlRepository($this->pdo))->sync($data);
         return ['state' => $state, 'authority' => $authority];
     }
 
@@ -173,6 +175,7 @@ final class MarketingSqlRepository
         $statement->execute([self::encode($header), self::encode($layout), (int) $after['meta']['revision'],
             hash('sha256', self::encode($after))]);
         if ($statement->rowCount() !== 1) throw new MarketingStorageException('The marketing database state changed unexpectedly. Existing data has been held for review.');
+        (new MarketingMeasurementSqlRepository($this->pdo))->sync($after);
     }
 
     private function split(array $data): array
