@@ -1,11 +1,35 @@
 <!-- road-to-1.0-integration:start -->
-## Active work — build through 1.0
+## 0.9.0 / Build 20261021.4 customer release
 
-The owner requested **build through 1.0**. The integration branch displays **0.9.0 / Build 20261021.4** while the remaining safeguards and production release gates are completed. The latest verified delivered baseline remains **0.8.14 / Build 20261021.3**. This in-progress record does not claim final CI, merge, new customer downloads or production certification. See [the active integration record](docs/ROAD_TO_1_0.md) and [issue #34](https://github.com/afterburn25/velvet_vixxen/issues/34).
+**Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](docs/releases/0.9.0-safeguards.md), [CI evidence](docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate.
 
-Administrator two-factor security, atomic private state/configuration, deleted editorial recovery, campaign content, attribution/analytics, consent-aware notifications, authenticated mail-provider events, encrypted backup/recovery and protected-media consent/report workflows are integrated. Age assurance, trusted geographic controls and five draft/published public policies have current file/MySQL/MariaDB source, Apache and browser acceptance. Member privacy now includes complete private exports, owner-reviewed account closure, ten resumable processing stages and dedicated member/owner screens. Local file/MySQL/MariaDB source, actual Apache root/nested and desktop/mobile acceptance passed, including actual process interruption after every closure stage. The 55-page file/MySQL accessibility matrix also passed locally. A subsequent owner-screen contrast correction passed focused desktop/mobile checks with real rendered backgrounds and keyboard focus. The final frozen GitHub run remains required. The new physical `admin/repair-current.php` reaches current password/MFA checks even when an older repair entry remains cached. Preserve all previously delivered features and every required release gate. Complete combined CI, artifact verification and delivery before asking for live merchant/provider/host inputs. Payments remain sandbox-only until an approved provider is selected, implemented and tested.
+Source: 6e9a670c64aa02213a4f91eb619f2cf7500efde0
+Actual CI checkout: 2f4cc430050c8fdfbc3a8c1b718e33db26a12190
+Complete tested tree: 77c0bcb8b076ff8eabb867881990bc477621ba64
+Final merge: 47a3f2efc36041fa931ed461e66441cd1481fb8a
+Final CI: https://github.com/afterburn25/velvet_vixxen/actions/runs/39761507847
+Final conclusions: All 26 required jobs passed; 266 configured steps succeeded, with two intentional member-only skips in the age-policy lanes. Final packaging passed.
 
-**Owner-confirmed resolution:** Photo depth became available after the installed version was updated. Do not restart the missing-control troubleshooting. Broader production-host certification remains a separate acceptance requirement.
+Fresh: Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip
+8,106,858 bytes; 494 entries; SHA-256 7f633f01ebd59068acbcbe63e7f191882ef454e129bf668dab87093a43881798
+
+Upgrade: Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip
+7,949,601 bytes; 453 entries; SHA-256 ce34a0891d39a6a17b80dc16668935f9d7bbc6ebd3ced5990d70211275633226
+
+Manifest: Velvet-Vixxen-0.9.0-Build-20261021.4-package-manifest.json
+110,541 bytes; SHA-256 0a58cae84bb304bc5e9a680d1373997bc29a373ca0d9f0bee85857880d113ada
+
+Unchanged unfinished-installer repair: Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip
+60,065 bytes; 11 entries; SHA-256 f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297
+The repair is not the installed-site Upgrade and is not relabelled as 0.9.0.
+
+Fresh/Upgrade retain the approved 13/9 root directories and only .htaccess, VERSION, index.php and route.php as root files. The complete Upgrade preserves installed config, storage, uploads, owner identity and keys. Runtime ZIPs exclude repository documentation, tests, screenshots and engineering tooling.
+
+Independent saved-file readback: 2026-10-22T11:19:25.458669+00:00
+Release evidence: docs/releases/0.9.0-safeguards.md
+CI evidence: docs/releases/0.9.0-safeguards-ci.json
+Delivery evidence: docs/releases/0.9.0-safeguards-delivery.json
+No customer-host installation or live-provider certification is established by this delivery.
 <!-- road-to-1.0-integration:end -->
 
 <!-- scene-schedules-0814:start -->

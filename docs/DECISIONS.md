@@ -1,13 +1,15 @@
 # Architecture and Product Decisions
 
 <!-- road-to-1.0-integration:start -->
-## Active work — build through 1.0
+## Current release — 0.9.0 complete; continue through 1.0
 
-The owner requested **build through 1.0**. The integration branch displays **0.9.0 / Build 20261021.4** while the remaining safeguards and production release gates are completed. The latest verified delivered baseline remains **0.8.14 / Build 20261021.3**. This in-progress record does not claim final CI, merge, new customer downloads or production certification. See [the active integration record](ROAD_TO_1_0.md) and [issue #34](https://github.com/afterburn25/velvet_vixxen/issues/34).
+**Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](../docs/releases/0.9.0-safeguards.md), [CI evidence](../docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](../docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate.
 
-Administrator two-factor security, atomic private state/configuration, deleted editorial recovery, campaign content, attribution/analytics, consent-aware notifications, authenticated mail-provider events, encrypted backup/recovery and protected-media consent/report workflows are integrated. Age assurance, trusted geographic controls and five draft/published public policies have current file/MySQL/MariaDB source, Apache and browser acceptance. Member privacy now includes complete private exports, owner-reviewed account closure, ten resumable processing stages and dedicated member/owner screens. Local file/MySQL/MariaDB source, actual Apache root/nested and desktop/mobile acceptance passed, including actual process interruption after every closure stage. The 55-page file/MySQL accessibility matrix also passed locally. A subsequent owner-screen contrast correction passed focused desktop/mobile checks with real rendered backgrounds and keyboard focus. The final frozen GitHub run remains required. The new physical `admin/repair-current.php` reaches current password/MFA checks even when an older repair entry remains cached. Preserve all previously delivered features and every required release gate. Complete combined CI, artifact verification and delivery before asking for live merchant/provider/host inputs. Payments remain sandbox-only until an approved provider is selected, implemented and tested.
+The 0.9 implementation includes administrator two-factor security and durable sessions; atomic private state and configuration; deleted editorial recovery; rendered campaign previews, test sends and branded messages; durable referral, campaign and coupon attribution; business audiences and consent-aware analytics, retention, reports, exports and funnels; optional notification workflows; authenticated mail-provider event recovery; encrypted backup and isolated restore; protected-media records and reports; age assurance, trusted geographic rules and five independently publishable policy pages; and member-owned exports with reviewed, resumable account closure. Preserve the desktop/mobile accessibility, privacy contrast, current-owner and process-interruption protections and the physical `admin/repair-current.php` path for older installations with cached PHP. The final release identity and acceptance record is [the current release evidence](../PROJECT_STATUS.md); the implementation and operating guides are in [the integration record](ROAD_TO_1_0.md).
 
-**Owner-confirmed resolution:** Photo depth became available after the installed version was updated. Do not restart the missing-control troubleshooting. Broader production-host certification remains a separate acceptance requirement.
+The next milestone is **1.0 payment engineering and production acceptance**. Shared payment-operation journals, interruption recovery and owner recovery controls are being developed in a separate **0.9.1 / Build 20261022.1 candidate**, which requires its own complete CI, artifact, merge and saved-delivery acceptance. Payments in 0.9.0 remain sandbox-only. Selecting an approved merchant provider must be followed by implementing its real adapter and authoritative recurring lifecycle, then validating approved live outcomes. Existing mail, SendGrid feedback and Yoti age implementations still need configured accounts and approved live-service acceptance. Actual customer-host installation, upgrade, rollback, protected-origin/CDN behavior, cron, backup/restore, running-build checks and owner policy/retention decisions remain separate. Continue available engineering while those external inputs are arranged.
+
+**Owner-confirmed resolution:** Photo depth is available after updating the installed version. Preserve that control and its foreground behavior; do not restart the missing-control investigation. Earlier release blocks retain their historical evidence and then-current “remaining” lists; this current scope supersedes those lists, without changing their original claims.
 <!-- road-to-1.0-integration:end -->
 
 <!-- scene-schedules-0814:start -->
@@ -94,9 +96,11 @@ Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, exp
 - Delivered 0.8.10 / Build 20261020.11 after all seven jobs and 66 required steps passed in run 39517748806. Source `3357cb048a25d134f1702a48113ecde9025c16ed`, actual CI checkout `1055db0049e6825bddf284e460bbdd45ce64c268` and PR #26 merge `a98847d032a50eabfbd117ade9cdce63de5c25c3` share tree `6dbfc18ffd1aded1015b5691559b6acc0870ab3c`. The actual browser artifact verifies 52/24/8/8 focused observations and 34 decoded PNGs; saved-download literal read-back passed at `2026-10-21T00:25:31.617514+00:00`. See [the release record](releases/0.8.10-composer-geometry.md).
 - Foreground masking/depth controls and unrelated contact-card overflow remain separately scoped. This correction does not complete broader marketing #9 or the 0.9 milestone.
 
-## Current continuation after completed menus, Composer depth, calendar, post expiration and scene schedules
+## Current continuation — implemented 0.9 and remaining 1.0
 
-The requested menus/public page layout, Composer depth/foreground, bounded 0.8.13 publishing-calendar/post-expiration and 0.8.14 scheduled-Composer-scene increments are complete. Broader #9 remains open for deleted-item recovery and the other documented marketing capabilities. Actual-host #12/#13 and production email remain unverified, payments remain sandbox-only, and the separate 0.9 milestone remains incomplete. Keep #3 open as the ongoing release policy. Any further changed delivery needs a new visible version and its own source, CI, artifact, merge and saved-download evidence.
+Preserve the completed Menus, Composer depth/foreground, public geometry, calendar, expiry and scene schedules together with the implemented 0.9 security, editorial recovery, campaign/attribution/analytics, notification/provider, encrypted operations, protection/policy and member-privacy features. Final 0.9 release status is **Verified, merged and delivered**; the final full CI, artifacts, merge and saved-download evidence is verified in `../PROJECT_STATUS.md`. Historical “remaining #9” lists are not the current implementation inventory.
+
+Continue the separate 0.9.1 payment-journal and owner-recovery candidate through its own complete acceptance, then implement the selected approved merchant provider’s actual adapter and authoritative recurring lifecycle, followed by approved live payment/mail/age and customer-host acceptance. Mail and age adapters already exist; their live configuration is distinct from the remaining payment engineering. Owner policy/retention and external recurring cancellation decisions remain explicit. Keep #3 as the ongoing release policy and actual-host #12/#13 open without host evidence; reconcile other issue states against accepted scope. Every changed completed delivery advances the visible version and records its own source, CI, artifact, merge and saved-download identities.
 
 ## 2026-10-20 — Bounded editorial history and deliberate restoration (0.8.9, verified)
 
@@ -204,7 +208,7 @@ The first two bullets below are historical and explicitly rejected by the owner;
 - One Entitlement Resolver handles public, member, subscription, PPV, rental, bundle, gift, complimentary, scheduled, and unlisted access.
 - Protected originals remain outside public paths and use signed/authorized delivery.
 - Raw card numbers are never stored.
-- Payment providers use adapters; the bundled provider is sandbox-only.
+- Payment providers use adapters; the only registered provider is sandbox-only. Selecting an approved merchant provider does not supply an implementation: 1.0 still requires its actual protocol, recurring-payment/event handling and approved lifecycle acceptance. Local subscription cancellation/resumption is not a claim that a provider account changed.
 
 ## Add-ons and licensing
 
@@ -228,9 +232,9 @@ The first two bullets below are historical and explicitly rejected by the owner;
 
 ## Publishing and marketing
 
-These are design requirements; advanced audience/expiration, scheduled scenes, attribution, retention and MySQL marketing persistence were not recovered as implemented capabilities. Current code/evidence governs completion claims.
+The earlier recovery findings describe their historical source snapshot. Current source now implements the delivered 0.8 publishing/calendar/scene features and the 0.9 deleted recovery, campaign content, business audiences, durable attribution, consent-aware analytics/retention, optional notifications and authenticated provider-event workflows. Their final 0.9 release status is **Verified, merged and delivered**; exact release evidence governs completion claims.
 
-That recovery finding and the earlier dated campaign-storage decision describe their original baselines. The bounded 0.8.6 SQL storage increment is now implemented: migration 015 creates the additive schema, and a separate reviewed owner action moves the preserved marketing snapshot. File-mode compatibility remains. [Marketing Storage](MARKETING_STORAGE.md) documents the active-backend and failure boundaries. The bounded 0.8.7 [editorial access and saved-owner preview](EDITORIAL_ACCESS.md) increment is also complete. The bounded 0.8.8 [editorial metadata](EDITORIAL_METADATA.md) and 0.8.9 [editorial history/restore](EDITORIAL_HISTORY.md) increments are complete. [The roadmap](ROADMAP.md) starts the remaining #9 work with separately scoped calendar and explicit post expiry; deleted-item recovery remains separate. SQL persistence does not implement indexed analytics or complete 0.9.
+Preserve the explicit owner-reviewed move from protected file storage to SQL after the required migration; schema application alone does not change the active backend. Measurement indexes are rebuildable projections bound to the canonical source and support bounded reports, not unrestricted performance claims. [Marketing Storage](MARKETING_STORAGE.md), [Attribution and analytics](MARKETING_ATTRIBUTION.md), [Campaign messages](CAMPAIGN_MESSAGES.md), [Notifications](NOTIFICATIONS.md) and [Mail-provider events](MAIL_PROVIDER_EVENTS.md) describe the implemented boundaries. Calendar reads remain inert; media, campaign, scene, notification and privacy workers retain their own guarded execution.
 
 - Editorial content uses explicit draft, scheduled, published, archived, and expiration states.
 - Public visibility is resolved by publication timing and audience rules rather than by obscured URLs alone.
@@ -241,15 +245,16 @@ That recovery finding and the earlier dated campaign-storage decision describe t
 - Promotional banners and campaign pages use live HTML around optional artwork rather than flattening functional content into images.
 - Scheduled Visual Composer scenes use snapshots, a claim state, and idempotent task processing.
 - File-store scene processing must re-read saved scene state after publication to avoid stale overwrite.
-- Link-in-bio clicks and referral events are recorded without exposing private member data publicly.
+- Public measurements require current explicit measurement consent; referral/campaign capture also requires validated saved definitions. Redirects continue when measurement is declined. Business audience matches do not supply newsletter consent. Stable business identities and erasure markers prevent duplicate or recreated attribution.
 
 ## Analytics and privacy
 
-- Analytics are first-party and same-origin by default.
+- Analytics are first-party and same-origin, with collection dependent on explicit signed measurement choice. Decline/removal is separate from account, newsletter and optional-notification choices.
 - Foreign-origin collection requests are rejected.
 - Analytics payloads exclude raw card data, payment credentials, protected-media contents, private-message bodies, attachments, identity records, and exact sensitive documents.
 - Collection can be disabled independently from other marketing features.
-- Analytics and consent data have configurable retention controls.
+- Raw measurements, daily totals and active origins have bounded retention controls. Minimal deletion markers and independent consent/suppression records remain when needed to prevent erased data from returning. Retained aggregate reports are not financial statements or cross-device identity claims.
+- Member privacy exports only the current member’s allowed records and visible attachments through authenticated, expiring private downloads. Reviewed closure rechecks current owner approval and inventory revision, resumes durable stages, preserves required financial/safety/shared records and blocks delayed recreation. It does not cancel external billing, erase independent backups or decide legal retention for the operator.
 - CSV exports protect against spreadsheet formula injection.
 - Screenshots support visual review but do not replace interactive browser acceptance.
 

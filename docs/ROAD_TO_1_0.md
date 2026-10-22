@@ -1,4 +1,26 @@
-# Build through 1.0 — active integration
+# Build through 1.0 — release and continuation
+
+## 0.9.0 / Build 20261021.4
+
+**Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](../docs/releases/0.9.0-safeguards.md), [CI evidence](../docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](../docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate.
+
+The 0.9 safeguards, privacy, marketing, recovery and operations implementation is bound to source `6e9a670c64aa02213a4f91eb619f2cf7500efde0`, actual CI checkout `2f4cc430050c8fdfbc3a8c1b718e33db26a12190` and tree `77c0bcb8b076ff8eabb867881990bc477621ba64`. Final conclusions: **All 26 required jobs passed; 266 configured steps succeeded, with two intentional member-only skips in the age-policy lanes. Final packaging passed.** Merge `47a3f2efc36041fa931ed461e66441cd1481fb8a` and literal saved-file verification at `2026-10-22T11:19:25.458669+00:00` establish the repository delivery described in [the release record](releases/0.9.0-safeguards.md).
+
+The completed release preserves every original required gate and adds current file/MySQL/MariaDB, Apache, privacy interruption, encrypted restore and desktop/mobile checks. Its Fresh/Upgrade packages contain 494/453 runtime entries. Compared with 0.8.14, 182 paths changed including 109 new, with 312 unchanged Fresh entries and no removals. Campaign audience controls and all six mandatory mobile footer links are included in this exact runtime cohort.
+
+## Continue payment engineering toward 1.0
+
+Provider-independent payment work continues separately as a **0.9.1 / Build 20261022.1 candidate**: durable bound operation/event/effect journals, atomic local financial/access updates, duplicate-reference refusal, held unknown outcomes, privacy-aware follow-ups and a recent-authenticated owner recovery screen. Its source, tests, full CI, merge and customer delivery require their own acceptance; none is implied by the 0.9.0 evidence. The selected processor's recurring agreement and lifecycle adapter remains additional engineering.
+
+Only Sandbox Gateway is registered. Continue all useful offline work before asking for inputs, then obtain the selected approved processor and merchant integration requirements; approved production mail recipients and service configuration; intended host access for preserved upgrade/rollback/restore and running-build checks; and configured age-provider/policy decisions. Those requirements remain open in issue #34 and actual-host issues #12/#13. Do not describe sandbox acceptance as live-payment or production-certified 1.0.
+
+Photo depth is resolved after the owner's installed-version update. Preserve that control. Root `.vvx-private-repair-*` folders contain preserved ownership-repair copies; use **System → Repair Backups → Move Root Backups to Private Storage**, followed only by a freshly verified duplicate decision. No actual customer-host inspection or deletion has occurred.
+
+[Release record](releases/0.9.0-safeguards.md) · [Final CI evidence](releases/0.9.0-safeguards-ci.json) · [Delivery evidence](releases/0.9.0-safeguards-delivery.json)
+
+## Historical integration checkpoint and correction history
+
+The following record retains the earlier candidate status, individual component runtimes, failed CI observations and then-pending work. Its historical release labels and remaining lists do not supersede the current release and continuation above.
 
 The owner requested “build through 1.0.” This authorizes the remaining engineering, integration and release work; it does not supply a live merchant account, production service credentials or access to the customer host. Work is tracked in [issue #34](https://github.com/afterburn25/velvet_vixxen/issues/34).
 
