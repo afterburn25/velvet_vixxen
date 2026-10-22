@@ -1,0 +1,1214 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-21T19:41:02.409998-05:00",
+  "scope": "Read-only frozen local74236eb source/workflow audit; later CSS/docs and final CI remain separate.",
+  "source": {
+    "sha256": "deb91c32f17f72f917f1b073226ee769ed4e3dc81c4207a0dc7475ce25340676",
+    "bytes": 9701,
+    "evidence": {
+      "audit_kind": "bounded_read_only_source_package_audit",
+      "source_commit": "74236ebb866a2d1f2bc3e9d2f50b89361738d601",
+      "source_tree": "3ac33eeea5ba3abb8035e17be8979e68635d7811",
+      "baseline_commit": "91f796767e2f5a844e9733703e92c965a99803cc",
+      "worktree_status_before": "",
+      "full_test_suites_rerun": false,
+      "findings": [],
+      "source_archive": {
+        "path": "/tmp/vvx-final-source-audit-74236eb/velvet-vixxen-74236eb-source.tar",
+        "format": "git archive tar",
+        "sha256": "330fb4ff7abb5e4034731775e436d9b553f8b0ea40baf52b222b578330c722d1",
+        "bytes": 27648000,
+        "files": 861,
+        "every_path_and_blob_matches_commit_tree": true
+      },
+      "worktree_runtime_matches_frozen_source": true,
+      "version": "0.9.0",
+      "build_id": "20261021.4",
+      "release_inventory": {
+        "baseline_version": "0.8.14",
+        "baseline_build_id": "20261021.3",
+        "baseline_delivered_fresh_sha256": "5365f363d4448ad40201a3db9e59f3b1c8573031126c6bbab16ababa22be84fb",
+        "baseline_runtime_files": 385,
+        "new_runtime_files": 109,
+        "changed_runtime_files_including_manifest": 180,
+        "v09_required_files": 109,
+        "differences": {
+          "builder_vs_independent_v09": [],
+          "builder_vs_independent_release": [],
+          "new_vs_floor": [],
+          "changed_vs_release": [],
+          "runtime_floor_vs_builder": [],
+          "runtime_test_vs_builder": [],
+          "deleted_runtime": [],
+          "absent_floor_source_files": []
+        },
+        "v09_paths_sha256": "6c08071a1e0d6c9b9d2ef8b1542c3443d9b9cedf8c3d2e2d33bd4646e970e8d8",
+        "release_paths_sha256": "51f64c5025045a2ff24ee645be7f13bc6b0e10bdd10785d7d16a9bb93fcf0e31"
+      },
+      "workflow": {
+        "path": ".github/workflows/repository-ci.yml",
+        "baseline_sha256": "ab2410c3e7fbfa976d061618b95ec3ae3945f59045a67036d5f4e9a04e3751ea",
+        "current_sha256": "725e3a56c4a2ad77d31e1828c085df74d41bc7dfa8728dbc43cafd69b95d82a7",
+        "baseline_distinct_step_objects": 61,
+        "baseline_expanded_step_objects": 82,
+        "preserved_full_objects_in_same_job_order": true,
+        "baseline_job_definitions": 5,
+        "baseline_expanded_jobs": 7,
+        "current_job_definitions": 11,
+        "current_configured_step_objects": 123,
+        "expanded_jobs": 26,
+        "expanded_steps": 268,
+        "baseline_step_mapping": {
+          "repository-contract": {
+            "baseline_steps": 2,
+            "current_steps": 3,
+            "matched_current_positions_one_based": [
+              1,
+              2
+            ]
+          },
+          "source-tests": {
+            "baseline_steps": 5,
+            "current_steps": 5,
+            "matched_current_positions_one_based": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          },
+          "mysql-migrations": {
+            "baseline_steps": 16,
+            "current_steps": 18,
+            "matched_current_positions_one_based": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16
+            ]
+          },
+          "http-browser": {
+            "baseline_steps": 34,
+            "current_steps": 34,
+            "matched_current_positions_one_based": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34
+            ]
+          },
+          "runtime-packages": {
+            "baseline_steps": 4,
+            "current_steps": 4,
+            "matched_current_positions_one_based": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        "errors": [],
+        "baseline_runner_env_matrix_services_and_metadata_unchanged": true,
+        "runtime_packages_added_required_jobs": [
+          "safeguards-browser",
+          "accessibility",
+          "mariadb-compatibility",
+          "protection-runtime",
+          "operations-recovery",
+          "privacy-access-runtime"
+        ],
+        "independent_workflow_audit": {
+          "path": "/tmp/vvx-final-workflow-audit-74236eb.json",
+          "sha256": "28483fc5b8f47730a3d2099d0d490646e472498f4f2bda29a48e153f4c32fa85"
+        },
+        "intentional_feature_conditional_skips": {
+          "count": 2,
+          "job": "privacy-access-runtime",
+          "step": "Verify complete member inventory and atomic core closure on the actual engine",
+          "condition": "matrix.feature == 'member_privacy'",
+          "skipped_variants": "age_policies × mysql-8.0 and mariadb-10.11"
+        },
+        "required_source_groups": [
+          {
+            "step": "Require documentation and executable source",
+            "count": 211,
+            "missing_or_empty": []
+          },
+          {
+            "step": "Require the additional integrated security privacy and operations sources",
+            "count": 175,
+            "missing_or_empty": []
+          }
+        ],
+        "referenced_suite_paths_checked": 202,
+        "missing_referenced_suite_paths": []
+      },
+      "packages": [
+        {
+          "kind": "fresh",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip",
+          "path": "/tmp/vvx-final-source-audit-74236eb/packages/Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip",
+          "sha256": "382555c9f74cc0d9fc5a1f9c83d5b4f9f2ab2167b411af1c7dbcb6680a58c551",
+          "bytes": 8106768,
+          "files": 494,
+          "comment_identity": {
+            "product": "Velvet Vixxen",
+            "version": "0.9.0",
+            "kind": "fresh",
+            "build_id": "20261021.4",
+            "supported_from": []
+          },
+          "root_files": [
+            ".htaccess",
+            "VERSION",
+            "index.php",
+            "route.php"
+          ],
+          "roots": [
+            "addons",
+            "admin",
+            "app",
+            "config",
+            "database",
+            "images",
+            "includes",
+            "install",
+            "public",
+            "storage",
+            "templates",
+            "uploads",
+            "vendor"
+          ],
+          "complete_source_byte_match": true,
+          "matches_existing_frozen_package": true,
+          "existing_frozen_package": "/tmp/vvx-member-privacy-mariadb-packages-618918b/Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip",
+          "sha256_unchanged_from_pre_privacy_hardening_75f4c01": false
+        },
+        {
+          "kind": "upgrade",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip",
+          "path": "/tmp/vvx-final-source-audit-74236eb/packages/Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip",
+          "sha256": "296ff3251aac3b7ad7fb6cc44ac93026bc6a3cd0e4e1a47735ede846867e4f8b",
+          "bytes": 7949511,
+          "files": 453,
+          "comment_identity": {
+            "product": "Velvet Vixxen",
+            "version": "0.9.0",
+            "kind": "upgrade",
+            "build_id": "20261021.4",
+            "supported_from": [
+              "0.8.0",
+              "0.8.1",
+              "0.8.2",
+              "0.8.3",
+              "0.8.4",
+              "0.8.5",
+              "0.8.6",
+              "0.8.7",
+              "0.8.8",
+              "0.8.9",
+              "0.8.10",
+              "0.8.11",
+              "0.8.12",
+              "0.8.13",
+              "0.8.14",
+              "0.9.0"
+            ]
+          },
+          "root_files": [
+            ".htaccess",
+            "VERSION",
+            "index.php",
+            "route.php"
+          ],
+          "roots": [
+            "addons",
+            "admin",
+            "app",
+            "database",
+            "images",
+            "includes",
+            "public",
+            "templates",
+            "vendor"
+          ],
+          "complete_source_byte_match": true,
+          "matches_existing_frozen_package": true,
+          "existing_frozen_package": "/tmp/vvx-member-privacy-mariadb-packages-618918b/Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip",
+          "sha256_unchanged_from_pre_privacy_hardening_75f4c01": false
+        },
+        {
+          "kind": "installer-repair",
+          "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "path": "/tmp/vvx-final-source-audit-74236eb/packages/Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+          "bytes": 60065,
+          "files": 11,
+          "comment_identity": {
+            "product": "Velvet Vixxen",
+            "version": "0.8.1",
+            "kind": "installer-repair",
+            "repair_build_id": "20261020.3",
+            "supported_from": [
+              "0.8.1"
+            ],
+            "installation_state": "incomplete"
+          },
+          "root_files": [],
+          "roots": [
+            "app",
+            "includes",
+            "install",
+            "public"
+          ],
+          "complete_source_byte_match": true,
+          "matches_existing_frozen_package": true,
+          "existing_frozen_package": "/tmp/vvx-member-privacy-mariadb-packages-618918b/Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+          "sha256_unchanged_from_pre_privacy_hardening_75f4c01": true
+        }
+      ],
+      "package_manifest": {
+        "path": "/tmp/vvx-final-source-audit-74236eb/packages/Velvet-Vixxen-0.9.0-Build-20261021.4-package-manifest.json",
+        "sha256": "0f00fe70c1ec56ed949d392821eea5dceb79c0a2e30d189c7aac3469c243fae1",
+        "matches_existing_frozen_manifest": true
+      },
+      "root_allowlists_unchanged_from_main91f": true,
+      "installer_repair_bytes_and_identity_unchanged_from_main91f": true,
+      "runtime_changed_since_75f4c01": [
+        "app/Core/MemberPrivacyService.php",
+        "app/Support/member_privacy.php",
+        "app/Views/admin/privacy.php"
+      ],
+      "worktree_status_after": "",
+      "head_after": "74236ebb866a2d1f2bc3e9d2f50b89361738d601",
+      "result": "pass"
+    }
+  },
+  "workflow": {
+    "sha256": "28483fc5b8f47730a3d2099d0d490646e472498f4f2bda29a48e153f4c32fa85",
+    "bytes": 31401,
+    "evidence": {
+      "status": "PASS",
+      "scope": "Read-only git-object workflow preservation audit; no suites executed",
+      "baseline_commit": "91f796767e2f5a844e9733703e92c965a99803cc",
+      "current_commit": "74236ebb866a2d1f2bc3e9d2f50b89361738d601",
+      "workflow_path": ".github/workflows/repository-ci.yml",
+      "baseline_workflow_sha256": "ab2410c3e7fbfa976d061618b95ec3ae3945f59045a67036d5f4e9a04e3751ea",
+      "current_workflow_sha256": "725e3a56c4a2ad77d31e1828c085df74d41bc7dfa8728dbc43cafd69b95d82a7",
+      "current_workflow_git_blob": "35d7ad78ca5c0048a900284f924d42ee564cefc8",
+      "baseline_job_definitions": 5,
+      "baseline_expanded_jobs": 7,
+      "baseline_distinct_step_objects": 61,
+      "baseline_expanded_step_objects": 82,
+      "all_baseline_full_step_objects_and_literal_run_strings_preserved_in_order": true,
+      "baseline_workflow_metadata_equal": {
+        "name": true,
+        "True": true,
+        "permissions": true,
+        "concurrency": true
+      },
+      "baseline_jobs": [
+        {
+          "job": "repository-contract",
+          "baseline_matrix_variants": [
+            {}
+          ],
+          "baseline_step_object_count": 2,
+          "baseline_expanded_step_count": 2,
+          "steps_preserved_in_order": [
+            {
+              "baseline_index": 0,
+              "current_index": 0,
+              "name": "actions/checkout@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "dd0465395fff2eaf34fe466af3f46904442331f18fbcb4d67ae136cd3ae05d18"
+            },
+            {
+              "baseline_index": 1,
+              "current_index": 1,
+              "name": "Require documentation and executable source",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "ea906a5531571e9025b3d77c52f4d2360365afe30a44e77277553441ae8f731d"
+            }
+          ],
+          "prerequisites_equal": {
+            "runs-on": true,
+            "env": true,
+            "strategy": true,
+            "services": true,
+            "defaults": true,
+            "permissions": true,
+            "timeout-minutes": true,
+            "continue-on-error": true,
+            "if": true
+          },
+          "nonstep_changes": {},
+          "added_steps": [
+            {
+              "index": 2,
+              "name": "Require the additional integrated security privacy and operations sources"
+            }
+          ]
+        },
+        {
+          "job": "source-tests",
+          "baseline_matrix_variants": [
+            {
+              "php": "8.2"
+            },
+            {
+              "php": "8.3"
+            }
+          ],
+          "baseline_step_object_count": 5,
+          "baseline_expanded_step_count": 10,
+          "steps_preserved_in_order": [
+            {
+              "baseline_index": 0,
+              "current_index": 0,
+              "name": "actions/checkout@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "dd0465395fff2eaf34fe466af3f46904442331f18fbcb4d67ae136cd3ae05d18"
+            },
+            {
+              "baseline_index": 1,
+              "current_index": 1,
+              "name": "shivammathur/setup-php@v2",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "c61c8e60db9d6c56d3589f951caf8e3f6d4b8178a2831b36e1619d82a456a192"
+            },
+            {
+              "baseline_index": 2,
+              "current_index": 2,
+              "name": "actions/setup-node@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "08ae82f189d7892a3c8f5ad8a4983f753c79ff7896b46df10d9d2ba733e6a193"
+            },
+            {
+              "baseline_index": 3,
+              "current_index": 3,
+              "name": "actions/setup-python@v5",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d48c345387114ad615ac7612c66f08d83c88ee46d7d847713f1f51926b7475d2"
+            },
+            {
+              "baseline_index": 4,
+              "current_index": 4,
+              "name": "Run mandatory source and packaging suites in disposable copies",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d459caec8577aad429ee64da3929250d860ff98aafb02246f1c3cf55981aa199"
+            }
+          ],
+          "prerequisites_equal": {
+            "runs-on": true,
+            "env": true,
+            "strategy": true,
+            "services": true,
+            "defaults": true,
+            "permissions": true,
+            "timeout-minutes": true,
+            "continue-on-error": true,
+            "if": true
+          },
+          "nonstep_changes": {},
+          "added_steps": []
+        },
+        {
+          "job": "mysql-migrations",
+          "baseline_matrix_variants": [
+            {
+              "php": "8.2"
+            },
+            {
+              "php": "8.3"
+            }
+          ],
+          "baseline_step_object_count": 16,
+          "baseline_expanded_step_count": 32,
+          "steps_preserved_in_order": [
+            {
+              "baseline_index": 0,
+              "current_index": 0,
+              "name": "actions/checkout@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "dd0465395fff2eaf34fe466af3f46904442331f18fbcb4d67ae136cd3ae05d18"
+            },
+            {
+              "baseline_index": 1,
+              "current_index": 1,
+              "name": "shivammathur/setup-php@v2",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "0f0c0a5c606af892a58bb7888ce41e97e1d81363129ef91c3dcbb987c6bd2015"
+            },
+            {
+              "baseline_index": 2,
+              "current_index": 2,
+              "name": "actions/setup-python@v5",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d48c345387114ad615ac7612c66f08d83c88ee46d7d847713f1f51926b7475d2"
+            },
+            {
+              "baseline_index": 3,
+              "current_index": 3,
+              "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "8965f2d94dc6091ac98fe9c7124653a0fa7a75ad4a3000a497074fa2d5c03ad1"
+            },
+            {
+              "baseline_index": 4,
+              "current_index": 4,
+              "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "359cdcf28b0bea5bfda5123df153229b669264c420a39fcecba7ebddd5a62a21"
+            },
+            {
+              "baseline_index": 5,
+              "current_index": 5,
+              "name": "Permit failure-injection triggers in the disposable MySQL service",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "e8912ba5747a514b4e29b2b9adf01f1357cfd7e39e9d6b21d4ef2b21092525e6"
+            },
+            {
+              "baseline_index": 6,
+              "current_index": 6,
+              "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "f1e0ed74c7623d5420d8b2a37b35920e8011eb8c3ca54a8dd2d421aa8da80e07"
+            },
+            {
+              "baseline_index": 7,
+              "current_index": 7,
+              "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "7bfdf01e2a7dc9c5862ae4418bc049d0fb0369d8bab59ab2fe03d0f2876f8dd2"
+            },
+            {
+              "baseline_index": 8,
+              "current_index": 8,
+              "name": "Install packaged HTTP acceptance dependencies",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "058c464e0d44bf80ab681862696c3e432a1b400f53d48c2cdd26a5119317aa25"
+            },
+            {
+              "baseline_index": 9,
+              "current_index": 9,
+              "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "6261e6cf5035698d5aa1fe0c57581a3721a1432b14619f4243d711cfc8db2f83"
+            },
+            {
+              "baseline_index": 10,
+              "current_index": 10,
+              "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "bb077ce8abb2db997280b6874c171a2754be261bc7bebed56dbd6017c406b59c"
+            },
+            {
+              "baseline_index": 11,
+              "current_index": 11,
+              "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "a9fed49b2dd199e7f224bcdf8a4a4701eb8dec96ee6cd8d65e3b3f2a6c6b97fd"
+            },
+            {
+              "baseline_index": 12,
+              "current_index": 12,
+              "name": "Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "8326aa1090985792793250042257d4d4d68373420359fb61a0324616f69409b4"
+            },
+            {
+              "baseline_index": 13,
+              "current_index": 13,
+              "name": "Preserve per-device scene depth and foreground masking through actual packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "325b012a99eb21071d566eccc5c6fa1aea2348cce6f1fdcaae0bb686ced1d92e"
+            },
+            {
+              "baseline_index": 14,
+              "current_index": 14,
+              "name": "Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "1ea88852c4cac884e2714284e148309d2c38ff9fb7a6e31b12294c0790e1e48e"
+            },
+            {
+              "baseline_index": 15,
+              "current_index": 15,
+              "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "57a6e886308d862e7740929e340a47ed9ecfc5f3587927bf396b6589e32f033d"
+            }
+          ],
+          "prerequisites_equal": {
+            "runs-on": true,
+            "env": true,
+            "strategy": true,
+            "services": true,
+            "defaults": true,
+            "permissions": true,
+            "timeout-minutes": true,
+            "continue-on-error": true,
+            "if": true
+          },
+          "nonstep_changes": {},
+          "added_steps": [
+            {
+              "index": 16,
+              "name": "Preserve atomic private journals under real MySQL concurrency and interruption"
+            },
+            {
+              "index": 17,
+              "name": "Verify durable attribution, privacy tombstones and exact business joins in MySQL"
+            }
+          ]
+        },
+        {
+          "job": "http-browser",
+          "baseline_matrix_variants": [
+            {}
+          ],
+          "baseline_step_object_count": 34,
+          "baseline_expanded_step_count": 34,
+          "steps_preserved_in_order": [
+            {
+              "baseline_index": 0,
+              "current_index": 0,
+              "name": "actions/checkout@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "013f3e07e00504e33bda746183e505021d945acc2dfb178cf1d094ef09ea5c8f"
+            },
+            {
+              "baseline_index": 1,
+              "current_index": 1,
+              "name": "shivammathur/setup-php@v2",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "111f34a80d90170cf76961148acfe56826f92d92bf59dd5481f3a4b388d2fa83"
+            },
+            {
+              "baseline_index": 2,
+              "current_index": 2,
+              "name": "actions/setup-python@v5",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d48c345387114ad615ac7612c66f08d83c88ee46d7d847713f1f51926b7475d2"
+            },
+            {
+              "baseline_index": 3,
+              "current_index": 3,
+              "name": "Install browser acceptance dependencies",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "8865c284c8a1623a1602505b3755acdc22ff18b6f427deebeeb4fd6f9582e949"
+            },
+            {
+              "baseline_index": 4,
+              "current_index": 4,
+              "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "56daa84da4f626a914c1d2e4dced9e6fab4847ecb6e7bf0674c7ad48d60d5e3e"
+            },
+            {
+              "baseline_index": 5,
+              "current_index": 5,
+              "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "7cf0310aa65797eca6ca0c7f7df7b1e6f2efb34497380ab87e32d11030d1fb27"
+            },
+            {
+              "baseline_index": 6,
+              "current_index": 6,
+              "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "db5d9088e05836373801c6abaa3936c0ce20e7f55a961a933439bc8ff3198a5c"
+            },
+            {
+              "baseline_index": 7,
+              "current_index": 7,
+              "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "007cf7c3f85f6a37bdfaffdd358f57d50265ef3368e63b9ce10ce60fe0089a1c"
+            },
+            {
+              "baseline_index": 8,
+              "current_index": 8,
+              "name": "Run installed HTTP suites in a disposable copy",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "5ff13d31b1ee699eeac09fabe217cbe9ee7b39402709cfca7e680e86341a2a39"
+            },
+            {
+              "baseline_index": 9,
+              "current_index": 9,
+              "name": "Keep private replies out of actual member and guest notification emails",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "fe1955ceff1f6a7ad8e029a0d83c13373c9bf6a1e9fdb3ff73ec2e017ff59ebc"
+            },
+            {
+              "baseline_index": 10,
+              "current_index": 10,
+              "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "3d3b4a7a8135a4329e22e60f116962d2a6c0beb96d529cf26278e9c7be1d62e3"
+            },
+            {
+              "baseline_index": 11,
+              "current_index": 11,
+              "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "0e7251bde30e930ecd802bd99bb20af8878681229945a329e10cb22a8da77d10"
+            },
+            {
+              "baseline_index": 12,
+              "current_index": 12,
+              "name": "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "bce3bc6186b0db6e93f600c154a0b759d5c6777a45ed1454698062af691ec6c3"
+            },
+            {
+              "baseline_index": 13,
+              "current_index": 13,
+              "name": "Preserve per-device scene depth and foreground masking through actual packaged file requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d684f82c13457929e7e03a480bdb83a7d09d41e980b579cf5529e0e3ee783fa1"
+            },
+            {
+              "baseline_index": 14,
+              "current_index": 14,
+              "name": "Place cutouts and trace foreground masks in actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "4936c6a59285019b4c082637609c561cac36e277324fe87a30ee08816927e9a0"
+            },
+            {
+              "baseline_index": 15,
+              "current_index": 15,
+              "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "509e4cd6940a68153adef6a5165caede7ed9bfddef3f10829683d0ab06ae4954"
+            },
+            {
+              "baseline_index": 16,
+              "current_index": 16,
+              "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "f107a068ee4ef2b29ff7b0e3c1ea8a96e8efb9afeab54c8da13346b0b9e964fd"
+            },
+            {
+              "baseline_index": 17,
+              "current_index": 17,
+              "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "c1cadf9c08c2c093c97bf44c57ec079e815c61706751c86206d9119528dd7ec8"
+            },
+            {
+              "baseline_index": 18,
+              "current_index": 18,
+              "name": "Run real desktop and mobile browser suites in a disposable copy",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "30ec7ec5390497815162497632a98456a9f8ac0cb47d2a9c45cdd21eed169c9b"
+            },
+            {
+              "baseline_index": 19,
+              "current_index": 19,
+              "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "968dea34f9fbaa42e6edc43d8539bf914f83915cf770e038d6c9920c34a5aa76"
+            },
+            {
+              "baseline_index": 20,
+              "current_index": 20,
+              "name": "Permit failure-injection triggers in the disposable MySQL service",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "e8912ba5747a514b4e29b2b9adf01f1357cfd7e39e9d6b21d4ef2b21092525e6"
+            },
+            {
+              "baseline_index": 21,
+              "current_index": 21,
+              "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "5faec25ca4289e662c41180385ae0751155c6af6b94fea03d6961c52c82a3673"
+            },
+            {
+              "baseline_index": 22,
+              "current_index": 22,
+              "name": "Edit publication windows through actual packaged owner and public pages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "e695793a49c65248515a4dab853925eb96ac2391846f8f2ba0587810532aff42"
+            },
+            {
+              "baseline_index": 23,
+              "current_index": 23,
+              "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "c3d96397689fbf320bbf51e1b7e9e529931d05ab8b0268389173ded2e3776cc2"
+            },
+            {
+              "baseline_index": 24,
+              "current_index": 24,
+              "name": "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "5f3cbe634095f60a8d7613adb127c719a76b653cc4f363c0c3c4de2892087e83"
+            },
+            {
+              "baseline_index": 25,
+              "current_index": 25,
+              "name": "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "b131f9ca0aafd4f4012a596aeb28135fc227d710920a6a039337ae3bf331b922"
+            },
+            {
+              "baseline_index": 26,
+              "current_index": 26,
+              "name": "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "122b667adb0ab443fe6ff070324941f179c13471d387299caecf8b4c3caa35b9"
+            },
+            {
+              "baseline_index": 27,
+              "current_index": 27,
+              "name": "Preserve saved menu order, targets and access through actual packaged file requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "48b0e4d819a963c5db18a8e6c06fae852e19eec008f9e6cfbae0183f9b938ca3"
+            },
+            {
+              "baseline_index": 28,
+              "current_index": 28,
+              "name": "Edit and navigate nested menus through actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "ad4144e3a7e6dc2235af55c9cdcf0edcd045e5b0568d3ad4f6d4e5ce534069f1"
+            },
+            {
+              "baseline_index": 29,
+              "current_index": 29,
+              "name": "Read the private publishing calendar and enforce post expiry through actual packaged file requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "a62e265b8ac8e7556e03e0efe09d3b801e6ff196628dffc3f8ce66ef6786c9ce"
+            },
+            {
+              "baseline_index": 30,
+              "current_index": 30,
+              "name": "Use the publishing calendar and post-expiry controls in actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "cc5c458e004d9efc285a17a16b5e32b37ce3318f1e764a40ec6bca238e6fd099"
+            },
+            {
+              "baseline_index": 31,
+              "current_index": 31,
+              "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged file requests",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "863fdd43f22e2d8d52e051488fadd904527079fc93e7bea37a8dd9b324231d47"
+            },
+            {
+              "baseline_index": 32,
+              "current_index": 32,
+              "name": "Schedule Hero and Footer changes through actual file and MySQL desktop and mobile packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "c3875abb3468a3d8e9a144725964d851c4123f0aafd8a75485659d5897eef112"
+            },
+            {
+              "baseline_index": 33,
+              "current_index": 33,
+              "name": "Upload real browser evidence",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "8b5429deae2ebccdfce8e7ae2d2dfb6da56ed10cef8fe57b19f4e8f00c96d35c"
+            }
+          ],
+          "prerequisites_equal": {
+            "runs-on": true,
+            "env": true,
+            "strategy": true,
+            "services": true,
+            "defaults": true,
+            "permissions": true,
+            "timeout-minutes": true,
+            "continue-on-error": true,
+            "if": true
+          },
+          "nonstep_changes": {},
+          "added_steps": []
+        },
+        {
+          "job": "runtime-packages",
+          "baseline_matrix_variants": [
+            {}
+          ],
+          "baseline_step_object_count": 4,
+          "baseline_expanded_step_count": 4,
+          "steps_preserved_in_order": [
+            {
+              "baseline_index": 0,
+              "current_index": 0,
+              "name": "actions/checkout@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "dd0465395fff2eaf34fe466af3f46904442331f18fbcb4d67ae136cd3ae05d18"
+            },
+            {
+              "baseline_index": 1,
+              "current_index": 1,
+              "name": "actions/setup-python@v5",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "d48c345387114ad615ac7612c66f08d83c88ee46d7d847713f1f51926b7475d2"
+            },
+            {
+              "baseline_index": 2,
+              "current_index": 2,
+              "name": "Build separate runtime packages",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "0b79895be5d227dcbee52f6da8335f020c58f706fff4aff97d8a8d1b797c40d4"
+            },
+            {
+              "baseline_index": 3,
+              "current_index": 3,
+              "name": "actions/upload-artifact@v4",
+              "full_step_object_equal": true,
+              "run_string_equal": true,
+              "canonical_step_sha256": "10cca22caa1c748a868f4453636018b2fafa28b7b67509784fef2a12e8f2ea01"
+            }
+          ],
+          "prerequisites_equal": {
+            "runs-on": true,
+            "env": true,
+            "strategy": true,
+            "services": true,
+            "defaults": true,
+            "permissions": true,
+            "timeout-minutes": true,
+            "continue-on-error": true,
+            "if": true
+          },
+          "nonstep_changes": {
+            "needs": {
+              "baseline": [
+                "source-tests",
+                "mysql-migrations",
+                "http-browser"
+              ],
+              "current": [
+                "source-tests",
+                "mysql-migrations",
+                "http-browser",
+                "safeguards-browser",
+                "accessibility",
+                "mariadb-compatibility",
+                "protection-runtime",
+                "operations-recovery",
+                "privacy-access-runtime"
+              ]
+            }
+          },
+          "added_steps": []
+        }
+      ],
+      "current_job_definitions": 11,
+      "current_expanded_jobs": 26,
+      "current_expanded_configured_steps": 268,
+      "intentional_feature_conditional_skips": {
+        "count": 2,
+        "job": "privacy-access-runtime",
+        "step": "Verify complete member inventory and atomic core closure on the actual engine",
+        "condition": "matrix.feature == 'member_privacy'",
+        "skipped_variants": "age_policies × mysql-8.0 and mariadb-10.11"
+      },
+      "matrix_counts": [
+        {
+          "job": "repository-contract",
+          "matrix_variants": [
+            {}
+          ],
+          "expanded_jobs": 1,
+          "steps_per_job": 3,
+          "expanded_configured_steps": 3
+        },
+        {
+          "job": "source-tests",
+          "matrix_variants": [
+            {
+              "php": "8.2"
+            },
+            {
+              "php": "8.3"
+            }
+          ],
+          "expanded_jobs": 2,
+          "steps_per_job": 5,
+          "expanded_configured_steps": 10
+        },
+        {
+          "job": "mysql-migrations",
+          "matrix_variants": [
+            {
+              "php": "8.2"
+            },
+            {
+              "php": "8.3"
+            }
+          ],
+          "expanded_jobs": 2,
+          "steps_per_job": 18,
+          "expanded_configured_steps": 36
+        },
+        {
+          "job": "http-browser",
+          "matrix_variants": [
+            {}
+          ],
+          "expanded_jobs": 1,
+          "steps_per_job": 34,
+          "expanded_configured_steps": 34
+        },
+        {
+          "job": "safeguards-browser",
+          "matrix_variants": [
+            {
+              "feature": "admin_security"
+            },
+            {
+              "feature": "editorial_recovery"
+            },
+            {
+              "feature": "campaign_messages"
+            },
+            {
+              "feature": "marketing_attribution"
+            },
+            {
+              "feature": "notifications"
+            },
+            {
+              "feature": "mail_provider"
+            }
+          ],
+          "expanded_jobs": 6,
+          "steps_per_job": 7,
+          "expanded_configured_steps": 42
+        },
+        {
+          "job": "accessibility",
+          "matrix_variants": [
+            {}
+          ],
+          "expanded_jobs": 1,
+          "steps_per_job": 7,
+          "expanded_configured_steps": 7
+        },
+        {
+          "job": "mariadb-compatibility",
+          "matrix_variants": [
+            {
+              "php": "8.2"
+            },
+            {
+              "php": "8.3"
+            }
+          ],
+          "expanded_jobs": 2,
+          "steps_per_job": 15,
+          "expanded_configured_steps": 30
+        },
+        {
+          "job": "protection-runtime",
+          "matrix_variants": [
+            {
+              "engine": "mysql-8.0",
+              "image": "mysql:8.0",
+              "health": "mysqladmin ping --silent"
+            },
+            {
+              "engine": "mariadb-10.11",
+              "image": "mariadb:10.11",
+              "health": "healthcheck.sh --connect --innodb_initialized"
+            }
+          ],
+          "expanded_jobs": 2,
+          "steps_per_job": 9,
+          "expanded_configured_steps": 18
+        },
+        {
+          "job": "operations-recovery",
+          "matrix_variants": [
+            {
+              "php": "8.2",
+              "engine": "mysql-8.0",
+              "image": "mysql:8.0",
+              "client": "mysql",
+              "health": "mysqladmin ping --silent"
+            },
+            {
+              "php": "8.2",
+              "engine": "mariadb-10.11",
+              "image": "mariadb:10.11",
+              "client": "mariadb",
+              "health": "healthcheck.sh --connect --innodb_initialized"
+            },
+            {
+              "php": "8.3",
+              "engine": "mysql-8.0",
+              "image": "mysql:8.0",
+              "client": "mysql",
+              "health": "mysqladmin ping --silent"
+            },
+            {
+              "php": "8.3",
+              "engine": "mariadb-10.11",
+              "image": "mariadb:10.11",
+              "client": "mariadb",
+              "health": "healthcheck.sh --connect --innodb_initialized"
+            }
+          ],
+          "expanded_jobs": 4,
+          "steps_per_job": 12,
+          "expanded_configured_steps": 48
+        },
+        {
+          "job": "privacy-access-runtime",
+          "matrix_variants": [
+            {
+              "feature": "member_privacy",
+              "engine": "mysql-8.0",
+              "image": "mysql:8.0",
+              "health": "mysqladmin ping --silent"
+            },
+            {
+              "feature": "member_privacy",
+              "engine": "mariadb-10.11",
+              "image": "mariadb:10.11",
+              "health": "healthcheck.sh --connect --innodb_initialized"
+            },
+            {
+              "feature": "age_policies",
+              "engine": "mysql-8.0",
+              "image": "mysql:8.0",
+              "health": "mysqladmin ping --silent"
+            },
+            {
+              "feature": "age_policies",
+              "engine": "mariadb-10.11",
+              "image": "mariadb:10.11",
+              "health": "healthcheck.sh --connect --innodb_initialized"
+            }
+          ],
+          "expanded_jobs": 4,
+          "steps_per_job": 9,
+          "expanded_configured_steps": 36
+        },
+        {
+          "job": "runtime-packages",
+          "matrix_variants": [
+            {}
+          ],
+          "expanded_jobs": 1,
+          "steps_per_job": 4,
+          "expanded_configured_steps": 4
+        }
+      ],
+      "added_job_definitions": [
+        "safeguards-browser",
+        "accessibility",
+        "mariadb-compatibility",
+        "protection-runtime",
+        "operations-recovery",
+        "privacy-access-runtime"
+      ]
+    }
+  }
+}

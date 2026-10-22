@@ -1,0 +1,1723 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-21T19:41:02.409998-05:00",
+  "scope": "Local component acceptance only; exact component identities retained, final CI and delivery pending.",
+  "file_mysql": {
+    "sha256": "3ca21f75e60a144179c891d936912c36eca7aaf3f7e8d4ee16439e2c50e3c089",
+    "bytes": 57747,
+    "evidence": {
+      "schema": 1,
+      "created_at_utc": "2026-10-21T23:41:16.676022+00:00",
+      "scope": "Completed local member-privacy file/MySQL source, actual Apache HTTP and Chromium browser evidence; bounded handoff only.",
+      "worktree": "/workspace/scratch/3715f676c66d/vvx-privacy-recovery",
+      "branch": "recovery/member-privacy",
+      "source_commit": "7d949c96898cb1006103bea8840fe954541474da",
+      "acceptance_rerun_during_handoff": false,
+      "root_worktree_edited": false,
+      "final_ci_claim": false,
+      "release_or_production_claim": false,
+      "package_identity": {
+        "tested_branch_fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+        "reported_version": "0.9.0",
+        "reported_build_id": "20261021.4",
+        "identity_agrees_across_all_four_reports": true,
+        "package_hash_origin": "Exact actual/expected Fresh ZIP hashes retained by the completed acceptance producers. Runtime files were checked against package bytes during each run.",
+        "package_bytes_rehashed_during_handoff": false,
+        "fresh_zip_retained_path": null,
+        "reason_no_current_zip_bytes": "The producers built/extracted packages inside disposable TemporaryDirectory runtimes and retained JSON/PNG/log evidence.",
+        "root_frozen_fresh_zip_sha256_reference_only": "382555c9f74cc0d9fc5a1f9c83d5b4f9f2ab2167b411af1c7dbcb6680a58c551",
+        "root_package_distinct_from_tested_branch_package": true,
+        "root_reference_origin": "Parent-provided integrated package identity; not tested by these four branch reports. The independent MariaDB lane owns its separate evidence."
+      },
+      "source_identity": {
+        "all_five_reported_test_source_hashes_match_current_files": true,
+        "reported_test_sources": [
+          {
+            "path": "tests/Feature/member_privacy.php",
+            "bytes": 17613,
+            "sha256": "e4b565aff4e43e924f659dbc6bd99edbfed188c222f13a8505df65f5cd6deacf"
+          },
+          {
+            "path": "tests/Feature/member_privacy_store.php",
+            "bytes": 11314,
+            "sha256": "dd7351c865e931244843660c8471ea95428671a75c6d627661faf5111a45b237"
+          },
+          {
+            "path": "tests/Http/member_privacy_fixture.php",
+            "bytes": 19169,
+            "sha256": "65d4bdc502db422859c533a8f32992538a749dc7d1c873fbc8fc5479741d8c4a"
+          },
+          {
+            "path": "tests/Http/member_privacy_http.py",
+            "bytes": 24829,
+            "sha256": "245f23c3dff03c06ad327d7e67359e0d2ca3939e0088bbb6c3e7ce67a69283cd"
+          },
+          {
+            "path": "tests/Browser/member_privacy_playwright.py",
+            "bytes": 10800,
+            "sha256": "1dea75421ff57f7e4f3cfdad96234cb6727dee17ab4c8531cf367424e2432755"
+          }
+        ],
+        "privacy_runtime_files_explicitly_compared_to_zip_by_producer": [
+          {
+            "path": "app/Core/MemberPrivacyService.php",
+            "bytes": 31919,
+            "sha256": "d15234a95c43e0a1c64f1c8e347d266ecce7bb0fa336a6f5c45727265508c9af"
+          },
+          {
+            "path": "app/Core/MemberPrivacyArchive.php",
+            "bytes": 10415,
+            "sha256": "9899777c407d11789a7cf1c7883a61f1139066265fd83c77a12682c5f93ce9f2"
+          },
+          {
+            "path": "app/Core/MemberPrivacyProjection.php",
+            "bytes": 8849,
+            "sha256": "8cac6505bd80ed87fc9cc28bb6b2771eae5539625a9f58b26c747bcd417f6ed7"
+          },
+          {
+            "path": "app/Core/MemberPrivacyDomains.php",
+            "bytes": 3431,
+            "sha256": "f86189141b9c3ce08ea9b10956fca026a6623455579491cd408b0cc35b9677b1"
+          },
+          {
+            "path": "app/Core/MemberPrivacyStoreTrait.php",
+            "bytes": 24373,
+            "sha256": "38ae50db9cfd2e03615fb5f0361493e307f9dc695dc5718584388f3bc111dd58"
+          },
+          {
+            "path": "app/Core/MarketingPrivacyErasure.php",
+            "bytes": 1737,
+            "sha256": "abcb56641681460babcf7aaed40b63f829cb8bd1f89b9cc7e14430ffa8fe59da"
+          },
+          {
+            "path": "app/Core/MarketingStorage.php",
+            "bytes": 39904,
+            "sha256": "c3f9f3912aba7c943f8af42b3967209ad9b600e65fb1a454c847e02745b35f2b"
+          },
+          {
+            "path": "app/Core/MarketingAttributionTrait.php",
+            "bytes": 22101,
+            "sha256": "fbca0d53c32f3a8b2bc4e53be901e9a3a1f39eb42534d0920d04f765dccce366"
+          },
+          {
+            "path": "app/Core/NotificationService.php",
+            "bytes": 39790,
+            "sha256": "d5725008194dec97b070d21930405fa9381d1ce8d295c4d5fc7eb5800f2ff6e6"
+          },
+          {
+            "path": "app/Core/MailProviderService.php",
+            "bytes": 17968,
+            "sha256": "4ec7c239e46cffef4da2c5bb2baf5a50f90e67863890f7cc538805a02ab61696"
+          },
+          {
+            "path": "app/Core/ProtectionRecords.php",
+            "bytes": 48351,
+            "sha256": "888d61488ccb0a079652760c9f8e8f14eda413fb2e9b5b6d6ea485f94f3573fb"
+          },
+          {
+            "path": "app/Core/MemberAuth.php",
+            "bytes": 11252,
+            "sha256": "1ca20379f9e6569da03e5583ff90a6f887b59835b2c6a766bdff24855c7c4eae"
+          },
+          {
+            "path": "app/Core/CommunicationStoreTrait.php",
+            "bytes": 60167,
+            "sha256": "23123e17683a13249c9ec37b90eb415db461d64df024660f71559d6cd7261238"
+          },
+          {
+            "path": "app/Core/PrivateCommunicationFile.php",
+            "bytes": 2128,
+            "sha256": "503eea14ba033df988428a1a8e7eb0662b11bd23b3e29d5d480507485508be2c"
+          },
+          {
+            "path": "app/Support/member_privacy.php",
+            "bytes": 2630,
+            "sha256": "56a0a21a5d1a235bf4298459cbb5c019262c4b78d8c475446da703e4607b6291"
+          },
+          {
+            "path": "app/Support/public_routes.php",
+            "bytes": 8615,
+            "sha256": "c2152b75cf21749b962a7396ba7ee284850fa5d0d24dd881415120dd32fc7f0b"
+          },
+          {
+            "path": "app/Views/admin/privacy.php",
+            "bytes": 13707,
+            "sha256": "c2f0f48510b0cc485f7a06045e707223325fe988899e792bdee56ce4ad1b71a5"
+          },
+          {
+            "path": "app/Views/admin/navigation.php",
+            "bytes": 2568,
+            "sha256": "cc5099e07940ad46fe7739de07c294a9a0130e24429aafc2f840791be2ff32a7"
+          },
+          {
+            "path": "admin/index.php",
+            "bytes": 88370,
+            "sha256": "293b74027deccffc954867ceb132b103378ad04b3c96267d4fbb43ac957d57b4"
+          },
+          {
+            "path": "app/Console/run_privacy.php",
+            "bytes": 1262,
+            "sha256": "d0094a073f596c3e284c75774ca71acccc177145f87527a6ca4cbaed7226ea53"
+          },
+          {
+            "path": "app/Docs/MEMBER_PRIVACY.md",
+            "bytes": 9907,
+            "sha256": "07902d132472458b85241d4f70340bacd693bc87ee7f029e757d282caa39e2a4"
+          },
+          {
+            "path": "public/routes/account/privacy.php",
+            "bytes": 9332,
+            "sha256": "d41fd16f6c5f4b63bf1ec7149070c16baa44d749b256ce40b82b9a9bd6dbd8d2"
+          },
+          {
+            "path": "public/routes/communication/privacy-download.php",
+            "bytes": 1536,
+            "sha256": "d462176883be859fa6f657c6d25fec01a4e9e61e83e7c9ef67dcc5e9ecab234a"
+          },
+          {
+            "path": "public/routes/communication/download.php",
+            "bytes": 2077,
+            "sha256": "0a3a2f2171aa9ebbcb52d0c19a2c705b3d530cdf52fae597f7d41ac84b0065a9"
+          },
+          {
+            "path": "public/assets/css/member-privacy.css",
+            "bytes": 4113,
+            "sha256": "0b44054ab54d914b51b6d08d977dd8cc758240178799072db78049e26a590b75"
+          },
+          {
+            "path": "public/assets/css/privacy-admin.css",
+            "bytes": 2755,
+            "sha256": "93a8ada9b6eef39c0b92f59519bf98f1fb272bf2f1519329fc563968bf5595de"
+          }
+        ],
+        "additional_current_component_files": [
+          {
+            "path": "app/Core/Store.php",
+            "bytes": 28779,
+            "sha256": "3f723ca5deb9d8e33b4248a9af963658595198692f7ed4fe7d1f9e47a112980f"
+          },
+          {
+            "path": "app/Core/MemberStoreTrait.php",
+            "bytes": 61995,
+            "sha256": "2b439011490143572e27ebad6c5459a3985ff2f4f6448a462b273955873cfc0b"
+          },
+          {
+            "path": "app/Core/CommerceStoreTrait.php",
+            "bytes": 39813,
+            "sha256": "578c1a7a13d8c1d44a52f555daffe99bd1406988268d840292fb453b869de4db"
+          },
+          {
+            "path": "app/Core/CommerceService.php",
+            "bytes": 47102,
+            "sha256": "18cb50a655effeb1b97fda2c17cd01a2d72488e9e2ad4827e54e65a8964f4d4c"
+          },
+          {
+            "path": "app/Core/MailService.php",
+            "bytes": 15258,
+            "sha256": "305903ec5f978076bc52c872a2d9ac0ae1e42e56980782de577d5d1edf3a34eb"
+          },
+          {
+            "path": "app/Core/MarketingStore.php",
+            "bytes": 56913,
+            "sha256": "944a97f858ef45b7364123b6378e33b9a13348ec315c2c728673a857421347a7"
+          },
+          {
+            "path": "app/Core/PrivateState.php",
+            "bytes": 17546,
+            "sha256": "419932644a00ffb213b0f035e57e33e364b319459b589bf739a88cfe7e573b3d"
+          },
+          {
+            "path": "app/Core/AgeAccess.php",
+            "bytes": 17692,
+            "sha256": "9f495fdd038401904a14d7e798b2219395d6255a83fe305139974afbc316d342"
+          },
+          {
+            "path": ".htaccess",
+            "bytes": 1721,
+            "sha256": "7bb582105bdc10a6747eca28a702e2a33dbbb43df73d3153b0e97644fb04b75d"
+          }
+        ],
+        "uncommitted_local_file": {
+          "path": "tests/Http/protection_records_http.py",
+          "reason": "Parent-owned Apache JIT supplemental INI adjustment applied locally for strict diagnostics; already integrated by parent.",
+          "bytes": 25522,
+          "sha256": "eeee911020d816c4f34ec327cc0fcadd5c759a4be0e29e96ed814b1f66a9aa01"
+        }
+      },
+      "source_runs": [
+        {
+          "mode": "file",
+          "test": "tests/Feature/member_privacy.php",
+          "assertions": 54,
+          "result": "pass_observed_in_completed_session",
+          "artifact": null,
+          "artifact_sha256": null,
+          "artifact_bytes": null,
+          "evidence_limit": "Original standalone stdout was not retained; this is the completed-session observation after c495009, not a reconstructed test report. No acceptance was rerun for this summary.",
+          "source_sha256": "e4b565aff4e43e924f659dbc6bd99edbfed188c222f13a8505df65f5cd6deacf"
+        },
+        {
+          "mode": "file",
+          "test": "tests/Feature/member_privacy_store.php",
+          "assertions": 19,
+          "result": "pass",
+          "retained_stdout": {
+            "container_artifact": {
+              "path": "/tmp/vvx-integrated-source.log",
+              "bytes": 7568,
+              "sha256": "98df4e87bbba792f40d4af62777068fc7f81a2b78f3a61eb1435131eeb5a179f"
+            },
+            "byte_offset": 5117,
+            "bytes": 192,
+            "sha256": "7397104c9f5efb72a1aba84e84ed0998552eed121ff726a86dbd8d884a2fd74c",
+            "parsed": {
+              "ok": true,
+              "assertions": 19,
+              "mode": "file",
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "financial_facts_preserved": true,
+              "delayed_writers_blocked": true
+            }
+          },
+          "source_sha256": "dd7351c865e931244843660c8471ea95428671a75c6d627661faf5111a45b237"
+        },
+        {
+          "mode": "mysql",
+          "test": "tests/Feature/member_privacy.php",
+          "assertions": 55,
+          "result": "pass",
+          "artifact": {
+            "path": "/tmp/vvx-privacy-mysql-service-source.json",
+            "bytes": 322,
+            "sha256": "7030030af6998cee6a1051c0974955f3f4335dd57894a7a5b9265b3b6db0bdc8"
+          },
+          "parsed": {
+            "ok": true,
+            "assertions": 55,
+            "mode": "mysql",
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "private_archive_verified": true,
+            "ten_stages_durable": true,
+            "other_members_unchanged": true,
+            "guest_records_unchanged": true,
+            "safety_holds_retained": true,
+            "tombstones_enforced": true
+          },
+          "source_sha256": "e4b565aff4e43e924f659dbc6bd99edbfed188c222f13a8505df65f5cd6deacf"
+        },
+        {
+          "mode": "mysql",
+          "test": "tests/Feature/member_privacy_store.php",
+          "assertions": 20,
+          "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+          "result": "pass_observed_in_completed_session",
+          "artifact": null,
+          "artifact_sha256": null,
+          "artifact_bytes": null,
+          "evidence_limit": "Original standalone stdout was not retained; this is a completed-session observation, not a reconstructed test report. The component source is unchanged in the current branch and its hash is recorded by each HTTP/browser report.",
+          "source_sha256": "dd7351c865e931244843660c8471ea95428671a75c6d627661faf5111a45b237"
+        }
+      ],
+      "completed_reports": [
+        {
+          "mode": "file",
+          "kind": "http",
+          "artifact": {
+            "path": "/tmp/vvx-privacy-file-http/member-privacy-http-evidence.json",
+            "bytes": 7097,
+            "sha256": "5193fb9bffcf3277f4d90cd69136931d0e75496b72dba850400c8ed9ccadf151"
+          },
+          "server": "real Apache + matching mod_php",
+          "version": "0.9.0",
+          "build_id": "20261021.4",
+          "fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "expected_fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "externally_pinned_fresh": false,
+          "exploratory": false,
+          "archive_runtime_matches_sources": true,
+          "chromium_version": null,
+          "case_count": 2,
+          "checks": 672,
+          "cases": {
+            "file-root": {
+              "checks": 337,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "402c1d8a310f7788e8e8aa87ca03a53db1975fd4919aca2152218b572e523ac7",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": false,
+              "killed_worker_recoveries": [
+                {
+                  "stage": "freeze",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 1,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "attribution",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 2,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "core",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 3,
+                  "owner_disable_held_and_reviewed": true
+                },
+                {
+                  "stage": "communications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 4,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "files",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 5,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "newsletter",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 6,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "notifications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 7,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "provider",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 8,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "protection",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 9,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "complete",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 10,
+                  "owner_disable_held_and_reviewed": false
+                }
+              ],
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "sql_same_id_ambiguity_denied_applicability": "not_applicable_to_file_storage; false is not a failed SQL check"
+            },
+            "file-nested": {
+              "checks": 335,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "bccab5050e6247caf73f18b15ea9330f697e4711411f94b7e6a8d68fc49c74e2",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": false,
+              "killed_worker_recoveries": [
+                {
+                  "stage": "freeze",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 1,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "attribution",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 2,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "core",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 3,
+                  "owner_disable_held_and_reviewed": true
+                },
+                {
+                  "stage": "communications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 4,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "files",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 5,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "newsletter",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 6,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "notifications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 7,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "provider",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 8,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "protection",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 9,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "complete",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 10,
+                  "owner_disable_held_and_reviewed": false
+                }
+              ],
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "sql_same_id_ambiguity_denied_applicability": "not_applicable_to_file_storage; false is not a failed SQL check"
+            }
+          },
+          "diagnostic_log_artifacts": [
+            {
+              "path": "/tmp/vvx-privacy-file-http/protection-file-nested-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-http/protection-file-nested-error.log",
+              "bytes": 1006,
+              "sha256": "ace66d26412f73749db5e8c693a79ffdc5e46ec90b11ccf61ed5fb344f091402"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-http/protection-file-root-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-http/protection-file-root-error.log",
+              "bytes": 972,
+              "sha256": "7c9f0af9cf9692acfb6c6f410ea0ceb60f7559f9b646492fdcb2cf99085d5e65"
+            }
+          ]
+        },
+        {
+          "mode": "file",
+          "kind": "browser",
+          "artifact": {
+            "path": "/tmp/vvx-privacy-file-browser/member-privacy-browser-evidence.json",
+            "bytes": 17965,
+            "sha256": "5017505227bfe622df337a40e7a2f659e901ea238d9ee81f8945bc5f96750d64"
+          },
+          "server": "real Apache + matching mod_php",
+          "version": "0.9.0",
+          "build_id": "20261021.4",
+          "fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "expected_fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "externally_pinned_fresh": false,
+          "exploratory": false,
+          "archive_runtime_matches_sources": true,
+          "chromium_version": "151.0.7922.34",
+          "case_count": 2,
+          "checks": 90,
+          "cases": {
+            "file-root-desktop": {
+              "checks": 45,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "43aee6058103b41e8cdcaeb129df9ee58ec323c241661b72b8544f229b9b28ff",
+              "javascript_errors": [],
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "layout_summary": {
+                "states": 6,
+                "viewport_widths": [
+                  1440
+                ],
+                "all_document_widths_equal_viewport": true,
+                "all_controls_positive_width_within_viewport": true
+              },
+              "screenshot_count": 6
+            },
+            "file-nested-mobile": {
+              "checks": 45,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "9e661369da3f3749c217268b3fb8d74a7387c338000289f8cbf19c3478f55dfb",
+              "javascript_errors": [],
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "layout_summary": {
+                "states": 6,
+                "viewport_widths": [
+                  390
+                ],
+                "all_document_widths_equal_viewport": true,
+                "all_controls_positive_width_within_viewport": true
+              },
+              "screenshot_count": 6
+            }
+          },
+          "diagnostic_log_artifacts": [
+            {
+              "path": "/tmp/vvx-privacy-file-browser/protection-file-nested-mobile-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-browser/protection-file-nested-mobile-error.log",
+              "bytes": 622,
+              "sha256": "84b63a89ec73af2fc1eee4158028ca8b01f16d9c3db1bafbf3c95e52b6c43978"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-browser/protection-file-root-desktop-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-file-browser/protection-file-root-desktop-error.log",
+              "bytes": 621,
+              "sha256": "d441213fc9ba572eb43dd57941ff366200ab8d9f07db6e90b7b9745ffc3c75e6"
+            }
+          ]
+        },
+        {
+          "mode": "mysql",
+          "kind": "http",
+          "artifact": {
+            "path": "/tmp/vvx-privacy-mysql-http/member-privacy-http-evidence.json",
+            "bytes": 7139,
+            "sha256": "1c3fb5231a04a09fadab1148f954c05e94321473937bfc9e8681d244abf58ff7"
+          },
+          "server": "real Apache + matching mod_php",
+          "version": "0.9.0",
+          "build_id": "20261021.4",
+          "fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "expected_fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "externally_pinned_fresh": false,
+          "exploratory": false,
+          "archive_runtime_matches_sources": true,
+          "chromium_version": null,
+          "case_count": 2,
+          "checks": 681,
+          "cases": {
+            "mysql-root": {
+              "checks": 341,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "orders_exported": 1007,
+              "archive_sha256": "85284c37b0b59a9414c7f1abc26286c500e44c8d367b3e25311e29c6a67259a4",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": true,
+              "killed_worker_recoveries": [
+                {
+                  "stage": "freeze",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 1,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "attribution",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 2,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "core",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 3,
+                  "owner_disable_held_and_reviewed": true
+                },
+                {
+                  "stage": "communications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 4,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "files",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 5,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "newsletter",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 6,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "notifications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 7,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "provider",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 8,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "protection",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 9,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "complete",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 10,
+                  "owner_disable_held_and_reviewed": false
+                }
+              ],
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true
+            },
+            "mysql-nested": {
+              "checks": 340,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "orders_exported": 1007,
+              "archive_sha256": "f7ccae9c9c06f2d19931a1bc3b9068afcedab59a32d78858cc78ad08e87084ca",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": true,
+              "killed_worker_recoveries": [
+                {
+                  "stage": "freeze",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 1,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "attribution",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 2,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "core",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 3,
+                  "owner_disable_held_and_reviewed": true
+                },
+                {
+                  "stage": "communications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 4,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "files",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 5,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "newsletter",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 6,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "notifications",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 7,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "provider",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 8,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "protection",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 9,
+                  "owner_disable_held_and_reviewed": false
+                },
+                {
+                  "stage": "complete",
+                  "process_killed": true,
+                  "concurrent_busy": true,
+                  "resumed_stage": 10,
+                  "owner_disable_held_and_reviewed": false
+                }
+              ],
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true
+            }
+          },
+          "diagnostic_log_artifacts": [
+            {
+              "path": "/tmp/vvx-privacy-mysql-http/protection-mysql-nested-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-http/protection-mysql-nested-error.log",
+              "bytes": 1173,
+              "sha256": "50b60281a76d3598a0e36e95a48b5aae2c4b92d21798e03daa24005a1fcc670c"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-http/protection-mysql-root-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-http/protection-mysql-root-error.log",
+              "bytes": 1139,
+              "sha256": "7fd8fe6958e708556264227472ebf2a0fb3de4d2ca5183b39924a2f01ca67859"
+            }
+          ]
+        },
+        {
+          "mode": "mysql",
+          "kind": "browser",
+          "artifact": {
+            "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-browser-evidence.json",
+            "bytes": 18021,
+            "sha256": "4e1be6516cdcb973d6d5a9f446afd3d8b26fe6c6c72c69920ac3d2654a6d89b4"
+          },
+          "server": "real Apache + matching mod_php",
+          "version": "0.9.0",
+          "build_id": "20261021.4",
+          "fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "expected_fresh_zip_sha256": "4b6c30fba990ba23b9b7dd50039263d14b4191ca8b2b9255433c1597e02cb73a",
+          "externally_pinned_fresh": false,
+          "exploratory": false,
+          "archive_runtime_matches_sources": true,
+          "chromium_version": "151.0.7922.34",
+          "case_count": 2,
+          "checks": 90,
+          "cases": {
+            "mysql-root-desktop": {
+              "checks": 45,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "orders_exported": 1007,
+              "archive_sha256": "333119c41bc1e2980791ec99b6ae3e99bf49903bfe10059c7d4ad259b3299fbe",
+              "javascript_errors": [],
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "layout_summary": {
+                "states": 6,
+                "viewport_widths": [
+                  1440
+                ],
+                "all_document_widths_equal_viewport": true,
+                "all_controls_positive_width_within_viewport": true
+              },
+              "screenshot_count": 6
+            },
+            "mysql-nested-mobile": {
+              "checks": 45,
+              "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+              "orders_exported": 1007,
+              "archive_sha256": "6e180b66d5c15388479b3f498b8d41f1170f26ce68ba718fdcaf7ff41a08be1a",
+              "javascript_errors": [],
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "layout_summary": {
+                "states": 6,
+                "viewport_widths": [
+                  390
+                ],
+                "all_document_widths_equal_viewport": true,
+                "all_controls_positive_width_within_viewport": true
+              },
+              "screenshot_count": 6
+            }
+          },
+          "diagnostic_log_artifacts": [
+            {
+              "path": "/tmp/vvx-privacy-mysql-browser/protection-mysql-nested-mobile-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-browser/protection-mysql-nested-mobile-error.log",
+              "bytes": 623,
+              "sha256": "dc630a3872c75bcb626389e4fff3880aaa4407f2fa35aa5e301fb9cd2c3d2af8"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-browser/protection-mysql-root-desktop-console.log",
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            {
+              "path": "/tmp/vvx-privacy-mysql-browser/protection-mysql-root-desktop-error.log",
+              "bytes": 622,
+              "sha256": "ea8d3f3d4243189b094d5dbd69a99b89d644fe50b04fc7361ead4f635d72e334"
+            }
+          ]
+        }
+      ],
+      "totals": {
+        "http_cases": 4,
+        "http_checks": 1353,
+        "browser_cases": 4,
+        "browser_checks": 180,
+        "source_assertions_observed": 148,
+        "source_assertions_with_retained_output": 74,
+        "screenshot_count": 24,
+        "screenshot_bytes": 12386586,
+        "all_screenshot_report_hashes_match": true,
+        "all_screenshots_png_crc_verified_and_fully_decoded": true,
+        "visually_inspected_screenshots": 8,
+        "new_handoff_visual_inspections": 6
+      },
+      "screenshot_manifest": [
+        {
+          "case": "file-root-desktop",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-member-overview.png",
+          "bytes": 194192,
+          "sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5",
+          "reported_sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1358,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "ac29bc13ad26e2bf2645f70c5c1069f14d30bd6e5478f6a265f72b777dd1772f",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "previous_turn",
+            "finding": "Desktop member overview previously inspected; two-card layout and primary controls fit."
+          }
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-owner-overview.png",
+          "bytes": 475714,
+          "sha256": "ec5f3b19fb63c6a90c92310d91c3745d4278e6b2cbb2105abeb122318bdbae05",
+          "reported_sha256": "ec5f3b19fb63c6a90c92310d91c3745d4278e6b2cbb2105abeb122318bdbae05",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1060,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "145cb2799bc488603d9c5c03ff20756b67abf49a2859d4172d18f0d2dbb6e6f4",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-export-review.png",
+          "bytes": 900515,
+          "sha256": "a43dcb5a8a33a403c65cb353948ca18c06bd1d0a178ffa2fc58af0935cd5bdf6",
+          "reported_sha256": "a43dcb5a8a33a403c65cb353948ca18c06bd1d0a178ffa2fc58af0935cd5bdf6",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 2485,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "1e74bce2b96b4a102d4b032b4449791e8b7d48de3ecf009fa7a6a11932d38f65",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-export-ready.png",
+          "bytes": 216301,
+          "sha256": "a4069ea0399bb7ca27309e5c05d10c18f7f695a50d1c3761235b04e4a15b0ed7",
+          "reported_sha256": "a4069ea0399bb7ca27309e5c05d10c18f7f695a50d1c3761235b04e4a15b0ed7",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1619,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "8eeb0c8ef2050405c8d267a455512b3c14409a6bc202d5825a4240ead623c232",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-closure-review.png",
+          "bytes": 1177571,
+          "sha256": "b6dd37f964757c6b2a5ec9fbb853cb27c46beca3b6dc2d1e30e6b07854919084",
+          "reported_sha256": "b6dd37f964757c6b2a5ec9fbb853cb27c46beca3b6dc2d1e30e6b07854919084",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 3332,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "8cb64659ca2e98d003aa7024cd5e0954b2f7aafa44a70d7486ccb7092b1491b7",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-root-desktop",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-root-desktop-closure-complete.png",
+          "bytes": 645804,
+          "sha256": "c025ad8f9e2a6f93f9936e2e6589ef1d0b780a6df8b6f5ad79e237456fe3e088",
+          "reported_sha256": "c025ad8f9e2a6f93f9936e2e6589ef1d0b780a6df8b6f5ad79e237456fe3e088",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1483,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "b6d4db4bf66f10b5d2843199ec7f79ed90f54b14c80bac3679de73a24700beb6",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-member-overview.png",
+          "bytes": 191606,
+          "sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894",
+          "reported_sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2438,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "52c9fb04e13b7d42ea293d25415f80badf2abafd782eaa9f6da55bed3e106ef9",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile member overview inspected: readable stacked sections, distinct password/confirmation controls, no visible clipping or overlap."
+          }
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-owner-overview.png",
+          "bytes": 304351,
+          "sha256": "b6f68dc58ab198f949d447da750ab5ab5456f11f6a5bce053fcc7ef1ea7762d1",
+          "reported_sha256": "b6f68dc58ab198f949d447da750ab5ab5456f11f6a5bce053fcc7ef1ea7762d1",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 1442,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "6fbc7707e6b38991044ef844ec7995d5675c52819048fd391d00226f21095e4f",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile owner overview inspected: navigation, run button, guide and worker command fit; secondary helper text and links are visibly dim on the dark cards."
+          }
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-export-review.png",
+          "bytes": 617715,
+          "sha256": "22d4d9a81ac37bf9f236406ea7a3aae46297c895ca46666eed8a0dd4825fbe1d",
+          "reported_sha256": "22d4d9a81ac37bf9f236406ea7a3aae46297c895ca46666eed8a0dd4825fbe1d",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 3796,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "29b53ecaf71d977291987881a2b90ae4472f02956cf847c488afa7d2623fe5f7",
+          "visually_inspected": false
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-export-ready.png",
+          "bytes": 212690,
+          "sha256": "6b469af6d488a034b5a5d81d58d2d156e10e841d5dfb937b987f59aa3eb37b8b",
+          "reported_sha256": "6b469af6d488a034b5a5d81d58d2d156e10e841d5dfb937b987f59aa3eb37b8b",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2774,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "19f687184914c5e9c187780b4bd836c4829490db3034e59bcc2611724c4e7b80",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile member completed export inspected: download button and explicit CDT request/expiry dates visible, complete/canceled states clear, no visible clipping."
+          }
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-closure-review.png",
+          "bytes": 814600,
+          "sha256": "050583f3f30e3fabb19233513c6b85adb474d401bd541500cd1d009bc27578f1",
+          "reported_sha256": "050583f3f30e3fabb19233513c6b85adb474d401bd541500cd1d009bc27578f1",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 5123,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "279eb16435c8987fe27fe75dffec474a2dd488fe07b49e8f4e62d7d254ce0b3e",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "previous_turn",
+            "finding": "Mobile closure review previously inspected for layout and form controls; the present handoff also identifies dim secondary owner text in this shared stylesheet."
+          }
+        },
+        {
+          "case": "file-nested-mobile",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-file-browser/member-privacy-file-nested-mobile-closure-complete.png",
+          "bytes": 442148,
+          "sha256": "4aa0d6c4f4ca49e86fb62e302fcec30b4149dd7a681e0cdfc2848bc03bb56f5a",
+          "reported_sha256": "4aa0d6c4f4ca49e86fb62e302fcec30b4149dd7a681e0cdfc2848bc03bb56f5a",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2186,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "e4d2b4701310ca445d9f4dbcde77d09e22300da382568572b8e8867964ac1015",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-member-overview.png",
+          "bytes": 194192,
+          "sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5",
+          "reported_sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1358,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "ac29bc13ad26e2bf2645f70c5c1069f14d30bd6e5478f6a265f72b777dd1772f",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-owner-overview.png",
+          "bytes": 475714,
+          "sha256": "ec5f3b19fb63c6a90c92310d91c3745d4278e6b2cbb2105abeb122318bdbae05",
+          "reported_sha256": "ec5f3b19fb63c6a90c92310d91c3745d4278e6b2cbb2105abeb122318bdbae05",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1060,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "145cb2799bc488603d9c5c03ff20756b67abf49a2859d4172d18f0d2dbb6e6f4",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-export-review.png",
+          "bytes": 900504,
+          "sha256": "f4c4f14e6e56667ee7792a4ed820012303732fffca5c38895a5d3e499d19bfcb",
+          "reported_sha256": "f4c4f14e6e56667ee7792a4ed820012303732fffca5c38895a5d3e499d19bfcb",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 2485,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "4b94ef4d0093b5bd330042cb6cf8ff42f6078c0d51cf4c4456486293049f0d61",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-export-ready.png",
+          "bytes": 216665,
+          "sha256": "79ed9f2586b4c7752a81d9e183b0f3f66876035807d85f0f077281a5c0c241ca",
+          "reported_sha256": "79ed9f2586b4c7752a81d9e183b0f3f66876035807d85f0f077281a5c0c241ca",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1619,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "6e3a5ff66e3b7e7528cbde49de44d5978e58abbc84fb903f400436d21f59255d",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-closure-review.png",
+          "bytes": 1177470,
+          "sha256": "10bf6b17f5e95a6cbed4269dc86d78ba5340ee57c7b4c803e0cc2fc53bacb6d8",
+          "reported_sha256": "10bf6b17f5e95a6cbed4269dc86d78ba5340ee57c7b4c803e0cc2fc53bacb6d8",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 3332,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "0eb2056fc10e4d9961950e277e78c33205cf4dfa57772ae05e007f3098d54883",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-root-desktop",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-root-desktop-closure-complete.png",
+          "bytes": 645611,
+          "sha256": "992b0b6b6105d6e559e80802600dc09646fae15f31b56c134721f610e44f9b61",
+          "reported_sha256": "992b0b6b6105d6e559e80802600dc09646fae15f31b56c134721f610e44f9b61",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 1440,
+          "height": 1483,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "d76b27879aeebaf1021e30544a8e75c08ff724d84a812b04b2a97f75f8d46657",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "member-overview",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-member-overview.png",
+          "bytes": 191606,
+          "sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894",
+          "reported_sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2438,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "52c9fb04e13b7d42ea293d25415f80badf2abafd782eaa9f6da55bed3e106ef9",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "owner-overview",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-owner-overview.png",
+          "bytes": 304351,
+          "sha256": "b6f68dc58ab198f949d447da750ab5ab5456f11f6a5bce053fcc7ef1ea7762d1",
+          "reported_sha256": "b6f68dc58ab198f949d447da750ab5ab5456f11f6a5bce053fcc7ef1ea7762d1",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 1442,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "6fbc7707e6b38991044ef844ec7995d5675c52819048fd391d00226f21095e4f",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "export-review",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-export-review.png",
+          "bytes": 618061,
+          "sha256": "5a04ce0bdb3dc1d0154f64e43ce9c57c91bafacd16cd4058174597fae363f421",
+          "reported_sha256": "5a04ce0bdb3dc1d0154f64e43ce9c57c91bafacd16cd4058174597fae363f421",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 3796,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "ad620812aad1f180e05b6e6a79e7ecbb1ca4f9caa64633eeeffc1f6ee3ad6987",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile owner export review inspected: all inventory cards including 1,007 orders fit in two columns; review action fits; muted helper/status text and links are dim."
+          }
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "export-ready",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-export-ready.png",
+          "bytes": 212656,
+          "sha256": "b3868ad78c189ddd479e7ce3bfb8c001d1fa7cf7f7ff8f36e3c347afc7215212",
+          "reported_sha256": "b3868ad78c189ddd479e7ce3bfb8c001d1fa7cf7f7ff8f36e3c347afc7215212",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2774,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "7a26327033c183206d2386571de6da1d39d8386888ba25531091bf32699bcee5",
+          "visually_inspected": false
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "closure-review",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-closure-review.png",
+          "bytes": 814696,
+          "sha256": "d31d9215c777d8875808fec450f08a9933b01a620b6d997822c772344131ce79",
+          "reported_sha256": "d31d9215c777d8875808fec450f08a9933b01a620b6d997822c772344131ce79",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 5123,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "444a805cfe1a76779177bb84be00b96984dec6b2ba2c779080b6a1d55a4ed7cc",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile owner closure review inspected: retention textarea/date and all six review checks fit; helper copy and journal metadata are dim on dark cards."
+          }
+        },
+        {
+          "case": "mysql-nested-mobile",
+          "name": "closure-complete",
+          "path": "/tmp/vvx-privacy-mysql-browser/member-privacy-mysql-nested-mobile-closure-complete.png",
+          "bytes": 441853,
+          "sha256": "36ac6f37081b6d03c893af3730190c7ff62041516d363f9760f47e2d7f0d2dd0",
+          "reported_sha256": "36ac6f37081b6d03c893af3730190c7ff62041516d363f9760f47e2d7f0d2dd0",
+          "reported_sha256_matches": true,
+          "png_crc_verified": true,
+          "fully_decoded": true,
+          "width": 390,
+          "height": 2186,
+          "mode": "RGB",
+          "decoded_pixel_sha256": "3279c76e95ee44415214108dbac76208e3ea196ff06ad552f423343c518f84da",
+          "visually_inspected": true,
+          "visual_inspection": {
+            "when": "handoff",
+            "finding": "Mobile owner completion inspected: ten-stage success banner, retained review date and revoked export states visible; secondary journal metadata is dim."
+          }
+        }
+      ],
+      "visual_review": {
+        "layout_findings": "Inspected primary controls, inventory cards, member download states, retention fields/checks and completion states fit the captured mobile/desktop widths without visible clipping or overlap.",
+        "followup_required": true,
+        "finding": "The tested branch owner stylesheet uses dark hard-coded secondary text/link colors on dark admin cards. Helper copy, request dates/statuses and text links are visibly dim in mobile screenshots. Functional and geometry checks did not measure color contrast.",
+        "affected_source": "public/assets/css/privacy-admin.css",
+        "observed_colors": [
+          "#675b68",
+          "#8d245c",
+          "#78234e"
+        ],
+        "parent_notified": true,
+        "code_changed_for_finding": false
+      },
+      "cleanup": {
+        "mysql": {
+          "artifact": {
+            "path": "/tmp/vvx-privacy-mysql-cleanup.json",
+            "bytes": 122,
+            "sha256": "113b734faddd87b16dffef777c0b60df2c5757261cc7711dd9d6c46ffe2fa9b2"
+          },
+          "parsed": {
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "table_count_after_acceptance": 0,
+            "empty_owned_schema": true
+          }
+        }
+      },
+      "limits": [
+        "These are local retained proofs, not a final CI or production verification.",
+        "File service 54-check and MySQL store 20-check successes are completed-session observations without retained standalone stdout; no report bytes or hashes are invented for them.",
+        "The older 52-check file service output in vvx-integrated-source.log is superseded and is not counted as the current 54-check strict-approval regression.",
+        "All 24 PNG byte hashes and full decode checks were repeated during this handoff; only the identified eight screenshots have a recorded visual inspection.",
+        "MariaDB evidence belongs to the independent lane and is not merged into this file/MySQL summary.",
+        "External recurring billing, backup deletion, live hosting and operator retention decisions are outside this local acceptance."
+      ]
+    }
+  },
+  "mariadb": {
+    "sha256": "a3225e6481835fb3df23168c9bb01f51b06bcd30c1a1c3f1d263ba0acb46c50c",
+    "bytes": 9122,
+    "evidence": {
+      "status": "PASS",
+      "scope": "Disposable actual-package MariaDB privacy acceptance; no production services contacted",
+      "source_commit_at_build": "74236ebb866a2d1f2bc3e9d2f50b89361738d601",
+      "source_commit_after_acceptance": "74236ebb866a2d1f2bc3e9d2f50b89361738d601",
+      "source_worktree_status_after_acceptance": "",
+      "all_recorded_producer_and_helper_hashes_unchanged": true,
+      "runtime": {
+        "php": "8.3.6",
+        "mariadb": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+        "chromium": "151.0.7922.34",
+        "server": "real Apache + matching mod_php"
+      },
+      "version": "0.9.0",
+      "build_id": "20261021.4",
+      "fresh_zip_sha256": "382555c9f74cc0d9fc5a1f9c83d5b4f9f2ab2167b411af1c7dbcb6680a58c551",
+      "package_manifest_sha256": "0f00fe70c1ec56ed949d392821eea5dceb79c0a2e30d189c7aac3469c243fae1",
+      "source_assertions": {
+        "member_privacy": 55,
+        "member_privacy_store": 20
+      },
+      "http_checks": {
+        "mysql-root": 333,
+        "mysql-nested": 333
+      },
+      "browser_checks": {
+        "mysql-root-desktop": 45,
+        "mysql-nested-mobile": 45
+      },
+      "complete_orders_exported_per_case": 1007,
+      "real_killed_worker_recoveries": 20,
+      "same_id_sql_attachment_denial_both_cases": true,
+      "own_archive_under_age_and_location_gate_both_cases": true,
+      "javascript_page_errors": 0,
+      "php_log_diagnostics": 0,
+      "smtp_connections": 0,
+      "schema_empty_checks": [
+        {
+          "file": "database-after-browser.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-after-http.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-after-source.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-before-browser.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-before-http.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-before-source.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        },
+        {
+          "file": "database-between-source.json",
+          "expected_engine": "mariadb-10.11",
+          "actual_engine": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+          "schema": "vvx_test_upgrade",
+          "table_count": 0,
+          "php": "8.3.6"
+        }
+      ],
+      "decoded_and_hash_verified_screenshots": [
+        {
+          "file": "member-privacy-mysql-root-desktop-member-overview.png",
+          "width": 1440,
+          "height": 1358,
+          "sha256": "3fea8f8db588e69d90b0ba0cc11d7d2527da9d46731ca26f7e5adc3310389ac5"
+        },
+        {
+          "file": "member-privacy-mysql-root-desktop-owner-overview.png",
+          "width": 1440,
+          "height": 1060,
+          "sha256": "ec5f3b19fb63c6a90c92310d91c3745d4278e6b2cbb2105abeb122318bdbae05"
+        },
+        {
+          "file": "member-privacy-mysql-root-desktop-export-review.png",
+          "width": 1440,
+          "height": 2485,
+          "sha256": "a579779e61d56d05f6eafb1e3d8e988f281b5846d888ce81467f857f40a0844a"
+        },
+        {
+          "file": "member-privacy-mysql-root-desktop-export-ready.png",
+          "width": 1440,
+          "height": 1619,
+          "sha256": "83a594b52fc698a59080545cdf256cbc4d3a8a635dddaa37f8ca20e30748f2ae"
+        },
+        {
+          "file": "member-privacy-mysql-root-desktop-closure-review.png",
+          "width": 1440,
+          "height": 3332,
+          "sha256": "474a62d2956fa5bb937941bd72725810cead99ea96ab738e98302e9d75380552"
+        },
+        {
+          "file": "member-privacy-mysql-root-desktop-closure-complete.png",
+          "width": 1440,
+          "height": 1483,
+          "sha256": "64d8381782ccb9aa2537119164e94c3c3efc6f9932612d954fd9d82d5b1f4bf4"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-member-overview.png",
+          "width": 390,
+          "height": 2438,
+          "sha256": "e1780a50df46267b6152d9cd82bbe184ceae09a485352720beab8019c56aa894"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-owner-overview.png",
+          "width": 390,
+          "height": 1442,
+          "sha256": "b6f68dc58ab198f949d447da750ab5ab5456f11f6a5bce053fcc7ef1ea7762d1"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-export-review.png",
+          "width": 390,
+          "height": 3796,
+          "sha256": "75372ed12e4b8447d4195e32d824d1d86ecaff76be09c7759049d301460118e9"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-export-ready.png",
+          "width": 390,
+          "height": 2774,
+          "sha256": "64993f7940dfd13299622233a9c46d172d22fb62ef06e1d59a399ac9a695db86"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-closure-review.png",
+          "width": 390,
+          "height": 5123,
+          "sha256": "88c6bc3d328be9c480fab2656f0054fdb5e66d3f687568af8fea5a3ca80cc0bf"
+        },
+        {
+          "file": "member-privacy-mysql-nested-mobile-closure-complete.png",
+          "width": 390,
+          "height": 2186,
+          "sha256": "dc42fa8310ea470e0c8dae966529e39fb7ccf734d0613a286dc33b53d7c1f97c"
+        }
+      ],
+      "visual_review": [
+        "member-privacy-mysql-root-desktop-member-overview.png",
+        "member-privacy-mysql-root-desktop-closure-review.png",
+        "member-privacy-mysql-nested-mobile-member-overview.png",
+        "member-privacy-mysql-nested-mobile-closure-review.png"
+      ],
+      "layout_records_checked": 12,
+      "logs": [
+        {
+          "file": "browser-run.log",
+          "sha256": "2730fe39d75cb7e51515e27e7f6c20bd16b7c4b51228d4b125f0c99c39a71fd2",
+          "bytes": 18123,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "http-run.log",
+          "sha256": "a975361f4e140a446f5f95c4481d9b68b44c067135a1418cd6dc1c5cfab23b8b",
+          "bytes": 7220,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-nested-console.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-nested-error.log",
+          "sha256": "dab7afb58ade99dcd1d6982cbb14d0e635a1bac191bc052d3704a46c3a43feda",
+          "bytes": 1173,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-nested-mobile-console.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-nested-mobile-error.log",
+          "sha256": "7055af36481dd10e425921494c614dcff0f033b89828aabb068fe62ee6d645be",
+          "bytes": 623,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-root-console.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-root-desktop-console.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-root-desktop-error.log",
+          "sha256": "42d79ad99889a24e716ad610ff43019c5c2abb5a81f1da16a6e5519145a8a443",
+          "bytes": 622,
+          "php_diagnostics": 0
+        },
+        {
+          "file": "protection-mysql-root-error.log",
+          "sha256": "145dafd9428daf2d270cdb89cf5eb49d80c35f6997d231c6ffae2116d60201f3",
+          "bytes": 1139,
+          "php_diagnostics": 0
+        }
+      ],
+      "evidence_sha256": {
+        "database-after-browser.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-after-http.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-after-source.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-before-browser.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-before-http.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-before-source.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "database-between-source.json": "e70c7e8d7a148b794f4835a1cbe45ddddf56f074d5030197f9afcd3b44e91a59",
+        "member-privacy-browser-evidence.json": "6f660a8040fc8919290409094948033a28280fe6b992150b6a69dc39bc386814",
+        "member-privacy-http-evidence.json": "9516a68db38ee7dcb46a26a3c8b035b70164b6693d0d9cee5052ae62566cca9c",
+        "package-provenance.json": "6a30071f9e919dfc9a756060666896296c8163ba2f79373cefa365118994a1b7",
+        "source-member-privacy-store.json": "aaa22bf48d9f6e79423e77ddbf9bd2e13a0974643d2fd4f216b8a8c44fe857f1",
+        "source-member-privacy.json": "f1db3779e86929f34286122274660e276bbc6f759b1833a972fbc55aab02c2fa"
+      }
+    }
+  }
+}
