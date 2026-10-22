@@ -1,0 +1,545 @@
+{
+  "audit": "Bounded 1.0 readiness audit",
+  "audited_at": "2026-10-22T01:43:57.674Z",
+  "repository": "afterburn25/velvet_vixxen",
+  "workspace": "/workspace/scratch/3715f676c66d/velvet_vixxen",
+  "source": {
+    "commit": "bb0392711e6edde15e36e0c16f4b9d8db0d4c24a",
+    "tree": "1042fc95528391f045d7c66b11227a6035eda2c6",
+    "version": "0.9.0",
+    "build": "20261021.4",
+    "working_tree_clean_at_start": true,
+    "head_at_audit_finish": "bb0392711e6edde15e36e0c16f4b9d8db0d4c24a",
+    "working_tree_status_at_audit_finish": []
+  },
+  "method": {
+    "read_only": true,
+    "source_or_repository_documentation_edits": false,
+    "test_reruns": false,
+    "live_provider_calls": false,
+    "scope": "Current active roadmap, current executable payment/operating code, current operator guides and existing CI evidence. Historical current-release labels were not treated as remaining implementation requirements.",
+    "limitation": "A bounded static readiness review, not an exhaustive security audit or a new acceptance pass. Payment failure scenarios below are source-derived requirements for live enablement, not verified live-charge incidents."
+  },
+  "conclusion": {
+    "production_1_0_ready": false,
+    "credentials_only_gap": false,
+    "provider_independent_work_can_be_done": true,
+    "payment_provider_independent_scope": "Define and implement shared payment operation states/recovery, normalized event/result validation and subscription lifecycle boundaries with controlled local fakes. Complete these as a separate pre-live increment after the current candidate; preserve the bounded current 0.9 release.",
+    "selected_provider_required": "The approved merchant and selected provider protocol are still required to define the actual adapter, hosted/tokenized checkout, provider event mappings and merchant certification.",
+    "other_0_9_components": "No additional confirmed missing privacy/age/protection/operations feature was found in this bounded audit; final whole-release CI/delivery and real owner/host setup remain required."
+  },
+  "current_ci": {
+    "id": 39703991908,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39703991908",
+    "observed_at": "2026-10-22T01:42:04.694Z",
+    "job_count": 26,
+    "conclusions": {
+      "success": 24,
+      "failure": 1,
+      "skipped": 1
+    },
+    "failures": [
+      {
+        "id": 119579817091,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "steps": [
+          "Verify packaged preview, publish and button destinations without rewrite assistance"
+        ]
+      }
+    ],
+    "skipped": [
+      {
+        "id": 119587640379,
+        "name": "Build verified fresh-install and upgrade ZIPs"
+      }
+    ]
+  },
+  "current_release_work": [
+    {
+      "id": "R0",
+      "kind": "Current 0.9 integration and delivery",
+      "finding": "The frozen full run completed with 24 successes, one Composer fixture failure and the package job skipped. Root is correcting retained browser assumptions and running the remaining lane. A later strengthened audience check also found a real queue-checkbox layout omission; current root's queue label lacks the existing marketing-check class.",
+      "next": "Finish the focused retained-lane correction(s), commit/freeze exact new bytes, run all required gates, verify downloaded artifacts and package identities, merge and verify literal saved customer downloads. The pending runtime queue-label correction changes subsequent package hashes.",
+      "references": [
+        {
+          "path": ".github/workflows/repository-ci.yml",
+          "section": "http-browser and runtime-packages prerequisites",
+          "lines": "366-585; 1027 onward"
+        },
+        {
+          "path": "app/Views/admin/marketing-campaign-form.php",
+          "section": "Queue for confirmed subscribers checkbox",
+          "lines": "48"
+        },
+        {
+          "path": "docs/ROAD_TO_1_0.md",
+          "section": "Work still in progress / checkpoint evidence",
+          "lines": "26-38"
+        }
+      ],
+      "observation_boundary": "The Composer failure/counts were independently fetched from GitHub. Queue-label absence was read directly in current source; the later measured geometry/focused fix status was reported by restore_cached_upgrade, not rerun by this auditor."
+    },
+    {
+      "id": "R1",
+      "kind": "Current operating and release documentation",
+      "finding": "The active 1.0 section labels all remaining conditions external even though its first item requires implementation. The living Email & SMTP guide still calls 0.8.6 current and explicitly directs an installed site to its old upgrade.",
+      "next": "Describe live payments as engineering plus merchant/host acceptance; reconcile current operator update links with the completed candidate while preserving historical release evidence.",
+      "references": [
+        {
+          "path": "docs/ROAD_TO_1_0.md",
+          "section": "Conditions for a production-certified 1.0",
+          "lines": "56-65"
+        },
+        {
+          "path": "docs/EMAIL_SETTINGS.md",
+          "section": "Introduction and Install or update",
+          "lines": "3-5; 45-49"
+        },
+        {
+          "path": "docs/UPDATE_VERIFICATION.md",
+          "section": "0.9.0 candidate procedure",
+          "lines": "3-16"
+        }
+      ]
+    }
+  ],
+  "provider_independent_pre_live_engineering": [
+    {
+      "id": "P1",
+      "title": "Recoverable payment/refund operations and ambiguous outcomes",
+      "observed": "checkoutLocked creates the order then calls the provider; every thrown provider error releases reserved stock and records failed. refundOrderLocked calls the external refund before recording its transaction/result. Webhook effects run before saveWebhookEvent. withCommerceLock is a mutex/advisory lock, not a transaction covering all writes or external effects.",
+      "required_before_live": "Persist stable operation identities and explicit attempted/unknown/confirmed/failed states; reconcile unknown outcomes without blindly recharging/refunding; journal authenticated events before resumable effects and bind effects to provider event/transaction identity. Preserve stock and entitlements according to confirmed state.",
+      "can_prepare_without_provider": true,
+      "offline_acceptance_to_add": "Controlled fake-provider accepted-then-timeout, interrupted charge/refund, concurrent duplicate attempts, interrupted partial-refund effects, retry/reconciliation and file/MySQL/MariaDB state readback. These are proposed future checks, not tests run by this audit.",
+      "references": [
+        {
+          "path": "app/Core/CommerceService.php",
+          "section": "checkoutLocked / refundOrderLocked / handleWebhookLocked / applyExternalRefund",
+          "lines": "148-165; 187-224; 318-355; 554-617; 631-667"
+        },
+        {
+          "path": "app/Core/MerchandiseStoreTrait.php",
+          "section": "withCommerceLock",
+          "lines": "13-44"
+        },
+        {
+          "path": "app/Core/CommerceStoreTrait.php",
+          "section": "savePaymentTransaction / saveWebhookEvent",
+          "lines": "338-359"
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "A strict normalized payment result and event boundary",
+      "observed": "The provider interface returns generic arrays. The reducer locates an order from order_number and applies paid/refund/chargeback using local amount/currency without requiring a normalized match of provider, merchant/environment, remote transaction, expected amount and currency. The HTTP entry reads an unbounded raw body and a single sandbox signature header. Existing security coverage is the sandbox HMAC contract.",
+      "required_before_live": "Define allowlisted normalized results/events and validated statuses; bind the verified provider event to the correct installation/provider environment, order, transaction, amount/currency and subscription period where relevant; bound request parsing and persist only needed safe metadata. Invalid/mismatched/unknown events must not grant or revive access. The selected adapter supplies its actual signature/header/freshness rules.",
+      "can_prepare_without_provider": true,
+      "offline_acceptance_to_add": "Reject cross-provider/order/transaction/amount/currency binding mismatches, malformed/oversized events, conflicting replays and unsupported transitions; retain legitimate duplicate/out-of-order behavior with local fakes. Preserve sandbox regression compatibility explicitly.",
+      "references": [
+        {
+          "path": "app/Payments/PaymentProviderInterface.php",
+          "section": "charge, refund and parseWebhook contracts",
+          "lines": "14-30"
+        },
+        {
+          "path": "public/routes/api/payment-webhook.php",
+          "section": "POST body/header boundary",
+          "lines": "3-7"
+        },
+        {
+          "path": "app/Payments/SandboxPaymentProvider.php",
+          "section": "parseWebhook",
+          "lines": "77-91"
+        },
+        {
+          "path": "app/Core/CommerceService.php",
+          "section": "handleWebhookLocked",
+          "lines": "531-617"
+        },
+        {
+          "path": "tests/Security/payment_webhook.php",
+          "section": "Sandbox signature, duplicate and late-paid controls",
+          "lines": "19-61"
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Provider-aware recurring subscription lifecycle",
+      "observed": "fulfillOrder fabricates a sub_ identifier and local trial/period dates. The interface has no remote agreement/cancel/resume methods. cancelSubscription and resumeSubscription update local records only; non-sandbox renewals are deferred. The webhook reducer supports only order.paid/refunded/chargeback and ignores other event types.",
+      "required_before_live": "Define capabilities and commands for real agreement creation/cancel/resume plus normalized renewal/payment-failure/cancellation state changes. Preserve authoritative remote agreement IDs and periods. Couple access to confirmed provider outcomes and make unsupported operations explicit. Bind trial/free initial checkout to a real recurring agreement when required. Privacy closure must continue to require external billing review until an actual cancellation is confirmed.",
+      "can_prepare_without_provider": true,
+      "selected_provider_dependency": "Actual agreement creation, billing semantics, remote cancellation/resume calls, event mapping and reconciliation require the selected merchant/provider protocol.",
+      "references": [
+        {
+          "path": "app/Payments/PaymentProviderInterface.php",
+          "section": "Available operations",
+          "lines": "6-30"
+        },
+        {
+          "path": "app/Core/CommerceService.php",
+          "section": "No-charge branch, plan fulfillment, local cancellation/resumption, deferred live renewal and event switch",
+          "lines": "198-202; 259-272; 371-433; 565-613"
+        },
+        {
+          "path": "app/Docs/MEMBER_PRIVACY.md",
+          "section": "Owner review and retention",
+          "lines": "70-97"
+        }
+      ]
+    }
+  ],
+  "provider_dependent_engineering": [
+    {
+      "id": "L1",
+      "title": "Actual live payment adapter and checkout integration",
+      "required": "After provider selection, implement its official hosted/tokenized checkout and return flow, server authentication/API transport, test/live account separation, signed callbacks, recurring agreements, refunds, chargebacks and reconciliation. Add the real provider to the registry; render appropriate live UI instead of test-card/result selectors; add safe owner configuration and provider-contract fixtures plus actual merchant acceptance.",
+      "why_not_credentials_only": "Only SandboxPaymentProvider is registered; sandbox charge/refund fabricate IDs/results and make no provider calls; the current public checkout explicitly collects test input and labels all options Test Mode.",
+      "owner_choices": [
+        "Approved payment processor and merchant account for the actual site/content/business model",
+        "One-time PPV/rental/merchandise and recurring membership capabilities, currencies and merchant region",
+        "Trial, recurring interval, cancellation/refund and grace-period rules to be enforced",
+        "Provider's test/live integration method, account identifiers and secure credentials/webhook configuration",
+        "Real HTTPS origin/return/callback destinations and specifically authorized merchant test transactions"
+      ],
+      "references": [
+        {
+          "path": "docs/ROADMAP.md",
+          "section": "1.0 \u2014 Production Release",
+          "lines": "425-433"
+        },
+        {
+          "path": "SECURITY.md",
+          "section": "Payment boundary",
+          "lines": "30-32"
+        },
+        {
+          "path": "app/Payments/PaymentProviderRegistry.php",
+          "section": "__construct and missing-provider refusal",
+          "lines": "13-28"
+        },
+        {
+          "path": "app/Payments/SandboxPaymentProvider.php",
+          "section": "charge and refund simulation",
+          "lines": "25-74"
+        },
+        {
+          "path": "public/routes/checkout/index.php",
+          "section": "Current sandbox POST and form",
+          "lines": "68-80; 102-123"
+        },
+        {
+          "path": "admin/index.php",
+          "section": "Current payment settings handler",
+          "lines": "963-972"
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "title": "Conditional alternative provider adapters",
+      "required": "The shipped verified mail-event protocol is SendGrid and the shipped age protocol is Yoti document age verification. Selecting a different event or age provider entails a separate protocol adapter and acceptance; arbitrary credentials are not interchangeable.",
+      "references": [
+        {
+          "path": "docs/MAIL_PROVIDER_EVENTS.md",
+          "section": "Provider contract and Setup on an actual host",
+          "lines": "3-27"
+        },
+        {
+          "path": "docs/PROTECTION_AND_AGE.md",
+          "section": "Configure Yoti adult verification",
+          "lines": "43-63"
+        }
+      ]
+    }
+  ],
+  "owner_provider_host_acceptance": [
+    {
+      "area": "Merchant and live payments",
+      "owner_input": "Choose/approve the merchant/provider and operating rules listed in L1; supply secure test/live configuration and authorize the real test transactions.",
+      "acceptance": "Selected adapter must demonstrate approved, declined, duplicate, renewal, cancellation, refund and chargeback outcomes with the actual merchant. A local fake or signed sandbox event is not merchant evidence.",
+      "references": [
+        {
+          "path": "docs/ROAD_TO_1_0.md",
+          "section": "Conditions for production-certified 1.0",
+          "lines": "60"
+        },
+        {
+          "path": "app/Views/admin/commerce.php",
+          "section": "Gateway adapters notice",
+          "lines": "35"
+        }
+      ]
+    },
+    {
+      "area": "Production email and suppression",
+      "owner_input": "Choose outgoing transport/provider; supply SMTP host/port/TLS/username/password, permitted From identity/domain and approved recipient(s). For existing SendGrid feedback, enable its signed event webhook and save its public verification key.",
+      "acceptance": "Actual message arrival, confirmation links, unsubscribe and correctly correlated signed suppression on the production installation. No email is authorized by this audit.",
+      "references": [
+        {
+          "path": "docs/EMAIL_SETTINGS.md",
+          "section": "Save a connection / Test the saved settings",
+          "lines": "11-37"
+        },
+        {
+          "path": "docs/MAIL_PROVIDER_EVENTS.md",
+          "section": "Setup on an actual host / Correlation and effects",
+          "lines": "19-43"
+        }
+      ]
+    },
+    {
+      "area": "Actual target hosting, upgrade, rollback and running build",
+      "owner_input": "Provide exact root/nested HTTPS URL, hosting environment/access, PHP/SQL/web-server setup, writable ownership, separate staging/restore destination and a reviewed recovery/cutover window.",
+      "acceptance": "Fresh install and preserved upgrade on that host; review migrations; verify on-disk inventory and actually executing build via repair-current.php; check private/raw-media denial, direct origin/CDN behavior, rollback/recovery and real serving routes. Actual-host issues #12/#13 cannot be closed from CI alone.",
+      "references": [
+        {
+          "path": "docs/ROAD_TO_1_0.md",
+          "section": "Production hosting acceptance",
+          "lines": "62"
+        },
+        {
+          "path": "docs/UPDATE_VERIFICATION.md",
+          "section": "Candidate procedure",
+          "lines": "7-16"
+        },
+        {
+          "path": "app/Docs/BACKUP_OPERATIONS.md",
+          "section": "Hosting prerequisites and live recovery",
+          "lines": "11-45; 265-303"
+        }
+      ]
+    },
+    {
+      "area": "Operations, scheduling and disaster recovery",
+      "owner_input": "Choose external backup-key path and independent protected key copy, daily UTC time, retention count/days, off-site copy location, same-account PHP/cron execution, isolated empty same-engine SQL target and explicit process-drain/activation plan.",
+      "acceptance": "Observe real scheduled execution, authenticated archive/readback/off-site transfer, complete isolated restore and operator-reviewed cutover. Configure needed notification, scene, privacy, billing and mail-event workers separately; a successful local worker run does not install cron.",
+      "references": [
+        {
+          "path": "app/Docs/BACKUP_OPERATIONS.md",
+          "section": "One-time setup, scheduling, off-site copy and isolated recovery",
+          "lines": "47-151; 153-169; 185-303"
+        },
+        {
+          "path": "docs/NOTIFICATIONS.md",
+          "section": "Owner controls and execution",
+          "lines": "5-15"
+        },
+        {
+          "path": "app/Docs/MEMBER_PRIVACY.md",
+          "section": "Durable processing and recovery",
+          "lines": "99-130"
+        }
+      ]
+    },
+    {
+      "area": "Age assurance and geographic policy",
+      "owner_input": "Choose whether verification/location restrictions apply; set adult threshold and verified-session duration, Yoti SDK/API configuration with its document method enabled, blocked countries, trusted immediate proxy CIDRs and supported authoritative country header.",
+      "acceptance": "Activate protected delivery on the real host first; verify raw/CDN denial, allowed/blocked/unknown/untrusted peer cases, real provider success/failure/expiry/callback-return, and continued own-privacy/report access. The application cannot choose applicable jurisdictional policy.",
+      "references": [
+        {
+          "path": "docs/PROTECTION_AND_AGE.md",
+          "section": "Protected delivery / Yoti / geography / actual deployment",
+          "lines": "35-89"
+        }
+      ]
+    },
+    {
+      "area": "Public policy wording, content and privacy retention",
+      "owner_input": "Supply/review all five site-specific policy drafts (terms, privacy, adults/access, copyright/content reports, support/refunds), actual contact details, owned catalog/rights/release records; choose retention reasons/review dates and resolve real external recurring billing, fulfillment/refund and backup obligations before approving closure.",
+      "acceptance": "Explicit reviewed publication and actual-host help/report/privacy access; real rights and retention decisions remain owner facts. Existing source preserves financial facts, safety holds, shared files and independent backups intentionally.",
+      "references": [
+        {
+          "path": "docs/PROTECTION_AND_AGE.md",
+          "section": "Write and publish the five policies / protected delivery",
+          "lines": "11-41"
+        },
+        {
+          "path": "app/Docs/MEMBER_PRIVACY.md",
+          "section": "Owner review and retention",
+          "lines": "70-97"
+        }
+      ]
+    },
+    {
+      "area": "Owner security and accessibility/operating acceptance",
+      "owner_input": "Enroll the actual owner's authenticator and retain recovery codes separately; keep clocks accurate; review the real catalog and chosen deployment with keyboard/assistive workflows and representative performance.",
+      "acceptance": "Retain all automated/keyboard/security/performance gates and actual owner operation. Existing automated 55-page evidence does not claim full WCAG conformance or production-load performance.",
+      "references": [
+        {
+          "path": "docs/ADMIN_SECURITY.md",
+          "section": "Connect an authenticator / sensitive changes",
+          "lines": "14-53"
+        },
+        {
+          "path": "docs/ROAD_TO_1_0.md",
+          "section": "Accessibility and compatibility",
+          "lines": "24"
+        },
+        {
+          "path": "docs/ROADMAP.md",
+          "section": "Production release gates",
+          "lines": "430-431"
+        }
+      ]
+    }
+  ],
+  "evidence_boundaries": {
+    "current_five_job_proof": {
+      "path": "/tmp/vvx-ci-watch-39703991908-age-protection-accessibility.json",
+      "sha256": "250845cae948de8f6fa96d42f2b4806611314052b4d22ef27c441d93386457e5",
+      "result": "Five scoped jobs success, five artifact digest/CRC checks, 11 reports and 70 clean server logs; not full release success."
+    },
+    "current_run_fresh_package_sha256": "432e83cba7a97a6f49346d87c78bfb78b3c05c7e8d42a8f866e44838f5f0d1c4",
+    "next_runtime_correction_changes_package_identity": true,
+    "privacy_peer_review": "restore_member_privacy confirmed no additional provider-independent implementation gap from retained/current-run evidence; external billing cancellation and operator retention/host operation remain deliberate boundaries.",
+    "no_exhaustive_completeness_claim": "All explicit current roadmap production-release categories are covered above. This audit does not prove absence of all defects or replace remaining tests/host validation."
+  },
+  "cited_file_manifest": {
+    ".github/workflows/repository-ci.yml": {
+      "git_blob": "35d7ad78ca5c0048a900284f924d42ee564cefc8",
+      "bytes": 56668,
+      "sha256": "725e3a56c4a2ad77d31e1828c085df74d41bc7dfa8728dbc43cafd69b95d82a7",
+      "working_file_matches_audited_commit": true
+    },
+    "SECURITY.md": {
+      "git_blob": "8210d12546ffa012ec3206490261dc2fbeaad2cb",
+      "bytes": 3544,
+      "sha256": "e0253d2877ad8da3c742c1afb2faf62e532ec3b3417854160a84f65f4d3e1e70",
+      "working_file_matches_audited_commit": true
+    },
+    "admin/index.php": {
+      "git_blob": "3fb32c04c4097a7803db5129045a38b27b820a74",
+      "bytes": 88370,
+      "sha256": "293b74027deccffc954867ceb132b103378ad04b3c96267d4fbb43ac957d57b4",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Core/CommerceService.php": {
+      "git_blob": "e160664e505c216df9eb08ea8529878258206e7c",
+      "bytes": 47102,
+      "sha256": "18cb50a655effeb1b97fda2c17cd01a2d72488e9e2ad4827e54e65a8964f4d4c",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Core/CommerceStoreTrait.php": {
+      "git_blob": "3ffa15e1d06927a9960de1d42a96ce29e4ac8efe",
+      "bytes": 39813,
+      "sha256": "578c1a7a13d8c1d44a52f555daffe99bd1406988268d840292fb453b869de4db",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Core/MerchandiseStoreTrait.php": {
+      "git_blob": "6239e36e1b10e5295105ec4bf60b0c51d2c849f4",
+      "bytes": 22797,
+      "sha256": "85f696dc1897956694480c32d15fe1829063dbe4630efffcc01a58b63906be4a",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Docs/BACKUP_OPERATIONS.md": {
+      "git_blob": "df7f4cee25c01abb819ade8ed67f38ebffde647c",
+      "bytes": 18647,
+      "sha256": "65485b6ea63b919f6cbee4a15d4217db30b2251a3016e8faee9966a04549c78b",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Docs/MEMBER_PRIVACY.md": {
+      "git_blob": "a72d9b99aa411d7ca39abda66ac576b6c5c5d81f",
+      "bytes": 9907,
+      "sha256": "07902d132472458b85241d4f70340bacd693bc87ee7f029e757d282caa39e2a4",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Payments/PaymentProviderInterface.php": {
+      "git_blob": "02a6a0799120ba8555c87b3c9e9be87e9a5038c9",
+      "bytes": 836,
+      "sha256": "776b060d35cf2c01a707f71ab93bc0547c09937b87f92ee0d5d63bbce5f5507c",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Payments/PaymentProviderRegistry.php": {
+      "git_blob": "8c099bc76800e5ff4ab99ada23ed64bbcff5562a",
+      "bytes": 857,
+      "sha256": "be7bdd7ed7d3b75015c7813ba77a643144a2c75b7f6a0804401caae60135879d",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Payments/SandboxPaymentProvider.php": {
+      "git_blob": "5caf1e0004781a5fee0c76c212755ee15fecf0d9",
+      "bytes": 3037,
+      "sha256": "093a4c2a714f904fb7e2e3abb2f5f0ec9e596d39a2a0eb1c9e71b3ab03fc6f11",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Views/admin/commerce.php": {
+      "git_blob": "a4c64efce6f026d37a033c79388421a65c8115da",
+      "bytes": 16662,
+      "sha256": "e1fa0f06482faafede1e643552a9c9ba79d1dd14d2241c1c9b258bc9bc4d2153",
+      "working_file_matches_audited_commit": true
+    },
+    "app/Views/admin/marketing-campaign-form.php": {
+      "git_blob": "b0035227f39a126af35de9ec0fa8f677d8f96c0d",
+      "bytes": 6097,
+      "sha256": "da081d44400c13e3dfb05f95c879c7d9c0e24755171b7801913d26d348cdbf62",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/ADMIN_SECURITY.md": {
+      "git_blob": "6c07accb9979b3a5089bd0124febb262dbe8b652",
+      "bytes": 9239,
+      "sha256": "7ef4d95daf7a18ac2f40d6e4b6695605941337fc3d63a5f36d21beedcd2aa911",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/EMAIL_SETTINGS.md": {
+      "git_blob": "d78294e1e0a328657375413d77fc5c5eef6b45f1",
+      "bytes": 6287,
+      "sha256": "c09cb6996845a5c5ee566c50577d4ad95d171718166a6347928496f00ee4e7df",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/MAIL_PROVIDER_EVENTS.md": {
+      "git_blob": "e5ab8563fd1e99886222c50aaabb1bc3997c12cf",
+      "bytes": 6769,
+      "sha256": "207702cebe581b987c07d90c123d16c360685bef3d788065c2ca63a8add4c9a0",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/NOTIFICATIONS.md": {
+      "git_blob": "347258bf6cc5263af234bdbecd02a98b889a556d",
+      "bytes": 7166,
+      "sha256": "585bd4e7cd8016102f66942f31e20976afce6d913baa2928525e6e8b6eb929e2",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/PROTECTION_AND_AGE.md": {
+      "git_blob": "90cc0e3ec0078cd1319d18011347c0a829b6b93b",
+      "bytes": 13806,
+      "sha256": "9fd1e79a96a0c5ac33873331f5b3ecb8d9c0538d20d594be0faee7b2df226d25",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/ROADMAP.md": {
+      "git_blob": "5e93628a659cd4137c197020fe675a3272dac0f2",
+      "bytes": 99246,
+      "sha256": "7d317032b2991b98a560664b401c11c3b3124f5010f3ea1a41f9db24f550dc63",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/ROAD_TO_1_0.md": {
+      "git_blob": "6d1eba65bede9656e3f42a4ae7444da2949386f6",
+      "bytes": 13206,
+      "sha256": "51c298ee2144dc0f0604350d1811b2e4c5739088c3776fc282f10633156ca36d",
+      "working_file_matches_audited_commit": true
+    },
+    "docs/UPDATE_VERIFICATION.md": {
+      "git_blob": "fea7e600ec6fe35db50d546d58511ccbb722344a",
+      "bytes": 53325,
+      "sha256": "467822c9a2a1b26230cd2263ebb50ea39f9347a7165fba2046362350740a0b83",
+      "working_file_matches_audited_commit": true
+    },
+    "public/routes/api/payment-webhook.php": {
+      "git_blob": "d594eddad2c1a2947d4be98e5e3e79d60342adc0",
+      "bytes": 690,
+      "sha256": "283656a7a81f2106050ea05984177dec142be5f424b9a67dcd6f9b21c988329d",
+      "working_file_matches_audited_commit": true
+    },
+    "public/routes/checkout/index.php": {
+      "git_blob": "2c4065d6337d7ef870b3f6edcc228e686d4c1679",
+      "bytes": 10508,
+      "sha256": "0b0a2736a7ea161556c1aa9aabef3b49fe5c21ec4261b87df4d121df7b5593f9",
+      "working_file_matches_audited_commit": true
+    },
+    "tests/Security/payment_webhook.php": {
+      "git_blob": "4f06849131cf15bca2f65b753c667dda7904c3ae",
+      "bytes": 3714,
+      "sha256": "07c0587154845613aa389ba804aa546ee3bd85f71450e6e3ec777aecd34cbe5c",
+      "working_file_matches_audited_commit": true
+    }
+  }
+}

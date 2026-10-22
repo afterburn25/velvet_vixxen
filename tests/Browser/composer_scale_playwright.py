@@ -281,9 +281,11 @@ def check_footer(data: dict, label: str) -> None:
     for group, minimum in minima.items():
         rows = data['groups'][group]
         expected_visible = group != 'navigation' or width > 1120
-        expected_visible = expected_visible and (group != 'legal' or width > 760)
-        require(bool(rows) == expected_visible, label + ' changed existing responsive visibility for ' + group + '.')
+        require(bool(rows) == expected_visible, label + ' changed required responsive visibility for ' + group + '.')
         require(all(row['font'] >= minimum - .05 for row in rows), label + ' did not enlarge ' + group + ' text.')
+    require([row['text'] for row in data['groups']['legal']]
+            == ['Terms', 'Privacy', 'Privacy choices', '18+', 'DMCA', 'Support'],
+            label + ' hides or changes an independent legal/privacy link.')
     credit = data['credit']
     require(credit['href'] == CREDIT_URL and credit['target'] == '_blank'
             and {'noopener', 'noreferrer'} <= set(credit['rel'].split()), label + ' credit has the wrong link or new-tab relationship.')

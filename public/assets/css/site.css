@@ -33,4 +33,4 @@
 .legal-footer .site-credit a:hover,.legal-footer .site-credit a:focus-visible{color:#add8ff}
 .legal-footer .site-credit a:focus-visible{outline:2px solid #add8ff;outline-offset:3px}
 @media(max-width:1120px){.legal-footer{grid-template-columns:auto minmax(0,1fr) auto}.legal-footer .legal-links{justify-self:end}}
-@media(max-width:760px){.legal-footer{grid-template-columns:minmax(0,1fr) auto;column-gap:16px}.legal-footer .signature{font-size:2rem}}
+@media(max-width:760px){.legal-footer{grid-template-columns:minmax(0,1fr) auto;column-gap:16px}.legal-footer .signature{grid-column:2;grid-row:1;font-size:2rem}.legal-footer .legal-links{display:flex;grid-column:1/-1;justify-self:start}.legal-footer .legal-links a{display:inline-flex;align-items:center;min-width:44px;min-height:44px}}
