@@ -278,6 +278,39 @@ class RuntimeInventoryService
                 'public/routes/reports/index.php',
             ]);
         }
+        // 0.9.1 payment intent, recovery and retained financial dependencies.
+        if (version_compare($data['version'], '0.9.1', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, [
+                'admin/index.php',
+                'app/Core/AddonRuntime.php',
+                'app/Core/CommerceService.php',
+                'app/Core/CommerceStoreTrait.php',
+                'app/Core/MailService.php',
+                'app/Core/MemberPrivacyProjection.php',
+                'app/Core/MemberPrivacyService.php',
+                'app/Core/MemberPrivacyStoreTrait.php',
+                'app/Core/MerchandiseStoreTrait.php',
+                'app/Core/PaymentCommerceTrait.php',
+                'app/Core/PaymentOperationService.php',
+                'app/Core/PaymentRecoveryAuthorizationException.php',
+                'app/Core/PaymentRecoveryService.php',
+                'app/Core/PaymentStoreTrait.php',
+                'app/Core/Store.php',
+                'app/Payments/BoundPaymentProviderInterface.php',
+                'app/Payments/PaymentContract.php',
+                'app/Payments/PaymentProviderInterface.php',
+                'app/Payments/PaymentProviderRegistry.php',
+                'app/Payments/SandboxPaymentProvider.php',
+                'app/Support/payment_recovery_admin.php',
+                'app/Views/admin/commerce.php',
+                'app/Views/admin/navigation.php',
+                'app/Views/admin/payment-recovery-actions.php',
+                'app/Views/admin/payment-recovery.php',
+                'database/migrations/202610220018_payment_journal.php',
+                'public/assets/css/payment-recovery.css',
+                'public/routes/api/payment-webhook.php',
+            ]);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

@@ -195,8 +195,8 @@ if ($action === 'change-source') {
 }
 if ($action === 'remove-empty-schema') {
     if ($storage->status()['state'] !== 'ready') throw new RuntimeException('Only empty inactive fixture tables may be removed.');
-    $pendingKeys = [$migration, '202610210016_marketing_measurements', '202610210017_private_state'];
-    $emptyTables = array_merge($tables, ['marketing_measurement_state', 'marketing_measurement_records', 'private_state']);
+    $pendingKeys = [$migration, '202610210016_marketing_measurements', '202610210017_private_state', '202610220018_payment_journal'];
+    $emptyTables = array_merge($tables, ['marketing_measurement_state', 'marketing_measurement_records', 'private_state', 'payment_journal']);
     // Prove all later tables empty before the first DDL statement so this is a
     // genuine pre015 installation, never a missing migration below a newer ledger.
     foreach ($emptyTables as $table) if ((int) $pdo->query('SELECT COUNT(*) FROM ' . vvx_installer_fixture_quote($table))->fetchColumn() !== 0) {

@@ -30,6 +30,7 @@ trait MemberPrivacyStoreTrait
     private function privacyMemberWrite(string $id, callable $operation, bool $financial = false): mixed
     {
         if ($id === '') return $operation();
+        if ($this->paymentAtomicActive && $this->paymentMemberId !== $id) throw new RuntimeException('Payment commit cannot cross the member identity fence.');
         if ($this->mode === 'file') {
             if (!$financial) $this->privacyRequireOpenMember($id);
             ++$this->privacyWriteDepth;
@@ -77,6 +78,8 @@ trait MemberPrivacyStoreTrait
             }
             $data['orderItems'] = $select('SELECT i.* FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.member_id=?', [$memberId]);
             $data['transactions'] = $select('SELECT t.* FROM payment_transactions t WHERE t.order_id IN (SELECT id FROM orders WHERE member_id=?) OR t.subscription_id IN (SELECT id FROM subscriptions WHERE member_id=?)', [$memberId, $memberId]);
+            $journal = $pdo->prepare('SELECT j.record_json FROM payment_journal j JOIN orders o ON o.id=j.order_id WHERE o.member_id=?'); $journal->execute([$memberId]);
+            $data['paymentJournal'] = array_map(static fn(string $json): array => \App\Payments\PaymentContract::journal(json_decode($json, true, 32, JSON_THROW_ON_ERROR)), $journal->fetchAll(PDO::FETCH_COLUMN));
             $data['messages'] = $select('SELECT m.* FROM messages m JOIN message_threads t ON t.id=m.thread_id WHERE t.member_id=?', [$memberId]);
             $data['messageAttachments'] = $select('SELECT a.* FROM message_attachments a JOIN messages m ON m.id=a.message_id JOIN message_threads t ON t.id=m.thread_id WHERE t.member_id=?', [$memberId]);
             $data['requestAttachments'] = $select("SELECT a.* FROM request_attachments a WHERE (a.request_type='content_request' AND a.request_id IN (SELECT id FROM content_requests WHERE member_id=?)) OR (a.request_type='booking_request' AND a.request_id IN (SELECT id FROM booking_requests WHERE member_id=?))", [$memberId, $memberId]);
@@ -107,6 +110,7 @@ trait MemberPrivacyStoreTrait
         $data['orderItems'] = [];
         foreach ($orders as $id => $_) foreach ($all['orderItems'][$id] ?? [] as $row) $data['orderItems'][] = array_replace($row, ['orderId' => (string) $id]);
         $data['transactions'] = array_values(array_filter($all['paymentTransactions'] ?? [], static fn(array $row): bool => isset($orders[(string) ($row['orderId'] ?? '')]) || isset($subscriptions[(string) ($row['subscriptionId'] ?? '')])));
+        $data['paymentJournal'] = array_map(\App\Payments\PaymentContract::journal(...), array_values(array_filter($all['paymentJournal'] ?? [], static fn(array $row): bool => isset($orders[(string) ($row['orderId'] ?? '')]))));
         $data['messages'] = array_values(array_filter($all['messages'] ?? [], static fn(array $row): bool => isset($threads[(string) ($row['threadId'] ?? '')])));
         $messages = $ids($data['messages']);
         $data['messageAttachments'] = array_values(array_filter($all['messageAttachments'] ?? [], static fn(array $row): bool => isset($messages[(string) ($row['messageId'] ?? '')])));
@@ -166,6 +170,12 @@ trait MemberPrivacyStoreTrait
 
     public function privacyFreeze(string $memberId, string $requestId, string $expected, callable $authorize): void
     {
+        // Commerce owns the dispatch/freeze ordering. Acquiring it after a
+        // member transaction or file mutation would invert that lock order.
+        if ($this->paymentAtomicActive || $this->fileMutationActive || $this->privacyWriteDepth > 0
+            || ($this->mode !== 'file' && $this->pdo()->inTransaction())) {
+            throw new RuntimeException('Privacy freeze must acquire commerce before a member transaction or file mutation.', 409);
+        }
         $apply = function (array &$all, ?PDO $pdo = null) use ($memberId, $requestId, $expected, $authorize): void {
             $data = $pdo === null ? $this->privacyFileData($all, $memberId) : $this->privacyCoreData($memberId);
             $marker = $data['member']['preferences']['_privacy_erasure'] ?? null;
@@ -184,7 +194,10 @@ trait MemberPrivacyStoreTrait
                 $pdo->prepare('DELETE FROM member_auth_tokens WHERE member_id=?')->execute([$memberId]);
             }
         };
-        $this->privacyCoreMutation($memberId, $apply);
+        // A first charge keeps this mutex through its final fresh check and
+        // provider call. Freeze either wins first or rechecks its approved
+        // inventory after dispatch has finished; no provider runs in this commit.
+        $this->withCommerceLock(fn() => $this->privacyCoreMutation($memberId, $apply));
     }
 
     private function privacyCoreMutation(string $memberId, callable $operation): mixed

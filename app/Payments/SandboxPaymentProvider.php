@@ -5,8 +5,33 @@ namespace App\Payments;
 
 use RuntimeException;
 
-final class SandboxPaymentProvider implements PaymentProviderInterface
+final class SandboxPaymentProvider implements BoundPaymentProviderInterface
 {
+    public function accountContext(array $configuration): array
+    {
+        return ['account' => hash('sha256', 'velvet-vixxen-local-sandbox'), 'environment' => 'sandbox'];
+    }
+
+    public function chargeBound(array $operation, array $order, array $paymentInput): array
+    {
+        $charge = $this->charge($order, $paymentInput);
+        return ['schema' => 1, 'binding' => $operation, 'outcome' => match ($charge['status']) { 'paid' => 'succeeded', 'processing' => 'pending', default => 'declined' },
+            'transactionId' => $charge['providerTransactionId'], 'observedAt' => time(), 'display' => ['last4' => $charge['last4'], 'brand' => $charge['brand']]];
+    }
+
+    public function refundBound(array $operation, array $transaction, string $reason = ''): array
+    {
+        $refund = $this->refund($transaction, $operation['amountMinor'] / 100, $reason);
+        return ['schema' => 1, 'binding' => $operation, 'outcome' => 'succeeded', 'transactionId' => $refund['providerTransactionId'], 'observedAt' => time()];
+    }
+
+    public function lookupOperation(array $operation): array
+    {
+        // The local demo has no remote ledger. An interrupted response cannot be
+        // invented; only its signed sandbox webhook can supply later evidence.
+        return ['schema' => 1, 'binding' => $operation, 'outcome' => 'unknown', 'transactionId' => null, 'observedAt' => time()];
+    }
+
     public function key(): string
     {
         return 'sandbox';
@@ -76,12 +101,11 @@ final class SandboxPaymentProvider implements PaymentProviderInterface
 
     public function parseWebhook(string $rawBody, string $signature, string $secret): array
     {
+        if (strlen($rawBody) > PaymentContract::MAX_BODY_BYTES || strlen($signature) !== 64) throw new RuntimeException('Sandbox webhook envelope is invalid.');
         $expected = hash_hmac('sha256', $rawBody, $secret);
         $valid = $signature !== '' && hash_equals($expected, $signature);
-        $payload = json_decode($rawBody, true);
-        if (!is_array($payload)) {
-            $payload = [];
-        }
+        $payload = json_decode($rawBody, true, 16, JSON_THROW_ON_ERROR);
+        if (!is_array($payload) || array_is_list($payload) || !is_string($payload['event_id'] ?? null) || !is_string($payload['type'] ?? null)) throw new RuntimeException('Sandbox webhook payload is invalid.');
         return [
             'valid' => $valid,
             'eventId' => (string) ($payload['event_id'] ?? ''),

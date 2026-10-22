@@ -47,13 +47,29 @@ $isMailProviderRequest = ($requestedAdminPage === 'marketing' && ($_GET['tab'] ?
     || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'mail_provider_'));
 $isProtectionRequest = $requestedAdminPage === 'protection' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'protection_'));
 $isPoliciesRequest = $requestedAdminPage === 'policies' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'policies_'));
-$skipAdminExtensions = $isPoliciesRequest || $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
+$isPaymentRecoveryRequest = $requestedAdminPage === 'payment-recovery'
+    || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'payment_recovery_'));
+$skipAdminExtensions = $isPaymentRecoveryRequest || $isPoliciesRequest || $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
 if (!$skipAdminExtensions) require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
 use App\Core\MediaAdminService;
 use App\Core\MailService;
 use App\Core\RepairBackupService;
+
+if ($isPaymentRecoveryRequest) {
+    require_once ROOT_PATH . '/app/Support/payment_recovery_admin.php';
+    header('Cache-Control: no-store, private, max-age=0');
+    header('Pragma: no-cache'); header('X-Robots-Tag: noindex, nofollow'); header('Referrer-Policy: no-referrer');
+    try { if (!is_installed()) throw new RuntimeException(); vvx_payment_recovery_owner(); }
+    catch (Throwable) { http_response_code(403); exit('Only the current site owner can open Payment recovery.'); }
+    if (!in_array($_SERVER['REQUEST_METHOD'] ?? 'GET', ['GET', 'POST'], true)) {
+        header('Allow: GET, POST'); http_response_code(405); exit('Method not allowed.');
+    }
+    if ($requestedAdminPage !== 'payment-recovery') { http_response_code(400); exit('Open Payment recovery to review or recover a saved payment.'); }
+    try { $paymentRecoveryRequest = vvx_payment_recovery_request(); }
+    catch (Throwable) { http_response_code(400); exit('Choose a valid payment recovery page, order and record.'); }
+}
 
 if ($isPoliciesRequest) {
     require_once ROOT_PATH . '/app/Support/policies_admin.php';
@@ -323,7 +339,18 @@ $sceneScheduleAttempted = null;
 $recoveryFailed = false;
 $protectionAttempt = null;
 $policiesAttempt = null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPoliciesRequest) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPaymentRecoveryRequest) {
+    try {
+        if (!verify_csrf()) throw new RuntimeException('Your session token expired. Reload this record before continuing.', 419);
+        require root_path('app/Views/admin/payment-recovery-actions.php');
+    } catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) { http_response_code(403); exit('Only the current site owner can recover payments. Sign in again.'); }
+        $status = in_array((int) $caught->getCode(), [400, 404, 409, 419, 428, 429], true) ? (int) $caught->getCode() : 503;
+        vvx_response_status($status);
+        $error = $status < 500 && (($caught instanceof RuntimeException && !$caught instanceof PDOException) || $caught instanceof InvalidArgumentException)
+            ? $caught->getMessage() : 'Payment recovery could not be completed. Review the saved record before trying again.';
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPoliciesRequest) {
     $policiesAttempt = vvx_policies_attempt();
     try {
         if (!verify_csrf()) throw new RuntimeException('Your session token expired. Reload this page before continuing.', 419);
@@ -972,7 +999,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPoliciesRequest) {
             redirect(base_url('admin/?page=payments'));
         }
         if ($action === 'refund_order') {
-            $order = commerce_service()->refundOrder((string)($_POST['order_id']??''), trim((string)($_POST['reason']??'')));
+            $order = commerce_service()->refundOrder(
+                (string)($_POST['order_id']??''),
+                trim((string)($_POST['reason']??'')),
+                static fn () => app_auth()->requireRecentOwner()
+            );
             $store->audit(app_auth()->id(), 'commerce.order.refunded', ['orderId'=>(string)$order['id'],'orderNumber'=>$order['orderNumber']]);
             flash('success', 'Order ' . (string)$order['orderNumber'] . ' was refunded and its purchased access was revoked.');
             redirect(base_url('admin/?page=orders&order=' . rawurlencode((string)$order['id'])));
@@ -1138,6 +1169,19 @@ if ($isMailProviderRequest) {
     }
 }
 
+if ($isPaymentRecoveryRequest) {
+    $paymentRecoveryReadFailed = false;
+    try { $paymentRecoveryPage = vvx_payment_recovery_read($paymentRecoveryRequest); }
+    catch (Throwable $caught) {
+        if ((int) $caught->getCode() === 403) { http_response_code(403); exit('Only the current site owner can review payment recovery. Sign in again.'); }
+        vvx_response_status((int) $caught->getCode() === 404 ? 404 : 503);
+        $paymentRecoveryReadFailed = true;
+        $paymentRecoveryPage = ['rows' => [], 'nextCursor' => null, 'confirmation' => false];
+        $error = (int) $caught->getCode() === 404 ? 'This saved payment recovery record is unavailable. Return to the records list.'
+            : 'Payment recovery records could not be read. Check database updates and private storage before continuing.';
+    }
+}
+
 $success = flash('success');
 $pageTitles = [
     'policies' => 'Policies & access',
@@ -1161,6 +1205,7 @@ $pageTitles = [
     'coupons' => 'Coupons',
     'bundles' => 'PPV Bundles',
     'payments' => 'Payment Settings',
+    'payment-recovery' => 'Payment recovery',
     'messages' => 'Private Messages',
     'content-requests' => 'Content Requests',
     'booking-requests' => 'Booking Requests',
@@ -1206,6 +1251,7 @@ $nav = [
     'coupons' => ['%', 'Coupons'],
     'bundles' => ['✦', 'Bundles'],
     'payments' => ['¤', 'Payments'],
+    'payment-recovery' => ['↺', 'Payment recovery'],
     'messages' => ['✉', 'Messages'],
     'content-requests' => ['♡', 'Content Requests'],
     'booking-requests' => ['▦', 'Booking Requests'],
@@ -1233,7 +1279,7 @@ if ($page === 'marketing' && !velvet_marketing_is_owner()) {
 }
 ?>
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($isSecurityRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/security-admin.css')) ?>"><?php endif; ?><?php if ($isProtectionRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/protection.css')) ?>"><?php endif; ?><?php if ($isPoliciesRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/policies.css')) ?>"><?php endif; ?><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><?php if ($isEditorialRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-deleted.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="<?= e(csrf_token()) ?>"><title><?= e($title) ?> · Velvet Vixxen Admin</title><link rel="stylesheet" href="<?= e(asset_url('css/admin.css')) ?>"><?php if ($isSecurityRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/security-admin.css')) ?>"><?php endif; ?><?php if ($isPaymentRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/payment-recovery.css')) ?>"><?php endif; ?><?php if ($isProtectionRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/protection.css')) ?>"><?php endif; ?><?php if ($isPoliciesRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/policies.css')) ?>"><?php endif; ?><?php if ($page === 'marketing'): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing.css')) ?>"><?php endif; ?><?php if ($isEditorialCalendar): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-calendar.css')) ?>"><?php endif; ?><?php if ($isEditorialRecoveryRequest): ?><link rel="stylesheet" href="<?= e(asset_url('css/marketing-deleted.css')) ?>"><?php endif; ?><link rel="stylesheet" href="<?= e(asset_url('css/admin-ux.css')) ?>"><?php if ($page === 'composer'): ?><link rel="stylesheet" href="<?= e(asset_url('css/composer.css')) ?>"><?php endif; ?><?php if ($page === 'mail-settings'): ?><link rel="stylesheet" href="<?= e(asset_url('css/mail-settings.css')) ?>"><?php endif; ?><?php if ($page === 'menus'): ?><link rel="stylesheet" href="<?= e(asset_url('css/menu-admin.css')) ?>"><?php endif; ?><?php if ($page === 'scene-schedules'): ?><link rel="stylesheet" href="<?= e(asset_url('css/scene-schedules.css')) ?>"><?php endif; ?><?php if (in_array($page, ['music','galleries','videos'], true)): ?><link rel="stylesheet" href="<?= e(asset_url('css/media-admin-edit.css')) ?>"><?php endif; ?><link rel="icon" href="<?= e(base_url('images/defaults/brand-mark.png')) ?>" type="image/png"></head>
 <body class="admin-body"><a class="admin-skip-link" href="#adminContent">Skip to content</a><?php require root_path('app/Views/admin/navigation.php'); ?>
 <div class="admin-shell"><header class="admin-topbar"><button class="sidebar-toggle" type="button" aria-label="Toggle menu" aria-controls="adminSidebar" aria-expanded="false">☰</button><div><div class="admin-kicker">Velvet Vixxen · v<?= e(defined('VELVET_VIXXEN_VERSION') ? VELVET_VIXXEN_VERSION : 'unverified') ?> · Build <?= e(defined('VELVET_VIXXEN_BUILD_ID') ? VELVET_VIXXEN_BUILD_ID : 'unverified') ?></div><h1><?= e($title) ?></h1></div><div class="admin-user"><span class="avatar"><?= e(strtoupper(substr((string)($user['name']??'N'),0,1))) ?></span><div><strong><?= e($user['name']??'Owner') ?></strong><small><?= e($user['role']??'owner') ?></small></div></div></header><main class="admin-content" id="adminContent" tabindex="-1"><?php if ($success): ?><div class="admin-alert success"><?= e($success) ?></div><?php endif; ?><?php if ($error): ?><div class="admin-alert error"><?= e($error) ?></div><?php endif; ?>
 <?php if ($page === 'dashboard'):
@@ -1244,6 +1290,7 @@ $stats = $store->stats(); ?>
 <?php elseif ($page === 'marketing'):
 require root_path('app/Views/admin/marketing.php'); ?>
 <?php elseif ($page === 'security'): require root_path('app/Views/admin/security.php'); ?>
+<?php elseif ($page === 'payment-recovery'): require root_path('app/Views/admin/payment-recovery.php'); ?>
 <?php elseif ($page === 'policies'): require root_path('app/Views/admin/policies.php'); ?>
 <?php elseif ($page === 'protection'): require root_path('app/Views/admin/protection.php'); ?>
 <?php elseif ($page === 'mail-settings'):

@@ -159,8 +159,8 @@ try {
     }
     $runner = new \App\Core\MigrationRunner($pdo, $runtime . '/database/migrations');
     $applied = $runner->migrate();
-    $assert(count($applied) === 17 && array_slice($applied, -3) === [$migrationKey, '202610210016_marketing_measurements', '202610210017_private_state'], 'Fresh package did not apply exactly the seventeen released migrations.');
-    $assert(count($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN)) === 88, 'Fresh migration schema does not contain all87 declared application tables plus its separate migration ledger.');
+    $assert(count($applied) === 18 && array_slice($applied, -4) === [$migrationKey, '202610210016_marketing_measurements', '202610210017_private_state', '202610220018_payment_journal'], 'Fresh package did not apply exactly the eighteen candidate migrations.');
+    $assert(count($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN)) === 89, 'Fresh migration schema does not contain all88 declared application tables plus its separate migration ledger.');
     $assertEmptyMarketing();
     $pdo->prepare("INSERT INTO installation_state(state_key,state_value,updated_at) VALUES('installation',?,'2026-01-02 03:04:05')")
         ->execute([json_encode(['installation_id' => $configuration['installation_id']], JSON_THROW_ON_ERROR)]);
@@ -209,7 +209,7 @@ try {
     $assert(file_get_contents($path) === $fileBeforeSchema, 'Applying the schema modified existing marketing bytes.');
     $assertEmptyMarketing();
     $ledger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
-    echo "PASS marketing SQL: actual Fresh dependency hashes, exact17/87 schema, read-only review and pre015 file compatibility\n";
+    echo "PASS marketing SQL: actual Fresh dependency hashes, exact18/88 schema, read-only review and pre015 file compatibility\n";
 
     $case = 'legacy data preparation';
     $contacts = [];
@@ -634,7 +634,7 @@ try {
     $assert($lastRead['digest'] === hash('sha256', serialize($activeData)), 'Independent final read does not match the latest committed state.');
     echo "PASS marketing SQL: missing state/authority/tables, corrupt records, conflicting identities and database outages never fall back\n";
     $evidence = ['suite' => 'marketing_sql_mysql', 'checks' => $checks, 'version' => VELVET_VIXXEN_VERSION,
-        'mysql' => $pdo->getAttribute(PDO::ATTR_SERVER_VERSION), 'migrations' => 17, 'declared_tables' => 87, 'database_tables' => 88,
+        'mysql' => $pdo->getAttribute(PDO::ATTR_SERVER_VERSION), 'migrations' => 18, 'declared_tables' => 88, 'database_tables' => 89,
         'fresh_sha256' => hash_file('sha256', $archive), 'legacy_source_preserved' => true,
         'installation_id_length' => strlen($installationId), 'metadata_only_installation_setting' => true,
         'independent_roots' => 2, 'concurrent_writers' => 4, 'external_messages' => 0];

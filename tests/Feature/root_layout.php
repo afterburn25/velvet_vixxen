@@ -206,7 +206,37 @@ namespace {
         'public/routes/protected-asset.php',
         'public/routes/reports/index.php',
     ];
-    $required = array_values(array_unique(array_merge($required, $v09Dependencies)));
+    $paymentDependencies = [
+        'admin/index.php',
+        'app/Core/AddonRuntime.php',
+        'app/Core/CommerceService.php',
+        'app/Core/CommerceStoreTrait.php',
+        'app/Core/MailService.php',
+        'app/Core/MemberPrivacyProjection.php',
+        'app/Core/MemberPrivacyService.php',
+        'app/Core/MemberPrivacyStoreTrait.php',
+        'app/Core/MerchandiseStoreTrait.php',
+        'app/Core/PaymentCommerceTrait.php',
+        'app/Core/PaymentOperationService.php',
+        'app/Core/PaymentRecoveryAuthorizationException.php',
+        'app/Core/PaymentRecoveryService.php',
+        'app/Core/PaymentStoreTrait.php',
+        'app/Core/Store.php',
+        'app/Payments/BoundPaymentProviderInterface.php',
+        'app/Payments/PaymentContract.php',
+        'app/Payments/PaymentProviderInterface.php',
+        'app/Payments/PaymentProviderRegistry.php',
+        'app/Payments/SandboxPaymentProvider.php',
+        'app/Support/payment_recovery_admin.php',
+        'app/Views/admin/commerce.php',
+        'app/Views/admin/navigation.php',
+        'app/Views/admin/payment-recovery-actions.php',
+        'app/Views/admin/payment-recovery.php',
+        'database/migrations/202610220018_payment_journal.php',
+        'public/assets/css/payment-recovery.css',
+        'public/routes/api/payment-webhook.php',
+    ];
+    $required = array_values(array_unique(array_merge($required, $v09Dependencies, $paymentDependencies)));
     $freshRoots = ['addons', 'admin', 'app', 'config', 'database', 'images', 'includes', 'install', 'public', 'storage', 'templates', 'uploads', 'vendor'];
     $newRoot = static function (string $name, bool $seedOld = true) use ($source, $fixtures, $old, $required, $write, $freshRoots): string {
         $root = $fixtures . '/' . $name;
