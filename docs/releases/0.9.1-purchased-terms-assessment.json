@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "assessment": "Separately releasable purchased membership/bundle terms prerequisite",
+  "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "recorded_at_utc": "2026-10-22T16:45:31.148416+00:00",
+  "method": "Bounded read-only source assessment. No implementation, application tests, production or provider acceptance performed.",
+  "conclusion": "Yes, a prospective immutable purchase-terms increment can be released before full recurring agreement/cycle/command engineering. Its useful outcome is that newly accepted purchases and subsequent local recovery keep the exact purchased period, commercial benefit settings and bundle membership despite later catalogue edits. It must also make current consumers use that snapshot. Full recurring/provider semantics remain separate.",
+  "claim_boundary": "Do not call all membership access immutable: current content publication/protection rules and tier-to-content assignments remain dynamic. Freeze specified commercial terms and selected display terms; explicitly preserve current member eligibility, protection holds, expiry, refund and privacy denial. Freezing an entire membership content catalogue would be a larger different feature.",
+  "current_seams": [
+    {
+      "path": "app/Core/CommerceService.php",
+      "lines": "144-219,615-635",
+      "finding": "Checkout serializes commerce, resolves a server-side quote, persists order/items inside paymentAtomic before adapter transport, and reuses the existing order for the same idempotency key. Plan item metadata already has billingInterval/intervalCount/trialDays; bundle metadata only has purchaseMode. Paid amount/currency are stored independently. This is the natural capture boundary, but capture must be coherent with catalogue writers."
+    },
+    {
+      "path": "app/Core/CommerceService.php",
+      "lines": "243-317",
+      "finding": "Plan fulfillment re-reads membershipPlan(itemId), recalculates trial/period from current fields and creates a subscription; it ignores the saved quote period metadata. Bundle fulfillment re-reads bundle(itemId) and grants its current gallery/video list. Plan deletion fails; bundle deletion fails. Existing entitlement grants become stable after fulfillment, so the concrete bundle drift window is quote/order creation through delayed application/recovery."
+    },
+    {
+      "path": "app/Core/PaymentCommerceTrait.php",
+      "lines": "71-85,103-198",
+      "finding": "Confirmed operation reconciliation calls the same fulfillment core inside the existing atomic transaction/snapshot; a fulfillment error preserves confirmed evidence and local_effect_failed with local effects rolled back. Apply snapshot terms here; do not introduce a second financial path or rerun charge transport."
+    },
+    {
+      "path": "app/Core/CommerceStoreTrait.php",
+      "lines": "289-321",
+      "finding": "Order items already persist arbitrary metadata on file and SQL. updateOrderItem shallow-merges arbitrary metadata with no immutable namespace; updateOrder protects attribution only. A saved terms object is not immutable unless Store mutations reject replacement/removal for non-privacy callers and preserve it when merging fulfillment IDs."
+    },
+    {
+      "path": "app/Core/MemberStoreTrait.php",
+      "lines": "626-754,1035-1046",
+      "finding": "saveMembershipPlan mutates price/currency/interval/trial/discount/benefits. saveSubscription has no purchased-term field or purchase backlink; file rows hold planName but SQL subscriptions JOIN the current plan and project current name/benefits/discount. Subscriptions need durable terms or an unambiguous immutable source reference on both backends. The existing subscription schema has no metadata column."
+    },
+    {
+      "path": "app/Core/CommerceService.php",
+      "lines": "395-519,633-641",
+      "finding": "memberPpvDiscount re-reads each current plan, and sandbox processDueSubscriptions re-reads current price/currency/interval/name. A membership snapshot is incomplete if these consumers continue using mutable catalogue data. Separate agreed recurring base price from the first paid discounted/taxed total and from trial duration. Preserve the non-sandbox renewal defer and uncertified recurring checkout refusal."
+    },
+    {
+      "path": "app/Core/EntitlementResolver.php; app/Core/MarketingAccess.php",
+      "lines": "17-79;121-158",
+      "finding": "Media subscription access uses active subscription planId against current contentPlanIds; marketing additionally requires a currently enabled available plan and stricter UTC/start/end eligibility. Snapshotting benefit text does not snapshot either access rule. Preserve these separate current-policy checks and do not accidentally revive disabled/protected/closed access while changing plan display/discount projection."
+    }
+  ],
+  "concrete_acceptance_risks": [
+    "Snapshot schema needs strict version, bounded allowlisted commercial fields and exact type validation; absent legacy terms must differ from a corrupt or unsupported new snapshot. Never silently fall back to the current catalogue for malformed new terms.",
+    "Capture price/currency/period/trial/PPV discount/benefit text and bundle item IDs consistently before dispatch, then bind the subscription to the same order item. Current payment binding checks provider/order/amount/currency, not mutable order-item terms. Catalogue save methods do not share the commerce mutex; SQL bundle parent/items are separate reads. Use a transaction/read consistency or revision check so concurrent edits cannot create a mixed snapshot.",
+    "The subscription schema requires an additive storage design if storing terms directly. Preserve existing rows, identifiers, financial facts and fresh/upgrade migration resumability. File/SQL serialization and missing terms must behave the same; merely changing the SQL JOIN or adding a JSON key to file rows is insufficient.",
+    "Existing subscription cancellation/resume and sandbox renewal writers call saveSubscription with merged records. They must preserve immutable terms and allow only lifecycle fields to change. Purchased commercial terms should not be replaced when an admin edits a plan or updates a subscription status.",
+    "MemberPrivacyStoreTrait intentionally clears order/item metadata and titles during closure and blocks subsequent access recreation. Terms must fit that retention/erasure policy; an absolute immutability guard must not block authorized erasure. MemberPrivacyProjection currently omits order-item metadata and terms, so member-facing/export display needs an explicit safe projection, without leaking arbitrary metadata or provider binding material.",
+    "Existing payment_foundation.php lines201-233 uses real post-acceptance bundle deletion as its rollback failure injection and tests duplicate-reference claims before local transaction creation. Frozen bundles would correctly make that deletion harmless. Replace this trigger with another real bounded local storage/fulfillment failure while retaining the atomic rollback, confirmed evidence, reference-claim, no-recharge and separate-followup assertions. Do not remove the test as obsolete.",
+    "Purchased benefits are not a substitute for current safety/access policy. Freeze advertised commercial rules, but current publication/protection/member status, refund/chargeback revocation and privacy closure must still deny access. Catalogue deactivation semantics for new purchases must be explicit and checked; bundle quote currently reads bundle(false) without its own isActive guard."
+  ],
+  "legacy_record_policy": {
+    "facts_available": "Older order items retain paid price/title and some plan period/trial fields; bundle membership and plan benefit/discount/base recurring price history are absent. Existing subscriptions usually have no source order link or term history. Original complete terms cannot be reconstructed from today's catalogue.",
+    "recommended_boundary": "New purchases carry a versioned required snapshot. Existing fulfilled access, period bounds, financial rows and subscription identities remain as saved; reads must not backfill or mutate them. Mark absent terms as legacy in the resolver and any owner/member explanation, with a documented compatibility path. Do not label current catalogue values as the originally purchased snapshot.",
+    "unfulfilled_legacy": "Explicitly test legacy pending/confirmed orders and the sandbox legacy charge bridge. Preserve the documented old compatibility behavior or hold insufficient-term cases for review; never silently invent original bundle contents. Choose that limited behavior before release because it affects installed orders.",
+    "corrupt_new": "Malformed/unsupported snapshots on new records must hold fulfillment/recovery with no partial financial/access commit and no new provider call. They must not be treated as ordinary legacy absence.",
+    "future_recurring": "No retroactive authoritative remote agreement or billing consent is created. Existing non-sandbox recurring remains deferred; later agreement/cycle work must carry these immutable terms and an explicit legacy onboarding decision."
+  },
+  "minimal_meaningful_acceptance": [
+    {
+      "layer": "File, MySQL 8 and MariaDB 10.11 source behavior",
+      "required": "Create actual new plan and bundle purchases, defer/interrupt confirmation, edit catalogue price/currency/period/trial/discount/benefits/bundle items, then recover. Verify original terms, exact single subscription/entitlement set, unchanged original charge facts, zero second charge and separate followups. Mutate the catalogue again after fulfillment and prove billing display/discount/renewal terms stay frozen where claimed."
+    },
+    {
+      "layer": "Immutability and concurrency",
+      "required": "Reject client-supplied terms and Store metadata overwrite/removal; allow fulfillment metadata updates without losing terms. Exercise catalogue edit crossing capture plus concurrent duplicate recovery. Reject malformed/unsupported terms atomically. Retain one real failed local apply and process interruption control, including uncommitted reference reuse refusal."
+    },
+    {
+      "layer": "Upgrade and legacy",
+      "required": "Use pre-feature paid and pending plan/bundle orders, legacy subscriptions and ordinary reads. Verify no spontaneous backfill, unchanged financial/access state, explicit missing-term policy and idempotent additive migration/resume on both actual SQL engines. Verify the complete Upgrade preserves installation-owned roots and existing owner/data."
+    },
+    {
+      "layer": "Current access and privacy",
+      "required": "Exercise current member closure/demotion, protection hold, disabled tier where applicable, expiry, refund and chargeback after snapshot creation. Verify no access reopening, no retention-policy bypass and safe own-account/export projection. Keep provider secrets and arbitrary metadata out of UI and exported terms."
+    },
+    {
+      "layer": "Actual packaged HTTP/browser",
+      "required": "Bind all producers and reports to the exact candidate Fresh hash. Use root desktop and nested mobile for real membership/bundle checkout, then owner catalogue edits and owner recovery, plus member billing/receipt/library and script-free forms. Include visible purchased-term values and a legacy/held explanation. Use the two existing MySQL/MariaDB payment lanes, with file cases included, and preserve the full retained release workflow rather than replacing it with these new focused tests."
+    }
+  ],
+  "separate_later_work": [
+    "Authoritative remote agreement IDs and provider-approved recurring consent",
+    "Stable billing cycle IDs/amounts and replay-safe provider renewal events",
+    "Durable cancel/resume commands, acknowledgements and out-of-order lifecycle handling",
+    "Provider-specific authenticated transport, reconciliation and approved live merchant acceptance"
+  ],
+  "source_sha256": {
+    "app/Core/CommerceService.php": "471f57456a8acd1442156d103911ac11c1c6f8084a0d9b42e90374d38dfab90a",
+    "app/Core/CommerceStoreTrait.php": "578c1a7a13d8c1d44a52f555daffe99bd1406988268d840292fb453b869de4db",
+    "app/Core/MemberStoreTrait.php": "2b439011490143572e27ebad6c5459a3985ff2f4f6448a462b273955873cfc0b",
+    "app/Core/PaymentCommerceTrait.php": "302fb63d0fc470beb784f973b3856fb4063f8fa1268fba99af04df3a1dc7a79e",
+    "app/Core/PaymentOperationService.php": "2955fc872ef183050a24c6ea1ce69ebcfd7ba115c159c24dc9282c308db6dc92",
+    "app/Core/PaymentStoreTrait.php": "56ef4caf86505d153beb65eef9036985d15c227b6a8227a092f5e864cea0829b",
+    "app/Core/EntitlementResolver.php": "9ecb8d6bcff597fa7e5502f6d1ffdabbe6aba479720079f80af2816cec478f36",
+    "app/Core/MarketingAccess.php": "9176465b90db3ec61652ddfcd57d163e252480f8c7285b17575dd2d22f7ee882",
+    "app/Core/MemberPrivacyProjection.php": "a2dac8cd2859d28c6c2c278ff1314f61013b765bf2f4f66faaf2875d2ea32d32",
+    "app/Core/MemberPrivacyStoreTrait.php": "f0cfe83cc6633423307381db991d9b099e5692ffb7ebecb145e8255d3d11cffe",
+    "database/migrations/202610170004_media_and_commerce_foundation.php": "fdb254ca147c1e342df5e31ee3ea6300c6ad82aab7d1347f18c87735ccd5363a",
+    "tests/Feature/payment_foundation.php": "cb7ebc5efdbb0e61db29eccdf8df2440f5fe5ac1649c4c1a693bcabff350d226"
+  },
+  "scope_limit": "Source-derived assessment, not a reproduced production incident or completed implementation. Actual retry payment artifact review has priority when available."
+}

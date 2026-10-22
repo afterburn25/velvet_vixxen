@@ -1,6 +1,28 @@
 # Build through 1.0 — release and continuation
 
-## 0.9.0 / Build 20261021.4
+<!-- payment-recovery-091-release:start -->
+## Current release — 0.9.1 payment recovery, Build 20261022.1
+
+**Verified, merged and delivered.** [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36) completed the corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`. All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. The downloaded gated runtime artifact and all four independently retrieved saved customer files match literally. Saved readback completed at `2026-10-22T17:13:00Z`.
+
+Durable payment operations and bound event/effect journals, atomic local financial and access updates, held uncertain outcomes, separate recoverable follow-ups, and **Admin → Commerce → Payment recovery** are delivered. Recovery checks the original operation without submitting another charge or refund; reads remain inert. Current-owner, recent-authentication, CSRF/revision and commerce-before-member lock protections remain required.
+
+[CI run 39792164645](https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645) used checkout `20914e10283042cae7848faa39beea5532fc9dfe`; source, checkout and merge share tree `177cb521597517f9257ee390e04d0993d85dca9d`. Merge and live-main readback are `61cf2d5aacc180834e2280aab9bd1f23493f621f`.
+
+The accepted effective matrix uses GitHub job records from attempts 2; their actual executions are from attempts 1, 2 on the same frozen source and workflow. GitHub may assign new retry job IDs to carried-forward successes; each record retains its original execution ID, attempt, timestamps and matching steps separately. Earlier canceled/failed attempt snapshots remain historical and are not relabeled successful. No post-merge CI result is inferred from this pull-request workflow.
+
+**Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery.
+
+Preserve the approved magenta/black design, resolved Photo depth and foreground behavior, physical `admin/repair-current.php`, complete Upgrade, approved Fresh/Upgrade 13/9 root directories and only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. Preserve owner identity, configuration, keys, data and uploads. Move ownership-repair copies through **System → Repair Backups → Move Root Backups to Private Storage**; delete only a freshly verified duplicate through the owner tool. The separate 0.8.1 / repair Build 20261020.3 overlay is unchanged.
+
+Only Sandbox Gateway is registered. A selected approved merchant provider still needs its actual adapter, protocol mapping and approved live lifecycle acceptance. Configured production mail/SendGrid and age services, customer-host install/upgrade/rollback, running-build and protected-origin/CDN checks, trusted geographic headers, cron, external backup key/restore, and owner policy/retention decisions remain separate. Account closure does not prove external billing cancellation or deletion of independent backups. Keep #3 as ongoing release policy and actual-host #12/#13 open without host evidence.
+
+[Release record](releases/0.9.1-payment-recovery.md) · [Final CI evidence](releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md)
+
+Earlier blocks below preserve their historical release/candidate state and then-current remaining-work lists. This completed release and the current continuation target supersede those status statements.
+<!-- payment-recovery-091-release:end -->
+
+## Historical 0.9.0 / Build 20261021.4 release
 
 **Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](../docs/releases/0.9.0-safeguards.md), [CI evidence](../docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](../docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate.
 
@@ -10,15 +32,17 @@ The completed release preserves every original required gate and adds current fi
 
 ## Continue payment engineering toward 1.0
 
-Provider-independent payment work continues separately as a **0.9.1 / Build 20261022.1 candidate**: durable bound operation/event/effect journals, atomic local financial/access updates, duplicate-reference refusal, held unknown outcomes, privacy-aware follow-ups and a recent-authenticated owner recovery screen. Its source, tests, full CI, merge and customer delivery require their own acceptance; none is implied by the 0.9.0 evidence. The selected processor's recurring agreement and lifecycle adapter remains additional engineering.
+The **0.9.1 / Build 20261022.1** payment foundation and owner recovery are now verified, merged and delivered. **Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery. Follow [the recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md) for exact current seams, model/migration proposals, member/owner behavior and meaningful offline acceptance.
 
 Only Sandbox Gateway is registered. Continue all useful offline work before asking for inputs, then obtain the selected approved processor and merchant integration requirements; approved production mail recipients and service configuration; intended host access for preserved upgrade/rollback/restore and running-build checks; and configured age-provider/policy decisions. Those requirements remain open in issue #34 and actual-host issues #12/#13. Do not describe sandbox acceptance as live-payment or production-certified 1.0.
 
 Photo depth is resolved after the owner's installed-version update. Preserve that control. Root `.vvx-private-repair-*` folders contain preserved ownership-repair copies; use **System → Repair Backups → Move Root Backups to Private Storage**, followed only by a freshly verified duplicate decision. No actual customer-host inspection or deletion has occurred.
 
-[Release record](releases/0.9.0-safeguards.md) · [Final CI evidence](releases/0.9.0-safeguards-ci.json) · [Delivery evidence](releases/0.9.0-safeguards-delivery.json)
+[Release record](releases/0.9.1-payment-recovery.md) · [Final CI evidence](releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md)
 
 ## Historical integration checkpoint and correction history
+
+**Preserved 0.9.1 candidate checkpoint, superseded by final acceptance above:** Provider-independent payment work continues separately as a **0.9.1 / Build 20261022.1 candidate**: durable bound operation/event/effect journals, atomic local financial/access updates, duplicate-reference refusal, held unknown outcomes, privacy-aware follow-ups and a recent-authenticated owner recovery screen. Its source, tests, full CI, merge and customer delivery require their own acceptance; none is implied by the 0.9.0 evidence. The selected processor's recurring agreement and lifecycle adapter remains additional engineering.
 
 The following record retains the earlier candidate status, individual component runtimes, failed CI observations and then-pending work. Its historical release labels and remaining lists do not supersede the current release and continuation above.
 
@@ -45,7 +69,7 @@ The owner confirmed that **Photo depth is present after updating the version**. 
 | Member privacy | Complete member-owned export projection and attachments, private seven-day downloads, password-confirmed requests, owner retention review and ten durable closure stages | Current service source: file 54 and MySQL/MariaDB 55 each; complete-inventory/core storage: 19/20/20. Actual Apache root/nested checks: file 337/335, MySQL 341/340 and MariaDB 333/333. Every desktop/mobile case passed 45 browser checks. Ten real killed-worker recoveries per HTTP case, stale approval/writer holds, restricted own-download access and financial preservation passed. The evidence record distinguishes retained reports from session-only source observations. |
 | Accessibility and compatibility | Keyboard focus and dialog/menu controls, field labels, focusable tables, visible link distinctions and public trailer captions; explicit MySQL/MariaDB date/schema handling | Combined 55-page file/MySQL desktop/mobile automated and keyboard checks passed locally, including Operations, Protection, privacy, age access and five published policies. All four cases recorded no automated violations or JavaScript errors. Screenshot review subsequently found dim secondary owner-privacy text. The correction passed 71 focused browser checks per desktop/mobile case, including actual rendered text/focus contrast and a real held-request notice. Final combined CI remains required. Bounded loopback response budgets are retained. Automated checks do not establish full WCAG conformance or production performance. |
 
-## Work still in progress
+## Historical 0.9 integration work and corrections
 
 The owner-privacy contrast correction is complete. The latest candidate also keeps all six fixed legal/privacy links visible on phones, with wrapped rows and 44px tap targets, and uses the existing accessible label for campaign queue selection. Full frozen release CI, merge and saved delivery remain pending. Member-privacy Apache/browser, interruption/concurrency and restricted-access acceptance has passed on file storage, actual MySQL 8.0.46 and MariaDB 10.11.14. The 55-page file/MySQL accessibility matrix has also passed locally. These component runs preserve their individual source and package hashes; they do not replace the final frozen release run. Preserve every existing installer, ownership, OPcache, routing, Composer, media, member, commerce and marketing gate. Keep age/location controls and other deliberate activation features disabled until their configuration requirements are satisfied.
 
@@ -63,7 +87,7 @@ For a 0.8.x upgrade, the new **`admin/repair-current.php`** entry is required wh
 
 Recovery checkpoints are uploaded as individual verified Git blobs and an exact matching tree on `recovery/road-to-1.0-checkpoint`. Use the live branch head; never treat a locally prepared but unuploaded commit as remote evidence. Record the final source, actual CI checkout, all required job/step conclusions, exact tree, artifact hashes, merge and literal saved-download bytes before marking delivery complete.
 
-## Local evidence
+## Historical 0.9 local evidence
 
 The committed [integration evidence](releases/0.9.0-integration-local-evidence.json), [privacy evidence](releases/0.9.0-privacy-local-evidence.json) and [source/workflow audit](releases/0.9.0-source-local-audit.json) preserve actual source/package identities, report checksums and screenshot manifests. Component hashes are not interchangeable with each other or with final release artifacts. They make no final CI, merge, saved-download or customer-host claim.
 
@@ -83,7 +107,7 @@ Folders named `.vvx-private-repair-uploads-<random>` (or another repaired runtim
 
 The remaining work includes payment engineering and configured production acceptance. The [pinned readiness audit](releases/0.9.0-readiness-audit.md) identifies the actual source boundaries; it does not treat missing credentials as the only payment gap.
 
-Shared payment work can be developed against isolated providers before selecting a live processor: stable operation identities, held/unknown outcomes and resumable effects; strict provider/order/transaction/amount/currency binding; and recurring lifecycle contracts. The current sandbox implementation is not a live payment adapter. The selected provider must supply the actual checkout, authenticated transport, remote agreement identifiers, event mapping and reconciliation protocol. Preserve sandbox regressions and member privacy's external-billing review until cancellation is actually confirmed.
+The delivered 0.9.1 foundation provides stable operation identities, held/unknown outcomes, resumable effects and strict provider/order/transaction/amount/currency binding. Remaining offline engineering is authoritative recurring agreement/cycle/command handling and immutable membership/bundle purchase terms under the separate plan. Sandbox acceptance is not a live adapter. The selected provider still needs actual checkout, authenticated transport, remote agreement identities, event mapping and reconciliation. Preserve member privacy external-billing review until cancellation is confirmed.
 
 The following owner/provider/host inputs and real acceptance remain required:
 
@@ -92,4 +116,4 @@ The following owner/provider/host inputs and real acceptance remain required:
 3. Supply the intended customer host and access needed to verify a fresh install, preserved upgrade, controlled rollback, backup and isolated restore. Check its actual running build and web-server denial rules; a local PHP server or CI container is not that host.
 4. Configure the selected age-assurance account and required geographic policy, then verify the actual provider session lifecycle. Local protocol tests cannot certify an unconfigured production account or determine jurisdictional requirements.
 
-Continue all work that can be completed without those inputs before requesting them. Do not rename the candidate “production-ready 1.0,” mark actual-host issues complete or imply that the affected host was inspected without evidence.
+Continue useful offline work before requesting those external inputs. Do not describe the completed 0.9.1 delivery or the next recurring plan as production-certified 1.0, mark actual-host issues complete, or imply inspection of the affected host without evidence.

@@ -1,0 +1,185 @@
+{
+  "schema_version": 1,
+  "version": "0.9.1",
+  "build_id": "20261022.1",
+  "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "source_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+  "pr": {
+    "merged": true,
+    "pr_number": 36,
+    "sha": "61cf2d5aacc180834e2280aab9bd1f23493f621f",
+    "tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+    "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+    "base_sha": "eab6654c0dbcb091e1c0f12c4f33c8f6c3285e39",
+    "parents": [
+      "eab6654c0dbcb091e1c0f12c4f33c8f6c3285e39",
+      "2b66fc3c6b3409cf94086df6430ee060b24ce0ea"
+    ],
+    "main_sha_observed": "61cf2d5aacc180834e2280aab9bd1f23493f621f",
+    "url": "https://github.com/afterburn25/velvet_vixxen/pull/36",
+    "merged_at": "2026-10-22T17:10:42Z",
+    "verified_at": "2026-10-22T17:11:02Z"
+  },
+  "ci_run_id": 39792164645,
+  "ci_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645",
+  "ci_final_attempt": 2,
+  "actual_ci_checkout": "20914e10283042cae7848faa39beea5532fc9dfe",
+  "ci_checkout_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+  "ci_api_record_attempts": [
+    2
+  ],
+  "ci_actual_execution_attempts": [
+    1,
+    2
+  ],
+  "gated_artifact_verification": {
+    "run_id": 39792164645,
+    "artifact_id": 12443316372,
+    "artifact_sha256": "6a8708b7f921564525016e6ed9a9d56ec98219b5f165c70a42802ddb540cda94",
+    "artifact_bytes": 16143720,
+    "artifact_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645/artifacts/12443316372",
+    "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+    "verified_at": "2026-10-22T17:15:06.438995+00:00",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+        "bytes": 8139107,
+        "sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 506
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+        "bytes": 7981858,
+        "sha256": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 465
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 11
+      },
+      {
+        "filename": "Velvet-Vixxen-0.9.1-Build-20261022.1-package-manifest.json",
+        "bytes": 113418,
+        "sha256": "e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0",
+        "gated_bytes_equal_local": true
+      }
+    ],
+    "comparison": "Actual GitHub artifact ID/run/source, archive size/SHA-256/CRC and exact four-file set; literal equality to independently retained source-built files and saved readbacks; nested ZIP and per-file frozen Git blob verification."
+  },
+  "saved_download_verification": {
+    "verified_at": "2026-10-22T17:13:00Z",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+        "bytes": 8139107,
+        "sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+        "saved_version_number": 23,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+        "bytes": 7981858,
+        "sha256": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+        "saved_version_number": 20,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "saved_version_number": 2,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": true
+      },
+      {
+        "filename": "Velvet-Vixxen-0.9.1-Build-20261022.1-package-manifest.json",
+        "bytes": 113418,
+        "sha256": "e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0",
+        "saved_version_number": 23,
+        "saved_bytes_equal_gated_artifact": true,
+        "unchanged_saved_repair_reused": false
+      }
+    ],
+    "comparison": "All four separately retrieved pinned saved payloads match the actual gated runtime artifact literally by bytes, size and SHA-256. Three changed customer files have their actual saved versions; the unchanged installer repair is separately pinned and read back."
+  },
+  "package_audit": {
+    "status": "pass",
+    "recorded_at": "2026-10-22T17:15:06.438995+00:00",
+    "scope": "Read-only literal verification of the existing source-built cohort, actual gated distribution and immutable frozen Git source; no rebuild or acceptance-test rerun.",
+    "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+    "source_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+    "version": "0.9.1",
+    "build_id": "20261022.1",
+    "files": [
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+        "bytes": 8139107,
+        "sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 506
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+        "bytes": 7981858,
+        "sha256": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 465
+      },
+      {
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "bytes": 60065,
+        "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+        "gated_bytes_equal_local": true,
+        "runtime_entries": 11
+      },
+      {
+        "filename": "Velvet-Vixxen-0.9.1-Build-20261022.1-package-manifest.json",
+        "bytes": 113418,
+        "sha256": "e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0",
+        "gated_bytes_equal_local": true
+      }
+    ],
+    "package_checks": [
+      {
+        "kind": "fresh",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+        "files": 506,
+        "crc": "pass",
+        "manifest_entry_hashes_match": true,
+        "all_non_generated_entries_equal_frozen_git_blobs": true
+      },
+      {
+        "kind": "upgrade",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+        "files": 465,
+        "crc": "pass",
+        "manifest_entry_hashes_match": true,
+        "all_non_generated_entries_equal_frozen_git_blobs": true
+      },
+      {
+        "kind": "repair",
+        "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+        "files": 11,
+        "crc": "pass",
+        "manifest_entry_hashes_match": true,
+        "all_non_generated_entries_equal_frozen_git_blobs": true
+      }
+    ],
+    "generated_runtime_inventory_sha256": "595180a2a2a5b403af17bbcd48f88c0c8c6abb354d3d0faced42760b0fde264c",
+    "workflow_sha256": "c5c24fd57e510577fa2699967987637ffc303b8c7d1d223743b2bdc027bb60f5"
+  },
+  "post_merge_ci_inferred": false,
+  "limitations": [
+    "Completion documentation changes no executable, test, workflow or runtime-package bytes.",
+    "This record does not certify customer-host installation, upgrade, rollback, mail, payment or age-provider operation.",
+    "The pull-request test checkout and verified merged main share the complete source tree; this does not assert that a post-merge workflow completed.",
+    "The separately preserved canceled attempt and original failed fixture run remain historical; next recurring engineering is not implemented by this delivery record."
+  ]
+}

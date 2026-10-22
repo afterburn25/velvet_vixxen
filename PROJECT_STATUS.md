@@ -1,5 +1,50 @@
-<!-- payment-recovery-091-candidate:start -->
-## Active candidate — 0.9.1 payment recovery
+<!-- payment-recovery-091-release:start -->
+## Current release — 0.9.1 payment recovery, Build 20261022.1
+
+**Verified, merged and delivered.** [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36) completed the corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`. All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. The downloaded gated runtime artifact and all four independently retrieved saved customer files match literally. Saved readback completed at `2026-10-22T17:13:00Z`.
+
+Durable payment operations and bound event/effect journals, atomic local financial and access updates, held uncertain outcomes, separate recoverable follow-ups, and **Admin → Commerce → Payment recovery** are delivered. Recovery checks the original operation without submitting another charge or refund; reads remain inert. Current-owner, recent-authentication, CSRF/revision and commerce-before-member lock protections remain required.
+
+| Evidence | Accepted value |
+| --- | --- |
+| Corrected frozen source | `2b66fc3c6b3409cf94086df6430ee060b24ce0ea` |
+| Final complete CI | [39792164645](https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645) |
+| Actual CI checkout | `20914e10283042cae7848faa39beea5532fc9dfe` |
+| Complete source / checkout / merge tree | `177cb521597517f9257ee390e04d0993d85dca9d` |
+| Required jobs / configured steps | 28 / 295 |
+| Retry provenance | The accepted effective matrix uses GitHub job records from attempts 2; their actual executions are from attempts 1, 2 on the same frozen source and workflow. GitHub may assign new retry job IDs to carried-forward successes; each record retains its original execution ID, attempt, timestamps and matching steps separately. Earlier canceled/failed attempt snapshots remain historical and are not relabeled successful. No post-merge CI result is inferred from this pull-request workflow. |
+| Final conclusions | All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. |
+| Expected-head guarded PR36 merge | `61cf2d5aacc180834e2280aab9bd1f23493f621f` at `2026-10-22T17:10:42Z` |
+| Independent live-main readback | `61cf2d5aacc180834e2280aab9bd1f23493f621f` at `2026-10-22T17:11:02Z` |
+| Gated runtime artifact SHA-256 | `6a8708b7f921564525016e6ed9a9d56ec98219b5f165c70a42802ddb540cda94` |
+| Literal saved-file readback | `2026-10-22T17:13:00Z`; all four files match by bytes, size and SHA-256 |
+| CI evidence SHA-256 | `c035ded59d9dffa3d8cf33553bf03790bada24745504ceb6c90b087f9a15f89d` |
+| Delivery evidence SHA-256 | `3970ac5d32d9e664053984cf0b485ed129668587b0dee1aa81368b5d0fc5f86d` |
+
+| Customer file | Bytes | Runtime entries | SHA-256 |
+| --- | ---: | ---: | --- |
+| Fresh Install | 8,139,107 | 506 | `27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d` |
+| Complete Upgrade | 7,981,858 | 465 | `372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40` |
+| Unchanged 0.8.1 installer repair | 60,065 | 11 | `f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297` |
+| Package manifest | 113,418 | — | `e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0` |
+
+The accepted effective matrix uses GitHub job records from attempts 2; their actual executions are from attempts 1, 2 on the same frozen source and workflow. GitHub may assign new retry job IDs to carried-forward successes; each record retains its original execution ID, attempt, timestamps and matching steps separately. Earlier canceled/failed attempt snapshots remain historical and are not relabeled successful. No post-merge CI result is inferred from this pull-request workflow.
+
+**Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery.
+
+Preserve the approved magenta/black design, resolved Photo depth and foreground behavior, physical `admin/repair-current.php`, complete Upgrade, approved Fresh/Upgrade 13/9 root directories and only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. Preserve owner identity, configuration, keys, data and uploads. Move ownership-repair copies through **System → Repair Backups → Move Root Backups to Private Storage**; delete only a freshly verified duplicate through the owner tool. The separate 0.8.1 / repair Build 20261020.3 overlay is unchanged.
+
+Only Sandbox Gateway is registered. A selected approved merchant provider still needs its actual adapter, protocol mapping and approved live lifecycle acceptance. Configured production mail/SendGrid and age services, customer-host install/upgrade/rollback, running-build and protected-origin/CDN checks, trusted geographic headers, cron, external backup key/restore, and owner policy/retention decisions remain separate. Account closure does not prove external billing cancellation or deletion of independent backups. Keep #3 as ongoing release policy and actual-host #12/#13 open without host evidence.
+
+[Release record](docs/releases/0.9.1-payment-recovery.md) · [Final CI evidence](docs/releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](docs/releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](docs/releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](docs/RECURRING_LIFECYCLE_PLAN.md)
+
+Earlier blocks below preserve their historical release/candidate state and then-current remaining-work lists. This completed release and the current continuation target supersede those status statements.
+<!-- payment-recovery-091-release:end -->
+
+<!-- payment-recovery-091-candidate-history:start -->
+## Historical 0.9.1 candidate and initial correction checkpoint
+
+**Historical scope:** The pending-release and in-progress statements below describe the earlier checkpoint; final acceptance is recorded above.
 
 **0.9.0 remains the latest completed delivery.** The separate **0.9.1 / Build 20261022.1 candidate** implements durable payment operations, strict provider/result binding, atomic financial effects, held uncertain outcomes, separate recoverable follow-ups and **Admin → Commerce → Payment recovery**. First-charge dispatch and privacy closure share the commerce lock; current owner and recent authentication are rechecked throughout refunds and recovery.
 
@@ -8,12 +53,14 @@ Final local acceptance binds implementation `6c06bf4f92e81b1f06b7b507c2c13e3583b
 Continue the separately scoped recurring agreement/cycle/command engineering while this candidate completes release acceptance. A selected processor, its real adapter and live acceptance, production mail/age services, actual-host installation/upgrade/rollback/restore/workers and owner policy decisions remain necessary for production 1.0. Existing Photo depth and ownership-repair backup protections remain unchanged.
 **Continuation checkpoint, 2026-10-22:** the first PR #36 run exposed three retained-fixture mismatches (payment inventory, old package identity and missing-to-empty journal initialization). The complete local source/package aggregate and focused negative controls now pass; full corrected CI and complete cached-upgrade browser acceptance remain pending. Runtime/package bytes are unchanged. See [the correction evidence](docs/releases/0.9.1-ci-corrections.md).
 
-<!-- payment-recovery-091-candidate:end -->
+<!-- payment-recovery-091-candidate-history:end -->
 
 # Project Status — Nikki Wilder / The Velvet Vixxen
 
 <!-- road-to-1.0-integration:start -->
-## Current release — 0.9.0 complete; continue through 1.0
+## Historical 0.9.0 release and continuation checkpoint
+
+**Historical scope:** The following block preserves the completed 0.9.0 evidence and its then-pending 0.9.1 continuation. The accepted 0.9.1 block above and current continuation sections now govern.
 
 **Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](docs/releases/0.9.0-safeguards.md), [CI evidence](docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate.
 
@@ -399,4 +446,4 @@ Owner photographs, biography values and real merchandise catalog content must co
 
 The 0.9 source now implements the marketing, security, privacy, protection and operations capabilities recorded above. Their final release acceptance is recorded in the verified evidence table above; historical “remaining #9” lists retain their original scope. Existing protected file storage and explicit owner-reviewed SQL activation remain supported; schema application alone does not move marketing data. Preserve delivered editorial access, previews, metadata, history, calendar, expiry and scene schedules.
 
-Shared payment journals, strict event binding, unknown-outcome recovery and owner recovery controls are in development in the separate **0.9.1 / Build 20261022.1 candidate**. That candidate still needs its own full source/CI/artifact/merge/delivery acceptance. A real adapter also requires a selected approved merchant provider and implementation of its actual protocol and authoritative recurring agreement, renewal, cancellation and resumption lifecycle; only the sandbox provider is registered. Live acceptance must cover approved, declined, duplicate, renewal, cancellation, refund and chargeback outcomes. The implemented mail and age adapters still need configured production accounts and approved delivery/session evidence. Actual customer-host fresh installation, preserved upgrade, rollback, protected-origin/CDN behavior, trusted geographic headers, cron, external backup keys, isolated restore and the running build remain separate requirements. Owner legal wording, retention reasons/review dates and external recurring cancellation remain operator decisions. Account closure does not cancel external billing or erase independent backups. Local and CI results do not certify those external actions.
+Shared payment journals, strict event binding, unknown-outcome recovery and owner recovery controls are delivered in **0.9.1 / Build 20261022.1**, with complete source/CI/artifact/merge/saved-readback acceptance recorded above. **Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery. Only Sandbox Gateway is registered. A selected approved merchant provider still needs its actual adapter, protocol mapping and approved live lifecycle acceptance. Configured production mail/SendGrid and age services, customer-host install/upgrade/rollback, running-build and protected-origin/CDN checks, trusted geographic headers, cron, external backup key/restore, and owner policy/retention decisions remain separate. Account closure does not prove external billing cancellation or deletion of independent backups. Keep #3 as ongoing release policy and actual-host #12/#13 open without host evidence.

@@ -1,6 +1,26 @@
 # Update and verify Velvet Vixxen
 
-## 0.9.0 / Build 20261021.4 complete Upgrade procedure
+<!-- payment-recovery-091-update:start -->
+## Current 0.9.1 / Build 20261022.1 complete Upgrade procedure
+
+**Verified, merged and delivered.** The complete matching Upgrade is `Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip`. Its SHA-256 is `372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40`. Final CI, guarded PR36 merge and literal saved-download readback are recorded in the linked release evidence; they do not establish that your host has been updated.
+
+1. Keep recoverable backups of the active site files and database. Preserve configuration, storage, uploads, the existing owner, installation identity and encryption keys.
+2. Extract the **complete 0.9.1 / Build 20261022.1 Upgrade** into the active installation directory, replacing matching application files. There is no enclosing product folder; keep an existing subfolder installation in that same subfolder. Do not run the fresh installer over an installed site.
+3. Open **`admin/repair-current.php` directly** under that installation URL. This physical entry reaches current authentication even while older repair/authentication classes remain cached. If **Complete the update** appears with HTTP 503, finish extracting the entire matching Upgrade before continuing.
+4. Sign in as the existing owner with the current password and authenticator or recovery code when enabled. Complete current recent authentication when required. Require **Update files verified**, **Uploaded package: v0.9.1 · Build 20261022.1**, and **Files needing replacement: 0**.
+5. Choose **Refresh application PHP** deliberately. After reload require **PHP running now: 20261022.1** and repeat the inventory checks. Reload admin/public pages with asset revision **0.9.1-20261022.1**; inspect host/browser/CDN caches if old responses persist after the file/PHP checks succeed.
+6. Review **System → Database Updates**. The release adds **migration 018**, `202610220018_payment_journal.php`. Also review any pending earlier migrations, including 015 marketing storage, 016 measurement storage and 017 private journals where applicable. Apply the reviewed plan through the current owner workflow after backup. Extraction and ordinary reads do not migrate SQL or activate an independent marketing-storage move. File-storage mode reports that no SQL migration is needed.
+7. Open **Commerce → Payment recovery** to review saved payment outcomes and order follow-ups. Read-only inspection does not query a provider or send messages. **Check payment outcome** reconciles the original operation; **Run eligible order follow-ups** is a separate deliberate action. Held ambiguous delivery remains held, and unknown payment outcomes are not a new charge or refund. Follow [Payment recovery](PAYMENT_RECOVERY.md).
+8. Use **Restore organized folders** only for exact detected retired Build 20261019.5 forwarders. Move ownership-repair root copies through **System → Repair Backups → Move Root Backups to Private Storage**. Delete only a freshly verified duplicate through that tool; preserve missing, different, custom or unreadable content.
+9. Review retained Composer depth/foreground, separate layers, Menus, schedules, public/media/member/commerce behavior and configured workers. Actual host/CDN denial, approved live services, backup/restore and owner policy decisions require their own operating evidence.
+
+The Upgrade retains the approved nine root directories and four root files and preserves installed customer state. The separate unfinished-installer repair remains **0.8.1 / repair Build 20261020.3**, byte-identical at 11 files; it is not the installed-site Upgrade. Only Sandbox Gateway is registered. Photo depth is already resolved after the owner update; preserve it. Earlier procedures below are historical and keep their original release identities.
+
+[Release record](releases/0.9.1-payment-recovery.md) · [Final CI evidence](releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md)
+<!-- payment-recovery-091-update:end -->
+
+## Historical 0.9.0 / Build 20261021.4 complete Upgrade procedure
 
 **Verified, merged and delivered.** **0.9.0 / Build 20261021.4** passed the complete frozen workflow, merged through [PR #35](https://github.com/afterburn25/velvet_vixxen/pull/35), and has byte-verified saved customer downloads. The [release record](../docs/releases/0.9.0-safeguards.md), [CI evidence](../docs/releases/0.9.0-safeguards-ci.json) and [delivery evidence](../docs/releases/0.9.0-safeguards-delivery.json) bind the exact source, packages, merge and readback. Customer-host and live-provider acceptance remain separate. The historical procedures below retain their original release evidence.
 

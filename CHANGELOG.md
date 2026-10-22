@@ -1,6 +1,24 @@
+<!-- payment-recovery-091-changelog:start -->
+## 0.9.1 — Durable payments and owner recovery, Build 20261022.1
+
+**Verified, merged and delivered.** [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36) merged corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea` as `61cf2d5aacc180834e2280aab9bd1f23493f621f`. All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. The gated and independently retrieved saved packages match literally at `2026-10-22T17:13:00Z`.
+
+Durable payment operations and bound event/effect journals, atomic local financial and access updates, held uncertain outcomes, separate recoverable follow-ups, and **Admin → Commerce → Payment recovery** are delivered. Recovery checks the original operation without submitting another charge or refund; reads remain inert. Current-owner, recent-authentication, CSRF/revision and commerce-before-member lock protections remain required.
+
+Migration 018 adds the payment journal. Fresh/Upgrade contain **506/465 runtime entries**, retain approved roots and customer-state preservation, and use the complete installed-site Upgrade. The separate 11-file unfinished-installer repair is unchanged at 0.8.1 / repair Build 20261020.3. The three retained-fixture corrections change no runtime/workflow/package bytes; failed checkpoints remain in the correction record.
+
+**Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery.
+
+Only Sandbox Gateway is registered. A selected approved merchant provider still needs its actual adapter, protocol mapping and approved live lifecycle acceptance. Configured production mail/SendGrid and age services, customer-host install/upgrade/rollback, running-build and protected-origin/CDN checks, trusted geographic headers, cron, external backup key/restore, and owner policy/retention decisions remain separate. Account closure does not prove external billing cancellation or deletion of independent backups. Keep #3 as ongoing release policy and actual-host #12/#13 open without host evidence.
+
+[Release record](docs/releases/0.9.1-payment-recovery.md) · [Final CI evidence](docs/releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](docs/releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](docs/releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](docs/RECURRING_LIFECYCLE_PLAN.md)
+<!-- payment-recovery-091-changelog:end -->
+
 <!-- scene-schedules-0814:start -->
 
-## Unreleased — 0.9.0 candidate, Build 20261021.4
+## Historical pre-release 0.9.0 candidate checkpoint, Build 20261021.4
+
+This checkpoint is retained as history. Completed 0.9.0 evidence is in [its release record](docs/releases/0.9.0-safeguards.md); completed 0.9.1 is recorded above.
 
 The active build-through-1.0 work integrates administrator security, private journals/configuration, deleted editorial recovery, campaign content, durable attribution/analytics, notification automation and signed mail-provider feedback. Protection, privacy and operational work remains in progress. No new release, merge, customer download or production certification is claimed. See [the integration record](docs/ROAD_TO_1_0.md).
 
