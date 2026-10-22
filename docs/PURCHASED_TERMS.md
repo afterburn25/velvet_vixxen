@@ -1,6 +1,6 @@
-# Purchased membership and bundle terms — 0.9.2 candidate
+# Purchased membership and bundle terms — 0.9.2
 
-This candidate is the immutable-purchase prerequisite of the recurring lifecycle plan. Version 0.9.1 remains the last delivered release until the candidate completes its own CI, artifact review, merge and saved delivery.
+Released as 0.9.2 / Build 20261022.2 through PR #37 after complete source, exact-package CI, artifact review, merge and saved-download readback. This completes the immutable-purchase prerequisite; authoritative recurring agreements, cycles and cancellation commands remain next.
 
 New checkout reviews disclose the membership amount, frequency, initial charge and applicable trial, coupon and sandbox-tax treatment. A server-generated review revision is checked again under the commerce lock before creating an order. Changed terms require another review. Browser-supplied snapshots are ignored.
 
@@ -23,6 +23,6 @@ python tests/Http/purchased_terms_http.py --mode both
 python tests/Browser/purchased_terms_playwright.py --mode both
 ```
 
-SQL fixtures require an explicitly owned initially empty test schema and exact engine selection. The existing MySQL 8/PHP 8.2/8.3 and MariaDB 10.11 lanes run the source producer. Both payment-recovery engine lanes retain all existing recovery tests and add root/nested HTTP and desktop/phone no-JavaScript purchased-term flows against the pinned candidate Fresh hash. The source producer covers initial coupon/tax separation, delayed plan edits, immutable metadata, original discounts/renewals, bundle edits/deletion, corrupt new terms, held incomplete legacy purchases, safe exports and privacy erasure. The retained payment foundation still induces a real second-item fulfillment failure and verifies money/access rollback, original evidence, reference claims and recovery without another charge.
+SQL fixtures require an explicitly owned initially empty test schema and exact engine selection. The existing MySQL 8/PHP 8.2/8.3 and MariaDB 10.11 lanes run the source producer. Both payment-recovery engine lanes retain all existing recovery tests and add root/nested HTTP and desktop/phone no-JavaScript purchased-term flows against the pinned released Fresh hash. The source producer covers initial coupon/tax separation, delayed plan edits, immutable metadata, original discounts/renewals, bundle edits/deletion, corrupt new terms, held incomplete legacy purchases, safe exports and privacy erasure. The retained payment foundation still induces a real second-item fulfillment failure and verifies money/access rollback, original evidence, reference claims and recovery without another charge.
 
 No live merchant, production mail/age service, customer-host installation, upgrade, rollback, cron or CDN/origin acceptance is inferred from these tests.

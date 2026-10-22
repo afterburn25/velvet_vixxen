@@ -1,6 +1,8 @@
-## 0.9.2 candidate — purchased membership and bundle terms
+## 0.9.2 — Purchased membership and bundle terms, Build 20261022.2
 
-Freeze validated commercial terms before dispatch; reject stale checkout reviews; retain purchased benefits, PPV discounts, sandbox renewal amounts and exact bundle contents through delayed recovery. Preserve explicit legacy/held handling, metadata immutability, safe exports and authorized privacy erasure. Complete CI, merge and customer delivery remain pending.
+**Verified, merged and delivered through [PR #37](https://github.com/afterburn25/velvet_vixxen/pull/37).** Freeze validated commercial terms before dispatch; reject stale checkout reviews; preserve purchased benefits, discounts, sandbox renewal amounts and exact bundle contents through delayed recovery. Keep explicit legacy/held handling, immutable metadata, safe exports and authorized privacy erasure. Correct SQL bundle deduplication and transaction rollback.
+
+All 28 required jobs passed: 297 successful configured steps, 2 intentional member-only skips in age-policy lanes, and no unexpected skips. Exact gated Fresh/Upgrade and manifest match rebuilt and saved customer bytes. Fresh/Upgrade retain 510/469 entries and approved roots; the separate 0.8.1 installer repair is unchanged. Full recurring lifecycle and production-service/host acceptance remain separate. [Release evidence](docs/releases/0.9.2-purchased-terms.md).
 
 <!-- payment-recovery-091-changelog:start -->
 ## 0.9.1 — Durable payments and owner recovery, Build 20261022.1
