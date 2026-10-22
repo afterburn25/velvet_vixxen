@@ -1,0 +1,219 @@
+{
+  "schema_version": 1,
+  "review_kind": "independent_payment_mariadb_ci_artifact_review",
+  "verdict": "pass_with_nonblocking_capture_caveat",
+  "blocking_findings": [],
+  "run_id": "39792164645",
+  "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "source_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+  "artifact": {
+    "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/payment-mariadb.zip",
+    "sha256": "dbb6a7b73939e97afc7b4c7ca4ce190e4f06a47b5772f268ed5ec5266a63e31b",
+    "extracted_to": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/payment-mariadb-review-iur4xm9a",
+    "bytes": 34804223,
+    "archive_checks": {
+      "entries": 62,
+      "uncompressed_bytes": 35694811,
+      "safe_paths": true,
+      "duplicate_paths": 0,
+      "symlinks": false,
+      "crc_ok": true
+    }
+  },
+  "manifest": {
+    "filename": "Velvet-Vixxen-0.9.1-Build-20261022.1-package-manifest.json",
+    "sha256": "e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0",
+    "version": "0.9.1",
+    "build_id": "20261022.1"
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+      "version": "0.9.1",
+      "build_id": "20261022.1",
+      "sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+      "bytes": 8139107,
+      "entries": 506,
+      "source_files_byte_matched": 505,
+      "mismatches": []
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+      "version": "0.9.1",
+      "build_id": "20261022.1",
+      "sha256": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+      "bytes": 7981858,
+      "entries": 465,
+      "source_files_byte_matched": 464,
+      "mismatches": []
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+      "version": "0.8.1",
+      "build_id": "20261020.3",
+      "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+      "bytes": 60065,
+      "entries": 11,
+      "source_files_byte_matched": 11,
+      "mismatches": []
+    }
+  ],
+  "generated_runtime_inventory": {
+    "fresh_upgrade_identical": true,
+    "entries": 464,
+    "matches_upgrade_runtime": true,
+    "version": "0.9.1",
+    "build_id": "20261022.1"
+  },
+  "report_binding": {
+    "http": {
+      "test_source_files": 3,
+      "runtime_source_files": 18,
+      "bad_sources": [],
+      "bad_runtime": [],
+      "fresh_archive_matches_both_pins": true,
+      "externally_pinned_fresh": true,
+      "archive_runtime_matches_sources": true,
+      "passed": true
+    },
+    "browser": {
+      "test_source_files": 3,
+      "runtime_source_files": 18,
+      "bad_sources": [],
+      "bad_runtime": [],
+      "fresh_archive_matches_both_pins": true,
+      "externally_pinned_fresh": true,
+      "archive_runtime_matches_sources": true,
+      "passed": true
+    }
+  },
+  "report_sha256": {
+    "payment-recovery-http-evidence.json": "a8bb2b81cd1ad866b8a6efbf54d3e4ce97e1131c19c343746e0dc91aa047b999",
+    "payment-recovery-browser-evidence.json": "f06ea96e767737ce715272684240993cb21c9e69c5fad434fd89a8b59af32ad6"
+  },
+  "test_results": {
+    "http_checks": 1066,
+    "http_by_case": {
+      "file-root": 266,
+      "file-nested": 266,
+      "mysql-root": 267,
+      "mysql-nested": 267
+    },
+    "browser_checks": 1160,
+    "browser_by_case": {
+      "file-root-desktop": 290,
+      "file-nested-mobile": 290,
+      "mysql-root-desktop": 290,
+      "mysql-nested-mobile": 290
+    },
+    "php_cli_versions": [
+      "8.3.36"
+    ],
+    "php_http_versions": [
+      "8.3.36"
+    ],
+    "sql_versions": [
+      "10.11.19-MariaDB-ubu2204"
+    ],
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "external_messages": 0,
+    "combined_checks": 2226,
+    "false_case_guarantees": [],
+    "failure_or_partial_artifacts": []
+  },
+  "screenshots": {
+    "reported_pngs": 48,
+    "actual_pngs": 48,
+    "all_pngs_independently_decoded": true,
+    "all_reported_sha256_bytes_dimensions_match": true,
+    "all_reported_png_names_match_actual_files": true,
+    "representative_full_resolution_images_visually_reviewed": [
+      "payment-recovery-file-root-desktop-records.png",
+      "payment-recovery-file-root-desktop-confirmed.png",
+      "payment-recovery-file-root-desktop-applied.png",
+      "payment-recovery-file-nested-mobile-followups-pending.png",
+      "payment-recovery-file-nested-mobile-followups-completed.png",
+      "payment-recovery-file-nested-mobile-outcome-unknown.png",
+      "payment-recovery-mysql-root-desktop-receipt-retryable.png",
+      "payment-recovery-mysql-root-desktop-receipt-held.png",
+      "payment-recovery-mysql-root-desktop-addon-held.png",
+      "payment-recovery-mysql-nested-mobile-confirmation-required.png",
+      "payment-recovery-mysql-nested-mobile-no-script-confirmed.png",
+      "payment-recovery-mysql-nested-mobile-no-script-completed.png",
+      "payment-recovery-file-nested-mobile-confirmed.png",
+      "payment-recovery-mysql-root-desktop-confirmed.png"
+    ],
+    "visual_state_coverage": 12,
+    "viewports": [
+      {
+        "width": 1440,
+        "height": 1000
+      },
+      {
+        "width": 390,
+        "height": 844
+      }
+    ],
+    "visual_observations": [
+      "Approved dark/magenta admin design is consistent at desktop and mobile widths.",
+      "Payment outcome and order follow-up actions are distinct; held receipts/add-ons show no resend action.",
+      "Recent-confirmation requirement and script-free success states are legible.",
+      "Mobile record identifiers and long order labels wrap inside cards; no horizontal clipping observed."
+    ]
+  },
+  "layout_and_focus": {
+    "states_measured": 48,
+    "control_observations": 628,
+    "minimum_control_width_pixels": 48.90625,
+    "minimum_control_height_pixels": 44,
+    "horizontal_overflow_states": 0,
+    "off_viewport_or_small_controls": 0,
+    "keyboard_focus_observations": 16,
+    "all_focus_observations_visible": true,
+    "javascript_errors": []
+  },
+  "server_log_review": {
+    "log_files": 8,
+    "lines_reviewed": 4646,
+    "http_status_counts": {
+      "200": 1292,
+      "302": 132,
+      "400": 30,
+      "403": 40,
+      "404": 8,
+      "405": 4,
+      "409": 28,
+      "419": 4,
+      "428": 4,
+      "503": 4
+    },
+    "php_or_process_errors": [],
+    "server_5xx_count": 4,
+    "all_5xx_match_intentional_unavailable_storage_checks": true,
+    "expected_503_source": "tests/Http/payment_recovery_http.py:298-306 at source_commit (hold-journal, assert503, restore-journal)",
+    "other_non_success_statuses": "Expected malformed-input, missing-record, authority/CSRF/confirmation, conflict, and method-denial scenarios; no failed report or partial failure artifact present."
+  },
+  "nonblocking_findings": [
+    {
+      "kind": "full_page_capture_scroll_state",
+      "observed_in": [
+        "payment-recovery-file-root-desktop-confirmed.png",
+        "payment-recovery-file-nested-mobile-confirmed.png",
+        "payment-recovery-mysql-root-desktop-confirmed.png"
+      ],
+      "detail": "The keyboard-focused confirmed captures retain the scrolled sticky header and visible skip link. The header overlays earlier page content in the full-page image (including the mobile order heading). The record status and focused action remain legible.",
+      "interpretation": "Consistent with keyboard-induced scroll immediately before shot(), which calls page.screenshot(full_page=True) without resetting scroll; not evidence of payment-operation failure. Other reviewed states and no-script confirmed capture are clean.",
+      "source": "tests/Browser/payment_recovery_playwright.py:55-84,165-168; public/assets/css/admin.css sticky .admin-topbar",
+      "optional_future_improvement": "Capture the focused viewport for keyboard evidence, then scroll to top for a separate full-page composition."
+    }
+  ],
+  "scope_limits": [
+    "Runtime versions are actual values recorded by the CI harness; SQL case labels say mysql but the recorded server is MariaDB 10.11.19.",
+    "This review verifies the supplied CI artifact and its source/package binding; it does not claim merchant certification, external delivery, or production-host testing."
+  ],
+  "repository_source_modified": false
+}

@@ -1,0 +1,761 @@
+{
+  "run_id": 39792164645,
+  "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "reviewed_at": "2026-10-22T14:26:02.998928+00:00",
+  "reviewer": "installed_upgrade agent",
+  "review_type": "Representative unscaled original screenshot regions plus independent server-log inspection",
+  "machine_report": {
+    "path": "/tmp/vvx-091-retained-artifact-review.json",
+    "sha256": "3f8eb5f6e28de9d5c8feecd6ef935f336ab8dd23b854e028d18080660e58e3bd",
+    "unchanged": true,
+    "decoded_png_count": 84,
+    "machine_checks_attribution": "Separate retained machine report supplies all-PNG decoding, producer matching, package identity and machine assertion results; this report adds selective direct visual review."
+  },
+  "visual_scope": {
+    "artifacts": 3,
+    "originals": 12,
+    "labelled_crops": 14,
+    "desktop_width": 1440,
+    "mobile_width": 390,
+    "selection_inventory": "/tmp/vvx-091-retained-review-crops/selections.json",
+    "selection_inventory_sha256": "97d27b717ce43e4a986a3814fbe460147c68f675a66b1c877e95749d4a88b8c4",
+    "originals_modified": false,
+    "all_selected_original_hashes_match_machine_inventory": true
+  },
+  "overall_finding": "No obvious layout regression, primary control overlap or horizontal page spill in sampled original screenshot regions. Expected neon pink/magenta/black presentation is preserved.",
+  "limitations": [
+    "Only explicit original pixel ranges recorded here were visually inspected; these are representative samples, not full-page visual review of all 84 retained images.",
+    "Crop boundaries can divide text or controls; artificial boundaries are not defects in original screenshots.",
+    "No quantitative contrast measurement or live interaction performed in this visual review. Machine assertions remain attributed to their retained producer reports.",
+    "Original artifact files and derived crops are present in local verification/scratch paths; this JSON does not claim separate durable publication of them."
+  ],
+  "artifacts": [
+    {
+      "artifact_id": 12433430022,
+      "archive_sha256": "0d4b001f93d33a609aa89feb540cfc4501dbd2611cdec7a17d74b6cdbae878b3",
+      "machine_decoded_png_count": 28,
+      "visually_reviewed_original_count": 4,
+      "reviewed_crop_count": 5,
+      "case_coverage": [
+        "file-root-desktop",
+        "file-nested-mobile",
+        "mysql-root-desktop",
+        "mysql-nested-mobile"
+      ],
+      "reports": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-browser-evidence.json",
+          "sha256": "29084dbc54656f37414c4a72cd5ce39a071b950982fdb0240393b04aa991e802",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": "151.0.7922.34",
+          "reported_php": null
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-http-evidence.json",
+          "sha256": "a8d0309b5f625473a3bfded83b0e46705fd4371e82acff17d245c7072bb53686",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": null,
+          "reported_php": null
+        }
+      ],
+      "http_runtime": {
+        "server": "Apache/2.4.58 (Ubuntu)",
+        "php_version": "8.3.6",
+        "independently_read_log_files": 8,
+        "observed_server_start_lines": 8,
+        "cli_php_version": null,
+        "cli_php_note": "HTTP server observations do not independently establish PHP CLI version.",
+        "logs": [
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-file-nested-error.log",
+            "sha256": "5e6b1f7e3de14bd5576342db07945c1b376f3fbeb4b8ff41f4afd20e9832f62c",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:09:49.658958 2026] [mpm_prefork:notice] [pid 59998] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-file-nested-mobile-error.log",
+            "sha256": "5cf4aeff2a15a1a1f49f0a01f677412098a982d39c21190e794815d952415f0f",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:12:05.812707 2026] [mpm_prefork:notice] [pid 60772] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-file-root-desktop-error.log",
+            "sha256": "53aeafe37da12bc3d98e7fcec67ed81b4786c5b8a98df8827bb5c270cd671407",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:29.152527 2026] [mpm_prefork:notice] [pid 60613] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-file-root-error.log",
+            "sha256": "918e940b67193fd9d9b2456caebd7755268c722641d52e75bc12aa1ee908b78d",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:09:12.986273 2026] [mpm_prefork:notice] [pid 59821] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-mysql-nested-error.log",
+            "sha256": "7380fa1582ef300ea4e1b426d6f0c1c3e2ec6db95a7eb13db9785cc0644247fd",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:10:58.087103 2026] [mpm_prefork:notice] [pid 60394] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-mysql-nested-mobile-error.log",
+            "sha256": "f4473dba244d149e29c38e14d633ef1a67111c678bdb1ca48be72596b0c5e3b4",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:15.258528 2026] [mpm_prefork:notice] [pid 61056] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-mysql-root-desktop-error.log",
+            "sha256": "c78d695aae3c3af2437347d453828cd999c47cc3fc83f70e137fe2511dd55f4c",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:12:41.519912 2026] [mpm_prefork:notice] [pid 60930] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/protection-mysql-root-error.log",
+            "sha256": "1f35f61ef0a872278cc9a4f1e683163b33bc2c1ed614683ec4c1557d11c3763e",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:10:27.861387 2026] [mpm_prefork:notice] [pid 60179] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          }
+        ]
+      },
+      "reviewed_originals": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-file-nested-mobile-closure-review.png",
+          "sha256": "76228d12c93f3f96762296ca676135bafa442b5c35807b0fddb25c14c5dbb525",
+          "bytes": 771775,
+          "width": 390,
+          "height": 4712,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12433430022-member-privacy-file-nested-mobile-closure-review-y0-1100.png",
+              "sha256": "33b8ead0c1e4f205971f80fc16217e6d3c88fd3da5538e7a646f3154bdfdef5b",
+              "bytes": 232067,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                390,
+                1100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            },
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12433430022-member-privacy-file-nested-mobile-closure-review-y3500-4712.png",
+              "sha256": "923fad3ae10238465bd94dd5c53b983187f6e72ec89f9dfa630223e5c8e3e4f1",
+              "bytes": 235104,
+              "original_pixel_bounds_xyxy": [
+                0,
+                3500,
+                390,
+                4712
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed the header, instructions, recent-auth link, run/guide controls and inventory cards, then the lower request journal and worker instructions. Controls fit the 390-pixel layout; dates, labels and long worker command wrap. A control cut at the start of the lower image is the explicit crop boundary, not original UI clipping."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-file-root-desktop-export-held.png",
+          "sha256": "0b4f948f915a438bd6e6f09c81d1bc15df23af2db140fb475ca4128d9cd6950a",
+          "bytes": 911782,
+          "width": 1440,
+          "height": 2576,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12433430022-member-privacy-file-root-desktop-export-held-y1500-2576.png",
+              "sha256": "69271494fe61e71658716abd2faac8c08cf0f02db1a5af7f737b5cdc8a9f1182",
+              "bytes": 412135,
+              "original_pixel_bounds_xyxy": [
+                0,
+                1500,
+                1440,
+                2576
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed the lower request journal and worker region. Needs a new owner review status, resumption action, canceled record and worker instructions are legible; long command stays within desktop content. No observed overlap among rows and actions."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-mysql-nested-mobile-closure-complete.png",
+          "sha256": "889556134a5e69a1bb44ef069a538a57151f8e9966b601f705a51074ca2154aa",
+          "bytes": 422853,
+          "width": 390,
+          "height": 2038,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12433430022-member-privacy-mysql-nested-mobile-closure-complete-y800-2038.png",
+              "sha256": "46445272f469b5ed3e14b2152e0fab75f21fea28cb1e4e8a7106f10329cc18e4",
+              "bytes": 237606,
+              "original_pixel_bounds_xyxy": [
+                0,
+                800,
+                390,
+                2038
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed lower closure-complete region. Completed 10 of 10 stages, retention review date, revoked downloads and separate review controls are legible; worker instructions fit without visible horizontal spill."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022/member-privacy-mysql-root-desktop-export-ready.png",
+          "sha256": "3db268d3708915a0e9fcf23cde5bbe7b378841f38c31720a7b2342cd09fa1050",
+          "bytes": 216237,
+          "width": 1440,
+          "height": 1619,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12433430022-member-privacy-mysql-root-desktop-export-ready-y0-1100.png",
+              "sha256": "76ff8ae34ecbbd5d3adff52eb5853374d3d82ddd28636ebc43e658b0ceeb90af",
+              "bytes": 176789,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                1440,
+                1100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed upper member privacy page. Export account data and Close account and remove data cards balance in two columns; passwords, checkbox and buttons are readable without collisions. Lower export download region is outside this sample."
+        }
+      ]
+    },
+    {
+      "artifact_id": 12431379212,
+      "archive_sha256": "859815c420f5556b5f84a7f59831ca7830faa309f88582b718f9d9061c7bfe63",
+      "machine_decoded_png_count": 32,
+      "visually_reviewed_original_count": 4,
+      "reviewed_crop_count": 4,
+      "case_coverage": [
+        "file-root-desktop",
+        "file-nested-mobile",
+        "mysql-root-desktop",
+        "mysql-nested-mobile"
+      ],
+      "reports": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-browser-evidence.json",
+          "sha256": "3619f174b5fab5e981ab53c23669d9d889a40d13004172fb05ad9585c4d4635f",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": "151.0.7922.34",
+          "reported_php": null
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-http-evidence.json",
+          "sha256": "69fdfae65e2dffd5cf720e4586f0c7078816a78612111b35ee8334aa385795eb",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": null,
+          "reported_php": null
+        }
+      ],
+      "http_runtime": {
+        "server": "Apache/2.4.58 (Ubuntu)",
+        "php_version": "8.3.6",
+        "independently_read_log_files": 8,
+        "observed_server_start_lines": 8,
+        "cli_php_version": null,
+        "cli_php_note": "HTTP server observations do not independently establish PHP CLI version.",
+        "logs": [
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-file-nested-error.log",
+            "sha256": "4a4378b1d20a22b75de11cc6313f2d523f92a9ec926d5e06bc64081e1e0e396b",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:26.955729 2026] [mpm_prefork:notice] [pid 59277] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-file-nested-mobile-error.log",
+            "sha256": "c275d215d26c09f32fd6d50c3deaf77558d206cdb8b151f5c8d9c72d059c5386",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:12:30.890997 2026] [mpm_prefork:notice] [pid 59667] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-file-root-desktop-error.log",
+            "sha256": "93d08b3c7be89729646c4178e6fb4357993513e38a17c2748850363f84ae1bf0",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:57.955095 2026] [mpm_prefork:notice] [pid 59534] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-file-root-error.log",
+            "sha256": "4d918da24176725da71024c23ee000e8b6bc0096bc968fa9dfa975988ec1252b",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:18.914279 2026] [mpm_prefork:notice] [pid 59249] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-mysql-nested-error.log",
+            "sha256": "7882be99e328929ed5cb7b3c79e23e517b87721b2c9425802ec2af95ca6efbd8",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:47.421982 2026] [mpm_prefork:notice] [pid 59408] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-mysql-nested-mobile-error.log",
+            "sha256": "9b9e1ef73b1020fd03b50c79e40b3e3535c59032c6e812d8152e77716d0e0611",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:14:01.352073 2026] [mpm_prefork:notice] [pid 60056] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-mysql-root-desktop-error.log",
+            "sha256": "4bcac63e25f9ab5f565e0ab2dd09befbb414aaec12a5e54b8dadee67342bf9d8",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:05.683328 2026] [mpm_prefork:notice] [pid 59814] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/protection-mysql-root-error.log",
+            "sha256": "8466741cf68bf38cd04ac22e3e0f5e0b09e7b5d29ed744efeddb6ed5bf5eefe3",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:11:36.935243 2026] [mpm_prefork:notice] [pid 59342] AH00163: Apache/2.4.58 (Ubuntu) PHP/8.3.6 configured -- resuming normal operations"
+              }
+            ]
+          }
+        ]
+      },
+      "reviewed_originals": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-file-nested-mobile-public-policy.png",
+          "sha256": "74dcd5ebe87005b6677f3e18db97e6076e2b95d4b2758cc2e83b2d1c13947281",
+          "bytes": 157387,
+          "width": 390,
+          "height": 938,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12431379212-age-policies-file-nested-mobile-public-policy-y0-938.png",
+              "sha256": "430ba28897e340aa9060017efc0d9d2b578c0134388bf397f6b5c0dc08bf66e1",
+              "bytes": 160582,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                390,
+                938
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed entire original. Policy title and publication time wrap within the card; synthetic script text is visibly rendered as plain text. Account/help actions and footer links fit the 390-pixel layout without horizontal spill."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-file-root-desktop-provider-settings.png",
+          "sha256": "586d0b6e11eb0b6701aa91f829380ad7c8415000201735bd9479eef7b12ac60f",
+          "bytes": 379727,
+          "width": 1440,
+          "height": 2024,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12431379212-age-policies-file-root-desktop-provider-settings-y0-1100.png",
+              "sha256": "d82bdd9aedde7aabc19238fb37e80da2625617550ee82562ef10fb572155c2b5",
+              "bytes": 303036,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                1440,
+                1100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed upper provider settings. Saved-state banner, tabs, adult-verification labels, paired numeric inputs, provider explanation and SDK/API fields are clearly separated. No visible sidebar/content overlap or clipped primary labels."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-mysql-nested-mobile-location-settings.png",
+          "sha256": "a2db427648bf6dc9a70c2164680ff8a8d35eb8092c88a2c3b3938af04c981738",
+          "bytes": 250460,
+          "width": 390,
+          "height": 2599,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12431379212-age-policies-mysql-nested-mobile-location-settings-y600-1800.png",
+              "sha256": "817035ad5e7726a0f9b6ee60b381b796797b5de1a9a33f0bbcffae5cc36527a5",
+              "bytes": 92941,
+              "original_pixel_bounds_xyxy": [
+                0,
+                600,
+                390,
+                1800
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed central adult-verification settings and beginning of Location rules. Labels, numeric inputs, provider explanation, secret-field help and clear-key checkbox wrap at 390 pixels. Long SDK value is contained by its single-line text input and does not expand the page. Remaining location controls are outside sample."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212/age-policies-mysql-root-desktop-required-unavailable.png",
+          "sha256": "8865eb270f84ab191530afe4566333545ce589b409cd9f664a17e74426bf89aa",
+          "bytes": 326538,
+          "width": 1440,
+          "height": 1000,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12431379212-age-policies-mysql-root-desktop-required-unavailable-y0-1000.png",
+              "sha256": "3f80ba3405217e7d8849eba501b138b42aeed0f6943589d93b7feefa2faaf027",
+              "bytes": 331859,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                1440,
+                1000
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed entire original. Unavailable-verification heading and explanation are legible; account privacy, privacy choices, reporting and policy actions are clearly visible and separated. No overlapping card content."
+        }
+      ]
+    },
+    {
+      "artifact_id": 12432032916,
+      "archive_sha256": "e5b9c5fbc6da1f100575a56b2e6801d1c0e1ca4adee697e83b989ea356b6826c",
+      "machine_decoded_png_count": 24,
+      "visually_reviewed_original_count": 4,
+      "reviewed_crop_count": 5,
+      "case_coverage": [
+        "file-root-desktop",
+        "file-nested-mobile",
+        "mysql-root-desktop",
+        "mysql-nested-mobile"
+      ],
+      "reports": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-browser.json",
+          "sha256": "6ed7ce1953bc996ea3c60080213bb4554f734e5f9fad9d0dc435f98cecaccdce",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": "151.0.7922.34",
+          "reported_php": "8.2.35"
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-http.json",
+          "sha256": "0bb1ba71c82abadd75bd2669c4407689a323be5c08de6cbcbe5fcc3099fd142b",
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "browser": null,
+          "reported_php": "8.2.35"
+        }
+      ],
+      "http_runtime": {
+        "server": "PHP Development Server",
+        "php_version": "8.2.35",
+        "independently_read_log_files": 8,
+        "observed_server_start_lines": 16,
+        "cli_php_version": null,
+        "cli_php_note": "HTTP server observations do not independently establish PHP CLI version.",
+        "logs": [
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-nested-http.log",
+            "sha256": "8d3aaae9787ddb714c414dd4684b7c4dc21a7f76054ca625e15650b2ff75c4b4",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:16 2026] PHP 8.2.35 Development Server (http://127.0.0.1:59113) started"
+              },
+              {
+                "line_number": 38,
+                "text": "[Thu Oct 22 14:13:17 2026] PHP 8.2.35 Development Server (http://127.0.0.1:59113) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-nested-mobile-http.log",
+            "sha256": "ceaead204720564f15f951553a5845783091cdf7de3837f3a60a3802b91a9371",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:14:26 2026] PHP 8.2.35 Development Server (http://127.0.0.1:41507) started"
+              },
+              {
+                "line_number": 86,
+                "text": "[Thu Oct 22 14:14:30 2026] PHP 8.2.35 Development Server (http://127.0.0.1:41507) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-root-desktop-http.log",
+            "sha256": "432b54353b1bbb35ebe5bda5eda8a0886ed07e6cb8329a1efae6f9ff669e11cc",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:14:10 2026] PHP 8.2.35 Development Server (http://127.0.0.1:37497) started"
+              },
+              {
+                "line_number": 86,
+                "text": "[Thu Oct 22 14:14:14 2026] PHP 8.2.35 Development Server (http://127.0.0.1:37497) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-root-http.log",
+            "sha256": "990505b0533458abf94e370c765b063df3e7c0c9952fe51e8c1a2dc466b29e2c",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:03 2026] PHP 8.2.35 Development Server (http://127.0.0.1:47113) started"
+              },
+              {
+                "line_number": 38,
+                "text": "[Thu Oct 22 14:13:04 2026] PHP 8.2.35 Development Server (http://127.0.0.1:47113) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-nested-http.log",
+            "sha256": "6e68f9857cde82ce3d8697ef6608800fbb4fcc0330e0d4f36b7d04e39287f560",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:50 2026] PHP 8.2.35 Development Server (http://127.0.0.1:60107) started"
+              },
+              {
+                "line_number": 38,
+                "text": "[Thu Oct 22 14:13:51 2026] PHP 8.2.35 Development Server (http://127.0.0.1:60107) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-nested-mobile-http.log",
+            "sha256": "e585ba5eec01d84bd16d55bc0bdcfb0cae5431ad4ed3fd64775846ce6e955374",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:15:01 2026] PHP 8.2.35 Development Server (http://127.0.0.1:54397) started"
+              },
+              {
+                "line_number": 86,
+                "text": "[Thu Oct 22 14:15:05 2026] PHP 8.2.35 Development Server (http://127.0.0.1:54397) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-root-desktop-http.log",
+            "sha256": "b5a17bf0515879ae3af8ccb801a30d4ce6031751b12ea599a25d44bf4a23da46",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:14:43 2026] PHP 8.2.35 Development Server (http://127.0.0.1:32925) started"
+              },
+              {
+                "line_number": 86,
+                "text": "[Thu Oct 22 14:14:47 2026] PHP 8.2.35 Development Server (http://127.0.0.1:32925) started"
+              }
+            ]
+          },
+          {
+            "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-root-http.log",
+            "sha256": "e3ed7e1a0ca01a30d6f3dc904b7909a47ee9475ed5accf66d88341ae5669f39c",
+            "observed_start_lines": [
+              {
+                "line_number": 1,
+                "text": "[Thu Oct 22 14:13:31 2026] PHP 8.2.35 Development Server (http://127.0.0.1:47475) started"
+              },
+              {
+                "line_number": 38,
+                "text": "[Thu Oct 22 14:13:32 2026] PHP 8.2.35 Development Server (http://127.0.0.1:47475) started"
+              }
+            ]
+          }
+        ]
+      },
+      "reviewed_originals": [
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-nested-mobile-stale.png",
+          "sha256": "354f2374cdd4a89d432c50ba466f4d44d6cf7ee3ab7aa4de6015d7d801af7e62",
+          "bytes": 851448,
+          "width": 390,
+          "height": 4186,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12432032916-operations-file-nested-mobile-stale-y0-1100.png",
+              "sha256": "761861bf94a931ae86baade5c48acf19e9bc145cf2bbb4f801210af67e38f8bf",
+              "bytes": 244180,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                390,
+                1100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            },
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12432032916-operations-file-nested-mobile-stale-y2900-4186.png",
+              "sha256": "6d62e9c4e448386cf4765947362356119a55ca87e35220ff0c0a3f7cc0473998",
+              "bytes": 266259,
+              "original_pixel_bounds_xyxy": [
+                0,
+                2900,
+                390,
+                4186
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed top and lower regions. Stale-settings alert is explicit and legible; recovery status/action, diagnostic statuses, empty backup history and hosting instructions fit the 390-pixel layout. Long hosting text wraps without visible horizontal spill."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-file-root-desktop-completed.png",
+          "sha256": "dd3720059b84548757d958c4d19efff4a4532437b7f6cfac1087bb85c4fafefa",
+          "bytes": 1126304,
+          "width": 1440,
+          "height": 2625,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12432032916-operations-file-root-desktop-completed-y1300-2500.png",
+              "sha256": "7758534e18525af373320c9161cc63714a4f629466350bb588731a6f1f2eb771",
+              "bytes": 481190,
+              "original_pixel_bounds_xyxy": [
+                0,
+                1300,
+                1440,
+                2500
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed lower diagnostics, completed backup history and beginning of hosting setup. Ready/Host check labels, verified archive metadata, checksum disclosure and download control are distinct and legible; no overlap of checksum and download action."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-nested-mobile-pending.png",
+          "sha256": "379712a3893e3a74924f235ff6551343b0addcf13c2d0caefcbab69bd72c3ba2",
+          "bytes": 862637,
+          "width": 390,
+          "height": 4188,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12432032916-operations-mysql-nested-mobile-pending-y2800-4100.png",
+              "sha256": "a36e0cedd9403e3bd207abd690b406d1341bb78975c49df0cb3161ca1f7577de",
+              "bytes": 275505,
+              "original_pixel_bounds_xyxy": [
+                0,
+                2800,
+                390,
+                4100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed lower pending diagnostics, backup history and hosting setup. Needs review versus Ready statuses are visible; diagnostic descriptions and hosting instructions wrap within card bounds. No visible horizontal spill in sampled region."
+        },
+        {
+          "path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916/operations-mysql-root-desktop-recovery.png",
+          "sha256": "700c32f6c8e41ff3cbd487768e2485e06f9024d4ef85243831a5d60675580725",
+          "bytes": 1142618,
+          "width": 1440,
+          "height": 2612,
+          "sha256_matches_machine_inventory": true,
+          "reviewed_crops": [
+            {
+              "path": "/tmp/vvx-091-retained-review-crops/12432032916-operations-mysql-root-desktop-recovery-y0-1100.png",
+              "sha256": "b24d1316707dcceb4259c8d92d7106ae337d62ac4d8c22f63781553d75a62a88",
+              "bytes": 531389,
+              "original_pixel_bounds_xyxy": [
+                0,
+                0,
+                1440,
+                1100
+              ],
+              "label_outside_original_pixels": true,
+              "rescaled": false
+            }
+          ],
+          "finding": "Reviewed header, recovery banner and first main cards. Recovery banner/status, resume normal requests action and queue encrypted backup control remain distinct; two-column desktop layout has no visible collisions."
+        }
+      ]
+    }
+  ]
+}

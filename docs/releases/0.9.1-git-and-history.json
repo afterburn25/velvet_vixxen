@@ -1,0 +1,232 @@
+{
+  "verified_at": "2026-10-22 14:26:16 UTC",
+  "git_objects": [
+    {
+      "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+      "tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+      "parents": [
+        "eab6654c0dbcb091e1c0f12c4f33c8f6c3285e39",
+        "2b66fc3c6b3409cf94086df6430ee060b24ce0ea"
+      ]
+    },
+    {
+      "sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+      "parents": [
+        "1929c641b1de39496b6df9d4c3e63a8509572d64"
+      ]
+    }
+  ],
+  "prior_failed_run": {
+    "id": 39773064545,
+    "source_commit": "1929c641b1de39496b6df9d4c3e63a8509572d64",
+    "jobs": [
+      {
+        "id": 119805601828,
+        "name": "Repository and executable source contract",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653686,
+        "name": "PHP 8.3 source and package regressions",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Run mandatory source and packaging suites in disposable copies",
+          "Upload actual file payment foundation evidence"
+        ]
+      },
+      {
+        "id": 119805653688,
+        "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache"
+        ]
+      },
+      {
+        "id": 119805653714,
+        "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+          "Upload actual MySQL payment foundation evidence"
+        ]
+      },
+      {
+        "id": 119805653728,
+        "name": "MariaDB 10.11 / PHP 8.3 actual install and upgrade compatibility",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Preserve deleted editorial records through packaged MariaDB requests"
+        ]
+      },
+      {
+        "id": 119805653748,
+        "name": "Payment recovery / mariadb-10.11",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653753,
+        "name": "Packaged accessibility, keyboard and bounded page performance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653785,
+        "name": "MariaDB 10.11 / PHP 8.2 actual install and upgrade compatibility",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Preserve deleted editorial records through packaged MariaDB requests"
+        ]
+      },
+      {
+        "id": 119805653786,
+        "name": "Safeguards and marketing marketing_attribution actual-package acceptance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653790,
+        "name": "Privacy and access / member_privacy / mariadb-10.11",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify actual file and SQL Apache root and nested request boundaries",
+          "Upload actual privacy and access acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653792,
+        "name": "Safeguards and marketing notifications actual-package acceptance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653797,
+        "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "Upload safeguards acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653804,
+        "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+          "Upload actual MySQL payment foundation evidence"
+        ]
+      },
+      {
+        "id": 119805653805,
+        "name": "Safeguards and marketing mail_provider actual-package acceptance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653858,
+        "name": "Privacy and access / member_privacy / mysql-8.0",
+        "conclusion": "cancelled",
+        "failed_steps": [
+          "Upload actual privacy and access acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653859,
+        "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653866,
+        "name": "Privacy and access / age_policies / mariadb-10.11",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify actual file and SQL Apache root and nested request boundaries",
+          "Upload actual privacy and access acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653882,
+        "name": "Protected media and Apache forms / mysql-8.0",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify actual server upload denial, holds, appeals and file release",
+          "Upload protected-delivery and Apache acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653896,
+        "name": "Operations restore (mariadb-10.11, PHP 8.2)",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653904,
+        "name": "Safeguards and marketing admin_security actual-package acceptance",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653951,
+        "name": "Protected media and Apache forms / mariadb-10.11",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify actual server upload denial, holds, appeals and file release",
+          "Upload protected-delivery and Apache acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653971,
+        "name": "Operations restore (mariadb-10.11, PHP 8.3)",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653977,
+        "name": "Privacy and access / age_policies / mysql-8.0",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Verify actual file and SQL Apache root and nested request boundaries",
+          "Upload actual privacy and access acceptance evidence"
+        ]
+      },
+      {
+        "id": 119805653986,
+        "name": "Payment recovery / mysql-8.0",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805653994,
+        "name": "Operations restore (mysql-8.0, PHP 8.2)",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805654011,
+        "name": "Operations restore (mysql-8.0, PHP 8.3)",
+        "conclusion": "success",
+        "failed_steps": []
+      },
+      {
+        "id": 119805654017,
+        "name": "PHP 8.2 source and package regressions",
+        "conclusion": "failure",
+        "failed_steps": [
+          "Run mandatory source and packaging suites in disposable copies",
+          "Upload actual file payment foundation evidence"
+        ]
+      },
+      {
+        "id": 119818908669,
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "conclusion": "skipped",
+        "failed_steps": []
+      }
+    ]
+  }
+}

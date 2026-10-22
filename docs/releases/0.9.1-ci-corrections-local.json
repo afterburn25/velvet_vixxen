@@ -1,0 +1,299 @@
+{
+  "schema": 1,
+  "scope": "Local acceptance of three retained-test corrections for 0.9.1; read-only runtime/workflow/package audit",
+  "recorded_at_utc": "2026-10-22T14:05:42.297941+00:00",
+  "repository": "afterburn25/velvet_vixxen",
+  "baseline_commit": "1929c641b1de39496b6df9d4c3e63a8509572d64",
+  "corrected_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "source_files": [
+    {
+      "path": "tests/Feature/root_layout.php",
+      "before_sha256": "8ddb57b888688d92e1cfa1e34f091b4e8dbcf86200dd40977a51c7a295deaa12",
+      "after_sha256": "ba53fc6b0f64989456d5d22cbfdd7054acbd3a05ca92ad97046a8fc41dd2c9b1",
+      "after_size_bytes": 25045
+    },
+    {
+      "path": "tests/Http/editorial_access_http.py",
+      "before_sha256": "3662f5a54d14c0d24c1681a60e952c3ee5bbb12104fe282a575456ae2c4e91a3",
+      "after_sha256": "55ad718e9621123fe79442cb2434eb7cf637070606eb52dc5b42c7229ea89aa5",
+      "after_size_bytes": 57872
+    },
+    {
+      "path": "tests/Browser/installed_update_playwright.py",
+      "before_sha256": "9bd187638d53a4a25dd6e57f3e2a338e76df3ff3bc59033658aa728471aac863",
+      "after_sha256": "d0264b310de99264be72fed607e318fd5c28fead49543eb0e969c1ca623ae2ba",
+      "after_size_bytes": 65001
+    }
+  ],
+  "original_installed_update_failure": {
+    "reproduced": true,
+    "only_non_security_state_difference": {
+      "paymentJournal": {
+        "before_present": false,
+        "after_present": true,
+        "before": null,
+        "after": []
+      }
+    },
+    "correction": "Only absent paymentJournal becoming [] is accepted. Existing journal contents and all other preserved fields remain exact."
+  },
+  "authentication_preservation_controls": {
+    "status": "passed",
+    "cases": [
+      {
+        "case": "missing journal materializes empty",
+        "expected_accept": true,
+        "observed_accept": true
+      },
+      {
+        "case": "missing journal refuses NoneTypeNone",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "missing journal refuses dict{}",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "missing journal refuses list['synthetic-unexpected-payment']",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "missing journal refuses dict{'pay_synthetic': {'state': 'applied'}}",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "existing nonempty journal preserved",
+        "expected_accept": true,
+        "observed_accept": true
+      },
+      {
+        "case": "existing journal removed",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "existing journal emptied",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "existing journal altered",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "other data orders changed",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "other data paymentTransactions changed",
+        "expected_accept": false,
+        "observed_accept": false
+      },
+      {
+        "case": "other data unknownOwnerData changed",
+        "expected_accept": false,
+        "observed_accept": false
+      }
+    ]
+  },
+  "installed_update_browser": {
+    "status": "passed",
+    "cases": {
+      "root-cache": {
+        "http_php_before": "8.3.6",
+        "http_php_after": "8.3.6",
+        "same_server_process": true,
+        "php_warnings_or_errors": 0
+      },
+      "nested-cache": {
+        "http_php_before": "8.3.6",
+        "http_php_after": "8.3.6",
+        "same_server_process": true,
+        "php_warnings_or_errors": 0
+      },
+      "nested-cache-disabled": {
+        "http_php_before": "8.3.6",
+        "http_php_after": "8.3.6",
+        "same_server_process": true,
+        "php_warnings_or_errors": 0
+      },
+      "root-cache-mfa": {
+        "http_php_before": "8.3.6",
+        "http_php_after": "8.3.6",
+        "same_server_process": true,
+        "php_warnings_or_errors": 0
+      },
+      "cached-repair-entry": {
+        "http_php_before": "8.3.6",
+        "http_php_after": "8.3.6",
+        "same_server_process": true,
+        "php_warnings_or_errors": 0
+      }
+    },
+    "browser_version": "151.0.7922.34",
+    "php_cli": "8.3.6",
+    "http_server": "PHP built-in cli-server, direct file serving; no router or response interception",
+    "apache_used": false,
+    "historical_source": {
+      "old_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+      "old_fresh_sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+      "prior_release_commit": "91f796767e2f5a844e9733703e92c965a99803cc",
+      "prior_release_fresh_sha256": "5365f363d4448ad40201a3db9e59f3b1c8573031126c6bbab16ababa22be84fb"
+    },
+    "decoded_pngs": 44,
+    "png_inventory_sha256": "6700650a4362018458b0bd8818d6130ee77d8cd266ac21c105e728f6c311d44c",
+    "visual_review": [
+      "installed-update-root-cache-status-mobile.png"
+    ],
+    "report": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/corrected/installed-update-results.json",
+      "size_bytes": 35934,
+      "sha256": "cc7f7df56b8d30bc6066d3435a04dade11b6a4fd65de76e274860e9ca31a4c42",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    }
+  },
+  "source_aggregate": {
+    "command": "bash scripts/test.sh",
+    "status": "passed",
+    "php_cli_observed": "8.3.6",
+    "runtime_build_assertions": 208,
+    "payment_dependency_negative_cases": 28,
+    "root_layout_assertions": 692,
+    "retained_gates": [
+      "syntax",
+      "source behavior",
+      "repository safety",
+      "foreign-owner packaged installer",
+      "persistent OPcache repair",
+      "runtime inventory rejection",
+      "package integrity and reproducibility"
+    ],
+    "log": {
+      "path": "/tmp/vvx-resume-source.log",
+      "size_bytes": 7567,
+      "sha256": "e7685829422a0ea093d29bb84f718f8285d3f4e6cee35a75822f23f85dbb8ba3",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    }
+  },
+  "shared_package_helper_controls": {
+    "provenance": "Root directly executed and observed these controls in this continuation after editing the current helper. No separate producer log was retained; older identity-controls.json belongs to another helper hash and is excluded.",
+    "current_helper_sha256": "55ad718e9621123fe79442cb2434eb7cf637070606eb52dc5b42c7229ea89aa5",
+    "build_current_candidate": {
+      "status": "passed",
+      "fresh_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d"
+    },
+    "valid_prior_090_with_correct_hash": {
+      "status": "rejected_as_required",
+      "expected_checkout_identity": "0.9.1 / Build 20261022.1"
+    }
+  },
+  "static_unchanged_runtime_audit": {
+    "method": "Read the complete pinned Git archive and current eligible runtime files; compare all bytes, generated inventory, builder, workflow and every retained archive entry. No acceptance tests were rerun.",
+    "working_tree_clean": true,
+    "changed_paths": [
+      "INCOMPLETE_WORK.md",
+      "PROJECT_STATUS.md",
+      "SESSION_HANDOFF.md",
+      "docs/ROADMAP.md",
+      "docs/TESTING.md",
+      "docs/TEST_REPORT.md",
+      "docs/releases/0.9.1-ci-corrections.md",
+      "docs/releases/0.9.1-payment-recovery.md",
+      "tests/Browser/installed_update_playwright.py",
+      "tests/Feature/root_layout.php",
+      "tests/Http/editorial_access_http.py"
+    ],
+    "only_three_test_files_and_markdown_changed": true,
+    "runtime_source_files_compared": 505,
+    "runtime_added_removed_or_modified": 0,
+    "generated_inventory_sha256": "595180a2a2a5b403af17bbcd48f88c0c8c6abb354d3d0faced42760b0fde264c",
+    "generated_inventory_matches_both_sources": true,
+    "builder_sha256": "bb635a6b3ba3775c9f3ccd16440542148c6c633dd2fad031fae8fe34f30b9606",
+    "builder_unchanged": true,
+    "workflow_sha256": "c5c24fd57e510577fa2699967987637ffc303b8c7d1d223743b2bdc027bb60f5",
+    "workflow_unchanged": true,
+    "root_fixture_runtime_regression_and_package_payment_floors_equal": true,
+    "payment_dependency_count": 28,
+    "fresh_archive_literal_equal_to_pre_correction_retained_archive": true,
+    "all_package_entries_match_both_sources": true
+  },
+  "packages": [
+    {
+      "kind": "fresh",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Fresh-Install.zip",
+      "size_bytes": 8139107,
+      "sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+      "runtime_entries": 506,
+      "all_entries_exactly_match_current_and_pre_correction_source": true,
+      "availability": "retained local source-built archive; not a downloaded GitHub artifact"
+    },
+    {
+      "kind": "upgrade",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.1-Build-20261022.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+      "size_bytes": 7981858,
+      "sha256": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+      "runtime_entries": 465,
+      "all_entries_exactly_match_current_and_pre_correction_source": true,
+      "availability": "retained local source-built archive; not a downloaded GitHub artifact"
+    },
+    {
+      "kind": "installer-repair",
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+      "size_bytes": 60065,
+      "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+      "runtime_entries": 11,
+      "all_entries_exactly_match_current_and_pre_correction_source": true,
+      "availability": "retained local source-built archive; not a downloaded GitHub artifact"
+    }
+  ],
+  "retained_artifacts": {
+    "original_failure_log": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/run.log",
+      "size_bytes": 1759,
+      "sha256": "0472e77d5bbd96c6e6a1c8e2c0d68dfc792c7c446ecf2c692bab3f4ec1aaeee0",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    },
+    "corrected_full_browser_log": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/corrected.log",
+      "size_bytes": 932,
+      "sha256": "79d6cc10978f6ae000d6edabf1198498f23a5e543509be89baa09bc5b494f343",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    },
+    "original_difference": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/difference.json",
+      "size_bytes": 122,
+      "sha256": "74650b9179ee3bb7b2b04b13755851c559e4363812ed5b074427d12d7abf8cc4",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    },
+    "guard_controls": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/guard-controls.json",
+      "size_bytes": 1598,
+      "sha256": "531c0c1602bc0e5c730928edbc91612e7a149ade2bcf450a937d6da8724e069a",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    },
+    "screenshot_inventory_and_acceptance_summary": {
+      "path": "/tmp/vvx-installed-upgrade-diagnostic/acceptance-summary.json",
+      "size_bytes": 13835,
+      "sha256": "15b2594c2d74adf926d5af42e72085ca1871bbfe377b20d3be65dc3a30d9033e",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    },
+    "local_package_build_log": {
+      "path": "/tmp/vvx-resume-package.log",
+      "size_bytes": 1755,
+      "sha256": "df379a6e9e95aeb06fcefdd00314c0ecc830d3839d3d81553b1f12879a007fe8",
+      "availability": "local scratch artifact; not a GitHub Actions artifact or saved customer download"
+    }
+  },
+  "boundaries": [
+    "These are local disposable acceptance results and a static audit, not the outcome of the full corrected GitHub workflow.",
+    "Current full CI must independently certify its final source and artifacts; this record does not establish merge or saved delivery.",
+    "No customer host or production merchant/mail/age service was accessed.",
+    "Raw logs, screenshots and source-built ZIPs referenced here exist in local scratch only; their hashes do not assert durable publication."
+  ]
+}

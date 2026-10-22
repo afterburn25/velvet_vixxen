@@ -1,0 +1,262 @@
+{
+  "schema": 1,
+  "status": "pending_release_acceptance",
+  "prepared_at_utc": "2026-10-22T15:33:01.213150+00:00",
+  "repository": "afterburn25/velvet_vixxen",
+  "documentation_branch": "docs/continuation-20261022",
+  "latest_completed_delivery": {
+    "version": "0.9.0",
+    "build_id": "20261021.4"
+  },
+  "candidate": {
+    "version": "0.9.1",
+    "build_id": "20261022.1",
+    "pull_request": 36,
+    "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+    "source_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+    "branch": "feature/payment-recovery-0.9.1",
+    "actual_checkout_observed": "20914e10283042cae7848faa39beea5532fc9dfe"
+  },
+  "ci_checkpoint": {
+    "observed_at": "2026-10-22 15:29:14 UTC",
+    "run_id": 39792164645,
+    "run_attempt": 1,
+    "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645",
+    "run_status": "in_progress",
+    "run_conclusion": null,
+    "effective_job_conclusions": {
+      "success": 23,
+      "in_progress": 3,
+      "cancelled": 1,
+      "not_created": 1
+    },
+    "configured_step_conclusions": {
+      "success": 270,
+      "in_progress": 3,
+      "pending": 15,
+      "skipped": 5,
+      "cancelled": 1,
+      "failure": 1
+    },
+    "expected_jobs": 28,
+    "expected_configured_steps": 295,
+    "six_source_database_jobs_passed": true,
+    "non_successful_jobs": [
+      {
+        "workflow_job_id": "safeguards-browser",
+        "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+        "job_id": 119873156974,
+        "run_attempt": 1,
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-10-22T14:07:00Z",
+        "completed_at": null,
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645/job/119873156974"
+      },
+      {
+        "workflow_job_id": "safeguards-browser",
+        "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+        "job_id": 119873156908,
+        "run_attempt": 1,
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-10-22T14:06:59Z",
+        "completed_at": null,
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645/job/119873156908"
+      },
+      {
+        "workflow_job_id": "protection-runtime",
+        "name": "Protected media and Apache forms / mysql-8.0",
+        "job_id": 119873157151,
+        "run_attempt": 1,
+        "status": "in_progress",
+        "conclusion": null,
+        "started_at": "2026-10-22T14:07:00Z",
+        "completed_at": null,
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645/job/119873157151"
+      },
+      {
+        "workflow_job_id": "payment-recovery-runtime",
+        "name": "Payment recovery / mysql-8.0",
+        "job_id": 119873157049,
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "started_at": "2026-10-22T14:07:00Z",
+        "completed_at": "2026-10-22T14:37:19Z",
+        "html_url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39792164645/job/119873157049"
+      },
+      {
+        "workflow_job_id": "runtime-packages",
+        "name": "Build verified fresh-install and upgrade ZIPs",
+        "job_id": null,
+        "run_attempt": null,
+        "status": "not_created",
+        "conclusion": null,
+        "started_at": null,
+        "completed_at": null,
+        "html_url": null
+      }
+    ],
+    "failed_or_cancelled_steps": [
+      {
+        "job_id": 119873157049,
+        "job": "Payment recovery / mysql-8.0",
+        "step": "Install pinned real payment recovery browser dependencies",
+        "number": 6,
+        "conclusion": "cancelled"
+      },
+      {
+        "job_id": 119873157049,
+        "job": "Payment recovery / mysql-8.0",
+        "step": "Upload actual payment recovery acceptance evidence",
+        "number": 10,
+        "conclusion": "failure"
+      }
+    ]
+  },
+  "blocker": {
+    "observed": "Payment recovery / mysql-8.0 timed out/canceled while downloading browser OS dependencies; downstream recovery steps were skipped and missing-evidence upload failed. Three other jobs were still in dependency setup at the recorded readback. Final runtime packaging had not been created.",
+    "operation_boundary": "The connected GitHub tools support retries but do not expose workflow cancellation. A single-job retry was rejected because the overall workflow was still running. Canceling the stalled run therefore requires authenticated browser access; the connected retry command can resume the unfinished jobs once the run is terminal. No successful cancel or retry is claimed here."
+  },
+  "reviewed_evidence": {
+    "local_corrections": {
+      "complete_source_aggregate_passed": true,
+      "root_layout_assertions": 692,
+      "authentication_controls": 12,
+      "cached_upgrade_cases": 5,
+      "decoded_pngs": 44,
+      "runtime_workflow_package_bytes_changed_by_corrections": false
+    },
+    "payment_mariadb": {
+      "http_checks": 1066,
+      "browser_checks": 1160,
+      "decoded_pngs": 48,
+      "full_resolution_visual_reviews": 14,
+      "artifact_sha256": "dbb6a7b73939e97afc7b4c7ca4ce190e4f06a47b5772f268ed5ec5266a63e31b",
+      "verdict": "pass_with_nonblocking_capture_caveat",
+      "nonblocking_capture_caveat": "Keyboard-focused full-page confirmed captures retain the scrolled sticky header; the focused action/status remain visible."
+    },
+    "main_browser": {
+      "artifact_id": 12435122051,
+      "archive_sha256": "34f534f87963a541e13938cfdabd88e2530e18d65dcff8be689a07838f46d3ab",
+      "archive_bytes": 373779531,
+      "primary_reports": 27,
+      "decoded_pngs": 561,
+      "cached_upgrade_cases": 5,
+      "reviewed_originals": 14,
+      "php_warning_fatal_parse_notice_lines": 0,
+      "actual_runtime_zip_bytes_in_artifact": false
+    },
+    "actual_runtime_observations": {
+      "payment_and_main_browser_php_cli": "8.3.36",
+      "payment_and_main_browser_php_http": "8.3.36",
+      "chromium": "151.0.7922.34",
+      "playwright": "1.62.0",
+      "payment_sql": "10.11.19-MariaDB-ubu2204",
+      "main_browser_mysql": "8.0.46",
+      "source_setup_php": [
+        "8.2.35",
+        "8.3.36"
+      ]
+    }
+  },
+  "candidate_package_sha256": {
+    "fresh": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+    "upgrade": "372351c70f85413d4277a7f3beb8b2509e37ca4acbcf7275d7bb368a98127e40",
+    "manifest": "e454723fa04d09e95c54826b0d5797fb347f3ca3a5165fc06c7747f31c2461a0",
+    "unchanged_081_installer_repair": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+  },
+  "acceptance_not_established": {
+    "complete_ci_success": false,
+    "final_gated_distribution": false,
+    "pr36_merge": false,
+    "new_saved_customer_delivery": false,
+    "customer_host_update": false,
+    "live_merchant_certification": false,
+    "recurring_plan_implemented": false
+  },
+  "next_actions": [
+    "Restore authorized CI action access and cancel/retry the stuck work without changing frozen source, runtime, workflow or gates.",
+    "Retain attempt1 failure/cancellation receipts; select effective successful matching-source jobs with per-job attempt identities and require all28 jobs / 295 configured steps (293 success, two declared age-policy member-only omissions).",
+    "Download the final gated runtime artifact and remaining retry evidence; compare exact package/source bytes and review actual reports/images.",
+    "Only after full acceptance, perform an expected-head guarded PR36 merge, independent main readback, saved-file delivery and literal readback; then run guarded completion documentation.",
+    "Keep recurring agreements/commands/cycles and immutable purchase terms as the separate offline plan; live provider/mail/age and customer-host acceptance remain external."
+  ],
+  "evidence_files": [
+    {
+      "path": "docs/RECURRING_LIFECYCLE_PLAN.md",
+      "sha256": "ed15b46a5c19132ae6354a9e26f6089fcb67d58413083c4fa12ea39060107412",
+      "bytes": 11314,
+      "copy_method": "prepared plan with truthful pending-release introduction"
+    },
+    {
+      "path": "docs/releases/0.9.1-accessibility-artifact-review.json",
+      "sha256": "efb2cafeb3e277b37c136b359de1718090f5ca1a5950f18cc7192743c0e283cf",
+      "bytes": 20016,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-ci-attempt1-checkpoint-jobs.json",
+      "sha256": "0bcdc0b2de40b8d5c368682aaaff3196a83787ef8bd9fbe2732a178057f630f5",
+      "bytes": 206646,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-ci-attempt1-checkpoint-logs.json",
+      "sha256": "cc429f3c4851718c91d4b2efc06ddfe5d1bbe89b6ee6a66109fcad3b17c2cf22",
+      "bytes": 92856,
+      "copy_method": "literal bytes from the scoped 24-log checkpoint; complete raw logs are not included"
+    },
+    {
+      "path": "docs/releases/0.9.1-ci-attempt1-earlier-jobs.json",
+      "sha256": "0bcdc0b2de40b8d5c368682aaaff3196a83787ef8bd9fbe2732a178057f630f5",
+      "bytes": 206646,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-ci-corrections-local.json",
+      "sha256": "de5869c8ac09d8c719943c4f138c7aa53b8730ce4ff213f9468a9bbd358bef17",
+      "bytes": 12302,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-git-and-history.json",
+      "sha256": "727f0c677bcefde71c78f0198ac3a80a0a9c61907ef8d56ab3f1abf9efe95794",
+      "bytes": 7536,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-main-browser-artifact-review.json",
+      "sha256": "e0836a7e266867b4c829f3441f619c8c8134d0e7458ff0c19c9b17c8cf2d395c",
+      "bytes": 375312,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-payment-mariadb-artifact-review.json",
+      "sha256": "63f3bab6fb59a61bd78a756ffea4e59e671ffc1108b248c4cce80a0c6fafd2f2",
+      "bytes": 8437,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-retained-artifact-review.json",
+      "sha256": "3f8eb5f6e28de9d5c8feecd6ef935f336ab8dd23b854e028d18080660e58e3bd",
+      "bytes": 47071,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-retained-visual-review.json",
+      "sha256": "922831d5ed659b7c9725d230980b72c53ad918211eb628d0050dabd2b8e0e55b",
+      "bytes": 37015,
+      "copy_method": "literal bytes from reviewed local evidence"
+    },
+    {
+      "path": "docs/releases/0.9.1-root-visual-review.json",
+      "sha256": "cf5d4ae790bb9a91148bebfd8f81692c2aabba77a332ceb13c5ebc2b897a551a",
+      "bytes": 1624,
+      "copy_method": "literal bytes from reviewed local evidence"
+    }
+  ],
+  "preparation_modified_repository": false,
+  "preparation_performed_remote_actions": false
+}

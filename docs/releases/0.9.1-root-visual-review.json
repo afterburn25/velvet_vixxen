@@ -1,0 +1,42 @@
+{
+  "run_id": 39792164645,
+  "reviewed_at": "2026-10-22T14:37:12.799271+00:00",
+  "reviewer": "root",
+  "payment_artifact_id": 12431578547,
+  "originals": [
+    {
+      "file": "payment-recovery-file-root-desktop-records.png",
+      "sha256": "8219bd77d48bd14abd04739408854306ec0d58e85888152f04d2ffd4197d3e3b",
+      "bytes": 501345,
+      "dimensions": [
+        1440,
+        1000
+      ]
+    },
+    {
+      "file": "payment-recovery-file-nested-mobile-outcome-unknown.png",
+      "sha256": "2ee31bf235f182dc33a4da6e2c049a224411d965ffbb3eee4c48aa9be53d9a57",
+      "bytes": 316762,
+      "dimensions": [
+        390,
+        1602
+      ]
+    },
+    {
+      "file": "payment-recovery-mysql-nested-mobile-no-script-completed.png",
+      "sha256": "fb58670202d4c8b040f9fa1324297862bd7b41016ac16ec833c575a5ef8e358a",
+      "bytes": 297577,
+      "dimensions": [
+        390,
+        1506
+      ]
+    }
+  ],
+  "findings": "Inspected desktop saved-record controls, phone unknown-outcome detail and phone script-free completed follow-up. Approved magenta/black presentation, legible status/operation details and clear recovery actions are present; no visible horizontal clipping or control overlap in these originals. Records-list capture is viewport-scoped, not a claim that all 50 records were visually inspected.",
+  "retained_overviews_reviewed": [
+    12433430022,
+    12431379212,
+    12432032916
+  ],
+  "limitations": "Representative visual checks supplement automated geometry and complete PNG decoding. The independent payment review retains a separate sticky-header full-page capture caveat in other focused states."
+}

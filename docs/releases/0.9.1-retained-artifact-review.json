@@ -1,0 +1,1239 @@
+{
+  "run_id": 39792164645,
+  "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "recorded_at": "2026-10-22T14:21:07.342804+00:00",
+  "artifacts": [
+    {
+      "artifact_id": 12433430022,
+      "archive_bytes": 14798692,
+      "archive_sha256": "0d4b001f93d33a609aa89feb540cfc4501dbd2611cdec7a17d74b6cdbae878b3",
+      "reports": [
+        {
+          "path": "member-privacy-browser-evidence.json",
+          "bytes": 444696,
+          "sha256": "29084dbc54656f37414c4a72cd5ce39a071b950982fdb0240393b04aa991e802",
+          "checks": 284,
+          "cases": [
+            {
+              "case": "file-root-desktop",
+              "checks": 71,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "46976f1e64553974e3104b8f9df572d05d0c640e72e7be69364c40b6cab920d6",
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "screenshots": 7
+            },
+            {
+              "case": "file-nested-mobile",
+              "checks": 71,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "38448d8c677648064fd17058ee38cc68d9df010e95c90bf5cc23c9b76bc9e528",
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "screenshots": 7
+            },
+            {
+              "case": "mysql-root-desktop",
+              "checks": 71,
+              "mysql_version": "8.0.46",
+              "orders_exported": 1007,
+              "archive_sha256": "a29068f459a64653a3f80bc3d2b41edc37ca2e89308c664af071292b35aabd5c",
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "screenshots": 7
+            },
+            {
+              "case": "mysql-nested-mobile",
+              "checks": 71,
+              "mysql_version": "8.0.46",
+              "orders_exported": 1007,
+              "archive_sha256": "ee57943af01fc7c330c5a4a80875ee535a4b50b68716343422ad21b657acb296",
+              "readonly_get_no_mutation": true,
+              "real_password_confirmed_request": true,
+              "no_script_request_and_cancel": true,
+              "real_owner_review_and_approval": true,
+              "actual_browser_private_zip": true,
+              "ten_stage_owner_run": true,
+              "closed_session_and_export_denied": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "smtp_connections": 0,
+              "screenshots": 7
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": "151.0.7922.34",
+          "reported_php": null
+        },
+        {
+          "path": "member-privacy-http-evidence.json",
+          "bytes": 13207,
+          "sha256": "a8d0309b5f625473a3bfded83b0e46705fd4371e82acff17d245c7072bb53686",
+          "checks": 1319,
+          "cases": [
+            {
+              "case": "file-root",
+              "checks": 328,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "6113953c705ee7931a93bf2856306aa782625f578352fffa65e774ad0882e823",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": false,
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "screenshots": 0
+            },
+            {
+              "case": "file-nested",
+              "checks": 328,
+              "mysql_version": null,
+              "orders_exported": 1007,
+              "archive_sha256": "bf4727d7803b9b3093e6c42ccd24153772212c1d7a24f77714f34aeebe6f3326",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": false,
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-root",
+              "checks": 332,
+              "mysql_version": "8.0.46",
+              "orders_exported": 1007,
+              "archive_sha256": "d13e331eeac1ce060a92638981164c32db9eccbe4b3ee27821498a5490280e2b",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": true,
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-nested",
+              "checks": 331,
+              "mysql_version": "8.0.46",
+              "orders_exported": 1007,
+              "archive_sha256": "3f28dfb8182e4d1034049e00176dcfb92d12af4d479bcefdf5019b21c01f83a0",
+              "readonly_get_no_mutation": true,
+              "real_password_and_csrf": true,
+              "fresh_recent_owner_approval": true,
+              "archive_sha256_crc_verified": true,
+              "seven_day_expiry": true,
+              "member_only_private_download": true,
+              "staff_attachment_denied": true,
+              "sql_same_id_ambiguity_denied": true,
+              "ten_stages_durable": true,
+              "concurrent_worker_exclusion": true,
+              "financial_facts_preserved": true,
+              "other_members_unchanged": true,
+              "guest_records_unchanged": true,
+              "shared_file_preserved": true,
+              "safety_holds_retained": true,
+              "delayed_writers_blocked": true,
+              "real_paused_writer_blocked": true,
+              "smtp_connections": 0,
+              "age_own_zip_allowed": true,
+              "location_own_zip_allowed": true,
+              "screenshots": 0
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": null,
+          "reported_php": null
+        }
+      ],
+      "verified_source_producers": {
+        "tests/Feature/member_privacy.php": "e4b565aff4e43e924f659dbc6bd99edbfed188c222f13a8505df65f5cd6deacf",
+        "tests/Feature/member_privacy_store.php": "dd7351c865e931244843660c8471ea95428671a75c6d627661faf5111a45b237",
+        "tests/Http/member_privacy_fixture.php": "65d4bdc502db422859c533a8f32992538a749dc7d1c873fbc8fc5479741d8c4a",
+        "tests/Http/member_privacy_http.py": "245f23c3dff03c06ad327d7e67359e0d2ca3939e0088bbb6c3e7ce67a69283cd",
+        "tests/Browser/member_privacy_playwright.py": "730265bcd4c93fe86504862837a3e6d975246202aecdf9fc0fb23ff99b9884ce"
+      },
+      "pngs": [
+        {
+          "path": "member-privacy-file-nested-mobile-closure-complete.png",
+          "width": 390,
+          "height": 2038,
+          "bytes": 422470,
+          "sha256": "669c589f2e7489e6bb07977dc40da48acc73d743eee407e8426b95913715507d"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-closure-review.png",
+          "width": 390,
+          "height": 4712,
+          "bytes": 771775,
+          "sha256": "76228d12c93f3f96762296ca676135bafa442b5c35807b0fddb25c14c5dbb525"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-export-held.png",
+          "width": 390,
+          "height": 3686,
+          "bytes": 602902,
+          "sha256": "238274d04848afbc43902faab199b2d1482189b5f2afa8fbbc43f29ace00fa04"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-export-ready.png",
+          "width": 390,
+          "height": 2774,
+          "bytes": 212082,
+          "sha256": "898bc99f7607e427073381bd3995a83182a76454eb4d697f9c17a744fd566471"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-export-review.png",
+          "width": 390,
+          "height": 3536,
+          "bytes": 586701,
+          "sha256": "93e72a7441868b77198ad0a62676cbd00e1b6959528a497869d608e9edea941f"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-member-overview.png",
+          "width": 390,
+          "height": 2438,
+          "bytes": 191150,
+          "sha256": "79130150ec1cfc3f3788e39bb97917be2b1bf3449551386796da9d4ae6736972"
+        },
+        {
+          "path": "member-privacy-file-nested-mobile-owner-overview.png",
+          "width": 390,
+          "height": 1335,
+          "bytes": 288654,
+          "sha256": "9f7b0a8dbe9d176b52bcaf990384f5e3f95907fac994b4797a8f8f53e0cd97ad"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-closure-complete.png",
+          "width": 1440,
+          "height": 1480,
+          "bytes": 649605,
+          "sha256": "fb34db649cd2073612824f3eb2298f7c6e58d29f286eb1850031b955a60f59f3"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-closure-review.png",
+          "width": 1440,
+          "height": 3251,
+          "bytes": 1149785,
+          "sha256": "b5b71c4f6d7bb1bfdfbd87388e37d33bf3ed36c1afd2391c6b8429c4a8a2ec76"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-export-held.png",
+          "width": 1440,
+          "height": 2576,
+          "bytes": 911782,
+          "sha256": "0b4f948f915a438bd6e6f09c81d1bc15df23af2db140fb475ca4128d9cd6950a"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-export-ready.png",
+          "width": 1440,
+          "height": 1619,
+          "bytes": 215936,
+          "sha256": "9bdd1dbc300c207824304021d042578450c97e5a990c2beccb5ffd52133487c6"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-export-review.png",
+          "width": 1440,
+          "height": 2479,
+          "bytes": 891132,
+          "sha256": "0a121543469f8225b21a8abe10f8d3152bf67a53e59ada8dfd8c81f39e9626cb"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-member-overview.png",
+          "width": 1440,
+          "height": 1358,
+          "bytes": 193754,
+          "sha256": "bac5fd347f08fa020eafb7ff8f3b8333f48a6127206a90a7a98ae96257bc9d02"
+        },
+        {
+          "path": "member-privacy-file-root-desktop-owner-overview.png",
+          "width": 1440,
+          "height": 1055,
+          "bytes": 471964,
+          "sha256": "50676110f237af9d512b6594226042b42df4756795c79f92e4206b544abf6fb4"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-closure-complete.png",
+          "width": 390,
+          "height": 2038,
+          "bytes": 422853,
+          "sha256": "889556134a5e69a1bb44ef069a538a57151f8e9966b601f705a51074ca2154aa"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-closure-review.png",
+          "width": 390,
+          "height": 4712,
+          "bytes": 772425,
+          "sha256": "1162872c1dd659b22348a3fd3ae9ff49e83bc9baac7ffbe3e8beddebd624d2f8"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-export-held.png",
+          "width": 390,
+          "height": 3686,
+          "bytes": 603330,
+          "sha256": "8df9e0222d46cf113c030636def76bbfa0ea0f3c2a3e611d447135dfd94fce42"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-export-ready.png",
+          "width": 390,
+          "height": 2774,
+          "bytes": 212393,
+          "sha256": "2c300fd5349d653ceffe26779e6d80507175745837d6fea1c46b6d4cf5d5a343"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-export-review.png",
+          "width": 390,
+          "height": 3536,
+          "bytes": 587218,
+          "sha256": "eeb9629d948b805738e13df2630f3dc0c8b3252dbddc3e8975f41bac7a7b5cb6"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-member-overview.png",
+          "width": 390,
+          "height": 2438,
+          "bytes": 191150,
+          "sha256": "79130150ec1cfc3f3788e39bb97917be2b1bf3449551386796da9d4ae6736972"
+        },
+        {
+          "path": "member-privacy-mysql-nested-mobile-owner-overview.png",
+          "width": 390,
+          "height": 1335,
+          "bytes": 288651,
+          "sha256": "c72918a96b841a7f1aa18928182dab3f84e6cf1373961d654ac4e4ebbb5e27f1"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-closure-complete.png",
+          "width": 1440,
+          "height": 1480,
+          "bytes": 649815,
+          "sha256": "acbd45ac205ae2baa2b8b917079b0ec3abf60419e12cafc253bd9b0634d83287"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-closure-review.png",
+          "width": 1440,
+          "height": 3251,
+          "bytes": 1150235,
+          "sha256": "2b5aa0c071f49364c54fd2ce48d34717ccbca2712cd5280bb933274e44971333"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-export-held.png",
+          "width": 1440,
+          "height": 2576,
+          "bytes": 912239,
+          "sha256": "a18eb4cd40ab1baf2ea317a98eca4ae0b671a65e93f90d8cd954e0d12bb8d231"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-export-ready.png",
+          "width": 1440,
+          "height": 1619,
+          "bytes": 216237,
+          "sha256": "3db268d3708915a0e9fcf23cde5bbe7b378841f38c31720a7b2342cd09fa1050"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-export-review.png",
+          "width": 1440,
+          "height": 2479,
+          "bytes": 891402,
+          "sha256": "d0913d4bd1ad28870d07170c9f459285e30288c9dea37f2651dda7b867254aad"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-member-overview.png",
+          "width": 1440,
+          "height": 1358,
+          "bytes": 193754,
+          "sha256": "bac5fd347f08fa020eafb7ff8f3b8333f48a6127206a90a7a98ae96257bc9d02"
+        },
+        {
+          "path": "member-privacy-mysql-root-desktop-owner-overview.png",
+          "width": 1440,
+          "height": 1055,
+          "bytes": 471964,
+          "sha256": "50676110f237af9d512b6594226042b42df4756795c79f92e4206b544abf6fb4"
+        }
+      ],
+      "decoded_png_count": 28,
+      "log_php_versions": {
+        "protection-file-nested-mobile-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-nested-mobile-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-root-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-nested-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-root-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-root-desktop-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-root-desktop-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-nested-error.log": [
+          "8.3.6"
+        ]
+      },
+      "overview": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12433430022-overview.jpg"
+    },
+    {
+      "artifact_id": 12431379212,
+      "archive_bytes": 8469146,
+      "archive_sha256": "859815c420f5556b5f84a7f59831ca7830faa309f88582b718f9d9061c7bfe63",
+      "reports": [
+        {
+          "path": "age-policies-browser-evidence.json",
+          "bytes": 32198,
+          "sha256": "3619f174b5fab5e981ab53c23669d9d889a40d13004172fb05ad9585c4d4635f",
+          "checks": 200,
+          "cases": [
+            {
+              "case": "file-root-desktop",
+              "checks": 50,
+              "php": "8.3.6",
+              "mysql_version": null,
+              "keyboard_policy_editor": true,
+              "no_javascript_save_review_publish": true,
+              "real_owner_controls": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 8
+            },
+            {
+              "case": "file-nested-mobile",
+              "checks": 50,
+              "php": "8.3.6",
+              "mysql_version": null,
+              "keyboard_policy_editor": true,
+              "no_javascript_save_review_publish": true,
+              "real_owner_controls": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 8
+            },
+            {
+              "case": "mysql-root-desktop",
+              "checks": 50,
+              "php": "8.3.6",
+              "mysql_version": "8.0.46",
+              "keyboard_policy_editor": true,
+              "no_javascript_save_review_publish": true,
+              "real_owner_controls": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 8
+            },
+            {
+              "case": "mysql-nested-mobile",
+              "checks": 50,
+              "php": "8.3.6",
+              "mysql_version": "8.0.46",
+              "keyboard_policy_editor": true,
+              "no_javascript_save_review_publish": true,
+              "real_owner_controls": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 8
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": "151.0.7922.34",
+          "reported_php": null
+        },
+        {
+          "path": "age-policies-http-evidence.json",
+          "bytes": 3189,
+          "sha256": "69fdfae65e2dffd5cf720e4586f0c7078816a78612111b35ee8334aa385795eb",
+          "checks": 688,
+          "cases": [
+            {
+              "case": "file-root",
+              "checks": 172,
+              "php": "8.3.6",
+              "mysql_version": null,
+              "mode": "file",
+              "independent_policy_readback": true,
+              "real_apache_raw_guarded_signed_media": true,
+              "actual_owner_forms": true,
+              "safe_plain_text": true,
+              "draft_review_publish_withdraw": true,
+              "fresh_owner_recent_csrf_revision": true,
+              "immediate_peer_only": true,
+              "required_unavailable_fails_closed": true,
+              "provider_result_unit_binding_separate": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 0
+            },
+            {
+              "case": "file-nested",
+              "checks": 172,
+              "php": "8.3.6",
+              "mysql_version": null,
+              "mode": "file",
+              "independent_policy_readback": true,
+              "real_apache_raw_guarded_signed_media": true,
+              "actual_owner_forms": true,
+              "safe_plain_text": true,
+              "draft_review_publish_withdraw": true,
+              "fresh_owner_recent_csrf_revision": true,
+              "immediate_peer_only": true,
+              "required_unavailable_fails_closed": true,
+              "provider_result_unit_binding_separate": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-root",
+              "checks": 172,
+              "php": "8.3.6",
+              "mysql_version": "8.0.46",
+              "mode": "mysql",
+              "independent_policy_readback": true,
+              "real_apache_raw_guarded_signed_media": true,
+              "actual_owner_forms": true,
+              "safe_plain_text": true,
+              "draft_review_publish_withdraw": true,
+              "fresh_owner_recent_csrf_revision": true,
+              "immediate_peer_only": true,
+              "required_unavailable_fails_closed": true,
+              "provider_result_unit_binding_separate": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-nested",
+              "checks": 172,
+              "php": "8.3.6",
+              "mysql_version": "8.0.46",
+              "mode": "mysql",
+              "independent_policy_readback": true,
+              "real_apache_raw_guarded_signed_media": true,
+              "actual_owner_forms": true,
+              "safe_plain_text": true,
+              "draft_review_publish_withdraw": true,
+              "fresh_owner_recent_csrf_revision": true,
+              "immediate_peer_only": true,
+              "required_unavailable_fails_closed": true,
+              "provider_result_unit_binding_separate": true,
+              "real_provider_requests": 0,
+              "smtp_connections": 0,
+              "screenshots": 0
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": null,
+          "reported_php": null
+        }
+      ],
+      "verified_source_producers": {
+        "tests/Feature/age_policies.php": "1e534da12c579e54ad740020206ed5147e554d0c3fdfe88532fef50524ce9527",
+        "tests/Http/age_policies_fixture.php": "e358526d5bd5b59e6391296e7dbf3bda7184b2551e6f25e9364a19aa2ff76d2a",
+        "tests/Http/age_policies_http.py": "a0caf1e8c961b38920b06d550ec6b5285d254c25e3fc3baabff87cf2a052f2c4",
+        "tests/Browser/age_policies_playwright.py": "7ddc7aafa48f7605a2e8797929c5e4d39fdfed424b5fc102e012ab481142b243"
+      },
+      "pngs": [
+        {
+          "path": "age-policies-file-nested-mobile-location-blocked.png",
+          "width": 390,
+          "height": 1026,
+          "bytes": 181382,
+          "sha256": "a976c79b99be077bb577df657b697f052a7b5492b1b8de6a71389c7794bf220a"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-location-settings.png",
+          "width": 390,
+          "height": 2599,
+          "bytes": 250460,
+          "sha256": "a2db427648bf6dc9a70c2164680ff8a8d35eb8092c88a2c3b3938af04c981738"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-no-script-owner.png",
+          "width": 390,
+          "height": 1894,
+          "bytes": 200894,
+          "sha256": "17b4bfcb6cab0e3b7ea879c93ec797cd952f96fd6906547c215f562b678f735d"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-owner-documents.png",
+          "width": 390,
+          "height": 1824,
+          "bytes": 189338,
+          "sha256": "f1e7eb874219314f0d6c26d90d56662a8fb30c646d3e09b4d36811c09370229f"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-provider-settings.png",
+          "width": 390,
+          "height": 2621,
+          "bytes": 249702,
+          "sha256": "e01dec8ae48b8dd7211c70f07d0b7f10fc9bf8c25f5a9988aa11eefc1a466b18"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-public-policy.png",
+          "width": 390,
+          "height": 938,
+          "bytes": 157387,
+          "sha256": "74dcd5ebe87005b6677f3e18db97e6076e2b95d4b2758cc2e83b2d1c13947281"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-required-unavailable.png",
+          "width": 390,
+          "height": 1000,
+          "bytes": 175225,
+          "sha256": "e3e09f64f9fd0224830f812e3d47704ea58cd401eff77a846fea2053386d49b9"
+        },
+        {
+          "path": "age-policies-file-nested-mobile-stale-form.png",
+          "width": 390,
+          "height": 1999,
+          "bytes": 216120,
+          "sha256": "3e983cbcb7d5017a515fd9c86c4064c51b387c5c66214437a4af6d4e7bd1d5e0"
+        },
+        {
+          "path": "age-policies-file-root-desktop-location-blocked.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 327535,
+          "sha256": "055a069a6999316653dbe22e1f3fc4680ddae580a2c226d9b4cf6e3de282defc"
+        },
+        {
+          "path": "age-policies-file-root-desktop-location-settings.png",
+          "width": 1440,
+          "height": 2024,
+          "bytes": 380712,
+          "sha256": "6b2e555932a98631b5a9da393b3328cdefb3f3e2311c224be8874c04d87a6551"
+        },
+        {
+          "path": "age-policies-file-root-desktop-no-script-owner.png",
+          "width": 1440,
+          "height": 1631,
+          "bytes": 333572,
+          "sha256": "438a85723993f5edc3a8901d62e3b6a39017ceb9f9e9842ed919a5d8b8a30683"
+        },
+        {
+          "path": "age-policies-file-root-desktop-owner-documents.png",
+          "width": 1440,
+          "height": 1561,
+          "bytes": 311026,
+          "sha256": "1c941ad3993837716835c8c32bdc62befc1f396f09559475aa7974342743db27"
+        },
+        {
+          "path": "age-policies-file-root-desktop-provider-settings.png",
+          "width": 1440,
+          "height": 2024,
+          "bytes": 379727,
+          "sha256": "586d0b6e11eb0b6701aa91f829380ad7c8415000201735bd9479eef7b12ac60f"
+        },
+        {
+          "path": "age-policies-file-root-desktop-public-policy.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 306790,
+          "sha256": "b68130267b79a338ab49411a558759b4fc78c75adcc5d783c9eff89e9cbb7650"
+        },
+        {
+          "path": "age-policies-file-root-desktop-required-unavailable.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 326538,
+          "sha256": "8865eb270f84ab191530afe4566333545ce589b409cd9f664a17e74426bf89aa"
+        },
+        {
+          "path": "age-policies-file-root-desktop-stale-form.png",
+          "width": 1440,
+          "height": 1660,
+          "bytes": 349467,
+          "sha256": "89cd721a0d1cfbd7da047cb70a30fa1231162ef7d1e60d946f097ce3a6fd7b1c"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-location-blocked.png",
+          "width": 390,
+          "height": 1026,
+          "bytes": 181382,
+          "sha256": "a976c79b99be077bb577df657b697f052a7b5492b1b8de6a71389c7794bf220a"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-location-settings.png",
+          "width": 390,
+          "height": 2599,
+          "bytes": 250460,
+          "sha256": "a2db427648bf6dc9a70c2164680ff8a8d35eb8092c88a2c3b3938af04c981738"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-no-script-owner.png",
+          "width": 390,
+          "height": 1894,
+          "bytes": 201085,
+          "sha256": "981ff1acea20fc8fa04a28a6773f273ef6dcb44cca5511cd580c5ce3e6fe813f"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-owner-documents.png",
+          "width": 390,
+          "height": 1824,
+          "bytes": 189389,
+          "sha256": "bf03082f1809913f6b65188617826dac04d4531080436fd0a0e6c9f5d23fa7e0"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-provider-settings.png",
+          "width": 390,
+          "height": 2621,
+          "bytes": 249702,
+          "sha256": "e01dec8ae48b8dd7211c70f07d0b7f10fc9bf8c25f5a9988aa11eefc1a466b18"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-public-policy.png",
+          "width": 390,
+          "height": 938,
+          "bytes": 157311,
+          "sha256": "54b2f8fee4b409e9cdc59624d8a7e10b2a7a84b858b0e5f8087889432a81de1e"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-required-unavailable.png",
+          "width": 390,
+          "height": 1000,
+          "bytes": 175225,
+          "sha256": "e3e09f64f9fd0224830f812e3d47704ea58cd401eff77a846fea2053386d49b9"
+        },
+        {
+          "path": "age-policies-mysql-nested-mobile-stale-form.png",
+          "width": 390,
+          "height": 1999,
+          "bytes": 216174,
+          "sha256": "e74768a2056de7cc732b8749020a91dccc777b8e36a176dd50a407a84fa2227b"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-location-blocked.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 327535,
+          "sha256": "055a069a6999316653dbe22e1f3fc4680ddae580a2c226d9b4cf6e3de282defc"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-location-settings.png",
+          "width": 1440,
+          "height": 2024,
+          "bytes": 380712,
+          "sha256": "6b2e555932a98631b5a9da393b3328cdefb3f3e2311c224be8874c04d87a6551"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-no-script-owner.png",
+          "width": 1440,
+          "height": 1631,
+          "bytes": 333740,
+          "sha256": "386ab86afa6fd5f4c4bcf18ba42db0a0f042379c3f2058264afd90cce7ba3ebf"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-owner-documents.png",
+          "width": 1440,
+          "height": 1561,
+          "bytes": 311383,
+          "sha256": "cedcaa4253c17885ac44240831350479ad94e5b4411a899bf0d8f1bd84e2e282"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-provider-settings.png",
+          "width": 1440,
+          "height": 2024,
+          "bytes": 379727,
+          "sha256": "586d0b6e11eb0b6701aa91f829380ad7c8415000201735bd9479eef7b12ac60f"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-public-policy.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 306796,
+          "sha256": "e327e420e27d5de5d3b233e8508aa0f0a11204453e6e73dc63d22810f28457e8"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-required-unavailable.png",
+          "width": 1440,
+          "height": 1000,
+          "bytes": 326538,
+          "sha256": "8865eb270f84ab191530afe4566333545ce589b409cd9f664a17e74426bf89aa"
+        },
+        {
+          "path": "age-policies-mysql-root-desktop-stale-form.png",
+          "width": 1440,
+          "height": 1660,
+          "bytes": 349808,
+          "sha256": "ca35de82457f5a6abe00a3cbb0415d9cb378bf76571eb50123b8b541bcb7799d"
+        }
+      ],
+      "decoded_png_count": 32,
+      "log_php_versions": {
+        "protection-file-nested-mobile-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-nested-mobile-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-root-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-nested-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-root-error.log": [
+          "8.3.6"
+        ],
+        "protection-file-root-desktop-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-root-desktop-error.log": [
+          "8.3.6"
+        ],
+        "protection-mysql-nested-error.log": [
+          "8.3.6"
+        ]
+      },
+      "overview": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12431379212-overview.jpg"
+    },
+    {
+      "artifact_id": 12432032916,
+      "archive_bytes": 23093265,
+      "archive_sha256": "e5b9c5fbc6da1f100575a56b2e6801d1c0e1ca4adee697e83b989ea356b6826c",
+      "reports": [
+        {
+          "path": "operations-browser.json",
+          "bytes": 245602,
+          "sha256": "6ed7ce1953bc996ea3c60080213bb4554f734e5f9fad9d0dc435f98cecaccdce",
+          "checks": 308,
+          "cases": [
+            {
+              "case": "file-root-desktop",
+              "checks": 77,
+              "mode": "file",
+              "source_server": null,
+              "smtp_messages": 0,
+              "real_key_setup": true,
+              "real_guide_download": true,
+              "real_ciphertext_download": true,
+              "stale_refusal_preserves_state": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 6
+            },
+            {
+              "case": "file-nested-mobile",
+              "checks": 77,
+              "mode": "file",
+              "source_server": null,
+              "smtp_messages": 0,
+              "real_key_setup": true,
+              "real_guide_download": true,
+              "real_ciphertext_download": true,
+              "stale_refusal_preserves_state": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 6
+            },
+            {
+              "case": "mysql-root-desktop",
+              "checks": 77,
+              "mode": "mysql",
+              "source_server": "8.0.46",
+              "smtp_messages": 0,
+              "real_key_setup": true,
+              "real_guide_download": true,
+              "real_ciphertext_download": true,
+              "stale_refusal_preserves_state": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 6
+            },
+            {
+              "case": "mysql-nested-mobile",
+              "checks": 77,
+              "mode": "mysql",
+              "source_server": "8.0.46",
+              "smtp_messages": 0,
+              "real_key_setup": true,
+              "real_guide_download": true,
+              "real_ciphertext_download": true,
+              "stale_refusal_preserves_state": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 6
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": "151.0.7922.34",
+          "reported_php": "8.2.35"
+        },
+        {
+          "path": "operations-http.json",
+          "bytes": 7253,
+          "sha256": "0bb1ba71c82abadd75bd2669c4407689a323be5c08de6cbcbe5fcc3099fd142b",
+          "checks": 596,
+          "cases": [
+            {
+              "case": "file-root",
+              "checks": 149,
+              "mode": "file",
+              "source_server": null,
+              "target_server": null,
+              "restored_files": 519,
+              "restored_tables": 0,
+              "restored_rows": 0,
+              "smtp_messages": 0,
+              "real_concurrent_workers": 2,
+              "real_finish_worker_killed": true,
+              "newest_archive_preserved": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 0
+            },
+            {
+              "case": "file-nested",
+              "checks": 149,
+              "mode": "file",
+              "source_server": null,
+              "target_server": null,
+              "restored_files": 519,
+              "restored_tables": 0,
+              "restored_rows": 0,
+              "smtp_messages": 0,
+              "real_concurrent_workers": 2,
+              "real_finish_worker_killed": true,
+              "newest_archive_preserved": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-root",
+              "checks": 149,
+              "mode": "mysql",
+              "source_server": "8.0.46",
+              "target_server": "8.0.46",
+              "restored_files": 506,
+              "restored_tables": 90,
+              "restored_rows": 163,
+              "smtp_messages": 0,
+              "real_concurrent_workers": 2,
+              "real_finish_worker_killed": true,
+              "newest_archive_preserved": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 0
+            },
+            {
+              "case": "mysql-nested",
+              "checks": 149,
+              "mode": "mysql",
+              "source_server": "8.0.46",
+              "target_server": "8.0.46",
+              "restored_files": 506,
+              "restored_tables": 90,
+              "restored_rows": 163,
+              "smtp_messages": 0,
+              "real_concurrent_workers": 2,
+              "real_finish_worker_killed": true,
+              "newest_archive_preserved": true,
+              "no_customer_sentinel_changes": true,
+              "screenshots": 0
+            }
+          ],
+          "version": "0.9.1",
+          "build_id": "20261022.1",
+          "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+          "archive_runtime_matches_sources": true,
+          "producer_externally_pinned_fresh": false,
+          "browser": null,
+          "reported_php": "8.2.35"
+        }
+      ],
+      "verified_source_producers": {
+        "tests/Browser/operations_playwright.py": "87ddfee553a860fc3fb67781c545dd13400b458486783937463fcf268c2b0e62",
+        "tests/Http/operations_http.py": "0122ce6e5bec7b370821831e3234181502464207ff8e3882f30d53fe846f516b",
+        "tests/Http/operations_fixture.php": "27545aa19c967147cddad1c089f6d6e79f8f5f9f39d3f44dc3d7b373f3c91860"
+      },
+      "pngs": [
+        {
+          "path": "operations-file-nested-mobile-completed.png",
+          "width": 390,
+          "height": 4527,
+          "bytes": 907171,
+          "sha256": "fc2384ddb2116eba92580dc5ade7e81ca9bd13ec48e5bde5fc856b3b0a5e0532"
+        },
+        {
+          "path": "operations-file-nested-mobile-pending.png",
+          "width": 390,
+          "height": 4164,
+          "bytes": 857706,
+          "sha256": "6e323891a6d998200c51c6074dc4b0b2324b9872b11c685b2c76aebfc1199102"
+        },
+        {
+          "path": "operations-file-nested-mobile-recovery.png",
+          "width": 390,
+          "height": 4481,
+          "bytes": 908290,
+          "sha256": "4684e059e611b2597471a65229b2cae0e2634b90a23e37adc05e91aa20bbbfc1"
+        },
+        {
+          "path": "operations-file-nested-mobile-scheduled.png",
+          "width": 390,
+          "height": 4186,
+          "bytes": 852578,
+          "sha256": "b2fc2eb801e60f6ea6c74bc513bba2bc841db42c2c8d07f62b7b2d8b3a841cf8"
+        },
+        {
+          "path": "operations-file-nested-mobile-stale.png",
+          "width": 390,
+          "height": 4186,
+          "bytes": 851448,
+          "sha256": "354f2374cdd4a89d432c50ba466f4d44d6cf7ee3ab7aa4de6015d7d801af7e62"
+        },
+        {
+          "path": "operations-file-nested-mobile-unconfigured.png",
+          "width": 390,
+          "height": 3998,
+          "bytes": 829463,
+          "sha256": "9b0685f1d1d66c44369753aa1003e8d4d4ebe6d02222c7b3cf451ed10d7ea2fa"
+        },
+        {
+          "path": "operations-file-root-desktop-completed.png",
+          "width": 1440,
+          "height": 2625,
+          "bytes": 1126304,
+          "sha256": "dd3720059b84548757d958c4d19efff4a4532437b7f6cfac1087bb85c4fafefa"
+        },
+        {
+          "path": "operations-file-root-desktop-pending.png",
+          "width": 1440,
+          "height": 2344,
+          "bytes": 1052583,
+          "sha256": "7a94eac8667ce47caa0101953d561acbffb8b69fc8baba568ddf8e4b843881cb"
+        },
+        {
+          "path": "operations-file-root-desktop-recovery.png",
+          "width": 1440,
+          "height": 2588,
+          "bytes": 1134430,
+          "sha256": "b05457859b3b2f6193a4948ada247baef2298ed60a09a62985fdf2b408a4239b"
+        },
+        {
+          "path": "operations-file-root-desktop-scheduled.png",
+          "width": 1440,
+          "height": 2408,
+          "bytes": 1057197,
+          "sha256": "4568c19eb7bc6f5f0bdfa07a0e7c76e0780da4cbd723057f1fa767534ace4cf7"
+        },
+        {
+          "path": "operations-file-root-desktop-stale.png",
+          "width": 1440,
+          "height": 2408,
+          "bytes": 1056897,
+          "sha256": "d91445d49388aa401a878706a084ca26033a5e56d857ff6d0f732c4c43fb00dc"
+        },
+        {
+          "path": "operations-file-root-desktop-unconfigured.png",
+          "width": 1440,
+          "height": 2264,
+          "bytes": 1009741,
+          "sha256": "6485fec1d778259ecba501c906cb16ddea76f18cdf27ba3b8592563ee4a5ed88"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-completed.png",
+          "width": 390,
+          "height": 4551,
+          "bytes": 911835,
+          "sha256": "78188a9bc285b902f5882e2e0cb211e90744aa56f9db145364e36dd7879a1fc1"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-pending.png",
+          "width": 390,
+          "height": 4188,
+          "bytes": 862637,
+          "sha256": "379712a3893e3a74924f235ff6551343b0addcf13c2d0caefcbab69bd72c3ba2"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-recovery.png",
+          "width": 390,
+          "height": 4505,
+          "bytes": 913616,
+          "sha256": "a0636fef6527f49e25206f4d2cced2f7c0f7cc1bfae4584b024601e593e28361"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-scheduled.png",
+          "width": 390,
+          "height": 4210,
+          "bytes": 857246,
+          "sha256": "dbe58d69b75651f95456e5f64049dd0db418a7da2a53a94cc4e5b18c04192d0b"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-stale.png",
+          "width": 390,
+          "height": 4210,
+          "bytes": 856040,
+          "sha256": "5fc01f8d27a3c6c2a11a516ea8579255bafc5190d3d745116b0760a871fb62e4"
+        },
+        {
+          "path": "operations-mysql-nested-mobile-unconfigured.png",
+          "width": 390,
+          "height": 4022,
+          "bytes": 834746,
+          "sha256": "32314ae01a11458fa9d0afc66f5ac6e951ae4ce176ace974ec2a69194ba1d88b"
+        },
+        {
+          "path": "operations-mysql-root-desktop-completed.png",
+          "width": 1440,
+          "height": 2649,
+          "bytes": 1134874,
+          "sha256": "d2cf1da4656292f7623ff95cb6e51000e45b660d241209aff8007c6a42654a9b"
+        },
+        {
+          "path": "operations-mysql-root-desktop-pending.png",
+          "width": 1440,
+          "height": 2368,
+          "bytes": 1061015,
+          "sha256": "676e28a3090c8924c7f07dfdbaa670edaeda9888d503fb3275a9e667c1ba0df5"
+        },
+        {
+          "path": "operations-mysql-root-desktop-recovery.png",
+          "width": 1440,
+          "height": 2612,
+          "bytes": 1142618,
+          "sha256": "700c32f6c8e41ff3cbd487768e2485e06f9024d4ef85243831a5d60675580725"
+        },
+        {
+          "path": "operations-mysql-root-desktop-scheduled.png",
+          "width": 1440,
+          "height": 2432,
+          "bytes": 1065400,
+          "sha256": "2885500cf84ec40984cbad71b75a33dd4bb47fa582fb16e641410249ce58b8e9"
+        },
+        {
+          "path": "operations-mysql-root-desktop-stale.png",
+          "width": 1440,
+          "height": 2432,
+          "bytes": 1064896,
+          "sha256": "e9bd8ce16fbcb6c4447a655260eefee3a427b70e13492ee8ffeaaca187b668a1"
+        },
+        {
+          "path": "operations-mysql-root-desktop-unconfigured.png",
+          "width": 1440,
+          "height": 2288,
+          "bytes": 1017076,
+          "sha256": "6e9e64058ff25356bb152a86f82d1ec5fb0794ac42cfa69065360343807e67ea"
+        }
+      ],
+      "decoded_png_count": 24,
+      "log_php_versions": {
+        "operations-file-nested-mobile-http.log": [
+          "8.2.35"
+        ],
+        "operations-mysql-root-desktop-http.log": [
+          "8.2.35"
+        ],
+        "operations-mysql-nested-http.log": [
+          "8.2.35"
+        ],
+        "operations-mysql-nested-mobile-http.log": [
+          "8.2.35"
+        ],
+        "operations-file-root-desktop-http.log": [
+          "8.2.35"
+        ],
+        "operations-mysql-root-http.log": [
+          "8.2.35"
+        ],
+        "operations-file-nested-http.log": [
+          "8.2.35"
+        ],
+        "operations-file-root-http.log": [
+          "8.2.35"
+        ]
+      },
+      "overview": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/12432032916-overview.jpg"
+    }
+  ],
+  "scope": "Actual downloaded retained privacy, age-policy and MySQL/PHP8.2 operations evidence. Automated parsing, source/package binding and all-PNG decoding complete; explicit visual review recorded separately."
+}

@@ -1,3 +1,11 @@
+<!-- payment-recovery-091-ci-pending:start -->
+## Current checkpoint — 0.9.1 full release acceptance remains pending
+
+**0.9.0 remains the latest completed delivery.** Corrected 0.9.1 source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea` has passed the complete local aggregate, all six CI/source/database jobs and reviewed actual main-browser/MariaDB payment artifacts. At `2026-10-22 15:29:14 UTC`, run 39792164645 had 23 successful jobs, one dependency-setup cancellation, three jobs still in setup and final packaging not created. No final CI success, PR36 merge or new saved delivery is claimed. The original in-progress local/candidate notes below are historical; the full five-case local cached-upgrade suite has now passed.
+
+Follow [the pending checkpoint](releases/0.9.1-continuation-pending.md), [machine evidence](releases/0.9.1-continuation-pending.json) and [next recurring plan](RECURRING_LIFECYCLE_PLAN.md). Retry requires authenticated CI action access, preserved failed-attempt provenance and every original gate. This documentation checkpoint does not alter the frozen candidate runtime or workflow.
+<!-- payment-recovery-091-ci-pending:end -->
+
 <!-- payment-recovery-091-candidate:start -->
 ## Active candidate — 0.9.1 payment recovery
 

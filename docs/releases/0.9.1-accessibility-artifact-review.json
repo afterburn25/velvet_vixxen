@@ -1,0 +1,604 @@
+{
+  "schema": 1,
+  "reviewed_at_utc": "2026-10-22T14:20:38.094989+00:00",
+  "scope": "Read-only review of the downloaded accessibility artifact; no test rerun or repository change",
+  "provenance": {
+    "run_id": 39792164645,
+    "source_commit": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+    "association": "Run/source association supplied by parent from its download context; report embeds package identity, not checkout SHA. Final release evidence must retain independent job-checkout binding.",
+    "zip_path": "/workspace/scratch/551a8823afb7/verification/ci-39792164645/accessibility.zip",
+    "zip_size_bytes": 12360631,
+    "zip_sha256": "524d1be42cb9b10d2c95d6474ad4f57098d80cf37d855ffba1b6db6a4c869c8c",
+    "zip_entries": 37,
+    "safe_extraction": "Unique relative paths, no parent traversal/backslashes/symlinks, bounded individual file size; ZIP contents read with CRC verification.",
+    "extracted_to": "/tmp/vvx-091-accessibility-39792164645"
+  },
+  "identity": {
+    "version": "0.9.1",
+    "build_id": "20261022.1",
+    "fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+    "expected_fresh_zip_sha256": "27a4bc4b084f0bff4187744704c043d32a8f2891f3eca96da4c7c1473432754d",
+    "externally_pinned_fresh": false,
+    "archive_runtime_matches_sources": true
+  },
+  "report_sha256": "3be2dd3971d0ff44da18c1027d507bb12ddac3a7c3ea6ab2a9a98272655b6a59",
+  "runtime_versions": {
+    "http_php": "8.3.36",
+    "php_cli": null,
+    "php_cli_note": "No CLI version observation is embedded in this artifact; do not infer it from the HTTP server.",
+    "chromium": "151.0.7922.34",
+    "mysql": "8.0.46",
+    "axe": "4.11.4",
+    "axe_engine_sha256": "fb83a4378d978ecb7d2dae48a3a3778a84c971ac692f3afd45d714fba89c0f0d",
+    "apache": null,
+    "apache_note": "Actual logs identify PHP Development Server, not Apache."
+  },
+  "totals": {
+    "cases": 4,
+    "unique_page_labels": 55,
+    "page_observations": 220,
+    "checks": 1406,
+    "keyboard_checks": 70,
+    "automated_violations": 0,
+    "javascript_errors": 0,
+    "smtp_connections": 0,
+    "pngs_decoded_and_report_hash_matched": 32,
+    "original_screenshots_visually_inspected": 8,
+    "manual_review_pages": 216,
+    "manual_review_nodes": 8391
+  },
+  "cases": {
+    "file-desktop": {
+      "checks": 349,
+      "page_observations": 55,
+      "installation_prefix": "/",
+      "viewport_width": 1440,
+      "all_pages_no_horizontal_overflow": true,
+      "keyboard_checks": 15,
+      "automated_violations": 0,
+      "javascript_errors": 0,
+      "smtp_connections": 0,
+      "published_policy_pages": 5,
+      "http_php_versions": [
+        "8.3.36"
+      ],
+      "http_server": "PHP Development Server / cli-server",
+      "mysql_version": null,
+      "http_php_warning_count": 0,
+      "manual_review_page_count": 54,
+      "manual_review_rule_instances": {
+        "color-contrast": 54
+      },
+      "manual_review_nodes": 2490,
+      "manual_review_reasons": {
+        "shortTextContent": 87,
+        "bgGradient": 2091,
+        "nonBmp": 253,
+        "imgNode": 24,
+        "pseudoContent": 26,
+        "elmPartiallyObscured": 4,
+        "bgOverlap": 5
+      },
+      "performance_scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+      "p95_response_ms": 49.90000000002328,
+      "max_response_ms": 69.10000000000582,
+      "log_sha256": "f3a151a8af2d1e8cedc829a8e4c8593e4b71727ce3f0b02e23ed00f804a90243"
+    },
+    "file-mobile": {
+      "checks": 354,
+      "page_observations": 55,
+      "installation_prefix": "/nested/velvet",
+      "viewport_width": 390,
+      "all_pages_no_horizontal_overflow": true,
+      "keyboard_checks": 20,
+      "automated_violations": 0,
+      "javascript_errors": 0,
+      "smtp_connections": 0,
+      "published_policy_pages": 5,
+      "http_php_versions": [
+        "8.3.36"
+      ],
+      "http_server": "PHP Development Server / cli-server",
+      "mysql_version": null,
+      "http_php_warning_count": 0,
+      "manual_review_page_count": 54,
+      "manual_review_rule_instances": {
+        "color-contrast": 54
+      },
+      "manual_review_nodes": 1873,
+      "manual_review_reasons": {
+        "shortTextContent": 83,
+        "bgGradient": 1633,
+        "imgNode": 20,
+        "nonBmp": 99,
+        "elmPartiallyObscured": 10,
+        "pseudoContent": 23,
+        "bgOverlap": 5
+      },
+      "performance_scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+      "p95_response_ms": 43.800000000046566,
+      "max_response_ms": 69.79999999998836,
+      "log_sha256": "ec70e1a3995c58abb1348aab86ca9850932fdc8d7938714a6474e38065230634"
+    },
+    "mysql-desktop": {
+      "checks": 349,
+      "page_observations": 55,
+      "installation_prefix": "/",
+      "viewport_width": 1440,
+      "all_pages_no_horizontal_overflow": true,
+      "keyboard_checks": 15,
+      "automated_violations": 0,
+      "javascript_errors": 0,
+      "smtp_connections": 0,
+      "published_policy_pages": 5,
+      "http_php_versions": [
+        "8.3.36"
+      ],
+      "http_server": "PHP Development Server / cli-server",
+      "mysql_version": "8.0.46",
+      "http_php_warning_count": 0,
+      "manual_review_page_count": 54,
+      "manual_review_rule_instances": {
+        "color-contrast": 54
+      },
+      "manual_review_nodes": 2273,
+      "manual_review_reasons": {
+        "shortTextContent": 89,
+        "bgGradient": 1986,
+        "nonBmp": 171,
+        "imgNode": 8,
+        "pseudoContent": 14,
+        "bgOverlap": 5
+      },
+      "performance_scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+      "p95_response_ms": 39.5,
+      "max_response_ms": 76.29999999998836,
+      "log_sha256": "593b79370a1eaf815d401fa3f3ae15838bf4cc08ab138ec53c03136fe2c1b064"
+    },
+    "mysql-mobile": {
+      "checks": 354,
+      "page_observations": 55,
+      "installation_prefix": "/nested/velvet",
+      "viewport_width": 390,
+      "all_pages_no_horizontal_overflow": true,
+      "keyboard_checks": 20,
+      "automated_violations": 0,
+      "javascript_errors": 0,
+      "smtp_connections": 0,
+      "published_policy_pages": 5,
+      "http_php_versions": [
+        "8.3.36"
+      ],
+      "http_server": "PHP Development Server / cli-server",
+      "mysql_version": "8.0.46",
+      "http_php_warning_count": 0,
+      "manual_review_page_count": 54,
+      "manual_review_rule_instances": {
+        "color-contrast": 54
+      },
+      "manual_review_nodes": 1755,
+      "manual_review_reasons": {
+        "shortTextContent": 85,
+        "bgGradient": 1558,
+        "imgNode": 8,
+        "nonBmp": 77,
+        "elmPartiallyObscured": 8,
+        "pseudoContent": 14,
+        "bgOverlap": 5
+      },
+      "performance_scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+      "p95_response_ms": 39.899999999965075,
+      "max_response_ms": 76.10000000003492,
+      "log_sha256": "fd377b524e1ba050612d69de490a9c43c37aed1030367272cf7024c3b5b2b8ab"
+    }
+  },
+  "screenshots": [
+    {
+      "name": "accessibility-file-desktop-trailer-dialog.png",
+      "case": "file-desktop",
+      "sha256": "3e08ffc418e50f539314e62c64317ab3fdc4d86b9ee859ec58c71348ad3b228c",
+      "size_bytes": 371159,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-public-home.png",
+      "case": "file-desktop",
+      "sha256": "a822a115b5ac09f8fec300f9a08c5e51ed3193b05ec6b8014d8d9b354685262f",
+      "size_bytes": 1113904,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-public-account-register.php.png",
+      "case": "file-desktop",
+      "sha256": "79bacad9f69f2b884d160921e51fb2f292bb15308c1dd4482436a2fe00b90572",
+      "size_bytes": 499359,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-member-account-security.php.png",
+      "case": "file-desktop",
+      "sha256": "524f540be1f373a04ee40cfdd8d1c637c0239e44f1e3fde9e78881c673c2fd1e",
+      "size_bytes": 478800,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-admin-login.png",
+      "case": "file-desktop",
+      "sha256": "a203fba2714ae6abd4beee5dab9829443be872177d70054c8a6b16422d3b5ef6",
+      "size_bytes": 603574,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-admin-composer.png",
+      "case": "file-desktop",
+      "sha256": "4fb1b882f9c889770107152242d24f4888ab0b503c6543e2ce5c71d516de1e9b",
+      "size_bytes": 594938,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-admin-security.png",
+      "case": "file-desktop",
+      "sha256": "22bcf98f87f3ba31a7fa07035e5bf90de528fcaa0dbc624bd858354849479869",
+      "size_bytes": 446376,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-desktop-admin-marketing-tab-notifications.png",
+      "case": "file-desktop",
+      "sha256": "a646ed8b187d6e1b20fd4dddc840829f3373147c770fb14f7358a03ddd6d5d48",
+      "size_bytes": 438026,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-trailer-dialog.png",
+      "case": "file-mobile",
+      "sha256": "b838ca1f6798af151926941eb4e0a8f2539576ae80b0c544bc0e9a9f12de1460",
+      "size_bytes": 165226,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-public-home.png",
+      "case": "file-mobile",
+      "sha256": "4c61f7d5b609b9a6b1507f71855b18f8254197c02ae56e39ba2fcd7804912ec3",
+      "size_bytes": 297421,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-public-account-register.php.png",
+      "case": "file-mobile",
+      "sha256": "493a77e7006cc4dddf60e0cef4d5704db47d92441a00da08acf4d1c526aa2db8",
+      "size_bytes": 134185,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-member-account-security.php.png",
+      "case": "file-mobile",
+      "sha256": "58b5d7c46b08dc4c1a6e8a9fd0d173de6430668ac274f2ec4a4bc9b8224dd950",
+      "size_bytes": 194838,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-admin-login.png",
+      "case": "file-mobile",
+      "sha256": "2da6e8bcf0f9069ff014752223ba3970a4a8304c0dcd81b9ac7543cedda16050",
+      "size_bytes": 151061,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-admin-composer.png",
+      "case": "file-mobile",
+      "sha256": "14c2a9d242adcece922aeae263fb70cfc17726b03d57c28dac35541261cb1e73",
+      "size_bytes": 157298,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-admin-security.png",
+      "case": "file-mobile",
+      "sha256": "eab293bf382f4ed449398c6d6e645b3926dafe83ce1c8df037cb110b506a8104",
+      "size_bytes": 174877,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-file-mobile-admin-marketing-tab-notifications.png",
+      "case": "file-mobile",
+      "sha256": "42e596aba8afac1bc80e9830fd0315a0c9277e7954b745b6ad94b057570bcdc7",
+      "size_bytes": 137602,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-trailer-dialog.png",
+      "case": "mysql-desktop",
+      "sha256": "de1cad04add12aa07634bdb77b0207bb79f895289dc03461d674dd44fabc4dca",
+      "size_bytes": 359542,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-public-home.png",
+      "case": "mysql-desktop",
+      "sha256": "a2199d54e13750108788d6c629f018868e5fcc5d43b2d4fac4ead48531d83228",
+      "size_bytes": 1100926,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-public-account-register.php.png",
+      "case": "mysql-desktop",
+      "sha256": "79bacad9f69f2b884d160921e51fb2f292bb15308c1dd4482436a2fe00b90572",
+      "size_bytes": 499359,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-member-account-security.php.png",
+      "case": "mysql-desktop",
+      "sha256": "62e43e63a134441609d8874d35eb102fc4c9f7e28aa8600b045a0398a07f3912",
+      "size_bytes": 481583,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-admin-login.png",
+      "case": "mysql-desktop",
+      "sha256": "a203fba2714ae6abd4beee5dab9829443be872177d70054c8a6b16422d3b5ef6",
+      "size_bytes": 603574,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-admin-composer.png",
+      "case": "mysql-desktop",
+      "sha256": "4fb1b882f9c889770107152242d24f4888ab0b503c6543e2ce5c71d516de1e9b",
+      "size_bytes": 594938,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-admin-security.png",
+      "case": "mysql-desktop",
+      "sha256": "b31f6c169ec05dd59b76207665412c908951bc5b33a4ca0be9812523191557cb",
+      "size_bytes": 443268,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-desktop-admin-marketing-tab-notifications.png",
+      "case": "mysql-desktop",
+      "sha256": "a646ed8b187d6e1b20fd4dddc840829f3373147c770fb14f7358a03ddd6d5d48",
+      "size_bytes": 438026,
+      "dimensions": [
+        1440,
+        1000
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-trailer-dialog.png",
+      "case": "mysql-mobile",
+      "sha256": "631248394166312f55cf314a9b373a1f62d930ec92b8d86e42b1ff5268066ea0",
+      "size_bytes": 160152,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-public-home.png",
+      "case": "mysql-mobile",
+      "sha256": "517b8a82befa32897ba0d60e737bf568ec36b7a1370f143fe245608c677b0b2a",
+      "size_bytes": 311450,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-public-account-register.php.png",
+      "case": "mysql-mobile",
+      "sha256": "493a77e7006cc4dddf60e0cef4d5704db47d92441a00da08acf4d1c526aa2db8",
+      "size_bytes": 134185,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-member-account-security.php.png",
+      "case": "mysql-mobile",
+      "sha256": "22ed6cca9af999a0f53c7f34027fa6e3fe7ec5b6a8de88a51f9477b96f8903fc",
+      "size_bytes": 192025,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-admin-login.png",
+      "case": "mysql-mobile",
+      "sha256": "2da6e8bcf0f9069ff014752223ba3970a4a8304c0dcd81b9ac7543cedda16050",
+      "size_bytes": 151061,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-admin-composer.png",
+      "case": "mysql-mobile",
+      "sha256": "766f4efb05f3d50948a8b6545f78725abeeda16ffb30cf404370b8670e85e95a",
+      "size_bytes": 157297,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-admin-security.png",
+      "case": "mysql-mobile",
+      "sha256": "eab293bf382f4ed449398c6d6e645b3926dafe83ce1c8df037cb110b506a8104",
+      "size_bytes": 174877,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    },
+    {
+      "name": "accessibility-mysql-mobile-admin-marketing-tab-notifications.png",
+      "case": "mysql-mobile",
+      "sha256": "42e596aba8afac1bc80e9830fd0315a0c9277e7954b745b6ad94b057570bcdc7",
+      "size_bytes": 137602,
+      "dimensions": [
+        390,
+        844
+      ],
+      "decoded": true
+    }
+  ],
+  "visual_review": {
+    "status": "No obvious responsive layout regression, clipping of inspected in-viewport controls or unreadable primary controls observed in these eight original screenshots.",
+    "images": [
+      {
+        "name": "accessibility-file-desktop-public-home.png",
+        "observation": "Root public header, hero text, primary/trailer actions and fixed player visibly render; no overlapping header controls or viewport-width spill observed."
+      },
+      {
+        "name": "accessibility-mysql-desktop-admin-composer.png",
+        "observation": "Root Composer shows three working-area columns, scene and independent controls, visible toolbar and version 0.9.1 / Build 20261022.1; no column collision observed."
+      },
+      {
+        "name": "accessibility-file-mobile-admin-login.png",
+        "observation": "Nested mobile sign-in fits 390 px with visible focused email input, labels and primary button; no horizontal clipping observed."
+      },
+      {
+        "name": "accessibility-mysql-mobile-admin-security.png",
+        "observation": "Nested mobile security cards and form controls fit viewport width, wrap explanatory text and display clear primary actions; lower card continues below viewport naturally."
+      },
+      {
+        "name": "accessibility-mysql-desktop-trailer-dialog.png",
+        "observation": "Root trailer modal visually separates background, exposes an outlined close control, media controls, title and primary link."
+      },
+      {
+        "name": "accessibility-file-desktop-admin-marketing-tab-notifications.png",
+        "observation": "Root notifications controls, headings, wrapped tabs and columns remain readable and separated; content below viewport is normal scrolling."
+      },
+      {
+        "name": "accessibility-file-mobile-public-account-register.php.png",
+        "observation": "Nested registration labels, helper text and fields fit viewport width; intentionally captured viewport omits later form content below fold."
+      },
+      {
+        "name": "accessibility-mysql-mobile-member-account-security.php.png",
+        "observation": "Nested member-security title/actions wrap inside their card; editable profile fields and notification options remain within viewport width."
+      }
+    ]
+  },
+  "manual_review_boundary": {
+    "automated_rule": "color-contrast",
+    "reasons": {
+      "shortTextContent": 344,
+      "bgGradient": 7268,
+      "nonBmp": 600,
+      "imgNode": 60,
+      "pseudoContent": 77,
+      "elmPartiallyObscured": 22,
+      "bgOverlap": 20
+    },
+    "finding": "The report retains incomplete color-contrast checks for gradients, images, symbols, pseudo-content and overlap/obscuration. Screenshot sampling does not resolve every flagged node or establish full WCAG conformance. No complete manual contrast certification is claimed."
+  },
+  "limitations": [
+    "Screenshots are viewport captures, not full-page images; 32 captures represent a sample of 220 page observations.",
+    "Loopback timing observations are not production performance evidence.",
+    "This artifact covers file/MySQL root desktop and nested mobile accessibility; it does not establish deployment, live merchant operation, or final completion of all CI jobs."
+  ]
+}

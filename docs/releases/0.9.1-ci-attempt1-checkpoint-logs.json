@@ -1,0 +1,2727 @@
+{
+  "schema": 1,
+  "checked_at": "2026-10-22 15:29:20 UTC",
+  "run_id": 39792164645,
+  "run_attempt": 1,
+  "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+  "source_tree": "177cb521597517f9257ee390e04d0993d85dca9d",
+  "expected_checkout": "20914e10283042cae7848faa39beea5532fc9dfe",
+  "completion_status": "in_progress",
+  "hash_scope": "SHA-256 of exact connector-decoded log content re-encoded as UTF-8; BOM preserved. This is not a hash of the raw GitHub log archive.",
+  "runtime_observation_scope": "Setup action output, explicitly labeled CLI and HTTP reports, unlabeled php report values, and database service output are separate evidence categories. No equality or common executable is inferred between them.",
+  "jobs": [
+    {
+      "job_id": 119873095843,
+      "name": "Repository and executable source contract",
+      "workflow_job_id": "repository-contract",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {},
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "5ff7f392432cf4e709e8434ab74a4133503eb37a252451a98046a3cad7497717",
+      "log_bytes_utf8": 33927,
+      "log_characters_unicode": 33925,
+      "log_line_count": 318,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 121,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [],
+      "artifact_ids": [],
+      "diagnostic_observations": [
+        {
+          "line": 318,
+          "timestamp": "2026-10-22T14:06:55.1720572Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156962,
+      "name": "PHP 8.2 source and package regressions",
+      "workflow_job_id": "source-tests",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.2"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "c31bef00c046d0aee2d1dacd9e7a8db94cf5396b6192b29bce49524247bd6254",
+      "log_bytes_utf8": 38364,
+      "log_characters_unicode": 38338,
+      "log_line_count": 489,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 125,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 137,
+          "first_timestamp": "2026-10-22T14:07:06.0618573Z",
+          "line_numbers": [
+            137
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Installed PHP 8.2.35"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php_version",
+          "value": "8.2.35",
+          "first_line": 213,
+          "first_timestamp": "2026-10-22T14:07:11.7179419Z",
+          "line_numbers": [
+            213
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "{\"php_version\": \"8.2.35\", \"repair_sha256\": \"f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297\", \"legacy_zip_timestamp\": [2026, 1, 1, 0, 0, 0], \"repair_zip_timestamp\": [2026, 10, 19, 0, 0, 0], \"negative_control_requests\": 3, \"corrected_requests\": 2}"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 271,
+          "first_timestamp": "2026-10-22T14:07:49.5197812Z",
+          "line_numbers": [
+            271,
+            340
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "    \"php\": \"8.2.35\","
+        }
+      ],
+      "artifact_ids": [
+        12430989509
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 489,
+          "timestamp": "2026-10-22T14:08:20.4647270Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156846,
+      "name": "PHP 8.3 source and package regressions",
+      "workflow_job_id": "source-tests",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.3"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "9156170ed46587eef58cf1ae5121b8370961b91289f6b2276dbc681f3a82fb9e",
+      "log_bytes_utf8": 38362,
+      "log_characters_unicode": 38336,
+      "log_line_count": 489,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 125,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 137,
+          "first_timestamp": "2026-10-22T14:07:06.6027837Z",
+          "line_numbers": [
+            137
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php_version",
+          "value": "8.3.36",
+          "first_line": 213,
+          "first_timestamp": "2026-10-22T14:07:12.6196420Z",
+          "line_numbers": [
+            213
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "{\"php_version\": \"8.3.36\", \"repair_sha256\": \"f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297\", \"legacy_zip_timestamp\": [2026, 1, 1, 0, 0, 0], \"repair_zip_timestamp\": [2026, 10, 19, 0, 0, 0], \"negative_control_requests\": 3, \"corrected_requests\": 2}"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 271,
+          "first_timestamp": "2026-10-22T14:07:51.4252385Z",
+          "line_numbers": [
+            271,
+            340
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "    \"php\": \"8.3.36\","
+        }
+      ],
+      "artifact_ids": [
+        12432346247
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 489,
+          "timestamp": "2026-10-22T14:08:21.7690295Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157354,
+      "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+      "workflow_job_id": "mysql-migrations",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.2"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "bf0f1dbc6a32d9e4519f15233c591b10f193a13de398fc35fa7e48af8dacc2e3",
+      "log_bytes_utf8": 192239,
+      "log_characters_unicode": 192207,
+      "log_line_count": 2905,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 219,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 231,
+          "first_timestamp": "2026-10-22T14:13:53.7907016Z",
+          "line_numbers": [
+            231
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Installed PHP 8.2.35"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 482,
+          "first_timestamp": "2026-10-22T14:16:40.8346732Z",
+          "line_numbers": [
+            482,
+            1240,
+            1790,
+            2079,
+            2261,
+            2518,
+            2695
+          ],
+          "occurrences": 7,
+          "context_group": null,
+          "text": "  \"php\": \"8.2.35\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 489,
+          "first_timestamp": "2026-10-22T14:16:40.8348648Z",
+          "line_numbers": [
+            489,
+            850,
+            1247,
+            1503,
+            1797,
+            1922,
+            2085,
+            2117,
+            2181,
+            2206,
+            2268,
+            2372,
+            2524,
+            2573,
+            2694
+          ],
+          "occurrences": 15,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2867,
+          "first_timestamp": "2026-10-22T14:23:02.9534664Z",
+          "line_numbers": [
+            2867,
+            2884
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:13:38.164487Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432907781
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2905,
+          "timestamp": "2026-10-22T14:23:03.4510119Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157298,
+      "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+      "workflow_job_id": "mysql-migrations",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.3"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "092376ac298d97c6d4e9741e9cb1cbcd4fbc169e94e9424588986fcec39c9160",
+      "log_bytes_utf8": 192242,
+      "log_characters_unicode": 192210,
+      "log_line_count": 2905,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 219,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 231,
+          "first_timestamp": "2026-10-22T14:12:02.7191787Z",
+          "line_numbers": [
+            231
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 482,
+          "first_timestamp": "2026-10-22T14:13:56.2675265Z",
+          "line_numbers": [
+            482,
+            1240,
+            1790,
+            2079,
+            2261,
+            2518,
+            2695
+          ],
+          "occurrences": 7,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 489,
+          "first_timestamp": "2026-10-22T14:13:56.2676724Z",
+          "line_numbers": [
+            489,
+            850,
+            1247,
+            1503,
+            1797,
+            1922,
+            2085,
+            2117,
+            2181,
+            2206,
+            2268,
+            2372,
+            2524,
+            2573,
+            2694
+          ],
+          "occurrences": 15,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2863,
+          "first_timestamp": "2026-10-22T14:18:13.2054627Z",
+          "line_numbers": [
+            2863,
+            2880
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:11:48.444715Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432452190
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2905,
+          "timestamp": "2026-10-22T14:18:13.6360314Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156813,
+      "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+      "workflow_job_id": "http-browser",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {},
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "3797ec7825142f42fb80ef6720aefe3ea588539d9bee7780e99470fd574230dc",
+      "log_bytes_utf8": 3998830,
+      "log_characters_unicode": 3996002,
+      "log_line_count": 66072,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 250,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 262,
+          "first_timestamp": "2026-10-22T14:07:42.4037746Z",
+          "line_numbers": [
+            262
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 3714,
+          "first_timestamp": "2026-10-22T14:20:32.6524516Z",
+          "line_numbers": [
+            3714,
+            5131,
+            6781,
+            6791,
+            6882,
+            6892,
+            7991,
+            7996,
+            8502,
+            8507,
+            10267,
+            10272,
+            10897,
+            10902,
+            12527,
+            12532,
+            13044,
+            13049,
+            47693,
+            58988,
+            61830,
+            61835,
+            63134,
+            63139,
+            65579,
+            65904
+          ],
+          "occurrences": 26,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 6770,
+          "first_timestamp": "2026-10-22T14:30:27.9611751Z",
+          "line_numbers": [
+            6770,
+            7009,
+            9045,
+            11553,
+            13581,
+            13655,
+            59020,
+            59249,
+            64469,
+            65909
+          ],
+          "occurrences": 10,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 66032,
+          "first_timestamp": "2026-10-22T14:56:18.9159747Z",
+          "line_numbers": [
+            66032,
+            66049
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:28.157082Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12435122051
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 66072,
+          "timestamp": "2026-10-22T14:56:19.4123341Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156913,
+      "name": "Safeguards and marketing admin_security actual-package acceptance",
+      "workflow_job_id": "safeguards-browser",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "admin_security"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "3f3dcea0e4ebe80941804d109d58c547c679eba9848ec22e3cc704fab5f36a5a",
+      "log_bytes_utf8": 155855,
+      "log_characters_unicode": 152949,
+      "log_line_count": 2354,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 227,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 246,
+          "first_timestamp": "2026-10-22T14:10:51.3124462Z",
+          "line_numbers": [
+            246
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 649,
+          "first_timestamp": "2026-10-22T14:19:48.8080398Z",
+          "line_numbers": [
+            649,
+            660,
+            1469,
+            1841
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2319,
+          "first_timestamp": "2026-10-22T14:20:10.9607283Z",
+          "line_numbers": [
+            2319,
+            2336
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:10:36.969633Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12431834032
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2354,
+          "timestamp": "2026-10-22T14:20:12.8859113Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": [
+        {
+          "gap_seconds": 131.353,
+          "before": {
+            "line": 437,
+            "timestamp": "2026-10-22T14:12:53.8948282Z",
+            "text": "Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]"
+          },
+          "after": {
+            "line": 438,
+            "timestamp": "2026-10-22T14:15:05.2479833Z",
+            "text": "Get:8 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [107 kB]"
+          }
+        }
+      ]
+    },
+    {
+      "job_id": 119873156974,
+      "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+      "status": "in_progress",
+      "conclusion": null,
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "log_status": "pending"
+    },
+    {
+      "job_id": 119873156908,
+      "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+      "status": "in_progress",
+      "conclusion": null,
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "log_status": "pending"
+    },
+    {
+      "job_id": 119873156961,
+      "name": "Safeguards and marketing marketing_attribution actual-package acceptance",
+      "workflow_job_id": "safeguards-browser",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "marketing_attribution"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "2910d361dfa6ad2d7d3eb522429c595dedb8152e7ae29630a71cf42a9c8df48c",
+      "log_bytes_utf8": 148768,
+      "log_characters_unicode": 145862,
+      "log_line_count": 2165,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 228,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 247,
+          "first_timestamp": "2026-10-22T14:07:34.9443084Z",
+          "line_numbers": [
+            247
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 615,
+          "first_timestamp": "2026-10-22T14:08:45.1679636Z",
+          "line_numbers": [
+            615,
+            749
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 669,
+          "first_timestamp": "2026-10-22T14:08:45.1715477Z",
+          "line_numbers": [
+            669,
+            692,
+            1716,
+            2038
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2140,
+          "first_timestamp": "2026-10-22T14:10:07.2108639Z",
+          "line_numbers": [
+            2140,
+            2157
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:20.740310Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432600895
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2165,
+          "timestamp": "2026-10-22T14:10:07.6041555Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156937,
+      "name": "Safeguards and marketing notifications actual-package acceptance",
+      "workflow_job_id": "safeguards-browser",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "notifications"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "6895ee743f857acb93e62772477ea7fa962f1a9dfda97771a83153dac796774b",
+      "log_bytes_utf8": 170537,
+      "log_characters_unicode": 167631,
+      "log_line_count": 2599,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 228,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 247,
+          "first_timestamp": "2026-10-22T14:07:33.7626572Z",
+          "line_numbers": [
+            247
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 651,
+          "first_timestamp": "2026-10-22T14:09:01.1756998Z",
+          "line_numbers": [
+            651,
+            666,
+            2020,
+            2467
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2557,
+          "first_timestamp": "2026-10-22T14:09:46.0490531Z",
+          "line_numbers": [
+            2557,
+            2574
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:20.382048Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12433030431
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2599,
+          "timestamp": "2026-10-22T14:09:46.6477852Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156843,
+      "name": "Safeguards and marketing mail_provider actual-package acceptance",
+      "workflow_job_id": "safeguards-browser",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "mail_provider"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "a86391f39ec39c6ca97286579b82455d1c31cf3ff40261d791360cb4b0e9a048",
+      "log_bytes_utf8": 125331,
+      "log_characters_unicode": 122425,
+      "log_line_count": 1741,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 228,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 247,
+          "first_timestamp": "2026-10-22T14:07:33.3446490Z",
+          "line_numbers": [
+            247
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 657,
+          "first_timestamp": "2026-10-22T14:08:54.3194567Z",
+          "line_numbers": [
+            657,
+            675,
+            1178,
+            1400
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 1700,
+          "first_timestamp": "2026-10-22T14:09:38.4024163Z",
+          "line_numbers": [
+            1700,
+            1717
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:20.914654Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12431533715
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 1741,
+          "timestamp": "2026-10-22T14:09:38.8286791Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157019,
+      "name": "Packaged accessibility, keyboard and bounded page performance",
+      "workflow_job_id": "accessibility",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {},
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "a9aa39faa567df819ef6d8c7fb23ad830afd8b89facfeba985a962e2e8c332bf",
+      "log_bytes_utf8": 75515,
+      "log_characters_unicode": 72609,
+      "log_line_count": 847,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 229,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 248,
+          "first_timestamp": "2026-10-22T14:08:57.4660219Z",
+          "line_numbers": [
+            248
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 806,
+          "first_timestamp": "2026-10-22T14:13:12.8355131Z",
+          "line_numbers": [
+            806,
+            839
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:08:43.280518Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432686165
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 847,
+          "timestamp": "2026-10-22T14:13:13.2924824Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156983,
+      "name": "MariaDB 10.11 / PHP 8.2 actual install and upgrade compatibility",
+      "workflow_job_id": "mariadb-compatibility",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.2"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "42092066c6214edf316c504f93a2bc2acf22d0fd5a13c4f6aa02eb7f3462ec84",
+      "log_bytes_utf8": 98419,
+      "log_characters_unicode": 98385,
+      "log_line_count": 1293,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 214,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 234,
+          "first_timestamp": "2026-10-22T14:07:25.7090952Z",
+          "line_numbers": [
+            234
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Installed PHP 8.2.35"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 471,
+          "first_timestamp": "2026-10-22T14:08:25.0006278Z",
+          "line_numbers": [
+            471,
+            482,
+            530,
+            624,
+            759,
+            773,
+            826,
+            849,
+            908,
+            923,
+            975,
+            993,
+            1045
+          ],
+          "occurrences": 13,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 523,
+          "first_timestamp": "2026-10-22T14:09:35.6248025Z",
+          "line_numbers": [
+            523,
+            818,
+            1046
+          ],
+          "occurrences": 3,
+          "context_group": null,
+          "text": "  \"php\": \"8.2.35\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 1229,
+          "first_timestamp": "2026-10-22T14:11:26.6755619Z",
+          "line_numbers": [
+            1229,
+            1260
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12432371417
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 1293,
+          "timestamp": "2026-10-22T14:11:27.3981417Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873156726,
+      "name": "MariaDB 10.11 / PHP 8.3 actual install and upgrade compatibility",
+      "workflow_job_id": "mariadb-compatibility",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.3"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "627006f034d1e2ed9e353f0df80dd05919b3863e2e4739b084bc57b95b1b1257",
+      "log_bytes_utf8": 98264,
+      "log_characters_unicode": 98230,
+      "log_line_count": 1291,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 215,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 235,
+          "first_timestamp": "2026-10-22T14:07:26.0793680Z",
+          "line_numbers": [
+            235
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 469,
+          "first_timestamp": "2026-10-22T14:08:12.0251631Z",
+          "line_numbers": [
+            469,
+            480,
+            528,
+            622,
+            757,
+            771,
+            824,
+            847,
+            906,
+            921,
+            973,
+            991,
+            1043
+          ],
+          "occurrences": 13,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 521,
+          "first_timestamp": "2026-10-22T14:08:59.0232890Z",
+          "line_numbers": [
+            521,
+            816,
+            1044
+          ],
+          "occurrences": 3,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 1244,
+          "first_timestamp": "2026-10-22T14:10:15.1193893Z",
+          "line_numbers": [
+            1244,
+            1275
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12431224430
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 1291,
+          "timestamp": "2026-10-22T14:10:15.6630585Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157151,
+      "name": "Protected media and Apache forms / mysql-8.0",
+      "status": "in_progress",
+      "conclusion": null,
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "log_status": "pending"
+    },
+    {
+      "job_id": 119873157362,
+      "name": "Protected media and Apache forms / mariadb-10.11",
+      "workflow_job_id": "protection-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "1394f8132b6334b6281bf8b5384e12d3f899c658b5eb59e1737bf1cde3ec0fe3",
+      "log_bytes_utf8": 156546,
+      "log_characters_unicode": 153640,
+      "log_line_count": 2087,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 214,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 236,
+          "first_timestamp": "2026-10-22T14:18:47.0232728Z",
+          "line_numbers": [
+            236
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 902,
+          "first_timestamp": "2026-10-22T14:41:41.7576084Z",
+          "line_numbers": [
+            902,
+            919,
+            1507,
+            1720
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 2037,
+          "first_timestamp": "2026-10-22T14:42:47.9065329Z",
+          "line_numbers": [
+            2037,
+            2068
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12433304397
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2087,
+          "timestamp": "2026-10-22T14:42:48.4290716Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": [
+        {
+          "gap_seconds": 238.328,
+          "before": {
+            "line": 649,
+            "timestamp": "2026-10-22T14:24:28.8439613Z",
+            "text": "Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-ipafont-gothic all 00303-21ubuntu1 [3513 kB]"
+          },
+          "after": {
+            "line": 650,
+            "timestamp": "2026-10-22T14:28:27.1722360Z",
+            "text": "Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libglib2.0-data all 2.80.0-6ubuntu3.10 [50.2 kB]"
+          }
+        },
+        {
+          "gap_seconds": 127.423,
+          "before": {
+            "line": 654,
+            "timestamp": "2026-10-22T14:29:13.1546773Z",
+            "text": "Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2 [5641 kB]"
+          },
+          "after": {
+            "line": 655,
+            "timestamp": "2026-10-22T14:31:20.5777009Z",
+            "text": "Ign:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 fonts-freefont-ttf all 20211204+svn4273-2"
+          }
+        },
+        {
+          "gap_seconds": 161.561,
+          "before": {
+            "line": 670,
+            "timestamp": "2026-10-22T14:37:11.5843636Z",
+            "text": "Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]"
+          },
+          "after": {
+            "line": 671,
+            "timestamp": "2026-10-22T14:39:53.1452342Z",
+            "text": "Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3 amd64 2:3.98-1ubuntu0.3 [1445 kB]"
+          }
+        }
+      ]
+    },
+    {
+      "job_id": 119873157222,
+      "name": "Operations restore (mysql-8.0, PHP 8.2)",
+      "workflow_job_id": "operations-recovery",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.2",
+        "engine": "mysql-8.0",
+        "image": "mysql:8.0",
+        "client": "mysql",
+        "health": "mysqladmin ping --silent"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "ea0743e90569c3160b6c79bbd6f7e68550d1a0993253de9e7ad309339fed3d07",
+      "log_bytes_utf8": 567250,
+      "log_characters_unicode": 564342,
+      "log_line_count": 9000,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 223,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 238,
+          "first_timestamp": "2026-10-22T14:07:34.9342394Z",
+          "line_numbers": [
+            238
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Installed PHP 8.2.35"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 722,
+          "first_timestamp": "2026-10-22T14:14:06.9250129Z",
+          "line_numbers": [
+            722,
+            938
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "  \"php\": \"8.2.35\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_server",
+          "value": "8.0.46",
+          "first_line": 815,
+          "first_timestamp": "2026-10-22T14:14:06.9280594Z",
+          "line_numbers": [
+            815,
+            859,
+            4918,
+            6903
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"source_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_server",
+          "value": "8.0.46",
+          "first_line": 816,
+          "first_timestamp": "2026-10-22T14:14:06.9280830Z",
+          "line_numbers": [
+            816,
+            860
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "      \"target_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_database_server",
+          "value": "8.0.46",
+          "first_line": 841,
+          "first_timestamp": "2026-10-22T14:14:06.9288086Z",
+          "line_numbers": [
+            841,
+            885
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"source_database_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_database_server",
+          "value": "8.0.46",
+          "first_line": 842,
+          "first_timestamp": "2026-10-22T14:14:06.9288367Z",
+          "line_numbers": [
+            842,
+            886
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"target_database_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 8962,
+          "first_timestamp": "2026-10-22T14:15:19.7731490Z",
+          "line_numbers": [
+            8962,
+            8979
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:21.263717Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432032916
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 9000,
+          "timestamp": "2026-10-22T14:15:20.1910439Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157150,
+      "name": "Operations restore (mariadb-10.11, PHP 8.2)",
+      "workflow_job_id": "operations-recovery",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.2",
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "client": "mariadb",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "0ad1755864088fdb22b37d7fa6ffd956407276aa47dc8d6ef79e5b2a8ac72be6",
+      "log_bytes_utf8": 569312,
+      "log_characters_unicode": 566404,
+      "log_line_count": 9012,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 208,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 223,
+          "first_timestamp": "2026-10-22T14:09:00.0007647Z",
+          "line_numbers": [
+            223
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Installed PHP 8.2.35"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.2.35",
+          "first_line": 708,
+          "first_timestamp": "2026-10-22T14:25:33.7185429Z",
+          "line_numbers": [
+            708,
+            924
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "  \"php\": \"8.2.35\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 801,
+          "first_timestamp": "2026-10-22T14:25:33.7208984Z",
+          "line_numbers": [
+            801,
+            845,
+            4904,
+            6889
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"source_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 802,
+          "first_timestamp": "2026-10-22T14:25:33.7209221Z",
+          "line_numbers": [
+            802,
+            846
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "      \"target_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_database_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 827,
+          "first_timestamp": "2026-10-22T14:25:33.7214814Z",
+          "line_numbers": [
+            827,
+            871
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"source_database_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_database_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 828,
+          "first_timestamp": "2026-10-22T14:25:33.7215229Z",
+          "line_numbers": [
+            828,
+            872
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"target_database_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 8962,
+          "first_timestamp": "2026-10-22T14:26:40.3655329Z",
+          "line_numbers": [
+            8962,
+            8994
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12433157391
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 9012,
+          "timestamp": "2026-10-22T14:26:40.9692849Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": [
+        {
+          "gap_seconds": 331.174,
+          "before": {
+            "line": 409,
+            "timestamp": "2026-10-22T14:12:49.7623134Z",
+            "text": "Get:9 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-unifont all 1:15.1.01-1build1 [2993 kB]"
+          },
+          "after": {
+            "line": 410,
+            "timestamp": "2026-10-22T14:18:20.9366849Z",
+            "text": "Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]"
+          }
+        },
+        {
+          "gap_seconds": 216.084,
+          "before": {
+            "line": 410,
+            "timestamp": "2026-10-22T14:18:20.9366849Z",
+            "text": "Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]"
+          },
+          "after": {
+            "line": 411,
+            "timestamp": "2026-10-22T14:21:57.0210300Z",
+            "text": "Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3 amd64 2:3.98-1ubuntu0.3 [1445 kB]"
+          }
+        }
+      ]
+    },
+    {
+      "job_id": 119873157386,
+      "name": "Operations restore (mysql-8.0, PHP 8.3)",
+      "workflow_job_id": "operations-recovery",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.3",
+        "engine": "mysql-8.0",
+        "image": "mysql:8.0",
+        "client": "mysql",
+        "health": "mysqladmin ping --silent"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "5a30dbe6bc76db44fa114e7a518d283beb4325a87eedc8ea3d5451c16f2dc861",
+      "log_bytes_utf8": 566543,
+      "log_characters_unicode": 563635,
+      "log_line_count": 8995,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 224,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 239,
+          "first_timestamp": "2026-10-22T14:15:57.7212064Z",
+          "line_numbers": [
+            239
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 717,
+          "first_timestamp": "2026-10-22T14:17:39.0443290Z",
+          "line_numbers": [
+            717,
+            933
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_server",
+          "value": "8.0.46",
+          "first_line": 810,
+          "first_timestamp": "2026-10-22T14:17:39.0474222Z",
+          "line_numbers": [
+            810,
+            854,
+            4913,
+            6898
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"source_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_server",
+          "value": "8.0.46",
+          "first_line": 811,
+          "first_timestamp": "2026-10-22T14:17:39.0474495Z",
+          "line_numbers": [
+            811,
+            855
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "      \"target_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_database_server",
+          "value": "8.0.46",
+          "first_line": 836,
+          "first_timestamp": "2026-10-22T14:17:39.0496857Z",
+          "line_numbers": [
+            836,
+            880
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"source_database_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_database_server",
+          "value": "8.0.46",
+          "first_line": 837,
+          "first_timestamp": "2026-10-22T14:17:39.0497137Z",
+          "line_numbers": [
+            837,
+            881
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"target_database_server\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 8958,
+          "first_timestamp": "2026-10-22T14:18:50.3632707Z",
+          "line_numbers": [
+            8958,
+            8975
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:15:44.959705Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12432172654
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 8995,
+          "timestamp": "2026-10-22T14:18:50.7962886Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157215,
+      "name": "Operations restore (mariadb-10.11, PHP 8.3)",
+      "workflow_job_id": "operations-recovery",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "php": "8.3",
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "client": "mariadb",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "4862f9fe5cac354137784e1b5e3f0d0330372a98c4cd33993805fa08aef1bec9",
+      "log_bytes_utf8": 569582,
+      "log_characters_unicode": 566674,
+      "log_line_count": 9015,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 209,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 224,
+          "first_timestamp": "2026-10-22T14:15:29.4107448Z",
+          "line_numbers": [
+            224
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 711,
+          "first_timestamp": "2026-10-22T14:26:27.9524746Z",
+          "line_numbers": [
+            711,
+            927
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "  \"php\": \"8.3.36\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 804,
+          "first_timestamp": "2026-10-22T14:26:27.9554605Z",
+          "line_numbers": [
+            804,
+            848,
+            4907,
+            6892
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"source_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 805,
+          "first_timestamp": "2026-10-22T14:26:27.9554936Z",
+          "line_numbers": [
+            805,
+            849
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "      \"target_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "source_database_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 830,
+          "first_timestamp": "2026-10-22T14:26:27.9562753Z",
+          "line_numbers": [
+            830,
+            874
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"source_database_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_report",
+          "field": "target_database_server",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 831,
+          "first_timestamp": "2026-10-22T14:26:27.9563146Z",
+          "line_numbers": [
+            831,
+            875
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": "        \"target_database_server\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 8958,
+          "first_timestamp": "2026-10-22T14:27:37.0704006Z",
+          "line_numbers": [
+            8958,
+            8989
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12433511787
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 9015,
+          "timestamp": "2026-10-22T14:27:37.7990215Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157159,
+      "name": "Privacy and access / member_privacy / mysql-8.0",
+      "workflow_job_id": "privacy-access-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "member_privacy",
+        "engine": "mysql-8.0",
+        "image": "mysql:8.0",
+        "health": "mysqladmin ping --silent"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "15f10dfcf4ce70fc8b86448be7d803518602711dacafb90961643121c9f8cf66",
+      "log_bytes_utf8": 996876,
+      "log_characters_unicode": 993970,
+      "log_line_count": 16268,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 230,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 252,
+          "first_timestamp": "2026-10-22T14:07:33.8884251Z",
+          "line_numbers": [
+            252
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 865,
+          "first_timestamp": "2026-10-22T14:09:03.9752026Z",
+          "line_numbers": [
+            865,
+            897,
+            1133,
+            1231,
+            8755,
+            12445
+          ],
+          "occurrences": 6,
+          "context_group": null,
+          "text": "    \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 16227,
+          "first_timestamp": "2026-10-22T14:13:46.8922120Z",
+          "line_numbers": [
+            16227,
+            16244
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:20.666849Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12433430022
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 16268,
+          "timestamp": "2026-10-22T14:13:47.2772581Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157361,
+      "name": "Privacy and access / member_privacy / mariadb-10.11",
+      "workflow_job_id": "privacy-access-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "member_privacy",
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "690b002dc1472bad5a524e35bccbe2e2b657176364011a148edd7d6362c44f78",
+      "log_bytes_utf8": 1008658,
+      "log_characters_unicode": 1005752,
+      "log_line_count": 16332,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 217,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 239,
+          "first_timestamp": "2026-10-22T14:10:38.8371112Z",
+          "line_numbers": [
+            239
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 857,
+          "first_timestamp": "2026-10-22T14:28:04.8164799Z",
+          "line_numbers": [
+            857,
+            889,
+            1125,
+            1223,
+            8747,
+            12437
+          ],
+          "occurrences": 6,
+          "context_group": null,
+          "text": "    \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 16225,
+          "first_timestamp": "2026-10-22T14:32:43.8885727Z",
+          "line_numbers": [
+            16225,
+            16270
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12433074292
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 16332,
+          "timestamp": "2026-10-22T14:32:44.2946791Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": [
+        {
+          "gap_seconds": 134.564,
+          "before": {
+            "line": 680,
+            "timestamp": "2026-10-22T14:23:31.0837526Z",
+            "text": "Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-wqy-zenhei all 0.9.45-8 [7472 kB]"
+          },
+          "after": {
+            "line": 681,
+            "timestamp": "2026-10-22T14:25:45.6481969Z",
+            "text": "Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libnss3 amd64 2:3.98-1ubuntu0.3 [1445 kB]"
+          }
+        }
+      ]
+    },
+    {
+      "job_id": 119873157182,
+      "name": "Privacy and access / age_policies / mysql-8.0",
+      "workflow_job_id": "privacy-access-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "age_policies",
+        "engine": "mysql-8.0",
+        "image": "mysql:8.0",
+        "health": "mysqladmin ping --silent"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "019d3b0390e0327900bb31edbfcab72cc9e40087a472b7455c8f7a912daaa939",
+      "log_bytes_utf8": 166589,
+      "log_characters_unicode": 163683,
+      "log_line_count": 2304,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 228,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 250,
+          "first_timestamp": "2026-10-22T14:10:03.9368056Z",
+          "line_numbers": [
+            250
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.6",
+          "first_line": 844,
+          "first_timestamp": "2026-10-22T14:11:15.5541789Z",
+          "line_numbers": [
+            844,
+            883,
+            900,
+            917,
+            934,
+            998,
+            1013,
+            1292,
+            1307,
+            1586,
+            1601,
+            1880,
+            1895
+          ],
+          "occurrences": 13,
+          "context_group": null,
+          "text": "    \"php\": \"8.3.6\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "8.0.46",
+          "first_line": 845,
+          "first_timestamp": "2026-10-22T14:11:15.5541995Z",
+          "line_numbers": [
+            845,
+            918,
+            935,
+            1587,
+            1602,
+            1881,
+            1896
+          ],
+          "occurrences": 7,
+          "context_group": null,
+          "text": "    \"mysql_version\": \"8.0.46\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 2270,
+          "first_timestamp": "2026-10-22T14:14:42.0543321Z",
+          "line_numbers": [
+            2270,
+            2287
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:09:50.297200Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [
+        12431379212
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2304,
+          "timestamp": "2026-10-22T14:14:42.4844847Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157321,
+      "name": "Privacy and access / age_policies / mariadb-10.11",
+      "workflow_job_id": "privacy-access-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "feature": "age_policies",
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "abf43523e2362a21264921071fa74d1066c5e1c29b334ecaecc5295129d2c236",
+      "log_bytes_utf8": 167709,
+      "log_characters_unicode": 164803,
+      "log_line_count": 2314,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 214,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 236,
+          "first_timestamp": "2026-10-22T14:14:24.9219363Z",
+          "line_numbers": [
+            236
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_unspecified_report",
+          "field": "php",
+          "value": "8.3.6",
+          "first_line": 830,
+          "first_timestamp": "2026-10-22T14:15:48.0940290Z",
+          "line_numbers": [
+            830,
+            869,
+            886,
+            903,
+            920,
+            984,
+            999,
+            1278,
+            1293,
+            1572,
+            1587,
+            1866,
+            1881
+          ],
+          "occurrences": 13,
+          "context_group": null,
+          "text": "    \"php\": \"8.3.6\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 831,
+          "first_timestamp": "2026-10-22T14:15:48.0940933Z",
+          "line_numbers": [
+            831,
+            904,
+            921,
+            1573,
+            1588,
+            1867,
+            1882
+          ],
+          "occurrences": 7,
+          "context_group": null,
+          "text": "    \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 2274,
+          "first_timestamp": "2026-10-22T14:19:10.3694501Z",
+          "line_numbers": [
+            2274,
+            2306
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12431774638
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 2314,
+          "timestamp": "2026-10-22T14:19:10.8012287Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": 119873157049,
+      "name": "Payment recovery / mysql-8.0",
+      "workflow_job_id": "payment-recovery-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "engine": "mysql-8.0",
+        "image": "mysql:8.0",
+        "health": "mysqladmin ping --silent"
+      },
+      "status": "completed",
+      "conclusion": "cancelled",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "70c34eb240f0fd20de3322e515554f706b3a4d5fbf50c1df1c8c493317c5e6bc",
+      "log_bytes_utf8": 42705,
+      "log_characters_unicode": 42439,
+      "log_line_count": 490,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 229,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 249,
+          "first_timestamp": "2026-10-22T14:07:40.2206077Z",
+          "line_numbers": [
+            249
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "8.0.46",
+          "first_line": 463,
+          "first_timestamp": "2026-10-22T14:37:16.2231873Z",
+          "line_numbers": [
+            463,
+            480
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " 2026-10-22T14:07:26.428299Z 0 [System] [MY-010931] [Server] /usr/sbin/mysqld: ready for connections. Version: '8.0.46'  socket: '/var/run/mysqld/mysqld.sock'  port: 0  MySQL Community Server - GPL."
+        }
+      ],
+      "artifact_ids": [],
+      "diagnostic_observations": [
+        {
+          "line": 386,
+          "timestamp": "2026-10-22T14:37:15.8494914Z",
+          "text": "##[error]The operation was canceled.",
+          "immediately_preceding_dependency_progress": {
+            "line": 385,
+            "timestamp": "2026-10-22T14:08:03.1733912Z",
+            "text": "Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]"
+          }
+        },
+        {
+          "line": 416,
+          "timestamp": "2026-10-22T14:37:15.9974165Z",
+          "text": "##[error]No files were found with the provided path: artifacts/payment-recovery/. No artifacts will be uploaded."
+        },
+        {
+          "line": 490,
+          "timestamp": "2026-10-22T14:37:16.5174078Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": [
+        {
+          "gap_seconds": 1752.676,
+          "before": {
+            "line": 385,
+            "timestamp": "2026-10-22T14:08:03.1733912Z",
+            "text": "Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]"
+          },
+          "after": {
+            "line": 386,
+            "timestamp": "2026-10-22T14:37:15.8494914Z",
+            "text": "##[error]The operation was canceled."
+          }
+        }
+      ]
+    },
+    {
+      "job_id": 119873156903,
+      "name": "Payment recovery / mariadb-10.11",
+      "workflow_job_id": "payment-recovery-runtime",
+      "run_attempt": 1,
+      "head_sha": "2b66fc3c6b3409cf94086df6430ee060b24ce0ea",
+      "matrix": {
+        "engine": "mariadb-10.11",
+        "image": "mariadb:10.11",
+        "health": "healthcheck.sh --connect --innodb_initialized"
+      },
+      "status": "completed",
+      "conclusion": "success",
+      "log_status": "collected",
+      "log_sha256_decoded_utf8": "e287e44fb070d328bc4292438a329ca875fce6d24eeaaa03912531c58e39b649",
+      "log_bytes_utf8": 441782,
+      "log_characters_unicode": 438876,
+      "log_line_count": 7212,
+      "checkout_shas": [
+        "20914e10283042cae7848faa39beea5532fc9dfe"
+      ],
+      "checkout_matches_expected": true,
+      "checkout_observations": [
+        {
+          "sha": "20914e10283042cae7848faa39beea5532fc9dfe",
+          "line": 215,
+          "command": "git log -1 --format=%H",
+          "text": "20914e10283042cae7848faa39beea5532fc9dfe"
+        }
+      ],
+      "runtime_observations": [
+        {
+          "category": "setup_php_action",
+          "field": "php",
+          "value": "8.3.36",
+          "first_line": 235,
+          "first_timestamp": "2026-10-22T14:07:25.2036377Z",
+          "line_numbers": [
+            235
+          ],
+          "occurrences": 1,
+          "context_group": null,
+          "text": "\u2713 PHP Updated to PHP 8.3.36"
+        },
+        {
+          "category": "php_cli_report",
+          "field": "php_cli_version",
+          "value": "8.3.36",
+          "first_line": 706,
+          "first_timestamp": "2026-10-22T14:08:51.0337703Z",
+          "line_numbers": [
+            706,
+            728,
+            750,
+            772,
+            862,
+            2406,
+            3950,
+            5494
+          ],
+          "occurrences": 8,
+          "context_group": null,
+          "text": "      \"php_cli_version\": \"8.3.36\","
+        },
+        {
+          "category": "php_http_report",
+          "field": "php_http_version",
+          "value": "8.3.36",
+          "first_line": 707,
+          "first_timestamp": "2026-10-22T14:08:51.0338215Z",
+          "line_numbers": [
+            707,
+            729,
+            751,
+            773,
+            863,
+            2407,
+            3951,
+            5495
+          ],
+          "occurrences": 8,
+          "context_group": null,
+          "text": "      \"php_http_version\": \"8.3.36\","
+        },
+        {
+          "category": "database_report",
+          "field": "mysql_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 749,
+          "first_timestamp": "2026-10-22T14:08:51.0354604Z",
+          "line_numbers": [
+            749,
+            771,
+            3949,
+            5493
+          ],
+          "occurrences": 4,
+          "context_group": null,
+          "text": "      \"mysql_version\": \"10.11.19-MariaDB-ubu2204\","
+        },
+        {
+          "category": "database_service_output",
+          "field": "server_version",
+          "value": "10.11.19-MariaDB-ubu2204",
+          "first_line": 7158,
+          "first_timestamp": "2026-10-22T14:10:07.1983224Z",
+          "line_numbers": [
+            7158,
+            7190
+          ],
+          "occurrences": 2,
+          "context_group": null,
+          "text": " Version: '10.11.19-MariaDB-ubu2204'  socket: '/run/mysqld/mysqld.sock'  port: 0  mariadb.org binary distribution"
+        }
+      ],
+      "artifact_ids": [
+        12431578547
+      ],
+      "diagnostic_observations": [
+        {
+          "line": 7212,
+          "timestamp": "2026-10-22T14:10:07.5925378Z",
+          "text": "##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/"
+        }
+      ],
+      "dependency_progress_gaps_at_least_120_seconds": []
+    },
+    {
+      "job_id": null,
+      "name": "Build verified fresh-install and upgrade ZIPs",
+      "status": "not_created",
+      "conclusion": null,
+      "run_attempt": null,
+      "head_sha": null,
+      "log_status": "pending"
+    }
+  ],
+  "summary": {
+    "expected_jobs": 28,
+    "collected_logs": 24,
+    "pending_logs": 4,
+    "not_produced_logs": [],
+    "actual_checkout_shas": [
+      "20914e10283042cae7848faa39beea5532fc9dfe"
+    ],
+    "checkout_matches_expected": 24,
+    "checkout_mismatches_or_missing": [],
+    "observed_runtime_values_by_evidence_category": {
+      "setup_php_action": [
+        "8.2.35",
+        "8.3.36"
+      ],
+      "php_unspecified_report": [
+        "8.2.35",
+        "8.3.36",
+        "8.3.6"
+      ],
+      "database_report": [
+        "10.11.19-MariaDB-ubu2204",
+        "8.0.46"
+      ],
+      "database_service_output": [
+        "10.11.19-MariaDB-ubu2204",
+        "8.0.46"
+      ],
+      "php_cli_report": [
+        "8.3.36"
+      ],
+      "php_http_report": [
+        "8.3.36"
+      ]
+    },
+    "artifact_ids_from_upload_logs": [
+      12430989509,
+      12431224430,
+      12431379212,
+      12431533715,
+      12431578547,
+      12431774638,
+      12431834032,
+      12432032916,
+      12432172654,
+      12432346247,
+      12432371417,
+      12432452190,
+      12432600895,
+      12432686165,
+      12432907781,
+      12433030431,
+      12433074292,
+      12433157391,
+      12433304397,
+      12433430022,
+      12433511787,
+      12435122051
+    ],
+    "error_annotations": [
+      {
+        "job_id": 119873157049,
+        "name": "Payment recovery / mysql-8.0",
+        "line": 386,
+        "timestamp": "2026-10-22T14:37:15.8494914Z",
+        "text": "##[error]The operation was canceled.",
+        "immediately_preceding_dependency_progress": {
+          "line": 385,
+          "timestamp": "2026-10-22T14:08:03.1733912Z",
+          "text": "Get:5 https://archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]"
+        }
+      },
+      {
+        "job_id": 119873157049,
+        "name": "Payment recovery / mysql-8.0",
+        "line": 416,
+        "timestamp": "2026-10-22T14:37:15.9974165Z",
+        "text": "##[error]No files were found with the provided path: artifacts/payment-recovery/. No artifacts will be uploaded."
+      }
+    ]
+  }
+}
