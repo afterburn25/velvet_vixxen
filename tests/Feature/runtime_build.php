@@ -204,7 +204,8 @@ try {
         'public/assets/css/payment-recovery.css',
         'public/routes/api/payment-webhook.php',
     ];
-    $files = array_values(array_unique(array_merge($files, $v09Dependencies, $paymentDependencies)));
+    $purchasedTermsDependencies = ['app/Core/PurchasedTerms.php','app/Core/PurchasedTermsStoreTrait.php','app/Views/public/partials/checkout-terms.php','app/Views/public/partials/purchased-membership.php'];
+    $files = array_values(array_unique(array_merge($files, $v09Dependencies, $paymentDependencies, $purchasedTermsDependencies)));
     $hashes = [];
     foreach ($files as $relative) {
         $directory = dirname($fixture . '/' . $relative);

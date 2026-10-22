@@ -1,0 +1,188 @@
+{
+  "candidate_source_before_corrections": "b09055d9b80f17f7481aaf2a8a5bfb20dcf3032a",
+  "candidate_first_ci": 39854250511,
+  "merge_and_delivery": "pending",
+  "corrections": [
+    "Deduplicate bundle definitions consistently before SQL insertion and file persistence. Keep snapshot deduplication for older file definitions.",
+    "Rollback the bundle-owned SQL transaction without referencing an undefined ownership variable.",
+    "Capture fixture exceptions before cleanup and rollback its owned Store connections so an assertion failure cannot hide behind metadata-locked DROP TABLE cleanup.",
+    "Submit the actual checkout review revision in the retained merchandise HTTP producer; do not relax the new public stale-review check."
+  ],
+  "local_sql": {
+    "ok": true,
+    "assertions": 42,
+    "mode": "mysql",
+    "php": "8.3.6",
+    "database": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+    "storage_design": "existing immutable order item plus protected subscription reverse reference",
+    "live_provider_calls": 0
+  },
+  "retained_sql_payment_foundation": {
+    "ok": true,
+    "assertions": 391,
+    "mode": "mysql",
+    "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+    "php": "8.3.6",
+    "real_provider_requests": 0,
+    "smtp_connections": 0,
+    "killed_workers": 4,
+    "cases": {
+      "accepted_then_timeout_charge_recovery": {
+        "complete": true,
+        "checks_through": 9
+      },
+      "strict_binding_duplicate_conflict_and_cross_order_events": {
+        "complete": true,
+        "checks_through": 37
+      },
+      "accepted_then_timeout_refund_and_callback_deduplication": {
+        "complete": true,
+        "checks_through": 44
+      },
+      "partial_refund_exact_amount_and_original_charge_binding": {
+        "complete": true,
+        "checks_through": 48
+      },
+      "strict_synchronous_results_and_query_recovery": {
+        "complete": true,
+        "checks_through": 57
+      },
+      "unbound_and_duplicate_same_order_references_remain_held": {
+        "complete": true,
+        "checks_through": 65
+      },
+      "provider_context_boundary_and_configuration_rotation": {
+        "complete": true,
+        "checks_through": 69
+      },
+      "real_fulfillment_failure_atomic_recovery_and_uncommitted_reference_claim": {
+        "complete": true,
+        "checks_through": 75
+      },
+      "merchant_and_environment_rotation_fail_closed": {
+        "complete": true,
+        "checks_through": 81
+      },
+      "real_killed_atomic_financial_and_access_commit": {
+        "complete": true,
+        "checks_through": 86
+      },
+      "real_killed_charge_and_refund_transport_recovery": {
+        "complete": true,
+        "checks_through": 95
+      },
+      "real_listener_failure_and_killed_external_effect_hold": {
+        "complete": true,
+        "checks_through": 101
+      },
+      "proven_safe_deferred_obligation_retry": {
+        "complete": true,
+        "checks_through": 104
+      },
+      "actual_sql_paused_effect_claim_after_privacy_erasure": {
+        "complete": true,
+        "checks_through": 109
+      },
+      "privacy_erasure_late_finance_and_inventory_hold": {
+        "complete": true,
+        "checks_through": 116
+      },
+      "actual_dispatch_freeze_exclusion_and_post_wait_inventory_review": {
+        "complete": true,
+        "checks_through": 156
+      },
+      "paused_first_charge_closure_eligibility_and_free_recovery_fences": {
+        "complete": true,
+        "checks_through": 158
+      },
+      "safe_complete_owner_inspection_and_action_flags": {
+        "complete": true,
+        "checks_through": 354
+      },
+      "actual_waiting_owner_revocation_and_recent_auth_boundaries": {
+        "complete": true,
+        "checks_through": 365
+      },
+      "actual_owner_demotion_expiry_and_refund_dispatch_recovery": {
+        "complete": true,
+        "checks_through": 385
+      },
+      "explicit_recurring_adapter_boundary_and_sandbox_compatibility": {
+        "complete": true,
+        "checks_through": 388
+      },
+      "migration_resume_preserves_financial_records": {
+        "complete": true,
+        "checks_through": 390
+      }
+    },
+    "account_context_callbacks": 193,
+    "account_context_callbacks_in_financial_commit": 0,
+    "provider_charge_attempts": 19,
+    "provider_refund_attempts": 5,
+    "provider_read_only_lookups": 8,
+    "owned_schema_cleaned": true,
+    "owned_files_cleaned": true
+  },
+  "purchased_terms_http": {
+    "passed": true,
+    "cases": {
+      "file-root": {
+        "passed": true,
+        "checks": 45,
+        "images": [],
+        "no_javascript": false,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true
+      },
+      "file-nested": {
+        "passed": true,
+        "checks": 45,
+        "images": [],
+        "no_javascript": false,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true
+      },
+      "mysql-root": {
+        "passed": true,
+        "checks": 86,
+        "images": [],
+        "no_javascript": false,
+        "database": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true
+      },
+      "mysql-nested": {
+        "passed": true,
+        "checks": 86,
+        "images": [],
+        "no_javascript": false,
+        "database": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true
+      }
+    },
+    "package_sha256": "99acb419b0a5551645bb6d62fdab742665babaf972e305050a280d6f68246a1d",
+    "runtime_sha256": {
+      "app/Core/PurchasedTerms.php": "a853d4d06fda7c7e26988753220010bbfcfc3e34a3776b483da756b55f6254b3",
+      "app/Core/PurchasedTermsStoreTrait.php": "a4f6f873d487e23a665b591b0b08b70f4aa04321d37a1408a7267ec5a0b17e29",
+      "app/Core/CommerceService.php": "e61d4dbdb6653f0b5d6202ad29f84e7ef10039d6ed1108e5b2d914fc56b562d3",
+      "app/Core/CommerceStoreTrait.php": "4da0e9a9ff47445aafc0fd9e11f57d50a56eec1345a2e4341660ce3c25784b48",
+      "app/Core/MemberStoreTrait.php": "49b76c262360f37fe06c50750fc53e9fb664f559bd6801c52aae12643e59cb44",
+      "app/Core/MemberPrivacyProjection.php": "dc8bce4226d11f1015888bbe28318a2dd70bfcecc7ffd8528a03a06794f10ec4",
+      "app/Views/public/partials/checkout-terms.php": "6178773bde4a34aa1db3bdeaf5b433aabdf6cbe4612343117e0a2ccd88033cd9",
+      "app/Views/public/partials/purchased-membership.php": "b5553b43b3074c5598f577667582e457f8ccc7412fb8c5d63fd24cb9a1b7d6cb",
+      "public/routes/checkout/index.php": "a961f16a5998dc02821fc577bfbd83923ea7ed5701a20756286de52ee0a73a08",
+      "public/routes/account/billing.php": "dc37aadf5458679880ce60c282b940300474a0498adc7687a9bb66bd1a6c16ba"
+    },
+    "checkpoint_scope": "Local SQL/deduplication correction checkpoint; final user-facing error wording and retained merchandise producer are subsequent changes requiring corrected complete CI."
+  },
+  "local_limits": [
+    "Chromium Unix sockets denied",
+    "foreign-owner fixture operations denied",
+    "file worker proc lock observation unavailable"
+  ],
+  "claim_boundary": "The original CI failure remains historical. Corrected source needs its own complete workflow and artifact acceptance; earlier successful jobs do not certify changed source."
+}

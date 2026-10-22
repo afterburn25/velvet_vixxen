@@ -1,3 +1,7 @@
+## 0.9.2 candidate — purchased membership and bundle terms
+
+Freeze validated commercial terms before dispatch; reject stale checkout reviews; retain purchased benefits, PPV discounts, sandbox renewal amounts and exact bundle contents through delayed recovery. Preserve explicit legacy/held handling, metadata immutability, safe exports and authorized privacy erasure. Complete CI, merge and customer delivery remain pending.
+
 <!-- payment-recovery-091-changelog:start -->
 ## 0.9.1 — Durable payments and owner recovery, Build 20261022.1
 

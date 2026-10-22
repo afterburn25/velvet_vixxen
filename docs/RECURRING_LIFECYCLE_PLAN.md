@@ -1,3 +1,17 @@
+<!-- purchased-terms-092-candidate:start -->
+## Current development — 0.9.2 purchased terms, Build 20261022.2
+
+**Implemented candidate; release acceptance pending.** Work starts from verified live `main` `8d7ccce01d3a2db599b9c9955b10e0a9a115c0d7` on `feature/0.9.2-purchased-terms`. Version 0.9.1 remains the latest completed customer delivery. No 0.9.2 merge, saved customer delivery, production payment or customer-host acceptance is claimed here.
+
+New membership and bundle orders capture strictly validated, canonically hashed commercial terms before payment dispatch. Catalogue writers share the commerce lock. Fulfillment and delayed recovery consume the original snapshot; deleted bundle definitions do not substitute contents, and missing content or invalid new terms hold the atomic local application. Subscription display, commercial benefits, PPV discounts, sandbox renewal prices/periods and safe own-data exports use the original order item through its protected subscription binding. Checkout displays the terms and refuses a stale review before creating an order. Historical records are explicitly legacy, without automatic backfill; unfulfilled legacy memberships/bundles with insufficient original terms remain held. Current access, protection, refund, expiry and privacy rules still apply.
+
+The storage change uses existing order-item metadata and the existing fulfillment subscription ID as its durable reverse reference on both backends; no migration or historical schema byte changes. The single-page installer and approved 13/9 runtime roots are preserved. Photo depth, separate buttons, Composer geometry, upload, preview, publishing and organized dispatch remain in the retained acceptance matrix. The separate 0.8.1 installer-only repair remains byte-identical.
+
+Local evidence currently includes all 67 source/module suites, the focused purchased-terms file suite, and strict reproducible Fresh/Upgrade packaging. Actual packaged file HTTP checkout/recovery/billing passes at root and nested paths. Database and final changed-source results are recorded in the candidate evidence as they finish. The complete workflow, actual desktop/mobile/no-script browser evidence, reviewed artifacts, guarded merge and saved customer-file readback remain required. The local sandbox denies Chromium's required Unix sockets and foreign-owner fixture operations; no passing result is substituted for those gates.
+
+The full recurring agreement/cycle/cancel/resume increment and approved live provider/merchant acceptance remain separate, along with configured mail/age services, actual-host #12/#13 and owner policy/retention decisions. [Candidate guide](PURCHASED_TERMS.md) describes exact behavior, legacy limits and remaining acceptance.
+<!-- purchased-terms-092-candidate:end -->
+
 # Velvet Vixxen — next recurring lifecycle scope
 
 Prepared from corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`, tree `177cb521597517f9257ee390e04d0993d85dca9d`, now accepted as **0.9.1 / Build 20261022.1** through [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36), merge `61cf2d5aacc180834e2280aab9bd1f23493f621f` and byte-verified saved delivery. [Release evidence](releases/0.9.1-payment-recovery.md) records that completed boundary. This is the next implementation plan; the recurring functionality below is not implemented by the documentation handoff. Read back live main before coding, create a separate branch/worktree, and advance the visible version for the next changed completed delivery.

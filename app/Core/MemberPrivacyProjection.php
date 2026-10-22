@@ -50,11 +50,41 @@ final class MemberPrivacyProjection
             }
             $forms[] = ['requestId' => $form['bookingRequestId'], 'submittedAt' => $form['submittedAt'] ?? $form['createdAt'] ?? null, 'answers' => $answers];
         }
+        $orderItems = self::rows($data['orderItems'], ['id', 'orderId', 'itemType', 'itemId', 'title', 'quantity', 'unitPrice', 'discountTotal', 'lineTotal', 'fulfillmentStatus', 'createdAt']);
+        $acceptedSubscriptions = []; $subscriptionStates = [];
+        foreach ($data['orderItems'] as $index => $item) {
+            if (!in_array($item['itemType'] ?? '', ['plan','bundle'], true)) continue;
+            $orderItems[$index]['purchasedTermsState'] = 'legacy';
+            foreach ($data['orders'] as $sourceOrder) {
+                if ((string) $sourceOrder['id'] !== (string) $item['orderId']) continue;
+                try {
+                    $snapshot = PurchasedTerms::forItem($sourceOrder, $item);
+                    if ($snapshot !== null) {
+                        $orderItems[$index]['purchasedTermsState'] = 'accepted';
+                        $orderItems[$index]['purchasedTerms'] = $snapshot;
+                        if ($item['itemType'] === 'plan' && isset($item['metadata']['subscriptionId'])) {
+                            $acceptedSubscriptions[(string) $item['metadata']['subscriptionId']] = $snapshot;
+                            $subscriptionStates[(string) $item['metadata']['subscriptionId']] = 'accepted';
+                        }
+                    }
+                } catch (\RuntimeException) {
+                    $orderItems[$index]['purchasedTermsState'] = 'held';
+                    if (is_string($item['metadata']['subscriptionId'] ?? null)) $subscriptionStates[$item['metadata']['subscriptionId']] = 'held';
+                }
+            }
+        }
+        $subscriptions = self::rows($data['subscriptions'], ['id', 'planId', 'planName', 'status', 'currentPeriodStart', 'currentPeriodEnd', 'cancelAtPeriodEnd', 'graceEndsAt', 'cancelledAt', 'createdAt', 'updatedAt']);
+        foreach ($subscriptions as &$subscription) {
+            $snapshot = $acceptedSubscriptions[(string) $subscription['id']] ?? null;
+            $subscription['purchasedTermsState'] = $subscriptionStates[(string) $subscription['id']] ?? 'legacy';
+            if ($snapshot !== null) { $subscription['purchasedTerms'] = $snapshot; $subscription['planName'] = $snapshot['terms']['title']; }
+        }
+        unset($subscription);
         return ['account' => $account,
-            'subscriptions' => self::rows($data['subscriptions'], ['id', 'planId', 'planName', 'status', 'currentPeriodStart', 'currentPeriodEnd', 'cancelAtPeriodEnd', 'graceEndsAt', 'cancelledAt', 'createdAt', 'updatedAt']),
+            'subscriptions' => $subscriptions,
             'entitlements' => self::rows($data['entitlements'], ['id', 'contentType', 'contentId', 'sourceType', 'sourceId', 'startsAt', 'expiresAt', 'status', 'createdAt', 'updatedAt']),
             'orders' => $orders,
-            'orderItems' => self::rows($data['orderItems'], ['id', 'orderId', 'itemType', 'itemId', 'title', 'quantity', 'unitPrice', 'discountTotal', 'lineTotal', 'fulfillmentStatus', 'createdAt']),
+            'orderItems' => $orderItems,
             'transactions' => self::rows($data['transactions'], ['id', 'orderId', 'subscriptionId', 'providerKey', 'transactionType', 'status', 'amount', 'currency', 'createdAt', 'updatedAt']),
             'paymentOperations' => array_values(array_map(static function (array $row): array {
                 $safe = self::fields($row, ['id','orderId','kind','state','createdAt','updatedAt']);

@@ -311,6 +311,9 @@ class RuntimeInventoryService
                 'public/routes/api/payment-webhook.php',
             ]);
         }
+        if (version_compare($data['version'], '0.9.2', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, ['app/Core/PurchasedTerms.php', 'app/Core/PurchasedTermsStoreTrait.php', 'app/Views/public/partials/checkout-terms.php', 'app/Views/public/partials/purchased-membership.php']);
+        }
         foreach ($requiredFiles as $required) {
             if (!isset($data['files'][$required])) {
                 throw new RuntimeException('The update file inventory is incomplete. Extract the complete Upgrade ZIP again.');

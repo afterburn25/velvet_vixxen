@@ -200,30 +200,32 @@ try {
     // fulfillment path must roll back its earlier money/access writes, retaining
     // confirmed evidence for local recovery without another external attempt.
     [$store, $commerce, $provider, $registry] = payment_fixture_service($config);
-    $bundle = $store->saveBundle(['title'=>'Recoverable fixture bundle','price'=>9.50,'currency'=>'USD','isActive'=>true,'items'=>[['itemType'=>'video','itemId'=>$video['id']]]]);
-    $bundleSql = $bundleItemsSql = null;
+    $failureVideo = $store->saveVideo(['title'=>'Recoverable purchased video','status'=>'published','accessMode'=>'purchase','standardPrice'=>9.50,'currency'=>'USD']);
+    $bundle = $store->saveBundle(['title'=>'Recoverable fixture bundle','price'=>9.50,'currency'=>'USD','isActive'=>true,'items'=>[['itemType'=>'video','itemId'=>$video['id'],'sortOrder'=>1],['itemType'=>'video','itemId'=>$failureVideo['id'],'sortOrder'=>2]]]);
+    $videoSql = null;
     if ($mysql) {
-        $stmt = $pdo->prepare('SELECT * FROM commerce_bundles WHERE id=?'); $stmt->execute([$bundle['id']]); $bundleSql = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt = $pdo->prepare('SELECT * FROM commerce_bundle_items WHERE bundle_id=?'); $stmt->execute([$bundle['id']]); $bundleItemsSql = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $pdo->prepare('SELECT * FROM videos WHERE id=?'); $stmt->execute([$failureVideo['id']]); $videoSql = $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    $provider->afterAccepted = static function () use ($store, $mysql, $pdo, $bundle): void {
-        if ($mysql) $pdo->prepare('DELETE FROM commerce_bundles WHERE id=?')->execute([$bundle['id']]);
-        else $store->mutateFileStore(static function (array &$data) use ($bundle): void { unset($data['bundles'][$bundle['id']]); });
+    $provider->afterAccepted = static function () use ($store, $mysql, $pdo, $failureVideo): void {
+        if ($mysql) $pdo->prepare('DELETE FROM videos WHERE id=?')->execute([$failureVideo['id']]);
+        else $store->mutateFileStore(static function (array &$data) use ($failureVideo): void { unset($data['mediaCenter']['videos'][$failureVideo['id']]); });
     };
     $calls = $attempts('charge'); $deliveriesBefore = count($deliveries());
     $localFailure = $commerce->checkout($member['id'], [['type'=>'bundle','id'=>$bundle['id']]], '', 'fixture-pay', [], 'fixture:local-apply-failure'); $provider->afterAccepted = null;
     $assert($localFailure['paymentOperation']['state'] === 'confirmed' && $localFailure['paymentOperation']['data']['issue'] === 'local_effect_failed' && $localFailure['order']['status'] === 'processing'
         && $store->paymentTransactionsForOrder($localFailure['order']['id']) === [] && $localFailure['order']['items'][0]['fulfillmentStatus'] !== 'fulfilled', 'A real fulfillment failure partially committed financial/access effects or lost confirmed evidence.');
+    $rolledBackBundleGrants = array_filter($store->entitlements($member['id']), static fn(array $row): bool => (string) $row['sourceId'] === (string) $localFailure['order']['id']);
+    $assert($rolledBackBundleGrants === [], 'A failed second purchased item retained the first bundle entitlement outside the atomic commit.');
     $claimedReference = $localFailure['paymentOperation']['data']['result']['transactionId'];
     $provider->alterResult = static function (array $result) use ($claimedReference): array { $result['transactionId'] = $claimedReference; return $result; };
     $crossConfirmed = $commerce->checkout($other['id'], $digital, '', 'fixture-pay', [], 'fixture:confirmed-reference-reuse'); $provider->alterResult = null;
     $assert($crossConfirmed['paymentOperation']['state'] === 'held' && $store->paymentTransactionsForOrder($crossConfirmed['order']['id']) === [], 'A different order reused a confirmed reference before its first local transaction existed.');
     if ($mysql) {
-        foreach (['commerce_bundles'=>[$bundleSql], 'commerce_bundle_items'=>$bundleItemsSql] as $table=>$rows) foreach ($rows as $row) {
+        foreach (['videos'=>[$videoSql]] as $table=>$rows) foreach ($rows as $row) {
             $sql = 'INSERT INTO ' . vvx_installer_fixture_quote($table) . ' (' . implode(',', array_map(vvx_installer_fixture_quote(...), array_keys($row))) . ') VALUES (' . implode(',', array_fill(0,count($row),'?')) . ')';
             $pdo->prepare($sql)->execute(array_values($row));
         }
-    } else $store->mutateFileStore(static function (array &$data) use ($bundle): void { $data['bundles'][$bundle['id']] = $bundle; });
+    } else $store->mutateFileStore(static function (array &$data) use ($failureVideo): void { $data['mediaCenter']['videos'][$failureVideo['id']] = $failureVideo; });
     $lookups = count($provider->ledger()['lookups']); $locallyRecovered = $commerce->reconcilePaymentOperation($localFailure['paymentOperation']['id']);
     $assert($locallyRecovered['operation']['state'] === 'applied' && count($store->paymentTransactionsForOrder($localFailure['order']['id'])) === 1 && $locallyRecovered['order']['items'][0]['fulfillmentStatus'] === 'fulfilled'
         && $attempts('charge') === $calls + 2 && count($provider->ledger()['lookups']) === $lookups, 'Local application recovery repeated provider transport or failed to commit exact effects.');

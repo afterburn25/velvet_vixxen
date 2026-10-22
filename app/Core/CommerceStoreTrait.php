@@ -232,15 +232,23 @@ trait CommerceStoreTrait
     /** @param array<string,mixed> $bundle */
     public function saveBundle(array $bundle): array
     {
+        return $this->withCommerceLock(fn(): array => $this->saveBundleLocked($bundle));
+    }
+
+    private function saveBundleLocked(array $bundle): array
+    {
         $id = trim((string) ($bundle['id'] ?? ''));
         $title = trim((string) ($bundle['title'] ?? ''));
         if ($title === '') throw new RuntimeException('Bundle title is required.');
-        $items = [];
+        $items = []; $seen = [];
         foreach ((array) ($bundle['items'] ?? []) as $item) {
             if (!is_array($item)) continue;
             $type = (string) ($item['itemType'] ?? $item['type'] ?? '');
             $itemId = (string) ($item['itemId'] ?? $item['id'] ?? '');
             if (in_array($type, ['gallery','video'], true) && $itemId !== '') {
+                $identity = $type . ':' . $itemId;
+                if (isset($seen[$identity])) continue;
+                $seen[$identity] = true;
                 $items[] = ['itemType'=>$type,'itemId'=>$itemId,'sortOrder'=>(int)($item['sortOrder']??100)];
             }
         }
@@ -260,7 +268,7 @@ trait CommerceStoreTrait
             $pdo->prepare('DELETE FROM commerce_bundle_items WHERE bundle_id=?')->execute([$bundleId]);
             $insert=$pdo->prepare('INSERT INTO commerce_bundle_items (bundle_id,item_type,item_id,sort_order,created_at) VALUES (?,?,?,?,NOW())');foreach($items as $item){$insert->execute([$bundleId,$item['itemType'],(int)$item['itemId'],$item['sortOrder']]);}
             $pdo->commit();return $this->bundle((string)$bundleId)??array_merge($record,['id'=>(string)$bundleId]);
-        } catch(Throwable $e){if($ownsTransaction&&$pdo->inTransaction())$pdo->rollBack();throw $e;}
+        } catch(Throwable $e){if($pdo->inTransaction())$pdo->rollBack();throw $e;}
     }
 
     /** @return list<array<string,mixed>> */
@@ -304,7 +312,7 @@ trait CommerceStoreTrait
     {
         $privacyOrder = $this->order($orderId);
         if ($privacyOrder && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite((string) $privacyOrder['memberId'], fn() => $this->updateOrder($orderId, $changes), true);
-        $order=$this->order($orderId);if(!$order)throw new RuntimeException('Order not found.');$allowed=['pending','processing','paid','failed','refunded','partially_refunded','chargeback','cancelled'];if(isset($changes['status'])&&in_array((string)$changes['status'],$allowed,true))$order['status']=(string)$changes['status'];foreach(['providerKey','providerCheckoutId','couponCode','paidAt','billingEmail'] as $key){if(array_key_exists($key,$changes))$order[$key]=$changes[$key];}foreach(['refundedTotal','discountTotal','taxTotal','grandTotal','subtotal'] as $key){if(array_key_exists($key,$changes))$order[$key]=round((float)$changes[$key],2);}if(isset($changes['metadata'])&&is_array($changes['metadata'])){$metadataChanges=$changes['metadata'];unset($metadataChanges['attribution']);$order['metadata']=array_merge((array)($order['metadata']??[]),$metadataChanges);}$order['updatedAt']=now_iso();
+        $order=$this->order($orderId);if(!$order)throw new RuntimeException('Order not found.');if(array_key_exists('purchaseTermsVersion',(array)($changes['metadata']??[]))&&($changes['metadata']['purchaseTermsVersion']!==($order['metadata']['purchaseTermsVersion']??null)))throw new RuntimeException('Purchased terms version cannot be replaced.');$allowed=['pending','processing','paid','failed','refunded','partially_refunded','chargeback','cancelled'];if(isset($changes['status'])&&in_array((string)$changes['status'],$allowed,true))$order['status']=(string)$changes['status'];foreach(['providerKey','providerCheckoutId','couponCode','paidAt','billingEmail'] as $key){if(array_key_exists($key,$changes))$order[$key]=$changes[$key];}foreach(['refundedTotal','discountTotal','taxTotal','grandTotal','subtotal'] as $key){if(array_key_exists($key,$changes))$order[$key]=round((float)$changes[$key],2);}if(isset($changes['metadata'])&&is_array($changes['metadata'])){$metadataChanges=$changes['metadata'];unset($metadataChanges['attribution']);$order['metadata']=array_merge((array)($order['metadata']??[]),$metadataChanges);}$order['updatedAt']=now_iso();
         if($this->privacyMemberErased((string)$order['memberId'])) $order=self::privacyFinancialOrder($order,(string)$this->member((string)$order['memberId'])['email']);
         if($this->mode==='file'){$data=$this->readFileStore();$copy=$order;unset($copy['items']);$data['orders'][(string)$order['id']]=$copy;$this->writeFileStore($data);$order['items']=$this->orderItems((string)$order['id']);return $order;}
         $stmt=$this->pdo()->prepare('UPDATE orders SET status=?,subtotal=?,discount_total=?,tax_total=?,grand_total=?,refunded_total=?,coupon_code=?,provider_key=?,provider_checkout_id=?,billing_email=?,metadata_json=?,paid_at=?,updated_at=NOW() WHERE id=?');$stmt->execute([$order['status'],$order['subtotal'],$order['discountTotal'],$order['taxTotal'],$order['grandTotal'],$order['refundedTotal'],$order['couponCode'],$order['providerKey'],$order['providerCheckoutId'],$order['billingEmail'],json_encode((array)$order['metadata']),$this->mysqlDate($order['paidAt']),(int)$order['id']]);return $this->order((string)$order['id'])??$order;
@@ -314,7 +322,7 @@ trait CommerceStoreTrait
     {
         $privacyOrder = $this->order($orderId);
         if ($privacyOrder && $this->privacyWriteDepth === 0) return $this->privacyMemberWrite((string) $privacyOrder['memberId'], fn() => $this->updateOrderItem($orderId, $itemId, $changes), true);
-        $items=$this->orderItems($orderId);$updated=null;foreach($items as &$item){if((string)($item['id']??'')!==(string)$itemId)continue;if(isset($changes['metadata'])&&is_array($changes['metadata']))$item['metadata']=array_merge((array)($item['metadata']??[]),$changes['metadata']);if(isset($changes['fulfillmentStatus']))$item['fulfillmentStatus']=(string)$changes['fulfillmentStatus'];$updated=$item;break;}unset($item);if(!$updated)throw new RuntimeException('Order item not found.');
+        $items=$this->orderItems($orderId);$updated=null;foreach($items as &$item){if((string)($item['id']??'')!==(string)$itemId)continue;PurchasedTerms::protectMetadata((array)($item['metadata']??[]),(array)($changes['metadata']??[]));if(isset($changes['metadata'])&&is_array($changes['metadata']))$item['metadata']=array_merge((array)($item['metadata']??[]),$changes['metadata']);if(isset($changes['fulfillmentStatus']))$item['fulfillmentStatus']=(string)$changes['fulfillmentStatus'];$updated=$item;break;}unset($item);if(!$updated)throw new RuntimeException('Order item not found.');
         if($privacyOrder && $this->privacyMemberErased((string)$privacyOrder['memberId'])) { foreach($items as &$privacyItem){$privacyItem['metadata']=[];$privacyItem['title']='Retained financial item';}unset($privacyItem);$updated['metadata']=[];$updated['title']='Retained financial item'; }
         if($this->mode==='file'){$data=$this->readFileStore();$data['orderItems'][(string)$orderId]=$items;$this->writeFileStore($data);return $updated;}
         $stmt=$this->pdo()->prepare('UPDATE order_items SET metadata_json=?,fulfillment_status=? WHERE id=? AND order_id=?');$stmt->execute([json_encode((array)$updated['metadata']),$updated['fulfillmentStatus'],(int)$itemId,(int)$orderId]);return $updated;

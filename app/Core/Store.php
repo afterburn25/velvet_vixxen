@@ -16,6 +16,7 @@ final class Store
     use MemberPrivacyStoreTrait;
     use CommerceStoreTrait;
     use PaymentStoreTrait;
+    use PurchasedTermsStoreTrait;
     use AddonStoreTrait;
     use AddonLicensingStoreTrait;
     use CommunicationStoreTrait;
