@@ -68,6 +68,12 @@ def runtime(work, archive, mode, label, prefix, evidence):
     try:
         http.fixture(site, 'setup-' + mode, php, base=base, smtp_port=capture.server_address[1])
         fixture(case, 'seed')
+        # The owned fixture validates the configured connection and target engine
+        # before reading SELECT VERSION(); file fixtures report null.
+        case['mysql_version'] = http.fixture(site, 'read', php)['mysql_version']
+        check((mode == 'file' and case['mysql_version'] is None)
+              or (mode == 'mysql' and isinstance(case['mysql_version'], str) and case['mysql_version']),
+              'Protection acceptance did not identify its actual storage engine.')
         # Real filesystem ownership, matching an unprivileged web server.
         work.chmod(0o755); (work / label).chmod(0o755); chown_tree(work / label)
         loads = '\n'.join(f'LoadModule {name}_module "{modules}/mod_{name}.so"' for name in ['mpm_prefork', 'authz_core', 'authz_host', 'mime', 'dir', 'rewrite', 'headers'])
@@ -242,7 +248,7 @@ def http_case(case):
         fixture(case, 'age-owner-session', cookie=owner.cookies.get('velvet_vixxen_admin'))
         response = owner.get(case_url, timeout=20); check('Confirm your identity' in response.text and 'PRIVATE_REPORT_BODY' not in response.text, 'Old owner authentication exposed case details.')
         check(owner.post(case_url, data={**expired_form, 'decision':'review', 'message':'Expired owner must not save this.'}, timeout=20).status_code == 428, 'Expired privileged owner action succeeded.')
-        return {'checks':http.checks-start, 'apache_raw_upload_denial':True, 'live_probe_and_cleanup':True, 'private_first_upload':True, 'stale_writer_denied':True, 'immutable_private_reads':True, 'encrypted_references':True, 'report_receipt_reply_appeal':True, 'owner_csrf_and_revisions':True, 'fresh_owner_and_recent_auth':True, 'draft_only_hold_lift':True, 'old_raw_hashed_signed_urls_held':True, 'explicit_media_release':True, 'smtp_connections':0}
+        return {'checks':http.checks-start, 'mysql_version':case['mysql_version'], 'apache_raw_upload_denial':True, 'live_probe_and_cleanup':True, 'private_first_upload':True, 'stale_writer_denied':True, 'immutable_private_reads':True, 'encrypted_references':True, 'report_receipt_reply_appeal':True, 'owner_csrf_and_revisions':True, 'fresh_owner_and_recent_auth':True, 'draft_only_hold_lift':True, 'old_raw_hashed_signed_urls_held':True, 'explicit_media_release':True, 'smtp_connections':0}
     finally: owner.close(); reporter.close(); foreign.close()
 
 def negative_control(work, archive, evidence):

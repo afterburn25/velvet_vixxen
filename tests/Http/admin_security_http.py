@@ -84,7 +84,9 @@ def http_case(case):
    state=fixture(case,'snapshot');check(any(x.get('count')==9 for x in state['attempts'].values()),'Persistent login limiter was not enforced.')
   finally:limited.close()
   check(case['capture'].connections==0,'Security actions transmitted email instead of queuing alerts.')
-  return {'checks':http.checks-start,'factor_enrollment':True,'rfc_totp':True,'replay_refused':True,'recovery_single_use':True,'session_revocation':True,'recent_owner_required':True,'smtp_connections':0}
+  actual=http.fixture(case['site'],'read',case['php'])
+  check((case['mode']=='mysql')==bool(actual['mysql_version']),'Actual administrator-security database version is missing.')
+  return {'checks':http.checks-start,'mysql_version':actual['mysql_version'],'factor_enrollment':True,'rfc_totp':True,'replay_refused':True,'recovery_single_use':True,'session_revocation':True,'recent_owner_required':True,'smtp_connections':0}
  finally:owner.close();other.close();guest.close()
 
 def run():

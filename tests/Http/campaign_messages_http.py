@@ -359,7 +359,7 @@ def http_case(case):
             check(final['marketing'][key] == baseline['marketing'][key], 'Campaign controls altered unrelated ' + key)
         if case['mode'] == 'mysql':
             http.independent_sql(final)
-        return {'checks': http.checks - start, 'mode': case['mode'], 'accepted_test_messages': 1,
+        return {'checks': http.checks - start, 'mode': case['mode'], 'mysql_version': final['mysql_version'], 'accepted_test_messages': 1,
                 'unknown_test_messages': 1, 'revoked_before_transmission': True, 'campaign_messages': 1,
                 'captured_messages': len(capture.payloads), 'stable_message_ids': True, 'external_messages': 0,
                 'private_revision_bound_preview': True, 'frozen_template_preserved': True}

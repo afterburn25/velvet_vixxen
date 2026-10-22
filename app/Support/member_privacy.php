@@ -42,11 +42,11 @@ function vvx_privacy_error(Throwable $error): string
 {
     $code = $error instanceof InvalidArgumentException ? 400 : (int) $error->getCode();
     if (!in_array($code, [400, 403, 404, 409, 419, 428, 429], true)) $code = 503;
-    http_response_code($code);
+    vvx_response_status($code);
     return $code === 503 ? 'Private account records are unavailable. The owner must review storage before this request can continue.' : $error->getMessage();
 }
 
-function vvx_privacy_date(?int $at): string { return $at === null ? 'Unavailable' : gmdate('M j, Y · H:i', $at) . ' UTC'; }
+function vvx_privacy_date(?int $at): string { return $at === null ? 'Unavailable' : date('M j, Y · H:i T', $at); }
 
 function vvx_privacy_status(string $status): string
 {

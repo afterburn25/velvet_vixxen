@@ -166,7 +166,10 @@ def browser_case(browser, case, viewport, evidence):
             plain.close()
         http.check(not errors, 'Campaign browser raised JavaScript errors: ' + repr(errors))
         http.check(not capture.errors and len(capture.payloads) == 2, 'Read-only or script-free actions sent additional mail.')
+        actual = messages.state(case)
+        http.check((case['mode'] == 'mysql') == bool(actual['mysql_version']), 'Actual campaign database version is missing.')
         return {'browser_checks': http.checks - start, 'viewport': viewport, 'screenshots': images,
+                'mysql_version': actual['mysql_version'],
                 'layouts': layouts, 'captured_messages': 2, 'external_messages': 0, 'javascript_errors': errors,
                 'script_free_save_preview': True, 'frozen_brand_delivery': True}
     finally:

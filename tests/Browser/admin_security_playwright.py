@@ -33,13 +33,16 @@ def case_browser(browser,case,viewport,evidence):
   remove=details.locator('form');remove.get_by_label('Current password',exact=True).fill(http.PASSWORD);remove.get_by_label('Authenticator or recovery code',exact=True).fill(codes[1]);remove.get_by_role('checkbox').check();shot('remove-confirmation');submit(remove.get_by_role('button',name='Remove authenticator',exact=True))
   check(page.get_by_role('button',name='Set up authenticator').count()==1,'Authenticator removal not reflected.')
   check(not errors,'Browser JS errors: '+repr(errors));check(case['capture'].connections==0,'Browser security flow contacted SMTP.')
-  return {'checks':http.checks-start,'screenshots':shots,'layouts':layouts,'javascript_errors':errors,'keyboard_setup':True,'keyboard_disclosure':True,'smtp_connections':0}
+  actual=http.fixture(case['site'],'read',case['php'])
+  check((case['mode']=='mysql')==bool(actual['mysql_version']),'Actual administrator-security database version is missing.')
+  return {'checks':http.checks-start,'mysql_version':actual['mysql_version'],'screenshots':shots,'layouts':layouts,'javascript_errors':errors,'keyboard_setup':True,'keyboard_disclosure':True,'smtp_connections':0}
  finally:context.close()
 
 def run():
  parser=argparse.ArgumentParser();parser.add_argument('--mode',choices=['file','mysql','both'],default='both');opt=parser.parse_args();evidence=http.evidence_directory();report={'cases':{}}
  with tempfile.TemporaryDirectory(prefix='vvx-admin-security-browser-') as tmp,sync_playwright() as playwright:
   work=Path(tmp);archive,identity=security.prepare_package(work);report.update(identity);browser=playwright.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE') or os.environ.get('CHROMIUM_EXECUTABLE') or None,headless=True,args=['--no-sandbox'])
+  report['chromium']=browser.version
   try:
    for mode in (['file','mysql'] if opt.mode=='both' else [opt.mode]):
     for label,prefix,viewport in [('desktop','',{'width':1440,'height':1000}),('mobile','/nested/velvet',{'width':390,'height':844})]:

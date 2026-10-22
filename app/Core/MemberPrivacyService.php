@@ -46,9 +46,18 @@ final class MemberPrivacyService
                 || !is_int($row['created_at']??null) || !is_int($row['updated_at']??null) || !is_int($row['stage']??null) || $row['stage']<0 || $row['stage']>10
                 || !is_array($row['completed_stages']??null) || !is_array($row['cleanup']??null) || !is_array($row['archive_cleanup']??null)
                 || !is_array($row['responses']??null) || !array_key_exists('approval',$row) || !array_key_exists('archive',$row)) throw new RuntimeException('A private request record needs recovery.');
-            if ($row['approval']!==null && (!is_array($row['approval']) || !is_string($row['approval']['token']??null)
-                || preg_match('/\A[a-f0-9]{32}\z/D',$row['approval']['token'])!==1 || !is_array($row['approval']['owner']??null)
-                || !is_string($row['approval']['inventory_revision']??null) || !is_string($row['approval']['core_revision']??null))) throw new RuntimeException('A private approval record needs recovery.');
+            if (in_array($row['status'], ['approved','processing'], true) && !is_array($row['approval'])) throw new RuntimeException('A private approval record needs recovery.');
+            if ($row['approval']!==null) {
+                $approval=$row['approval'];$owner=is_array($approval)?($approval['owner']??null):null;
+                if (!is_array($approval) || !is_string($approval['token']??null) || preg_match('/\A[a-f0-9]{32}\z/D',$approval['token'])!==1
+                    || !is_array($owner) || !is_string($owner['id']??null) || preg_match('/\A[A-Za-z0-9_-]{1,80}\z/D',$owner['id'])!==1
+                    || !is_string($owner['email']??null) || !EmailAddress::isValid($owner['email'])
+                    || !is_string($owner['stamp']??null) || preg_match('/\A[a-f0-9]{64}\z/D',$owner['stamp'])!==1
+                    || !is_int($approval['approved_at']??null) || $approval['approved_at']<1) throw new RuntimeException('A private approval record needs recovery.');
+                foreach (['request_revision','inventory_revision','core_revision'] as $field) if (!is_string($approval[$field]??null)
+                    || preg_match('/\A[a-f0-9]{64}\z/D',$approval[$field])!==1) throw new RuntimeException('A private approval record needs recovery.');
+                if (!array_key_exists('retention',$approval) || ($row['kind']==='erase'&&!is_array($approval['retention']))) throw new RuntimeException('A private retention review needs recovery.');
+            }
         }
         return $data;
     }
@@ -196,8 +205,8 @@ final class MemberPrivacyService
     {
         $reason=$input['reason']??null;$until=$input['review_on']??null;
         if(!is_string($reason)||strlen(trim($reason))<10||strlen($reason)>1500||preg_match('/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/',$reason))throw new InvalidArgumentException('Record a retention reason of 10–1,500 characters, without account secrets.');
-        $date=is_string($until)?\DateTimeImmutable::createFromFormat('!Y-m-d',$until,new \DateTimeZone('UTC')):false;
-        if(!$date||$date->format('Y-m-d')!==$until||$until<=gmdate('Y-m-d')||$until>gmdate('Y-m-d',strtotime('+10 years')))throw new InvalidArgumentException('Choose a future retention review date within ten years.');
+        $date=is_string($until)?\DateTimeImmutable::createFromFormat('!Y-m-d',$until,new \DateTimeZone(date_default_timezone_get())):false;
+        if(!$date||$date->format('Y-m-d')!==$until||$until<=date('Y-m-d')||$until>date('Y-m-d',strtotime('+10 years')))throw new InvalidArgumentException('Choose a future retention review date within ten years in the site timezone.');
         foreach(self::RETENTION_CHECKS as $key)if(($input[$key]??null)!==true)throw new InvalidArgumentException('Complete every financial, billing, guest, safety and backup review confirmation.');
         return ['reason'=>trim($reason),'review_on'=>$until]+array_fill_keys(self::RETENTION_CHECKS,true);
     }

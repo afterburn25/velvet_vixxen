@@ -1,0 +1,2852 @@
+{
+  "schema": 1,
+  "kind": "local integration checkpoints",
+  "recorded_at": "2026-10-21T18:32:14.505184-05:00",
+  "candidate_version": "0.9.0",
+  "candidate_build": "20261021.4",
+  "delivered_baseline": "0.8.14 / 20261021.3",
+  "scope": "Component diagnostics with their individually recorded source/package identities. These are not the final combined GitHub CI, merge or saved-download proof. Local scratch paths identify the originating session; checksums preserve its recorded evidence identity.",
+  "records": {
+    "age_policies": {
+      "sha256": "7749041b727b3e81ac13c3a9c42b64c45ad211b46bddf1ef8d0f2ce54a540604",
+      "bytes": 16361,
+      "evidence": {
+        "file": {
+          "http": {
+            "report": "/tmp/vvx-age-file-http-evidence/age-policies-http-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": null,
+            "cases": {
+              "file-root": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": null,
+                "screenshots": []
+              },
+              "file-nested": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": null,
+                "screenshots": []
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "f5def8ca359f906cd9f48a5c900584eaec91271f4d9775c9a1c3666160e113b6"
+          },
+          "browser": {
+            "report": "/tmp/vvx-age-file-browser-evidence/age-policies-browser-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": "151.0.7922.34",
+            "cases": {
+              "file-root-desktop": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": null,
+                "screenshots": [
+                  {
+                    "file": "age-policies-file-root-desktop-owner-documents.png",
+                    "size": [
+                      1440,
+                      1604
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-stale-form.png",
+                    "size": [
+                      1440,
+                      1703
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-public-policy.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-provider-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-required-unavailable.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-location-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-location-blocked.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-root-desktop-no-script-owner.png",
+                    "size": [
+                      1440,
+                      1675
+                    ]
+                  }
+                ]
+              },
+              "file-nested-mobile": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": null,
+                "screenshots": [
+                  {
+                    "file": "age-policies-file-nested-mobile-owner-documents.png",
+                    "size": [
+                      390,
+                      1892
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-stale-form.png",
+                    "size": [
+                      390,
+                      2068
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-public-policy.png",
+                    "size": [
+                      390,
+                      938
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-provider-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-required-unavailable.png",
+                    "size": [
+                      390,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-location-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-location-blocked.png",
+                    "size": [
+                      390,
+                      1026
+                    ]
+                  },
+                  {
+                    "file": "age-policies-file-nested-mobile-no-script-owner.png",
+                    "size": [
+                      390,
+                      1992
+                    ]
+                  }
+                ]
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "f8663d80df0ce2e5e58d5711ff59703e63d8e4700f0a609984c306b9cb4d81b8"
+          },
+          "source": {
+            "suite": "age-policies-source",
+            "mode": "file",
+            "php": "8.3.6",
+            "mysql_version": null,
+            "checks": 262,
+            "mock_provider_requests": 49,
+            "real_provider_requests": 0,
+            "smtp_connections": 0
+          }
+        },
+        "mysql": {
+          "http": {
+            "report": "/tmp/vvx-age-mysql-http-evidence/age-policies-http-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": null,
+            "cases": {
+              "mysql-root": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+                "screenshots": []
+              },
+              "mysql-nested": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+                "screenshots": []
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "fcbe8439da92ea7ebcb195dcf7a9676af7977101c9c1bb851e48e758272dd7cf"
+          },
+          "browser": {
+            "report": "/tmp/vvx-age-mysql-browser-evidence/age-policies-browser-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": "151.0.7922.34",
+            "cases": {
+              "mysql-root-desktop": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+                "screenshots": [
+                  {
+                    "file": "age-policies-mysql-root-desktop-owner-documents.png",
+                    "size": [
+                      1440,
+                      1604
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-stale-form.png",
+                    "size": [
+                      1440,
+                      1703
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-public-policy.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-provider-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-required-unavailable.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-location-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-location-blocked.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-no-script-owner.png",
+                    "size": [
+                      1440,
+                      1675
+                    ]
+                  }
+                ]
+              },
+              "mysql-nested-mobile": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+                "screenshots": [
+                  {
+                    "file": "age-policies-mysql-nested-mobile-owner-documents.png",
+                    "size": [
+                      390,
+                      1892
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-stale-form.png",
+                    "size": [
+                      390,
+                      2068
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-public-policy.png",
+                    "size": [
+                      390,
+                      938
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-provider-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-required-unavailable.png",
+                    "size": [
+                      390,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-location-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-location-blocked.png",
+                    "size": [
+                      390,
+                      1026
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-no-script-owner.png",
+                    "size": [
+                      390,
+                      1992
+                    ]
+                  }
+                ]
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "6347d011c7296c87787b3e03a2f8a17ba30a66927ce9153819e14e1361ae25db"
+          },
+          "source": {
+            "suite": "age-policies-source",
+            "mode": "mysql",
+            "php": "8.3.6",
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "checks": 262,
+            "mock_provider_requests": 49,
+            "real_provider_requests": 0,
+            "smtp_connections": 0
+          }
+        },
+        "mariadb": {
+          "http": {
+            "report": "/tmp/vvx-age-mariadb-http-evidence/age-policies-http-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": null,
+            "cases": {
+              "mysql-root": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+                "screenshots": []
+              },
+              "mysql-nested": {
+                "checks": 172,
+                "http_checks": null,
+                "php": "8.3.6",
+                "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+                "screenshots": []
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "ac923a7cbfae284b523a98c025f7ee03e85202d649e7dd3abe6537f85e01b5ab"
+          },
+          "browser": {
+            "report": "/tmp/vvx-age-mariadb-browser-evidence/age-policies-browser-evidence.json",
+            "fresh_zip_sha256": "a813873f26a183f1f597e5cdece3b92fe98b4751674ac68d13e4d1f90b0f146a",
+            "chromium": "151.0.7922.34",
+            "cases": {
+              "mysql-root-desktop": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+                "screenshots": [
+                  {
+                    "file": "age-policies-mysql-root-desktop-owner-documents.png",
+                    "size": [
+                      1440,
+                      1604
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-stale-form.png",
+                    "size": [
+                      1440,
+                      1703
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-public-policy.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-provider-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-required-unavailable.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-location-settings.png",
+                    "size": [
+                      1440,
+                      2094
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-location-blocked.png",
+                    "size": [
+                      1440,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-root-desktop-no-script-owner.png",
+                    "size": [
+                      1440,
+                      1675
+                    ]
+                  }
+                ]
+              },
+              "mysql-nested-mobile": {
+                "checks": 50,
+                "http_checks": 172,
+                "php": "8.3.6",
+                "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+                "screenshots": [
+                  {
+                    "file": "age-policies-mysql-nested-mobile-owner-documents.png",
+                    "size": [
+                      390,
+                      1892
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-stale-form.png",
+                    "size": [
+                      390,
+                      2068
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-public-policy.png",
+                    "size": [
+                      390,
+                      938
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-provider-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-required-unavailable.png",
+                    "size": [
+                      390,
+                      1000
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-location-settings.png",
+                    "size": [
+                      390,
+                      2743
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-location-blocked.png",
+                    "size": [
+                      390,
+                      1026
+                    ]
+                  },
+                  {
+                    "file": "age-policies-mysql-nested-mobile-no-script-owner.png",
+                    "size": [
+                      390,
+                      1992
+                    ]
+                  }
+                ]
+              }
+            },
+            "current_sources": {
+              "tests/Feature/age_policies.php": true,
+              "tests/Http/age_policies_fixture.php": true,
+              "tests/Http/age_policies_http.py": true,
+              "tests/Browser/age_policies_playwright.py": true
+            },
+            "report_sha256": "3ddaeb98e8e373fbcddfabf63954bae9c469f3bb1ec9df393eb3fb413e876f4e"
+          },
+          "source": {
+            "suite": "age-policies-source",
+            "mode": "mysql",
+            "php": "8.3.6",
+            "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+            "checks": 262,
+            "mock_provider_requests": 49,
+            "real_provider_requests": 0,
+            "smtp_connections": 0
+          }
+        },
+        "review": {
+          "commit": "a82b26e",
+          "php": "8.3.6",
+          "chromium": "151.0.7922.34",
+          "screenshots_decoded_and_hash_verified": 48,
+          "all_six_browser_cases_visually_reviewed": true,
+          "source_and_report_hashes_current": true,
+          "real_provider_requests": 0,
+          "smtp_connections": 0,
+          "privacy_blocked_own_export_integration": "Owned by restore_member_privacy using actual privacy routes, coordinated"
+        }
+      }
+    },
+    "retained_notifications_and_storage": {
+      "sha256": "3a5ebf84108ab464624e225d1b7c8041ccacf1621b7112471743d1410f4b2f56",
+      "bytes": 3888,
+      "evidence": {
+        "kind": "retained_component_diagnostics_not_frozen_ci",
+        "passed": true,
+        "version": "0.9.0",
+        "build_id": "20261021.4",
+        "chromium": "151.0.7922.34",
+        "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+        "root_checkout_edited_by_runner": false,
+        "suites": {
+          "notifications_mysql": {
+            "report": "/tmp/vvx-retained-notifications-mysql-evidence/notifications-browser-evidence.json",
+            "report_sha256": "1b63c7f4a10ac1a2f7a5354c4648805c0101df0bf77ab455864e314c353e197e",
+            "fresh_zip_sha256": "98ddf3313921a5bce92a64f1579eabf38c95c08f4b68ead1ba3aa4a4cad845d3",
+            "head_before": "777de4e38d17d2fc25db5688492dfe22a2438fe2",
+            "head_after": "777de4e38d17d2fc25db5688492dfe22a2438fe2",
+            "relevant_sources_unchanged_during_run": true,
+            "source_provenance_before": "/tmp/vvx-retained-notifications-mysql-evidence/source-before.json",
+            "source_provenance_after": "/tmp/vvx-retained-notifications-mysql-evidence/source-after.json",
+            "empty_database_before_and_after": true,
+            "cases": {
+              "mysql-root-desktop": {
+                "browser_checks": 107,
+                "captured_messages": 7,
+                "new_client_security_notices": 1,
+                "seeded_workflow_notifications": 6,
+                "external_messages": 0,
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3"
+              },
+              "mysql-nested-mobile": {
+                "browser_checks": 107,
+                "captured_messages": 7,
+                "new_client_security_notices": 1,
+                "seeded_workflow_notifications": 6,
+                "external_messages": 0,
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3"
+              }
+            }
+          },
+          "marketing_storage": {
+            "report": "/tmp/vvx-retained-marketing-storage-evidence/marketing-storage-browser-evidence.json",
+            "report_sha256": "dadd1818f6fc1627bbf4d3b788d04bb236642cbe762e03c4f583dd6f9f911192",
+            "fresh_zip_sha256": "98ddf3313921a5bce92a64f1579eabf38c95c08f4b68ead1ba3aa4a4cad845d3",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "relevant_sources_unchanged_during_run": true,
+            "source_provenance_before": "/tmp/vvx-retained-marketing-storage-evidence/source-before.json",
+            "source_provenance_after": "/tmp/vvx-retained-marketing-storage-evidence/source-after.json",
+            "empty_database_before_and_after": true,
+            "cases": {
+              "root-desktop": {
+                "http_checks": 144,
+                "real_owner_post_actions": [
+                  "apply_database_updates",
+                  "preview_marketing_storage",
+                  "migrate_marketing_storage",
+                  "preview_marketing_storage",
+                  "migrate_marketing_storage",
+                  "save_link"
+                ],
+                "pending_updates_applied": 3,
+                "pre015_empty_tables_removed": 5,
+                "smtp_connections": 0,
+                "smtp_messages": 0,
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3"
+              },
+              "nested-mobile": {
+                "http_checks": 144,
+                "real_owner_post_actions": [
+                  "apply_database_updates",
+                  "preview_marketing_storage",
+                  "migrate_marketing_storage",
+                  "preview_marketing_storage",
+                  "migrate_marketing_storage",
+                  "save_link"
+                ],
+                "pending_updates_applied": 3,
+                "pre015_empty_tables_removed": 5,
+                "smtp_connections": 0,
+                "smtp_messages": 0,
+                "mysql_version": "8.0.46-0ubuntu0.24.04.3"
+              }
+            }
+          }
+        },
+        "screenshots": {
+          "original_pngs_decoded_and_reviewed": 20,
+          "notification_pngs_hash_checked_against_producer": 12,
+          "marketing_png_hash_manifest": "/tmp/vvx-retained-marketing-storage-evidence/screenshot-review.json"
+        },
+        "preserved_age_summary": {
+          "path": "/tmp/vvx-age-evidence-summary.json",
+          "sha256": "7749041b727b3e81ac13c3a9c42b64c45ad211b46bddf1ef8d0f2ce54a540604"
+        }
+      }
+    },
+    "cached_upgrade_repair": {
+      "sha256": "491e6eb473489dacfa4e80ce725580a4161b1af13bf2d9c7c3d40510343f5b26",
+      "bytes": 47844,
+      "evidence": {
+        "source_commit": "27d4c4ccff70d47e2fd7ceebb1c4d75cb4f95c02",
+        "source_tree": "31d1a8acf4f13f5570d7da20bd5b1185e5523afd",
+        "worktree_clean": true,
+        "source_test_checks": 49,
+        "browser_report_sha256": "1948cda03c29d8e244275c384c54d8d692824bc1a3d1fe3a5d5906caa9c8d348",
+        "browser_report": {
+          "status": "passed",
+          "historical_commit": "2bc178013c9c528f45a5d0447624f3cbaf4395f2",
+          "historical_fresh_sha256": "dcd89db762e58541160ffdcdf4901d0bb5f07c9f3c0d66b99a6480701006bfc9",
+          "server": "Actual PHP file serving without router/restart; no intercepted responses",
+          "cases": {
+            "root-cache": {
+              "persistent_opcache": true,
+              "php": "8.3.6",
+              "before": {
+                "ok": true,
+                "pid": 29422,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": false,
+                "current_authentication": false,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "after": {
+                "ok": true,
+                "pid": 29422,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": true,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "negative_control": {
+                "all_upgrade_bytes_match": true,
+                "same_php_process": true,
+                "overlay_alone_leaves_all_25_root_folders": true,
+                "known_forwarders_remain": 46,
+                "old_update_controller_class_and_view_remain_cached": true,
+                "old_inventory_validator_rejects_organized_package": true,
+                "old_asset_version": "0.8.1-20261019.5",
+                "old_runtime_javascript_errors": [
+                  {
+                    "message": "Cannot read properties of undefined (reading 'frame')",
+                    "stack": "TypeError: Cannot read properties of undefined (reading 'frame')\n    at http://127.0.0.1:38659/public/assets/js/composer.js?v=0.8.1-20261019.5:184:30\n    at Array.forEach (<anonymous>)\n    at normalizeScene (http://127.0.0.1:38659/public/assets/js/composer.js?v=0.8.1-20261019.5:181:37)\n    at http://127.0.0.1:38659/public/assets/js/composer.js?v=0.8.1-20261019.5:215:3\n    at http://127.0.0.1:38659/public/assets/js/composer.js?v=0.8.1-20261019.5:2234:3",
+                    "phase": "historical-overlay-before-repair"
+                  }
+                ],
+                "unexpected_old_runtime_javascript_errors": 0
+              },
+              "partial_uploads": {
+                "truncated_controller_both_entries_get_post_native_503": true,
+                "missing_files_get_post_native_503": [
+                  "app/Core/RepairAccess.php",
+                  "app/Core/Auth.php",
+                  "app/Core/AdminSecurityStoreTrait.php",
+                  "app/Core/MerchandiseStoreTrait.php",
+                  "app/Core/Config.php",
+                  "app/Views/admin/repair-signin.php",
+                  "app/Support/repair_entry.php"
+                ],
+                "mixed_file_get_post_native_503": true,
+                "current_inventory_floor_get_post_native_503": true,
+                "customer_state_exactly_preserved": true
+              },
+              "authentication": {
+                "legacy_cookie_rejected": true,
+                "current_password": true,
+                "signin_csrf_checked": true,
+                "recent_owner_confirmation": true,
+                "totp_required_and_accepted": false,
+                "unused_recovery_accepted_and_replay_refused": false,
+                "only_intentional_security_journal_writes": true,
+                "entry": "repair.php",
+                "forms_and_redirects_keep_entry": true,
+                "geometry": {
+                  "signin": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  },
+                  "reauth": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    }
+                  }
+                }
+              },
+              "authenticated_before_activation": {
+                "ok": true,
+                "pid": 29422,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "security": {
+                "anonymous_and_member_get_post_denied": true,
+                "legacy_owner_cookie_never_promoted": true,
+                "demoted_owner_current_session_get_post_403": true,
+                "forbidden_method_405": true,
+                "missing_and_wrong_csrf_419": true,
+                "unknown_action_400": true
+              },
+              "geometry": {
+                "desktop": {
+                  "viewport": {
+                    "width": 1440,
+                    "height": 1000
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 2
+                },
+                "mobile": {
+                  "viewport": {
+                    "width": 390,
+                    "height": 844
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 1
+                }
+              },
+              "layout": {
+                "known_files_retired": 46,
+                "old_root_directories_removed": 25,
+                "unknown_custom_sibling_preserved": true,
+                "obsolete_broad_action_retired": true,
+                "exact_reversible_nonexecuting_archive": true,
+                "active_runtime_unchanged": true
+              },
+              "actions": {
+                "add_button": true,
+                "preview_stays_open_with_saved_draft": true,
+                "publish_persists_public_button": true,
+                "public_button_booking_navigation": true,
+                "library_and_composer_uploads": true,
+                "exact_asset_bytes_and_browser_decode": true,
+                "normal_reload_preserves_layer": true,
+                "uncaught_javascript_errors": 0
+              },
+              "complete_upgrade_files": 425,
+              "owner_get_no_store": true,
+              "incomplete_overlay_diagnosed_and_activation_blocked": true,
+              "owner_form_post_303": true,
+              "existing_configuration_identity_records_uploads_preserved": true,
+              "same_authenticated_browser_context": true,
+              "no_php_restart": true,
+              "uncaught_javascript_errors_after_current_repair": 0,
+              "php_warnings_or_errors": 0
+            },
+            "nested-cache": {
+              "persistent_opcache": true,
+              "php": "8.3.6",
+              "before": {
+                "ok": true,
+                "pid": 29922,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": false,
+                "current_authentication": false,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "after": {
+                "ok": true,
+                "pid": 29922,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": true,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "negative_control": {
+                "all_upgrade_bytes_match": true,
+                "same_php_process": true,
+                "overlay_alone_leaves_all_25_root_folders": true,
+                "known_forwarders_remain": 46,
+                "old_update_controller_class_and_view_remain_cached": true,
+                "old_inventory_validator_rejects_organized_package": true,
+                "old_asset_version": "0.8.1-20261019.5",
+                "old_runtime_javascript_errors": [
+                  {
+                    "message": "Cannot read properties of undefined (reading 'frame')",
+                    "stack": "TypeError: Cannot read properties of undefined (reading 'frame')\n    at http://127.0.0.1:53479/nested/velvet/public/assets/js/composer.js?v=0.8.1-20261019.5:184:30\n    at Array.forEach (<anonymous>)\n    at normalizeScene (http://127.0.0.1:53479/nested/velvet/public/assets/js/composer.js?v=0.8.1-20261019.5:181:37)\n    at http://127.0.0.1:53479/nested/velvet/public/assets/js/composer.js?v=0.8.1-20261019.5:215:3\n    at http://127.0.0.1:53479/nested/velvet/public/assets/js/composer.js?v=0.8.1-20261019.5:2234:3",
+                    "phase": "historical-overlay-before-repair"
+                  }
+                ],
+                "unexpected_old_runtime_javascript_errors": 0
+              },
+              "partial_uploads": {
+                "truncated_controller_both_entries_get_post_native_503": true,
+                "missing_files_get_post_native_503": [
+                  "app/Core/RepairAccess.php",
+                  "app/Core/Auth.php",
+                  "app/Core/AdminSecurityStoreTrait.php",
+                  "app/Core/MerchandiseStoreTrait.php",
+                  "app/Core/Config.php",
+                  "app/Views/admin/repair-signin.php",
+                  "app/Support/repair_entry.php"
+                ],
+                "mixed_file_get_post_native_503": true,
+                "current_inventory_floor_get_post_native_503": true,
+                "customer_state_exactly_preserved": true
+              },
+              "authentication": {
+                "legacy_cookie_rejected": true,
+                "current_password": true,
+                "signin_csrf_checked": true,
+                "recent_owner_confirmation": true,
+                "totp_required_and_accepted": false,
+                "unused_recovery_accepted_and_replay_refused": false,
+                "only_intentional_security_journal_writes": true,
+                "entry": "repair.php",
+                "forms_and_redirects_keep_entry": true,
+                "geometry": {
+                  "signin": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  }
+                }
+              },
+              "authenticated_before_activation": {
+                "ok": true,
+                "pid": 29922,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "security": {
+                "anonymous_and_member_get_post_denied": true,
+                "legacy_owner_cookie_never_promoted": true,
+                "demoted_owner_current_session_get_post_403": true,
+                "forbidden_method_405": true,
+                "missing_and_wrong_csrf_419": true,
+                "unknown_action_400": true
+              },
+              "geometry": {
+                "desktop": {
+                  "viewport": {
+                    "width": 1440,
+                    "height": 1000
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 2
+                },
+                "mobile": {
+                  "viewport": {
+                    "width": 390,
+                    "height": 844
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 1
+                }
+              },
+              "layout": {
+                "known_files_retired": 46,
+                "old_root_directories_removed": 25,
+                "unknown_custom_sibling_preserved": true,
+                "obsolete_broad_action_retired": true,
+                "exact_reversible_nonexecuting_archive": true,
+                "active_runtime_unchanged": true
+              },
+              "actions": {
+                "add_button": true,
+                "preview_stays_open_with_saved_draft": true,
+                "publish_persists_public_button": true,
+                "public_button_booking_navigation": true,
+                "library_and_composer_uploads": true,
+                "exact_asset_bytes_and_browser_decode": true,
+                "normal_reload_preserves_layer": true,
+                "uncaught_javascript_errors": 0
+              },
+              "complete_upgrade_files": 425,
+              "owner_get_no_store": true,
+              "incomplete_overlay_diagnosed_and_activation_blocked": true,
+              "owner_form_post_303": true,
+              "existing_configuration_identity_records_uploads_preserved": true,
+              "same_authenticated_browser_context": true,
+              "no_php_restart": true,
+              "uncaught_javascript_errors_after_current_repair": 0,
+              "php_warnings_or_errors": 0
+            },
+            "nested-cache-disabled": {
+              "persistent_opcache": false,
+              "php": "8.3.6",
+              "before": {
+                "ok": true,
+                "pid": 30593,
+                "php": "8.3.6",
+                "enabled": false,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": false,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": false,
+                  "app/Core/Store.php": false,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": false,
+                "repair_entry_cached": false,
+                "current_authentication": false,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "after": {
+                "ok": true,
+                "pid": 30593,
+                "php": "8.3.6",
+                "enabled": false,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": false,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": false,
+                  "app/Core/Store.php": false,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": false,
+                "repair_entry_cached": false,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "negative_control": {
+                "all_upgrade_bytes_match": true,
+                "same_php_process": true,
+                "overlay_alone_leaves_all_25_root_folders": true,
+                "known_forwarders_remain": 46,
+                "old_runtime_javascript_errors": [],
+                "unexpected_old_runtime_javascript_errors": 0
+              },
+              "partial_uploads": {
+                "truncated_controller_both_entries_get_post_native_503": true,
+                "missing_files_get_post_native_503": [
+                  "app/Core/RepairAccess.php",
+                  "app/Core/Auth.php",
+                  "app/Core/AdminSecurityStoreTrait.php",
+                  "app/Core/MerchandiseStoreTrait.php",
+                  "app/Core/Config.php",
+                  "app/Views/admin/repair-signin.php",
+                  "app/Support/repair_entry.php"
+                ],
+                "mixed_file_get_post_native_503": true,
+                "current_inventory_floor_get_post_native_503": true,
+                "customer_state_exactly_preserved": true
+              },
+              "authentication": {
+                "legacy_cookie_rejected": true,
+                "current_password": true,
+                "signin_csrf_checked": true,
+                "recent_owner_confirmation": true,
+                "totp_required_and_accepted": false,
+                "unused_recovery_accepted_and_replay_refused": false,
+                "only_intentional_security_journal_writes": true,
+                "entry": "repair.php",
+                "forms_and_redirects_keep_entry": true,
+                "geometry": {
+                  "signin": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  }
+                }
+              },
+              "authenticated_before_activation": {
+                "ok": true,
+                "pid": 30593,
+                "php": "8.3.6",
+                "enabled": false,
+                "cli_enabled_flag": false,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": false,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": false,
+                  "app/Core/Store.php": false,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": false,
+                "repair_entry_cached": false,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "security": {
+                "anonymous_and_member_get_post_denied": true,
+                "legacy_owner_cookie_never_promoted": true,
+                "demoted_owner_current_session_get_post_403": true,
+                "forbidden_method_405": true,
+                "missing_and_wrong_csrf_419": true,
+                "unknown_action_400": true
+              },
+              "geometry": {
+                "desktop": {
+                  "viewport": {
+                    "width": 1440,
+                    "height": 1000
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 2
+                },
+                "mobile": {
+                  "viewport": {
+                    "width": 390,
+                    "height": 844
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 1
+                }
+              },
+              "layout": {
+                "known_files_retired": 46,
+                "old_root_directories_removed": 25,
+                "unknown_custom_sibling_preserved": true,
+                "obsolete_broad_action_retired": true,
+                "exact_reversible_nonexecuting_archive": true,
+                "active_runtime_unchanged": true
+              },
+              "actions": {
+                "add_button": true,
+                "preview_stays_open_with_saved_draft": true,
+                "publish_persists_public_button": true,
+                "public_button_booking_navigation": true,
+                "library_and_composer_uploads": true,
+                "exact_asset_bytes_and_browser_decode": true,
+                "normal_reload_preserves_layer": true,
+                "uncaught_javascript_errors": 0
+              },
+              "complete_upgrade_files": 425,
+              "owner_get_no_store": true,
+              "incomplete_overlay_diagnosed_and_activation_blocked": true,
+              "owner_form_post_303": true,
+              "existing_configuration_identity_records_uploads_preserved": true,
+              "same_authenticated_browser_context": true,
+              "no_php_restart": true,
+              "uncaught_javascript_errors_after_current_repair": 0,
+              "php_warnings_or_errors": 0
+            },
+            "root-cache-mfa": {
+              "persistent_opcache": true,
+              "php": "8.3.6",
+              "before": {
+                "ok": true,
+                "pid": 31239,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": false,
+                "current_authentication": false,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "after": {
+                "ok": true,
+                "pid": 31239,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": true,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "negative_control": {
+                "all_upgrade_bytes_match": true,
+                "same_php_process": true,
+                "overlay_alone_leaves_all_25_root_folders": true,
+                "known_forwarders_remain": 46,
+                "old_update_controller_class_and_view_remain_cached": true,
+                "old_inventory_validator_rejects_organized_package": true,
+                "old_asset_version": "0.8.1-20261019.5",
+                "old_runtime_javascript_errors": [
+                  {
+                    "message": "Cannot read properties of undefined (reading 'frame')",
+                    "stack": "TypeError: Cannot read properties of undefined (reading 'frame')\n    at http://127.0.0.1:46025/public/assets/js/composer.js?v=0.8.1-20261019.5:184:30\n    at Array.forEach (<anonymous>)\n    at normalizeScene (http://127.0.0.1:46025/public/assets/js/composer.js?v=0.8.1-20261019.5:181:37)\n    at http://127.0.0.1:46025/public/assets/js/composer.js?v=0.8.1-20261019.5:215:3\n    at http://127.0.0.1:46025/public/assets/js/composer.js?v=0.8.1-20261019.5:2234:3",
+                    "phase": "historical-overlay-before-repair"
+                  }
+                ],
+                "unexpected_old_runtime_javascript_errors": 0
+              },
+              "partial_uploads": {
+                "truncated_controller_both_entries_get_post_native_503": true,
+                "missing_files_get_post_native_503": [
+                  "app/Core/RepairAccess.php",
+                  "app/Core/Auth.php",
+                  "app/Core/AdminSecurityStoreTrait.php",
+                  "app/Core/MerchandiseStoreTrait.php",
+                  "app/Core/Config.php",
+                  "app/Views/admin/repair-signin.php",
+                  "app/Support/repair_entry.php"
+                ],
+                "mixed_file_get_post_native_503": true,
+                "current_inventory_floor_get_post_native_503": true,
+                "customer_state_exactly_preserved": true
+              },
+              "authentication": {
+                "legacy_cookie_rejected": true,
+                "current_password": true,
+                "signin_csrf_checked": true,
+                "recent_owner_confirmation": true,
+                "totp_required_and_accepted": true,
+                "unused_recovery_accepted_and_replay_refused": true,
+                "only_intentional_security_journal_writes": true,
+                "entry": "repair.php",
+                "forms_and_redirects_keep_entry": true,
+                "geometry": {
+                  "signin": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  },
+                  "factor": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    }
+                  },
+                  "reauth": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  }
+                }
+              },
+              "authenticated_before_activation": {
+                "ok": true,
+                "pid": 31239,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": true,
+                  "app/Views/admin/update-status.php": true
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.8.1-20261019.5"
+              },
+              "security": {
+                "anonymous_and_member_get_post_denied": true,
+                "legacy_owner_cookie_never_promoted": true,
+                "demoted_owner_current_session_get_post_403": true,
+                "forbidden_method_405": true,
+                "missing_and_wrong_csrf_419": true,
+                "unknown_action_400": true
+              },
+              "geometry": {
+                "desktop": {
+                  "viewport": {
+                    "width": 1440,
+                    "height": 1000
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 2
+                },
+                "mobile": {
+                  "viewport": {
+                    "width": 390,
+                    "height": 844
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 1
+                }
+              },
+              "layout": {
+                "known_files_retired": 46,
+                "old_root_directories_removed": 25,
+                "unknown_custom_sibling_preserved": true,
+                "obsolete_broad_action_retired": true,
+                "exact_reversible_nonexecuting_archive": true,
+                "active_runtime_unchanged": true
+              },
+              "actions": {
+                "add_button": true,
+                "preview_stays_open_with_saved_draft": true,
+                "publish_persists_public_button": true,
+                "public_button_booking_navigation": true,
+                "library_and_composer_uploads": true,
+                "exact_asset_bytes_and_browser_decode": true,
+                "normal_reload_preserves_layer": true,
+                "uncaught_javascript_errors": 0
+              },
+              "complete_upgrade_files": 425,
+              "owner_get_no_store": true,
+              "incomplete_overlay_diagnosed_and_activation_blocked": true,
+              "owner_form_post_303": true,
+              "existing_configuration_identity_records_uploads_preserved": true,
+              "same_authenticated_browser_context": true,
+              "no_php_restart": true,
+              "uncaught_javascript_errors_after_current_repair": 0,
+              "php_warnings_or_errors": 0
+            },
+            "cached-repair-entry": {
+              "historical_commit": "91f796767e2f5a844e9733703e92c965a99803cc",
+              "historical_fresh_sha256": "5365f363d4448ad40201a3db9e59f3b1c8573031126c6bbab16ababa22be84fb",
+              "persistent_opcache": true,
+              "before": {
+                "ok": true,
+                "pid": 31703,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": false,
+                "asset_identity": "0.8.14-20261021.3"
+              },
+              "authenticated_before_activation": {
+                "ok": true,
+                "pid": 31703,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": true,
+                  "app/Views/admin/composer.php": true,
+                  "includes/version.php": true,
+                  "admin/update.php": true,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": true,
+                "current_authentication": true,
+                "asset_identity": "0.8.14-20261021.3"
+              },
+              "after": {
+                "ok": true,
+                "pid": 31703,
+                "php": "8.3.6",
+                "enabled": true,
+                "cli_enabled_flag": true,
+                "validate_timestamps": false,
+                "cached": {
+                  "admin/index.php": false,
+                  "app/Views/admin/composer.php": false,
+                  "includes/version.php": true,
+                  "admin/update.php": false,
+                  "app/Core/Auth.php": true,
+                  "app/Core/Store.php": true,
+                  "app/Core/RuntimeBuildService.php": false,
+                  "app/Views/admin/update-status.php": false
+                },
+                "neighbor_cached": true,
+                "repair_entry_cached": false,
+                "current_authentication": true,
+                "asset_identity": "0.9.0-20261021.4"
+              },
+              "legacy_endpoint_retains_old_policy_until_refreshed": true,
+              "legacy_cookie_reaches_old_form_with_saved_mfa": true,
+              "legacy_form_was_not_used_to_activate": true,
+              "new_entry": "admin/repair-current.php",
+              "authentication": {
+                "legacy_cookie_rejected": true,
+                "current_password": true,
+                "signin_csrf_checked": true,
+                "recent_owner_confirmation": true,
+                "totp_required_and_accepted": true,
+                "unused_recovery_accepted_and_replay_refused": true,
+                "only_intentional_security_journal_writes": true,
+                "entry": "repair-current.php",
+                "forms_and_redirects_keep_entry": true,
+                "geometry": {
+                  "signin": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  },
+                  "factor": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 2,
+                      "minimum_target_pixels": 44
+                    }
+                  },
+                  "reauth": {
+                    "desktop": {
+                      "viewport": {
+                        "width": 1440,
+                        "height": 1000
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    },
+                    "mobile": {
+                      "viewport": {
+                        "width": 390,
+                        "height": 844
+                      },
+                      "no_horizontal_overflow": true,
+                      "control_count": 3,
+                      "minimum_target_pixels": 44
+                    }
+                  }
+                }
+              },
+              "geometry": {
+                "desktop": {
+                  "viewport": {
+                    "width": 1440,
+                    "height": 1000
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 2
+                },
+                "mobile": {
+                  "viewport": {
+                    "width": 390,
+                    "height": 844
+                  },
+                  "centered": true,
+                  "no_horizontal_overflow": true,
+                  "summary_columns": 1
+                }
+              },
+              "actions": {
+                "add_button": true,
+                "preview_stays_open_with_saved_draft": true,
+                "publish_persists_public_button": true,
+                "public_button_booking_navigation": true,
+                "library_and_composer_uploads": true,
+                "exact_asset_bytes_and_browser_decode": true,
+                "normal_reload_preserves_layer": true,
+                "uncaught_javascript_errors": 0
+              },
+              "complete_upgrade_files": 425,
+              "no_php_restart": true,
+              "neighbor_cache_preserved": true,
+              "current_compatibility_entry_after_activation": true,
+              "php_warnings_or_errors": 0,
+              "uncaught_javascript_errors": 0,
+              "existing_configuration_identity_accounts_uploads_preserved": true
+            }
+          },
+          "build_id": "20261021.4",
+          "upgrade_sha256": "d0e8e1d27ae443a04b6418313df79f1a8fef449eaf5b016a586043c50c795ad9",
+          "packages": {
+            "fresh": {
+              "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip",
+              "sha256": "c0d29e9d66b62892464896e73710b96e4766db6ee21ddbcb6863ebe43cffc272"
+            },
+            "upgrade": {
+              "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip",
+              "sha256": "d0e8e1d27ae443a04b6418313df79f1a8fef449eaf5b016a586043c50c795ad9"
+            },
+            "installer-repair": {
+              "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+              "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+            }
+          },
+          "browser_version": "151.0.7922.34"
+        },
+        "screenshots": [
+          {
+            "file": "installed-update-cached-repair-entry-auth-factor-desktop.png",
+            "sha256": "d05eebd011ca4193ddae0f899eaa0b011c53bcdf81bf8289792569729c56d8ab",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-auth-factor-mobile.png",
+            "sha256": "5ea4fbb9a9985bd6d7b986707566541a8e4f1610901aa2b8adc9eb1c41648221",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-auth-reauth-desktop.png",
+            "sha256": "ea7a8de912a6847cd7192737330911ef4af6109fb79c9b399b279402de2e2ea3",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-auth-reauth-mobile.png",
+            "sha256": "e478334c202e62bb3da52c5263282711ba52391f896a7ddd6c91b5561eababbc",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-auth-signin-desktop.png",
+            "sha256": "ef073f204b3c53898182e86af7e32b3709a92330365fc10bb971ec09c55305d7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-auth-signin-mobile.png",
+            "sha256": "4dcd681cc22a6760dc1989086bdcaec7616a8ec4aeb5e4a71bc2702fbb2594b3",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-last-page.png",
+            "sha256": "57c067d0abe84ffade6d9e48a82d6e04c4e2ab093794303eb5f7f10cc486e59a",
+            "pixels": [
+              1440,
+              1034
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-preview.png",
+            "sha256": "5af0ebd448daff89d6b134151588ef7933d4e3cb911349185bfa6fb94e2d7e09",
+            "pixels": [
+              1440,
+              3950
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-status-desktop.png",
+            "sha256": "f01a7e101d571373ac3d8c20d3710b0d5c7fbe5128e63775adf691741829e5f8",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-cached-repair-entry-status-mobile.png",
+            "sha256": "ef731fd4331524987b32cd5b3b45e9107bc5d53cbdc73eceb793bdff4f5bb000",
+            "pixels": [
+              390,
+              1246
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-auth-signin-desktop.png",
+            "sha256": "ef073f204b3c53898182e86af7e32b3709a92330365fc10bb971ec09c55305d7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-auth-signin-mobile.png",
+            "sha256": "4dcd681cc22a6760dc1989086bdcaec7616a8ec4aeb5e4a71bc2702fbb2594b3",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-auth-signin-desktop.png",
+            "sha256": "ef073f204b3c53898182e86af7e32b3709a92330365fc10bb971ec09c55305d7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-auth-signin-mobile.png",
+            "sha256": "4dcd681cc22a6760dc1989086bdcaec7616a8ec4aeb5e4a71bc2702fbb2594b3",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-last-page.png",
+            "sha256": "a37b2a840081ccad4ea6e82aecae602eebfb1c2082d3bbe7a331658f2503d79b",
+            "pixels": [
+              390,
+              3212
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-organized-root.png",
+            "sha256": "cc6ed74063d6128bd2f1e25d474d110c59328a41dcd81a17e7f6b7d4f08c1af5",
+            "pixels": [
+              390,
+              1525
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-preview.png",
+            "sha256": "399b112e8f75dcbce3f8078c0b776d4f4796ca201ccbe8f041a5bb17e91d7776",
+            "pixels": [
+              390,
+              6316
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-status-desktop.png",
+            "sha256": "c66b6c1a58f3ee704c52b687eb7dfadf567471fcfe668f3a6de049ab4b65aba7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-disabled-status-mobile.png",
+            "sha256": "9024ed7152ab2591332849f96351001a7c0458b84e9c158fbedc82b50d29cbc8",
+            "pixels": [
+              390,
+              1369
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-last-page.png",
+            "sha256": "6ebf8f95bea8f54576f4d1bc4be15a1fdf055bffebe7ec88ee0fbb45eef4ca86",
+            "pixels": [
+              390,
+              3212
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-organized-root.png",
+            "sha256": "7c4d55de770b47b547317a20d6d1fb671a6c57d7f617953fdd71403ad5e3e7f4",
+            "pixels": [
+              390,
+              1525
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-preview.png",
+            "sha256": "2781dd1e65c27cda5890a2ac64938e42be164f99abd7dfbabaaf56cf2c7e66dd",
+            "pixels": [
+              390,
+              6316
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-status-desktop.png",
+            "sha256": "1542e48f2292bfa1287919e6d1cbedda4161221a3ad03008f82dd93c7ce88353",
+            "pixels": [
+              1440,
+              1011
+            ]
+          },
+          {
+            "file": "installed-update-nested-cache-status-mobile.png",
+            "sha256": "2ee5f7e3ce20e64362a781bbab41c7854f9255f253c5298ee5dbee73885b76c4",
+            "pixels": [
+              390,
+              1495
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-auth-reauth-desktop.png",
+            "sha256": "9ef4bc978785606de500d5db5616b55745ea33b5931f4b5ce3db859b899353e5",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-auth-reauth-mobile.png",
+            "sha256": "19a474c26f7f475556f9f3dc9afdde8ced4e8946c98cdfcb84fb7de240ab5c1d",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-auth-signin-desktop.png",
+            "sha256": "ef073f204b3c53898182e86af7e32b3709a92330365fc10bb971ec09c55305d7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-auth-signin-mobile.png",
+            "sha256": "4dcd681cc22a6760dc1989086bdcaec7616a8ec4aeb5e4a71bc2702fbb2594b3",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-last-page.png",
+            "sha256": "3e3c23458c293b957b0384924fae2a3a6456dd4a3e86585ba4b89381276df8e3",
+            "pixels": [
+              1440,
+              1034
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-factor-desktop.png",
+            "sha256": "d05eebd011ca4193ddae0f899eaa0b011c53bcdf81bf8289792569729c56d8ab",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-factor-mobile.png",
+            "sha256": "5ea4fbb9a9985bd6d7b986707566541a8e4f1610901aa2b8adc9eb1c41648221",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-reauth-desktop.png",
+            "sha256": "ea7a8de912a6847cd7192737330911ef4af6109fb79c9b399b279402de2e2ea3",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-reauth-mobile.png",
+            "sha256": "e478334c202e62bb3da52c5263282711ba52391f896a7ddd6c91b5561eababbc",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-signin-desktop.png",
+            "sha256": "ef073f204b3c53898182e86af7e32b3709a92330365fc10bb971ec09c55305d7",
+            "pixels": [
+              1440,
+              1000
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-auth-signin-mobile.png",
+            "sha256": "4dcd681cc22a6760dc1989086bdcaec7616a8ec4aeb5e4a71bc2702fbb2594b3",
+            "pixels": [
+              390,
+              844
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-last-page.png",
+            "sha256": "f6f638e16241319c4982a0756ae239466d1f59ad6e3522cc5a376b9f5192cf56",
+            "pixels": [
+              1440,
+              1034
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-organized-root.png",
+            "sha256": "ae62a191fb84ac3d45ce1a67e941d490d3876a22144389b2eb61bab85873323d",
+            "pixels": [
+              1440,
+              1073
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-preview.png",
+            "sha256": "b684a92de14fedc5708f02bc4057a915606dc2e94d64c4bdefc5a891ea47440d",
+            "pixels": [
+              1440,
+              3950
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-status-desktop.png",
+            "sha256": "1542e48f2292bfa1287919e6d1cbedda4161221a3ad03008f82dd93c7ce88353",
+            "pixels": [
+              1440,
+              1011
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-mfa-status-mobile.png",
+            "sha256": "2ee5f7e3ce20e64362a781bbab41c7854f9255f253c5298ee5dbee73885b76c4",
+            "pixels": [
+              390,
+              1495
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-organized-root.png",
+            "sha256": "e3f809057f0bfb7d60cb69af4b6e96f77cdd5bc89f056c9828d163049e3f6f53",
+            "pixels": [
+              1440,
+              1073
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-preview.png",
+            "sha256": "a7ec9c41b5f0bb5c4e991e314c453b2dd4686542c8b992cd5d0000500315abe7",
+            "pixels": [
+              1440,
+              3950
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-status-desktop.png",
+            "sha256": "1542e48f2292bfa1287919e6d1cbedda4161221a3ad03008f82dd93c7ce88353",
+            "pixels": [
+              1440,
+              1011
+            ]
+          },
+          {
+            "file": "installed-update-root-cache-status-mobile.png",
+            "sha256": "2ee5f7e3ce20e64362a781bbab41c7854f9255f253c5298ee5dbee73885b76c4",
+            "pixels": [
+              390,
+              1495
+            ]
+          }
+        ]
+      }
+    },
+    "baseline_ci_contract": {
+      "sha256": "b991a9cc816c1ae4b8da914a28fdc2f6460765da3d6d4dd074bb506d342f21f2",
+      "bytes": 3884,
+      "evidence": {
+        "source": "75f4c011b23c45998fe24c27f31565a9df898e82",
+        "literal_baseline_errors": [],
+        "counts": {
+          "baseline": {
+            "jobs": 7,
+            "configured_steps": 82
+          },
+          "current": {
+            "jobs": 26,
+            "configured_steps": 268
+          }
+        },
+        "matrix": {
+          "repository-contract": {
+            "jobs": 1,
+            "steps_each": 3,
+            "matrix": [
+              {}
+            ]
+          },
+          "source-tests": {
+            "jobs": 2,
+            "steps_each": 5,
+            "matrix": [
+              {
+                "php": "8.2"
+              },
+              {
+                "php": "8.3"
+              }
+            ]
+          },
+          "mysql-migrations": {
+            "jobs": 2,
+            "steps_each": 18,
+            "matrix": [
+              {
+                "php": "8.2"
+              },
+              {
+                "php": "8.3"
+              }
+            ]
+          },
+          "http-browser": {
+            "jobs": 1,
+            "steps_each": 34,
+            "matrix": [
+              {}
+            ]
+          },
+          "safeguards-browser": {
+            "jobs": 6,
+            "steps_each": 7,
+            "matrix": [
+              {
+                "feature": "admin_security"
+              },
+              {
+                "feature": "editorial_recovery"
+              },
+              {
+                "feature": "campaign_messages"
+              },
+              {
+                "feature": "marketing_attribution"
+              },
+              {
+                "feature": "notifications"
+              },
+              {
+                "feature": "mail_provider"
+              }
+            ]
+          },
+          "accessibility": {
+            "jobs": 1,
+            "steps_each": 7,
+            "matrix": [
+              {}
+            ]
+          },
+          "mariadb-compatibility": {
+            "jobs": 2,
+            "steps_each": 15,
+            "matrix": [
+              {
+                "php": "8.2"
+              },
+              {
+                "php": "8.3"
+              }
+            ]
+          },
+          "protection-runtime": {
+            "jobs": 2,
+            "steps_each": 9,
+            "matrix": [
+              {
+                "engine": "mysql-8.0",
+                "image": "mysql:8.0",
+                "health": "mysqladmin ping --silent"
+              },
+              {
+                "engine": "mariadb-10.11",
+                "image": "mariadb:10.11",
+                "health": "healthcheck.sh --connect --innodb_initialized"
+              }
+            ]
+          },
+          "operations-recovery": {
+            "jobs": 4,
+            "steps_each": 12,
+            "matrix": [
+              {
+                "php": "8.2",
+                "engine": "mysql-8.0",
+                "image": "mysql:8.0",
+                "client": "mysql",
+                "health": "mysqladmin ping --silent"
+              },
+              {
+                "php": "8.2",
+                "engine": "mariadb-10.11",
+                "image": "mariadb:10.11",
+                "client": "mariadb",
+                "health": "healthcheck.sh --connect --innodb_initialized"
+              },
+              {
+                "php": "8.3",
+                "engine": "mysql-8.0",
+                "image": "mysql:8.0",
+                "client": "mysql",
+                "health": "mysqladmin ping --silent"
+              },
+              {
+                "php": "8.3",
+                "engine": "mariadb-10.11",
+                "image": "mariadb:10.11",
+                "client": "mariadb",
+                "health": "healthcheck.sh --connect --innodb_initialized"
+              }
+            ]
+          },
+          "privacy-access-runtime": {
+            "jobs": 4,
+            "steps_each": 9,
+            "matrix": [
+              {
+                "feature": "member_privacy",
+                "engine": "mysql-8.0",
+                "image": "mysql:8.0",
+                "health": "mysqladmin ping --silent"
+              },
+              {
+                "feature": "member_privacy",
+                "engine": "mariadb-10.11",
+                "image": "mariadb:10.11",
+                "health": "healthcheck.sh --connect --innodb_initialized"
+              },
+              {
+                "feature": "age_policies",
+                "engine": "mysql-8.0",
+                "image": "mysql:8.0",
+                "health": "mysqladmin ping --silent"
+              },
+              {
+                "feature": "age_policies",
+                "engine": "mariadb-10.11",
+                "image": "mariadb:10.11",
+                "health": "healthcheck.sh --connect --innodb_initialized"
+              }
+            ]
+          },
+          "runtime-packages": {
+            "jobs": 1,
+            "steps_each": 4,
+            "matrix": [
+              {}
+            ]
+          }
+        }
+      }
+    },
+    "source_package_audit": {
+      "sha256": "7e6a39e026bc3697f9bc65735a072976f4ed482d40a451279223b41407f565b4",
+      "bytes": 2308,
+      "evidence": {
+        "source_commit": "75f4c011b23c45998fe24c27f31565a9df898e82",
+        "baseline": "91f796767e2f5a844e9733703e92c965a99803cc",
+        "version": "0.9.0",
+        "build_id": "20261021.4",
+        "floors": {
+          "new_runtime_files": 109,
+          "changed_runtime_files_with_manifest": 180,
+          "v09_required_files": 109
+        },
+        "differences": {
+          "builder_vs_independent_v09": [],
+          "builder_vs_independent_release": [],
+          "new_vs_floor": [],
+          "changed_vs_release": [],
+          "runtime_floor_vs_builder": [],
+          "runtime_test_vs_builder": [],
+          "deleted_runtime": [],
+          "absent_floor_files": []
+        },
+        "worktree_runtime_matches_git_source": true,
+        "packages": [
+          {
+            "kind": "fresh",
+            "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Fresh-Install.zip",
+            "sha256": "98ddf3313921a5bce92a64f1579eabf38c95c08f4b68ead1ba3aa4a4cad845d3",
+            "entries": 494,
+            "root_files": [
+              ".htaccess",
+              "VERSION",
+              "index.php",
+              "route.php"
+            ],
+            "roots": [
+              "addons",
+              "admin",
+              "app",
+              "config",
+              "database",
+              "images",
+              "includes",
+              "install",
+              "public",
+              "storage",
+              "templates",
+              "uploads",
+              "vendor"
+            ],
+            "complete_source_byte_match": true
+          },
+          {
+            "kind": "upgrade",
+            "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.0-Build-20261021.4-Upgrade-from-0.8.x-and-0.9.x.zip",
+            "sha256": "34ef50e34f7fa688dd2801d58708c36116fb2aba4faa6cf1656636f74fbfc2a9",
+            "entries": 453,
+            "root_files": [
+              ".htaccess",
+              "VERSION",
+              "index.php",
+              "route.php"
+            ],
+            "roots": [
+              "addons",
+              "admin",
+              "app",
+              "database",
+              "images",
+              "includes",
+              "public",
+              "templates",
+              "vendor"
+            ],
+            "complete_source_byte_match": true
+          },
+          {
+            "kind": "installer-repair",
+            "filename": "Nikki-Wilder-Velvet-Vixxen-0.8.1-Build-20261020.3-Installer-Database-Repair.zip",
+            "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+            "entries": 11,
+            "root_files": [],
+            "roots": [
+              "app",
+              "includes",
+              "install",
+              "public"
+            ],
+            "complete_source_byte_match": true
+          }
+        ]
+      }
+    },
+    "protection_apache_regression": {
+      "sha256": "3f23dcffce38d62f9dbd2b5f2dd6c634b4ce0ebcbae9e53ed2aaf1df513f997f",
+      "bytes": 6712,
+      "evidence": {
+        "kind": "focused_protection_diagnostic",
+        "runtime_head": "75f4c011b23c45998fe24c27f31565a9df898e82",
+        "fresh_zip_sha256": "98ddf3313921a5bce92a64f1579eabf38c95c08f4b68ead1ba3aa4a4cad845d3",
+        "runs": {
+          "mysql-http": {
+            "report": "/tmp/vvx-protection-diagnostic-mysql-http/protection-http-evidence.json",
+            "report_sha256": "2f31717e71342ac2b6cbf807c43db1a13dd069d6f2f8c46654f7f0f10ad23edb",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "recorded_sources_unchanged": true,
+            "php": "8.3.6",
+            "apache": "Server version: Apache/2.4.58 (Ubuntu)\nServer built:   2026-07-06T16:27:55",
+            "chromium": "Google Chrome for Testing 151.0.7922.34",
+            "php_startup_and_runtime_warnings": 0,
+            "scanned_log_count": 9,
+            "cases": {
+              "file-root": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "file-nested": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "mysql-root": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "mysql-nested": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              }
+            },
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "target_engine": "mysql-8.0",
+            "schema_empty_before_and_after": true,
+            "raw_server_negative_control": {
+              "activation_refused": true,
+              "server": "php -S without a router or .htaccess handling"
+            }
+          },
+          "mariadb-http": {
+            "report": "/tmp/vvx-protection-diagnostic-mariadb-http/protection-http-evidence.json",
+            "report_sha256": "2f31717e71342ac2b6cbf807c43db1a13dd069d6f2f8c46654f7f0f10ad23edb",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "recorded_sources_unchanged": true,
+            "php": "8.3.6",
+            "apache": "Server version: Apache/2.4.58 (Ubuntu)\nServer built:   2026-07-06T16:27:55",
+            "chromium": "Google Chrome for Testing 151.0.7922.34",
+            "php_startup_and_runtime_warnings": 0,
+            "scanned_log_count": 9,
+            "cases": {
+              "file-root": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "file-nested": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "mysql-root": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "mysql-nested": {
+                "checks": 106,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              }
+            },
+            "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+            "target_engine": "mariadb-10.11",
+            "schema_empty_before_and_after": true,
+            "raw_server_negative_control": {
+              "activation_refused": true,
+              "server": "php -S without a router or .htaccess handling"
+            }
+          },
+          "mysql-browser": {
+            "report": "/tmp/vvx-protection-diagnostic-mysql-browser/protection-browser-evidence.json",
+            "report_sha256": "7f1db9413404547ddaac4d8c9f92447d33d19402b40478b30d040abba1422233",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "a85b44e2ab273966ec4a1fe3ac2c680fe993354b",
+            "recorded_sources_unchanged": true,
+            "php": "8.3.6",
+            "apache": "Server version: Apache/2.4.58 (Ubuntu)\nServer built:   2026-07-06T16:27:55",
+            "chromium": "Google Chrome for Testing 151.0.7922.34",
+            "php_startup_and_runtime_warnings": 0,
+            "scanned_log_count": 8,
+            "cases": {
+              "file-root-desktop": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "file-nested-mobile": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "mysql-root-desktop": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "mysql-nested-mobile": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              }
+            },
+            "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+            "target_engine": "mysql-8.0",
+            "schema_empty_before_and_after": true
+          },
+          "mariadb-browser": {
+            "report": "/tmp/vvx-protection-diagnostic-mariadb-browser/protection-browser-evidence.json",
+            "report_sha256": "c777f5b31d32f12436e69b3ff578b011836469fc34e1cf2975e8f70c2f322228",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "recorded_sources_unchanged": true,
+            "php": "8.3.6",
+            "apache": "Server version: Apache/2.4.58 (Ubuntu)\nServer built:   2026-07-06T16:27:55",
+            "chromium": "Google Chrome for Testing 151.0.7922.34",
+            "php_startup_and_runtime_warnings": 0,
+            "scanned_log_count": 8,
+            "cases": {
+              "file-root-desktop": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "file-nested-mobile": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "mysql-root-desktop": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              },
+              "mysql-nested-mobile": {
+                "checks": 45,
+                "smtp_connections": 0,
+                "screenshot_count": 7
+              }
+            },
+            "mysql_version": "10.11.14-MariaDB-0ubuntu0.24.04.1",
+            "target_engine": "mariadb-10.11",
+            "schema_empty_before_and_after": true
+          },
+          "apache-status": {
+            "report": "/tmp/vvx-protection-diagnostic-apache-status/apache-status-evidence.json",
+            "report_sha256": "1c013fd0b9c327c2d2de75b847e8c11bd76a1fc19bc89dc8b5b0d706b5e70d9e",
+            "head_before": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "head_after": "75f4c011b23c45998fe24c27f31565a9df898e82",
+            "recorded_sources_unchanged": true,
+            "php": "8.3.6",
+            "apache": "Server version: Apache/2.4.58 (Ubuntu)\nServer built:   2026-07-06T16:27:55",
+            "chromium": "Google Chrome for Testing 151.0.7922.34",
+            "php_startup_and_runtime_warnings": 0,
+            "scanned_log_count": 4,
+            "cases": {
+              "file-root": {
+                "checks": 43,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              },
+              "file-nested": {
+                "checks": 43,
+                "smtp_connections": 0,
+                "screenshot_count": 0
+              }
+            }
+          }
+        },
+        "verified_pngs": 56
+      }
+    },
+    "privacy_approval_negative_control": {
+      "sha256": "252e84e7406f43561bddba066141f28c5ff319e5883c9481c964b1616df5c37c",
+      "bytes": 1052,
+      "evidence": {
+        "synthetic_fixture_only": true,
+        "owner_password_changed_after_approval": true,
+        "run": {
+          "processed": 10,
+          "completed": 1,
+          "held": 2,
+          "expired": 0,
+          "busy": false
+        },
+        "requests": {
+          "intact": {
+            "status": "held",
+            "stage": 0,
+            "member_status": "active",
+            "member_name": "Synthetic intact",
+            "core_erased": false
+          },
+          "missing_stamp": {
+            "status": "complete",
+            "stage": 10,
+            "member_status": "closed",
+            "member_name": "Removed member",
+            "core_erased": true
+          },
+          "null_approval": {
+            "status": "held",
+            "stage": 0,
+            "member_status": "active",
+            "member_name": "Synthetic null_approval",
+            "core_erased": false
+          }
+        },
+        "warnings": [
+          "Trying to access array offset on null",
+          "Trying to access array offset on null",
+          "Trying to access array offset on null"
+        ]
+      }
+    },
+    "privacy_approval_fixed": {
+      "sha256": "1000e1753a34ef33f02a42d44e3977e334f0361fd6334021b81e7b80339e260e",
+      "bytes": 943,
+      "evidence": {
+        "synthetic_fixture_only": true,
+        "owner_password_changed_after_approval": true,
+        "run": null,
+        "rejected_corrupt_journal": {
+          "type": "RuntimeException",
+          "message": "A private approval record needs recovery."
+        },
+        "requests": {
+          "intact": {
+            "status": "approved",
+            "stage": 0,
+            "member_status": "active",
+            "member_name": "Synthetic intact",
+            "core_erased": false
+          },
+          "missing_stamp": {
+            "status": "approved",
+            "stage": 0,
+            "member_status": "active",
+            "member_name": "Synthetic missing_stamp",
+            "core_erased": false
+          },
+          "null_approval": {
+            "status": "approved",
+            "stage": 0,
+            "member_status": "active",
+            "member_name": "Synthetic null_approval",
+            "core_erased": false
+          }
+        },
+        "warnings": []
+      }
+    }
+  },
+  "combined_accessibility": {
+    "file": {
+      "report_sha256": "43921652c9df6f7e555e91e268aca20b89bf5b4b86f5ebfd02a20557ceb2c664",
+      "report_bytes": 7466183,
+      "fresh_zip_sha256": "29b48c62c50a4057b55fd25f515b30857d3c32fd1ae572fe2159579a27ea11ce",
+      "chromium": "151.0.7922.34",
+      "axe_version": "4.11.4",
+      "cases": {
+        "file-desktop": {
+          "checks": 349,
+          "page_count": 55,
+          "keyboard_checks": 15,
+          "violations": [],
+          "javascript_errors": [],
+          "mysql_version": null,
+          "smtp_connections": 0,
+          "performance": {
+            "scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+            "samples": 55,
+            "median_response_ms": 57.700000000186265,
+            "p95_response_ms": 112.90000000037253,
+            "max_response_ms": 232.20000000018626,
+            "budgets": {
+              "document_bytes": 2000000,
+              "p95_response_ms": 5000,
+              "maximum_response_ms": 10000
+            }
+          },
+          "screenshots": [
+            {
+              "filename": "accessibility-file-desktop-trailer-dialog.png",
+              "sha256": "fbc4d76ee24814295981a1f5c7b4a306eb200bd233cb8133b886d76b0c3b1515"
+            },
+            {
+              "filename": "accessibility-file-desktop-public-home.png",
+              "sha256": "2c9accb70c4b745d9400691259559b3c84fa725174743f501fa6c254b506ba18"
+            },
+            {
+              "filename": "accessibility-file-desktop-public-account-register.php.png",
+              "sha256": "4a990db20e3c3324323421df947ec6c08f6cdf43a85f9462c751929d6ba2cf5e"
+            },
+            {
+              "filename": "accessibility-file-desktop-member-account-security.php.png",
+              "sha256": "36e4eb63f7bb1cf4efd5c498e31a38ef2c445a6de7609a3644acd50e27dfce14"
+            },
+            {
+              "filename": "accessibility-file-desktop-admin-login.png",
+              "sha256": "e08911789ecb863fbdf0b87bbf8613a99fb258095611a0301933b9e392fc01f5"
+            },
+            {
+              "filename": "accessibility-file-desktop-admin-composer.png",
+              "sha256": "54f37517f14592641ddd4d638b7574bab826715dea74dc75d65450d203ed3c5a"
+            },
+            {
+              "filename": "accessibility-file-desktop-admin-security.png",
+              "sha256": "7dd5ed09a8c5986166d36548fcef578ba5f3e8deb7c42d07e0cf3fdea01789d9"
+            },
+            {
+              "filename": "accessibility-file-desktop-admin-marketing-tab-notifications.png",
+              "sha256": "0494286d16798020f8c9a233f428948e11c927fa8ab539a9d667c901b67e2ba4"
+            }
+          ]
+        },
+        "file-mobile": {
+          "checks": 354,
+          "page_count": 55,
+          "keyboard_checks": 20,
+          "violations": [],
+          "javascript_errors": [],
+          "mysql_version": null,
+          "smtp_connections": 0,
+          "performance": {
+            "scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+            "samples": 55,
+            "median_response_ms": 60.5,
+            "p95_response_ms": 102,
+            "max_response_ms": 159.19999999925494,
+            "budgets": {
+              "document_bytes": 2000000,
+              "p95_response_ms": 5000,
+              "maximum_response_ms": 10000
+            }
+          },
+          "screenshots": [
+            {
+              "filename": "accessibility-file-mobile-trailer-dialog.png",
+              "sha256": "a782c521f4c69d3bed4797d3f68325f0fb29a691887bcbcc1dbf005db98f426c"
+            },
+            {
+              "filename": "accessibility-file-mobile-public-home.png",
+              "sha256": "cf64fd24ed76fd491d9f1c581f6655f13f89a3b2b48c16d4459ca9fc394f2f4c"
+            },
+            {
+              "filename": "accessibility-file-mobile-public-account-register.php.png",
+              "sha256": "50f8a6679584f32ff666664bd7b2fce95b8d432cab3d2f322d378e8038b7c292"
+            },
+            {
+              "filename": "accessibility-file-mobile-member-account-security.php.png",
+              "sha256": "0c4e7152b96657a522646de347978ce22ca90829fd507064fb753caea80c48bc"
+            },
+            {
+              "filename": "accessibility-file-mobile-admin-login.png",
+              "sha256": "74739ffde76d2e13a9f58c62d72362c765108f909b823d56816960da6aac6894"
+            },
+            {
+              "filename": "accessibility-file-mobile-admin-composer.png",
+              "sha256": "64387db418193632fc5525638bb3e5a01e23cf8aff9e0d9f13f35535451c1c44"
+            },
+            {
+              "filename": "accessibility-file-mobile-admin-security.png",
+              "sha256": "6eb1717a09592f196b72425fd5659b351993e0f1c1e8bd4d20859f60279cb695"
+            },
+            {
+              "filename": "accessibility-file-mobile-admin-marketing-tab-notifications.png",
+              "sha256": "26a2b20d50fd05f40fe95a54d05f7ba02b22458c533d7e3c2abd2f5b69c9e6b1"
+            }
+          ]
+        }
+      }
+    },
+    "mysql": {
+      "report_sha256": "b033f28cddd2e11712fc1b73e0ff8ac87d2caba5e07f4988aba938f610ed63cf",
+      "report_bytes": 6959841,
+      "fresh_zip_sha256": "98ddf3313921a5bce92a64f1579eabf38c95c08f4b68ead1ba3aa4a4cad845d3",
+      "chromium": "151.0.7922.34",
+      "axe_version": "4.11.4",
+      "cases": {
+        "mysql-desktop": {
+          "checks": 349,
+          "page_count": 55,
+          "keyboard_checks": 15,
+          "violations": [],
+          "javascript_errors": [],
+          "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+          "smtp_connections": 0,
+          "performance": {
+            "scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+            "samples": 55,
+            "median_response_ms": 46.200000000186265,
+            "p95_response_ms": 91.5,
+            "max_response_ms": 127.40000000037253,
+            "budgets": {
+              "document_bytes": 2000000,
+              "p95_response_ms": 5000,
+              "maximum_response_ms": 10000
+            }
+          },
+          "screenshots": [
+            {
+              "filename": "accessibility-mysql-desktop-trailer-dialog.png",
+              "sha256": "ab1d1073ad31ace8027548a0391608bdb5da652f8ac4957b4931b350799dbc6d"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-public-home.png",
+              "sha256": "bea6035fb7b5cdecbbd2cf171ea5251e7b09b392c4fd1c15246038663580634a"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-public-account-register.php.png",
+              "sha256": "4a990db20e3c3324323421df947ec6c08f6cdf43a85f9462c751929d6ba2cf5e"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-member-account-security.php.png",
+              "sha256": "cf971eec0c8c8420718ef8c160cff4a6576dac8bdeff29a36607d38f0d53745f"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-admin-login.png",
+              "sha256": "e08911789ecb863fbdf0b87bbf8613a99fb258095611a0301933b9e392fc01f5"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-admin-composer.png",
+              "sha256": "a7a045a3ecb8b564596370a1dd8d3963d8429ef8e63ba5e041bb933777d386bf"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-admin-security.png",
+              "sha256": "d66237ddacf641a1c56cdd3f537b2c3c3be43a54bee6a9d4b9ee76e385c95098"
+            },
+            {
+              "filename": "accessibility-mysql-desktop-admin-marketing-tab-notifications.png",
+              "sha256": "0494286d16798020f8c9a233f428948e11c927fa8ab539a9d667c901b67e2ba4"
+            }
+          ]
+        },
+        "mysql-mobile": {
+          "checks": 354,
+          "page_count": 55,
+          "keyboard_checks": 20,
+          "violations": [],
+          "javascript_errors": [],
+          "mysql_version": "8.0.46-0ubuntu0.24.04.3",
+          "smtp_connections": 0,
+          "performance": {
+            "scope": "isolated PHP server and installed stock/editorial fixture; no production latency claim",
+            "samples": 55,
+            "median_response_ms": 45.40000000037253,
+            "p95_response_ms": 79.79999999981374,
+            "max_response_ms": 169.09999999962747,
+            "budgets": {
+              "document_bytes": 2000000,
+              "p95_response_ms": 5000,
+              "maximum_response_ms": 10000
+            }
+          },
+          "screenshots": [
+            {
+              "filename": "accessibility-mysql-mobile-trailer-dialog.png",
+              "sha256": "8b6b70f409b9dd4472e1e97066f3f35d4531a24979cbf9a569c1743e7a266571"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-public-home.png",
+              "sha256": "945e1bdc205dc584155373a34b770c8c98d717f3f9028ff6b70b51e9774162d8"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-public-account-register.php.png",
+              "sha256": "50f8a6679584f32ff666664bd7b2fce95b8d432cab3d2f322d378e8038b7c292"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-member-account-security.php.png",
+              "sha256": "81262e04f5e9eaab2fe6682e970112f45a98c87e283463c5e0e8749481e11f22"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-admin-login.png",
+              "sha256": "74739ffde76d2e13a9f58c62d72362c765108f909b823d56816960da6aac6894"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-admin-composer.png",
+              "sha256": "64387db418193632fc5525638bb3e5a01e23cf8aff9e0d9f13f35535451c1c44"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-admin-security.png",
+              "sha256": "cac943d4f814007b3b7f4c905d235a41286dd7a6158e02a7a298701a625977d0"
+            },
+            {
+              "filename": "accessibility-mysql-mobile-admin-marketing-tab-notifications.png",
+              "sha256": "26a2b20d50fd05f40fe95a54d05f7ba02b22458c533d7e3c2abd2f5b69c9e6b1"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

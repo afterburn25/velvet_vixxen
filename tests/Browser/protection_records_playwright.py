@@ -77,7 +77,7 @@ def browser_case(browser,case,viewport,evidence):
             check('Appeal received' in lookup.locator('body').inner_text(),'No-script receipt lookup failed.')
         finally:no_script.close()
         check(not errors,'Protection browser JS errors: '+repr(errors));check(case['capture'].connections==0,'Browser protection controls contacted SMTP.')
-        return {'checks':http.checks-start,'screenshots':shots,'layouts':layouts,'javascript_errors':errors,'real_apache_activation':True,'collaborator_release_controls':True,'stale_form_preserved':True,'report_reply_appeal_controls':True,'private_receipt_lookup_without_js':True,'no_automatic_publication':True,'old_signed_url_hold':True,'explicit_media_release':True,'smtp_connections':0}
+        return {'checks':http.checks-start,'mysql_version':case['mysql_version'],'screenshots':shots,'layouts':layouts,'javascript_errors':errors,'real_apache_activation':True,'collaborator_release_controls':True,'stale_form_preserved':True,'report_reply_appeal_controls':True,'private_receipt_lookup_without_js':True,'no_automatic_publication':True,'old_signed_url_hold':True,'explicit_media_release':True,'smtp_connections':0}
     finally:context.close();reporter_context.close()
 
 def run():
@@ -85,6 +85,7 @@ def run():
     with tempfile.TemporaryDirectory(prefix='vvx-protection-browser-') as tmp,sync_playwright() as playwright:
         work=Path(tmp);archive,identity=protection.prepare_package(work);report.update(identity)
         browser=playwright.chromium.launch(executable_path=os.environ.get('VELVET_CHROMIUM') or os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE') or None,headless=True,args=['--no-sandbox'])
+        report['chromium']=browser.version
         try:
             for mode in (['file','mysql'] if args.mode=='both' else [args.mode]):
                 for label,prefix,viewport in [('root-desktop','',{'width':1440,'height':1000}),('nested-mobile','/nested/velvet',{'width':390,'height':844})]:

@@ -70,9 +70,14 @@ try{
     $reject(fn()=>$service->approve($request['id'],$review['request']['revision'],$review['inventory_revision'],[],['id'=>$other['id'],'email'=>$other['email']],$recent),'A member approved a request.',403);
     $reject(fn()=>$service->approve($request['id'],$review['request']['revision'],$review['inventory_revision'],[],$owner,static function():void{throw new RuntimeException('Recent authentication required.',428);}), 'Missing recent owner authentication succeeded.',428);
     $service->approve($request['id'],$review['request']['revision'],$review['inventory_revision'],[],$owner,$recent);
+    $approvedJournal=$private->read('member_privacy');
+    $private->update('member_privacy',static function(array &$data)use($request):void{unset($data['requests'][$request['id']]['approval']['owner']['stamp']);});
+    $reject(fn()=>$service->run(1),'A durable owner approval missing its security stamp was processed.');
+    $private->update('member_privacy',static function(array &$data)use($approvedJournal,$request):void{$data=$approvedJournal;$data['requests'][$request['id']]['approval']=null;});
+    $reject(fn()=>$service->run(1),'An approved durable request without approval authority was processed.');
+    $private->update('member_privacy',static function(array &$data)use($approvedJournal):void{$data=$approvedJournal;});
     $reject(fn()=>$service->cancel($request['id'],$member['id'],$token,'Privacy-Member-781!',true,$review['request']['revision']),'Approved work was canceled.',409);
     $run=$service->run(1);
-    if($run['held']){ $job=$private->read('member_privacy')['requests'][$request['id']];$private->update('member_privacy',static function(array &$d)use($request):void{$d['requests'][$request['id']]['status']='processing';});(new ReflectionMethod($service,'buildExport'))->invoke($service,$job); }
     $assert($run['completed']===1&&$run['held']===0,'Approved export did not complete.');
     $bytes=$service->download($request['id'],$member['id'],$token);$zipPath=$root.'/export-check.zip';file_put_contents($zipPath,$bytes);$zip=new ZipArchive();$assert($zip->open($zipPath,ZipArchive::CHECKCONS)===true,'Downloaded export was not a valid ZIP.');$json=$zip->getFromName('member-data.json');$export=json_decode($json,true,512,JSON_THROW_ON_ERROR);
     $assert($zip->numFiles===4&&count($export['messages'])===3&&count($export['bookingRequests'])===1&&count($export['attachments'])===3,'Archive scope or visible attachment count was wrong.');
@@ -85,7 +90,7 @@ try{
     $reject(fn()=>$service->approve($erase['id'],$review['request']['revision'],$review['inventory_revision'],[],$owner,$recent),'Erasure bypassed retention review.');
     $service->approve($erase['id'],$review['request']['revision'],$review['inventory_revision'],$retention,$owner,$recent);
     $otherBefore=$store->privacyCoreData($other['id']);$otherContact=array_values(array_filter($marketing->all()['contacts'],static fn(array $r):bool=>$r['email']===$other['email']));
-    foreach(Privacy::STAGES as $index=>$stage){$run=$service->run(1);if($run['held']){$job=$private->read('member_privacy')['requests'][$erase['id']];$private->update('member_privacy',static function(array &$d)use($erase):void{$d['requests'][$erase['id']]['status']='processing';});(new ReflectionMethod($service,'eraseStage'))->invoke($service,$job,$stage);}$assert($run['processed']===1&&$run['held']===0,'Erasure stage failed: '.$stage);$row=$private->read('member_privacy')['requests'][$erase['id']];$assert($row['stage']===$index+1&&isset($row['completed_stages'][$stage]),'The durable stage checkpoint was not saved: '.$stage);if($stage==='freeze')$reject(fn()=>$service->download($request['id'],$member['id'],$token),'Frozen identity downloaded an old export.',403);}
+    foreach(Privacy::STAGES as $index=>$stage){$run=$service->run(1);$assert($run['processed']===1&&$run['held']===0,'Erasure stage failed: '.$stage);$row=$private->read('member_privacy')['requests'][$erase['id']];$assert($row['stage']===$index+1&&isset($row['completed_stages'][$stage]),'The durable stage checkpoint was not saved: '.$stage);if($stage==='freeze')$reject(fn()=>$service->download($request['id'],$member['id'],$token),'Frozen identity downloaded an old export.',403);}
     $after=$private->read('member_privacy')['requests'][$erase['id']];$assert($after['status']==='complete'&&$after['cleanup']===[]&&$after['archive_cleanup']===[],'Completed removal kept its temporary cleanup manifest.');
     $assert(!is_file($path)&&!is_file($root.'/storage/private/communications/member-visible.txt')&&!is_file($root.'/storage/private/communications/staff-secret.txt')&&is_file($root.'/storage/private/communications/other-shared.txt'),'Private file cleanup lost a shared file or retained an owned file.');
     $assert($store->privacyCoreData($other['id'])===$otherBefore&&$store->bookingRequest($guest['id'])['details']==='UNRELATED-GUEST','Erasure changed another member or unlinked guest.');
