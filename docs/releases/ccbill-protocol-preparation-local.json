@@ -26,5 +26,27 @@
     "fresh": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
     "upgrade": "1c2817fa457d17a6358316a5fa934887c825c9e18051723ade4367a8abaf8bda",
     "repair": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+  },
+  "priorMainRun": {
+    "id": 39898384282,
+    "conclusion": "failure",
+    "successfulJobs": 26,
+    "failedJob": 120234488441,
+    "skippedPackaging": true,
+    "failure": "Sandbox renewal substituted edited price or currency.",
+    "source": "999cba64c16fcd987aeb7850a8ec248d7334ac76"
+  },
+  "clockCorrection": {
+    "scope": "test fixture only",
+    "cause": "Independent time()-10 reads could cross a second and disagree about subscription/agreement paid end.",
+    "negativeControl": "Baseline fixture plus forced sleep(1) immediately before the second read.",
+    "negativeControlStorage": "file",
+    "negativeControlExit": 255,
+    "negativeControlFailure": "Sandbox renewal substituted edited price or currency.",
+    "positive": "One frozen elapsedEnd is shared, with a retained real sleep(1) boundary and independently reloaded subscription end assertion.",
+    "positiveFileAssertions": 43,
+    "positiveFileResult": "pass",
+    "sqlResult": "pending corrected CI",
+    "runtimeChanged": false
   }
 }
