@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recorded_at": "2026-10-23T16:15:07.772674+00:00",
+  "recorded_at": "2026-10-23T16:24:42.121070+00:00",
   "status": "local_pass_ci_pending",
   "version": "0.9.4",
   "build_id": "20261023.1",
@@ -39,7 +39,7 @@
         "fixed_day_offer_owner_and_public_disclosure": true
       }
     },
-    "fresh_zip_sha256": "bfd11e422711a072d430d1bb6eeae1b9ed248fe7111d292e1648dd1a3ac874ee",
+    "fresh_zip_sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
     "archive_runtime_matches_sources": true
   },
   "browser": {
@@ -69,7 +69,7 @@
           },
           {
             "file": "purchased-terms-file-desktop-billing-accepted-and-legacy.png",
-            "sha256": "a8fd8eac1f9962b9b676f94df4315cd0f48c69fd99d15c9b463eba6cae5dff38",
+            "sha256": "7b67949ec991c7fa6ec9ed05550773b9458bf6994563ff821359bca862b478c5",
             "dimensions": [
               1440,
               1264
@@ -125,7 +125,7 @@
           },
           {
             "file": "purchased-terms-file-phone-billing-accepted-and-legacy.png",
-            "sha256": "1310d183b64f969b8806c0315d24e1f9872c418200ccd9f71ca44af03890918d",
+            "sha256": "16cadc38a39eb724ac1623999799e0bf7095bb172b0ae12ad3536cc6bb05e5b8",
             "dimensions": [
               390,
               1526
@@ -158,7 +158,7 @@
         "fixed_day_offer_owner_and_public_disclosure": true
       }
     },
-    "fresh_zip_sha256": "bfd11e422711a072d430d1bb6eeae1b9ed248fe7111d292e1648dd1a3ac874ee",
+    "fresh_zip_sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
     "archive_runtime_matches_sources": true
   },
   "visual_review": {
@@ -183,13 +183,13 @@
   },
   "packages": {
     "fresh": {
-      "bytes": 8167968,
-      "sha256": "bfd11e422711a072d430d1bb6eeae1b9ed248fe7111d292e1648dd1a3ac874ee",
+      "bytes": 8167988,
+      "sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
       "entries": 520
     },
     "upgrade": {
-      "bytes": 8010743,
-      "sha256": "3f42ad8a72ca12c6451d4869c9cc1ebdf810ee869644d0623f6fae6b83f53d5e",
+      "bytes": 8010763,
+      "sha256": "8ace7c17d11d7c1d11528966053344cd0ca16e0cd831ad146abfea57f796a0bc",
       "entries": 479
     },
     "installer_repair": {
@@ -208,6 +208,19 @@
     "saved_customer_delivery": "pending",
     "live_ccbill_mail_age": "not accessed or certified",
     "customer_host": "URL and configured environment not supplied",
-    "owner_policy_decisions": "not supplied"
+    "owner_policy_decisions": "not supplied",
+    "deterministic_http_test_upload": "blocked by automatic approval review; no further retry; needs explicit authorization"
+  },
+  "database_update_extension_guard": {
+    "historical_main_failure_run": 39965488546,
+    "historical_failed_job": 120454224773,
+    "negative_control": "Original runtime reproduced byte-preservation failure after a real second boundary; only addonTasks changed.",
+    "fix": "Do not boot extensions for database-update status or apply requests before authorization.",
+    "regression": "Existing CI owner/CSRF/private-path/config/lock and full saved-state byte assertions are retained. An additional locally executed second-boundary timing check passes but its source upload is blocked by automatic approval review of the pre-existing public synthetic demo password.",
+    "focused_http": "passed",
+    "runtime_admin_php_syntax": "passed",
+    "retained_http_suites": "passed: all ten suites; only loopback SMTP, no external messages",
+    "blocked_test_file": "tests/Http/database_updates_http.py",
+    "blocked_change": "import time; wait across the next real second before the rejected non-owner POST"
   }
 }
