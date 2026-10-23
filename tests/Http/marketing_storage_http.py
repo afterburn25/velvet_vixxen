@@ -264,6 +264,9 @@ def security_and_preview_case(site: Path, base: str, php: str):
         owner_revoked_while_waiting(owner, base, site, php)
         removed = fixture(site, 'remove-empty-schema', php)
         check(removed['state'] == 'schema_needed', 'The pre015 fixture did not reach the missing-schema path.')
+        rewound = fixture(site, 'read', php)
+        check(rewound['ledger'] == list(PRE015_MIGRATIONS),
+              'The empty-schema rewind retained a later migration in its independent SQL ledger.')
         response = owner.get(url, timeout=15)
         soup = state(response, 'schema_needed', site)
         check(response.status_code == 200 and not soup.select('[data-storage-preview-form], [data-storage-migrate-form]')

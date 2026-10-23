@@ -209,7 +209,7 @@ try {
     $assert(file_get_contents($path) === $fileBeforeSchema, 'Applying the schema modified existing marketing bytes.');
     $assertEmptyMarketing();
     $ledger = $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll();
-    echo "PASS marketing SQL: actual Fresh dependency hashes, exact18/88 schema, read-only review and pre015 file compatibility\n";
+    echo "PASS marketing SQL: actual Fresh dependency hashes, exact19/90 declared schema, read-only review and pre015 file compatibility\n";
 
     $case = 'legacy data preparation';
     $contacts = [];
