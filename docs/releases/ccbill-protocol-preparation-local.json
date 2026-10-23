@@ -48,5 +48,48 @@
     "positiveFileResult": "pass",
     "sqlResult": "pending corrected CI",
     "runtimeChanged": false
+  },
+  "ownerDecisions": {
+    "provider": "CCBill",
+    "newMembershipOffer": "Every 30 days",
+    "existingPurchasedTerms": "Preserve original periods",
+    "liveAccountVerified": false
+  },
+  "firstPRRun": {
+    "id": 39945584577,
+    "source": "1152c979935c48540fdde45f725f793e350422cb",
+    "checkout": "91d69925ea52731e71e12a62914207fe66ff76a3",
+    "tree": "85bdfe61444e8bfa3e2b8f1dedd2c3b35fd90f50",
+    "failedJob": 120387785271,
+    "failedAt": "Payment recovery browser no-script-confirmed geometry",
+    "otherSuccessfulJobsObserved": 25,
+    "mainApplicationBrowserJobStillRunningAtCorrection": true,
+    "packagingNotAccepted": true,
+    "finalConclusion": "failure",
+    "successfulJobs": 26,
+    "failedJobs": 1,
+    "skippedPackageJobs": 1,
+    "mainApplicationBrowserFinalConclusion": "success"
+  },
+  "readinessCorrection": {
+    "scope": "browser producer only",
+    "negativeControl": "Real extracted Fresh; 750ms CDP network latency with cache disabled; DOMContentLoaded before measurement.",
+    "negativeExit": 1,
+    "negativeFailure": "Payment recovery has a target smaller than 44px: no-script-confirmed",
+    "correction": "Wait for load and require exactly one readable nonempty CSSOM sheet for admin.css, payment-recovery.css, admin-ux.css before unchanged geometry assertions.",
+    "positiveCases": {
+      "file-root-desktop": 302,
+      "file-nested-mobile": 302
+    },
+    "decodedScreenshots": 24,
+    "manuallyReviewedScreenshots": 2,
+    "missingStylesheetControl": "Aborting the actual payment-recovery.css request fails with an explicit missing/unreadable stylesheet assertion.",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "php": "8.3.6",
+    "freshSHA256": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
+    "producerSHA256": "9cd58188afe8d0a75e0a2b44c645eee99279843396d9aa615e9878d1356eb209",
+    "runtimeChanged": false,
+    "SQLBrowserAfterCorrection": "pending CI"
   }
 }

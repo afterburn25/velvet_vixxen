@@ -1,6 +1,6 @@
 # CCBill protocol preparation
 
-The owner selected CCBill on October 23, 2026. This developer component prepares exact FlexForms dynamic-price requests and checks the narrowly documented response digest and direct notification-peer ranges. It is not an installable add-on, registered provider, checkout integration, webhook handler, payment confirmation or live-account certification. SDK source stays outside customer packages; runtime 0.9.3 is unchanged.
+The owner selected CCBill and chose an explicit 30-day billing period for future new CCBill membership offers on October 23, 2026. Existing accepted terms remain unchanged; this component creates no catalog offer. This developer component prepares exact FlexForms dynamic-price requests and checks the narrowly documented response digest and direct notification-peer ranges. It is not an installable add-on, registered provider, checkout integration, webhook handler, payment confirmation or live-account certification. SDK source stays outside customer packages; runtime 0.9.3 is unchanged.
 
 `src/FlexForms.php` has no network, storage or account side effects. `request()` returns a fixed HTTPS POST destination and allowlisted parameters using integer minor units, canonical identifiers and an explicitly priced day period. Salt parameters use PHP's sensitive-parameter redaction and are excluded from the result. Arbitrary form/customer/card fields and redirect destinations are rejected. Only the five supported two-decimal currencies are accepted; this application does not yet model JPY correctly.
 
