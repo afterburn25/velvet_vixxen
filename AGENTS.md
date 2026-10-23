@@ -1,5 +1,23 @@
+<!-- recurring-093-release:start -->
+## Current release — 0.9.3 recurring lifecycle, Build 20261022.3
+
+**Verified, merged and delivered.** [PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38) merged source `bb6dca80a5101053a39d7415c0efb91f60835104` as `8f3b040cd69c183c6eb5729960b9556c67ef1105`. [CI run 39891075316](https://github.com/afterburn25/velvet_vixxen/actions/runs/39891075316) passed all 28 required jobs: 301 successful configured steps, 2 intentional member-only skips in age-policy lanes, no unexpected skips. Actual checkout `d8dd8328165aa64c01784f632e824571c7648aff`, source and runtime merge share complete tree `62545f4d4d3c9fdda8cac69786e36bc7d02a485a`. No separate post-merge CI result is inferred.
+
+The release adds authoritative agreement/command/cycle/event records, exact anchored billing periods from original purchased terms, durable member cancel/resume, query-only owner recovery, atomic normal payment/access reduction and privacy-safe late settlement. Migration 019 is additive, with no legacy adoption/backfill. Member billing distinguishes requested and confirmed actions; **Commerce → Payment recovery → Recurring memberships** checks the original outcome without resubmitting it. Preserve the approved design, Photo depth, independent/grouped buttons, organized roots and responsive single-page installer.
+
+Focused recurring source acceptance passed 80 file / 82 SQL assertions, including four real killed-worker checkpoints, concurrent due/events, post-wait authority revocation, strict binding negatives and SQL UTC preservation. Actual-package HTTP passed 71 file / 112 SQL checks per root/nested case; actual desktop/phone no-script browser cases passed 77 file / 118 SQL checks. File, MySQL 8, MariaDB 10.11 and PHP 8.2/8.3 gates passed with retained ownership, persistent OPcache, installer, upload, routes, Full Page Preview, Publish, Composer/public geometry, depth and separate-button checks. Downloaded reports and representative screenshots were reviewed; image decoding is recorded separately from manual inspection.
+
+Fresh/complete Upgrade have 518/477 runtime entries, 13/9 root directories and only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. Installed configuration, identity, keys, data and uploads are preserved. All four gated distribution files match independent source builds and separately retrieved saved downloads literally by bytes, size and SHA-256; saved readback: `2026-10-23T03:59:32.356457+00:00`. The separate 11-file **0.8.1 / repair Build 20261020.3** overlay is unchanged.
+
+**Next unfinished milestone:** select the approved merchant provider/account, map its real checkout, signatures, remote agreement commands, events and reconciliation to the delivered contracts, then complete approved live lifecycle acceptance. Only Sandbox Gateway is registered. Configured live mail/age services, actual-host #12/#13 installation/upgrade/rollback, protected origin/CDN, trusted geographic headers, cron, external backup keys/restore and owner policy/retention decisions remain open. Account closure does not prove external cancellation or independent-backup deletion. Keep #3 as ongoing release policy. This release does not certify production 1.0 or customer deployment.
+
+[Implemented contract](docs/RECURRING_CONTRACT.md) · [Release record](docs/releases/0.9.3-recurring-lifecycle.md) · [CI evidence](docs/releases/0.9.3-recurring-lifecycle-ci.json) · [Delivery evidence](docs/releases/0.9.3-recurring-lifecycle-delivery.json)
+
+Earlier blocks preserve their historical versions, candidate outcomes and then-current remaining-work lists; this release supersedes those status statements. Continue from freshly verified main and advance the visible version for the next changed completed release.
+<!-- recurring-093-release:end -->
+
 <!-- purchased-terms-092-release:start -->
-## Current release — 0.9.2 purchased terms, Build 20261022.2
+## Historical release — 0.9.2 purchased terms, Build 20261022.2
 
 **Verified, merged and delivered.** [PR #37](https://github.com/afterburn25/velvet_vixxen/pull/37) merged corrected source `e932fea2e8894c692d66e9994541edec9c1aa6ec` as `ad20034003c07efe9aaa941bbe266f300ec70906`. All 28 required jobs passed: 297 successful configured steps, 2 intentional member-only skips in age-policy lanes, and no unexpected skips. [CI run 39855224403](https://github.com/afterburn25/velvet_vixxen/actions/runs/39855224403) checked out `092cb29ac1232913ad373912faff6f0965083391`; source, checkout and merge share tree `8fedf3168e4bb41f0166f5d266811d733c6ad58a`. No post-merge CI result is inferred.
 
@@ -19,7 +37,7 @@ Earlier blocks preserve historical versions and their then-current remaining wor
 # Agent Instructions — Velvet Vixxen
 
 <!-- payment-recovery-091-release:start -->
-## Current release — 0.9.1 payment recovery, Build 20261022.1
+## Historical release — 0.9.1 payment recovery, Build 20261022.1
 
 **Verified, merged and delivered.** [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36) completed the corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`. All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. The downloaded gated runtime artifact and all four independently retrieved saved customer files match literally. Saved readback completed at `2026-10-22T17:13:00Z`.
 
@@ -55,7 +73,7 @@ The next milestone is **1.0 payment engineering and production acceptance**. Sha
 <!-- road-to-1.0-integration:end -->
 
 <!-- scene-schedules-0814:start -->
-## Current release — 0.8.14 Scheduled Composer scenes, Build 20261021.3
+## Historical release — 0.8.14 Scheduled Composer scenes, Build 20261021.3
 
 **Verified, merged and delivered.** [PR #33](https://github.com/afterburn25/velvet_vixxen/pull/33) completes [issue #32](https://github.com/afterburn25/velvet_vixxen/issues/32), the bounded scheduled-Composer-scenes increment of broader #9. Merge completed at `2026-10-21T17:07:02Z`; literal saved-download read-back completed at `2026-10-21T17:09:54.040414+00:00`. Earlier release blocks preserve historical evidence and their then-current continuation notes; their older “current release” labels do not override this release or a later verified main merge.
 
@@ -69,7 +87,7 @@ Resume from live `main` and the latest verified release record, checking for a l
 <!-- scene-schedules-0814:end -->
 
 <!-- editorial-calendar-0813:start -->
-## Current release — 0.8.13 Publishing calendar and post expiration, Build 20261021.2
+## Historical release — 0.8.13 Publishing calendar and post expiration, Build 20261021.2
 
 **Verified, merged and delivered.** [PR #31](https://github.com/afterburn25/velvet_vixxen/pull/31) completes [issue #30](https://github.com/afterburn25/velvet_vixxen/issues/30), the bounded calendar and post-expiration increment of broader #9. Merge completed at `2026-10-21T09:43:43Z`; literal saved-download read-back completed at `2026-10-21T09:45:50.359883+00:00`. Earlier release blocks preserve historical evidence and their then-current continuation notes.
 
@@ -91,7 +109,7 @@ Keep **#3** open as the continuing release-evidence policy and broader **#9** op
 <!-- editorial-calendar-0813:end -->
 
 <!-- composer-depth-0812:start -->
-## Current release — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
+## Historical release — 0.8.12 Composer depth and foreground furniture, Build 20261021.1
 
 **Verified, merged and delivered.** [PR #29](https://github.com/afterburn25/velvet_vixxen/pull/29) addresses [issue #28](https://github.com/afterburn25/velvet_vixxen/issues/28). The final release merged on `2026-10-21T06:51:53Z`; literal saved-download read-back completed on `2026-10-21T06:55:05.291536+00:00`. Earlier release blocks remain historical records with their then-current continuation notes.
 
@@ -109,7 +127,7 @@ Keep #3 open as the continuing release-evidence policy. Broader #9 calendar, exp
 <!-- composer-depth-0812:end -->
 
 <!-- navigation-menus-0811:start -->
-## Current release — 0.8.11 Editable menus and public page layout, Build 20261020.12
+## Historical release — 0.8.11 Editable menus and public page layout, Build 20261020.12
 
 **Version 0.8.11 is verified, merged into `main` through [PR #27](https://github.com/afterburn25/velvet_vixxen/pull/27) and delivered.** Merge `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` completed at **2026-10-20 20:48:45 CDT (America/Chicago)** (`2026-10-21T01:48:45Z`). Source `d2b87559d9bccb3c6a3a3ac1fa732f9dd364f84c`, actual seven-job CI checkout `ef343c9963e952c4230965c6cd37b01daa9da4bf` and final merge `6d7cfee8936a30c1b1acff47ca55c9e91d9e644b` share complete tree `27d08c36c4b160a05753ae055b70934646e990ce`. Completion documentation changes no executable, test, workflow or package bytes.
 
@@ -334,11 +352,11 @@ See `docs/UPDATE_VERIFICATION.md`, `docs/releases/0.8.1-installed-build-repair.j
 
 Repository: `afterburn25/velvet_vixxen`
 
-Current delivered release: **0.9.1 — Build 20261022.1**; **Verified, merged and delivered**. Corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`, merge and independent live-main readback `61cf2d5aacc180834e2280aab9bd1f23493f621f` share complete tree `177cb521597517f9257ee390e04d0993d85dca9d`. Use the current evidence table in `PROJECT_STATUS.md` and `docs/releases/0.9.1-payment-recovery.md`. The next separate offline scope is `docs/RECURRING_LIFECYCLE_PLAN.md`.
+Current delivered release: **0.9.3 — Build 20261022.3**; verified, merged and delivered. Source `bb6dca80a5101053a39d7415c0efb91f60835104`, actual checkout `d8dd8328165aa64c01784f632e824571c7648aff` and runtime merge `8f3b040cd69c183c6eb5729960b9556c67ef1105` share tree `62545f4d4d3c9fdda8cac69786e36bc7d02a485a`. Use PROJECT_STATUS.md and docs/releases/0.9.3-recurring-lifecycle.md; main remains authoritative.
 
 Preceding executable Media/Composer/public-route source and tests: `db759342e401617c9933c13b81a147ad9f8fd515`, tree `c62be80d9d4a8250905bdb86a1b4f3ea1676c4e7`, on the historical feature branch. Runtime implementation was uploaded in `723205b7bddad06d4f603b539aea1a777bdd2ae5`; the final test followup changes no runtime bytes. All seven jobs in [run 39304801698](https://github.com/afterburn25/velvet_vixxen/actions/runs/39304801698) passed, and the saved customer downloads match the downloaded gated artifact. That historical evidence is in `docs/releases/0.8.1-media-composer-repair.json`; the current release is recorded at the top of `PROJECT_STATUS.md` and `docs/TEST_REPORT.md`. The earlier installer/database/layout correction `e5b04daa132521be69c943151f8112c7cd2017e8` remains included in full distributions. Inspect live source, CI, PR and package evidence before claiming a subsequent completion, merge or deployment.
 
-`main` is the authoritative integration branch; the 0.9.1 merge and independent readback are verified. The preceding 0.9.0 record remains at `docs/releases/0.9.0-safeguards.md`; current payment release evidence is `docs/releases/0.9.1-payment-recovery.md`. Preserve all delivered 0.8/0.9 behavior, required gates and approved roots. Continue authoritative recurring lifecycle and immutable purchased terms in a separate scoped increment from verified live main; earlier releases retain historical evidence.
+`main` is the authoritative integration branch; the 0.9.3 runtime merge and independent main readback are verified. Preserve all delivered behavior, required gates and approved roots. Purchased terms and recurring agreements/cycles/commands are implemented; real merchant integration and live acceptance remain separate.
 
 Read `PROJECT_STATUS.md`, `SESSION_HANDOFF.md`, `docs/ROADMAP.md`, `docs/DECISIONS.md`, `docs/TESTING.md`, `docs/TEST_REPORT.md`, `RELEASE_MANIFEST.txt`, and `SECURITY.md` before changing code.
 
@@ -377,7 +395,7 @@ The user requires the latest source and progress documents to be uploaded to Git
 
 Read `INCOMPLETE_WORK.md` in full and use its current continuation target. The 0.9 implementation is present: administrator MFA, current identity and durable sessions; atomic configuration/private journals; deleted editorial recovery; campaign preview/test-send/templates; business audiences and durable referral/campaign/coupon attribution; consent, retention, reports, exports and funnels; new-content, renewal, payment-failure and abandoned-registration notifications; authenticated provider-event suppression/recovery; encrypted backup/restore; protection reports and media holds; age/geographic/policy controls; and complete own-data exports with reviewed ten-stage closure. Preserve their real file/MySQL/MariaDB, Apache root/nested, desktop/mobile, interrupted-worker and delayed-writer coverage. Do not reopen these as missing source based on the historical #9 lists. Preserve all earlier Composer, media, member, commerce, communications, Booking Builder, add-on, installer and publishing behavior.
 
-The final 0.9.1 whole-release CI, artifacts, merge and saved-download readback are complete. Preserve the delivered payment journals and owner recovery controls. **Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery. Only Sandbox Gateway is registered. A selected approved merchant provider still needs its actual adapter, protocol mapping and approved live lifecycle acceptance. Configured production mail/SendGrid and age services, customer-host install/upgrade/rollback, running-build and protected-origin/CDN checks, trusted geographic headers, cron, external backup key/restore, and owner policy/retention decisions remain separate. Account closure does not prove external billing cancellation or deletion of independent backups. Keep #3 as ongoing release policy and actual-host #12/#13 open without host evidence. Reconcile issue scope against accepted evidence before changing issue state.
+Purchased terms (0.9.2) and authoritative recurring lifecycle (0.9.3) are verified, merged and delivered. **Next unfinished milestone:** select the approved merchant provider/account, map its real checkout, signatures, remote agreement commands, events and reconciliation to the delivered contracts, then complete approved live lifecycle acceptance. Only Sandbox Gateway is registered. Configured live mail/age services, actual-host #12/#13 installation/upgrade/rollback, protected origin/CDN, trusted geographic headers, cron, external backup keys/restore and owner policy/retention decisions remain open. Account closure does not prove external cancellation or independent-backup deletion. Keep #3 as ongoing release policy. This release does not certify production 1.0 or customer deployment.
 
 The marketing business API is `app/Core/MarketingStore.php`; `MarketingStorage.php` selects the protected file store or active `MarketingSqlRepository.php` backend. Runtime public routes are under `public/routes`, and operational commands are under `app/Console`. Do not assume historical paths or advanced marketing descriptions exist in executable source.
 

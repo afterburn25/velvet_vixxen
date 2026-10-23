@@ -1,19 +1,25 @@
-<!-- recurring-093-candidate:start -->
-## Active candidate — 0.9.3 recurring lifecycle, Build 20261022.3
+<!-- recurring-093-release:start -->
+## Current release — 0.9.3 recurring lifecycle, Build 20261022.3
 
-The next milestone is implemented on the existing [draft PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38), based on verified main `afc1d0c8371a0aa76d2e193dd068447e0eb0506b`. Delivered main remains **0.9.2** until this candidate passes complete release acceptance and merges. Earlier “next recurring”/documentation-only statements below are historical.
+**Verified, merged and delivered.** [PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38) merged source `bb6dca80a5101053a39d7415c0efb91f60835104` as `8f3b040cd69c183c6eb5729960b9556c67ef1105`. [CI run 39891075316](https://github.com/afterburn25/velvet_vixxen/actions/runs/39891075316) passed all 28 required jobs: 301 successful configured steps, 2 intentional member-only skips in age-policy lanes, no unexpected skips. Actual checkout `d8dd8328165aa64c01784f632e824571c7648aff`, source and runtime merge share complete tree `62545f4d4d3c9fdda8cac69786e36bc7d02a485a`. No separate post-merge CI result is inferred.
 
-This candidate adds strict authoritative agreement/command/cycle/event records, exact anchored periods from original purchased terms, durable cancel/resume and query-only owner recovery, normal atomic payment/access reduction, privacy redaction and additive migration019. Only Sandbox is registered; live scope remains blocked. It preserves the approved design, Photo depth, separate and grouped buttons, organized roots and single-page installer.
+The release adds authoritative agreement/command/cycle/event records, exact anchored billing periods from original purchased terms, durable member cancel/resume, query-only owner recovery, atomic normal payment/access reduction and privacy-safe late settlement. Migration 019 is additive, with no legacy adoption/backfill. Member billing distinguishes requested and confirmed actions; **Commerce → Payment recovery → Recurring memberships** checks the original outcome without resubmitting it. Preserve the approved design, Photo depth, independent/grouped buttons, organized roots and responsive single-page installer.
 
-Local PHP8.3.6 acceptance: recurring 80 file / 81 MariaDB assertions (four killed workers, concurrent due/event workers and post-wait authority revocation); exact packaged HTTP file/SQL at root/nested; actual 018→019 installed upgrade and migration rollback; populated encrypted file and SQL backup/restore. All68 retained disposable module suites passed. The candidate browser producers and expanded retained 28-job workflow are prepared. Full frozen-source CI, original screenshot/artifact review, merge and saved-byte delivery remain pending; no new package is delivered at this checkpoint. Local checks do not certify PHP8.2, MySQL8, actual hosted installation or live providers.
+Focused recurring source acceptance passed 80 file / 82 SQL assertions, including four real killed-worker checkpoints, concurrent due/events, post-wait authority revocation, strict binding negatives and SQL UTC preservation. Actual-package HTTP passed 71 file / 112 SQL checks per root/nested case; actual desktop/phone no-script browser cases passed 77 file / 118 SQL checks. File, MySQL 8, MariaDB 10.11 and PHP 8.2/8.3 gates passed with retained ownership, persistent OPcache, installer, upload, routes, Full Page Preview, Publish, Composer/public geometry, depth and separate-button checks. Downloaded reports and representative screenshots were reviewed; image decoding is recorded separately from manual inspection.
 
-See [implemented contract](RECURRING_CONTRACT.md) and [current checkpoint](releases/0.9.3-recurring-checkpoint.md). Keep #3 release evidence and actual-host #12/#13 open. Preserve every existing gate and integrate this tested increment before starting another branch.
-<!-- recurring-093-candidate:end -->
+Fresh/complete Upgrade have 518/477 runtime entries, 13/9 root directories and only `.htaccess`, `VERSION`, `index.php` and `route.php` as root files. Installed configuration, identity, keys, data and uploads are preserved. All four gated distribution files match independent source builds and separately retrieved saved downloads literally by bytes, size and SHA-256; saved readback: `2026-10-23T03:59:32.356457+00:00`. The separate 11-file **0.8.1 / repair Build 20261020.3** overlay is unchanged.
+
+**Next unfinished milestone:** select the approved merchant provider/account, map its real checkout, signatures, remote agreement commands, events and reconciliation to the delivered contracts, then complete approved live lifecycle acceptance. Only Sandbox Gateway is registered. Configured live mail/age services, actual-host #12/#13 installation/upgrade/rollback, protected origin/CDN, trusted geographic headers, cron, external backup keys/restore and owner policy/retention decisions remain open. Account closure does not prove external cancellation or independent-backup deletion. Keep #3 as ongoing release policy. This release does not certify production 1.0 or customer deployment.
+
+[Implemented contract](RECURRING_CONTRACT.md) · [Release record](releases/0.9.3-recurring-lifecycle.md) · [CI evidence](releases/0.9.3-recurring-lifecycle-ci.json) · [Delivery evidence](releases/0.9.3-recurring-lifecycle-delivery.json)
+
+Earlier blocks preserve their historical versions, candidate outcomes and then-current remaining-work lists; this release supersedes those status statements. Continue from freshly verified main and advance the visible version for the next changed completed release.
+<!-- recurring-093-release:end -->
 
 # Build through 1.0 — release and continuation
 
 <!-- payment-recovery-091-release:start -->
-## Current release — 0.9.1 payment recovery, Build 20261022.1
+## Historical release — 0.9.1 payment recovery, Build 20261022.1
 
 **Verified, merged and delivered.** [PR #36](https://github.com/afterburn25/velvet_vixxen/pull/36) completed the corrected source `2b66fc3c6b3409cf94086df6430ee060b24ce0ea`. All 28 required jobs passed; 293 configured steps succeeded, with two intentional member-only omissions in the age-policy lanes and no unexpected skips. Final packaging passed. The downloaded gated runtime artifact and all four independently retrieved saved customer files match literally. Saved readback completed at `2026-10-22T17:13:00Z`.
 
@@ -44,13 +50,13 @@ The completed release preserves every original required gate and adds current fi
 
 ## Continue payment engineering toward 1.0
 
-The **0.9.1 / Build 20261022.1** payment foundation and owner recovery are now verified, merged and delivered. **Next offline work:** authoritative recurring agreements, immutable membership/bundle purchase snapshots, stable billing-cycle identities, durable cancellation/resumption commands and an idempotent renewal reducer. Follow the recurring lifecycle plan from verified live main in a separate branch; this documentation does not implement that next increment. Advance the visible version for its next changed completed delivery. Follow [the recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md) for exact current seams, model/migration proposals, member/owner behavior and meaningful offline acceptance.
+Purchased terms (0.9.2) and authoritative recurring lifecycle (0.9.3) are verified, merged and delivered. **Next unfinished milestone:** select the approved merchant provider/account, map its real checkout, signatures, remote agreement commands, events and reconciliation to the delivered contracts, then complete approved live lifecycle acceptance. Only Sandbox Gateway is registered. Configured live mail/age services, actual-host #12/#13 installation/upgrade/rollback, protected origin/CDN, trusted geographic headers, cron, external backup keys/restore and owner policy/retention decisions remain open. Account closure does not prove external cancellation or independent-backup deletion. Keep #3 as ongoing release policy. This release does not certify production 1.0 or customer deployment.
 
 Only Sandbox Gateway is registered. Continue all useful offline work before asking for inputs, then obtain the selected approved processor and merchant integration requirements; approved production mail recipients and service configuration; intended host access for preserved upgrade/rollback/restore and running-build checks; and configured age-provider/policy decisions. Those requirements remain open in issue #34 and actual-host issues #12/#13. Do not describe sandbox acceptance as live-payment or production-certified 1.0.
 
 Photo depth is resolved after the owner's installed-version update. Preserve that control. Root `.vvx-private-repair-*` folders contain preserved ownership-repair copies; use **System → Repair Backups → Move Root Backups to Private Storage**, followed only by a freshly verified duplicate decision. No actual customer-host inspection or deletion has occurred.
 
-[Release record](releases/0.9.1-payment-recovery.md) · [Final CI evidence](releases/0.9.1-payment-recovery-ci.json) · [Saved-delivery evidence](releases/0.9.1-payment-recovery-delivery.json) · [Correction evidence](releases/0.9.1-ci-corrections.md) · [Recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md)
+[Release record](releases/0.9.3-recurring-lifecycle.md) · [Final CI evidence](releases/0.9.3-recurring-lifecycle-ci.json) · [Saved-delivery evidence](releases/0.9.3-recurring-lifecycle-delivery.json) · [Correction evidence](releases/0.9.3-ci-corrections.md) · [Recurring lifecycle plan](RECURRING_LIFECYCLE_PLAN.md)
 
 ## Historical integration checkpoint and correction history
 
@@ -119,7 +125,7 @@ Folders named `.vvx-private-repair-uploads-<random>` (or another repaired runtim
 
 The remaining work includes payment engineering and configured production acceptance. The [pinned readiness audit](releases/0.9.0-readiness-audit.md) identifies the actual source boundaries; it does not treat missing credentials as the only payment gap.
 
-The delivered 0.9.1 foundation provides stable operation identities, held/unknown outcomes, resumable effects and strict provider/order/transaction/amount/currency binding. Remaining offline engineering is authoritative recurring agreement/cycle/command handling and immutable membership/bundle purchase terms under the separate plan. Sandbox acceptance is not a live adapter. The selected provider still needs actual checkout, authenticated transport, remote agreement identities, event mapping and reconciliation. Preserve member privacy external-billing review until cancellation is confirmed.
+Purchased terms (0.9.2) and authoritative recurring lifecycle (0.9.3) are verified, merged and delivered. **Next unfinished milestone:** select the approved merchant provider/account, map its real checkout, signatures, remote agreement commands, events and reconciliation to the delivered contracts, then complete approved live lifecycle acceptance. Only Sandbox Gateway is registered. Configured live mail/age services, actual-host #12/#13 installation/upgrade/rollback, protected origin/CDN, trusted geographic headers, cron, external backup keys/restore and owner policy/retention decisions remain open. Account closure does not prove external cancellation or independent-backup deletion. Keep #3 as ongoing release policy. This release does not certify production 1.0 or customer deployment.
 
 The following owner/provider/host inputs and real acceptance remain required:
 

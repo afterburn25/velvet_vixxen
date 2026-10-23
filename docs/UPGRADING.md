@@ -1,6 +1,6 @@
 # Updating an installed Velvet Vixxen site
 
-Use the complete **0.8.6 / Build 20261020.7 Upgrade-from-0.8.x** package for an existing 0.8.x installation. Follow [Update Verification](UPDATE_VERIFICATION.md) to verify uploaded files and refresh running PHP. **System → Database Updates** and the equivalent CLI apply any pending database migrations without rerunning the installer.
+Use the complete **0.9.3 / Build 20261022.3 Upgrade-from-0.8.x-and-0.9.x** package for an existing supported 0.8.x/0.9.x installation. Follow [Update Verification](UPDATE_VERIFICATION.md) to verify uploaded files and refresh running PHP. **System → Database Updates** and the equivalent CLI apply any pending database migrations without rerunning the installer.
 
 ## Prepare a verified backup
 
@@ -28,7 +28,7 @@ For a database that already has the first 12 baseline migrations, this 0.8.1 con
 | `202610190013_booking_form_builder` | Stores each booking submission's original questions, choices, and answers separately from later form edits. |
 | `202610190014_merchandise` | Adds merchandise products, variants, inventory, and order reservations. |
 
-Version 0.8.6 additionally includes `202610200015_marketing_sql_storage`, which creates two marketing storage tables. The current complete package contains 15 migrations. An installation's actual pending list depends on its recorded history. A database that is already current remains unchanged when the updater is run again.
+Version 0.8.6 additionally includes `202610200015_marketing_sql_storage`, which creates two marketing storage tables. The current 0.9.3 complete package contains 19 migrations. Migrations 016–019 add marketing measurements, private state, the payment journal and recurring lifecycle ; 019 creates two empty tables without adopting historical subscriptions. Historical migration bytes remain unchanged. An installation's actual pending list depends on its recorded history. A database that is already current remains unchanged when the updater is run again.
 
 Applying migration 015 does not import marketing data or change the active backend. After the database update, review **System → Marketing Storage** for the separate explicit owner move described in [Marketing Storage](MARKETING_STORAGE.md).
 

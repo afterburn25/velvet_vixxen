@@ -1,3 +1,7 @@
+## Recurring lifecycle decision — accepted 0.9.3
+
+Persist strict scope-bound authoritative agreements, immutable original terms, exact anchored cycle identities, durable commands and authenticated event receipts. Query uncertain original requests; never silently resend. Apply confirmed money, order, cycle and access facts together using the existing financial reducer. Pending member commands remain distinct from confirmed state. Add migration 019 without legacy backfill. Preserve privacy redaction and necessary original cancellation after closure. Only Sandbox is registered; real provider mapping/live acceptance remains separate. [Release evidence](releases/0.9.3-recurring-lifecycle.md).
+
 ## Purchased terms release decision — 2026-10-22
 
 Use a versioned, strict commercial snapshot and canonical SHA-256 in the original order item. Protect that snapshot, the order requirement marker and the existing fulfillment subscription ID. Resolve purchased subscription facts through the original item on file and SQL storage, without retroactive historical acceptance or a new table. Catalogue changes affect new purchases; current access and protection policy still applies. Initial coupon/tax and charged trial behavior are explicit sandbox terms; production recurring remains blocked. Historical incomplete purchases hold for review. Full remote agreement/cycle semantics remain the next separate increment.

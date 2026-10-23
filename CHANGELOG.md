@@ -1,3 +1,7 @@
+## 0.9.3 — Authoritative recurring lifecycle, Build 20261022.3
+
+Verified, merged and delivered through PR #38. Adds strict agreements, commands, exact billing cycles/events, confirmed member cancel/resume, query-only owner recovery, atomic payment/access settlement, privacy handling and additive migration 019. All28 required jobs passed; independent gated/source/saved bytes match. Retains approved Composer, installer and organized roots. Only Sandbox is registered; real provider/host acceptance remains open. [Release evidence](docs/releases/0.9.3-recurring-lifecycle.md).
+
 ## 0.9.2 — Purchased membership and bundle terms, Build 20261022.2
 
 **Verified, merged and delivered through [PR #37](https://github.com/afterburn25/velvet_vixxen/pull/37).** Freeze validated commercial terms before dispatch; reject stale checkout reviews; preserve purchased benefits, discounts, sandbox renewal amounts and exact bundle contents through delayed recovery. Keep explicit legacy/held handling, immutable metadata, safe exports and authorized privacy erasure. Correct SQL bundle deduplication and transaction rollback.

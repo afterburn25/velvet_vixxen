@@ -1,6 +1,6 @@
-# Recurring lifecycle — 0.9.3 candidate
+# Recurring lifecycle — 0.9.3
 
-Implemented on `feature/recurring-lifecycle-0.9.3` in [PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38), based on independently verified 0.9.2 main `afc1d0c8371a0aa76d2e193dd068447e0eb0506b`. Candidate identity: **0.9.3 / Build 20261022.3**. Full frozen-source CI, artifact review, merge and saved-delivery acceptance are required before release. The initial documentation-only checkpoint on this PR is superseded by this implementation.
+Implemented, fully tested, merged and delivered through [PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38). Release **0.9.3 / Build 20261022.3** is bound to source `bb6dca80a5101053a39d7415c0efb91f60835104`, tree `62545f4d4d3c9fdda8cac69786e36bc7d02a485a` and the [accepted release evidence](releases/0.9.3-recurring-lifecycle.md). The original documentation-only and candidate checkpoints are historical. Only Sandbox is registered; a selected provider still needs its actual adapter and approved live acceptance.
 
 ## Stored authority
 
@@ -47,4 +47,4 @@ The existing encrypted archive and isolated restore now exercise populated agree
 - `tests/Browser/recurring_playwright.py`: same actual controls on desktop/phone, keyboard and JavaScript disabled, overflow checks and decoded screenshots.
 - Installed 018→019 preservation/no-backfill/resume, migration rollback, populated encrypted restore and every retained source/payment/purchased-terms/installer/ownership/OPcache/HTTP/browser/package gate remain required.
 
-Local acceptance is recorded in the [checkpoint](releases/0.9.3-recurring-checkpoint.md). Candidate tests are not a production merchant, customer-host or 1.0 certification. Additional recurring-specific wait-barrier and interruption permutations remain review work until separately exercised; the retained payment foundation's broader cases must not be relabeled recurring-specific evidence.
+Final source/CI/artifact/merge/saved-delivery acceptance is recorded in the [release record](releases/0.9.3-recurring-lifecycle.md); the [checkpoint](releases/0.9.3-recurring-checkpoint.md) retains earlier outcomes. These tests do not establish production merchant, customer-host or 1.0 certification. Additional recurring-specific wait-barrier and interruption permutations remain review work until separately exercised; the retained payment foundation's broader cases must not be relabeled recurring-specific evidence.

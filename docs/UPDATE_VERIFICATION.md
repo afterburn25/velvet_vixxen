@@ -1,3 +1,7 @@
+## Current 0.9.3 / Build 20261022.3 complete Upgrade
+
+Use the complete installed-site Upgrade after a verified recoverable backup. Extract into the existing active site directory, preserving configuration, storage, uploads, identity, owner and keys. Open the physical `admin/repair-current.php`, complete current-owner authentication, require zero files needing replacement and uploaded version 0.9.3 / build 20261022.3, then deliberately refresh application PHP and require that running build. Apply pending SQL through **System → Database Updates** with the reviewed backup acknowledgment; migration 019 adds empty recurring tables without adopting legacy subscriptions. SQL has 19 migrations / 90 declared tables plus the registry. File mode requires no SQL. Review retained routes, uploads, Full Page Preview, Publish, Composer geometry/depth and separate/grouped buttons. Use the existing Repair Backups controls for preserved ownership copies. The separate 0.8.1 repair overlay is unchanged and is not this complete update. [Release evidence](releases/0.9.3-recurring-lifecycle.md). No CI/package verification establishes that a customer host was updated. Earlier procedures retain historical build identities.
+
 # Update and verify Velvet Vixxen
 
 <!-- payment-recovery-091-update:start -->
