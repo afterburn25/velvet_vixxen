@@ -73,7 +73,7 @@ try {
         $audit = json_decode((string) $pdo->query("SELECT context_json FROM audit_log WHERE action_key IN ('installation.completed','installation.resumed') ORDER BY id DESC LIMIT 1")->fetchColumn(), true, 512, JSON_THROW_ON_ERROR);
         $assert(($audit['version'] ?? '') === $version, 'The completed/resumed installation audit has the wrong release version.');
         $assert(($result['owner_reused'] ?? null) === $ownerReused, 'Wrong owner reuse result.');
-        $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 19, 'The complete migration ledger is missing entries.');
+        $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 20, 'The complete migration ledger is missing entries.');
         $assert((int) $pdo->query('SELECT COUNT(*) FROM admins')->fetchColumn() === 1, 'Owner account was missing or duplicated.');
         $owner = $pdo->query('SELECT * FROM admins LIMIT 1')->fetch();
         $assert(password_verify('OwnerFixture123!', $owner['password_hash']), 'Owner cannot authenticate after installation.');
@@ -226,7 +226,7 @@ try {
     $staged = \App\Core\Config::loadFresh($runtime . '/config/app.php');
     $assert(($staged['installed'] ?? null) === false && ($staged['installer_pending'] ?? null) === true, 'Failure did not retain resumable staged configuration.');
     $assert($staged['security'] === $capturedKeys && $staged['installation_id'] === $capturedIdentity, 'Failure replaced the keys or installation identity.');
-    $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 19, 'Failure destructively rolled back completed DDL or removed the migration registry.');
+    $assert((int) $pdo->query('SELECT COUNT(*) FROM migrations')->fetchColumn() === 20, 'Failure destructively rolled back completed DDL or removed the migration registry.');
     $preservedRows($before); $preservedFiles();
     $retry = $payload; $retry['install_id'] = 'different-retry-browser-session';
     $afterConfig = $assertInstalled(vvx_installer_fixture_install($runtime, $retry), false);

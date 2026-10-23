@@ -637,13 +637,11 @@ trait MemberStoreTrait
         $id = trim((string) ($plan['id'] ?? ''));
         $key = slugify((string) ($plan['key'] ?? $name));
         $interval = (string) ($plan['billingInterval'] ?? 'month');
-        if (!in_array($interval, ['month', 'year', 'one_time'], true)) {
-            $interval = 'month';
-        }
+        $period = MembershipPeriod::validate($interval, array_key_exists('intervalCount', $plan) ? $plan['intervalCount'] : 1);
         $record = [
             'id' => $id !== '' ? $id : bin2hex(random_bytes(7)), 'key' => $key, 'name' => $name,
             'description' => trim((string) ($plan['description'] ?? '')), 'billingInterval' => $interval,
-            'intervalCount' => max(1, (int) ($plan['intervalCount'] ?? 1)), 'price' => max(0, round((float) ($plan['price'] ?? 0), 2)),
+            'intervalCount' => $period['count'], 'price' => max(0, round((float) ($plan['price'] ?? 0), 2)),
             'currency' => strtoupper(substr((string) ($plan['currency'] ?? 'USD'), 0, 3)), 'trialDays' => max(0, (int) ($plan['trialDays'] ?? 0)),
             'ppvDiscountPercent' => max(0, min(100, round((float) ($plan['ppvDiscountPercent'] ?? 0), 2))),
             'benefits' => array_values(array_filter(array_map('trim', (array) ($plan['benefits'] ?? [])))),

@@ -30,6 +30,11 @@ $updateTestWriteMigration = static function (string $key, array $up, array $down
         . var_export(['id' => $key, 'description' => 'Disposable update safety fixture', 'up' => $up, 'down' => $down], true) . ";\n");
 };
 try {
+    // Reconstruct the historical ENUM only in this exclusively owned schema.
+    $updateTestDayKey='202610230020_membership_day_periods';
+    $updateTestAssert((int)$pdo->query("SELECT COUNT(*) FROM membership_plans WHERE billing_interval='day'")->fetchColumn()===0,'Refusing to rewind an accepted fixed-day offer.');
+    $pdo->exec("ALTER TABLE membership_plans MODIFY billing_interval ENUM('month','year','one_time') NOT NULL DEFAULT 'month'");
+    $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$updateTestDayKey]);
     $updateTestRecurringKey='202610220019_recurring_lifecycle';
     $updateTestRecurringDefinition=require $root.'/database/migrations/'.$updateTestRecurringKey.'.php';
     foreach($updateTestRecurringDefinition['tables'] as $table)$updateTestAssert((int)$pdo->query('SELECT COUNT(*) FROM `'.$table.'`')->fetchColumn()===0,'Refusing to rewind nonempty recurring fixture state.');
@@ -272,6 +277,24 @@ try {
     $updateTestRecurringCurrent=$updateTestService->preview();
     $updateTestAssert($updateTestRecurringCurrent['pending']===[] && $updateTestService->apply($updateTestRecurringCurrent['plan'],false,'')['status']==='current','Recurring migration did not resume idempotently.');
     $updateTestAssert(file_get_contents($updateTestRoot.'/config/app.php')===$updateTestConfigBytes && file_get_contents($updateTestRoot.'/storage/install.lock')===$updateTestLockBytes && file_get_contents($updateTestRoot.'/uploads/customer-fixture.txt')==='Preserve this pre-existing customer upload.','Recurring update changed private files or installation identity.');
+
+    // Actual 019 to 020 widening must not convert existing catalogue or paid facts.
+    $updateTestBeforeDay=[];
+    foreach($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table)$updateTestBeforeDay[$table]=$pdo->query('SELECT * FROM `'.$table.'`')->fetchAll();
+    copy($root.'/database/migrations/'.$updateTestDayKey.'.php',$updateTestRoot.'/database/migrations/'.$updateTestDayKey.'.php');
+    $updateTestDayPlan=$updateTestService->preview();
+    $updateTestAssert(count($updateTestDayPlan['applied'])===19 && array_column($updateTestDayPlan['pending'],'id')===[$updateTestDayKey],'The installed 019 schema did not isolate the day-period update.');
+    $updateTestDayApplied=$updateTestService->apply($updateTestDayPlan['plan'],true,'Verified owned 019 commercial and private-state backup');
+    $updateTestAssert($updateTestDayApplied['status']==='completed' && $updateTestDayApplied['applied']===[$updateTestDayKey],'Day-period update did not apply only020.');
+    foreach($updateTestBeforeDay as $table=>$rows){
+        $after=$pdo->query('SELECT * FROM `'.$table.'`')->fetchAll();
+        if($table==='migrations')$after=array_values(array_filter($after,static fn(array $row):bool=>$row['migration_key']!==$updateTestDayKey));
+        sort($rows);sort($after);
+        $updateTestAssert($after===$rows,'Day-period migration changed an existing record in '.$table);
+    }
+    $updateTestDayCurrent=$updateTestService->preview();
+    $updateTestAssert($updateTestDayCurrent['pending']===[] && $updateTestService->apply($updateTestDayCurrent['plan'],false,'')['status']==='current','Day-period migration did not resume idempotently.');
+    $updateTestAssert(file_get_contents($updateTestRoot.'/config/app.php')===$updateTestConfigBytes && file_get_contents($updateTestRoot.'/storage/install.lock')===$updateTestLockBytes,'Day-period migration changed installation identity or configuration.');
 
     // A deliberately failing DDL migration contains destructive down SQL: installed-site mode must never run it.
     $updateTestWriteMigration('999900000015_update_success', [

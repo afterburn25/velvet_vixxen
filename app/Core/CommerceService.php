@@ -706,7 +706,7 @@ final class CommerceService
 
     private function nextPeriodEnd(string $start, string $interval, int $count): string
     {
-        $time=strtotime($start)?:time();$count=max(1,$count);return match($interval){'year'=>gmdate('c',strtotime('+'.$count.' years',$time)),'one_time'=>gmdate('c',strtotime('+100 years',$time)),default=>gmdate('c',strtotime('+'.$count.' months',$time))};
+        $time=strtotime($start)?:time();$count=max(1,$count);return match($interval){'day'=>gmdate('c',$time+$count*86400),'year'=>gmdate('c',strtotime('+'.$count.' years',$time)),'one_time'=>gmdate('c',strtotime('+100 years',$time)),default=>gmdate('c',strtotime('+'.$count.' months',$time))};
     }
 
     /** @param array<string,mixed> $member @param array<string,mixed> $order */

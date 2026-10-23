@@ -1,0 +1,226 @@
+{
+  "schema": 1,
+  "recorded_at": "2026-10-23T16:24:42.121070+00:00",
+  "status": "local_pass_ci_pending",
+  "version": "0.9.4",
+  "build_id": "20261023.1",
+  "baseline": {
+    "commit": "a959bed69de5a54fd8db6f9b76bd7dc7d4f9a578",
+    "tree": "9d938b493e34cc239953f04b963b061e09365c3a"
+  },
+  "php": "8.3.6",
+  "chromium": "151.0.7922.34",
+  "focused_day_periods": {
+    "file_assertions": 59,
+    "sql": "pending required CI",
+    "live_provider_calls": 0
+  },
+  "http": {
+    "passed": true,
+    "cases": {
+      "file-root": {
+        "passed": true,
+        "checks": 56,
+        "images": [],
+        "no_javascript": false,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true,
+        "fixed_day_offer_owner_and_public_disclosure": true
+      },
+      "file-nested": {
+        "passed": true,
+        "checks": 56,
+        "images": [],
+        "no_javascript": false,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true,
+        "fixed_day_offer_owner_and_public_disclosure": true
+      }
+    },
+    "fresh_zip_sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
+    "archive_runtime_matches_sources": true
+  },
+  "browser": {
+    "passed": true,
+    "cases": {
+      "file-desktop": {
+        "passed": true,
+        "checks": 58,
+        "images": [
+          {
+            "file": "purchased-terms-file-desktop-checkout-fixed-day.png",
+            "sha256": "611acc0059550ae6304b80a5477b6047330694336c7e64ba98d22fc8c47431a4",
+            "dimensions": [
+              1440,
+              1329
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-desktop-checkout-plan.png",
+            "sha256": "88f9a474da9555127d42bb92e3db7f98fb511d02fddae9c811ff41be9e54c5b6",
+            "dimensions": [
+              1440,
+              1329
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-desktop-billing-accepted-and-legacy.png",
+            "sha256": "7b67949ec991c7fa6ec9ed05550773b9458bf6994563ff821359bca862b478c5",
+            "dimensions": [
+              1440,
+              1264
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-desktop-checkout-bundle.png",
+            "sha256": "08a9261de3ebc5125101e0107239018f0852e8278a18929cfa22459212d4d1f0",
+            "dimensions": [
+              1440,
+              1275
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-desktop-library-original-bundle.png",
+            "sha256": "998421ca303c79a1ebf7ba4180a5c10f923cc919e77836b6aee5d26ad95aef55",
+            "dimensions": [
+              1440,
+              1000
+            ],
+            "decoded": true
+          }
+        ],
+        "no_javascript": true,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true,
+        "fixed_day_offer_owner_and_public_disclosure": true
+      },
+      "file-phone": {
+        "passed": true,
+        "checks": 58,
+        "images": [
+          {
+            "file": "purchased-terms-file-phone-checkout-fixed-day.png",
+            "sha256": "e96726e56b74dd2c1f815cea8ced29d56c4b251fea4e45b27299abf8a2bdc3df",
+            "dimensions": [
+              390,
+              2028
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-phone-checkout-plan.png",
+            "sha256": "3ab689405907680e9ed189116f1df57cd7d340612a2a74fa2f72a91081df8493",
+            "dimensions": [
+              390,
+              2028
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-phone-billing-accepted-and-legacy.png",
+            "sha256": "16cadc38a39eb724ac1623999799e0bf7095bb172b0ae12ad3536cc6bb05e5b8",
+            "dimensions": [
+              390,
+              1526
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-phone-checkout-bundle.png",
+            "sha256": "500aef1f7da7e2ec0de012063f95a6d7164191f4e822f18e79a6fc9876b91a08",
+            "dimensions": [
+              390,
+              1955
+            ],
+            "decoded": true
+          },
+          {
+            "file": "purchased-terms-file-phone-library-original-bundle.png",
+            "sha256": "85000141aee2b76ae040f9392cb9e765363b73f8adc9b883d9f34f63ef0c58f0",
+            "dimensions": [
+              390,
+              1217
+            ],
+            "decoded": true
+          }
+        ],
+        "no_javascript": true,
+        "database": null,
+        "exact_original_membership_and_bundle": true,
+        "stale_review_rejected_before_order": true,
+        "fixed_day_offer_owner_and_public_disclosure": true
+      }
+    },
+    "fresh_zip_sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
+    "archive_runtime_matches_sources": true
+  },
+  "visual_review": {
+    "decoded_screenshots": 10,
+    "manually_reviewed": [
+      "purchased-terms-file-desktop-checkout-fixed-day.png",
+      "purchased-terms-file-phone-checkout-fixed-day.png"
+    ],
+    "findings": "Every 30 days and exact price visible; responsive approved layout retained without horizontal overflow. Private QA images are excluded from runtime and repository."
+  },
+  "source_suite": {
+    "disposable_php_js_python_feature_security_package_checks": "passed",
+    "full_repository_command": "blocked locally at mandatory foreign-ownership preflight: single-UID environment cannot chown to nobody",
+    "gate_preserved_in_ci": true,
+    "missing_private_tooling_extensions_resolved": [
+      "phar",
+      "gd",
+      "fileinfo",
+      "zip"
+    ],
+    "product_gate_bypassed": false
+  },
+  "packages": {
+    "fresh": {
+      "bytes": 8167988,
+      "sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
+      "entries": 520
+    },
+    "upgrade": {
+      "bytes": 8010763,
+      "sha256": "8ace7c17d11d7c1d11528966053344cd0ca16e0cd831ad146abfea57f796a0bc",
+      "entries": 479
+    },
+    "installer_repair": {
+      "bytes": 60065,
+      "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+      "unchanged": true
+    },
+    "changed_runtime_entries": 13,
+    "new_runtime_entries": 2,
+    "historical_093_rebuilt_and_literal_hash_verified": true,
+    "delivery": "not issued"
+  },
+  "acceptance_boundaries": {
+    "required_ci": "pending",
+    "merge": "pending",
+    "saved_customer_delivery": "pending",
+    "live_ccbill_mail_age": "not accessed or certified",
+    "customer_host": "URL and configured environment not supplied",
+    "owner_policy_decisions": "not supplied",
+    "deterministic_http_test_upload": "blocked by automatic approval review; no further retry; needs explicit authorization"
+  },
+  "database_update_extension_guard": {
+    "historical_main_failure_run": 39965488546,
+    "historical_failed_job": 120454224773,
+    "negative_control": "Original runtime reproduced byte-preservation failure after a real second boundary; only addonTasks changed.",
+    "fix": "Do not boot extensions for database-update status or apply requests before authorization.",
+    "regression": "Existing CI owner/CSRF/private-path/config/lock and full saved-state byte assertions are retained. An additional locally executed second-boundary timing check passes but its source upload is blocked by automatic approval review of the pre-existing public synthetic demo password.",
+    "focused_http": "passed",
+    "runtime_admin_php_syntax": "passed",
+    "retained_http_suites": "passed: all ten suites; only loopback SMTP, no external messages",
+    "blocked_test_file": "tests/Http/database_updates_http.py",
+    "blocked_change": "import time; wait across the next real second before the rejected non-owner POST"
+  }
+}

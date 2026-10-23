@@ -198,6 +198,7 @@ jobs:
             database/migrations/202610220018_payment_journal.php docs/PAYMENT_ADAPTER_CONTRACT.md
             tests/Feature/purchased_terms.php tests/Http/purchased_terms_fixture.php tests/Http/purchased_terms_http.py
             tests/Browser/purchased_terms_playwright.py app/Core/PurchasedTerms.php app/Core/PurchasedTermsStoreTrait.php
+            tests/Feature/day_based_memberships.php app/Core/MembershipPeriod.php database/migrations/202610230020_membership_day_periods.php
             tests/Feature/recurring_lifecycle.php tests/Support/RecurringFixture.php tests/Workers/recurring_worker.php
             tests/Http/recurring_fixture.php tests/Http/recurring_http.py tests/Browser/recurring_playwright.py
             app/Core/RecurringContract.php app/Core/RecurringStoreTrait.php app/Core/RecurringCommerceTrait.php
@@ -239,6 +240,7 @@ jobs:
         run: |
           mkdir -p artifacts/payment-foundation
           php tests/Feature/purchased_terms.php > artifacts/payment-foundation/purchased-terms-file.json
+          php tests/Feature/day_based_memberships.php > artifacts/payment-foundation/day-periods-file.json
           php tests/Feature/recurring_lifecycle.php > artifacts/payment-foundation/recurring-file.json
           php tests/Feature/payment_foundation.php > artifacts/payment-foundation/file.json
           cat artifacts/payment-foundation/file.json
@@ -414,6 +416,7 @@ jobs:
         run: |
           mkdir -p artifacts/payment-foundation
           php tests/Feature/purchased_terms.php --mysql > artifacts/payment-foundation/purchased-terms-mysql.json
+          php tests/Feature/day_based_memberships.php --mysql > artifacts/payment-foundation/day-periods-mysql.json
           php tests/Feature/recurring_lifecycle.php --mysql > artifacts/payment-foundation/recurring-mysql.json
           php tests/Feature/payment_foundation.php --mysql > artifacts/payment-foundation/mysql.json
           cat artifacts/payment-foundation/mysql.json
@@ -817,6 +820,7 @@ jobs:
         run: |
           mkdir -p artifacts/mariadb
           php tests/Feature/purchased_terms.php --mysql > artifacts/mariadb/purchased-terms.json
+          php tests/Feature/day_based_memberships.php --mysql > artifacts/mariadb/day-periods.json
           php tests/Feature/recurring_lifecycle.php --mysql > artifacts/mariadb/recurring.json
           php tests/Feature/payment_foundation.php --mysql > artifacts/mariadb/payment-foundation.json
           cat artifacts/mariadb/payment-foundation.json

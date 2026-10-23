@@ -238,8 +238,9 @@ namespace {
         'public/assets/css/payment-recovery.css',
         'public/routes/api/payment-webhook.php',
     ];
+    $dayDependencies = ['app/Core/MembershipPeriod.php','database/migrations/202610230020_membership_day_periods.php'];
     $recurringDependencies = ['app/Core/RecurringContract.php','app/Core/RecurringStoreTrait.php','app/Core/RecurringCommerceTrait.php','app/Core/RecurringRecoveryService.php','app/Payments/RecurringProviderInterface.php','app/Views/admin/recurring-recovery.php','app/Views/public/partials/recurring-membership.php','database/migrations/202610220019_recurring_lifecycle.php'];
-    $required = array_values(array_unique(array_merge($required, $v09Dependencies, $paymentDependencies, $recurringDependencies)));
+    $required = array_values(array_unique(array_merge($required, $v09Dependencies, $paymentDependencies, $recurringDependencies, $dayDependencies)));
     $freshRoots = ['addons', 'admin', 'app', 'config', 'database', 'images', 'includes', 'install', 'public', 'storage', 'templates', 'uploads', 'vendor'];
     $newRoot = static function (string $name, bool $seedOld = true) use ($source, $fixtures, $old, $required, $write, $freshRoots): string {
         $root = $fixtures . '/' . $name;

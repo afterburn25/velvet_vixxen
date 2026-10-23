@@ -55,12 +55,13 @@ if ($action === 'seed') {
     if ($records !== null || $store->member('purchased-terms-buyer@example.test')) throw new RuntimeException('Owned terms fixture already seeded.');
     $member = $store->createMember(['displayName'=>'Purchased Terms Buyer','email'=>'purchased-terms-buyer@example.test','password'=>'Purchased-Terms-123!','status'=>'active','emailVerifiedAt'=>gmdate('c',time()-10)]);
     $plan = $store->saveMembershipPlan(['name'=>'Purchased membership','key'=>'purchased-terms','price'=>19.25,'currency'=>'USD','billingInterval'=>'month','intervalCount'=>2,'trialDays'=>0,'ppvDiscountPercent'=>20,'benefits'=>['Purchased benefit'],'isActive'=>true]);
+    $dayPlan = $store->saveMembershipPlan(['name'=>'Explicit 30-day fixture offer','key'=>'fixed-day-http','price'=>11.30,'currency'=>'USD','billingInterval'=>'day','intervalCount'=>30,'trialDays'=>0,'isActive'=>true]);
     $a = $store->saveVideo(['title'=>'Purchased content A','status'=>'published','accessMode'=>'purchase','standardPrice'=>10,'currency'=>'USD']);
     $b = $store->saveVideo(['title'=>'Replacement content B','status'=>'published','accessMode'=>'purchase','standardPrice'=>10,'currency'=>'USD']);
     $bundle = $store->saveBundle(['title'=>'Purchased bundle','price'=>7.50,'currency'=>'USD','isActive'=>true,'items'=>[['itemType'=>'video','itemId'=>$a['id']]]]);
     $store->saveSubscription(['memberId'=>$member['id'],'planId'=>$plan['id'],'status'=>'expired','providerKey'=>'sandbox','currentPeriodEnd'=>gmdate('c',time()-86400)]);
     $store->savePaymentProvider(['key'=>'sandbox','enabled'=>true,'supportsRecurring'=>true]);
-    $records = ['member'=>(string)$member['id'],'plan'=>$plan,'bundle'=>$bundle,'a'=>$a,'b'=>$b];
+    $records = ['member'=>(string)$member['id'],'plan'=>$plan,'dayPlan'=>$dayPlan,'bundle'=>$bundle,'a'=>$a,'b'=>$b];
     file_put_contents($recordsPath,json_encode($records,JSON_THROW_ON_ERROR));echo json_encode($records,JSON_THROW_ON_ERROR);exit;
 }
 if (!is_array($records)) throw new RuntimeException('Seed the owned terms fixture first.');

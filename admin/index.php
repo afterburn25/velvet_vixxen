@@ -49,7 +49,9 @@ $isProtectionRequest = $requestedAdminPage === 'protection' || (is_string($_POST
 $isPoliciesRequest = $requestedAdminPage === 'policies' || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'policies_'));
 $isPaymentRecoveryRequest = $requestedAdminPage === 'payment-recovery'
     || (is_string($_POST['action'] ?? null) && str_starts_with($_POST['action'], 'payment_recovery_'));
-$skipAdminExtensions = $isPaymentRecoveryRequest || $isPoliciesRequest || $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
+$isDatabaseUpdateRequest = $requestedAdminPage === 'database-updates'
+    || ($_POST['action'] ?? null) === 'apply_database_updates';
+$skipAdminExtensions = $isDatabaseUpdateRequest || $isPaymentRecoveryRequest || $isPoliciesRequest || $isProtectionRequest || $isSecurityRequest || $requestedAdminPage === 'login' || $isEditorialCalendar || $isSceneScheduleRequest || $isEditorialRecoveryRequest || $isNotificationRequest || $isMailProviderRequest || \App\Core\OperationsGate::recovery();
 if (!$skipAdminExtensions) require ROOT_PATH . '/app/bootstrap.php';
 
 use App\Core\UploadService;
@@ -864,7 +866,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPaymentRecoveryRequest) {
                 'name' => (string) ($_POST['name'] ?? ''),
                 'description' => (string) ($_POST['description'] ?? ''),
                 'billingInterval' => (string) ($_POST['billing_interval'] ?? 'month'),
-                'intervalCount' => (int) ($_POST['interval_count'] ?? 1),
+                'intervalCount' => $_POST['interval_count'] ?? 1,
                 'price' => (float) ($_POST['price'] ?? 0),
                 'currency' => (string) ($_POST['currency'] ?? 'USD'),
                 'trialDays' => (int) ($_POST['trial_days'] ?? 0),

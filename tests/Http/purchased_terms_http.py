@@ -14,7 +14,7 @@ import payment_recovery_http as recovery
 ROOT = Path(__file__).resolve().parents[2]
 http, check = recovery.http, recovery.check
 FIXTURE = Path(__file__).with_name('purchased_terms_fixture.php')
-RUNTIME = ('app/Core/PurchasedTerms.php','app/Core/PurchasedTermsStoreTrait.php',
+RUNTIME = ('app/Core/MembershipPeriod.php','database/migrations/202610230020_membership_day_periods.php','app/Core/PurchasedTerms.php','app/Core/PurchasedTermsStoreTrait.php',
            'app/Core/CommerceService.php','app/Core/CommerceStoreTrait.php','app/Core/MemberStoreTrait.php',
            'app/Core/MemberPrivacyProjection.php','app/Views/public/partials/checkout-terms.php',
            'app/Views/public/partials/purchased-membership.php','public/routes/checkout/index.php','public/routes/account/billing.php')
@@ -79,6 +79,28 @@ def scenario(case, browser=None, viewport=None, evidence=None):
             check(form is not None and 'Check payment outcome' in form.get_text(),'Real owner recovery action is unavailable.')
             result=owner.post(urljoin(response.url,form.get('action','')),data=http.fields(str(form)),timeout=25)
             check(result.status_code==200,'Owner recovery form failed.')
+        # Real owner form and customer pages disclose a day count, not a monthly alias.
+        plan_url=case['base']+'/admin/?page=plans&edit='+records['dayPlan']['id']
+        editor=owner.get(plan_url,timeout=20)
+        form=BeautifulSoup(editor.text,'html.parser').select_one('form.media-editor-card')
+        check(form is not None and form.select_one('select[name="billing_interval"] option[selected]')['value']=='day','Owner editor did not retain the fixed-day interval.')
+        rejected=owner.post(plan_url,data=http.changed(http.fields(str(form)),billing_interval='day',interval_count='30.5'),timeout=25)
+        check('whole interval count from 1 to 120' in rejected.text,'Actual owner POST silently truncated a fractional day count.')
+        editor=owner.get(plan_url,timeout=20);form=BeautifulSoup(editor.text,'html.parser').select_one('form.media-editor-card')
+        check(form is not None and form.select_one('input[name="interval_count"]')['value']=='30','Rejected day count changed the saved offer.')
+        saved=owner.post(plan_url,data=http.changed(http.fields(str(form)),billing_interval='day',interval_count='30'),timeout=25)
+        check(saved.status_code==200 and 'Explicit 30-day fixture offer' in saved.text,'Actual owner form could not save a 30-day offer.')
+        for public_path in ('membership/','shop/'):
+            public=buyer.get(http.route(case['base'],public_path),timeout=20)
+            cards=BeautifulSoup(public.text,'html.parser').select('.plan-card, .membership-store-card')
+            day_cards=[card for card in cards if 'Explicit 30-day fixture offer' in card.get_text()]
+            check(len(day_cards)==1 and 'every 30 days' in day_cards[0].get_text(),'Public offer hid or substituted its fixed-day count: '+public_path)
+        day_review=start_checkout('plan',records['dayPlan']['id'])
+        check('every 30 days' in day_review.text and 'USD 11.30' in day_review.text,'Real checkout did not disclose the exact fixed-day offer.')
+        if page:
+            page.goto(day_review.url)
+            check('every 30 days' in page.locator('[data-checkout-purchased-terms="plan"]').inner_text(),'No-script checkout replaced fixed days with a calendar month.')
+            shot('checkout-fixed-day')
         response=start_checkout('plan',records['plan']['id']);check('USD 19.25' in response.text,'Displayed original membership price is missing.')
         pay(response); state=fixture(case,'read');check(len(state['orders'])==1 and state['orders'][0]['status']=='processing','Pending real membership checkout was not saved.')
         plan_order=state['orders'][0];snapshot=plan_order['items'][0]['metadata']['purchaseTerms']
@@ -103,7 +125,7 @@ def scenario(case, browser=None, viewport=None, evidence=None):
         old_count=len(state['orders'])
         response=buyer.post(stale.url,data=http.changed(http.fields(stale.text,'form.checkout-card'),provider='sandbox',sandbox_result='success',confirmation='1'),timeout=25)
         check('purchase terms changed' in response.text and len(fixture(case,'read')['orders'])==old_count,'Stale displayed checkout silently accepted new terms.')
-        return {'passed':True,'checks':http.checks-start,'images':images,'no_javascript':bool(page),'database':state['database'],'exact_original_membership_and_bundle':True,'stale_review_rejected_before_order':True}
+        return {'passed':True,'checks':http.checks-start,'images':images,'no_javascript':bool(page),'database':state['database'],'exact_original_membership_and_bundle':True,'stale_review_rejected_before_order':True,'fixed_day_offer_owner_and_public_disclosure':True}
     finally:
         if context:context.close()
         buyer.close();owner.close()

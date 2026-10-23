@@ -59,10 +59,10 @@ function recurring_fixture_service(App\Core\Config $config):array
 }
 
 /** Simulate elapsed clock time only in an exclusively owned disposable fixture. */
-function recurring_fixture_elapsed(App\Core\Store $store,array $agreement,int $end,?PDO $pdo):array
+function recurring_fixture_elapsed(App\Core\Store $store,array $agreement,int $end,?PDO $pdo,int $periodDays=28):array
 {
     if(!is_file(ROOT_PATH.'/.payment-foundation-fixture'))throw new RuntimeException('Owned fixture marker required.');
-    $agreement['periodEnd']=$end;$agreement['periodStart']=$end-86400*28;
+    $agreement['periodEnd']=$end;$agreement['periodStart']=$end-86400*App\Core\RecurringContract::integer($periodDays,1,120);
     if($pdo){
         $pdo->beginTransaction();
         try{
