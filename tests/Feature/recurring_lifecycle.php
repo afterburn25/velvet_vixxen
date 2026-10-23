@@ -199,7 +199,9 @@ try{
     $assert($store->recurringAgreement($closedAgreement['id'])['cancelAtPeriodEnd'] && $store->recurringAgreement($closedAgreement['id'])['state']==='closed','Necessary original cancellation was lost after closure.');
     $reject(fn()=>$commerce->requestRecurringCommand($closedMember['id'],$closedAgreement['subscriptionId'],'resume',$store->recurringAgreement($closedAgreement['id'])['revision'],'closed:resume'),'Closed account resumed billing.');
     if($mysql){
-        date_default_timezone_set('America/Chicago');$raw=$pdo->query('SELECT current_period_start,current_period_end,grace_ends_at FROM subscriptions WHERE id='.(int)$agreement['subscriptionId'])->fetch();
+        date_default_timezone_set('America/Chicago');$facts=$store->marketingAudienceFacts([$guardMember['email']]);
+        $assert(($facts[$guardMember['email']]['valid']??false) && in_array((string)$plan['id'],$facts[$guardMember['email']]['active_plan_ids'],true),'UTC subscription normalization removed an eligible SQL business audience.');
+        $raw=$pdo->query('SELECT current_period_start,current_period_end,grace_ends_at FROM subscriptions WHERE id='.(int)$agreement['subscriptionId'])->fetch();
         $sub=$store->subscriptions($member['id'])[0];$store->saveSubscription($sub);
         $assert($pdo->query('SELECT current_period_start,current_period_end,grace_ends_at FROM subscriptions WHERE id='.(int)$agreement['subscriptionId'])->fetch()===$raw,'SQL subscription UTC dates shifted during an unchanged non-UTC round trip.');date_default_timezone_set('UTC');
     }

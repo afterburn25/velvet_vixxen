@@ -1049,7 +1049,7 @@ trait MemberStoreTrait
         foreach (['current_period_start','current_period_end','grace_ends_at','cancelled_at','created_at','updated_at'] as $field) {
             if (is_string($row[$field] ?? null) && $row[$field] !== '') {
                 $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $row[$field], new \DateTimeZone('UTC'));
-                if (!$date) throw new RuntimeException('Subscription UTC date needs review.');
+                if (!$date || $date->format('Y-m-d H:i:s')!==$row[$field]) throw new RuntimeException('Subscription UTC date needs review.');
                 $row[$field] = $date->format('c');
             }
         }

@@ -825,6 +825,7 @@ RELEASE_TIMESTAMP = (2026, 10, 22, 22, 30, 0)
 RELEASE_FILES = {
     'VERSION',
     'app/Core/CommerceService.php',
+    'app/Core/MarketingBusinessStoreTrait.php',
     'app/Core/MemberPrivacyProjection.php',
     'app/Core/MemberPrivacyService.php',
     'app/Core/MemberPrivacyStoreTrait.php',

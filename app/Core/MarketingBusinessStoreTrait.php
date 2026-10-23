@@ -142,10 +142,11 @@ trait MarketingBusinessStoreTrait
             $email = $memberEmails[(string) ($subscription['memberId'] ?? '')] ?? null;
             if ($email === null) continue;
             $status = $subscription['status'] ?? ''; $end = $subscription['currentPeriodEnd'] ?? null;
-            $startEpoch = $this->marketingBusinessEpoch($subscription['currentPeriodStart'] ?? null, $this->mode === 'mysql');
-            $endEpoch = $this->marketingBusinessEpoch($end, $this->mode === 'mysql');
+            // mapSubscriptionRow exposes explicit UTC ISO instants on SQL too.
+            $startEpoch = $this->marketingBusinessEpoch($subscription['currentPeriodStart'] ?? null, false);
+            $endEpoch = $this->marketingBusinessEpoch($end, false);
             $grace = $subscription['graceEndsAt'] ?? null;
-            $graceEpoch = $this->marketingBusinessEpoch($grace, $this->mode === 'mysql');
+            $graceEpoch = $this->marketingBusinessEpoch($grace, false);
             if ($startEpoch === false || $endEpoch === false || $graceEpoch === false
                 || (is_int($startEpoch) && is_int($endEpoch) && $endEpoch <= $startEpoch)
                 || !in_array($status, ['active','trialing','past_due','cancelled','paused','expired'], true)) { $facts[$email]['valid'] = false; continue; }
