@@ -1,3 +1,13 @@
+<!-- ccbill-protocol:start -->
+## Active continuation — CCBill protocol preparation (October 23, 2026)
+
+The owner selected **CCBill** as the intended payment provider. Selection does not verify an approved merchant account, enabled features, credentials or live service. Runtime **0.9.3 / Build 20261022.3** remains the last delivered release; only Sandbox is registered.
+
+The developer-only `addons/sdk/ccbill` component implements a fixed-target FlexForms request builder with integer prices and exact day periods, the narrowly scoped sale-response digest check and documented direct-peer range checks. It makes no network, storage, checkout or payment calls and cannot grant access. PHP 8.3.6 syntax and **106 offline protocol checks** passed locally, including official digest vectors and an independent Python response vector. The mandatory PHP 8.2/8.3 source runner now invokes these checks before the runtime copy. Repository safety, shell syntax, the exact-version rebuild and the full runtime-package gate also passed locally; SDK exclusion and every delivered ZIP hash are unchanged. Complete branch CI and merge remain pending until independently verified; earlier accepted release evidence is unchanged.
+
+**Next:** connect durable hosted checkout and authenticated reconciliation to original operations, then provider-driven renewals, cancellation/status/refund recovery, exact disclosed day-based purchased terms and actual-package acceptance. Never silently turn calendar months into 30-day prices, treat the sale digest as authentication for all callback fields, or collect a second merchant-initiated renewal charge. Account configuration and approved live/actual-host acceptance remain separate. See the [CCBill engineering guide](../addons/sdk/ccbill/README.md).
+<!-- ccbill-protocol:end -->
+
 ## Recurring lifecycle decision — accepted 0.9.3
 
 Persist strict scope-bound authoritative agreements, immutable original terms, exact anchored cycle identities, durable commands and authenticated event receipts. Query uncertain original requests; never silently resend. Apply confirmed money, order, cycle and access facts together using the existing financial reducer. Pending member commands remain distinct from confirmed state. Add migration 019 without legacy backfill. Preserve privacy redaction and necessary original cancellation after closure. Only Sandbox is registered; real provider mapping/live acceptance remains separate. [Release evidence](releases/0.9.3-recurring-lifecycle.md).

@@ -1,0 +1,30 @@
+{
+  "baselineMain": "999cba64c16fcd987aeb7850a8ec248d7334ac76",
+  "baselineTree": "9f106fafa75d18a1637cf2135ba7860136d744df",
+  "providerSelected": "CCBill",
+  "merchantAccountVerified": false,
+  "runtimeVersion": "0.9.3",
+  "runtimeChanged": false,
+  "providerRegistered": false,
+  "networkOrPaymentCalls": false,
+  "localPHP": "8.3.6",
+  "protocolChecks": 106,
+  "protocolResult": "pass",
+  "phpSyntax": "pass",
+  "repositorySafety": "pass",
+  "visibleReleaseVersion": "0.9.3; last delivered 0.9.3; exact-rebuild",
+  "completeBranchCI": "pending",
+  "merge": "pending",
+  "newReleasePackagesProduced": false,
+  "earlierLocalAttempts": [
+    "Response oracle placeholder corrected to independently calculated Python hashlib vector before final 106-check pass.",
+    "Package test initially could not find PHP after scratch recovery; corrected local wrapper path before final package result."
+  ],
+  "scope": "Developer SDK only; hosted checkout, authoritative callback binding, provider-driven recurring reconciliation and account-scoped operations remain next work.",
+  "runtimePackageGate": "pass: exact roots, runtime-only SDK exclusion, clean state, upgrade preservation, eleven-file repair, archive integrity and reproducibility",
+  "gatedBaselineSHA256": {
+    "fresh": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
+    "upgrade": "1c2817fa457d17a6358316a5fa934887c825c9e18051723ade4367a8abaf8bda",
+    "repair": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+  }
+}
