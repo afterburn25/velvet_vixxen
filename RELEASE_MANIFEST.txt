@@ -1,3 +1,18 @@
+Velvet Vixxen 0.9.4 — Build 20261023.1
+Verified, merged and delivered through PR #40.
+Source 3d9e4bc464f044e5f223a917df43e10679e52903; tree 6b251b026d5281849c457e502767f20e5e0d0754; actual CI checkout 41d7aabb050d68e55f3abfde2184312b5db6934c; merge 9c317934cbbb112ed3d6b9e091ca47d8a7c8677e.
+CI 39987149958: all 28 jobs passed; 301 successful configured steps, 2 intentional skips; no unexpected skips.
+Saved byte readback 2026-10-23T17:24:46.701982+00:00.
+
+Nikki-Wilder-Velvet-Vixxen-0.9.4-Build-20261023.1-Upgrade-from-0.8.x-and-0.9.x.zip | 8010763 bytes | SHA-256 8ace7c17d11d7c1d11528966053344cd0ca16e0cd831ad146abfea57f796a0bc
+Nikki-Wilder-Velvet-Vixxen-0.9.4-Build-20261023.1-Fresh-Install.zip | 8167988 bytes | SHA-256 7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905
+Velvet-Vixxen-0.9.4-Build-20261023.1-package-manifest.json | 116843 bytes | SHA-256 f265cc77dca965881c7bcd23f70ed7520d9517c3bd8b7ec7aa1946e0a5c1aba2
+
+Fresh/Upgrade 520/479 entries; approved 13/9 root directories and four root files. Exactly 13 changed runtime entries and two additions. Complete Upgrade preserves installed state.
+The separate 0.8.1 Build 20261020.3 installer repair remains unchanged (60065 bytes; SHA-256 f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297) and was not newly issued.
+Only Sandbox is registered. Customer-host and live-service acceptance remain unverified. The extra second-boundary HTTP test edit is local and awaits upload approval.
+
+--- Historical release manifests ---
 Velvet Vixxen 0.9.3 — Build 20261022.3
 Verified, merged and delivered through PR #38.
 Source bb6dca80a5101053a39d7415c0efb91f60835104; tree 62545f4d4d3c9fdda8cac69786e36bc7d02a485a; actual CI checkout d8dd8328165aa64c01784f632e824571c7648aff; merge 8f3b040cd69c183c6eb5729960b9556c67ef1105.

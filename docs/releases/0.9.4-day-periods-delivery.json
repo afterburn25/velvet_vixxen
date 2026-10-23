@@ -1,0 +1,47 @@
+{
+  "version": "0.9.4",
+  "build_id": "20261023.1",
+  "status": "saved_and_independently_read_back",
+  "source": "3d9e4bc464f044e5f223a917df43e10679e52903",
+  "source_tree": "6b251b026d5281849c457e502767f20e5e0d0754",
+  "ci_run": 39987149958,
+  "runtime_artifact": 12519270988,
+  "merge": "9c317934cbbb112ed3d6b9e091ca47d8a7c8677e",
+  "savedReadbackCheckedAt": "2026-10-23T17:24:46.701982+00:00",
+  "files": [
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.4-Build-20261023.1-Upgrade-from-0.8.x-and-0.9.x.zip",
+      "bytes": 8010763,
+      "sha256": "8ace7c17d11d7c1d11528966053344cd0ca16e0cd831ad146abfea57f796a0bc",
+      "independent_source_build_equal": true,
+      "gated_artifact_equal": true,
+      "saved_readback_equal": true
+    },
+    {
+      "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.4-Build-20261023.1-Fresh-Install.zip",
+      "bytes": 8167988,
+      "sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
+      "independent_source_build_equal": true,
+      "gated_artifact_equal": true,
+      "saved_readback_equal": true
+    },
+    {
+      "filename": "Velvet-Vixxen-0.9.4-Build-20261023.1-package-manifest.json",
+      "bytes": 116843,
+      "sha256": "f265cc77dca965881c7bcd23f70ed7520d9517c3bd8b7ec7aa1946e0a5c1aba2",
+      "independent_source_build_equal": true,
+      "gated_artifact_equal": true,
+      "saved_readback_equal": true
+    }
+  ],
+  "unchanged_installer_repair": {
+    "version": "0.8.1",
+    "build_id": "20261020.3",
+    "bytes": 60065,
+    "sha256": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297",
+    "gated_and_independent_bytes_equal": true,
+    "newly_issued": false
+  },
+  "customer_host_deployed": false,
+  "production_1_0_certified": false
+}

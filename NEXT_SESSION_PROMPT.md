@@ -1,3 +1,23 @@
+<!-- day-periods-094:start -->
+## Current release — 0.9.4 fixed-day memberships, Build 20261023.1
+
+**Verified, merged and delivered through [PR #40](https://github.com/afterburn25/velvet_vixxen/pull/40).** Source 3d9e4bc464f044e5f223a917df43e10679e52903, actual CI checkout 41d7aabb050d68e55f3abfde2184312b5db6934c and merge 9c317934cbbb112ed3d6b9e091ca47d8a7c8677e share complete tree 6b251b026d5281849c457e502767f20e5e0d0754. [CI run 39987149958](https://github.com/afterburn25/velvet_vixxen/actions/runs/39987149958) passed all **28 jobs / 303 configured steps**: 301 successes, two intentional member-only skips in the age-policy lanes and no unexpected skips. All 28 logs identify the accepted checkout and have no runner errors. Main's merge and PR state were independently read back; no separate post-merge result is inferred.
+
+Owners can explicitly choose **Commerce → Membership Plans → Days (fixed length), count 30**. Strict whole-count validation and owner/public labels preserve the commercial unit and count. Existing monthly/yearly purchases, original prices, currencies, period bounds, benefits and term hashes remain unchanged after catalogue edits. Migration 020 appends day to the existing ENUM without converting records or creating an offer. Its down list does not narrow accepted day purchases; use the reviewed update/backup guidance.
+
+A reproduced database-update denial could boot an add-on and rewrite task timestamps before owner authorization. Database-update status/apply requests now avoid that bootstrap. An additional six-line second-boundary test change passed locally but **remains local**: automatic approval review rejected uploading tests/Http/database_updates_http.py because it contains the pre-existing public synthetic demo password. The original CI test and its complete state-preservation assertion remain unchanged. No further test-file upload retry is authorized without explicit approval.
+
+Focused acceptance passed **59 file / 60 SQL checks** on PHP 8.2.35/8.3.36, MySQL 8.0.46 and MariaDB 10.11.19. Actual-package root/nested HTTP passed **56 file / 97 SQL checks per case**; desktop/phone no-script browser cases passed **58 file / 99 SQL checks**. The downloaded MySQL/MariaDB payment artifacts contain 168 independently decoded images; two new checkout views were manually reviewed. Composer acceptance retains **52 scale comparisons**, **48 depth comparisons / 4,608 pixel samples**, 3,460 depth assertions and the third grouped button/right-hand inspector. Uploads, Full Page Preview, Publish, routes, ownership, persistent PHP cache and the responsive one-page installer passed their retained gates. Two representative Composer editor/preview captures were also reviewed; image decoding is not represented as manual inspection of every image.
+
+Fresh/complete Upgrade contain **520/479 runtime entries**, approved **13/9 root directories** and four root files. Exactly 13 runtime entries changed and two were added against the independently reproduced accepted 0.9.3 bytes. Installed configuration, identity, keys, data and uploads remain preserved. All four gated distribution files equal independent source builds literally; the three new customer files were saved and separately retrieved with identical bytes, size and SHA-256 at 2026-10-23T17:24:46.701982+00:00. The separate eleven-file **0.8.1 / repair Build 20261020.3** overlay is unchanged and was not issued as a new fix.
+
+**Next unfinished milestone:** durable CCBill hosted checkout and authenticated original-operation reconciliation, followed by provider-driven cycles and account-scoped cancellation/status/refund recovery. Only Sandbox is registered. Configured live mail/age acceptance, actual-host #12/#13 install/upgrade/rollback, running build, protected origin/CDN, trusted geographic headers, cron, external backup/restore, owner-approved policies/retention and external cancellation responsibilities remain open. The actual target URL, approved service-test setup and operator decisions are unavailable to this session. Keep #3 as ongoing release policy. This increment completes its own release checks; **production 1.0 and customer deployment are not certified**.
+
+[Owner guide](docs/DAY_BASED_MEMBERSHIPS.md) · [Release record](docs/releases/0.9.4-day-periods.md) · [CI evidence](docs/releases/0.9.4-day-periods-ci.json) · [Saved delivery](docs/releases/0.9.4-day-periods-delivery.json)
+
+Earlier release/candidate blocks retain historical versions and their then-current remaining work; this accepted release and its next milestone govern continuation.
+<!-- day-periods-094:end -->
+
 <!-- purchased-terms-092-release:start -->
 ## Current release — 0.9.2 purchased terms, Build 20261022.2
 

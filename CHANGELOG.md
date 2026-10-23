@@ -1,3 +1,9 @@
+## 0.9.4 — Explicit fixed-day memberships, Build 20261023.1
+
+Verified, merged and delivered through PR #40. Adds explicit day periods, strict whole-count validation, accurate owner/public disclosures, exact UTC-day access and renewal, migration 020 and required running-build dependencies. Preserves original purchased monthly/yearly terms. Database-update status/apply requests avoid extension bootstrap before owner authorization, fixing a reproduced task-timestamp mutation on rejected requests.
+
+All 28 required jobs passed. Gated, independently built and separately retrieved saved customer bytes match. Approved roots, installer, Composer/depth/buttons, upload, preview, publication and routes remain verified. Only Sandbox is registered; CCBill hosted integration and production acceptance remain open. An additional locally verified timing test remains uncommitted because automatic approval review blocked its existing synthetic demo password. [Release evidence](docs/releases/0.9.4-day-periods.md).
+
 ## 0.9.3 — Authoritative recurring lifecycle, Build 20261022.3
 
 Verified, merged and delivered through PR #38. Adds strict agreements, commands, exact billing cycles/events, confirmed member cancel/resume, query-only owner recovery, atomic payment/access settlement, privacy handling and additive migration 019. All28 required jobs passed; independent gated/source/saved bytes match. Retains approved Composer, installer and organized roots. Only Sandbox is registered; real provider/host acceptance remains open. [Release evidence](docs/releases/0.9.3-recurring-lifecycle.md).

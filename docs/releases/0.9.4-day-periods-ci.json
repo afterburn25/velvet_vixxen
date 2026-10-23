@@ -1,0 +1,2354 @@
+{
+  "runId": 39987149958,
+  "url": "https://github.com/afterburn25/velvet_vixxen/actions/runs/39987149958",
+  "source": "3d9e4bc464f044e5f223a917df43e10679e52903",
+  "sourceTree": "6b251b026d5281849c457e502767f20e5e0d0754",
+  "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+  "attempt": 1,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "jobId": 120529717842,
+      "name": "Repository and executable source contract",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require documentation and executable source",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require the additional integrated security privacy and operations sources",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require shared payment intent and owner recovery sources",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781337,
+      "name": "PHP 8.2 source and package regressions",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory source and packaging suites in disposable copies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable file payment intent and interrupted recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual file payment foundation evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781325,
+      "name": "PHP 8.3 source and package regressions",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run mandatory source and packaging suites in disposable copies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable file payment intent and interrupted recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual file payment foundation evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781456,
+      "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+          "conclusion": "success"
+        },
+        {
+          "name": "Permit failure-injection triggers in the disposable MySQL service",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install packaged HTTP acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve per-device scene depth and foreground masking through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve atomic private journals under real MySQL concurrency and interruption",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable attribution, privacy tombstones and exact business joins in MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable payment intent and interrupted recovery on actual MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual MySQL payment foundation evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781607,
+      "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify migrations, installed upgrade preservation, merchandise and booking transactions, then roll back",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify real packaged installer on existing and interrupted MySQL databases",
+          "conclusion": "success"
+        },
+        {
+          "name": "Permit failure-injection triggers in the disposable MySQL service",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apply, roll back and recover actual packaged add-on migrations in MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve marketing records through an actual packaged MySQL move and concurrent delivery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install packaged HTTP acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Enforce editorial access and saved-owner previews through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Save editorial metadata and enforce related-content and image privacy through packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Capture and restore private editorial history through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit nested navigation menus with current owner authorization and revision checks through packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve per-device scene depth and foreground masking through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Read the private publishing calendar and enforce post expiry through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged MySQL requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve atomic private journals under real MySQL concurrency and interruption",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable attribution, privacy tombstones and exact business joins in MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable payment intent and interrupted recovery on actual MySQL",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual MySQL payment foundation evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781395,
+      "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install and resume existing MySQL databases through the real desktop and mobile browser form",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify packaged media uploads without rewrite assistance at root and nested paths",
+          "conclusion": "success"
+        },
+        {
+          "name": "Repair the rejected Build .5 root layout in the same browser and persistent PHP cache",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify every packaged public route and cleanup preservation without rewrite assistance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run installed HTTP suites in a disposable copy",
+          "conclusion": "success"
+        },
+        {
+          "name": "Keep private replies out of actual member and guest notification emails",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify packaged preview, publish and button destinations without rewrite assistance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit and publish grouped Hero and Footer buttons in real packaged desktop and mobile pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Match Composer and public Hero geometry across desktop, tablet and mobile customer packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve per-device scene depth and foreground masking through actual packaged file requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Place cutouts and trace foreground masks in actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Use the real Campaign owner controls and independent public switches on desktop and mobile",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create and preview newsletter audiences through real packaged desktop and nested mobile owner pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Configure email and test saved SMTP settings through the real packaged owner page",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run real desktop and mobile browser suites in a disposable copy",
+          "conclusion": "success"
+        },
+        {
+          "name": "Persist gallery edits and scheduled playlists through actual file and MySQL customer packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Permit failure-injection triggers in the disposable MySQL service",
+          "conclusion": "success"
+        },
+        {
+          "name": "Recover a held add-on through the actual desktop and mobile owner controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit publication windows through actual packaged owner and public pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review and move marketing storage through actual packaged desktop and nested mobile owner pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apply editorial access and preview saved content through actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit and render editorial metadata through actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review and restore editorial history through actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve saved menu order, targets and access through actual packaged file requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Edit and navigate nested menus through actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Read the private publishing calendar and enforce post expiry through actual packaged file requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Use the publishing calendar and post-expiry controls in actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Schedule frozen Composer scenes and recover atomic transitions through actual packaged file requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Schedule Hero and Footer changes through actual file and MySQL desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload real browser evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781598,
+      "name": "Safeguards and marketing admin_security actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781545,
+      "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781645,
+      "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781560,
+      "name": "Safeguards and marketing marketing_attribution actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781557,
+      "name": "Safeguards and marketing notifications actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781605,
+      "name": "Safeguards and marketing mail_provider actual-package acceptance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real browser acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify file and SQL HTTP authorization, preservation and interruption behavior",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual desktop and mobile controls in file and SQL packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload safeguards acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529782704,
+      "name": "Packaged accessibility, keyboard and bounded page performance",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned accessibility and browser engines",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise keyboard paths and rendered WCAG rules in desktop and mobile packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload accessibility findings and local performance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781323,
+      "name": "MariaDB 10.11 / PHP 8.2 actual install and upgrade compatibility",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apply, verify, upgrade and roll back the explicit MariaDB schema",
+          "conclusion": "success"
+        },
+        {
+          "name": "Resume actual packaged MariaDB installations without replacing owner data",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve private journals under MariaDB transactions and interrupted workers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify MariaDB attribution and consent-aware exact joins",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install MariaDB packaged HTTP acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify administrator factors and revocation through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve deleted editorial records through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve campaign previews, frozen content and safe test delivery in MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify campaign and referral attribution through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify consent-aware durable notifications through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify signed mail feedback and interruption recovery in MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable payment intent and interrupted recovery on actual MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual MariaDB compatibility evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781487,
+      "name": "MariaDB 10.11 / PHP 8.3 actual install and upgrade compatibility",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Apply, verify, upgrade and roll back the explicit MariaDB schema",
+          "conclusion": "success"
+        },
+        {
+          "name": "Resume actual packaged MariaDB installations without replacing owner data",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve private journals under MariaDB transactions and interrupted workers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify MariaDB attribution and consent-aware exact joins",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install MariaDB packaged HTTP acceptance dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify administrator factors and revocation through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve deleted editorial records through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve campaign previews, frozen content and safe test delivery in MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify campaign and referral attribution through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify consent-aware durable notifications through packaged MariaDB requests",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify signed mail feedback and interruption recovery in MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify durable payment intent and interrupted recovery on actual MariaDB",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual MariaDB compatibility evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781256,
+      "name": "Protected media and Apache forms / mysql-8.0",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify SQL protection records and guarded publication persistence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual server upload denial, holds, appeals and file release",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve expired-form responses and rejected-state integrity on real Apache",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile protection controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload protected-delivery and Apache acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781550,
+      "name": "Protected media and Apache forms / mariadb-10.11",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify SQL protection records and guarded publication persistence",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual server upload denial, holds, appeals and file release",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve expired-form responses and rejected-state integrity on real Apache",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile protection controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload protected-delivery and Apache acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529782201,
+      "name": "Operations restore (mysql-8.0, PHP 8.2)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install retained HTTP and browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check owned Operations fixture guards",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare new private source and restore fixture",
+          "conclusion": "success"
+        },
+        {
+          "name": "Provision only this disposable service's new fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual engine and exact empty fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual SQL encrypted backup and isolated restore",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations HTTP acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations desktop and mobile acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual Operations evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529782324,
+      "name": "Operations restore (mariadb-10.11, PHP 8.2)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install retained HTTP and browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check owned Operations fixture guards",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare new private source and restore fixture",
+          "conclusion": "success"
+        },
+        {
+          "name": "Provision only this disposable service's new fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual engine and exact empty fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual SQL encrypted backup and isolated restore",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations HTTP acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations desktop and mobile acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual Operations evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781707,
+      "name": "Operations restore (mysql-8.0, PHP 8.3)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install retained HTTP and browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check owned Operations fixture guards",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare new private source and restore fixture",
+          "conclusion": "success"
+        },
+        {
+          "name": "Provision only this disposable service's new fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual engine and exact empty fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual SQL encrypted backup and isolated restore",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations HTTP acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations desktop and mobile acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual Operations evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781624,
+      "name": "Operations restore (mariadb-10.11, PHP 8.3)",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install retained HTTP and browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check owned Operations fixture guards",
+          "conclusion": "success"
+        },
+        {
+          "name": "Prepare new private source and restore fixture",
+          "conclusion": "success"
+        },
+        {
+          "name": "Provision only this disposable service's new fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual engine and exact empty fixture pair",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual SQL encrypted backup and isolated restore",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations HTTP acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Actual packaged Operations desktop and mobile acceptance",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual Operations evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781764,
+      "name": "Privacy and access / member_privacy / mysql-8.0",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify complete member inventory and atomic core closure on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL Apache root and nested request boundaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile workflows including no JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual privacy and access acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781762,
+      "name": "Privacy and access / member_privacy / mariadb-10.11",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify complete member inventory and atomic core closure on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL Apache root and nested request boundaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile workflows including no JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual privacy and access acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781628,
+      "name": "Privacy and access / age_policies / mysql-8.0",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify complete member inventory and atomic core closure on the actual engine",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL Apache root and nested request boundaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile workflows including no JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual privacy and access acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781791,
+      "name": "Privacy and access / age_policies / mariadb-10.11",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install real Apache and matching PHP handler with pinned browser tooling",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify complete member inventory and atomic core closure on the actual engine",
+          "conclusion": "skipped"
+        },
+        {
+          "name": "Verify configured policy or reviewed privacy boundaries on the actual engine",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL Apache root and nested request boundaries",
+          "conclusion": "success"
+        },
+        {
+          "name": "Review actual desktop and mobile workflows including no JavaScript",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual privacy and access acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781384,
+      "name": "Payment recovery / mysql-8.0",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real payment recovery browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pin the actual candidate Fresh package for both recovery producers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL owner recovery at root and nested paths",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise actual desktop mobile and no-JavaScript recovery controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify immutable terms through exact packaged checkout and owner recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise purchased terms on desktop phone and no-script forms",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify recurring member commands and original outcome recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise recurring forms on desktop phone and no-script pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual payment recovery acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120529781621,
+      "name": "Payment recovery / mariadb-10.11",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run shivammathur/setup-php@v2",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install pinned real payment recovery browser dependencies",
+          "conclusion": "success"
+        },
+        {
+          "name": "Pin the actual candidate Fresh package for both recovery producers",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify actual file and SQL owner recovery at root and nested paths",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise actual desktop mobile and no-JavaScript recovery controls",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify immutable terms through exact packaged checkout and owner recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise purchased terms on desktop phone and no-script forms",
+          "conclusion": "success"
+        },
+        {
+          "name": "Verify recurring member commands and original outcome recovery",
+          "conclusion": "success"
+        },
+        {
+          "name": "Exercise recurring forms on desktop phone and no-script pages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Upload actual payment recovery acceptance evidence",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "jobId": 120550499099,
+      "name": "Build verified fresh-install and upgrade ZIPs",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Run actions/checkout@v4",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/setup-python@v5",
+          "conclusion": "success"
+        },
+        {
+          "name": "Build separate runtime packages",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "configuredSteps": 303,
+  "successfulConfiguredSteps": 301,
+  "intentionalAgeLaneSkips": 2,
+  "unexpectedSkips": 0,
+  "postMergeResultInferred": false,
+  "pullRequest": 40,
+  "merge": {
+    "verified": true,
+    "sha": "9c317934cbbb112ed3d6b9e091ca47d8a7c8677e",
+    "tree": "6b251b026d5281849c457e502767f20e5e0d0754",
+    "parents": [
+      "a959bed69de5a54fd8db6f9b76bd7dc7d4f9a578",
+      "3d9e4bc464f044e5f223a917df43e10679e52903"
+    ],
+    "expectedHead": "3d9e4bc464f044e5f223a917df43e10679e52903",
+    "mainReadback": "9c317934cbbb112ed3d6b9e091ca47d8a7c8677e",
+    "pullRequestMerged": true,
+    "mergedAt": "2026-10-23T17:22:00Z",
+    "integrationMethod": "Standard two-parent Git merge commit and guarded non-force main ref update through the existing authorized Git data API after the immediate merge tool returned an internal error. Main was unprotected, repository rulesets were empty, merge commits were permitted, and all required checks had passed.",
+    "initialMergeToolError": "MCP -32603 internal error; a single readback showed PR still open. The immediate merge request was not repeated; no connection or repository setting was changed."
+  },
+  "logs": [
+    {
+      "jobId": 120529717842,
+      "name": "Repository and executable source contract",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 35186
+    },
+    {
+      "jobId": 120529781337,
+      "name": "PHP 8.2 source and package regressions",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 40458
+    },
+    {
+      "jobId": 120529781325,
+      "name": "PHP 8.3 source and package regressions",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 40459
+    },
+    {
+      "jobId": 120529781456,
+      "name": "MySQL 8 / PHP 8.2 installer resume, upgrades and transactions",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 192772
+    },
+    {
+      "jobId": 120529781607,
+      "name": "MySQL 8 / PHP 8.3 installer resume, upgrades and transactions",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 192781
+    },
+    {
+      "jobId": 120529781395,
+      "name": "Installed HTTP and Chromium desktop/mobile acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 3997104
+    },
+    {
+      "jobId": 120529781598,
+      "name": "Safeguards and marketing admin_security actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 151817
+    },
+    {
+      "jobId": 120529781545,
+      "name": "Safeguards and marketing editorial_recovery actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 184326
+    },
+    {
+      "jobId": 120529781645,
+      "name": "Safeguards and marketing campaign_messages actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 409709
+    },
+    {
+      "jobId": 120529781560,
+      "name": "Safeguards and marketing marketing_attribution actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 145859
+    },
+    {
+      "jobId": 120529781557,
+      "name": "Safeguards and marketing notifications actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 167446
+    },
+    {
+      "jobId": 120529781605,
+      "name": "Safeguards and marketing mail_provider actual-package acceptance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 122170
+    },
+    {
+      "jobId": 120529782704,
+      "name": "Packaged accessibility, keyboard and bounded page performance",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 72474
+    },
+    {
+      "jobId": 120529781323,
+      "name": "MariaDB 10.11 / PHP 8.2 actual install and upgrade compatibility",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 99644
+    },
+    {
+      "jobId": 120529781487,
+      "name": "MariaDB 10.11 / PHP 8.3 actual install and upgrade compatibility",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 99584
+    },
+    {
+      "jobId": 120529781256,
+      "name": "Protected media and Apache forms / mysql-8.0",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 153792
+    },
+    {
+      "jobId": 120529781550,
+      "name": "Protected media and Apache forms / mariadb-10.11",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 154555
+    },
+    {
+      "jobId": 120529782201,
+      "name": "Operations restore (mysql-8.0, PHP 8.2)",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 564337
+    },
+    {
+      "jobId": 120529782324,
+      "name": "Operations restore (mariadb-10.11, PHP 8.2)",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 566302
+    },
+    {
+      "jobId": 120529781707,
+      "name": "Operations restore (mysql-8.0, PHP 8.3)",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 564261
+    },
+    {
+      "jobId": 120529781624,
+      "name": "Operations restore (mariadb-10.11, PHP 8.3)",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 566265
+    },
+    {
+      "jobId": 120529781764,
+      "name": "Privacy and access / member_privacy / mysql-8.0",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 1033854
+    },
+    {
+      "jobId": 120529781762,
+      "name": "Privacy and access / member_privacy / mariadb-10.11",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 1044885
+    },
+    {
+      "jobId": 120529781628,
+      "name": "Privacy and access / age_policies / mysql-8.0",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 165766
+    },
+    {
+      "jobId": 120529781791,
+      "name": "Privacy and access / age_policies / mariadb-10.11",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 166704
+    },
+    {
+      "jobId": 120529781384,
+      "name": "Payment recovery / mysql-8.0",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 567490
+    },
+    {
+      "jobId": 120529781621,
+      "name": "Payment recovery / mariadb-10.11",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 568560
+    },
+    {
+      "jobId": 120550499099,
+      "name": "Build verified fresh-install and upgrade ZIPs",
+      "checkout": "41d7aabb050d68e55f3abfde2184312b5db6934c",
+      "errors": false,
+      "characters": 19699
+    }
+  ],
+  "artifacts": {
+    "metadata": [
+      {
+        "id": 12519270988,
+        "name": "velvet-vixxen-runtime-packages",
+        "size_in_bytes": 16199984,
+        "digest": "sha256:797ed49d289950bdbf9f386e7c14947dc3eb53905530890ebca23b690c821cfb",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12518357662,
+        "name": "chromium-browser-evidence",
+        "size_in_bytes": 373890421,
+        "digest": "sha256:564aa7c6fdbdb49769b4eee7a7f68ea7393d8f564b09a20a10e1b708138bad97",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517656159,
+        "name": "privacy-access-member_privacy-mysql-8.0-evidence",
+        "size_in_bytes": 14799028,
+        "digest": "sha256:9022f05de3aea225bef2694d0850a966d6f3ec69c4c6eededa90a4c31e771d95",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517616471,
+        "name": "payment-foundation-mysql-php-8.3-evidence",
+        "size_in_bytes": 1900,
+        "digest": "sha256:3b8465786e3b38923f5292174f7493371ba49fbb34d531c998774f1d83c02621",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517265091,
+        "name": "operations-mariadb-10.11-php8.3-evidence",
+        "size_in_bytes": 23101010,
+        "digest": "sha256:7aedc9988aa239564001e26665afe4fb6621a95edfa77f57edd7a3dc2fc535d6",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517211425,
+        "name": "operations-mariadb-10.11-php8.2-evidence",
+        "size_in_bytes": 23100717,
+        "digest": "sha256:a1cc13fbb22435ebd7ee9a356271b3aeff9f5ece1b7fade534091495338e0c16",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517156253,
+        "name": "protection-mariadb-10.11-evidence",
+        "size_in_bytes": 10931257,
+        "digest": "sha256:b5068c07c17c46aac088896ead1b0ebe3b9c39fe8ef7a545aefa7cfd53f55fcd",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517031934,
+        "name": "operations-mysql-8.0-php8.2-evidence",
+        "size_in_bytes": 23098932,
+        "digest": "sha256:6708ab463225284449db0969acf10bf08beb18f28743b3142b3e48a262d8d425",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12517021386,
+        "name": "mariadb-php-8.3-evidence",
+        "size_in_bytes": 19272,
+        "digest": "sha256:cdb39784c0d9ce7ea12889d4640c391655d52287c66676e968d4cb83082eddcb",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516936346,
+        "name": "payment-foundation-mysql-php-8.2-evidence",
+        "size_in_bytes": 1904,
+        "digest": "sha256:ce395078efc525f5d5a39cd03ac02da4d6a9901315a8707f111ff10b0b07a640",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516921360,
+        "name": "mariadb-php-8.2-evidence",
+        "size_in_bytes": 19292,
+        "digest": "sha256:ecd86386e765e7f63ce025210bfd62b9f2b9f8e4345618a107af745ffb14681e",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516882040,
+        "name": "payment-recovery-mariadb-10.11-evidence",
+        "size_in_bytes": 47160650,
+        "digest": "sha256:1067ef04fa166538d49bf63d5364977a5e67d0d855da61f23315a4dd28434ea7",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516795496,
+        "name": "safeguards-mail_provider-evidence",
+        "size_in_bytes": 7421285,
+        "digest": "sha256:b34dda0696b9622cf0acedb027e597ef7c4ff06c40221aea7a1ec528c79e7a4f",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516790517,
+        "name": "safeguards-notifications-evidence",
+        "size_in_bytes": 7235076,
+        "digest": "sha256:8a65a1b6476a0f00be652edbbe3495f578827217dd5bd421e8713906dc2e2c18",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516577809,
+        "name": "privacy-access-age_policies-mariadb-10.11-evidence",
+        "size_in_bytes": 8476246,
+        "digest": "sha256:cdccad262c8bcd4043727a26594b5b70faaedc83eef344448d8056b3007f701c",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516503584,
+        "name": "accessibility-and-performance-evidence",
+        "size_in_bytes": 12362198,
+        "digest": "sha256:0710eff2b3dea0c2407bd97f73531f620d0af996e4ae5bf72742db7bba8abad7",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516487110,
+        "name": "privacy-access-age_policies-mysql-8.0-evidence",
+        "size_in_bytes": 8475389,
+        "digest": "sha256:1152f32ff6b19891ef8875910963ccd904e9a932d95f7b18bffa31392e76a5c1",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516359792,
+        "name": "safeguards-editorial_recovery-evidence",
+        "size_in_bytes": 11274428,
+        "digest": "sha256:ee4e7b8e7f467b6e7d8b3cfbf992e804a4218e64fd07e9f92b58e98a6153c87b",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516341737,
+        "name": "payment-recovery-mysql-8.0-evidence",
+        "size_in_bytes": 47189318,
+        "digest": "sha256:f099764fefb154e60e6f8b47de15ac86aa1950b4db3650473921e34503f647fa",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516244492,
+        "name": "privacy-access-member_privacy-mariadb-10.11-evidence",
+        "size_in_bytes": 14803993,
+        "digest": "sha256:5a6b3b3fb6e994f50c8dbe00f29db330ac763a060956a6b9fbdc174c87378c40",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516217445,
+        "name": "operations-mysql-8.0-php8.3-evidence",
+        "size_in_bytes": 23101381,
+        "digest": "sha256:3d74ae25f58f70c4bef68a2b78251890dbad11863c044bd005fd4197cab204ac",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12516198721,
+        "name": "safeguards-admin_security-evidence",
+        "size_in_bytes": 7625824,
+        "digest": "sha256:bdb3131ec367988d5a658775c0dc73be665991fe3dc559182363c105ab5ce3ca",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12515663972,
+        "name": "protection-mysql-8.0-evidence",
+        "size_in_bytes": 10926838,
+        "digest": "sha256:4b7b95faf3e4f6f08bdf85edd060686cdb4f5e8f0ad7022798dbe9fc9124bc04",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12515389861,
+        "name": "safeguards-campaign_messages-evidence",
+        "size_in_bytes": 5759727,
+        "digest": "sha256:152159717260fc93a0567ce135ee3a0b6eae1597a93d68f95ba584beffa18e61",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12515214576,
+        "name": "safeguards-marketing_attribution-evidence",
+        "size_in_bytes": 11070400,
+        "digest": "sha256:904d061a633a439278d4ff06fa0986793976f053f624961432118edabe2490af",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12515134592,
+        "name": "payment-foundation-file-php-8.3-evidence",
+        "size_in_bytes": 1842,
+        "digest": "sha256:63a9bdf3d1fee364edb9c9d0aa192436697a1b1215309e846b9df2a2cb7a7e87",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      },
+      {
+        "id": 12514984951,
+        "name": "payment-foundation-file-php-8.2-evidence",
+        "size_in_bytes": 1841,
+        "digest": "sha256:3018a99d12ea6598c7269c0e1de8b6a202359901b9942f233d6217cfb7686c72",
+        "expired": false,
+        "workflow_run": {
+          "id": 39987149958,
+          "repository_id": 1423979224,
+          "head_repository_id": 1423979224,
+          "head_branch": "feature/0.9.4-fixed-day-memberships",
+          "head_sha": "3d9e4bc464f044e5f223a917df43e10679e52903"
+        }
+      }
+    ],
+    "independentlyDownloaded": [
+      {
+        "id": 12514984951,
+        "bytes": 1841,
+        "sha256": "3018a99d12ea6598c7269c0e1de8b6a202359901b9942f233d6217cfb7686c72",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12515134592,
+        "bytes": 1842,
+        "sha256": "63a9bdf3d1fee364edb9c9d0aa192436697a1b1215309e846b9df2a2cb7a7e87",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12516341737,
+        "bytes": 47189318,
+        "sha256": "f099764fefb154e60e6f8b47de15ac86aa1950b4db3650473921e34503f647fa",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12516882040,
+        "bytes": 47160650,
+        "sha256": "1067ef04fa166538d49bf63d5364977a5e67d0d855da61f23315a4dd28434ea7",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12516921360,
+        "bytes": 19292,
+        "sha256": "ecd86386e765e7f63ce025210bfd62b9f2b9f8e4345618a107af745ffb14681e",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12516936346,
+        "bytes": 1904,
+        "sha256": "ce395078efc525f5d5a39cd03ac02da4d6a9901315a8707f111ff10b0b07a640",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12517021386,
+        "bytes": 19272,
+        "sha256": "cdb39784c0d9ce7ea12889d4640c391655d52287c66676e968d4cb83082eddcb",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12517616471,
+        "bytes": 1900,
+        "sha256": "3b8465786e3b38923f5292174f7493371ba49fbb34d531c998774f1d83c02621",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12518357662,
+        "bytes": 373890421,
+        "sha256": "564aa7c6fdbdb49769b4eee7a7f68ea7393d8f564b09a20a10e1b708138bad97",
+        "artifact_metadata_digest_verified": true
+      },
+      {
+        "id": 12519270988,
+        "bytes": 16199984,
+        "sha256": "797ed49d289950bdbf9f386e7c14947dc3eb53905530890ebca23b690c821cfb",
+        "artifact_metadata_digest_verified": true
+      }
+    ],
+    "allFourDistributionFilesLiterallyEqualIndependentSourceBuild": true
+  },
+  "scope": "Explicit fixed-day membership periods, additive enum widening, unchanged historical purchased terms, strict owner input/disclosures, required running-build dependencies and database-update requests without pre-authorization add-on task writes.",
+  "runtimeRelease": "0.9.4 / Build 20261023.1",
+  "merchantAccountVerified": false,
+  "providerRegistered": "Sandbox only",
+  "livePaymentAcceptance": false,
+  "customerDeploymentVerified": false,
+  "production1_0Certified": false,
+  "blockedAdditionalTest": {
+    "path": "tests/Http/database_updates_http.py",
+    "change": "Import time and wait across a real second boundary immediately before the rejected non-owner database-update POST.",
+    "localValidation": "Old runtime fails the full saved-state equality check after addonTasks changes; corrected runtime and all ten retained HTTP suites pass.",
+    "githubState": "The original repository test remains unchanged in accepted CI. Automatic approval review rejected the extra timing edit because the test contains the pre-existing public synthetic demo password; no further upload retry was made.",
+    "permissionRequired": true
+  },
+  "duplicatePushRun": {
+    "runId": 39987144548,
+    "conclusion": "cancelled",
+    "acceptanceEvidence": false
+  },
+  "historicalRuns": [
+    {
+      "runId": 39965488546,
+      "conclusion": "failure",
+      "reason": "Database-update non-owner denial changed addonTasks during extension bootstrap."
+    },
+    {
+      "runId": 39985854373,
+      "source": "d0864d937b0854f5860cd554c80bd220b14e30fe",
+      "accepted": false,
+      "scope": "Superseded before acceptance by the reproduced database-update extension guard correction."
+    }
+  ],
+  "ownerDecisions": {
+    "provider": "CCBill",
+    "futureNewMembershipOffer": "Every 30 days",
+    "existingPurchasedTerms": "Preserve original periods"
+  },
+  "deliveryRecord": "0.9.4-day-periods-delivery.json",
+  "artifactReview": {
+    "mysqlPayment": {
+      "artifact_id": 12516341737,
+      "bytes": 47189318,
+      "sha256": "f099764fefb154e60e6f8b47de15ac86aa1950b4db3650473921e34503f647fa",
+      "reports": {
+        "payment-recovery-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root-desktop": 302,
+            "file-nested-mobile": 302,
+            "mysql-root-desktop": 302,
+            "mysql-nested-mobile": 302
+          }
+        },
+        "payment-recovery-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": 266,
+            "file-nested": 266,
+            "mysql-root": 267,
+            "mysql-nested": 267
+          }
+        },
+        "purchased-terms-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-desktop": 58,
+            "file-phone": 58,
+            "mysql-desktop": 99,
+            "mysql-phone": 99
+          }
+        },
+        "purchased-terms-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": 56,
+            "file-nested": 56,
+            "mysql-root": 97,
+            "mysql-nested": 97
+          }
+        },
+        "recurring-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-desktop": 77,
+            "file-phone": 77,
+            "mysql-desktop": 118,
+            "mysql-phone": 118
+          }
+        },
+        "recurring-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": 71,
+            "file-nested": 71,
+            "mysql-root": 112,
+            "mysql-nested": 112
+          }
+        }
+      },
+      "decoded_images": 84,
+      "manual_review_images": [
+        "purchased-terms-mysql-desktop-checkout-fixed-day.png",
+        "purchased-terms-mysql-phone-checkout-fixed-day.png"
+      ]
+    },
+    "mariadbPayment": {
+      "artifact_id": 12516882040,
+      "bytes": 47160650,
+      "sha256": "1067ef04fa166538d49bf63d5364977a5e67d0d855da61f23315a4dd28434ea7",
+      "reports": {
+        "payment-recovery-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root-desktop": {
+              "browser_checks": 302
+            },
+            "file-nested-mobile": {
+              "browser_checks": 302
+            },
+            "mysql-root-desktop": {
+              "browser_checks": 302
+            },
+            "mysql-nested-mobile": {
+              "browser_checks": 302
+            }
+          }
+        },
+        "payment-recovery-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": {
+              "checks": 266
+            },
+            "file-nested": {
+              "checks": 266
+            },
+            "mysql-root": {
+              "checks": 267
+            },
+            "mysql-nested": {
+              "checks": 267
+            }
+          }
+        },
+        "purchased-terms-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-desktop": {
+              "checks": 58,
+              "no_javascript": true,
+              "database": null
+            },
+            "file-phone": {
+              "checks": 58,
+              "no_javascript": true,
+              "database": null
+            },
+            "mysql-desktop": {
+              "checks": 99,
+              "no_javascript": true,
+              "database": "10.11.19-MariaDB-ubu2204"
+            },
+            "mysql-phone": {
+              "checks": 99,
+              "no_javascript": true,
+              "database": "10.11.19-MariaDB-ubu2204"
+            }
+          }
+        },
+        "purchased-terms-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": {
+              "checks": 56,
+              "no_javascript": false,
+              "database": null
+            },
+            "file-nested": {
+              "checks": 56,
+              "no_javascript": false,
+              "database": null
+            },
+            "mysql-root": {
+              "checks": 97,
+              "no_javascript": false,
+              "database": "10.11.19-MariaDB-ubu2204"
+            },
+            "mysql-nested": {
+              "checks": 97,
+              "no_javascript": false,
+              "database": "10.11.19-MariaDB-ubu2204"
+            }
+          }
+        },
+        "recurring-browser-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-desktop": {
+              "checks": 77,
+              "no_javascript": true,
+              "database": null
+            },
+            "file-phone": {
+              "checks": 77,
+              "no_javascript": true,
+              "database": null
+            },
+            "mysql-desktop": {
+              "checks": 118,
+              "no_javascript": true,
+              "database": "10.11.19-MariaDB-ubu2204"
+            },
+            "mysql-phone": {
+              "checks": 118,
+              "no_javascript": true,
+              "database": "10.11.19-MariaDB-ubu2204"
+            }
+          }
+        },
+        "recurring-http-evidence.json": {
+          "passed": true,
+          "cases": {
+            "file-root": {
+              "checks": 71,
+              "no_javascript": false,
+              "database": null
+            },
+            "file-nested": {
+              "checks": 71,
+              "no_javascript": false,
+              "database": null
+            },
+            "mysql-root": {
+              "checks": 112,
+              "no_javascript": false,
+              "database": "10.11.19-MariaDB-ubu2204"
+            },
+            "mysql-nested": {
+              "checks": 112,
+              "no_javascript": false,
+              "database": "10.11.19-MariaDB-ubu2204"
+            }
+          }
+        }
+      },
+      "decoded_images": 84,
+      "manual_review_images": []
+    },
+    "composer": {
+      "fresh_zip_sha256": "7a7cb15025b55e624649dff19600fdb73231fca738dad25dfc57d50147688905",
+      "scale_passed": true,
+      "scale_scene_comparisons": 52,
+      "legal_footer_case_type": {
+        "root": "dict",
+        "nested": "dict"
+      },
+      "depth_passed": true,
+      "depth_assertions": 3460,
+      "depth_comparisons": 48,
+      "pixel_samples": 4608,
+      "max_channel_error": 1,
+      "third_group_button_right_inspector": true,
+      "manual_review": [
+        "composer-scale-root-hero-preview.png",
+        "composer-scale-root-hero-desktop.png"
+      ],
+      "manual_review_scope": "One full-page preview scene and its editor canvas, with synthetic geometry fixtures; actual published comparisons are asserted by the report. Customer host not accessed."
+    }
+  },
+  "workflowSha256": "6f7ee92a02c0a0f1aa65683c2131b3dc5a18dce3b39169dfe993cc24581dff70",
+  "newCustomerFilesSavedAndReadBack": 3
+}
