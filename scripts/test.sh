@@ -12,6 +12,8 @@ done
 python tests/Packaging/release_version.py
 # Scan the actual checkout before creating test runtime state.
 php tests/Security/repository_safety.php
+# Developer-only payment protocol preparation is intentionally absent from the runtime copy.
+php tests/Feature/ccbill_protocol.php
 python tests/Installer/packaged_preflight.py
 python tests/Installer/packaged_opcache.py
 python tests/Installer/mail_smtp_capture.py

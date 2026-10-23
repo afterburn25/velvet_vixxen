@@ -81,13 +81,18 @@ try {
     $assert($store->orderItems($pending['order']['id'])[0]['metadata']['purchaseTerms'] === $original, 'Ordinary fulfillment metadata lost terms.');
     $commerce->cancelSubscription($member['id'],$sub['id']); $commerce->resumeSubscription($member['id'],$sub['id']);
     $sub = $store->subscriptions($member['id'])[0];
-    $store->saveSubscription(array_merge($sub,['currentPeriodEnd'=>gmdate('c',time()-10)]));
+    $elapsedEnd=time()-10;
+    $store->saveSubscription(array_merge($sub,['currentPeriodEnd'=>gmdate('c',$elapsedEnd)]));
     $early=$commerce->processDueSubscriptions();
     $assert($early['renewed']===0, 'Changing an access date authorized an early authoritative charge.');
     // Move the owned fixture's authoritative clock facts together to represent
     // actual elapsed time. Runtime Store mutations cannot rewrite a paid period.
     $agreement=$store->recurringAgreementForSubscription((string)$sub['id']);
-    $agreement['periodEnd']=time()-10;$agreement['periodStart']=$agreement['periodEnd']-3*86400;
+    // A real second boundary previously made the two fixture dates disagree,
+    // especially on SQL, causing a legitimate runtime hold instead of renewal.
+    $fixtureSecond=time();sleep(1);
+    $agreement['periodEnd']=$elapsedEnd;$agreement['periodStart']=$elapsedEnd-3*86400;
+    $assert(time()>$fixtureSecond && strtotime($store->subscriptions($member['id'])[0]['currentPeriodEnd'])===$agreement['periodEnd'], 'Elapsed fixture lost its exact paid-end binding across a real clock boundary.');
     if ($mysql) $pdo->prepare('UPDATE recurring_agreements SET record_json=? WHERE id=?')->execute([json_encode($agreement,JSON_THROW_ON_ERROR),$agreement['id']]);
     else $store->mutateFileStore(static function(array &$all)use($agreement):void{$all['recurringAgreements'][$agreement['id']]=$agreement;});
     $store->saveSubscription(array_merge($store->subscriptions($member['id'])[0],['currentPeriodStart'=>gmdate('c',$agreement['periodStart'])]));

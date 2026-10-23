@@ -1,0 +1,95 @@
+{
+  "baselineMain": "999cba64c16fcd987aeb7850a8ec248d7334ac76",
+  "baselineTree": "9f106fafa75d18a1637cf2135ba7860136d744df",
+  "providerSelected": "CCBill",
+  "merchantAccountVerified": false,
+  "runtimeVersion": "0.9.3",
+  "runtimeChanged": false,
+  "providerRegistered": false,
+  "networkOrPaymentCalls": false,
+  "localPHP": "8.3.6",
+  "protocolChecks": 106,
+  "protocolResult": "pass",
+  "phpSyntax": "pass",
+  "repositorySafety": "pass",
+  "visibleReleaseVersion": "0.9.3; last delivered 0.9.3; exact-rebuild",
+  "completeBranchCI": "pending",
+  "merge": "pending",
+  "newReleasePackagesProduced": false,
+  "earlierLocalAttempts": [
+    "Response oracle placeholder corrected to independently calculated Python hashlib vector before final 106-check pass.",
+    "Package test initially could not find PHP after scratch recovery; corrected local wrapper path before final package result."
+  ],
+  "scope": "Developer SDK only; hosted checkout, authoritative callback binding, provider-driven recurring reconciliation and account-scoped operations remain next work.",
+  "runtimePackageGate": "pass: exact roots, runtime-only SDK exclusion, clean state, upgrade preservation, eleven-file repair, archive integrity and reproducibility",
+  "gatedBaselineSHA256": {
+    "fresh": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
+    "upgrade": "1c2817fa457d17a6358316a5fa934887c825c9e18051723ade4367a8abaf8bda",
+    "repair": "f1a391e471c97492a5f075f7fb587ce513df636cb331947bca62a438efb4c297"
+  },
+  "priorMainRun": {
+    "id": 39898384282,
+    "conclusion": "failure",
+    "successfulJobs": 26,
+    "failedJob": 120234488441,
+    "skippedPackaging": true,
+    "failure": "Sandbox renewal substituted edited price or currency.",
+    "source": "999cba64c16fcd987aeb7850a8ec248d7334ac76"
+  },
+  "clockCorrection": {
+    "scope": "test fixture only",
+    "cause": "Independent time()-10 reads could cross a second and disagree about subscription/agreement paid end.",
+    "negativeControl": "Baseline fixture plus forced sleep(1) immediately before the second read.",
+    "negativeControlStorage": "file",
+    "negativeControlExit": 255,
+    "negativeControlFailure": "Sandbox renewal substituted edited price or currency.",
+    "positive": "One frozen elapsedEnd is shared, with a retained real sleep(1) boundary and independently reloaded subscription end assertion.",
+    "positiveFileAssertions": 43,
+    "positiveFileResult": "pass",
+    "sqlResult": "pending corrected CI",
+    "runtimeChanged": false
+  },
+  "ownerDecisions": {
+    "provider": "CCBill",
+    "newMembershipOffer": "Every 30 days",
+    "existingPurchasedTerms": "Preserve original periods",
+    "liveAccountVerified": false
+  },
+  "firstPRRun": {
+    "id": 39945584577,
+    "source": "1152c979935c48540fdde45f725f793e350422cb",
+    "checkout": "91d69925ea52731e71e12a62914207fe66ff76a3",
+    "tree": "85bdfe61444e8bfa3e2b8f1dedd2c3b35fd90f50",
+    "failedJob": 120387785271,
+    "failedAt": "Payment recovery browser no-script-confirmed geometry",
+    "otherSuccessfulJobsObserved": 25,
+    "mainApplicationBrowserJobStillRunningAtCorrection": true,
+    "packagingNotAccepted": true,
+    "finalConclusion": "failure",
+    "successfulJobs": 26,
+    "failedJobs": 1,
+    "skippedPackageJobs": 1,
+    "mainApplicationBrowserFinalConclusion": "success"
+  },
+  "readinessCorrection": {
+    "scope": "browser producer only",
+    "negativeControl": "Real extracted Fresh; 750ms CDP network latency with cache disabled; DOMContentLoaded before measurement.",
+    "negativeExit": 1,
+    "negativeFailure": "Payment recovery has a target smaller than 44px: no-script-confirmed",
+    "correction": "Wait for load and require exactly one readable nonempty CSSOM sheet for admin.css, payment-recovery.css, admin-ux.css before unchanged geometry assertions.",
+    "positiveCases": {
+      "file-root-desktop": 302,
+      "file-nested-mobile": 302
+    },
+    "decodedScreenshots": 24,
+    "manuallyReviewedScreenshots": 2,
+    "missingStylesheetControl": "Aborting the actual payment-recovery.css request fails with an explicit missing/unreadable stylesheet assertion.",
+    "playwright": "1.62.0",
+    "chromium": "151.0.7922.34",
+    "php": "8.3.6",
+    "freshSHA256": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
+    "producerSHA256": "9cd58188afe8d0a75e0a2b44c645eee99279843396d9aa615e9878d1356eb209",
+    "runtimeChanged": false,
+    "SQLBrowserAfterCorrection": "pending CI"
+  }
+}

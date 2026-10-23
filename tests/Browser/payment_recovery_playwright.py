@@ -53,6 +53,17 @@ def browser_case(browser, case, viewport, evidence):
     page = context.new_page()
 
     def shot(label):
+        # DOMContentLoaded can precede stylesheets, particularly with scripts
+        # disabled. Wait for real resources; never inject CSS or relax geometry.
+        page.wait_for_load_state('load')
+        styles = page.evaluate('''() => ['admin.css','payment-recovery.css','admin-ux.css'].map(name => {
+            const links=[...document.querySelectorAll('link[rel="stylesheet"]')]
+                .filter(link=>new URL(link.href).pathname.endsWith('/css/'+name));
+            let rules=0;try{rules=links.length===1&&links[0].sheet?links[0].sheet.cssRules.length:0;}catch{}
+            return {name,count:links.length,rules};
+        })''')
+        check(all(item['count'] == 1 and item['rules'] > 0 for item in styles),
+              'Payment recovery stylesheet is missing or unreadable: ' + label + ' ' + repr(styles))
         geometry = page.evaluate('''() => {
             const root=document.querySelector('[data-payment-recovery]');
             const controls=[...root.querySelectorAll('a,button,input,select')].filter(e=>{
@@ -81,7 +92,7 @@ def browser_case(browser, case, viewport, evidence):
             (evidence / filename).write_bytes(data)
         images.append({'filename': filename, 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data),
                        'width': dimensions[0], 'height': dimensions[1], 'full_page': full_page, 'decoded': True})
-        layouts.append({'state': label, **geometry})
+        layouts.append({'state': label, 'loaded_stylesheets': styles, **geometry})
 
     def open_record(record_id=None, **query):
         before = recovery.snapshot(case); connections = capture.connections
@@ -253,8 +264,21 @@ def browser_case(browser, case, viewport, evidence):
         try:
             page = plain.new_page(); login(page, case['base'])
             filter_order('script-free')
-            page.get_by_role('link', name=re.compile('^Review Payment record ')).click()
+            # Force a real slow stylesheet fetch after a script-free navigation.
+            # Geometry must be measured after load, not just DOMContentLoaded.
+            network = plain.new_cdp_session(page)
+            network.send('Network.enable')
+            network.send('Network.setCacheDisabled', {'cacheDisabled': True})
+            network.send('Network.emulateNetworkConditions', {'offline': False, 'latency': 750,
+                         'downloadThroughput': -1, 'uploadThroughput': -1})
+            page.get_by_role('link', name=re.compile('^Review Payment record ')).click(no_wait_after=True)
+            page.wait_for_url(lambda url: 'record=' + records['operations']['script-free'] in url,
+                              wait_until='domcontentloaded')
             shot('no-script-confirmed')
+            network.send('Network.emulateNetworkConditions', {'offline': False, 'latency': 0,
+                         'downloadThroughput': -1, 'uploadThroughput': -1})
+            network.send('Network.setCacheDisabled', {'cacheDisabled': False})
+            network.detach()
             after = apply('script-free'); order_id = records['orders']['script-free']; receipt = recovery.effect(after, order_id, 'receipt')
             open_record(receipt['id'], scope='all')
             old_messages, old_deliveries = len(capture.payloads), len(after['addon_deliveries'])
@@ -278,7 +302,8 @@ def browser_case(browser, case, viewport, evidence):
                 'real_keyset_and_order_filter': True, 'confirmed_local_apply_once_separate_followups': True,
                 'unknown_never_confirmed_or_duplicated': True, 'actual_smtp_421_retry_once': True,
                 'ambiguous_mail_and_addon_held_without_resend': True, 'recent_confirmation_through_security': True,
-                'script_free_filter_review_apply_and_followups': True, 'minimum_target_pixels': 44,
+                'script_free_filter_review_apply_and_followups': True, 'delayed_script_free_css_load_before_measurement': True,
+                'required_stylesheets_checked': ['admin.css','payment-recovery.css','admin-ux.css'], 'minimum_target_pixels': 44,
                 'smtp_connections': capture.connections, 'captured_messages': len(capture.payloads),
                 'addon_deliveries': len(final['addon_deliveries']), 'external_messages': 0}
     except Exception as error:

@@ -1,3 +1,19 @@
+<!-- ccbill-protocol:start -->
+## Active continuation — CCBill protocol preparation (October 23, 2026)
+
+The owner selected **CCBill** as the intended payment provider. Selection does not verify an approved merchant account, enabled features, credentials or live service. Runtime **0.9.3 / Build 20261022.3** remains the last delivered release; only Sandbox is registered.
+
+The developer-only `addons/sdk/ccbill` component implements a fixed-target FlexForms request builder with integer prices and exact day periods, the narrowly scoped sale-response digest check and documented direct-peer range checks. It makes no network, storage, checkout or payment calls and cannot grant access. PHP 8.3.6 syntax and **106 offline protocol checks** passed locally, including official digest vectors and an independent Python response vector. The mandatory PHP 8.2/8.3 source runner now invokes these checks before the runtime copy. Repository safety, shell syntax, the exact-version rebuild and the full runtime-package gate also passed locally; SDK exclusion and every delivered ZIP hash are unchanged. Complete branch CI and merge remain pending until independently verified; earlier accepted release evidence is unchanged.
+
+**Next:** connect durable hosted checkout and authenticated reconciliation to original operations, then provider-driven renewals, cancellation/status/refund recovery, exact disclosed day-based purchased terms and actual-package acceptance. Never silently turn calendar months into 30-day prices, treat the sale digest as authentication for all callback fields, or collect a second merchant-initiated renewal charge. Account configuration and approved live/actual-host acceptance remain separate. See the [CCBill engineering guide](addons/sdk/ccbill/README.md).
+
+A separate post-merge main run, [39898384282](https://github.com/afterburn25/velvet_vixxen/actions/runs/39898384282), passed 26 jobs but failed MySQL/PHP 8.2 purchased-terms renewal acceptance; packaging was skipped. Its fixture read the wall clock twice for two facts that must match exactly. A forced one-second negative control reproduced the same renewal assertion on file storage. The corrected fixture freezes one elapsed timestamp, retains a real second-boundary assertion and passed all **43 file checks** on PHP 8.3.6. No runtime invariant was relaxed. Corrected SQL and complete branch CI remain pending; the earlier main failure is not relabeled successful.
+
+The first corrected PR run, [39945584577](https://github.com/afterburn25/velvet_vixxen/actions/runs/39945584577), passed both PHP source/package and both MySQL installer lanes, including the elapsed-time correction, but its MariaDB payment-recovery browser lane measured unstyled script-free controls before CSS load. The real CSS requests returned 200 and the immediate failure screenshot was styled. A local actual-package negative control with 750ms network latency and disabled cache reproduced the geometry failure. The probe now waits for page load and verifies all three required CSSOM sheets before retaining every original 44px/overflow assertion. Both actual-package root-desktop/nested-phone file cases pass 302 checks each with the delay retained; deliberately aborting the real payment stylesheet still fails explicitly. All 24 screenshots decoded; two representative script-free views were manually reviewed. Corrected complete CI remains pending; no failed run is relabeled successful.
+
+**Owner decision:** new CCBill membership offers will explicitly bill **every 30 days**. Existing accepted commercial periods remain unchanged. No new offer, account configuration or live checkout has been published by this engineering increment.
+<!-- ccbill-protocol:end -->
+
 <!-- recurring-093-release:start -->
 ## Current release — 0.9.3 recurring lifecycle, Build 20261022.3
 
@@ -604,13 +620,13 @@ Current Canva behavior should be treated as a manual bridge unless a real OAuth/
 
 ## Current continuation target
 
-The current completed release is **0.9.1 / Build 20261022.1**, **Verified, merged and delivered**. Preserve its payment journals/recovery and every delivered 0.8/0.9 capability. Historical incomplete lists above do not reopen implemented work.
+The current completed release is **0.9.3 / Build 20261022.3**, **Verified, merged and delivered**. Preserve its payment journals/recovery and every delivered 0.8/0.9 capability. Historical incomplete lists above do not reopen implemented work.
 
-- [x] Accept the corrected frozen source and complete 28-job / 295-configured-step workflow, retaining the earlier failed checkpoint and all required gates.
+- [x] Accept the corrected frozen source and complete 28-job / 303-configured-step workflow (301 successful steps and two intentional skips), retaining the earlier failed checkpoint and all required gates.
 - [x] Compare the actual gated packages, source/checkout/merge tree, independent live-main readback and all four saved customer files literally.
 - [x] Deliver durable bound payment operations/events/effects, held uncertain outcomes, separate recoverable follow-ups and current-owner recovery controls.
-- [ ] Implement the separately scoped [recurring lifecycle and immutable terms plan](docs/RECURRING_LIFECYCLE_PLAN.md): accepted membership/bundle snapshots, authoritative agreement/cycle identities, durable cancellation/resumption commands and idempotent renewal effects.
-- [ ] Obtain an approved merchant provider/account, implement its real adapter and verify approved, declined, duplicate, renewal, cancellation, refund and chargeback outcomes. Only Sandbox Gateway is currently registered.
+- [x] Implement the separately scoped [recurring lifecycle and immutable terms plan](docs/RECURRING_LIFECYCLE_PLAN.md): accepted membership/bundle snapshots, authoritative agreement/cycle identities, durable cancellation/resumption commands and idempotent renewal effects.
+- [ ] CCBill selected; verify its merchant account/configuration, implement its real adapter and verify approved, declined, duplicate, renewal, cancellation, refund and chargeback outcomes. Only Sandbox Gateway is currently registered.
 - [ ] Configure production mail/age integrations and approved recipients/methods; verify real delivery, unsubscribe/suppression and age-provider sessions.
 - [ ] Verify the actual customer host: preserved installation/upgrade, rollback, running build, private storage/origin/CDN denial, trusted country headers, cron, external backup key and isolated restore; keep actual-host #12/#13 open without evidence.
 - [ ] Record owner-approved public policies, retention reasons/review dates and any external recurring-cancellation responsibilities before privacy closure.
