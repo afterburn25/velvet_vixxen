@@ -1,0 +1,6229 @@
+{
+  "schema": 1,
+  "source_commit": "a959bed69de5a54fd8db6f9b76bd7dc7d4f9a578",
+  "source_tree": "9d938b493e34cc239953f04b963b061e09365c3a",
+  "version": "0.9.3",
+  "build_id": "20261022.3",
+  "filename": "Nikki-Wilder-Velvet-Vixxen-0.9.3-Build-20261022.3-Fresh-Install.zip",
+  "sha256": "e3c3707534ba4f715eb821388f8ccb36e90d98f15c66fe205e743c7a429f9524",
+  "bytes": 8166478,
+  "files": 518,
+  "entries": {
+    ".htaccess": {
+      "sha256": "7bb582105bdc10a6747eca28a702e2a33dbbb43df73d3153b0e97644fb04b75d",
+      "bytes": 1721,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "VERSION": {
+      "sha256": "38ecaa1e4c36c6691944c83df7671fca8b86f5cbf2d4e22c0012aa52df14b149",
+      "bytes": 6,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "addons/.htaccess": {
+      "sha256": "ecd684e6fb1467c6ede9aa8db2b59f4cb1b14656d5f16406ec3ba678b20eb514",
+      "bytes": 93,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/installed/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/packages/velvet-welcome-banner-1.0.0.zip": {
+      "sha256": "bbaf421c2ce591247b31f848ef9b51a6e490a232840c280ebbae2355784dd177",
+      "bytes": 3970,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/packages/velvet-welcome-banner-1.0.1.zip": {
+      "sha256": "0c2e934fe1b2216883e235560b4c3709af0bc5d35357b3ed81ae8f8182fa9d6c",
+      "bytes": 4305,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "addons/staging/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/addon-recovery.php": {
+      "sha256": "84f8281de9070d81d1a611fb4035725010f68be00fd1cdd862d58744a6f3fd14",
+      "bytes": 1668,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "admin/download.php": {
+      "sha256": "6aa8af0ff412da470270c094ddcfeae4d245b071dac5b4cdfa0e8541aed9cba6",
+      "bytes": 1073,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/index.php": {
+      "sha256": "b7c285e447911068479d4ccd5b9112839a8483a9d209b65a000610d2c64afeab",
+      "bytes": 91786,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/marketing.php": {
+      "sha256": "466d3c37f21752b098a9972a8f866ed5aa7e41ec63ecab7b323f30f0494dca40",
+      "bytes": 168,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "admin/repair-current.php": {
+      "sha256": "38bd863cb81f7b5769bac763d37cc98b748519070bf4267038bdc4499166a8a9",
+      "bytes": 1725,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "admin/repair.php": {
+      "sha256": "b2509a49319c493586c4c24994d0ff2b3e85ad2d1c8f9f070e70b95c47ea267e",
+      "bytes": 1717,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "admin/update.php": {
+      "sha256": "82ff2b0c22f7171479a6dadc2f155361df699bb93b2d92c74c8c47d3b32e4c7e",
+      "bytes": 143,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "bytes": 36,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/migrate.php": {
+      "sha256": "cf12af86bfc62b05555854f6e66baff965d399153f7aba68fd6659a9ab510ec8",
+      "bytes": 1914,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/operations.php": {
+      "sha256": "b95fb11bfeed52f094d6ba4a79eb06b706111fbd507357dec99ae8008cc5c09a",
+      "bytes": 5580,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_addon_tasks.php": {
+      "sha256": "6a238567491798286fec372343196691ab5eeb254ac5bd3ca187306548aba670",
+      "bytes": 804,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_analytics.php": {
+      "sha256": "24f765c93f2565bc0e8292cc764794ce093a0133bbdfd36266048f829a4955a1",
+      "bytes": 1002,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_backups.php": {
+      "sha256": "5d6f46d4e6fb5ed09bc9427d5e614d6543245e587b78ad29f20f159d21971034",
+      "bytes": 2166,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_billing.php": {
+      "sha256": "5442b3d3f506b5d8af1bc8b3ec1e3059cbba5b3522cfb40102002e022bb13e2f",
+      "bytes": 586,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_mail_events.php": {
+      "sha256": "d59d2ab53cf56b8ccabb5f950137f67a56955567863b71fb5570bba429650245",
+      "bytes": 1152,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_marketing.php": {
+      "sha256": "47d3c998ae6f97a1b98e57d70a84c17c86da6430034afcdf50e1b7a888bd34ab",
+      "bytes": 1360,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Console/run_media.php": {
+      "sha256": "ead6a9e34b2629b0b769248b0b46f26f3ad99cce3c4312b2c373ea54b5157146",
+      "bytes": 1053,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Console/run_notifications.php": {
+      "sha256": "57b4974ba3e41718c6bc7256580b057352605956a2f29225b66e98206f6e8829",
+      "bytes": 1613,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_privacy.php": {
+      "sha256": "d0094a073f596c3e284c75774ca71acccc177145f87527a6ca4cbaed7226ea53",
+      "bytes": 1262,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Console/run_scenes.php": {
+      "sha256": "db3a45df8f900d54cf60e2617af0a40d113bc92d1132b151dafa661991902876",
+      "bytes": 1148,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/AboutPage.php": {
+      "sha256": "0ae118e8a3e6acfb967515e3d18ad0220c68553cbd560540ecef6065534be0b3",
+      "bytes": 3695,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonArchive.php": {
+      "sha256": "f14cf6aba5442519e730b06e0df56a6951d3fa2ace530b792dac6e4311270801",
+      "bytes": 6118,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonContext.php": {
+      "sha256": "d4df134de69ac81181b41cc5718047f51c935a178b0f55e7fef5d2932f71c3cd",
+      "bytes": 4939,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonLicenseClient.php": {
+      "sha256": "45325368908bb8b1177936210af0540088d7e9fb43e022f4ff591b2e47489284",
+      "bytes": 14451,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/AddonLicenseHub.php": {
+      "sha256": "050701c096ad2f71056f6b8819b538b0097e99e47dc15db515d1c945a883996f",
+      "bytes": 28201,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonLicensingStoreTrait.php": {
+      "sha256": "81538720b013d518372d73aecea4897e6da023487ec31f002c40aacc9bc03b35",
+      "bytes": 32443,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonManager.php": {
+      "sha256": "d64cf2139a3451f764ab7a9af491a526dafeb4c318154bba6743cec790461fd1",
+      "bytes": 46912,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonManifest.php": {
+      "sha256": "67687c044c72f8926dea33544beef511b4ad5563a174c8ddac566583cc670263",
+      "bytes": 13669,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationException.php": {
+      "sha256": "c3c7bfbbd820893f0aa29beef9f7cc57345030dc99f01a90080e23f9f6778075",
+      "bytes": 430,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationPlan.php": {
+      "sha256": "6e58d28939a9af781a56d64e8268fc177a1b06ceb67e35e64873193491a7ab38",
+      "bytes": 17252,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonMigrationRecovery.php": {
+      "sha256": "17dc5ff1218179bf2a1b7d87d6fb1b0cd92ed767e548542e8a04fcc684ddf758",
+      "bytes": 3512,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonPackageInspector.php": {
+      "sha256": "0db6ac8b70cb0abf39a08335c165ed0c0dc8927e5ed4e88491b627b7648f859e",
+      "bytes": 10683,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonPermissionCatalog.php": {
+      "sha256": "a37781d8b93090d5881461d86389050f4a5deecfd88c1ce84a63ec22516784b1",
+      "bytes": 3736,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonRuntime.php": {
+      "sha256": "f07b7745c91d776e8295425e47c792a975c2091f7962e546e84bb0c90ad20355",
+      "bytes": 16598,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonStoreTrait.php": {
+      "sha256": "b836e1b507dca2ff45aa492f437753314a98b92649830534a7286676821a87f3",
+      "bytes": 31379,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Core/AddonUpdateService.php": {
+      "sha256": "aa234cdbf6359b8d5fd657208c40a07c979d6938f5fe06449c8b7cbd804cbf7e",
+      "bytes": 3914,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/AdminSecurity.php": {
+      "sha256": "d600c557f867e3160b18d2f3e704338e8c74fd5a5a123672493f6d4383d98009",
+      "bytes": 9742,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/AdminSecurityStoreTrait.php": {
+      "sha256": "b451131a9276725aab7c3a9cf44b23ef6cf7ca83b9d6a7a3c0b5e401a6485561",
+      "bytes": 3724,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/AgeAccess.php": {
+      "sha256": "9f495fdd038401904a14d7e798b2219395d6255a83fe305139974afbc316d342",
+      "bytes": 17692,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/Auth.php": {
+      "sha256": "599b24b26631f13ec5fffb378ea86ebd1bdba569ab7a59066238f1f06b62b710",
+      "bytes": 8245,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BackupArchive.php": {
+      "sha256": "36f785a438d001e5e5f796525970b378ba147ba7605c4c8f3bc9aa67d5286975",
+      "bytes": 14552,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BackupDatabase.php": {
+      "sha256": "0844ccee2d21a49da4ce473f5defabdfa7317fb48b89018836e4265538f0d596",
+      "bytes": 11503,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BackupJobs.php": {
+      "sha256": "92d60771d14633986ecb88ef261c8d841dcfa5d9a33480c47bf9905a3f437851",
+      "bytes": 8671,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BackupRestore.php": {
+      "sha256": "97ee1404b0e0a41b9831b7f542544027b30bcc392a67d81929e11755dfcccbca",
+      "bytes": 26615,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BackupService.php": {
+      "sha256": "c790bb196e5e07112eadd069b8f7eca99b86fd4bfe2f5f19bfdef940955cf0ec",
+      "bytes": 27188,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormService.php": {
+      "sha256": "3338f6d8699d2025de3a6670f767ff99e1cc2c29a6620a4bfb7a15d30b8e0283",
+      "bytes": 15423,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormStoreTrait.php": {
+      "sha256": "7be807f0f7a57148b73c791425c948a70f13dacecdb4ea97342d5609acedd3fb",
+      "bytes": 2498,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingFormValidationException.php": {
+      "sha256": "454b9108beb0c5cef7e22e8ca389ab00e1212db374fce630e3e92dd0a76f02e5",
+      "bytes": 311,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/BookingSubmissionLimiter.php": {
+      "sha256": "f0f8d3ed65726e6ba413e44927ec57eb9f92d1ae004d6b438e3b2ed1f6e09060",
+      "bytes": 2236,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CampaignDeliveryService.php": {
+      "sha256": "623f9de7ae080f70af6906b5387e28b243f77cd7f9d809e9480b8585643c882a",
+      "bytes": 13126,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/CampaignMessage.php": {
+      "sha256": "ada8e4d8dfb3c3b487d798f972739558bcb09d6079df68b3e9dce35b59c54b5f",
+      "bytes": 11236,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/CampaignTestService.php": {
+      "sha256": "37c17fc69aec11e7c466749866d2aa0ed50fff526d8c8a4a2dbc1c541b7e8c37",
+      "bytes": 2523,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/CartService.php": {
+      "sha256": "43a754ac1cd076ac74605362ce5432f2f7999ae9e707918fbeb109fc7acd304d",
+      "bytes": 2965,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CheckoutIntent.php": {
+      "sha256": "81f3404fc134d0c349c5d32afd58792cfde8294e8b964894c203885278c60e52",
+      "bytes": 1947,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommerceService.php": {
+      "sha256": "de4e05fe5a2026a4ef8b2f2e28f93068be6bffdcc4625d5724f46b05240b6c86",
+      "bytes": 48603,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/CommerceStoreTrait.php": {
+      "sha256": "4da0e9a9ff47445aafc0fd9e11f57d50a56eec1345a2e4341660ce3c25784b48",
+      "bytes": 40467,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommunicationStoreTrait.php": {
+      "sha256": "23123e17683a13249c9ec37b90eb415db461d64df024660f71559d6cd7261238",
+      "bytes": 60167,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/CommunicationUploadService.php": {
+      "sha256": "47ac73785f334f4770ea1f3ebca7e3db1e0377f96e808f933d0ce53c43454bbd",
+      "bytes": 6404,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Config.php": {
+      "sha256": "c9051403e3a7e8eb8bdefe094b6018dfda30371719cfc4f7f368817886291de0",
+      "bytes": 11082,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/Database.php": {
+      "sha256": "8dd3b0aaec44f6bac6ea7719dcc2f6d874db9747721ed6dbe8fb37555226040b",
+      "bytes": 4007,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/DatabaseUpdateService.php": {
+      "sha256": "eede8124a8a7c0a8724ef63a1cfa2f5735d92cee3480974681d53422157cb1d7",
+      "bytes": 14381,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/EmailAddress.php": {
+      "sha256": "ff3d2c2c9bd0d7e5754fc07c35bbdefbba01fd7145fc468fa9f6d97ebda5bb8c",
+      "bytes": 3227,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/EntitlementResolver.php": {
+      "sha256": "9ecb8d6bcff597fa7e5502f6d1ffdabbe6aba479720079f80af2816cec478f36",
+      "bytes": 9486,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/GeographicPolicy.php": {
+      "sha256": "ce3e50cf802a27e3208f29eb00a150e90da2781f93d84571e8ac1a553ad8470d",
+      "bytes": 5282,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/HeroLibrary.php": {
+      "sha256": "8c39627c6ac53634fd019152c05e6cb5823538986c10a808418e8b7649dac3da",
+      "bytes": 7727,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MailDeliveryException.php": {
+      "sha256": "d3c3f11c98ad2eba1c67f24725d08ac50d2567dc0abfd6255c2ac51b9904b552",
+      "bytes": 447,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/MailProviderService.php": {
+      "sha256": "4ec7c239e46cffef4da2c5bb2baf5a50f90e67863890f7cc538805a02ab61696",
+      "bytes": 17968,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MailService.php": {
+      "sha256": "00fc87815522c9b3d3d97b893dd869147f81f65d9f3b0f2ae000ab14b9d3663f",
+      "bytes": 15417,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MailSettingsService.php": {
+      "sha256": "a1808aab3c899326b59ac52a26042fbfe095282a42c8361805ec675d88ffe776",
+      "bytes": 10869,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/MarketingAccess.php": {
+      "sha256": "9176465b90db3ec61652ddfcd57d163e252480f8c7285b17575dd2d22f7ee882",
+      "bytes": 10635,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        17,
+        20,
+        22
+      ]
+    },
+    "app/Core/MarketingAnalytics.php": {
+      "sha256": "b577515c4d8c13935b1dcdaf1316d85934bb8931d8522298921f28e5ad675e57",
+      "bytes": 13569,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAnalyticsTrait.php": {
+      "sha256": "ffe73cf4c70563b17e7443aaf377f8250521bf9f6b245033f806f563f7cc2d69",
+      "bytes": 9879,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAttribution.php": {
+      "sha256": "f05ca92a7eadd49b23d2ae5274c8d649c8f6ddce7f2383c105171f9b9e649a99",
+      "bytes": 6994,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAttributionAdminTrait.php": {
+      "sha256": "6ea660863638742f840eecc9e33f668dd55cabcabc61cbbcd10ac3bef4094dc7",
+      "bytes": 7251,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAttributionBridge.php": {
+      "sha256": "dea182d04eab5447815eb129527f755fa35e04d6522986d5dc58f866e3c76f4b",
+      "bytes": 1714,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAttributionTrait.php": {
+      "sha256": "fbca0d53c32f3a8b2bc4e53be901e9a3a1f39eb42534d0920d04f765dccce366",
+      "bytes": 22101,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingAudience.php": {
+      "sha256": "b63f362a866f96818b3b871d891c3e8ad9da67fe2bb8b86e3c76a0818b53554a",
+      "bytes": 16327,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingBusinessStoreTrait.php": {
+      "sha256": "30e1dfb9e78e79697898cf2d4b4f64dad8028632de989aa418b77cb11dbb31c0",
+      "bytes": 13258,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/MarketingCalendar.php": {
+      "sha256": "75172e3fb6280b4954a422d706799dd375b3ab69161a2e21c044b893ec3e61c6",
+      "bytes": 19301,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingCampaignMessages.php": {
+      "sha256": "351b08def77043d2f654be18a2e800d0df0be70b8b194a59627879c5dcff7fcd",
+      "bytes": 11564,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingHistory.php": {
+      "sha256": "f9d45a1172064ac6134147794495ed82a6fe6770a52f3c75519e4fdfc1203cfb",
+      "bytes": 11286,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        8,
+        37,
+        20
+      ]
+    },
+    "app/Core/MarketingMeasurementSqlRepository.php": {
+      "sha256": "2946b0bd1d20f76a2d0d22c01b86a3d8aa0e43f6e8d33daf5a7ecaa9b0bc5c5f",
+      "bytes": 8553,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingMetadata.php": {
+      "sha256": "4d9aed171e0ca2aba9ca8df4cec46057f2d3d99c2316851ffd89804592bdda1d",
+      "bytes": 10783,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingPrivacy.php": {
+      "sha256": "df5354c686672e667f2403093f6f2d8461badfd41dcc477ec8b3c8b6bb56cc6a",
+      "bytes": 2264,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingPrivacyErasure.php": {
+      "sha256": "abcb56641681460babcf7aaed40b63f829cb8bd1f89b9cc7e14430ffa8fe59da",
+      "bytes": 1737,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingProviderEvents.php": {
+      "sha256": "3a71236d17eb151f21657ae57daa1a9af66998b16927cfd7eaceba4aefc49ac8",
+      "bytes": 5968,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingPublication.php": {
+      "sha256": "2a341a17941a8ba24ca2b367bd90480baf0e1e8d6c495f161f134baaa9cadb28",
+      "bytes": 11588,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        8,
+        37,
+        20
+      ]
+    },
+    "app/Core/MarketingRecovery.php": {
+      "sha256": "7d8e849d9531883e5a9227e691d5f73cd5ff33b2b3e6b20a4bd0c2a416d24a0f",
+      "bytes": 9573,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingSqlRepository.php": {
+      "sha256": "6009f4787ddd43f1f96330d8e6d64e6133331f9f1c4b3cae2bbc7e5b4dc207ce",
+      "bytes": 15824,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingStorage.php": {
+      "sha256": "c3f9f3912aba7c943f8af42b3967209ad9b600e65fb1a454c847e02745b35f2b",
+      "bytes": 39904,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MarketingStorageException.php": {
+      "sha256": "8ab2b32e2de0a600d0b6cf4e2e4b37e8f4bf70d5f70dc8202367de20754cfe4c",
+      "bytes": 196,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Core/MarketingStore.php": {
+      "sha256": "944a97f858ef45b7364123b6378e33b9a13348ec315c2c728673a857421347a7",
+      "bytes": 56913,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MediaAccess.php": {
+      "sha256": "f4d73d91c3200472b6e7b9e0ca09a7db6f1ba71a4ec31e01fac5e2f68ef1ac1e",
+      "bytes": 1266,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MediaAdminService.php": {
+      "sha256": "72062d9f6896b565c9bb6807bd7bbf018bafda6b91a2a9a6951860f23fc3673e",
+      "bytes": 16776,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/MediaInput.php": {
+      "sha256": "b424704c81e123b345e82159886a0f8c8323eb459e701ba46dc077da874c30fa",
+      "bytes": 9940,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Core/MediaStoreTrait.php": {
+      "sha256": "c1f521d87ccc15334bd10475473fe0c869236752ec07ae4355452ff84304c7fc",
+      "bytes": 53736,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MediaUploadService.php": {
+      "sha256": "6ff96f801f5d498e3571e9f8fb365f501ae44cd45c96ec7c94db5715db063bfd",
+      "bytes": 8886,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberAuth.php": {
+      "sha256": "1ca20379f9e6569da03e5583ff90a6f887b59835b2c6a766bdff24855c7c4eae",
+      "bytes": 11252,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberPrivacyArchive.php": {
+      "sha256": "9899777c407d11789a7cf1c7883a61f1139066265fd83c77a12682c5f93ce9f2",
+      "bytes": 10415,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberPrivacyDomains.php": {
+      "sha256": "f86189141b9c3ce08ea9b10956fca026a6623455579491cd408b0cc35b9677b1",
+      "bytes": 3431,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/MemberPrivacyProjection.php": {
+      "sha256": "9728812aea1e150d1fa17e323ba1be1439803c16deded2773ce2a846b0963fb4",
+      "bytes": 11758,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/MemberPrivacyService.php": {
+      "sha256": "30be452b33d29c688a1f789f104b6cc408c53fd69f3c8e8674393455f39f0a62",
+      "bytes": 32593,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/MemberPrivacyStoreTrait.php": {
+      "sha256": "42f655268c95c30d34752d80f2a84db8e67dd8caa18ea2abe0f5b3676e316cb5",
+      "bytes": 27416,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/MemberStoreTrait.php": {
+      "sha256": "43bfd46f8679e727a894c6c99126410fe8fc7a6b3ac87374f222a00a641773ed",
+      "bytes": 63271,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/MenuService.php": {
+      "sha256": "c0657c73214dbac8ee889cc62e91850efe467534de2030dea4c2c39040d7efd8",
+      "bytes": 8787,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Core/MenuStoreTrait.php": {
+      "sha256": "9e7a2e4c067bc11a0aebdff7ef32ef926653cc3215d49a07a861d52b42258e35",
+      "bytes": 8235,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Core/MerchandiseService.php": {
+      "sha256": "991b782e2caa0d02e3fe67dd082d2781359a3946c5b84dfeaf1c7d4ac0f7860a",
+      "bytes": 6629,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MerchandiseStoreTrait.php": {
+      "sha256": "39ca27c6c1dbd9bcfe01740368e103fab1b0600ed734afc04859760a664f70e2",
+      "bytes": 23529,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/MigrationResumeSchema.php": {
+      "sha256": "6b42d20965183c0bec2d174da66e93adc75a9ae0f5700360896123ebf0f1b460",
+      "bytes": 24827,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/MigrationRunner.php": {
+      "sha256": "a81e7de8a419bd9c5a4dc9d6662f0ccc4819a19dfade285540a1853bd3158c21",
+      "bytes": 11811,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/NotificationDiscovery.php": {
+      "sha256": "59bd678cdb77998e809b03dab2745bb5617004dfa20cee310beb7e3e34e15eaf",
+      "bytes": 12612,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/NotificationProviderEvents.php": {
+      "sha256": "0e7241f63e29d8bf7e8671c53536f7a43caa3f3aed88152a7ea6577b783f74e9",
+      "bytes": 2547,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/NotificationService.php": {
+      "sha256": "d5725008194dec97b070d21930405fa9381d1ce8d295c4d5fc7eb5800f2ff6e6",
+      "bytes": 39790,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/NotificationStoreTrait.php": {
+      "sha256": "0773e24ebace84f82bd6b27360078b19cbd8ac07f5b8f8873edf3e4636cbc50b",
+      "bytes": 2825,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/OperationsFiles.php": {
+      "sha256": "13acd8b47b63397e828dc4477c24a527f43bfc2ce56e914948e7caaaca74d611",
+      "bytes": 10186,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/OperationsGate.php": {
+      "sha256": "07c6bb3e65e0aa806cce3a3baa80ff2295f86e7b26cc5d44942bb8368935c41b",
+      "bytes": 15188,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PaymentCommerceTrait.php": {
+      "sha256": "cc09c0811c7a1fd4421b3245af2b2d162219021677568f9d93692fd5d06cd37b",
+      "bytes": 35328,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/PaymentOperationService.php": {
+      "sha256": "2955fc872ef183050a24c6ea1ce69ebcfd7ba115c159c24dc9282c308db6dc92",
+      "bytes": 19074,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/PaymentRecoveryAuthorizationException.php": {
+      "sha256": "38cd0cc5346f8e038826b4e5b66e2366d64611550825b5ddbdb2e8713fdd5097",
+      "bytes": 570,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/PaymentRecoveryService.php": {
+      "sha256": "1bf380d0b981e12eca901daeb75f7d9d3fe864a2bf3d57cb05d35bc14fba55a8",
+      "bytes": 3417,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/PaymentStoreTrait.php": {
+      "sha256": "56ef4caf86505d153beb65eef9036985d15c227b6a8227a092f5e864cea0829b",
+      "bytes": 12596,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/PrivateCommunicationFile.php": {
+      "sha256": "503eea14ba033df988428a1a8e7eb0662b11bd23b3e29d5d480507485508be2c",
+      "bytes": 2128,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PrivateMediaResponse.php": {
+      "sha256": "5357fa031d2e0eca75644f8f628c970843617d8ef512e1c03c30c2638756f81c",
+      "bytes": 3002,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PrivateState.php": {
+      "sha256": "419932644a00ffb213b0f035e57e33e364b319459b589bf739a88cfe7e573b3d",
+      "bytes": 17546,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/ProtectionDelivery.php": {
+      "sha256": "fbbd704e3b111267d64c30b35013ee6befdfa5cdff442f026014b934656223fc",
+      "bytes": 2600,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/ProtectionRecords.php": {
+      "sha256": "888d61488ccb0a079652760c9f8e8f14eda413fb2e9b5b6d6ea485f94f3573fb",
+      "bytes": 48351,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/ProtectionResources.php": {
+      "sha256": "2fbe8fe6fab3556e1544973be78ce1d590d8f33edbd4939e0a57e59ba3750e0a",
+      "bytes": 15160,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/ProtectionStoreTrait.php": {
+      "sha256": "058110b7a748fa74cbfec94aaa11c7b24765e799ae0dc0313a9178e4c870c0c7",
+      "bytes": 5538,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/ProtectionUploads.php": {
+      "sha256": "098a9952f0847500d7bcfd13f25b19e3d5cba57c283618e7de58e8e1d7e230a8",
+      "bytes": 8807,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PublicPolicies.php": {
+      "sha256": "e42908e5c51127f36f12881bf7186d2f478dee5eba78f91aadde457013415e21",
+      "bytes": 6287,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PurchasedTerms.php": {
+      "sha256": "05287966c4513c61c03d0f8c4add13ce2d946e016949878a7a27c2dcd6064c64",
+      "bytes": 9060,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/PurchasedTermsStoreTrait.php": {
+      "sha256": "a4f6f873d487e23a665b591b0b08b70f4aa04321d37a1408a7267ec5a0b17e29",
+      "bytes": 2825,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/RecurringCommerceTrait.php": {
+      "sha256": "bf5af9738da2bf6126ea37e8d4e1c8f061f7f6da05d43ea4848a204fc21fbe60",
+      "bytes": 29664,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/RecurringContract.php": {
+      "sha256": "23dc19dd907fb92d7a1bf62c23079e18ec6467fdd916253bb78f9e816a7408f8",
+      "bytes": 10748,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/RecurringRecoveryService.php": {
+      "sha256": "0ea9c75fc325a21a4a4feb2fdb97d8b75a66b11c766d4a1a33997209267c8932",
+      "bytes": 2510,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/RecurringStoreTrait.php": {
+      "sha256": "13038ecc75f5fbf8cf009c89ca6f52f46cd5f8e902496aa308a77f1a8a073e3c",
+      "bytes": 13556,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/RemoteHttpClient.php": {
+      "sha256": "4280527d87b19c7e693b64166c22dc5e059d50111ad560e67e22c6ab7cd68a59",
+      "bytes": 10693,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/RepairAccess.php": {
+      "sha256": "4dc683ef79f9037c15563b53254f19bfd002007d2e67735a75c2ca0277f8ddd9",
+      "bytes": 13040,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/RepairBackupService.php": {
+      "sha256": "5b51b472399b2ef16ba431164f137e12374fbd044ebe9ad5d22406078b1e53e2",
+      "bytes": 20488,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RootLayoutService.php": {
+      "sha256": "db8ccd346126025ea329315a18b3dffd3e147cb712dd1bb2918265b39bc9a7f5",
+      "bytes": 19305,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RuntimeBuildService.php": {
+      "sha256": "2272e686fdca30768f5c4a909271c02839a072ec92a078e1366392ad7da45aa8",
+      "bytes": 244,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/RuntimeInventoryService.php": {
+      "sha256": "3f7311d711082ea1ec7a0bc526ef8e5bc35f1974e26e1a8a01ca9ac620c66c1f",
+      "bytes": 19372,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/SceneButton.php": {
+      "sha256": "d77ad1ed81a5c8d724908be978ebebbcb1be8e464e2daf5bc2d40f0f9bed8543",
+      "bytes": 8646,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Core/SceneDepth.php": {
+      "sha256": "bfc0242aece62447077cbc75b32f4bc167ad56d908d3fe2f1706b786ab93472c",
+      "bytes": 6165,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        5,
+        46,
+        42
+      ]
+    },
+    "app/Core/SceneSchedule.php": {
+      "sha256": "589acfb7dc5a258af365675d39a7c20d349690d6a68ff31cb6d983c5817d1328",
+      "bytes": 11693,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/SceneScheduleStoreTrait.php": {
+      "sha256": "b67d46b27304862df322655048f0f52573b59d85856f189a31d9ad528dd8f8e8",
+      "bytes": 27816,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Core/SecureValue.php": {
+      "sha256": "2264ddbe9e2bb951db23a96180e54264dbeae664b4bd2855d8cee6c4c2c8295c",
+      "bytes": 3693,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/SendGridSignature.php": {
+      "sha256": "8b0a4c58478031f5f470cb36bd25cdb0f82cade782952e18a6f8816f1654605c",
+      "bytes": 3632,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/SignedPayload.php": {
+      "sha256": "737a8342513197899ec09c5b21ed2ad792ab80d7a1ee1fda0c4ec350e5545508",
+      "bytes": 3201,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Core/Store.php": {
+      "sha256": "31174d986a403e4ce39de796d90eaeb79d5e17ebe934678b1e9f598da615d6e4",
+      "bytes": 29388,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Core/Totp.php": {
+      "sha256": "92023e44f40163d25a89997c86b317778bcb9f7cedf35e221b68728f48a996a2",
+      "bytes": 2561,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/UploadService.php": {
+      "sha256": "84f0d0402a4a1c0fda7dcf79bf3de1fd23ebfb902b0eff2463a16e831b42e76c",
+      "bytes": 6204,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Core/YotiAgeProvider.php": {
+      "sha256": "73cb4a0ffca04a205a33d040adeace0b8d610182f7aff673280194513a529408",
+      "bytes": 7972,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Docs/BACKUP_OPERATIONS.md": {
+      "sha256": "65485b6ea63b919f6cbee4a15d4217db30b2251a3016e8faee9966a04549c78b",
+      "bytes": 18647,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Docs/MEMBER_PRIVACY.md": {
+      "sha256": "07902d132472458b85241d4f70340bacd693bc87ee7f029e757d282caa39e2a4",
+      "bytes": 9907,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Payments/BoundPaymentProviderInterface.php": {
+      "sha256": "5125d3788397f21b158a9bb940aa01122a47311687913429522c348dbec3492f",
+      "bytes": 1610,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/PaymentContract.php": {
+      "sha256": "9d4538961fb7668c7a3953d4abc277449c8c6b425fc446695926c9aa4a73843a",
+      "bytes": 14945,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/PaymentProviderInterface.php": {
+      "sha256": "776b060d35cf2c01a707f71ab93bc0547c09937b87f92ee0d5d63bbce5f5507c",
+      "bytes": 836,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/PaymentProviderRegistry.php": {
+      "sha256": "be7bdd7ed7d3b75015c7813ba77a643144a2c75b7f6a0804401caae60135879d",
+      "bytes": 857,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Payments/RecurringProviderInterface.php": {
+      "sha256": "cf28bc2c4f2bd1fc454f65f5576ef85195a32851ed8c128da030708464c7f407",
+      "bytes": 852,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Payments/SandboxPaymentProvider.php": {
+      "sha256": "026ddc04762243891e480ba5c74585707ca34533dd1c7bffec2d58ef3eac372f",
+      "bytes": 6954,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Support/database_updates_action.php": {
+      "sha256": "6706d811da60be336de599f26d8a5f9084cf7820d76b49af4c3c0f9f14c13499",
+      "bytes": 1355,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Support/functions.php": {
+      "sha256": "da43e6cea57a76e652368dbce152725e82f3ae639abe27dca0044181c66c17e7",
+      "bytes": 16864,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/mail_settings_admin.php": {
+      "sha256": "8acfc801a3088fe3133ff0888e8920f9efd7daa0981989be32250cc872ce2e6f",
+      "bytes": 1007,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Support/marketing_recovery_admin.php": {
+      "sha256": "4770cc75439cabc02c1808c511c23387a808b420c1d843f56152df26f094dfe2",
+      "bytes": 7242,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/marketing_storage_admin.php": {
+      "sha256": "7adf94417b199c4af03d95b66309eac11e52565e33bf801f34ff0120d5740141",
+      "bytes": 1900,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Support/media_admin.php": {
+      "sha256": "7f17d8002fd3e1d141cea00a1244196228a5173d65a7acae1cf156a000ae87c1",
+      "bytes": 557,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Support/member_privacy.php": {
+      "sha256": "56a0a21a5d1a235bf4298459cbb5c019262c4b78d8c475446da703e4607b6291",
+      "bytes": 2630,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/menu_admin.php": {
+      "sha256": "81387c72c39311b0f5c7b1de8ee38caa0099836eaea283de7b35ba19fcfe532f",
+      "bytes": 763,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Support/operations_admin.php": {
+      "sha256": "27f70f81165614999e53a95151d05ce40228494ab6bc0cd760afa1abf1348d78",
+      "bytes": 1415,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/payment_recovery_admin.php": {
+      "sha256": "dcc5c88c32ad5905681035a77ce022795721c9eae60594bba3e8d39986c1c878",
+      "bytes": 7573,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Support/policies_admin.php": {
+      "sha256": "d44c31121a52c0bcebf35db4ee507e7bf06297703632a3d173e3c8ff7110c9e2",
+      "bytes": 2090,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/protection_admin.php": {
+      "sha256": "dcc9efc3232c5ce37cb674d78ffe63c7db53035586ea1a7b8d08641c5977b15c",
+      "bytes": 5440,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/public_routes.php": {
+      "sha256": "c2152b75cf21749b962a7396ba7ee284850fa5d0d24dd881415120dd32fc7f0b",
+      "bytes": 8615,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/repair_entry.php": {
+      "sha256": "055a20377d2770f5a90883d0ce8ab97441456405559591eea8b3bb3113fbd02e",
+      "bytes": 5057,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Support/scene_schedule_admin.php": {
+      "sha256": "51986c9da3445950b81f346750e15fdfed4c12664ecfe3626e4059a3e826d7e8",
+      "bytes": 2032,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/about.php": {
+      "sha256": "1deb7d91710b95328024d19955b7473423c0db56c4bb6a8c944d4ccc74357f95",
+      "bytes": 3508,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/addon-licensing.php": {
+      "sha256": "82979b605fd6df62491b1891f5cf54cb4f8a89ea7d5b361a79e9c1c8ca366708",
+      "bytes": 12939,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/addons.php": {
+      "sha256": "77eabe3896c9b2b32da1ff957450bf7c67e916365af6d696b777fba74de926c8",
+      "bytes": 17600,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        5,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/booking-answers.php": {
+      "sha256": "fbb3a0132cdf494b9816a39c7b6f60b9457168b92e5bdc62b52fe92f1aeeaaad",
+      "bytes": 780,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/booking-form.php": {
+      "sha256": "5febcd6a1fba9b29c686faa6d4b709159bf938ce3a43dd766a672b28f5154618",
+      "bytes": 6996,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/campaign-message-preview.php": {
+      "sha256": "ecac64bc0660eda042bde19b3fde747719ef7c394d6b1c687d51cf53cbe2785f",
+      "bytes": 5536,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/commerce.php": {
+      "sha256": "11bf548e34faafc878ddeaff02ebba8f5f01acf817ecb1d140a01172e9dc4e8b",
+      "bytes": 16958,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/communications.php": {
+      "sha256": "7e472145790fcd03a10363de1db058c677f46939b39db4ffea1339058eee8d9b",
+      "bytes": 25153,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/composer.php": {
+      "sha256": "c603db753d2d0b6d3e17ec2282026e41701b9f2e3b7a915f36c052e4eafd5342",
+      "bytes": 22769,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/database-updates.php": {
+      "sha256": "8300afd94e7d3de76e0b556b8264f85522f4190f0307ad0c51c98c819f00808f",
+      "bytes": 6434,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/login.php": {
+      "sha256": "7ac737cf2fd483c75bb8b3cbeb67cce41e58b400507d7f286bc66c14d324968d",
+      "bytes": 3980,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/mail-settings-actions.php": {
+      "sha256": "126f9efd8463f5420dc94c590277443df5e12c530bd2aa25e27e3479a6380b6c",
+      "bytes": 4646,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/mail-settings.php": {
+      "sha256": "e33eff7e865887a85d18c795b464028090bb406193d23e9a82911c9cbd34a9b4",
+      "bytes": 8245,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-actions.php": {
+      "sha256": "8019df0d6787024d147e47076efd508cedc6783fa17268d980b262829ffcb15f",
+      "bytes": 15879,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-analytics.php": {
+      "sha256": "a5d454aa967e5a8c0b2f0bc5eae34f148bf29c74257f0cc1815d5d07f572da14",
+      "bytes": 7821,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-attribution.php": {
+      "sha256": "0396ddf74c2b117af781bcdfefa51728ad400efaee0d88aedc43a2b253a188cd",
+      "bytes": 3968,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-audiences.php": {
+      "sha256": "cfd023273dbe3dc546e5df799521f1baea23625ebddc80e733a8eac19d2a5969",
+      "bytes": 11375,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-calendar.php": {
+      "sha256": "d743011a29a5b8a1a397ad5e740ed018319147da2503b85d885130737d45765b",
+      "bytes": 13796,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-campaign-form.php": {
+      "sha256": "541a54830d1c61a78019b17816a98ef39c25d142a328d8fc69cec798ac89487d",
+      "bytes": 6121,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-deleted-actions.php": {
+      "sha256": "1a5d94cf9bbe1da5c0f8042861261d4338c3c805f4aed99248c7be2358c3536c",
+      "bytes": 1675,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-deleted.php": {
+      "sha256": "bf9abbcbe4b5e0475725762a14e692563cebb00275a995caa3057fb7331aad4e",
+      "bytes": 8121,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-email-brand.php": {
+      "sha256": "19287f9ce726af72ce99056051256de910a20b5296b2f5ee6838655a6c99ed14",
+      "bytes": 1410,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-history.php": {
+      "sha256": "daefbd435e002bf6a9ffd32eaf853a6389d0e7658da361ac0cbfe6f28ef45f8d",
+      "bytes": 14024,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        8,
+        37,
+        20
+      ]
+    },
+    "app/Views/admin/marketing-link-bio.php": {
+      "sha256": "02ccf717f03bad694f31ee66954d4820422f15d81f0ce7cd61ed937b954dfb13",
+      "bytes": 1663,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-measurement-actions.php": {
+      "sha256": "f6b5fe0580d05521515d2f34a12e9e2f083bb720ff2bc641ff8d2161412c9ace",
+      "bytes": 2710,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-notifications-actions.php": {
+      "sha256": "a331de7610b930ee68a51f25058d5507ba72b4b424f7f1eb3f71c077a5bcdd1c",
+      "bytes": 2935,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-notifications.php": {
+      "sha256": "5a2fe11b78de79206dcc8a20115f0088a29a17c9c3b753507e1414661d2e5a2b",
+      "bytes": 6920,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-preview.php": {
+      "sha256": "feba87d3b74a783e3b0ee325ffcf70fa285d7070205c9b032cbeb89db627c8ba",
+      "bytes": 5783,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        19,
+        9,
+        10
+      ]
+    },
+    "app/Views/admin/marketing-provider-actions.php": {
+      "sha256": "7389f63bf5082e9919516cadfac14fca19bb80c5b57a28ffedc4e0af211a70b1",
+      "bytes": 1183,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-provider.php": {
+      "sha256": "8b453a1a2a0f013c69df8ce3520222033ba34908c75bfcd95b210ed5ead47cf5",
+      "bytes": 6222,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-publication-editor.php": {
+      "sha256": "6a46cf73bc9c498f181e6e309503905a26d9ff835abd3e5a368a5ef8f49a1766",
+      "bytes": 23291,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-publication-list.php": {
+      "sha256": "bccdae5d21d1111edcb10ae923e838affc3ef47d07598c062a2a1b5acb8a7e3c",
+      "bytes": 6358,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/marketing-storage-actions.php": {
+      "sha256": "c32051e5a32219a8511a239a5b24ebc0319f004746f44fd2da131e64a59da0eb",
+      "bytes": 2163,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/marketing-storage.php": {
+      "sha256": "0eacfc13a69fcf0f6fa4e9d0fa98528e299c6ed38a7f935b53fbaa69827f9cd3",
+      "bytes": 5027,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "app/Views/admin/marketing.php": {
+      "sha256": "5fe6fcd9254ec85c0a52896c7531cd98021f75959b0a38fa487ac015ec1e372d",
+      "bytes": 14841,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/media-center.php": {
+      "sha256": "222c438f827f110ba84cd7f70ebb0f74ab8b3c59863f2e57decb97399ea249e4",
+      "bytes": 32743,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        8,
+        37,
+        20
+      ]
+    },
+    "app/Views/admin/media-library.php": {
+      "sha256": "44a5a530cf4781beba7af808a85fab681cfe8fa74b3719ebbdc37eff42bcb428",
+      "bytes": 3833,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/members.php": {
+      "sha256": "cd8676a7210ab8ebe573ecbfd78af4e2023b9f87153e182946f785119c4ff27b",
+      "bytes": 16893,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "app/Views/admin/menus-actions.php": {
+      "sha256": "d84381a73bf5456617384d82796790ca2ef47e52405e5f19625dd427040e3485",
+      "bytes": 1542,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Views/admin/menus.php": {
+      "sha256": "fa5734bc0500bc7ef0c432d1057a4d16359da7d4f1729b29e747cd450ff06bc1",
+      "bytes": 5213,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Views/admin/merchandise-actions.php": {
+      "sha256": "58ac4ac11d77919ceca7fc11f3a708dc56eaa265bbf4829dbc0c3ef7c9c4f772",
+      "bytes": 2316,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise-order.php": {
+      "sha256": "8e0a70c391ac15317da6e136db0a61b367a85cd955d37d3381514953286a5474",
+      "bytes": 2573,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise-variant.php": {
+      "sha256": "4ac862f9959c1a80e98052c935561ae63884ed71e50b80364d3b24c25162f7d1",
+      "bytes": 2083,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/merchandise.php": {
+      "sha256": "2c0f9c38f6295e9903797fd3e7989b9ff79db4de2995a72f912805f8de6b0e43",
+      "bytes": 7151,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/navigation.php": {
+      "sha256": "2a322c8f0ea5704ada719bde25a1aa0efe81671cfc420c35deb59f198f855cae",
+      "bytes": 2588,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/operations.php": {
+      "sha256": "29c332ad4117d6d8af40a1731cf5b50c363d4faba14423b5d378c8288f4f8930",
+      "bytes": 16864,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/payment-recovery-actions.php": {
+      "sha256": "f947567f230050265fa9a2901d7f72b952f5dbd9c050bc1e1f7a4034d2972a14",
+      "bytes": 3671,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Views/admin/payment-recovery.php": {
+      "sha256": "48efef5fcdecf1a9843fd5084ce83abe477ca50ab1acf1cef6b742ba47298cf1",
+      "bytes": 7880,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Views/admin/policies-actions.php": {
+      "sha256": "ff5656192e19be207b91c6cb63bc475302952739f53fe765bb0d33a193a4e979",
+      "bytes": 1978,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/policies.php": {
+      "sha256": "29d996b0818a2f14b4ed4b542f03e892f2b1e5d7c6a112bb664101c70be54930",
+      "bytes": 9256,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/privacy.php": {
+      "sha256": "c2f0f48510b0cc485f7a06045e707223325fe988899e792bdee56ce4ad1b71a5",
+      "bytes": 13707,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/protection-actions.php": {
+      "sha256": "5da60252ba1f74e03c538e84f866886f33c1a1ea92be422f8f99960ce2fc3cd7",
+      "bytes": 3812,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/protection.php": {
+      "sha256": "c4e835aa73499c719ffc243b48d9b143e39f99a2850659155ac346c84032cd4e",
+      "bytes": 14771,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/recurring-recovery.php": {
+      "sha256": "fc1fa82fcfb2ffc3f59e4f032289b6a72695dd38e89e564b4ef0cd7fa9d7fd40",
+      "bytes": 4189,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Views/admin/repair-backups.php": {
+      "sha256": "43b3d248a137b7fd4983d8de93179101d233e4a8f344b9d5d046e7d9017c3202",
+      "bytes": 5066,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/repair-current-status.php": {
+      "sha256": "84c284068851d0e57d47c9b0ef890971f250552b7addbd1ed6451e6a593b9a37",
+      "bytes": 6943,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/repair-signin.php": {
+      "sha256": "ec22c40e8f92a67168451aa4f4e9839914e88dfbdfd010c856a3ea5a44f121b0",
+      "bytes": 2987,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/repair-status.php": {
+      "sha256": "4bca769493a20bd21d20480f729ce1b84aee8da6bb25104e2bf333bd5f162a45",
+      "bytes": 143,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/scene-schedules-actions.php": {
+      "sha256": "5c795b3a2fdd8a0b071eff4033448776bb4282fd4938f1be5a625827332ed1c3",
+      "bytes": 2112,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/scene-schedules.php": {
+      "sha256": "d055c2cc48032e2ffbbf61e2ce082fffe90a131f487ea0af5280463474636292",
+      "bytes": 11659,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/security-actions.php": {
+      "sha256": "ef57835388f4df9407e6da66a8815ec67f29be5ac3d96f0ea401ad887367f542",
+      "bytes": 3242,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/security.php": {
+      "sha256": "af76aa964c0fb8ccb3043d64b4b0f857c01a398cecb979f015caea367192d9c4",
+      "bytes": 5885,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/admin/update-status.php": {
+      "sha256": "fcf7111ceffc8b71f6ac30e8274a1cf13005ed8f2c2dcee1d94e017ba214b458",
+      "bytes": 72,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/Views/public/access.php": {
+      "sha256": "d41329cee63f16e2305deae03e04fbec80bc1c75c4ecccf27e5a6e5d8c585e45",
+      "bytes": 4070,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/booking-fields.php": {
+      "sha256": "a322116682c45f6be8ac51a160c38e3b1ae7d9d3e127711c7e2cd51198c8844d",
+      "bytes": 4191,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/checkout-terms.php": {
+      "sha256": "6178773bde4a34aa1db3bdeaf5b433aabdf6cbe4612343117e0a2ccd88033cd9",
+      "bytes": 1278,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/footer.php": {
+      "sha256": "a4ff66d314f9783aedc03144d7112a904f279950466202607eaa49058e3a83ec",
+      "bytes": 2894,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/header.php": {
+      "sha256": "2af5d1b6005b5620097668a06adf78decab2e3a84199d87944a28a82b3a52f48",
+      "bytes": 3334,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/legal-links.php": {
+      "sha256": "7ca1320fd6c3d4a3b4b9d2d92fda7b3ee6ef23d7b80aa1956ce2b53980cc601d",
+      "bytes": 472,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/menu-items.php": {
+      "sha256": "15db1ea015eb1f6caeb7274d2b15a3d29d1fd331760b8d962b22fd69fa3cef9c",
+      "bytes": 3610,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Views/public/partials/merchandise-buy.php": {
+      "sha256": "bee2c2e4aa88d54273be6de016e57235be74ed7227dd70f7af284ddaa7d8d063",
+      "bytes": 1978,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/navigation.php": {
+      "sha256": "803636b63e5726afdca0d25aa56bfb6ceed619e5eadaf314548552cf613487cb",
+      "bytes": 3018,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "app/Views/public/partials/order-totals.php": {
+      "sha256": "203feae424ad4ee411fbcd36aa07bc1359558e26b6f48b952cc3d154b44fc560",
+      "bytes": 858,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/player.php": {
+      "sha256": "985d4206964224a9727e8bd6616cdc56113e4bf18602333a806e2ac3c1f1265b",
+      "bytes": 3583,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/purchased-membership.php": {
+      "sha256": "b5553b43b3074c5598f577667582e457f8ccc7412fb8c5d63fd24cb9a1b7d6cb",
+      "bytes": 1351,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "app/Views/public/partials/recurring-membership.php": {
+      "sha256": "3ef9c3f264ef80090f91bc213af42dfa6162e4d56b4f944b00b499671ac6722a",
+      "bytes": 1069,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "app/Views/public/partials/scene-buttons.php": {
+      "sha256": "4954f3745f6ff8d51cb6140d10aec58b2cdbf0a28fb6c5c90b0ceeeb3a989f0e",
+      "bytes": 1937,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "app/bootstrap.php": {
+      "sha256": "50b6aa2adaa59643cb42b29a1c6a90f590ee89ee331a7bc8200fe92d12cebfbb",
+      "bytes": 415,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "config/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "config/app.example.php": {
+      "sha256": "2ba7999dc9e9e796cd6da59a35d14d3812df3da2855ae5e9ad7c56e7e9eb10ef",
+      "bytes": 1295,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "database/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "bytes": 36,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/backups/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170001_core.php": {
+      "sha256": "710b6f6b79fae333f6350c1a29839acf2ca2514e3372d50abca28b1d6dcc27fc",
+      "bytes": 4546,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170002_installation_and_roles.php": {
+      "sha256": "6d12fdea88ae4270c60196e22acb5407e7301514443cc8cc639e7d6dfdef0ab0",
+      "bytes": 2465,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170003_addon_foundation.php": {
+      "sha256": "11f10fd1eb4d3493f8b0b600b878780ccff0be43d335ba8006ee8de063de1dd4",
+      "bytes": 2889,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610170004_media_and_commerce_foundation.php": {
+      "sha256": "fdb254ca147c1e342df5e31ee3ea6300c6ad82aab7d1347f18c87735ccd5363a",
+      "bytes": 13646,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180005_media_center.php": {
+      "sha256": "1dd6926a4bf0e38ec7f63f453a601af102a6b551066fc5ea2b88a850af566871",
+      "bytes": 3251,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180006_media_center_metadata.php": {
+      "sha256": "bdadbfbfae1ea75e47f488482ab7ece1ba079f8527acd61adb9f094febd7deb6",
+      "bytes": 685,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180007_members_and_entitlements.php": {
+      "sha256": "c7c2963f8e685a5f5d3cdb65477db4c16146f317c339eaebdd8ae97c39f04786",
+      "bytes": 4038,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180008_subscriptions_and_ppv_commerce.php": {
+      "sha256": "762e29dca53e4fda94b475cc7aba17a8080f03e19081ef163ddf5bb57fc2af34",
+      "bytes": 7000,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180009_addon_framework.php": {
+      "sha256": "897f1e1964069e59ac1997dd9083983c0ba70b704d35dc6e979be4f3813b98c2",
+      "bytes": 3024,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180010_addon_licensing_updates.php": {
+      "sha256": "9d5d5179813de4e287fc6c840c79efb4e65266046b80b0708be616deb5445147",
+      "bytes": 7610,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180011_messaging_booking_requests.php": {
+      "sha256": "ff6b261052eea696c3114feec7ad88ac199762fdc9d338dca8d8cd2644f50809",
+      "bytes": 8994,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610180012_marketing_publishing_analytics.php": {
+      "sha256": "27d95b1be0202656379065cf63a29c4eeccf4d973e6076fb555b4b719855753a",
+      "bytes": 7300,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610190013_booking_form_builder.php": {
+      "sha256": "a9b6f526e00c43954b7401ae2307ad1caca634aa18817bc7023d02a19cecacad",
+      "bytes": 775,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610190014_merchandise.php": {
+      "sha256": "00a943f0cef005b6bcd7bfac7ce47b0f6f550e0cae5ede05a64868e75453036a",
+      "bytes": 2741,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610200015_marketing_sql_storage.php": {
+      "sha256": "1de62cd558f649c5332cb16ccceca6b18b22030442b197f6c37ccb6aa849a03c",
+      "bytes": 1436,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        14,
+        16,
+        8
+      ]
+    },
+    "database/migrations/202610210016_marketing_measurements.php": {
+      "sha256": "1d6c8c0de75d1aa03290f0e9f263c1d08748fbf5ccea7687e325051b4112cd4b",
+      "bytes": 1814,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610210017_private_state.php": {
+      "sha256": "a44b4d1fd02f205bd139eaa754cdef6167968232328ea6330b39f1616ccaaecb",
+      "bytes": 559,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610220018_payment_journal.php": {
+      "sha256": "a290e3bba09fd7b0b18a5bfd73fde9fdaf53ebe43acb9b335e569157e7500ce8",
+      "bytes": 792,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "database/migrations/202610220019_recurring_lifecycle.php": {
+      "sha256": "20b8492350bc4716a85b69166c83ed27b030ea4ed83560213379c39702eb2d90",
+      "bytes": 2061,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "images/.htaccess": {
+      "sha256": "7b0d3af1fe06659f9acbfc1f4f1094720ec9ed769fe521cd25fe5a6fa432d1f5",
+      "bytes": 182,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/about-pink-room.jpg": {
+      "sha256": "d48a33af74c2cdf0fbecc02b22fb38acdd118207827be5f6a79f6cd30d3d3897",
+      "bytes": 33070,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/brand-mark.png": {
+      "sha256": "3ef7e83e97bf28be8ed517156d9ffe8b8cef1b8a8b1e290e2989cf60e570f383",
+      "bytes": 4070,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/canva-footer-preview.jpg": {
+      "sha256": "7c5f19d6f6531c7147823510c7edfa9cdd5a650915728f69015a328df0963cbf",
+      "bytes": 20398,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/canva-hero-preview.jpg": {
+      "sha256": "8219a972435c1a4f6929db3bc7fd8baf3607b6bd8a6f4b7aab4d3f4b25f18247",
+      "bytes": 26570,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/footer-pink-room.jpg": {
+      "sha256": "d2cff98498eb06c41e94d35cbfeb859f9388dfc95da269f99d3de8a4710586f0",
+      "bytes": 20737,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/hero-pink-room.jpg": {
+      "sha256": "cc70151cf8c65a389315fb1cc4d5d8a442639812ad9f5c804a1cedc50c7c063f",
+      "bytes": 27108,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-1.jpg": {
+      "sha256": "4ae6a60b946beecff91f92ad9e471b3ca88ff6e02027a19f6185ad3a5e681895",
+      "bytes": 12541,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-2.jpg": {
+      "sha256": "aed0c52db01b524a7e8596d49f75da596b045b86ed583cee2776cde5e633ad5c",
+      "bytes": 14903,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-3.jpg": {
+      "sha256": "c218b8ed21ab7c9a29879832697e65c9e8df19761024b64ec2262ec164298c66",
+      "bytes": 14268,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-4.jpg": {
+      "sha256": "36e2419c26219d1af25a04d431c1f96eb79cafb71eba9e58247a08f2f41ba6e9",
+      "bytes": 12358,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/defaults/set-5.jpg": {
+      "sha256": "6d4c7feff8d7f6fc395b7f32d2b898c0f36e11302fed6b01958e883241699ddb",
+      "bytes": 16449,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/art-deco-home-bar.webp": {
+      "sha256": "f02a1ce5c23995745ef85239428d35e0ab61b72b07d96e60f4f6bf6a74574222",
+      "bytes": 183378,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/black-marble-bath.webp": {
+      "sha256": "efeba4eec4980bce8aaa7bf86a84d4f40baa502b4941359ecc92773716d1c7af",
+      "bytes": 190580,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/cedar-sauna-retreat.webp": {
+      "sha256": "400fa98c77b395a22bce7f029cc1c5d2156b287b6f3cd9e1845b7e8c51913399",
+      "bytes": 171752,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/couture-walk-in-closet.webp": {
+      "sha256": "593c141b20fa0ada12b836aded247b9cc82e09ded6cff6fc070bea64b66fd7af",
+      "bytes": 178886,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/garden-firepit-lounge.webp": {
+      "sha256": "207d00f2bf9f01d2d71d9dbc70c13bd78d0bcdf8e7ad5fbbb60aa02e15848dab",
+      "bytes": 271250,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/grand-mansion-foyer.webp": {
+      "sha256": "ab9af81826fea27bba6e1b79f968192dfbe165027ed1ebe41f9bd83aaa854ffa",
+      "bytes": 273862,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/magenta-billiards-room.webp": {
+      "sha256": "e204dc8da712285024dadd7d6f784b449932a679016bc3b6cfcd92ccbe451fe6",
+      "bytes": 172508,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/magenta-penthouse-suite.webp": {
+      "sha256": "55585afb29e3016c57fef2205048822cba2d64e3787bd17f028dffeeac200414",
+      "bytes": 208292,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/manifest.json": {
+      "sha256": "1ef66072530ecc08bb53fb99f99b87623dafe973528d3e1f30b416f8d579193c",
+      "bytes": 23627,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/midnight-music-studio.webp": {
+      "sha256": "fe79f3c4c5d32c363feea47a8324b5b324b8fcd1531857c7e45a62079f200182",
+      "bytes": 160624,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/midnight-penthouse-kitchen.webp": {
+      "sha256": "2d0bb529cca50c6c8bf8b7bab592df7f069e677ec09f3eaeb783453d932e4c3b",
+      "bytes": 171078,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/mountain-lodge-retreat.webp": {
+      "sha256": "99bfb544e97b9cc5bebd1f1feee298eaee1d0064be81e71d420eab1f2800c15e",
+      "bytes": 241968,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/oceanfront-outdoor-bar.webp": {
+      "sha256": "a9cd858df3c26b59c68d5b0f971dfb5c62547d3a8cc0888d530d64cc0749a9c7",
+      "bytes": 254624,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/poolside-evening-bar.webp": {
+      "sha256": "9a8ef82a3d9fb381ea4c978146ad161c51271774a7a49ebbd977ab4586b8cf77",
+      "bytes": 230480,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-beach-cabana.webp": {
+      "sha256": "f569a85e62a5245eac0e0f84ed2b0aedf889939c3ce5a2a26bab291d7ad96d9a",
+      "bytes": 222710,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-cinema.webp": {
+      "sha256": "98c1502e5bbe115421730ecfca5ba0db7d390dc2c700798fa85f0fe2cdc2b7dd",
+      "bytes": 124148,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-cocktail-bar.webp": {
+      "sha256": "297b3b30dd4e0427fef9cf118c8a8abbc381cd3e18c79886f3b174bf95cd3a77",
+      "bytes": 265588,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-jet-cabin.webp": {
+      "sha256": "45bcec8916325dd2a31ce147b6e1cd63169644bb6a4448a88c1b34a6ea8bfb09",
+      "bytes": 196276,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/private-wine-cellar.webp": {
+      "sha256": "1eb12d49ce8a776e8f025104c7c2f22f1060d4263292a106cac4d7c86f7b611e",
+      "bytes": 268846,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/romantic-candlelit-suite.webp": {
+      "sha256": "ff5565670b1c11d496c34a18190a9267a47241ccec80a56e7f048640b75c1574",
+      "bytes": 203556,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/rose-marble-master-suite.webp": {
+      "sha256": "b173308524d848ab30d2609b391915ef778faba1ff31bc1f7aafac597a9eabd2",
+      "bytes": 182896,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/rose-marble-spa.webp": {
+      "sha256": "59a6a761a2fbb3148bb458b4d495bbb80591312b9a402a133b45784f308b09d3",
+      "bytes": 265804,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/skyline-living-room.webp": {
+      "sha256": "adcf55eee9054c40d05d14c5d74622bec139931aa0a3b9695e6da1d9ca16d4d5",
+      "bytes": 215306,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/skyline-rooftop-lounge.webp": {
+      "sha256": "f19de94468ea01e1603c55e4fb1cb7e2ef1959d33f8d9a92767547aa65b71008",
+      "bytes": 177856,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-beach-terrace.webp": {
+      "sha256": "dbf2a36d75f4024ed350b4323b3101ba7afcd11306bc70758bab2238b6cea610",
+      "bytes": 213412,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-chef-kitchen.webp": {
+      "sha256": "1e407e952d73f24add4217e36a8700265dc3a95eb1dfb0f0e73c2b11898bd360",
+      "bytes": 180580,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/sunset-penthouse-terrace.webp": {
+      "sha256": "17923fe715ccc20e1e443d0da186cb44a11b29fe42b23cf009d48f6d7d5fe635",
+      "bytes": 221356,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/superyacht-sunset-deck.webp": {
+      "sha256": "5a672508ffb22e60f706434398d769391b8310e5ff4cb3c40a8cac7f5d331bfe",
+      "bytes": 205348,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/art-deco-home-bar.webp": {
+      "sha256": "4f8f6f64b48b7d7f06327826d9202bc7af2f0326824713c899822e42f2d790c7",
+      "bytes": 12750,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/black-marble-bath.webp": {
+      "sha256": "3508705a960f113f0f25cd2e435f070fe1a2de14f24bd3685f67171822390140",
+      "bytes": 11874,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/cedar-sauna-retreat.webp": {
+      "sha256": "606d66bb8be444eec899245a1cf62fa6a1c91a28e871eb2e98b27a4eaae7449b",
+      "bytes": 12066,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/couture-walk-in-closet.webp": {
+      "sha256": "95e3364f99982694b95089c182ab2c780cb54e5f8a9d1af1ea7b780834d77a94",
+      "bytes": 14280,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/garden-firepit-lounge.webp": {
+      "sha256": "7826049140642ab6380f52dbef3b824f82de8ccedf3635ea294e3858ffa91214",
+      "bytes": 16004,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/grand-mansion-foyer.webp": {
+      "sha256": "3f67dd8772d25b6b3e1c7bee2d39957635253a9ca8fc209c8a04c89281844775",
+      "bytes": 17630,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/magenta-billiards-room.webp": {
+      "sha256": "c779012a194014b98ad006206e08792e6ecff78ca490a5a50e27e2f51adc8898",
+      "bytes": 10248,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/magenta-penthouse-suite.webp": {
+      "sha256": "dae8f182c91fd67e44ae16ba6d1fc1ed1e138f2b38877ee05475c731786a8a30",
+      "bytes": 13420,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/midnight-music-studio.webp": {
+      "sha256": "e62a8b2362eb9859468dd13f6ec0ab727a518b853b0b81ffdee1086fa39acb15",
+      "bytes": 10042,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/midnight-penthouse-kitchen.webp": {
+      "sha256": "6fb3fc54dfec52aac7bdb4c05352af9d089f5e34456ba35dcec6974ed77e8fde",
+      "bytes": 10608,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/mountain-lodge-retreat.webp": {
+      "sha256": "8adef6c634f2eee18d25ae87ddeddc53952d6022bbed37b9c350b7827af03ca7",
+      "bytes": 15802,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/oceanfront-outdoor-bar.webp": {
+      "sha256": "f8f32d9536dbfc642958f19bc9199c96e8223ffb7b43987a0063203ac91aad10",
+      "bytes": 14678,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/poolside-evening-bar.webp": {
+      "sha256": "d33a7ffda3f4ed75d092259b83aaff2717fb952d5d4610b8cac8b2a26b24830a",
+      "bytes": 13466,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-beach-cabana.webp": {
+      "sha256": "cc62515a5d096ba97a575b4879e0f044ac81b49d182a628ad356d5115a8a8c8f",
+      "bytes": 12840,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-cinema.webp": {
+      "sha256": "f2968ecb5689ff7b759569a3cc234b3ef0af2e1af9aba1816d9ef82fb6a05abd",
+      "bytes": 6274,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-cocktail-bar.webp": {
+      "sha256": "f8c2f0922cd3f25e89a6221a798886c41b72a3f9531f8053473b5604f8b1a734",
+      "bytes": 18124,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-jet-cabin.webp": {
+      "sha256": "58c10bdb4f2fd2f5238367013ea7296c0b169aa9f893f7fbb6a9ab6e4764db97",
+      "bytes": 13590,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/private-wine-cellar.webp": {
+      "sha256": "75f23b13552e42ffa45f74a6ea94e3e5de0e8a8e9d46d7e75b4f8cea8aecad2c",
+      "bytes": 18316,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/romantic-candlelit-suite.webp": {
+      "sha256": "cd76a31c845480ad14293a36a386a00c5c5679485c6b32a78b66a6f75ad716d7",
+      "bytes": 12800,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/rose-marble-master-suite.webp": {
+      "sha256": "deeb932dd7389ee0ef3b65aee1447e37b36e844c9a21a2a56119419622ff4e0b",
+      "bytes": 13202,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/rose-marble-spa.webp": {
+      "sha256": "1208a8660ecc24d0481a55e945c22030bc59ce84135b136a22f9201b8aaab26d",
+      "bytes": 16968,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/skyline-living-room.webp": {
+      "sha256": "f8fd7a2ac75fa66a9a2d519f484ca8490d67625087b46cfbf9692e310aed8c8f",
+      "bytes": 13500,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/skyline-rooftop-lounge.webp": {
+      "sha256": "83a92cb1546ad34c088ffc4db1f24f96b9be7b95bcad68dd44440c33844d4499",
+      "bytes": 11578,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-beach-terrace.webp": {
+      "sha256": "3289a56b55dfca7f24de11692e3e863fd8ced62914ce2037ba2571c606b6f4e7",
+      "bytes": 11086,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-chef-kitchen.webp": {
+      "sha256": "647304b687e105cd31da8a51110430116eb9b7a29945ac59da0cb6ffd758256f",
+      "bytes": 12524,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/sunset-penthouse-terrace.webp": {
+      "sha256": "37fd14f96dcde074fc935d5fa2d57eb291dc8617752e5e476a9fa7c4699e7f7a",
+      "bytes": 13350,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/superyacht-sunset-deck.webp": {
+      "sha256": "00ffe9e84bb002d54f197bd872638f6cdb022a8d03f19784a1ee08fe5cb22cb2",
+      "bytes": 12472,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/tropical-infinity-pool.webp": {
+      "sha256": "a8c4beecc582f473c5b97d4cef4b428a20f03496c779d47aa7667a8452929966",
+      "bytes": 14706,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/velvet-penthouse-lounge.webp": {
+      "sha256": "25e476314cd30b07e4d8afbd0654982d884199e8f35cf10ac53b85fa27e83573",
+      "bytes": 11624,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/thumbnails/waterfall-pool-retreat.webp": {
+      "sha256": "c7f79dc819b305a65b7d146640c2ed4bd5e9f9594be022333b46bece5f41df1d",
+      "bytes": 15806,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/tropical-infinity-pool.webp": {
+      "sha256": "9b6db76cc0e3cea669d7f477c028568c9e83077d539f932b5b48c280c65fe565",
+      "bytes": 276174,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/velvet-penthouse-lounge.webp": {
+      "sha256": "67fce0b3b4d8cef150c82ed78f107d304f559eb3edf55d40e8e2ce0e795458cd",
+      "bytes": 180706,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "images/hero/waterfall-pool-retreat.webp": {
+      "sha256": "10b32f6d98638323ef933b1b889b3ddf65f13f625feea8f7ac2aed201651ba7c",
+      "bytes": 268926,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/age_access.php": {
+      "sha256": "139c1c8c13df35c4453c6f6553c96ebdad4240ea83b230e271b0735d0feec5ca",
+      "bytes": 1568,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "includes/autoload.php": {
+      "sha256": "a8492b8cff5f5efde1271246c56010231e44d51edcc740c79202766093ba6d0c",
+      "bytes": 451,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/bootstrap.php": {
+      "sha256": "7f50b1e3f7f19cd313197ef5c7e06a2184f9c73571fdd35c41b4f30ebe27b951",
+      "bytes": 881,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "includes/helpers.php": {
+      "sha256": "3c718f41b429d961f8ec52b10b4c68367bbe7c1b2901ca2891b328a9e0e2960e",
+      "bytes": 87,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/installation_recovery.php": {
+      "sha256": "52ce3d42a00b5577d5ee121f7bc990bea124c6ffafa96df42c72f92d4897eea2",
+      "bytes": 24401,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "includes/marketing.php": {
+      "sha256": "f3e9b694d9a93c58decf73a47f1bc1f576b9436797240ff7902401631efddfa6",
+      "bytes": 13342,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "includes/marketing_admin.php": {
+      "sha256": "5689daaa79d5edf36bc6c4c725b5450a763f0096cd815ba06d675ea30d5861cc",
+      "bytes": 12713,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "includes/marketing_public_shell.php": {
+      "sha256": "e9ca34be69de1d7d377e82227355f8d3d2366ef47bd90f8ca80a20c26e7e0be6",
+      "bytes": 914,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        19,
+        9,
+        10
+      ]
+    },
+    "includes/runtime-build.json": {
+      "sha256": "8feb377d9fbf2cb3e15a4c13261ad8606aa1aa09da5e9ac8153c5ae27a6f51ab",
+      "bytes": 52452,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "includes/security.php": {
+      "sha256": "2dd533af92967caae0876dc543de3f9538410fae22410bcea33674265d363cd4",
+      "bytes": 926,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "includes/version.php": {
+      "sha256": "3be5aa50929e0a1dff8e25e2917fa221efed50d8e8f7abf2c6a79fda652423da",
+      "bytes": 325,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "index.php": {
+      "sha256": "c437df949c1c9902165717545fa973fd272ec6f911d96de8b68d6ab9369f009e",
+      "bytes": 102,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/bootstrap.php": {
+      "sha256": "dd21d72cddc0de1f359c2f7b6f05d7b6221a1298d4491b978dd30f1058716826",
+      "bytes": 613,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/index.php": {
+      "sha256": "3e7eef91bfc7eab9da6d844373898fbc5fafa77025279a62a93e26cb1ac22e07",
+      "bytes": 12527,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/services/EmailAddress.php": {
+      "sha256": "a6f3d32630c8c006b9f7d1774f5d6d1df3e9e778b4f839912fbc596503e714a1",
+      "bytes": 5295,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/services/FileSystemService.php": {
+      "sha256": "bf9a1eb43cc1ece2d5d30c80a87e1125cdbd21c5ade829895eecf801ef258c0b",
+      "bytes": 26198,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerLog.php": {
+      "sha256": "95f624aca56cc013b2d619f82a63ccbec3d26b8aab9b089d75b2188934f54a9f",
+      "bytes": 1790,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerProgress.php": {
+      "sha256": "3284c4dd94107ccf8b70f4fdfc44e8238e8cdb3313c78ab7db4897f654e01be1",
+      "bytes": 2819,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/InstallerService.php": {
+      "sha256": "5e5a933d9434db0f66a1b5f2a850154a2a8364052ae7b1226bd89f8cd30b3775",
+      "bytes": 42304,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "install/services/RequirementChecker.php": {
+      "sha256": "591222c1c11d8571d97c934c751cc64b20da8b0ef143e77a246112a14f0cd7b8",
+      "bytes": 4285,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "install/services/SmtpTester.php": {
+      "sha256": "9c56e66c47cf36e0ef6e9231092e7f658b0e082c11729d8a79c5cbad77cd9311",
+      "bytes": 9489,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "install/views/single-page.php": {
+      "sha256": "3f77f8da83a26e1af62c9e1cdc0c177a0e6ae6377790529faa4e0243bb422555",
+      "bytes": 18097,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/css/admin-ux.css": {
+      "sha256": "30c36e6fda9e459ffbcd6f833051f6d33f4b05c2acd8fabffca9b812570cf075",
+      "bytes": 3454,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/admin.css": {
+      "sha256": "d93c86d5b0a3b4e6b62c862d80aa285ac58c0a84b5ca0cb23fee6334f6426303",
+      "bytes": 50977,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/booking-form.css": {
+      "sha256": "b814d966dcd04803bc74302df4575591d0f719e4e64f5bace4a19f1fe705233a",
+      "bytes": 3107,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/commerce.css": {
+      "sha256": "2befe41daf98853e917fa04f3e93b67cb64e27dc540114a59df1dd096df1a894",
+      "bytes": 14696,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/communication.css": {
+      "sha256": "dd4a560073417d1f7887f3f53b2fb99d62419c3c97f6034c2e0cc04d16cd6a8c",
+      "bytes": 9916,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/composer.css": {
+      "sha256": "d2c4511a9e116302c034c5abb5b0ec81aad97aedbf4b51d5559b189d2e24bdf6",
+      "bytes": 27671,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        5,
+        46,
+        42
+      ]
+    },
+    "public/assets/css/installer.css": {
+      "sha256": "7b499c5824aa5445054aa025507b1fe0b373bbc77039902bf503a70a3d6dd81f",
+      "bytes": 29541,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/mail-settings.css": {
+      "sha256": "a0311d645a1ecf03a1effa52d309e9afa00a44127f966dc7c841cbd68d4ee16a",
+      "bytes": 3670,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/css/marketing-calendar.css": {
+      "sha256": "c948607a450e7d059991e9668ac1a44ef21423fda2a292fe1f5a653704899f40",
+      "bytes": 10094,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        8,
+        37,
+        20
+      ]
+    },
+    "public/assets/css/marketing-deleted.css": {
+      "sha256": "e99ccc3acf7a0dad5802d21e6c0d0b9f35e2592afcb11e1c33a30f6d27841c30",
+      "bytes": 7065,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/marketing.css": {
+      "sha256": "15d8918ca1c9f3665a302bbf9da00788bae1cb4276a9dad81019e94ac5480030",
+      "bytes": 17980,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/media-admin-edit.css": {
+      "sha256": "ba3c662a0ea30717faeac433cf5cf3f84e5fd765e4e3602754708531fc1372a2",
+      "bytes": 4590,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/css/media-center.css": {
+      "sha256": "9ef7a383e600d52ba822edad82acf96f4a18113848e73c779bbf16f31ce234e1",
+      "bytes": 17489,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/member-privacy.css": {
+      "sha256": "0b44054ab54d914b51b6d08d977dd8cc758240178799072db78049e26a590b75",
+      "bytes": 4113,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/member.css": {
+      "sha256": "b8e105e5ed6670954f058dae1150ca4a44f97feea52a1f63a99a744f1b8a7ec6",
+      "bytes": 10956,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/menu-admin.css": {
+      "sha256": "3f62a4e78cbf82cf193f2f07ec2b02a53e4ec912352b96a6911f80f40e4b70a7",
+      "bytes": 4259,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "public/assets/css/merchandise.css": {
+      "sha256": "1c951e949e67d5d1c8f48d5edc8027c5037c3949fe106015acb94f3862b4e3e1",
+      "bytes": 1715,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/navigation.css": {
+      "sha256": "50123cec8b86a206722397cb0cbd4d3b09d8e049833c96b91077c9e1f9b9a607",
+      "bytes": 6161,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/operations.css": {
+      "sha256": "c5bd34d1e4fa579b1903abae461faaafa1354d2a3b2097b80a2b921a77b9a59f",
+      "bytes": 3233,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/payment-recovery.css": {
+      "sha256": "ce9f155e3dce7a7c261cf53edf197e632e29141b56abaccdf72967c7246cdaef",
+      "bytes": 2572,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/policies.css": {
+      "sha256": "a846dd1fc188c4e7302feadafa2440f424882d78d3354d5e82803ebbdfe14372",
+      "bytes": 3096,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/privacy-admin.css": {
+      "sha256": "873ecc445885069ac726fab44e6d91d15a1e325e22ed22e776a28b0e31673134",
+      "bytes": 2854,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/protection-public.css": {
+      "sha256": "9ba34e0617107fd8336c7d4119ba9bb6e6a44d7ffa019d0aaf9c079d85d21ca3",
+      "bytes": 4442,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/protection.css": {
+      "sha256": "ec9fca9e88f0c800e93c45bca72f77724afeacd8632f870dafce70021be61a7e",
+      "bytes": 5117,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/scene-schedules.css": {
+      "sha256": "1e021fea8f94b4c438b33dd9c8a92f73f28977d879ea0ca2d8e3cbdcbd0d6eea",
+      "bytes": 5402,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/security-admin.css": {
+      "sha256": "a3c1c60880b9e715f18e7f89f164a4fe67e5237a05c2cf1990e4924c20c12e86",
+      "bytes": 1595,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/site-ux.css": {
+      "sha256": "e705aa3448b3cbb731a1f2f8c92c8413de8e9669dfbc8d79938b282107ac04a2",
+      "bytes": 6834,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/css/site.css": {
+      "sha256": "19220cca6599517fa3a136f5f455b6a7e8caa10c14c1903ab107e68c32ff9fc6",
+      "bytes": 16447,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/admin-media.js": {
+      "sha256": "a72e9c7e88431b45da45e1ba2f510c3de55cf13f7cd002a6c4b8bdc630f995cb",
+      "bytes": 7434,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/assets/js/admin-ux.js": {
+      "sha256": "efc1fb3eb4d6fe40040dde0192ba1892e5bfa69fd95b00e66410292ae56697f9",
+      "bytes": 3259,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/admin.js": {
+      "sha256": "25490807bda4513ce526ac5e48c676b5b33748564b27589678ed2290496ab184",
+      "bytes": 3119,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/api-client.js": {
+      "sha256": "96a1e8ec2a401e4348405b4d87d02e60bd442fbb064c46ccb5f7df8498ca39a0",
+      "bytes": 1737,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/booking-form.js": {
+      "sha256": "52e55db2e350830f48297dc31f3d1f70756d873f2becea2632b8a7194ddbdc8b",
+      "bytes": 7733,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/composer.js": {
+      "sha256": "012928e99bd9344d0bfd7dd6eac76b6a1913db6b9d276c5948f9a5faaaf9f0cd",
+      "bytes": 102346,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/installer.js": {
+      "sha256": "2b12ed66d231102c2451d8d74a297a9e3af408b58a04147627068676e59c598b",
+      "bytes": 33265,
+      "timestamp": [
+        2026,
+        10,
+        19,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/mail-settings.js": {
+      "sha256": "87329ccb166503b73cf46a566f8b748e70615c135421573dd0242803c1cd6786",
+      "bytes": 2389,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/marketing-editorial.js": {
+      "sha256": "6337e15860485d98254f5c99409ed2dc1430c5bf6b6844d161ba6b8abc8cc00b",
+      "bytes": 3092,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        19,
+        9,
+        10
+      ]
+    },
+    "public/assets/js/marketing.js": {
+      "sha256": "67dffed34e8f7d32fa9c11df7930d0ba4d1902fa0817ce313e06061800b6b32b",
+      "bytes": 1118,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/assets/js/media-center.js": {
+      "sha256": "02e3129a62072ebceea65c126290b139ed4c9309492f72fc63540518ed7bfd79",
+      "bytes": 15949,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        23,
+        38,
+        0
+      ]
+    },
+    "public/assets/js/menu-admin.js": {
+      "sha256": "dafa5deace8e3b6109f9f15a23e6963d474a37e282d2f8cf88829e1e32680f0b",
+      "bytes": 17142,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        0,
+        41,
+        28
+      ]
+    },
+    "public/assets/js/merchandise.js": {
+      "sha256": "da39c36257ef37c796600c160075febaf0c824c95314ff70d490819779e82176",
+      "bytes": 1757,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/navigation.js": {
+      "sha256": "f481d8e429a17c1650e15e26ee9183c99874e5fc83711ae79a6be16e9b0aa3bb",
+      "bytes": 6966,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/assets/js/scene-depth.js": {
+      "sha256": "70d918e3ec130ae9dab1fdd9c615097e0a9016b31fb456781fa9a8201e527660",
+      "bytes": 7166,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        5,
+        46,
+        42
+      ]
+    },
+    "public/assets/js/scene-geometry.js": {
+      "sha256": "47fec2c6a49ffe767c20309b7640e5acb0db4dd13510d8274b54bd0caf0aff8f",
+      "bytes": 1071,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        23,
+        38,
+        0
+      ]
+    },
+    "public/assets/js/site.js": {
+      "sha256": "2afebfb39cfe62ed32f87001ee9ba2f547d6637b8b1f730881723eeaeb463b5e",
+      "bytes": 15802,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/home.php": {
+      "sha256": "85c300be849674150a2e1251493e1b226810327756b824b74152b053e05504c7",
+      "bytes": 14967,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/router.php": {
+      "sha256": "0553ae31199941e29639d0e29a01edc8c95fc15e13d1b98d8b41bd67248836bf",
+      "bytes": 1947,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/routes/about/index.php": {
+      "sha256": "6f9736a069724934de231e3caf44a0a89722f7fa91640dcfc59d6c79b6ca8861",
+      "bytes": 1991,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/billing.php": {
+      "sha256": "c6f2940b399502fd650942c40ddf784bc63d3a4b95314dc6bea557817b408f91",
+      "bytes": 6290,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        22,
+        30,
+        0
+      ]
+    },
+    "public/routes/account/forgot.php": {
+      "sha256": "4faf84103cf2013380cb89ec2497bc5552aff8dc557ffae80f484bcab21d1364",
+      "bytes": 1889,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/index.php": {
+      "sha256": "3c90abc021c01f8190c6e0c82c78dfc427ca816de3a9ce559e609317cb5b5fd4",
+      "bytes": 7855,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/account/library.php": {
+      "sha256": "08ba3b45b35e72f7ae24a1e66436846b4261a9c3d8aaa698d418bf75304b206b",
+      "bytes": 3158,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/login.php": {
+      "sha256": "05da50bda57958097c77663a49f83841e0fe1f9f731dd005ff00872e1bf46784",
+      "bytes": 2075,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/logout.php": {
+      "sha256": "f4187b4e7ee6f883967d7cc485597ebe6730ab96b2b2ac6d66b6a78bc4f863a8",
+      "bytes": 207,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/privacy.php": {
+      "sha256": "d41fd16f6c5f4b63bf1ec7149070c16baa44d749b256ce40b82b9a9bd6dbd8d2",
+      "bytes": 9332,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/account/register.php": {
+      "sha256": "ef03f3854b8345104c904b51ab80d85e1dc7e4fe71be774295bc070e3b02faab",
+      "bytes": 3715,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/account/reset.php": {
+      "sha256": "ed387551638b5b0e33c0b54a31e8e2126c43e8459a0070a778e0dbc28ef81d59",
+      "bytes": 1953,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/account/security.php": {
+      "sha256": "0a3b670e206a54c4970d52f1e2373de1a543d27e84802e3b51d4e160cafab7a9",
+      "bytes": 6554,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/account/verify.php": {
+      "sha256": "aad3af62ab3cdd580185c8fdadcf6340f7825c8e7123e62f4a8ee4c469f82364",
+      "bytes": 1317,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/age/index.php": {
+      "sha256": "51ca2aeef8aabc408b43af4e0781cefaa08c97c1a9cd4b4b15b88a24b0189019",
+      "bytes": 1799,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/api/addon-license.php": {
+      "sha256": "377f94d729ee32236cf69e296d5b0848d1de84386037194275e2dd8840ff234b",
+      "bytes": 2804,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/mail-events.php": {
+      "sha256": "413dd584c1e2b50bc3d251c0e777e472926c6994f9565e4a06edf74887b57270",
+      "bytes": 1876,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/api/marketing-event.php": {
+      "sha256": "e6feea404a8c0c3d850711e069cd4f9d0379ec440f07fb4a60b6070d6472493d",
+      "bytes": 2038,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/api/member-state.php": {
+      "sha256": "ed56ebc3f1a0887ae747f96ff5c1b6f7a13fb4ade6869453a62356873f6b9dc6",
+      "bytes": 1829,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/api/payment-webhook.php": {
+      "sha256": "84d163ad8c7f460231dadc3755e760f9ff574b4e96b740cca944786b2825758b",
+      "bytes": 880,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        0,
+        0,
+        0
+      ]
+    },
+    "public/routes/api/scene.php": {
+      "sha256": "1f627067b9ac7440e35860215f0994e299a464ce6128e86918b19ec66ba715ee",
+      "bytes": 2493,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        16,
+        0,
+        0
+      ]
+    },
+    "public/routes/api/upload.php": {
+      "sha256": "45c986b973c8a474aabbcadeea33cc762eec771a4ef6132c65217b0365da92c1",
+      "bytes": 1049,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/blog/index.php": {
+      "sha256": "0ecb3e1038d6ffb2a7ffe2e1648cdc4c5175d5b05cbdcc9736fec93ef052f8ce",
+      "bytes": 1236,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        19,
+        9,
+        10
+      ]
+    },
+    "public/routes/blog/post.php": {
+      "sha256": "c5cbbd543a11035c59d76987458588e908cd9adf0f0029b8c78e7ef409279967",
+      "bytes": 1539,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        19,
+        9,
+        10
+      ]
+    },
+    "public/routes/booking/index.php": {
+      "sha256": "8795e79cebf0cb1a7c12c74da886beebb9f2117453eda9fe45e13a539e55a6f4",
+      "bytes": 9673,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/campaign/click.php": {
+      "sha256": "9d0700a3b273239acf8e7a96d036914b9ffece90675bbb96251a3a12e35832a4",
+      "bytes": 1277,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/campaign/index.php": {
+      "sha256": "274edaba7089019ff3c1abf2dd95421d73603478987b63bf547b292b2f84030a",
+      "bytes": 1144,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/cart/index.php": {
+      "sha256": "1d728f1a6f5aef037a189312fd687ddc87c94c765a498a75435b42fe7e6c69b5",
+      "bytes": 6799,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/checkout/index.php": {
+      "sha256": "a961f16a5998dc02821fc577bfbd83923ea7ed5701a20756286de52ee0a73a08",
+      "bytes": 10759,
+      "timestamp": [
+        2026,
+        10,
+        22,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/checkout/success.php": {
+      "sha256": "40e6228aa63b21d02dee47b7eaed7a99758a263112702c571268d3503907198d",
+      "bytes": 2161,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/collections/index.php": {
+      "sha256": "a6f158548c00aa3b55e5efa3eea53a0d443a4f2e8289810c12fa362e46268457",
+      "bytes": 1830,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/communication/download.php": {
+      "sha256": "0a3a2f2171aa9ebbcb52d0c19a2c705b3d530cdf52fae597f7d41ac84b0065a9",
+      "bytes": 2077,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/communication/privacy-download.php": {
+      "sha256": "d462176883be859fa6f657c6d25fec01a4e9e61e83e7c9ef67dcc5e9ecab234a",
+      "bytes": 1536,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/extension/index.php": {
+      "sha256": "9e311131a578a6f659b9e72979f82c71e8170fdb99c82d982b396fed78817ca0",
+      "bytes": 1077,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/links/index.php": {
+      "sha256": "b8406b12b5238048453eed0b2004d19c752befd125d1c3e910cc7a8ffd43211f",
+      "bytes": 1627,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/media.php": {
+      "sha256": "fd5e2b15f5e52271b97712fb4d1a1f631a3a30e598805dcde9fd7b42d6271266",
+      "bytes": 3412,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/membership/index.php": {
+      "sha256": "fa2c07dc1b7e6b50178df9147ef712cc28f3dad23dfaa008798da2f0af1cbf8e",
+      "bytes": 2768,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/messages/index.php": {
+      "sha256": "dc6242468c730194a6da7bbb0ef2a69a4c3bec8e208410fb12d86bb0afd48cbb",
+      "bytes": 10122,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/music/index.php": {
+      "sha256": "8b99d343d0948a670bdc3f489dd632f4f63a56269bc7820f943c9bba480208c8",
+      "bytes": 5854,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        3,
+        48,
+        0
+      ]
+    },
+    "public/routes/newsletter/confirm.php": {
+      "sha256": "2bea3dab6b53ffa1c5155e1b12f7cfd52bdbab8afc1f21f87532e34c70e277d2",
+      "bytes": 983,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/newsletter/index.php": {
+      "sha256": "90ada78040cc79e3883e2325ab7a1f9bbf48fa8174b7b5960cf205e3c9f703ed",
+      "bytes": 2857,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/newsletter/unsubscribe.php": {
+      "sha256": "24a4a553d7c2a97b537b20e92f3a3af108cff6c9002f3c754f6a7c4abb101651",
+      "bytes": 787,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/photos/index.php": {
+      "sha256": "f1f8f814cf62737d6d81577043ae95b2773f2b9740fc41889069fba7bfb2ce59",
+      "bytes": 2243,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/photos/view.php": {
+      "sha256": "6b80b81b6b8537d1b652b5e982d04e588592cb121c2e133cbbf4facd27d813b0",
+      "bytes": 5250,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/policies/index.php": {
+      "sha256": "f80d25b78fc9c51609e371c93e5c5189062e0bba8cd23905d306e86f5f19f800",
+      "bytes": 3425,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/privacy/choices.php": {
+      "sha256": "5f1d83e844ee6284a80480f49c4b0d32e2335e0a6e061f013807e2d7b068fa89",
+      "bytes": 4485,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/protected-asset.php": {
+      "sha256": "aa8c5286603677387c8ef0cca72a5e4d82470151c2f8fdcb10f1ff7134c2c03b",
+      "bytes": 923,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/receipt/index.php": {
+      "sha256": "aa8e39dbc7da402ae8eb207a72024067c41a052f659f03865cc802fe8f18351d",
+      "bytes": 3251,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/reports/index.php": {
+      "sha256": "e44ffac46c8d9d9c5fdcdec1b3f788527e07c08c256c862d1cfcda0466855020",
+      "bytes": 10386,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/requests/index.php": {
+      "sha256": "2fb4d02079142d5fa2299e9bc0e38aa1e5dc5238b3e57735f9c5a35bfbbe8e92",
+      "bytes": 12565,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "public/routes/shop/index.php": {
+      "sha256": "f326145deac7cbe07905c7a5a3bc23db657b41ffb7b67a7769abfb9a9fdbf73b",
+      "bytes": 5437,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/videos/index.php": {
+      "sha256": "30e8a0d926ee6d9f5aa4558b3df8639ea261736e88353a98c30c54b714512dee",
+      "bytes": 2072,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "public/routes/videos/watch.php": {
+      "sha256": "4c6bf41769b5b443a721a9176b3c3c006506950ad3d8f5500403177a84aa9450",
+      "bytes": 4310,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "route.php": {
+      "sha256": "e08e01f3e3d5e097e1b98b75ca5faee3c46c58606f14ea4666fb8d3d143abedc",
+      "bytes": 104,
+      "timestamp": [
+        2026,
+        10,
+        20,
+        2,
+        24,
+        0
+      ]
+    },
+    "storage/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/backups/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/cache/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/defaults/data.json": {
+      "sha256": "062438df05c72929f934c87003b2cb4d01e70709bda2c663fd36608461a01b72",
+      "bytes": 63277,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/defaults/marketing/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/logs/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        10,
+        21,
+        20,
+        0,
+        0
+      ]
+    },
+    "storage/private/marketing/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/marketing/outbox/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/private/repair-backups/.htaccess": {
+      "sha256": "fa28d421a28ed9b6f4b997d5119c2b8adbacff6e2dd119a179b71230f9664934",
+      "bytes": 19,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/sessions/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/temp/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/temporary/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "storage/updates/.htaccess": {
+      "sha256": "ef94d4c2ac2a038b6c2ae673d9573333a0a20f7fac9e2d75af11c6c387a157a3",
+      "bytes": 14,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/.htaccess": {
+      "sha256": "7b0d3af1fe06659f9acbfc1f4f1094720ec9ed769fe521cd25fe5a6fa432d1f5",
+      "bytes": 182,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/Nikki-Wilder-Canva-Starter-Kit.zip": {
+      "sha256": "d9474fed5a76c3aa83ee0c9e9285caba435aa5be9318ab1f28bced8ab9ea35fd",
+      "bytes": 5902,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/footer-desktop.svg": {
+      "sha256": "1dea48504e6d1f684d2df37190155ea65ea269c1b8b74c79fa67d716e4e29417",
+      "bytes": 1828,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/gallery-cover.svg": {
+      "sha256": "915e2c6c1d92ab31d28b2b0bb3622608e00de3f3af15058c5617e2d24024f20d",
+      "bytes": 1828,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-desktop.svg": {
+      "sha256": "073116653d50d77682342b99f1a4d2c431f479cfa1a65d4e1487f2733aac930f",
+      "bytes": 1830,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-mobile.svg": {
+      "sha256": "367a447444ffecf565168750eddfa76e54176c837e5f4c515740b67e664e6821",
+      "bytes": 1822,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/hero-tablet.svg": {
+      "sha256": "cd4839dd1aefbf151e1e22430aee01522ee2c226f84c8b6a9270b0ed6da2afb4",
+      "bytes": 1827,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "templates/canva/video-thumbnail.svg": {
+      "sha256": "5da905255def89bb8de83930b2bf57c6a5d2aff4c8a14fc7fd93dae67761ecaf",
+      "bytes": 1834,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/.htaccess": {
+      "sha256": "8a54b1cb9e877ce507abcb9c7cf04333bf3c82c656a74c5eb1b7926eb0622418",
+      "bytes": 364,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/neon-heartbeat.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "bytes": 4830,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/pink-room-dreams.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "bytes": 4830,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/audio/demo/velvet-after-dark.mp3": {
+      "sha256": "9947dabc5f4d2b070969ea1a6d02e427105b2db1a4ef10c7fb4fe69359957215",
+      "bytes": 4830,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/captions/demo/velvet-trailer.vtt": {
+      "sha256": "41337ab081bcc44d38a61a72ec0697a44bda3114ad3182c81d1cf035b7722e46",
+      "bytes": 246,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/album-cover.jpg": {
+      "sha256": "502cce7fea09209d2b1d44fac4c49dcd20ee351cede5cb06eb4c5865d8585e5c",
+      "bytes": 10514,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-1.jpg": {
+      "sha256": "4ae6a60b946beecff91f92ad9e471b3ca88ff6e02027a19f6185ad3a5e681895",
+      "bytes": 12541,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-2.jpg": {
+      "sha256": "aed0c52db01b524a7e8596d49f75da596b045b86ed583cee2776cde5e633ad5c",
+      "bytes": 14903,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-3.jpg": {
+      "sha256": "c218b8ed21ab7c9a29879832697e65c9e8df19761024b64ec2262ec164298c66",
+      "bytes": 14268,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-4.jpg": {
+      "sha256": "36e2419c26219d1af25a04d431c1f96eb79cafb71eba9e58247a08f2f41ba6e9",
+      "bytes": 12358,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/gallery-5.jpg": {
+      "sha256": "6d4c7feff8d7f6fc395b7f32d2b898c0f36e11302fed6b01958e883241699ddb",
+      "bytes": 16449,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/images/demo/video-poster.jpg": {
+      "sha256": "960a9b8f9b678a18607a81c6506b16a116388cb125086165b028b59255b25c35",
+      "bytes": 14158,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/index.html": {
+      "sha256": "3755050627a08174e143439708785d1a46490891f4606ea3ee2773338135ca41",
+      "bytes": 31,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/videos/demo/velvet-feature.mp4": {
+      "sha256": "6f83c5058cb0b03c4f0b1f6929fce579939bcf09ad90ea63d956074de267ee22",
+      "bytes": 7269,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "uploads/videos/demo/velvet-trailer.mp4": {
+      "sha256": "6f83c5058cb0b03c4f0b1f6929fce579939bcf09ad90ea63d956074de267ee22",
+      "bytes": 7269,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    },
+    "vendor/.htaccess": {
+      "sha256": "dbdf47f62a27badc00789cd9369768de4d210117e6b04d534677154701c19435",
+      "bytes": 36,
+      "timestamp": [
+        2026,
+        1,
+        1,
+        0,
+        0,
+        0
+      ]
+    }
+  }
+}

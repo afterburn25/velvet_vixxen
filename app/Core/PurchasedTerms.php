@@ -56,7 +56,7 @@ final class PurchasedTerms
         if ($terms['unitMinor'] - $terms['discountMinor'] !== $terms['netMinor']) self::invalid();
         if ($terms['kind'] === 'plan') {
             self::text($terms['planKey'], 128);
-            if (!in_array($terms['interval'], ['month','year','one_time'], true)
+            if (!in_array($terms['interval'], ['month','year','one_time','day'], true)
                 || $terms['discountPolicy'] !== 'initial_only' || $terms['taxPolicy'] !== 'sandbox_initial_only'
                 || $terms['trialPolicy'] !== 'initial_charge_then_trial') self::invalid();
             self::integer($terms['intervalCount'], 1, 120); self::integer($terms['trialDays'], 0, 3650);

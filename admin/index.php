@@ -864,7 +864,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $isPaymentRecoveryRequest) {
                 'name' => (string) ($_POST['name'] ?? ''),
                 'description' => (string) ($_POST['description'] ?? ''),
                 'billingInterval' => (string) ($_POST['billing_interval'] ?? 'month'),
-                'intervalCount' => (int) ($_POST['interval_count'] ?? 1),
+                'intervalCount' => $_POST['interval_count'] ?? 1,
                 'price' => (float) ($_POST['price'] ?? 0),
                 'currency' => (string) ($_POST['currency'] ?? 'USD'),
                 'trialDays' => (int) ($_POST['trial_days'] ?? 0),

@@ -1,3 +1,19 @@
+<!-- day-periods-094:start -->
+## Active candidate — explicit fixed-day memberships, 0.9.4 / Build 20261023.1
+
+Continue the owner's five production-release priorities. This increment addresses the commercial-period prerequisite for CCBill hosted checkout: membership plans can explicitly say **every 30 days**, while calendar-month/year purchases retain their accepted units, price, currency and original term hashes. Days and calendar months are not aliases. Only Sandbox remains registered; no CCBill account, live offer or checkout is enabled.
+
+The candidate adds strict whole-count validation, consistent owner/public labels and migration `202610230020_membership_day_periods`, which only appends `day` to the membership-plan ENUM. It creates no plan, converts no row and backfills no consent. Its rollback deliberately does not narrow an ENUM that may contain accepted day purchases; an application downgrade after new day purchases requires its matching reviewed backup. Existing migration bytes, the single-page installer and approved root layout are preserved.
+
+Local focused file acceptance passed **59 checks**. Extracted-package root/nested HTTP passed **56 checks each**; actual desktop/phone no-script browser cases passed **58 checks each**, with ten decoded screenshots and two representative checkout views manually reviewed. Disposable PHP/JS/Python source, feature, security and reproducible-package checks passed. The running-build verifier requires the new day dependencies, and existing installer/SQL rewind fixtures retain exact migration checks. Full required GitHub CI, SQL, integration and delivery are **pending**. See `docs/releases/0.9.4-day-periods-local.json` for the local record. The complete local command correctly refuses the foreign-owner test in this single-UID environment; that gate remains mandatory in CI. No passing skip substitutes for it.
+
+The last delivered runtime remains **0.9.3 / Build 20261022.3**. Candidate archives are test artifacts, not a completed customer delivery. No production host or external service is certified.
+
+**Remaining sequence:** (1) durable CCBill hosted handoff and authenticated original-operation reconciliation, then provider-driven cycles and account-scoped cancellation/status/refund recovery; (2) configured mail/age live acceptance; (3) actual-host install/upgrade/rollback, storage/origin/CDN, cron and backup/restore; (4) owner-approved public policies, retention and external cancellation/backup responsibilities; (5) final full-gate, artifact, merge, saved-file and running-host evidence. The repository does not supply the customer's live URL, approved merchant capabilities/credentials or operator decisions. Preserve these external acceptance boundaries while continuing engineering.
+
+Guide: [Fixed-day membership guide](DAY_BASED_MEMBERSHIPS.md)
+<!-- day-periods-094:end -->
+
 <!-- ccbill-protocol:start -->
 ## Current engineering checkpoint — CCBill protocol preparation verified and merged
 
@@ -518,7 +534,7 @@ These implemented capabilities are not missing 1.0 source work. Live provider ac
 
 ## 1.0 — Production Release
 
-The final 0.9.1 CI, merge and saved-delivery record is complete. Continue these remaining requirements:
+The last delivered runtime is 0.9.3. CCBill protocol preparation is merged; the 0.9.4 fixed-day prerequisite is a candidate pending its own complete acceptance. Continue these remaining requirements:
 
 1. **Implement and accept the selected real merchant adapter.** Purchased terms and authoritative recurring lifecycle are delivered. CCBill is selected and its offline protocol preparation is merged through PR #39. Verify merchant capabilities/configuration, integrate durable hosted checkout and authenticated original-operation reconciliation, then map provider-driven renewals and account-scoped commands to the strict contracts, then verify approved, declined, duplicate, renewal, cancellation, refund and chargeback outcomes. Only Sandbox is registered; local flags or privacy closure do not prove external cancellation.
 2. **Accept configured production services.** Existing mail delivery, SendGrid feedback and Yoti age implementations need approved accounts, sender/domain or method configuration and real delivery/event/session checks. Verify mail confirmation, unsubscribe and authenticated suppression with approved recipients. Another feedback or age provider requires its own adapter. Local captures and signed protocol fixtures do not certify those services.

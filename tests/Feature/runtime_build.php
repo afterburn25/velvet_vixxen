@@ -205,8 +205,9 @@ try {
         'public/routes/api/payment-webhook.php',
     ];
     $purchasedTermsDependencies = ['app/Core/PurchasedTerms.php','app/Core/PurchasedTermsStoreTrait.php','app/Views/public/partials/checkout-terms.php','app/Views/public/partials/purchased-membership.php'];
+    $dayDependencies = ['app/Core/MembershipPeriod.php','database/migrations/202610230020_membership_day_periods.php'];
     $recurringDependencies = ['app/Core/RecurringContract.php','app/Core/RecurringStoreTrait.php','app/Core/RecurringCommerceTrait.php','app/Core/RecurringRecoveryService.php','app/Payments/RecurringProviderInterface.php','app/Views/admin/recurring-recovery.php','app/Views/public/partials/recurring-membership.php','database/migrations/202610220019_recurring_lifecycle.php'];
-    $files = array_values(array_unique(array_merge($files, $v09Dependencies, $paymentDependencies, $purchasedTermsDependencies, $recurringDependencies)));
+    $files = array_values(array_unique(array_merge($files, $v09Dependencies, $paymentDependencies, $purchasedTermsDependencies, $recurringDependencies, $dayDependencies)));
     $hashes = [];
     foreach ($files as $relative) {
         $directory = dirname($fixture . '/' . $relative);
@@ -257,6 +258,15 @@ try {
     $assert(!$status['files_match'] && $status['problems'][0]['path'] === 'public/assets/js/menu-admin.js', 'A missing menu editor script must be identified.');
     $reject(static fn() => $service->refreshPhpCache(), 'Missing menu dependencies must block cache activation.');
     copy($source . '/public/assets/js/menu-admin.js', $fixture . '/public/assets/js/menu-admin.js');
+
+    foreach ($dayDependencies as $dependency) {
+        $incomplete = $manifest; unset($incomplete['files'][$dependency]); $write($incomplete);
+        $reject(static fn() => $service->refreshPhpCache(), 'A manifest omitting a day-period dependency must block activation: ' . $dependency);
+        $write($manifest);
+        unlink($fixture . '/' . $dependency);
+        $assert(!$service->inspect()['files_match'], 'Missing day-period dependency was accepted: ' . $dependency);
+        copy($source . '/' . $dependency, $fixture . '/' . $dependency);
+    }
 
     $depthDependencies = ['app/Core/SceneDepth.php', 'public/assets/js/scene-depth.js'];
     foreach ($depthDependencies as $dependency) {
