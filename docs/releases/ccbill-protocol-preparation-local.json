@@ -91,5 +91,7 @@
     "producerSHA256": "9cd58188afe8d0a75e0a2b44c645eee99279843396d9aa615e9878d1356eb209",
     "runtimeChanged": false,
     "SQLBrowserAfterCorrection": "pending CI"
-  }
+  },
+  "recordScope": "Historical pre-CI local observations; final acceptance is separate.",
+  "finalAcceptance": "ccbill-protocol-preparation-ci.json"
 }
