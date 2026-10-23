@@ -457,7 +457,7 @@ $result = ['mode' => $mode, 'status' => $storage->status(), 'marketing' => $mark
     'mysql_version' => $pdo?->query('SELECT VERSION()')->fetchColumn(), 'plans' => [], 'unrelated' => [], 'outbox' => [],
     'site_timezone' => date_default_timezone_get(), 'membership_clock' => ['fixture_epoch' => $manifest['clock'],
         'observed_epoch' => time(), 'free_verification_method' => $manifest['free_verification_method'],
-        'verification' => [], 'subscription_inputs' => $manifest['subscription_inputs'], 'subscriptions' => []],
+        'verification' => [], 'subscription_inputs' => $manifest['subscription_inputs'], 'subscriptions' => [], 'subscription_sql_raw' => []],
     'sql_timezone' => null];
 foreach (['free', 'future-verified'] as $name) {
     $member = $store->member($manifest['members'][$name]);
@@ -470,6 +470,11 @@ foreach (['free', 'future-verified'] as $name) {
 }
 foreach ($manifest['subscription_inputs'] as $name => $_) {
     $result['membership_clock']['subscriptions'][$name] = $store->subscriptions($manifest['members'][$name]);
+    if ($pdo!==null) {
+        $query=$pdo->prepare('SELECT id,member_id AS memberId,plan_id AS planId,status,current_period_start AS currentPeriodStart,current_period_end AS currentPeriodEnd,grace_ends_at AS graceEndsAt FROM subscriptions WHERE member_id=? ORDER BY id');
+        $query->execute([$manifest['members'][$name]]);
+        $result['membership_clock']['subscription_sql_raw'][$name]=$query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 if ($pdo !== null) {
     $result['sql_timezone'] = $pdo->query('SELECT @@session.time_zone AS session_timezone, @@system_time_zone AS system_timezone, '

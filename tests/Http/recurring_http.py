@@ -43,7 +43,7 @@ def scenario(case,browser=None,viewport=None,evidence=None):
         try:http.activate_mysql(owner,case['base'],case['site'],case['php'])
         finally:owner.close()
     records=fixture(case,'seed');owner=http.owner_login(case['base']);buyer=http.session();guest=http.session()
-    context=page=None;images=[]
+    context=owner_context=page=None;images=[]
     try:
         login=http.route(case['base'],'account/login.php');response=buyer.get(login,timeout=20)
         response=buyer.post(login,data=http.changed(http.fields(response.text,'.member-form'),email='recurring-ui@example.test',password='Recurring-UI-123!',**{'return':'/membership/'}),timeout=20)
@@ -121,7 +121,14 @@ def scenario(case,browser=None,viewport=None,evidence=None):
         before=fixture(case,'read')['financial_sha256'];owner.get(url,timeout=20);buyer.get(billing_url,timeout=20)
         check(fixture(case,'read')['financial_sha256']==before,'Reading recurring billing or recovery changed financial state.')
         if page:
-            context.clear_cookies();context.add_cookies([{'name':cookie.name,'value':cookie.value,'url':case['base']} for cookie in owner.cookies]);page.goto(url);shot('owner-unknown')
+            # Admin sessions bind their real client user agent. Authenticate in
+            # Chromium itself instead of reusing a requests-session cookie.
+            owner_context=browser.new_context(viewport=viewport,java_script_enabled=False);page=owner_context.new_page()
+            page.goto(case['base']+'/admin/?page=login');page.get_by_label('Email address',exact=True).fill(http.OWNER);page.get_by_label('Password',exact=True).fill(http.PASSWORD)
+            with page.expect_navigation():page.get_by_role('button',name='Sign in',exact=True).click()
+            opened=page.goto(url)
+            check(opened.status==200 and page.locator('[data-recurring-recovery]').count()==1,'Real browser owner sign-in did not open recurring recovery.')
+            recovery.private(opened);shot('owner-unknown')
             button=page.locator('[data-recurring-record="'+pending+'"] button');button.focus()
             with page.expect_navigation():page.keyboard.press('Enter')
         else:check(owner.post(url,data=values,timeout=25).status_code==200,'Original recurring outcome query failed.')
@@ -142,6 +149,7 @@ def scenario(case,browser=None,viewport=None,evidence=None):
                 'real_checkout_cancel_resume':True,'synthetic_original_unknown_and_confirmed_fixture':True,
                 'query_only_unknown_no_false_confirmation':True,'confirmed_original_apply_once':True,'paid_bounds_unchanged':True,'readonly_financial_hash_unchanged':True}
     finally:
+        if owner_context:owner_context.close()
         if context:context.close()
         buyer.close();owner.close();guest.close()
 
