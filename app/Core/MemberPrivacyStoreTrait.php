@@ -80,6 +80,9 @@ trait MemberPrivacyStoreTrait
             $data['transactions'] = $select('SELECT t.* FROM payment_transactions t WHERE t.order_id IN (SELECT id FROM orders WHERE member_id=?) OR t.subscription_id IN (SELECT id FROM subscriptions WHERE member_id=?)', [$memberId, $memberId]);
             $journal = $pdo->prepare('SELECT j.record_json FROM payment_journal j JOIN orders o ON o.id=j.order_id WHERE o.member_id=?'); $journal->execute([$memberId]);
             $data['paymentJournal'] = array_map(static fn(string $json): array => \App\Payments\PaymentContract::journal(json_decode($json, true, 32, JSON_THROW_ON_ERROR)), $journal->fetchAll(PDO::FETCH_COLUMN));
+            $data['recurringAgreements'] = $this->recurringRows('agreement', $memberId);
+            $data['recurringJournal'] = [];
+            foreach ($data['recurringAgreements'] as $agreement) array_push($data['recurringJournal'], ...$this->recurringJournalForAgreement($agreement['id']));
             $data['messages'] = $select('SELECT m.* FROM messages m JOIN message_threads t ON t.id=m.thread_id WHERE t.member_id=?', [$memberId]);
             $data['messageAttachments'] = $select('SELECT a.* FROM message_attachments a JOIN messages m ON m.id=a.message_id JOIN message_threads t ON t.id=m.thread_id WHERE t.member_id=?', [$memberId]);
             $data['requestAttachments'] = $select("SELECT a.* FROM request_attachments a WHERE (a.request_type='content_request' AND a.request_id IN (SELECT id FROM content_requests WHERE member_id=?)) OR (a.request_type='booking_request' AND a.request_id IN (SELECT id FROM booking_requests WHERE member_id=?))", [$memberId, $memberId]);
@@ -111,6 +114,11 @@ trait MemberPrivacyStoreTrait
         foreach ($orders as $id => $_) foreach ($all['orderItems'][$id] ?? [] as $row) $data['orderItems'][] = array_replace($row, ['orderId' => (string) $id]);
         $data['transactions'] = array_values(array_filter($all['paymentTransactions'] ?? [], static fn(array $row): bool => isset($orders[(string) ($row['orderId'] ?? '')]) || isset($subscriptions[(string) ($row['subscriptionId'] ?? '')])));
         $data['paymentJournal'] = array_map(\App\Payments\PaymentContract::journal(...), array_values(array_filter($all['paymentJournal'] ?? [], static fn(array $row): bool => isset($orders[(string) ($row['orderId'] ?? '')]))));
+        $data['recurringAgreements'] = array_values(array_filter($all['recurringAgreements'] ?? [], static fn(array $row): bool => $row['memberId'] === $memberId));
+        $agreementIds = $ids($data['recurringAgreements']);
+        $data['recurringJournal'] = array_values(array_filter($all['recurringJournal'] ?? [], static fn(array $row): bool => isset($agreementIds[$row['agreementId']])));
+        $data['recurringAgreements'] = array_map(RecurringContract::agreement(...), $data['recurringAgreements']);
+        $data['recurringJournal'] = array_map(RecurringContract::journal(...), $data['recurringJournal']);
         $data['messages'] = array_values(array_filter($all['messages'] ?? [], static fn(array $row): bool => isset($threads[(string) ($row['threadId'] ?? '')])));
         $messages = $ids($data['messages']);
         $data['messageAttachments'] = array_values(array_filter($all['messageAttachments'] ?? [], static fn(array $row): bool => isset($messages[(string) ($row['messageId'] ?? '')])));
@@ -216,6 +224,13 @@ trait MemberPrivacyStoreTrait
             $marker['core_done'] = true;
             $email = 'erased-' . substr(hash('sha256', $memberId . ':' . $requestId), 0, 32) . '@privacy.invalid';
             $password = password_hash(bin2hex(random_bytes(40)), PASSWORD_DEFAULT);
+            foreach ($data['recurringAgreements'] ?? [] as $agreement) {
+                $agreement['terms'] = null; $agreement['erased'] = true; $agreement['state'] = 'closed';
+                ++$agreement['revision']; $agreement['updatedAt'] = max(time(), $agreement['updatedAt']);
+                RecurringContract::agreement($agreement);
+                if ($pdo === null) $all['recurringAgreements'][$agreement['id']] = $agreement;
+                else $pdo->prepare('UPDATE recurring_agreements SET record_json=? WHERE id=?')->execute([json_encode($agreement,JSON_THROW_ON_ERROR),$agreement['id']]);
+            }
             if ($pdo === null) {
                 $all['members'][$memberId] = ['id' => $memberId, 'displayName' => 'Removed member', 'email' => $email,
                     'passwordHash' => $password, 'status' => 'closed', 'preferences' => ['_privacy_erasure' => $marker],

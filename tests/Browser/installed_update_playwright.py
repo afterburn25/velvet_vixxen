@@ -232,13 +232,14 @@ def authentication_only(site: Path, expected: dict[str, bytes], label: str) -> N
     after = helpers.state(site)
     for data in (before, after):
         data.get('settings', {}).pop('_private_admin_security_v1', None)
-    # A current Store write materializes the newly declared empty journal when
-    # upgrading a historical file store. Accept only that exact missing -> []
-    # transition; existing journal entries and every other field remain exact.
-    if 'paymentJournal' not in before and 'paymentJournal' in after:
-        require(after['paymentJournal'] == [], label + ' created payment records during authentication.')
-        before['paymentJournal'] = []
-    require(after == before, label + ' changed installed data outside the intentional administrator security journal or missing empty payment journal.')
+    # A current Store write materializes exactly these declared empty billing
+    # collections when upgrading a historical file store. Existing entries and
+    # every other field remain exact; authentication cannot create agreements.
+    for collection in ('paymentJournal','recurringAgreements','recurringJournal'):
+        if collection not in before and collection in after:
+            require(after[collection] == [], label + ' created billing records during authentication: ' + collection)
+            before[collection] = []
+    require(after == before, label + ' changed installed data outside the intentional administrator security journal or missing empty billing collections.')
 
 
 def security_fixture(php: str, site: Path, action: str, *arguments: str) -> dict:

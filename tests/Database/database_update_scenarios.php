@@ -30,6 +30,11 @@ $updateTestWriteMigration = static function (string $key, array $up, array $down
         . var_export(['id' => $key, 'description' => 'Disposable update safety fixture', 'up' => $up, 'down' => $down], true) . ";\n");
 };
 try {
+    $updateTestRecurringKey='202610220019_recurring_lifecycle';
+    $updateTestRecurringDefinition=require $root.'/database/migrations/'.$updateTestRecurringKey.'.php';
+    foreach($updateTestRecurringDefinition['tables'] as $table)$updateTestAssert((int)$pdo->query('SELECT COUNT(*) FROM `'.$table.'`')->fetchColumn()===0,'Refusing to rewind nonempty recurring fixture state.');
+    foreach($updateTestRecurringDefinition['down'] as $sql)$pdo->exec($sql);
+    $pdo->prepare('DELETE FROM migrations WHERE migration_key=?')->execute([$updateTestRecurringKey]);
     // Rewind only the new, proved-empty payment table before reconstructing
     // the retained historical update path. Its own 0.9 to 0.9.1 step is below.
     $updateTestPaymentKey = '202610220018_payment_journal';
@@ -248,6 +253,25 @@ try {
     $updateTestAssert($updateTestPaymentCurrent['pending'] === [] && $updateTestService->apply($updateTestPaymentCurrent['plan'], false, '')['status'] === 'current'
         && $pdo->query('SELECT * FROM migrations ORDER BY migration_key')->fetchAll() === $updateTestPaymentLedger,
         'The completed payment migration was reapplied.');
+
+    // Actual 018→019 installed update preserves all existing commercial,
+    // identity and private data, and never manufactures historical agreements.
+    $updateTestBeforeRecurring=[];
+    foreach($pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN) as $table)$updateTestBeforeRecurring[$table]=$pdo->query('SELECT * FROM `'.$table.'`')->fetchAll();
+    copy($root.'/database/migrations/'.$updateTestRecurringKey.'.php',$updateTestRoot.'/database/migrations/'.$updateTestRecurringKey.'.php');
+    $updateTestRecurringPlan=$updateTestService->preview();
+    $updateTestAssert(count($updateTestRecurringPlan['applied'])===18 && array_column($updateTestRecurringPlan['pending'],'id')===[$updateTestRecurringKey],'The installed 018 database did not isolate the additive recurring update.');
+    $updateTestRecurringApplied=$updateTestService->apply($updateTestRecurringPlan['plan'],true,'Verified owned 018 financial and private-state backup');
+    $updateTestAssert($updateTestRecurringApplied['status']==='completed' && $updateTestRecurringApplied['applied']===[$updateTestRecurringKey],'Installed recurring update did not apply only019.');
+    foreach($updateTestBeforeRecurring as $table=>$rows){
+        $after=$pdo->query('SELECT * FROM `'.$table.'`')->fetchAll();
+        if($table==='migrations')$after=array_values(array_filter($after,static fn(array $r):bool=>$r['migration_key']!==$updateTestRecurringKey));
+        $updateTestAssert($after===$rows,'Recurring migration changed old records in '.$table);
+    }
+    foreach($updateTestRecurringDefinition['tables'] as $table)$updateTestAssert((int)$pdo->query('SELECT COUNT(*) FROM `'.$table.'`')->fetchColumn()===0,'Migration019 manufactured historical recurring consent or cycles.');
+    $updateTestRecurringCurrent=$updateTestService->preview();
+    $updateTestAssert($updateTestRecurringCurrent['pending']===[] && $updateTestService->apply($updateTestRecurringCurrent['plan'],false,'')['status']==='current','Recurring migration did not resume idempotently.');
+    $updateTestAssert(file_get_contents($updateTestRoot.'/config/app.php')===$updateTestConfigBytes && file_get_contents($updateTestRoot.'/storage/install.lock')===$updateTestLockBytes && file_get_contents($updateTestRoot.'/uploads/customer-fixture.txt')==='Preserve this pre-existing customer upload.','Recurring update changed private files or installation identity.');
 
     // A deliberately failing DDL migration contains destructive down SQL: installed-site mode must never run it.
     $updateTestWriteMigration('999900000015_update_success', [

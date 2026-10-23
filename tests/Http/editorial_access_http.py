@@ -319,7 +319,7 @@ def non_utc_membership_cases(matrix: dict, saved: dict):
 
     def iso_epoch(value):
         parsed = datetime.fromisoformat(value.replace('Z', '+00:00'))
-        check(parsed.tzinfo is not None, 'An API-created file date lost its explicit timezone offset.')
+        check(parsed.tzinfo is not None, 'An API-created subscription date lost its explicit timezone offset.')
         return int(parsed.timestamp())
 
     verification_epochs = {}
@@ -362,11 +362,17 @@ def non_utc_membership_cases(matrix: dict, saved: dict):
             expected_epoch = iso_epoch(source)
             bounds[key] = expected_epoch - clock['fixture_epoch']
             if is_sql:
-                check(isinstance(actual, str) and re.fullmatch(r'\d{4}-\d\d-\d\d \d\d:\d\d:\d\d', actual) is not None,
+                raw_rows=clock['subscription_sql_raw'][name]
+                check(len(raw_rows)==1 and str(raw_rows[0]['id'])==str(rows[0]['id'])
+                      and str(raw_rows[0]['memberId'])==str(supplied['memberId'])
+                      and str(raw_rows[0]['planId'])==str(supplied['planId']),
+                      'Independent SQL subscription readback lost its exact row binding: '+name)
+                raw=raw_rows[0][key]
+                check(isinstance(raw, str) and re.fullmatch(r'\d{4}-\d\d-\d\d \d\d:\d\d:\d\d', raw) is not None,
                       'The SQL subscription fixture did not exercise a raw UTC DATETIME: ' + name + key)
-                actual_epoch = int(datetime.strptime(actual, '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc).timestamp())
-            else:
-                actual_epoch = iso_epoch(actual)
+                raw_epoch = int(datetime.strptime(raw, '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc).timestamp())
+                check(raw_epoch==expected_epoch,'Raw SQL storage shifted the API-supplied instant: '+name+key)
+            actual_epoch = iso_epoch(actual)
             check(actual_epoch == expected_epoch, 'Subscription storage shifted the API-supplied instant: ' + name + key)
         check(bounds == {'currentPeriodStart': -120 if name == 'just-started' else -7200,
                          'currentPeriodEnd': 3600 if name == 'just-started' else -120,

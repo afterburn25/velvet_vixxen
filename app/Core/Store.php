@@ -17,6 +17,7 @@ final class Store
     use CommerceStoreTrait;
     use PaymentStoreTrait;
     use PurchasedTermsStoreTrait;
+    use RecurringStoreTrait;
     use AddonStoreTrait;
     use AddonLicensingStoreTrait;
     use CommunicationStoreTrait;
@@ -569,6 +570,7 @@ final class Store
             'memberTokens' => [], 'memberEvents' => [], 'mailOutbox' => [],
             'paymentProviders' => [], 'coupons' => [], 'couponRedemptions' => [], 'bundles' => [],
             'orders' => [], 'orderItems' => [], 'paymentTransactions' => [], 'paymentWebhookEvents' => [], 'paymentJournal' => [],
+            'recurringAgreements' => [], 'recurringJournal' => [],
             'addons' => [], 'addonActivity' => [], 'addonSettings' => [], 'addonBackups' => [], 'addonTasks' => [], 'addonMigrations' => [],
             'messageThreads' => [], 'messages' => [], 'messageAttachments' => [], 'savedReplies' => [],
             'communicationBlocks' => [], 'contentRequests' => [], 'bookingRequests' => [],

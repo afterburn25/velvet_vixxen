@@ -22,6 +22,16 @@ function vvx_payment_recovery_record_id(mixed $value): string
 
 function vvx_payment_recovery_request(): array
 {
+    if (isset($_GET['view']) && $_GET['view'] !== 'recurring') throw new InvalidArgumentException('Choose a valid payment recovery view.',400);
+    if (($_GET['view'] ?? '') === 'recurring') {
+        $request=['view'=>'recurring','scope'=>'all','after'=>null,'order'=>null,'record'=>null,'agreement'=>null,'journalAfter'=>null];
+        foreach (['after','agreement'] as $key) if (isset($_GET[$key])) $request[$key]=App\Core\RecurringContract::id($_GET[$key]);
+        if (isset($_GET['journalAfter'])) {
+            if (!is_string($_GET['journalAfter']) || preg_match('/\A(?:rcmd_|rcyc_|revt_)[a-f0-9]{64}\z/D',$_GET['journalAfter'])!==1 || $request['agreement']===null) throw new InvalidArgumentException('Invalid recurring request page.',400);
+            $request['journalAfter']=$_GET['journalAfter'];
+        }
+        return $request;
+    }
     $scope = $_GET['scope'] ?? 'open';
     if (!is_string($scope) || !in_array($scope, ['open', 'all'], true)) {
         throw new InvalidArgumentException('Choose Open records or All records.', 400);
@@ -47,8 +57,8 @@ function vvx_payment_recovery_url(array $request = [], array $changes = []): str
 {
     $values = array_replace(['scope' => 'open', 'after' => null, 'order' => null, 'record' => null], $request, $changes);
     $query = ['page' => 'payment-recovery'];
-    foreach (['scope', 'after', 'order', 'record'] as $key) {
-        if (is_string($values[$key]) && $values[$key] !== '') $query[$key] = $values[$key];
+    foreach (['scope', 'after', 'order', 'record', 'view', 'agreement', 'journalAfter'] as $key) {
+        if (isset($values[$key]) && is_string($values[$key]) && $values[$key] !== '') $query[$key] = $values[$key];
     }
     return base_url('admin/?' . http_build_query($query, '', '&', PHP_QUERY_RFC3986));
 }
@@ -56,6 +66,13 @@ function vvx_payment_recovery_url(array $request = [], array $changes = []): str
 function vvx_payment_recovery_read(array $request): array
 {
     vvx_payment_recovery_owner();
+    if (($request['view'] ?? '') === 'recurring') {
+        $service=new App\Core\RecurringRecoveryService(app_store());
+        $result=$request['agreement']===null ? $service->page($request['after']) : ['rows'=>[$service->inspect($request['agreement'],$request['journalAfter'])],'nextCursor'=>null];
+        $confirmation=false;
+        try { app_auth()->requireRecentOwner(); } catch (RuntimeException $e) { if($e->getCode()!==428)throw $e;$confirmation=true; }
+        vvx_payment_recovery_owner();return $result+['confirmation'=>$confirmation];
+    }
     $service = new PaymentRecoveryService(app_store());
     if ($request['record'] !== null) {
         $row = $service->inspect($request['record']);

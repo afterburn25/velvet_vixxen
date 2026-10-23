@@ -88,6 +88,20 @@ try {
         $q=$pdo->prepare('INSERT INTO operations_binary_fixture (raw_value,label,n) VALUES (?,?,?)');
         foreach([["\0\xff\n\r\0'\\",'UTF-8 ♥','12345678901.1234567'],[null,null,null],['','',0]] as $row)$q->execute($row);
     }
+    // Capture populated recurring records through the real encrypted archive,
+    // then read the isolated restored file/SQL data independently of Store.
+    require_once $source.'/tests/Support/RecurringFixture.php';
+    [$recurringStore,$recurringCommerce,$recurringProvider]=recurring_fixture_service($config);
+    $recurringStore->savePaymentProvider(['key'=>'fixture-recurring','enabled'=>true,'supportsRecurring'=>true]);
+    $recurringMember=$recurringStore->createMember(['displayName'=>'Recurring backup fixture','email'=>'recurring-backup@example.test','password'=>'Owned-Backup-Fixture-123!','status'=>'active','emailVerifiedAt'=>now_iso()]);
+    $recurringPlan=$recurringStore->saveMembershipPlan(['name'=>'Recurring backup fixture','key'=>'recurring-backup','price'=>12.34,'currency'=>'USD','billingInterval'=>'month','intervalCount'=>1,'isActive'=>true]);
+    $recurringCommerce->checkout($recurringMember['id'],[['type'=>'plan','id'=>$recurringPlan['id']]],'','fixture-recurring',[],'operations:recurring:purchase');
+    $recurringAgreement=$recurringStore->recurringAgreementPage(null,10,$recurringMember['id'])['records'][0];
+    $recurringProvider->mode='timeout';
+    $recurringCommerce->requestRecurringCommand($recurringMember['id'],$recurringAgreement['subscriptionId'],'cancel',$recurringAgreement['revision'],'operations:recurring:cancel');
+    $recurringAgreement=$recurringStore->recurringAgreement($recurringAgreement['id']);
+    $recurringJournal=$recurringStore->recurringJournalForAgreement($recurringAgreement['id']);
+    $assert(count($recurringJournal)===2 && count(array_filter($recurringJournal,static fn(array $r):bool=>$r['state']==='unknown'))===1,'Backup fixture lacks populated authoritative and unresolved recurring records.');
     file_put_contents($root.'/uploads/customer.bin',"Exact upload\0\xff\n");file_put_contents($root.'/storage/private/customer.bin','Private fixture payload');
     mkdir($root.'/storage/backups',0700,true);file_put_contents($root.'/storage/backups/recursive-old.zip','Do not recursively copy backups.');
     mkdir($root.'/storage/sessions',0700,true);file_put_contents($root.'/storage/sessions/session-fixture','Exclude active sessions.');
@@ -150,6 +164,15 @@ try {
         $targetRows=$targetPdo->query('SELECT id,HEX(raw_value),label,n,doubled FROM operations_binary_fixture ORDER BY id')->fetchAll(PDO::FETCH_NUM);
         $assert($sourceRows===$targetRows,'Independent binary/NULL/decimal/generated-column readback differs.');
     }
+    if($mysql){
+        $restoredAgreement=json_decode($targetPdo->query('SELECT record_json FROM recurring_agreements')->fetchColumn(),true,32,JSON_THROW_ON_ERROR);
+        $restoredJournal=array_map(static fn(string $json):array=>json_decode($json,true,32,JSON_THROW_ON_ERROR),$targetPdo->query('SELECT record_json FROM recurring_journal ORDER BY id')->fetchAll(PDO::FETCH_COLUMN));
+    }else{
+        $restoredData=json_decode(file_get_contents($target.'/storage/data.json'),true,512,JSON_THROW_ON_ERROR);
+        $restoredAgreement=$restoredData['recurringAgreements'][$recurringAgreement['id']];
+        $restoredJournal=array_values($restoredData['recurringJournal']);usort($restoredJournal,static fn(array $a,array $b):int=>strcmp($a['id'],$b['id']));
+    }
+    $assert($restoredAgreement===$recurringAgreement && $restoredJournal===$recurringJournal,'Populated recurring agreement, immutable terms or original unresolved request changed in the isolated restore.');
     // Real persisted claim, complete encrypted file, then a fresh worker: the
     // finish commit is replayed once without recapturing later source changes.
     $journal->update(BackupJobs::NAMESPACE,static function(array &$state) use($job):void{$j=&$state['jobs'][$job['id']];$j['status']='processing';$j['claim']=bin2hex(random_bytes(16));$j['completed_at']=null;$j['verified_at']=null;$j['archive_sha256']=null;$j['archive_bytes']=null;$j['manifest']=null;});

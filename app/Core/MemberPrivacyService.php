@@ -198,7 +198,9 @@ final class MemberPrivacyService
             'counts'=>$inventory['counts'],'inventory_revision'=>$inventory['revision'],'retention'=>$row['approval']['retention']??null,
             'has_open_orders'=>count(array_filter($inventory['core']['orders'],static fn(array $r):bool=>in_array($r['status']??'',['pending','processing'],true)))>0
                 || count(array_filter($inventory['core']['paymentJournal']??[],static fn(array $r):bool=>($r['kind']==='operation'&&!in_array($r['state'],['applied','declined','ignored'],true))||($r['kind']==='effect'&&!in_array($r['state'],['done','skipped'],true))||($r['kind']==='event'&&in_array($r['state'],['received','held'],true))))>0,
-            'has_recurring_billing'=>count(array_filter($inventory['core']['subscriptions'],static fn(array $r):bool=>!empty($r['providerSubscriptionId'])&&in_array($r['status']??'',['active','trialing','past_due'],true)))>0,
+            'has_recurring_billing'=>count(array_filter($inventory['core']['subscriptions'],static fn(array $r):bool=>!empty($r['providerSubscriptionId'])&&in_array($r['status']??'',['active','trialing','past_due'],true)))>0
+                || count(array_filter($inventory['core']['recurringAgreements']??[],static fn(array $r):bool=>$r['remoteId']!==null && !$r['cancelAtPeriodEnd']))>0
+                || count(array_filter($inventory['core']['recurringJournal']??[],static fn(array $r):bool=>!in_array($r['state'],RecurringContract::TERMINAL,true)))>0,
             'has_safety_holds'=>count(array_filter($inventory['domains']['cases'],static fn(array $r):bool=>!empty($r['hold'])))>0];
     }
 

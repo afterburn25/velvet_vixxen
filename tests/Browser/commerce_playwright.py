@@ -115,10 +115,30 @@ with sync_playwright() as playwright:
     visit(page, "/account/billing.php")
     assert "Velvet VIP" in page.locator("body").inner_text()
     screenshot(page, "member-billing.png")
+    recurring_state = page.locator('[data-recurring-state]')
+    original_paid_through = re.search(r'Paid through (.+?) UTC\.', recurring_state.inner_text()).group(1)
+    cancel_form = page.locator('form').filter(has=page.get_by_role("button", name="Cancel at Period End"))
+    subscription_id = cancel_form.locator('input[name="subscription_id"]').input_value()
+    cancel_revision = int(cancel_form.locator('input[name="agreement_revision"]').input_value())
+    assert cancel_form.locator('input[name="request_id"]').input_value().startswith('member:')
     page.get_by_role("button", name="Cancel at Period End").click()
-    assert "will end after the current paid period" in page.locator("body").inner_text()
+    assert "Renewal canceled. Paid through" in recurring_state.inner_text()
+    visit(page, "/account/billing.php")
+    assert "Renewal canceled. Paid through" in recurring_state.inner_text()
+    assert re.search(r'Paid through (.+?) UTC\.', recurring_state.inner_text()).group(1) == original_paid_through
+    resume_form = page.locator('form').filter(has=page.get_by_role("button", name="Resume Renewal"))
+    assert resume_form.locator('input[name="subscription_id"]').input_value() == subscription_id
+    resume_revision = int(resume_form.locator('input[name="agreement_revision"]').input_value())
+    assert resume_revision > cancel_revision
+    assert resume_form.locator('input[name="request_id"]').input_value().startswith('member:')
     page.get_by_role("button", name="Resume Renewal").click()
-    assert "Automatic renewal was resumed" in page.locator("body").inner_text()
+    assert "Automatic renewal confirmed." in recurring_state.inner_text()
+    visit(page, "/account/billing.php")
+    assert "Automatic renewal confirmed." in recurring_state.inner_text()
+    assert re.search(r'Paid through (.+?) UTC\.', recurring_state.inner_text()).group(1) == original_paid_through
+    next_cancel = page.locator('form').filter(has=page.get_by_role("button", name="Cancel at Period End"))
+    assert next_cancel.locator('input[name="subscription_id"]').input_value() == subscription_id
+    assert int(next_cancel.locator('input[name="agreement_revision"]').input_value()) > resume_revision
 
     # Subscriber-priced bundle with a coupon.
     visit(page, "/collections/")

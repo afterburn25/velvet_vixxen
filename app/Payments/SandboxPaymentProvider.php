@@ -5,8 +5,50 @@ namespace App\Payments;
 
 use RuntimeException;
 
-final class SandboxPaymentProvider implements BoundPaymentProviderInterface
+final class SandboxPaymentProvider implements RecurringProviderInterface
 {
+    public function executeRecurringCommand(array $binding): array
+    {
+        \App\Core\RecurringContract::binding($binding);
+        return $this->recurringResult($binding, 'succeeded', $binding['remoteId'] ?? 'sbagr_' . substr($binding['agreementId'],4));
+    }
+
+    public function lookupRecurringCommand(array $binding): array
+    {
+        return $this->recurringResult($binding,'unknown',$binding['remoteId']);
+    }
+
+    public function collectRecurringCycle(array $binding): array
+    {
+        \App\Core\RecurringContract::binding($binding);
+        $payment=$this->chargeBound($binding['payment'],['orderNumber'=>$binding['payment']['orderNumber']],[]);
+        return $this->recurringResult($binding,'succeeded',$binding['remoteId'],$payment['transactionId']);
+    }
+
+    public function lookupRecurringCycle(array $binding): array
+    {
+        return $this->recurringResult($binding,'unknown',$binding['remoteId']);
+    }
+
+    private function recurringResult(array $binding,string $outcome,?string $remote,?string $transaction=null): array
+    {
+        return ['schema'=>1,'binding'=>$binding,'outcome'=>$outcome,'remoteId'=>$remote,
+            'providerRevision'=>$binding['providerRevision']+($outcome==='succeeded'?1:0), 'transactionId'=>$transaction,
+            'observedAt'=>time(),'cancelAtPeriodEnd'=>$binding['cancelAtPeriodEnd']];
+    }
+
+    public function parseRecurringWebhook(string $rawBody,string $signature,string $secret): ?array
+    {
+        if (strlen($rawBody)>PaymentContract::MAX_BODY_BYTES) throw new RuntimeException('Recurring event is too large.');
+        $event=json_decode($rawBody,true,32,JSON_THROW_ON_ERROR);
+        if (!is_array($event) || ($event['family']??null)!=='recurring') return null;
+        if (strlen($signature)!==64 || !hash_equals(hash_hmac('sha256',$rawBody,$secret),$signature)) throw new RuntimeException('Recurring event authentication failed.');
+        \App\Core\RecurringContract::keys($event,['family','eventId','result']);
+        PaymentContract::reference($event['eventId']);
+        if (!is_array($event['result'])) throw new RuntimeException('Invalid recurring evidence.');
+        return $event;
+    }
+
     public function accountContext(array $configuration): array
     {
         return ['account' => hash('sha256', 'velvet-vixxen-local-sandbox'), 'environment' => 'sandbox'];

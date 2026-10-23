@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+if (($paymentRecoveryRequest['view'] ?? '') === 'recurring') { require root_path('app/Views/admin/recurring-recovery.php'); return; }
 $detail = $paymentRecoveryRequest['record'] !== null;
 $rows = $paymentRecoveryPage['rows'];
 ?>
@@ -9,7 +10,7 @@ $rows = $paymentRecoveryPage['rows'];
   <h2>Review payment outcomes and order follow-ups</h2>
   <p>Inspect saved payment, refund and provider-event records. Check an uncertain outcome using its original operation, then run eligible order follow-ups separately.</p>
   <p>Checking an outcome never submits another charge or refund. Receipts and connected add-ons can run only through an eligible follow-up action.</p>
-  <div class="payment-recovery-links"><a href="<?= e(base_url('admin/?page=orders')) ?>">Orders</a><a href="<?= e(base_url('admin/?page=payments')) ?>">Payment settings</a></div>
+  <div class="payment-recovery-links"><a href="<?= e(vvx_payment_recovery_url([], ['view'=>'recurring'])) ?>">Recurring memberships</a><a href="<?= e(base_url('admin/?page=orders')) ?>">Orders</a><a href="<?= e(base_url('admin/?page=payments')) ?>">Payment settings</a></div>
 </section>
 <?php if ($paymentRecoveryReadFailed): ?>
 <section class="admin-card"><h2>Payment records unavailable</h2><p>Reload the saved records after resolving the reported problem.</p><a class="admin-button" href="<?= e(vvx_payment_recovery_url()) ?>">Return to payment records</a></section>
