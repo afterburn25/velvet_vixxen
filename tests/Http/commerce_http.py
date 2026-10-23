@@ -110,36 +110,59 @@ require(subscription_order.startswith("VVX-"), "Subscription success URL did not
 
 billing = get(member, "/account/billing.php")
 require("Velvet VIP" in billing.text and "active" in billing.text.lower(), "Paid subscription was not shown in billing.")
-# Cancel and resume renewal through the real member forms.
-soup = BeautifulSoup(billing.text, "html.parser")
-cancel_form = soup.select_one('form input[name="action"][value="cancel_subscription"]')
-require(cancel_form is not None, "Cancel-at-period-end control was not rendered.")
-cancel_parent = cancel_form.find_parent("form")
-require(cancel_parent is not None, "Cancel subscription form was malformed.")
-subscription_id = cancel_parent.select_one('input[name="subscription_id"]')
-require(subscription_id is not None and subscription_id.get("value"), "Subscription ID was missing from cancel form.")
+# Cancel and resume using every bound field from the current server form.
+def billing_action(html: str, action: str) -> dict[str, str]:
+    form = BeautifulSoup(html, "html.parser").select_one(
+        'form:has(input[name="action"][value="' + action + '"])'
+    )
+    require(form is not None, "Current billing action was not rendered: " + action)
+    fields = {str(field["name"]): str(field.get("value", ""))
+              for field in form.select("input[name]")}
+    require(bool(fields.get("_csrf")) and bool(fields.get("subscription_id"))
+            and fields.get("agreement_revision", "").isdigit()
+            and fields.get("request_id", "").startswith("member:"),
+            "Recurring form lacks its CSRF, subscription, revision or stable request identity.")
+    return fields
+
+
+def paid_through(html: str) -> str:
+    state = BeautifulSoup(html, "html.parser").select_one("[data-recurring-state]")
+    require(state is not None, "Confirmed recurring state is missing from billing.")
+    match = re.search(r"Paid through (.+?) UTC\.", state.get_text(" ", strip=True))
+    require(match is not None, "Exact paid-through UTC instant is missing.")
+    return match.group(1)
+
+
+original_paid_through = paid_through(billing.text)
+cancel_fields = billing_action(billing.text, "cancel_subscription")
 cancel = member.post(
-    urljoin(BASE, "account/billing.php"),
-    data={
-        "_csrf": get_csrf(billing.text),
-        "action": "cancel_subscription",
-        "subscription_id": str(subscription_id["value"]),
-    },
-    timeout=20,
-    allow_redirects=True,
+    urljoin(BASE, "account/billing.php"), data=cancel_fields,
+    timeout=20, allow_redirects=True,
 )
-require("will end after the current paid period" in cancel.text, "Cancel-at-period-end did not save.")
+require(cancel.status_code == 200 and "Renewal canceled. Paid through" in cancel.text,
+        "Sandbox cancellation was not confirmed.")
+saved_cancel = get(member, "/account/billing.php")
+require("Renewal canceled. Paid through" in saved_cancel.text
+        and paid_through(saved_cancel.text) == original_paid_through,
+        "Confirmed cancellation was not retained or changed the paid-through instant.")
+resume_fields = billing_action(saved_cancel.text, "resume_subscription")
+require(resume_fields["subscription_id"] == cancel_fields["subscription_id"]
+        and int(resume_fields["agreement_revision"]) > int(cancel_fields["agreement_revision"]),
+        "Resume form does not bind the same subscription's current confirmed revision.")
 resume = member.post(
-    urljoin(BASE, "account/billing.php"),
-    data={
-        "_csrf": get_csrf(cancel.text),
-        "action": "resume_subscription",
-        "subscription_id": str(subscription_id["value"]),
-    },
-    timeout=20,
-    allow_redirects=True,
+    urljoin(BASE, "account/billing.php"), data=resume_fields,
+    timeout=20, allow_redirects=True,
 )
-require("Automatic renewal was resumed" in resume.text, "Subscription resume did not save.")
+require(resume.status_code == 200 and "Automatic renewal confirmed." in resume.text,
+        "Sandbox resumption was not confirmed.")
+saved_resume = get(member, "/account/billing.php")
+require("Automatic renewal confirmed." in saved_resume.text
+        and paid_through(saved_resume.text) == original_paid_through,
+        "Confirmed resumption was not retained or changed the paid-through instant.")
+next_cancel = billing_action(saved_resume.text, "cancel_subscription")
+require(next_cancel["subscription_id"] == cancel_fields["subscription_id"]
+        and int(next_cancel["agreement_revision"]) > int(resume_fields["agreement_revision"]),
+        "Resumed billing did not expose a newly bound cancellation form.")
 
 # Buy a subscriber-priced bundle with a coupon.
 bundle_add = post_with_page(
@@ -294,3 +317,4 @@ library_after_refund = get(member, "/account/library.php")
 require("Neon Confessions" not in library_after_refund.text, "Refunded bundle video access remained in My Library.")
 
 print("Subscriptions & PPV Commerce HTTP acceptance test passed.")
+
