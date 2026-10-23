@@ -311,6 +311,9 @@ class RuntimeInventoryService
                 'public/routes/api/payment-webhook.php',
             ]);
         }
+        if (version_compare($data['version'], '0.9.3', '>=')) {
+            $requiredFiles = array_merge($requiredFiles, ['app/Core/RecurringCommerceTrait.php', 'app/Core/RecurringContract.php', 'app/Core/RecurringRecoveryService.php', 'app/Core/RecurringStoreTrait.php', 'app/Payments/RecurringProviderInterface.php', 'app/Views/admin/recurring-recovery.php', 'app/Views/public/partials/recurring-membership.php', 'database/migrations/202610220019_recurring_lifecycle.php']);
+        }
         if (version_compare($data['version'], '0.9.2', '>=')) {
             $requiredFiles = array_merge($requiredFiles, ['app/Core/PurchasedTerms.php', 'app/Core/PurchasedTermsStoreTrait.php', 'app/Views/public/partials/checkout-terms.php', 'app/Views/public/partials/purchased-membership.php']);
         }

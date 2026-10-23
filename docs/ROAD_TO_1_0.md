@@ -1,3 +1,15 @@
+<!-- recurring-093-candidate:start -->
+## Active candidate — 0.9.3 recurring lifecycle, Build 20261022.3
+
+The next milestone is implemented on the existing [draft PR #38](https://github.com/afterburn25/velvet_vixxen/pull/38), based on verified main `afc1d0c8371a0aa76d2e193dd068447e0eb0506b`. Delivered main remains **0.9.2** until this candidate passes complete release acceptance and merges. Earlier “next recurring”/documentation-only statements below are historical.
+
+This candidate adds strict authoritative agreement/command/cycle/event records, exact anchored periods from original purchased terms, durable cancel/resume and query-only owner recovery, normal atomic payment/access reduction, privacy redaction and additive migration019. Only Sandbox is registered; live scope remains blocked. It preserves the approved design, Photo depth, separate and grouped buttons, organized roots and single-page installer.
+
+Local PHP8.3.6 acceptance: recurring 80 file / 81 MariaDB assertions (four killed workers, concurrent due/event workers and post-wait authority revocation); exact packaged HTTP file/SQL at root/nested; actual 018→019 installed upgrade and migration rollback; populated encrypted file and SQL backup/restore. All68 retained disposable module suites passed. The candidate browser producers and expanded retained 28-job workflow are prepared. Full frozen-source CI, original screenshot/artifact review, merge and saved-byte delivery remain pending; no new package is delivered at this checkpoint. Local checks do not certify PHP8.2, MySQL8, actual hosted installation or live providers.
+
+See [implemented contract](RECURRING_CONTRACT.md) and [current checkpoint](releases/0.9.3-recurring-checkpoint.md). Keep #3 release evidence and actual-host #12/#13 open. Preserve every existing gate and integrate this tested increment before starting another branch.
+<!-- recurring-093-candidate:end -->
+
 # Build through 1.0 — release and continuation
 
 <!-- payment-recovery-091-release:start -->

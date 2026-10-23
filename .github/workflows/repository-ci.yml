@@ -198,6 +198,12 @@ jobs:
             database/migrations/202610220018_payment_journal.php docs/PAYMENT_ADAPTER_CONTRACT.md
             tests/Feature/purchased_terms.php tests/Http/purchased_terms_fixture.php tests/Http/purchased_terms_http.py
             tests/Browser/purchased_terms_playwright.py app/Core/PurchasedTerms.php app/Core/PurchasedTermsStoreTrait.php
+            tests/Feature/recurring_lifecycle.php tests/Support/RecurringFixture.php tests/Workers/recurring_worker.php
+            tests/Http/recurring_fixture.php tests/Http/recurring_http.py tests/Browser/recurring_playwright.py
+            app/Core/RecurringContract.php app/Core/RecurringStoreTrait.php app/Core/RecurringCommerceTrait.php
+            app/Core/RecurringRecoveryService.php app/Payments/RecurringProviderInterface.php
+            app/Views/admin/recurring-recovery.php app/Views/public/partials/recurring-membership.php
+            database/migrations/202610220019_recurring_lifecycle.php
             tests/Feature/payment_foundation.php tests/Support/PaymentFoundationFixture.php
             tests/Support/payment_foundation_addon.php tests/Workers/payment_foundation_worker.php
             tests/Http/payment_recovery_fixture.php tests/Http/payment_recovery_http.py tests/Browser/payment_recovery_playwright.py
@@ -233,6 +239,7 @@ jobs:
         run: |
           mkdir -p artifacts/payment-foundation
           php tests/Feature/purchased_terms.php > artifacts/payment-foundation/purchased-terms-file.json
+          php tests/Feature/recurring_lifecycle.php > artifacts/payment-foundation/recurring-file.json
           php tests/Feature/payment_foundation.php > artifacts/payment-foundation/file.json
           cat artifacts/payment-foundation/file.json
       - name: Upload actual file payment foundation evidence
@@ -407,6 +414,7 @@ jobs:
         run: |
           mkdir -p artifacts/payment-foundation
           php tests/Feature/purchased_terms.php --mysql > artifacts/payment-foundation/purchased-terms-mysql.json
+          php tests/Feature/recurring_lifecycle.php --mysql > artifacts/payment-foundation/recurring-mysql.json
           php tests/Feature/payment_foundation.php --mysql > artifacts/payment-foundation/mysql.json
           cat artifacts/payment-foundation/mysql.json
       - name: Upload actual MySQL payment foundation evidence
@@ -809,6 +817,7 @@ jobs:
         run: |
           mkdir -p artifacts/mariadb
           php tests/Feature/purchased_terms.php --mysql > artifacts/mariadb/purchased-terms.json
+          php tests/Feature/recurring_lifecycle.php --mysql > artifacts/mariadb/recurring.json
           php tests/Feature/payment_foundation.php --mysql > artifacts/mariadb/payment-foundation.json
           cat artifacts/mariadb/payment-foundation.json
       - name: Upload actual MariaDB compatibility evidence
@@ -1162,6 +1171,10 @@ jobs:
         run: python tests/Http/purchased_terms_http.py --mode both
       - name: Exercise purchased terms on desktop phone and no-script forms
         run: python tests/Browser/purchased_terms_playwright.py --mode both
+      - name: Verify recurring member commands and original outcome recovery
+        run: python tests/Http/recurring_http.py --mode both
+      - name: Exercise recurring forms on desktop phone and no-script pages
+        run: python tests/Browser/recurring_playwright.py --mode both
       - name: Upload actual payment recovery acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4

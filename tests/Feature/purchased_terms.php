@@ -82,6 +82,15 @@ try {
     $commerce->cancelSubscription($member['id'],$sub['id']); $commerce->resumeSubscription($member['id'],$sub['id']);
     $sub = $store->subscriptions($member['id'])[0];
     $store->saveSubscription(array_merge($sub,['currentPeriodEnd'=>gmdate('c',time()-10)]));
+    $early=$commerce->processDueSubscriptions();
+    $assert($early['renewed']===0, 'Changing an access date authorized an early authoritative charge.');
+    // Move the owned fixture's authoritative clock facts together to represent
+    // actual elapsed time. Runtime Store mutations cannot rewrite a paid period.
+    $agreement=$store->recurringAgreementForSubscription((string)$sub['id']);
+    $agreement['periodEnd']=time()-10;$agreement['periodStart']=$agreement['periodEnd']-3*86400;
+    if ($mysql) $pdo->prepare('UPDATE recurring_agreements SET record_json=? WHERE id=?')->execute([json_encode($agreement,JSON_THROW_ON_ERROR),$agreement['id']]);
+    else $store->mutateFileStore(static function(array &$all)use($agreement):void{$all['recurringAgreements'][$agreement['id']]=$agreement;});
+    $store->saveSubscription(array_merge($store->subscriptions($member['id'])[0],['currentPeriodStart'=>gmdate('c',$agreement['periodStart'])]));
     $stats = $commerce->processDueSubscriptions();
     $renewals = array_values(array_filter($store->orders($member['id']),static fn(array $row): bool => !empty($row['metadata']['renewal'])));
     $assert($stats['renewed'] === 1 && count($renewals) === 1 && (float)$renewals[0]['grandTotal'] === 12.34 && $renewals[0]['currency'] === 'USD', 'Sandbox renewal substituted edited price or currency.');

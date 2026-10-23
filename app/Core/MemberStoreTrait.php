@@ -1045,6 +1045,14 @@ trait MemberStoreTrait
     /** @param array<string,mixed> $row */
     private function mapSubscriptionRow(array $row): array
     {
+        // Database DATETIME is UTC; never round-trip it through the site timezone.
+        foreach (['current_period_start','current_period_end','grace_ends_at','cancelled_at','created_at','updated_at'] as $field) {
+            if (is_string($row[$field] ?? null) && $row[$field] !== '') {
+                $date = \DateTimeImmutable::createFromFormat('!Y-m-d H:i:s', $row[$field], new \DateTimeZone('UTC'));
+                if (!$date) throw new RuntimeException('Subscription UTC date needs review.');
+                $row[$field] = $date->format('c');
+            }
+        }
         return [
             'id' => (string) $row['id'], 'memberId' => (string) $row['member_id'], 'planId' => (string) $row['plan_id'],
             'planKey' => $row['plan_key'] ?? '', 'planName' => $row['plan_name'] ?? '', 'status' => $row['status'],

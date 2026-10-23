@@ -39,7 +39,7 @@ for test in \
   tests/Unit/hero_library.php tests/Unit/installation_urls.php tests/Feature/runtime_build.php tests/Feature/root_layout.php \
   tests/Unit/migrations.php tests/Unit/addon_manifest.php tests/Unit/addon_package.php \
   tests/Unit/media_access.php tests/Unit/media_store.php tests/Unit/member_auth.php \
-  tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Feature/purchased_terms.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
+  tests/Unit/entitlement_resolver.php tests/Unit/commerce.php tests/Feature/purchased_terms.php tests/Feature/recurring_lifecycle.php tests/Unit/merchandise.php tests/Unit/addon_licensing.php \
   tests/Feature/media_center.php tests/Feature/media_center_persistence.php tests/Feature/members_entitlements.php tests/Feature/commerce.php tests/Feature/navigation_menus.php \
   tests/Feature/addon_framework.php tests/Feature/communications.php tests/Feature/marketing.php tests/Feature/marketing_audiences.php tests/Feature/publication_windows.php tests/Feature/marketing_storage.php tests/Feature/editorial_access.php tests/Feature/editorial_metadata.php tests/Feature/editorial_history.php tests/Feature/campaign_delivery.php tests/Feature/mail_settings.php \
   tests/Feature/post_expiry.php tests/Feature/editorial_calendar.php tests/Feature/scene_schedules.php \

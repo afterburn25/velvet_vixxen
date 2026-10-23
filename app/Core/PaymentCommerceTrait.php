@@ -74,6 +74,11 @@ trait PaymentCommerceTrait
             PaymentOperationService::authorize($authorize);
             $operation = $this->store->paymentJournal($operationId);
             if (!$operation || $operation['kind'] !== 'operation') throw new RuntimeException('Payment operation not found.');
+            $cycle=$this->store->recurringCycleForOrder($operation['orderId']);
+            if ($cycle) {
+                $this->reconcileRecurringRecord($cycle['id'],$authorize);
+                return ['operation'=>$this->store->paymentJournal($operationId),'order'=>$this->store->order($operation['orderId'])];
+            }
             $received = $this->payments()->reconcile($operation, $authorize);
             $operation = $this->applyPaymentOperation($received['operation'], $received['display'], null, $authorize);
             // A crash after applying an operation may have left a received callback.
@@ -152,6 +157,7 @@ trait PaymentCommerceTrait
                             }
                             $this->store->recordMemberEvent($order['memberId'], 'commerce.order.paid', ['orderId' => $order['id'], 'orderNumber' => $order['orderNumber'], 'amount' => $order['grandTotal']]);
                         } elseif ($status === 'failed') {
+                            $this->applyRecurringCycleCore($order,false);
                             $this->store->settleMerchandiseStock($order, true);
                             $this->store->recordMemberEvent($order['memberId'], 'commerce.order.failed', ['orderId' => $order['id'], 'message' => 'Payment was declined.']);
                         }
@@ -266,6 +272,7 @@ trait PaymentCommerceTrait
                 if (!in_array($current['state'], ['done','skipped'], true)) $this->payments()->commit($current['orderId'], fn(): array => $this->payments()->change($current, 'held', ['issue' => 'external_unknown']), $authorize);
             }
         }
+        $this->dispatchRecurringActivations($orderId, $authorize);
     }
 
     /** Rebuild private data immediately before every actual addon listener. */
@@ -290,11 +297,15 @@ trait PaymentCommerceTrait
     private function receivePaymentWebhook(string $providerKey, string $rawBody, string $signature): array
     {
         if ($rawBody === '' || strlen($rawBody) > PaymentContract::MAX_BODY_BYTES || strlen($signature) > 4096) throw new RuntimeException('Payment webhook exceeds the supported envelope.');
-        $payments = $this->payments(); $provider = $payments->provider($providerKey); $scope = $payments->scope($providerKey);
+        $payments = $this->payments(); $provider = $payments->provider($providerKey); $snapshot = $payments->captureScope($providerKey); $scope = $snapshot['scope'];
         $configuration = $this->store->paymentProvider($providerKey);
         $secret = (string) ($configuration['settings']['webhookSecret'] ?? '');
         if ($secret === '' && $provider instanceof SandboxPaymentProvider) $secret = (string) $this->config->get('security.signing_key', '');
         if ($secret === '') throw new RuntimeException('Webhook authentication is not configured.');
+        if ($provider instanceof \App\Payments\RecurringProviderInterface) {
+            $recurring=$provider->parseRecurringWebhook($rawBody,$signature,$secret);
+            if ($recurring!==null) return $this->receiveRecurringEvent($recurring,$snapshot);
+        }
         $parsed = $provider->parseWebhook($rawBody, $signature, $secret);
         if (($parsed['valid'] ?? null) !== true) throw new RuntimeException('Webhook authentication was not accepted.');
         $sandbox = $provider instanceof SandboxPaymentProvider;

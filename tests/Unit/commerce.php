@@ -207,6 +207,16 @@ try {
             'cancelAtPeriodEnd' => false,
             'currentPeriodEnd' => gmdate('c', time() - 60),
         ]));
+        // This owned fixture simulates elapsed authoritative time, not a manual
+        // access-date edit (which must never authorize an early recurring charge).
+        $agreement=$store->recurringAgreementForSubscription((string)$subscription['id']);
+        if($agreement){
+            $agreement['periodEnd']=time()-60;$agreement['periodStart']=$agreement['periodEnd']-30*86400;
+            $store->mutateFileStore(static function(array &$all)use($agreement):void{
+                $all['recurringAgreements'][$agreement['id']]=$agreement;
+                $all['subscriptions'][$agreement['subscriptionId']]['currentPeriodStart']=gmdate('c',$agreement['periodStart']);
+            });
+        }
         $renewalStats = $commerce->processDueSubscriptions();
         $assert(($renewalStats['renewed'] ?? 0) >= 1, 'Due sandbox subscription was not renewed.');
         $renewedSubscription = null;

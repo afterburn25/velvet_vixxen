@@ -11,6 +11,7 @@ use Throwable;
 final class CommerceService
 {
     use PaymentCommerceTrait;
+    use RecurringCommerceTrait;
     public function __construct(
         private readonly Store $store,
         private readonly Config $config,
@@ -201,7 +202,9 @@ final class CommerceService
                 throw new RuntimeException('The selected payment provider does not support recurring memberships.');
             }
             if ((string) ($row['itemType'] ?? '') === 'plan' && !$provider instanceof \App\Payments\SandboxPaymentProvider) {
-                throw new RuntimeException('Recurring memberships require a certified provider agreement and lifecycle adapter.');
+                if (!$provider instanceof \App\Payments\RecurringProviderInterface || $this->payments()->scope($providerKey)['environment']==='live') {
+                    throw new RuntimeException('Recurring memberships require a certified provider agreement and lifecycle adapter.');
+                }
             }
         }
 
@@ -258,6 +261,7 @@ final class CommerceService
 
     private function fulfillOrderCore(array $order): array
     {
+        $this->applyRecurringCycleCore($order,true);
         // A delayed paid event may update retained finances, but cannot reopen erased access.
         if ($this->store->privacyMemberErased((string) ($order['memberId'] ?? ''))) return $order;
         if ((string) ($order['status'] ?? '') !== 'paid') {
@@ -292,7 +296,7 @@ final class CommerceService
                 $subscription = $this->store->saveSubscription([
                     'memberId' => (string) $order['memberId'], 'planId' => $itemId,
                     'status' => $trialDays > 0 ? 'trialing' : 'active', 'providerKey' => (string) ($order['providerKey'] ?? 'sandbox'),
-                    'providerSubscriptionId' => 'sub_' . bin2hex(random_bytes(10)), 'currentPeriodStart' => $start, 'currentPeriodEnd' => $end,
+                    'providerSubscriptionId' => $this->providers->get((string)$order['providerKey']) instanceof \App\Payments\RecurringProviderInterface ? null : 'sub_' . bin2hex(random_bytes(10)), 'currentPeriodStart' => $start, 'currentPeriodEnd' => $end,
                     'cancelAtPeriodEnd' => false,
                 ]);
                 $fulfillment = ['subscriptionId'=>(string)$subscription['id'],'currentPeriodEnd'=>$end];
@@ -323,6 +327,7 @@ final class CommerceService
                 $fulfillment = ['entitlementIds'=>$ids,'bundleId'=>$itemId];
             }
             $this->store->updateOrderItem((string) $order['id'], (string) $item['id'], ['fulfillmentStatus'=>'fulfilled','metadata'=>$fulfillment]);
+            if ($type === 'plan') $this->prepareRecurringMembership($order,$item,$subscription,$snapshot);
             $fulfilledItems[] = ['itemType' => $type, 'itemId' => $itemId, 'fulfillment' => $fulfillment];
         }
         $resolved = $this->store->order((string) $order['id']) ?? $order;
@@ -385,6 +390,12 @@ final class CommerceService
 
     public function cancelSubscription(string|int $memberId, string|int $subscriptionId, bool $atPeriodEnd = true): array
     {
+        $agreement=$this->store->recurringAgreementForSubscription((string)$subscriptionId);
+        if ($agreement) {
+            if (!$atPeriodEnd) throw new RuntimeException('Authoritative recurring cancellation preserves the paid period.');
+            $this->requestRecurringCommand((string)$memberId,(string)$subscriptionId,'cancel',$agreement['revision'],'cancel:'.bin2hex(random_bytes(16)));
+            return $this->recurringSubscription($this->store->recurringAgreement($agreement['id']));
+        }
         foreach ($this->store->subscriptions((string) $memberId) as $subscription) {
             if ((string) ($subscription['id'] ?? '') !== (string) $subscriptionId) continue;
             $changes = $atPeriodEnd
@@ -400,6 +411,11 @@ final class CommerceService
 
     public function resumeSubscription(string|int $memberId, string|int $subscriptionId): array
     {
+        $agreement=$this->store->recurringAgreementForSubscription((string)$subscriptionId);
+        if ($agreement) {
+            $this->requestRecurringCommand((string)$memberId,(string)$subscriptionId,'resume',$agreement['revision'],'resume:'.bin2hex(random_bytes(16)));
+            return $this->recurringSubscription($this->store->recurringAgreement($agreement['id']));
+        }
         foreach ($this->store->subscriptions((string) $memberId) as $subscription) {
             if ((string) ($subscription['id'] ?? '') !== (string) $subscriptionId) continue;
             if (!in_array((string)($subscription['status']??''),['active','trialing'],true)) throw new RuntimeException('Only an active subscription can be resumed.');
@@ -421,6 +437,7 @@ final class CommerceService
         $stats = ['processed' => 0, 'renewed' => 0, 'expired' => 0, 'failed' => 0, 'deferred' => 0];
 
         foreach ($this->store->subscriptions(null) as $subscription) {
+            if ($this->store->recurringAgreementForSubscription((string)$subscription['id']) !== null) continue;
             $periodEnd = strtotime((string) ($subscription['currentPeriodEnd'] ?? '')) ?: 0;
             if ($periodEnd === 0 || $periodEnd > time()) {
                 continue;
@@ -546,6 +563,11 @@ final class CommerceService
             }
         }
 
+        $cursor=$this->store->setting('recurring_billing_cursor',null);
+        if (!is_string($cursor) || preg_match('/\Aagr_[a-f0-9]{64}\z/D',$cursor)!==1) $cursor=null;
+        $recurring=$this->processRecurringAgreements($cursor,50);
+        $this->store->setSetting('recurring_billing_cursor',$recurring['nextCursor']);
+        foreach (array_keys($stats) as $key) $stats[$key]+=$recurring[$key];
         return $stats;
     }
 
@@ -625,6 +647,14 @@ final class CommerceService
             foreach ($this->store->subscriptions((string) $order['memberId']) as $subscription) {
                 if ((string) ($subscription['id'] ?? '') !== $subscriptionId) {
                     continue;
+                }
+                $agreement=$this->store->recurringAgreementForSubscription($subscriptionId);
+                if ($agreement) {
+                    $cycle=$this->store->recurringCycleForOrder($orderId);
+                    if ($cycle && ($agreement['periodStart']!==$cycle['binding']['periodStart'] || $agreement['periodEnd']!==$cycle['binding']['periodEnd'])) continue;
+                    $initialEnd=strtotime((string)($item['metadata']['currentPeriodEnd']??''))?:0;
+                    if (!$cycle && $initialEnd>0 && $agreement['periodEnd']>$initialEnd) continue;
+                    $this->recurringUpdate($agreement,['state'=>'held','issue'=>'binding_conflict']);
                 }
                 $cancelled = $this->store->saveSubscription(array_merge($subscription, [
                     'status' => 'cancelled',

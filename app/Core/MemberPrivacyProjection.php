@@ -81,6 +81,8 @@ final class MemberPrivacyProjection
         }
         unset($subscription);
         return ['account' => $account,
+            'recurringAgreements' => self::rows($data['recurringAgreements'] ?? [], ['id','subscriptionId','orderId','periodStart','periodEnd','state','cancelAtPeriodEnd','revision','erased','createdAt','updatedAt']),
+            'recurringRequests' => array_map(static fn(array $row): array => self::fields($row,['id','agreementId','kind','orderId','state','issue','createdAt','updatedAt']) + ['action'=>$row['binding']['action']], $data['recurringJournal'] ?? []),
             'subscriptions' => $subscriptions,
             'entitlements' => self::rows($data['entitlements'], ['id', 'contentType', 'contentId', 'sourceType', 'sourceId', 'startsAt', 'expiresAt', 'status', 'createdAt', 'updatedAt']),
             'orders' => $orders,
